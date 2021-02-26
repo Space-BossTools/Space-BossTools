@@ -1,0 +1,91 @@
+{
+  "_fv": 16,
+  "_type": "gui",
+  "definition": {
+    "type": 0,
+    "width": 512,
+    "height": 512,
+    "inventoryOffsetX": 0,
+    "inventoryOffsetY": 0,
+    "renderBgLayer": false,
+    "doesPauseGame": false,
+    "components": [
+      {
+        "type": "image",
+        "data": {
+          "image": "rocket_menu_background.png",
+          "use1Xscale": true,
+          "name": "rocket_menu_background.png",
+          "x": -175,
+          "y": -129
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Overworld",
+          "width": 70,
+          "height": 20,
+          "name": "Overworld",
+          "x": 11,
+          "y": 87
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Mars",
+          "width": 70,
+          "height": 20,
+          "name": "Mars",
+          "x": 11,
+          "y": 110
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Mercury",
+          "width": 70,
+          "height": 20,
+          "name": "Mercury",
+          "x": 11,
+          "y": 133
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "rocket_menu_list.png",
+          "use1Xscale": false,
+          "name": "rocket_menu_list.png",
+          "x": 1,
+          "y": 38
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "text": "CATALOG",
+          "color": {
+            "value": -1,
+            "falpha": 0.0
+          },
+          "name": "CATALOG",
+          "x": 23,
+          "y": 55
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "milky_way.png",
+          "use1Xscale": true,
+          "name": "milky_way.png",
+          "x": 164,
+          "y": 73
+        }
+      }
+    ]
+  }
+}

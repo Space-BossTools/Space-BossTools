@@ -1,0 +1,20 @@
+{
+  "_fv": 16,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Smelting",
+    "xpReward": 1.0,
+    "cookingTime": 200,
+    "recipeRetstackSize": 1,
+    "group": "",
+    "recipeShapeless": false,
+    "smeltingInputStack": {
+      "value": "CUSTOM:MercuryIronore"
+    },
+    "smeltingReturnStack": {
+      "value": "Items.IRON_INGOT"
+    },
+    "name": "mercury_ironeore_recpie",
+    "namespace": "mod"
+  }
+}

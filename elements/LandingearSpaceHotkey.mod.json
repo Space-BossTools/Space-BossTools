@@ -1,0 +1,12 @@
+{
+  "_fv": 16,
+  "_type": "keybind",
+  "definition": {
+    "triggerKey": "SPACE",
+    "keyBindingName": "Landing Gear",
+    "keyBindingCategoryKey": "spacebosstools",
+    "onKeyPressed": {
+      "name": "LandingGearSpace"
+    }
+  }
+}

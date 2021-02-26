@@ -1,0 +1,26 @@
+{
+  "_fv": 16,
+  "_type": "food",
+  "definition": {
+    "renderType": 0,
+    "texture": "item_chesse",
+    "customModelName": "Normal",
+    "name": "Chesse",
+    "rarity": "COMMON",
+    "specialInfo": [],
+    "creativeTab": {
+      "value": "CUSTOM:BossTools"
+    },
+    "stackSize": 64,
+    "nutritionalValue": 4,
+    "saturation": 3.0,
+    "eatingSpeed": 32,
+    "resultItem": {
+      "value": ""
+    },
+    "forDogs": false,
+    "isAlwaysEdible": false,
+    "animation": "eat",
+    "hasGlow": false
+  }
+}

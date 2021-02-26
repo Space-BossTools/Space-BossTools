@@ -1,0 +1,13 @@
+{
+  "mappings": {
+    "default": {
+      "map": {
+        "0": "oak_planks",
+        "1": "campfire_log",
+        "2": "torch",
+        "missing": ""
+      },
+      "name": "default"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "boss_tools:block/flag_red"
+    },
+    "facing=east": {
+      "model": "boss_tools:block/flag_red",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "boss_tools:block/flag_red",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "boss_tools:block/flag_red",
+      "y": 270
+    }
+  }
+}

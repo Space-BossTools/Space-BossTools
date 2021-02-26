@@ -1,0 +1,17 @@
+{
+  "_fv": 16,
+  "_type": "tag",
+  "definition": {
+    "type": "Items",
+    "items": [
+      {
+        "value": "CUSTOM:MooncopperOre"
+      }
+    ],
+    "blocks": [],
+    "functions": [],
+    "entities": [],
+    "name": "ores/desh",
+    "namespace": "forge"
+  }
+}

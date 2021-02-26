@@ -1,0 +1,12 @@
+{
+  "_fv": 16,
+  "_type": "overlay",
+  "definition": {
+    "priority": "HIGHEST",
+    "components": [],
+    "baseTexture": "rocket_y_57.png",
+    "displayCondition": {
+      "name": "RocketY57"
+    }
+  }
+}

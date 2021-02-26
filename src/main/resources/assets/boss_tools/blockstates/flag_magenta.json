@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "boss_tools:block/flag_magenta"
+    },
+    "facing=east": {
+      "model": "boss_tools:block/flag_magenta",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "boss_tools:block/flag_magenta",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "boss_tools:block/flag_magenta",
+      "y": 270
+    }
+  }
+}

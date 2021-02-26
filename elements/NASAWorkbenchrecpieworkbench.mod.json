@@ -1,0 +1,46 @@
+{
+  "_fv": 16,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "recipeRetstackSize": 1,
+    "group": "",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": "CUSTOM:Compressesteel"
+      },
+      {
+        "value": "Blocks.CRAFTING_TABLE"
+      },
+      {
+        "value": "CUSTOM:Compressesteel"
+      },
+      {
+        "value": "Blocks.LEVER"
+      },
+      {
+        "value": "TAG:forge:ingots/steel"
+      },
+      {
+        "value": "Blocks.LEVER"
+      },
+      {
+        "value": "CUSTOM:Compressesteel"
+      },
+      {
+        "value": "Blocks.REDSTONE_TORCH"
+      },
+      {
+        "value": "CUSTOM:Compressesteel"
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:Workbench"
+    },
+    "name": "nasa_workbenchrecpieworkbench",
+    "namespace": "mod"
+  }
+}

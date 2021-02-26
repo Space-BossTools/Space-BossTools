@@ -1,0 +1,34 @@
+newmtl 1
+Ka 0.0 0.0 0.0
+Kd 0.0 0.0 0.0
+Ks 0.0 0.0 0.0
+map_Kd boss_tools:blocks/workbench_nasa_top
+Ns 100.0
+d 1.0
+newmtl 2
+Ka 0.0 0.0 0.0
+Kd 0.0 0.0 0.0
+Ks 0.0 0.0 0.0
+map_Kd boss_tools:blocks/model
+Ns 100.0
+d 1.0
+newmtl 3
+Ka 0.0 0.0 0.0
+Kd 0.0 0.0 0.0
+Ks 0.0 0.0 0.0
+map_Kd boss_tools:blocks/nasaworkbench
+Ns 100.0
+d 1.0
+newmtl 4
+Ka 0.0 0.0 0.0
+Kd 0.0 0.0 0.0
+Ks 0.0 0.0 0.0
+map_Kd boss_tools:blocks/workbench_nasa_side
+Ns 100.0
+d 1.0
+newmtl none
+Ka 0.0 0.0 0.0
+Kd 0.0 0.0 0.0
+Ks 0.0 0.0 0.0
+Ns 100.0
+d 1.0

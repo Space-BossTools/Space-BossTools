@@ -1,0 +1,22 @@
+{
+  "_fv": 16,
+  "_type": "potion",
+  "definition": {
+    "name": "Tier2SpaceStationGUIPotionMoonorbit",
+    "effectName": "Tier2SpaceStationGUIPotionMoonorbit",
+    "icon": "noair.png",
+    "color": {
+      "value": -1,
+      "falpha": 0.0
+    },
+    "isInstant": false,
+    "isBad": false,
+    "isBenefitical": false,
+    "registerPotionType": false,
+    "renderStatusInInventory": false,
+    "renderStatusInHUD": false,
+    "onActiveTick": {
+      "name": "Tier2SpaceStationGuiPotionMoonOrbitonPotionTick"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "_fv": 16,
+  "_type": "potion",
+  "definition": {
+    "name": "Tier3SpaceStationGUIPotionMarsorbit",
+    "effectName": "Tier3SpaceStationGUIPotionMarsorbit",
+    "icon": "noair.png",
+    "color": {
+      "value": -1,
+      "falpha": 0.0
+    },
+    "isInstant": false,
+    "isBad": false,
+    "isBenefitical": false,
+    "registerPotionType": false,
+    "renderStatusInInventory": false,
+    "renderStatusInHUD": false,
+    "onActiveTick": {
+      "name": "Tier3SpaceStationGuiPotionMarsOrbitPotionTick"
+    }
+  }
+}

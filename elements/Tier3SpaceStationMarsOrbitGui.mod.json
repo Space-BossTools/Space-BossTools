@@ -1,0 +1,105 @@
+{
+  "_fv": 16,
+  "_type": "gui",
+  "definition": {
+    "type": 0,
+    "width": 255,
+    "height": 170,
+    "inventoryOffsetX": 0,
+    "inventoryOffsetY": 0,
+    "renderBgLayer": false,
+    "doesPauseGame": false,
+    "components": [
+      {
+        "type": "image",
+        "data": {
+          "image": "guirockettier1newguinew.png",
+          "use1Xscale": false,
+          "name": "guirockettier1newguinew.png",
+          "x": 86,
+          "y": 35
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "marsbild.png",
+          "use1Xscale": false,
+          "name": "marsbild.png",
+          "x": 142,
+          "y": 99
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "CREATE",
+          "onClick": {
+            "name": "Tier3OrbitMarsStationCreate"
+          },
+          "width": 55,
+          "height": 20,
+          "name": "CREATE",
+          "x": 188,
+          "y": 104
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "spacestation_spaceitem.png",
+          "use1Xscale": false,
+          "name": "spacestation_spaceitem.png",
+          "x": 206,
+          "y": 71
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "text": "False",
+          "color": {
+            "value": -6750208,
+            "falpha": 0.0
+          },
+          "displayCondition": {
+            "name": "SpaceStationGuiLogic"
+          },
+          "name": "False",
+          "x": 202,
+          "y": 91
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "text": "True",
+          "color": {
+            "value": -16738048,
+            "falpha": 0.0
+          },
+          "displayCondition": {
+            "name": "SpaceStationIronLogic"
+          },
+          "name": "True",
+          "x": 203,
+          "y": 91
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Planets List",
+          "onClick": {
+            "name": "Tier3SpaceStationPlanetslist8"
+          },
+          "width": 68,
+          "height": 20,
+          "name": "Planets List",
+          "x": 95,
+          "y": 49
+        }
+      }
+    ]
+  }
+}

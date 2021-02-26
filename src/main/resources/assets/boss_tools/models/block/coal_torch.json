@@ -1,0 +1,11 @@
+{
+  "parent": "boss_tools:custom/nolighttorch",
+  "textures": {
+    "all": "boss_tools:blocks/torch",
+    "particle": "boss_tools:blocks/torch",
+    "0": "boss_tools:blocks/oak_planks",
+    "1": "boss_tools:blocks/campfire_log",
+    "2": "boss_tools:blocks/torch",
+    "missing": "boss_tools:blocks/"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "mappings": {
+    "default": {
+      "map": {
+        "1": "workbench_nasa_top",
+        "2": "model",
+        "3": "nasaworkbench",
+        "4": "workbench_nasa_side",
+        "missing": "workbench_nasa_top"
+      },
+      "name": "default"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "boss_tools:custom/nasaworkbench",
+  "textures": {
+    "all": "boss_tools:blocks/model",
+    "particle": "boss_tools:blocks/model",
+    "1": "boss_tools:blocks/workbench_nasa_top",
+    "2": "boss_tools:blocks/model",
+    "3": "boss_tools:blocks/nasaworkbench",
+    "4": "boss_tools:blocks/workbench_nasa_side",
+    "missing": "boss_tools:blocks/workbench_nasa_top"
+  }
+}

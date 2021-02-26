@@ -1,0 +1,22 @@
+{
+  "group": "boss_tools",
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012"
+  ],
+  "key": {
+    "0": {
+      "item": "boss_tools:moon_stone"
+    },
+    "1": {
+      "item": "boss_tools:moon_stone"
+    },
+    "2": {
+      "item": "boss_tools:moon_stone"
+    }
+  },
+  "result": {
+    "item": "boss_tools:moon_slabe",
+    "count": 6
+  }
+}

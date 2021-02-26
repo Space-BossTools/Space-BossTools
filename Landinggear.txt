@@ -1,0 +1,4 @@
+Entity entity2 = new LandingGearEntity.CustomEntity(LandingGearEntity.entity, entity.world);
+entity2.setPositionAndUpdate(entity.getPosX(), entity.getPosY(), entity.getPosZ());
+entity.world.addEntity(entity2);
+                entity.startRiding(entity2);

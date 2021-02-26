@@ -1,0 +1,17 @@
+{
+  "_fv": 16,
+  "_type": "tag",
+  "definition": {
+    "type": "Items",
+    "items": [
+      {
+        "value": "CUSTOM:Tinplate"
+      }
+    ],
+    "blocks": [],
+    "functions": [],
+    "entities": [],
+    "name": "plates/desh",
+    "namespace": "forge"
+  }
+}

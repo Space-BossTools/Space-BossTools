@@ -1,0 +1,42 @@
+{
+  "group": "boss_tools",
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "tag": "forge:plates/iron"
+    },
+    "1": {
+      "item": "minecraft:bucket"
+    },
+    "2": {
+      "tag": "forge:plates/iron"
+    },
+    "3": {
+      "tag": "forge:plates/iron"
+    },
+    "4": {
+      "item": "minecraft:yellow_dye"
+    },
+    "5": {
+      "tag": "forge:plates/iron"
+    },
+    "6": {
+      "tag": "forge:plates/iron"
+    },
+    "7": {
+      "item": "minecraft:bucket"
+    },
+    "8": {
+      "tag": "forge:plates/iron"
+    }
+  },
+  "result": {
+    "item": "boss_tools:barrel",
+    "count": 1
+  }
+}

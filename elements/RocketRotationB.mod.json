@@ -1,0 +1,15 @@
+{
+  "_fv": 16,
+  "_type": "keybind",
+  "definition": {
+    "triggerKey": "D",
+    "keyBindingName": "Rocket Rotation Right",
+    "keyBindingCategoryKey": "spacebosstools",
+    "onKeyPressed": {
+      "name": "RotationB"
+    },
+    "onKeyReleased": {
+      "name": "RotationBReleased"
+    }
+  }
+}

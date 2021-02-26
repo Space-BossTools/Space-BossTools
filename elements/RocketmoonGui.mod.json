@@ -1,0 +1,129 @@
+{
+  "_fv": 16,
+  "_type": "gui",
+  "definition": {
+    "type": 0,
+    "width": 512,
+    "height": 512,
+    "inventoryOffsetX": 0,
+    "inventoryOffsetY": 0,
+    "renderBgLayer": false,
+    "doesPauseGame": false,
+    "components": [
+      {
+        "type": "image",
+        "data": {
+          "image": "guirockettier1newguinew.png",
+          "use1Xscale": false,
+          "name": "guirockettier1newguinew.png",
+          "x": 86,
+          "y": 35
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Orbit",
+          "onClick": {
+            "name": "RocketTier1overworldOrbit"
+          },
+          "width": 37,
+          "height": 20,
+          "name": "Orbit",
+          "x": 212,
+          "y": 56
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "moonbild.png",
+          "use1Xscale": false,
+          "name": "moonbild.png",
+          "x": 98,
+          "y": 89
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "overworldbild.png",
+          "use1Xscale": false,
+          "name": "overworldbild.png",
+          "x": 98,
+          "y": 50
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Orbit",
+          "onClick": {
+            "name": "RocketTier1OrbitTpMoon"
+          },
+          "width": 37,
+          "height": 20,
+          "name": "Orbit",
+          "x": 212,
+          "y": 95
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Moon",
+          "onClick": {
+            "name": "RocketTier1moonTp"
+          },
+          "width": 75,
+          "height": 20,
+          "name": "Moon",
+          "x": 133,
+          "y": 95
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Space Station",
+          "onClick": {
+            "name": "Tier1SpaceStationGuiOpenmoonorbit"
+          },
+          "width": 76,
+          "height": 20,
+          "name": "Space Station",
+          "x": 253,
+          "y": 95
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Overworld",
+          "onClick": {
+            "name": "RocketTier1Overworldtp"
+          },
+          "width": 75,
+          "height": 20,
+          "name": "Overworld",
+          "x": 133,
+          "y": 56
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Space Station",
+          "onClick": {
+            "name": "Tier1SpaceStationGuiOpen"
+          },
+          "width": 76,
+          "height": 20,
+          "name": "Space Station",
+          "x": 253,
+          "y": 56
+        }
+      }
+    ]
+  }
+}

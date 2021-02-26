@@ -1,0 +1,46 @@
+{
+  "_fv": 16,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "recipeRetstackSize": 1,
+    "group": "",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": "TAG:forge:plates/iron"
+      },
+      {
+        "value": "Items.IRON_INGOT"
+      },
+      {
+        "value": "TAG:forge:plates/iron"
+      },
+      {
+        "value": "Items.IRON_INGOT"
+      },
+      {
+        "value": "Blocks.FURNACE"
+      },
+      {
+        "value": "Items.IRON_INGOT"
+      },
+      {
+        "value": "TAG:forge:plates/iron"
+      },
+      {
+        "value": "CUSTOM:Battery"
+      },
+      {
+        "value": "TAG:forge:plates/iron"
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:Generator"
+    },
+    "name": "coalgenerator_recpie",
+    "namespace": "mod"
+  }
+}

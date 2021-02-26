@@ -1,0 +1,23 @@
+{
+  "_fv": 16,
+  "_type": "tag",
+  "definition": {
+    "type": "Items",
+    "items": [
+      {
+        "value": "CUSTOM:Iron"
+      },
+      {
+        "value": "CUSTOM:MercuryIronore"
+      },
+      {
+        "value": "CUSTOM:Moonoreiron"
+      }
+    ],
+    "blocks": [],
+    "functions": [],
+    "entities": [],
+    "name": "ores/iron",
+    "namespace": "forge"
+  }
+}

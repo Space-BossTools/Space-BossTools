@@ -1,0 +1,11 @@
+{
+  "_fv": 16,
+  "_type": "tab",
+  "definition": {
+    "name": "Space-BossTools",
+    "icon": {
+      "value": "CUSTOM:Tier1RocketItem"
+    },
+    "showSearch": false
+  }
+}

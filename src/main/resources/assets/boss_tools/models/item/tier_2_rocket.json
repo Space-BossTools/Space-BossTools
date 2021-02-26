@@ -1,0 +1,8 @@
+{
+  "parent": "boss_tools:custom/rockettier2item",
+  "textures": {
+    "1": "boss_tools:blocks/rocket_tier_2_item",
+    "missing": "boss_tools:blocks/rocket_tier_2_item",
+    "particle": "boss_tools:items/tier1"
+  }
+}

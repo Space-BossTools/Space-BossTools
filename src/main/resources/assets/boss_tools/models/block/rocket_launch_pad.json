@@ -1,0 +1,8 @@
+{
+  "parent": "boss_tools:custom/launchpad",
+  "textures": {
+    "all": "boss_tools:blocks/launchpad",
+    "particle": "boss_tools:blocks/launchpad",
+    "1": "boss_tools:blocks/launchpad"
+  }
+}

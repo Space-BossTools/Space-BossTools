@@ -1,0 +1,13 @@
+{
+  "parent": "boss_tools:custom/solarpanel",
+  "textures": {
+    "all": "boss_tools:blocks/solar_panel_side",
+    "particle": "boss_tools:blocks/solar_panel_side",
+    "0": "boss_tools:blocks/solar_panel_side",
+    "1": "boss_tools:blocks/solar_panel_top",
+    "2": "boss_tools:blocks/solar_panel_top_2",
+    "3": "boss_tools:blocks/solar_panel_top_3",
+    "4": "boss_tools:blocks/solar_panel_top_4",
+    "missing": "boss_tools:blocks/solar_panel_top_3"
+  }
+}

@@ -1,0 +1,233 @@
+{
+  "_fv": 16,
+  "_type": "gui",
+  "definition": {
+    "type": 0,
+    "width": 512,
+    "height": 512,
+    "inventoryOffsetX": 0,
+    "inventoryOffsetY": 0,
+    "renderBgLayer": false,
+    "doesPauseGame": false,
+    "components": [
+      {
+        "type": "image",
+        "data": {
+          "image": "guirockettier1newguinew.png",
+          "use1Xscale": false,
+          "name": "guirockettier1newguinew.png",
+          "x": 86,
+          "y": 35
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Orbit",
+          "onClick": {
+            "name": "RocketTier3OverworldOrbittp"
+          },
+          "width": 36,
+          "height": 20,
+          "name": "Orbit",
+          "x": 212,
+          "y": 54
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "overworldbild.png",
+          "use1Xscale": false,
+          "name": "overworldbild.png",
+          "x": 97,
+          "y": 48
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "moonbild.png",
+          "use1Xscale": false,
+          "name": "moonbild.png",
+          "x": 97,
+          "y": 86
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "marsbild.png",
+          "use1Xscale": false,
+          "name": "marsbild.png",
+          "x": 97,
+          "y": 124
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "mercury_icon.png",
+          "use1Xscale": false,
+          "name": "mercury_icon.png",
+          "x": 97,
+          "y": 161
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Orbit",
+          "onClick": {
+            "name": "RocketTier3OrbitTpMoon"
+          },
+          "width": 36,
+          "height": 20,
+          "name": "Orbit",
+          "x": 212,
+          "y": 92
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Orbit",
+          "onClick": {
+            "name": "RocketTier3OrbitTpMars"
+          },
+          "width": 36,
+          "height": 20,
+          "name": "Orbit",
+          "x": 212,
+          "y": 130
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Orbit",
+          "onClick": {
+            "name": "RocketTier3OrbitTpMercury"
+          },
+          "width": 36,
+          "height": 20,
+          "name": "Orbit",
+          "x": 212,
+          "y": 167
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Overworld",
+          "onClick": {
+            "name": "RocketTier3OverworldTp"
+          },
+          "width": 75,
+          "height": 20,
+          "name": "Overworld",
+          "x": 133,
+          "y": 54
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Space Station",
+          "onClick": {
+            "name": "Tier3SpaceStationGuiOpenOverworldOrbit"
+          },
+          "width": 79,
+          "height": 20,
+          "name": "Space Station",
+          "x": 252,
+          "y": 54
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Moon",
+          "onClick": {
+            "name": "RocketTier3moonTp"
+          },
+          "width": 75,
+          "height": 20,
+          "name": "Moon",
+          "x": 133,
+          "y": 92
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Space Station",
+          "onClick": {
+            "name": "Tier3SpaceStationGuiOpenMoonOrbit"
+          },
+          "width": 79,
+          "height": 20,
+          "name": "Space Station",
+          "x": 252,
+          "y": 92
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Mars",
+          "onClick": {
+            "name": "RocketTier3MarsTp"
+          },
+          "width": 75,
+          "height": 20,
+          "name": "Mars",
+          "x": 133,
+          "y": 130
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Space Station",
+          "onClick": {
+            "name": "Tier3SpaceStationGuiOpenMarsOrbit"
+          },
+          "width": 79,
+          "height": 20,
+          "name": "Space Station",
+          "x": 252,
+          "y": 130
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Mercury",
+          "onClick": {
+            "name": "RocketTier3MerkurTp"
+          },
+          "width": 75,
+          "height": 20,
+          "name": "Mercury",
+          "x": 133,
+          "y": 167
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Space Station",
+          "onClick": {
+            "name": "Tier3SpaceStationGuiOpenMercuryOrbit"
+          },
+          "width": 79,
+          "height": 20,
+          "name": "Space Station",
+          "x": 252,
+          "y": 167
+        }
+      }
+    ]
+  }
+}

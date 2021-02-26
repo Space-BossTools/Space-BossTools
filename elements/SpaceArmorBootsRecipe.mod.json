@@ -1,0 +1,46 @@
+{
+  "_fv": 16,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "recipeRetstackSize": 1,
+    "group": "",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": ""
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "Blocks.WOOL#0"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "Blocks.WOOL#0"
+      },
+      {
+        "value": "TAG:forge:plates/iron"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "TAG:forge:plates/iron"
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:SpaceArmor.boots"
+    },
+    "name": "space_armor_boots_recipe",
+    "namespace": "mod"
+  }
+}

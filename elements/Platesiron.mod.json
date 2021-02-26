@@ -1,0 +1,17 @@
+{
+  "_fv": 16,
+  "_type": "tag",
+  "definition": {
+    "type": "Items",
+    "items": [
+      {
+        "value": "CUSTOM:Ironplate"
+      }
+    ],
+    "blocks": [],
+    "functions": [],
+    "entities": [],
+    "name": "plates/iron",
+    "namespace": "forge"
+  }
+}

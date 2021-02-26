@@ -1,0 +1,9 @@
+{
+  "_fv": 16,
+  "_type": "painting",
+  "definition": {
+    "texture": "painting_math.png",
+    "width": 32,
+    "height": 16
+  }
+}

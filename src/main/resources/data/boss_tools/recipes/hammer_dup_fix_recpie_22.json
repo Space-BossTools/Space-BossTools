@@ -1,0 +1,20 @@
+{
+  "group": "boss_tools",
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  2",
+    "3  "
+  ],
+  "key": {
+    "2": {
+      "item": "boss_tools:hammer"
+    },
+    "3": {
+      "item": "boss_tools:hammer"
+    }
+  },
+  "result": {
+    "item": "minecraft:air",
+    "count": 1
+  }
+}

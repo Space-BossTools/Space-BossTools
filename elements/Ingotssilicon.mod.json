@@ -1,0 +1,17 @@
+{
+  "_fv": 16,
+  "_type": "tag",
+  "definition": {
+    "type": "Items",
+    "items": [
+      {
+        "value": "CUSTOM:SiliconIngot"
+      }
+    ],
+    "blocks": [],
+    "functions": [],
+    "entities": [],
+    "name": "ingots/silicon",
+    "namespace": "forge"
+  }
+}

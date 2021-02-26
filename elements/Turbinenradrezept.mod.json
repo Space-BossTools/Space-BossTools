@@ -1,0 +1,46 @@
+{
+  "_fv": 16,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "recipeRetstackSize": 1,
+    "group": "",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": "TAG:forge:ingots/steel"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "TAG:forge:ingots/steel"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "Items.IRON_INGOT"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "TAG:forge:ingots/steel"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "TAG:forge:ingots/steel"
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:TurbinenRad"
+    },
+    "name": "turbinenradrezept",
+    "namespace": "mod"
+  }
+}

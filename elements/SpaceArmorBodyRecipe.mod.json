@@ -1,0 +1,46 @@
+{
+  "_fv": 16,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "recipeRetstackSize": 1,
+    "group": "",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": "Blocks.WOOL#0"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "Blocks.WOOL#0"
+      },
+      {
+        "value": "CUSTOM:OxygenTank"
+      },
+      {
+        "value": "CUSTOM:OxygenGear"
+      },
+      {
+        "value": "CUSTOM:OxygenTank"
+      },
+      {
+        "value": "TAG:forge:plates/iron"
+      },
+      {
+        "value": "TAG:forge:ingots/steel"
+      },
+      {
+        "value": "TAG:forge:plates/iron"
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:SpaceArmor.body"
+    },
+    "name": "space_armor_body_recipe",
+    "namespace": "mod"
+  }
+}

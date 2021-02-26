@@ -1,0 +1,180 @@
+{
+  "_fv": 16,
+  "_type": "block",
+  "definition": {
+    "texture": "solar_panel_side",
+    "textureTop": "generator_top",
+    "textureLeft": "machineside",
+    "textureFront": "generator_front",
+    "textureRight": "machineside",
+    "textureBack": "machineside",
+    "renderType": 2,
+    "customModelName": "solarpanel:default",
+    "rotationMode": 1,
+    "emissiveRendering": false,
+    "displayFluidOverlay": false,
+    "itemTexture": "",
+    "particleTexture": "",
+    "tintType": "No tint",
+    "isItemTinted": false,
+    "hasTransparency": true,
+    "connectedSides": false,
+    "transparencyType": "SOLID",
+    "disableOffset": false,
+    "boundingBoxes": [
+      {
+        "mx": 0.0,
+        "my": 0.0,
+        "mz": 0.0,
+        "Mx": 16.0,
+        "My": 16.0,
+        "Mz": 16.0,
+        "subtract": false
+      },
+      {
+        "mx": 6.5,
+        "my": 16.0,
+        "mz": 6.5,
+        "Mx": 9.5,
+        "My": 27.0,
+        "Mz": 9.5,
+        "subtract": false
+      },
+      {
+        "mx": 5.0,
+        "my": 27.0,
+        "mz": 6.0,
+        "Mx": 11.0,
+        "My": 31.0,
+        "Mz": 10.0,
+        "subtract": false
+      },
+      {
+        "mx": 7.0,
+        "my": 28.0,
+        "mz": 7.0,
+        "Mx": -1.5,
+        "My": 30.0,
+        "Mz": 9.0,
+        "subtract": false
+      },
+      {
+        "mx": 7.0,
+        "my": 28.0,
+        "mz": 7.0,
+        "Mx": 17.5,
+        "My": 30.0,
+        "Mz": 9.0,
+        "subtract": false
+      },
+      {
+        "mx": 11.5,
+        "my": 30.0,
+        "mz": -13.0,
+        "Mx": 27.5,
+        "My": 31.0,
+        "Mz": 29.0,
+        "subtract": false
+      },
+      {
+        "mx": -11.5,
+        "my": 30.0,
+        "mz": -13.0,
+        "Mx": 4.5,
+        "My": 31.0,
+        "Mz": 29.0,
+        "subtract": false
+      }
+    ],
+    "name": "Solar Panel",
+    "specialInfo": [
+      "§9Producing: §74 §7FE/t"
+    ],
+    "hardness": 1.0,
+    "resistance": 10.0,
+    "hasGravity": false,
+    "isWaterloggable": false,
+    "creativeTab": {
+      "value": "CUSTOM:SpaceBosstoolsMachines"
+    },
+    "destroyTool": "Not specified",
+    "customDrop": {
+      "value": ""
+    },
+    "dropAmount": 1,
+    "useLootTableForDrops": false,
+    "enchantPowerBonus": 0.0,
+    "plantsGrowOn": false,
+    "canProvidePower": false,
+    "lightOpacity": 0,
+    "material": {
+      "value": "IRON"
+    },
+    "tickRate": 1,
+    "tickRandomly": false,
+    "isReplaceable": false,
+    "colorOnMap": "DEFAULT",
+    "creativePickItem": {
+      "value": ""
+    },
+    "offsetType": "NONE",
+    "aiPathNodeType": "DEFAULT",
+    "flammability": 0,
+    "fireSpreadSpeed": 0,
+    "isLadder": false,
+    "slipperiness": 0.6,
+    "reactionToPushing": "BLOCK",
+    "isNotColidable": false,
+    "soundOnStep": {
+      "value": "METAL"
+    },
+    "luminance": 1,
+    "unbreakable": false,
+    "breakHarvestLevel": 1,
+    "spawnParticles": false,
+    "particleToSpawn": {
+      "value": "EXPLOSION_NORMAL"
+    },
+    "particleSpawningShape": "Spread",
+    "particleSpawningRadious": 0.5,
+    "particleAmount": 4,
+    "hasInventory": true,
+    "guiBoundTo": "SolarPanelGUI",
+    "openGUIOnRightClick": true,
+    "inventorySize": 9,
+    "inventoryStackSize": 64,
+    "inventoryDropWhenDestroyed": true,
+    "inventoryComparatorPower": true,
+    "inventoryOutSlotIDs": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "inventoryInSlotIDs": [],
+    "hasEnergyStorage": true,
+    "energyInitial": 0,
+    "energyCapacity": 50000,
+    "energyMaxReceive": 200,
+    "energyMaxExtract": 200,
+    "isFluidTank": false,
+    "fluidCapacity": 8000,
+    "fluidRestrictions": [],
+    "onTickUpdate": {
+      "name": "SolarPanelUpdateTick"
+    },
+    "spawnWorldTypes": [],
+    "restrictionBiomes": [],
+    "blocksToReplace": [],
+    "frequencyPerChunks": 10,
+    "frequencyOnChunk": 16,
+    "minGenerateHeight": 0,
+    "maxGenerateHeight": 64
+  }
+}

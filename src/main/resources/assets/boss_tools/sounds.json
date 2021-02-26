@@ -1,0 +1,38 @@
+{
+  "rockedsound": {
+    "category": "master",
+    "sounds": [
+      {
+        "name": "boss_tools:rocket_sound",
+        "stream": false
+      }
+    ]
+  },
+  "rocket": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "boss_tools:rocket",
+        "stream": false
+      }
+    ]
+  },
+  "shuttle": {
+    "category": "master",
+    "sounds": [
+      {
+        "name": "boss_tools:shuttle",
+        "stream": false
+      }
+    ]
+  },
+  "rocketfly": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "boss_tools:rocketfly",
+        "stream": false
+      }
+    ]
+  }
+}

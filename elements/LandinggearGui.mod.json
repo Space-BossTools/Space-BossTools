@@ -1,0 +1,80 @@
+{
+  "_fv": 16,
+  "_type": "gui",
+  "definition": {
+    "type": 1,
+    "width": 176,
+    "height": 167,
+    "inventoryOffsetX": 0,
+    "inventoryOffsetY": 0,
+    "renderBgLayer": true,
+    "doesPauseGame": false,
+    "components": [
+      {
+        "type": "label",
+        "data": {
+          "text": "Lander",
+          "color": {
+            "value": -13421773,
+            "falpha": 0.0
+          },
+          "name": "Lander",
+          "x": 195,
+          "y": 42
+        }
+      },
+      {
+        "type": "inputslot",
+        "data": {
+          "inputLimit": {
+            "value": "Blocks.AIR"
+          },
+          "id": 0,
+          "disableStackInteraction": false,
+          "dropItemsWhenNotBound": true,
+          "name": "Slot #0",
+          "x": 203,
+          "y": 65
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "text": "Inventory",
+          "color": {
+            "value": -13421773,
+            "falpha": 0.0
+          },
+          "name": "Inventory",
+          "x": 132,
+          "y": 109
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "nasaworkbenchoutput.png",
+          "use1Xscale": false,
+          "name": "nasaworkbenchoutput.png",
+          "x": 194,
+          "y": 56
+        }
+      },
+      {
+        "type": "outputslot",
+        "data": {
+          "color": {
+            "value": -3381760,
+            "falpha": 0.0
+          },
+          "id": 1,
+          "disableStackInteraction": false,
+          "dropItemsWhenNotBound": true,
+          "name": "Slot #1",
+          "x": 153,
+          "y": 65
+        }
+      }
+    ]
+  }
+}

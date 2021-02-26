@@ -1,0 +1,19 @@
+{
+  "_fv": 16,
+  "_type": "potion",
+  "definition": {
+    "name": "Rocketpotion4",
+    "effectName": "Rocketpotion4",
+    "icon": "anvil_top.png",
+    "color": {
+      "value": -10066330,
+      "falpha": 0.0
+    },
+    "isInstant": false,
+    "isBad": false,
+    "isBenefitical": false,
+    "registerPotionType": false,
+    "renderStatusInInventory": false,
+    "renderStatusInHUD": false
+  }
+}

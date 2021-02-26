@@ -1,0 +1,9 @@
+{
+  "_fv": 16,
+  "_type": "painting",
+  "definition": {
+    "texture": "painting_planet_marth.png",
+    "width": 64,
+    "height": 32
+  }
+}

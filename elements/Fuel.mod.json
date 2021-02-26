@@ -1,0 +1,21 @@
+{
+  "_fv": 16,
+  "_type": "fluid",
+  "definition": {
+    "name": "Fuel",
+    "textureStill": "fuelstop",
+    "textureFlowing": "fluidflow",
+    "luminosity": 0,
+    "density": 1000,
+    "viscosity": 1000,
+    "isGas": false,
+    "type": "WATER",
+    "generateBucket": false,
+    "creativeTab": {
+      "value": "CUSTOM:BossTools"
+    },
+    "frequencyOnChunks": 5,
+    "spawnWorldTypes": [],
+    "restrictionBiomes": []
+  }
+}

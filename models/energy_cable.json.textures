@@ -1,0 +1,23 @@
+{
+  "mappings": {
+    "default": {
+      "map": {
+        "11": "cablesidedown",
+        "12": "cablesiderotatedown",
+        "13": "cablesideup",
+        "14": "cablesiderotateup",
+        "0": "energy_cable",
+        "1": "energy_cable_lightning",
+        "2": "cableside1",
+        "3": "cablesiderotate1",
+        "4": "cableside2",
+        "5": "clabesiderotate2",
+        "6": "cableside3",
+        "7": "cablesiderotate3",
+        "9": "cableside4",
+        "10": "cablesiderotate4"
+      },
+      "name": "default"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "_fv": 16,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "recipeRetstackSize": 1,
+    "group": "",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": "TAG:forge:ingots/steel"
+      },
+      {
+        "value": "Items.IRON_INGOT"
+      },
+      {
+        "value": "TAG:forge:ingots/steel"
+      },
+      {
+        "value": "Blocks.QUARTZ_BLOCK#3"
+      },
+      {
+        "value": "Items.DIAMOND"
+      },
+      {
+        "value": "Blocks.QUARTZ_BLOCK#3"
+      },
+      {
+        "value": "TAG:forge:ingots/steel"
+      },
+      {
+        "value": "Items.IRON_INGOT"
+      },
+      {
+        "value": "TAG:forge:ingots/steel"
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:OrbitPlacer"
+    },
+    "name": "orbit_placerrezept",
+    "namespace": "mod"
+  }
+}

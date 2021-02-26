@@ -1,0 +1,10 @@
+{
+  "mappings": {
+    "default": {
+      "map": {
+        "1": "rocket_tier_1_texture"
+      },
+      "name": "default"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "_fv": 16,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "recipeRetstackSize": 1,
+    "group": "",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": "TAG:forge:ingots/desh"
+      },
+      {
+        "value": "CUSTOM:Battery"
+      },
+      {
+        "value": "TAG:forge:ingots/steel"
+      },
+      {
+        "value": "TAG:forge:plates/iron"
+      },
+      {
+        "value": "CUSTOM:TurbinenRad"
+      },
+      {
+        "value": "CUSTOM:TurbinenGehause"
+      },
+      {
+        "value": "TAG:forge:ingots/desh"
+      },
+      {
+        "value": "CUSTOM:Battery"
+      },
+      {
+        "value": "TAG:forge:plates/desh"
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:TurbineTier2"
+    },
+    "name": "turbinenrezepttir_2",
+    "namespace": "mod"
+  }
+}

@@ -1,0 +1,75 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "launchpad",
+	"textures": {
+		"1": "Launchpad new/Launchpad",
+		"particle": "Launchpad new/Launchpad"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 1, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [24, 8, -8]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 1], "texture": "#1"},
+				"east": {"uv": [3.864, 0, 15.999, 0.783], "texture": "#1"},
+				"south": {"uv": [15, 1, 16, 13], "texture": "#1"},
+				"west": {"uv": [15, 2, 16, 11], "texture": "#1"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"down": {"uv": [0.106, 0, 15.999, 16], "texture": "#1"}
+			}
+		},
+		{
+			"from": [0, 1, 0],
+			"to": [16, 3, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [24, 10, -8]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 1], "texture": "#1"},
+				"east": {"uv": [3.864, 0, 15.999, 0.783], "texture": "#1"},
+				"south": {"uv": [15, 1, 16, 13], "texture": "#1"},
+				"west": {"uv": [15, 2, 16, 11], "texture": "#1"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"down": {"uv": [0.106, 0, 15.999, 16], "texture": "#1"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [85, -1, 1],
+			"translation": [0, 2, 2.25],
+			"scale": [0.3, 0.3, 0.3]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [77, 0, 0],
+			"translation": [0, 2.5, 0.75],
+			"scale": [0.1, 0.1, 0.1]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 0, 10],
+			"translation": [0.5, 2.25, 0.75],
+			"scale": [0.1, 0.1, 0.1]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 0, 13],
+			"translation": [0, 2.75, 1.5],
+			"scale": [0.1, 0.1, 0.1]
+		},
+		"ground": {
+			"translation": [0, -0.25, 0],
+			"scale": [0.15, 0.15, 0.15]
+		},
+		"gui": {
+			"rotation": [92, -3, -19],
+			"translation": [1, -0.75, 0],
+			"scale": [0.3, 0.43, 0.3]
+		},
+		"head": {
+			"translation": [0, 13.5, 0]
+		},
+		"fixed": {
+			"rotation": [-90, 0, 0],
+			"translation": [0, 0, -2.75],
+			"scale": [0.3, 0.37, 0.3]
+		}
+	}
+}

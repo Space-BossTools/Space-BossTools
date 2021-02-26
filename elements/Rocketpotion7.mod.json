@@ -1,0 +1,22 @@
+{
+  "_fv": 16,
+  "_type": "potion",
+  "definition": {
+    "name": "Rocketpotion 7",
+    "effectName": "Rocketpotion",
+    "icon": "anvil_top.png",
+    "color": {
+      "value": -13421773,
+      "falpha": 0.0
+    },
+    "isInstant": false,
+    "isBad": false,
+    "isBenefitical": false,
+    "registerPotionType": false,
+    "renderStatusInInventory": false,
+    "renderStatusInHUD": false,
+    "onActiveTick": {
+      "name": "Rocketpotion7OnPotionActiveTick"
+    }
+  }
+}

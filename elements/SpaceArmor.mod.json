@@ -1,0 +1,68 @@
+{
+  "_fv": 16,
+  "_type": "armor",
+  "definition": {
+    "enableHelmet": true,
+    "textureHelmet": "oxygenmask3",
+    "enableBody": true,
+    "textureBody": "space_suit",
+    "enableLeggings": true,
+    "textureLeggings": "space_leggings",
+    "enableBoots": true,
+    "textureBoots": "space_boots",
+    "onHelmetTick": {
+      "name": "SpaceArmorHelmetTickEvent"
+    },
+    "onBodyTick": {
+      "name": "SpaceArmorBodyTickEvent"
+    },
+    "onLeggingsTick": {
+      "name": "SpaceArmorLeggingsTickEvent"
+    },
+    "onBootsTick": {
+      "name": "SpaceArmorBootsTickEvent"
+    },
+    "creativeTab": {
+      "value": "CUSTOM:BossTools"
+    },
+    "armorTextureFile": "spacesuitmode_",
+    "helmetName": "Oxygen Mask",
+    "bodyName": "Space Suit",
+    "leggingsName": "Space Pants",
+    "bootsName": "Space Boots",
+    "helmetSpecialInfo": [],
+    "bodySpecialInfo": [
+      "<ENBT:number:Energy>"
+    ],
+    "leggingsSpecialInfo": [],
+    "bootsSpecialInfo": [],
+    "helmetModelName": "Default",
+    "helmetModelPart": "Helmet",
+    "helmetModelTexture": "From armor",
+    "bodyModelName": "Modelspacesuitnew",
+    "bodyModelPart": "Body",
+    "armsModelPartL": "arml",
+    "armsModelPartR": "armr",
+    "bodyModelTexture": "From armor",
+    "leggingsModelName": "Default",
+    "leggingsModelPartL": "Leggings L",
+    "leggingsModelPartR": "Leggings R",
+    "leggingsModelTexture": "From armor",
+    "bootsModelName": "Default",
+    "bootsModelPartL": "Boots L",
+    "bootsModelPartR": "Boots R",
+    "bootsModelTexture": "From armor",
+    "maxDamage": 10,
+    "damageValueHelmet": 2,
+    "damageValueBody": 2,
+    "damageValueLeggings": 2,
+    "damageValueBoots": 2,
+    "enchantability": 0,
+    "toughness": 0.0,
+    "knockbackResistance": 0.0,
+    "equipSound": {
+      "value": ""
+    },
+    "repairItems": []
+  }
+}

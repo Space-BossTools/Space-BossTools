@@ -1,0 +1,11 @@
+{
+  "mappings": {
+    "default": {
+      "map": {
+        "1": "rocket_tier_2_item",
+        "missing": "rocket_tier_2_item"
+      },
+      "name": "default"
+    }
+  }
+}

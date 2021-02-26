@@ -1,0 +1,102 @@
+{
+  "mappings": {
+    "default": {
+      "map": {
+        "0": "flag_white",
+        "missing": "flag_white"
+      },
+      "name": "default"
+    },
+    "orange": {
+      "map": {
+        "0": "flag_orange",
+        "missing": "flag_orange"
+      },
+      "name": "orange"
+    },
+    "blue": {
+      "map": {
+        "0": "flag_blue",
+        "missing": "flag_blue"
+      },
+      "name": "blue"
+    },
+    "brown": {
+      "map": {
+        "0": "flag_brown",
+        "missing": "flag_brown"
+      },
+      "name": "brown"
+    },
+    "cyan": {
+      "map": {
+        "0": "flag_cyan",
+        "missing": "flag_cyan"
+      },
+      "name": "cyan"
+    },
+    "gray": {
+      "map": {
+        "0": "flag_gray",
+        "missing": "flag_gray"
+      },
+      "name": "gray"
+    },
+    "green": {
+      "map": {
+        "0": "flag_green",
+        "missing": "flag_green"
+      },
+      "name": "green"
+    },
+    "light_blue": {
+      "map": {
+        "0": "flag_light_blue",
+        "missing": "flag_light_blue"
+      },
+      "name": "light_blue"
+    },
+    "lime": {
+      "map": {
+        "0": "flag_lime",
+        "missing": "flag_lime"
+      },
+      "name": "lime"
+    },
+    "magenta": {
+      "map": {
+        "0": "flag_magenta",
+        "missing": "flag_magenta"
+      },
+      "name": "magenta"
+    },
+    "pink": {
+      "map": {
+        "0": "flag_pink",
+        "missing": "flag_pink"
+      },
+      "name": "pink"
+    },
+    "purple": {
+      "map": {
+        "0": "flag_purple",
+        "missing": "flag_purple"
+      },
+      "name": "purple"
+    },
+    "red": {
+      "map": {
+        "0": "flag_red",
+        "missing": "flag_red"
+      },
+      "name": "red"
+    },
+    "yellow": {
+      "map": {
+        "0": "flag_yellow",
+        "missing": "flag_yellow"
+      },
+      "name": "yellow"
+    }
+  }
+}

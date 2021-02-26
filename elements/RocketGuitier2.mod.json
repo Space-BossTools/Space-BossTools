@@ -1,0 +1,181 @@
+{
+  "_fv": 16,
+  "_type": "gui",
+  "definition": {
+    "type": 0,
+    "width": 512,
+    "height": 512,
+    "inventoryOffsetX": 0,
+    "inventoryOffsetY": 0,
+    "renderBgLayer": false,
+    "doesPauseGame": false,
+    "components": [
+      {
+        "type": "image",
+        "data": {
+          "image": "guirockettier1newguinew.png",
+          "use1Xscale": false,
+          "name": "guirockettier1newguinew.png",
+          "x": 86,
+          "y": 35
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Orbit",
+          "onClick": {
+            "name": "Rocketoverworldumlaufbahn"
+          },
+          "width": 36,
+          "height": 20,
+          "name": "Orbit",
+          "x": 213,
+          "y": 57
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "overworldbild.png",
+          "use1Xscale": false,
+          "name": "overworldbild.png",
+          "x": 98,
+          "y": 51
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "moonbild.png",
+          "use1Xscale": false,
+          "name": "moonbild.png",
+          "x": 98,
+          "y": 89
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "marsbild.png",
+          "use1Xscale": false,
+          "name": "marsbild.png",
+          "x": 98,
+          "y": 127
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Orbit",
+          "onClick": {
+            "name": "RocketTier2OrbitTpMoon"
+          },
+          "width": 36,
+          "height": 20,
+          "name": "Orbit",
+          "x": 213,
+          "y": 95
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Orbit",
+          "onClick": {
+            "name": "RocketTier2OrbitTpMars"
+          },
+          "width": 36,
+          "height": 20,
+          "name": "Orbit",
+          "x": 213,
+          "y": 133
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Overworld",
+          "onClick": {
+            "name": "RocketOverworldtp"
+          },
+          "width": 75,
+          "height": 20,
+          "name": "Overworld",
+          "x": 134,
+          "y": 57
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Space Station",
+          "onClick": {
+            "name": "Tier2SpaceStationGuiOpenOverworldobit"
+          },
+          "width": 76,
+          "height": 20,
+          "name": "Space Station",
+          "x": 253,
+          "y": 57
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Moon",
+          "onClick": {
+            "name": "RocketmoonGuiMoonTp"
+          },
+          "width": 75,
+          "height": 20,
+          "name": "Moon",
+          "x": 134,
+          "y": 95
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Space Station",
+          "onClick": {
+            "name": "Tier2SpaceStationGuiOpenMoonorbit"
+          },
+          "width": 76,
+          "height": 20,
+          "name": "Space Station",
+          "x": 253,
+          "y": 95
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Mars",
+          "onClick": {
+            "name": "Rocketmarsworldtp"
+          },
+          "width": 75,
+          "height": 20,
+          "name": "Mars",
+          "x": 134,
+          "y": 133
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Space Station",
+          "onClick": {
+            "name": "TierSpaceStationGuiOpenMarsOrbit"
+          },
+          "width": 76,
+          "height": 20,
+          "name": "Space Station",
+          "x": 253,
+          "y": 133
+        }
+      }
+    ]
+  }
+}
