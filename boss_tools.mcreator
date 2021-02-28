@@ -2013,576 +2013,6 @@
       }
     },
     {
-      "name": "BlastFurnaceGuiArrow",
-      "type": "procedure",
-      "sortid": 201,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "blast_furnace_gui_arrow",
-      "metadata": {
-        "return_type": "LOGIC",
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
-      "name": "BlastFurnaceGuiArrow2",
-      "type": "procedure",
-      "sortid": 202,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "blast_furnace_gui_arrow_2",
-      "metadata": {
-        "return_type": "LOGIC",
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
-      "name": "BlastFurnaceGuiArrow3",
-      "type": "procedure",
-      "sortid": 203,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "blast_furnace_gui_arrow_3",
-      "metadata": {
-        "return_type": "LOGIC",
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
-      "name": "BlastFurnaceGuiArrow4",
-      "type": "procedure",
-      "sortid": 204,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "blast_furnace_gui_arrow_4",
-      "metadata": {
-        "return_type": "LOGIC",
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
-      "name": "BlastFurnaceGuiArrow5",
-      "type": "procedure",
-      "sortid": 205,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "blast_furnace_gui_arrow_5",
-      "metadata": {
-        "return_type": "LOGIC",
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
-      "name": "BlastFurnaceGuiArrow6",
-      "type": "procedure",
-      "sortid": 206,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "blast_furnace_gui_arrow_6",
-      "metadata": {
-        "return_type": "LOGIC",
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
-      "name": "BlastFurnaceGuiArrow7",
-      "type": "procedure",
-      "sortid": 207,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "blast_furnace_gui_arrow_7",
-      "metadata": {
-        "return_type": "LOGIC",
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
-      "name": "BlastFurnaceGuiArrow8",
-      "type": "procedure",
-      "sortid": 208,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "blast_furnace_gui_arrow_8",
-      "metadata": {
-        "return_type": "LOGIC",
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
-      "name": "BlastFurnaceGuiArrow9",
-      "type": "procedure",
-      "sortid": 209,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "blast_furnace_gui_arrow_9",
-      "metadata": {
-        "return_type": "LOGIC",
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
-      "name": "BlastFurnaceGuiArrow10",
-      "type": "procedure",
-      "sortid": 210,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "blast_furnace_gui_arrow_10",
-      "metadata": {
-        "return_type": "LOGIC",
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
-      "name": "BlastFurnaceGuiArrow11",
-      "type": "procedure",
-      "sortid": 211,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "blast_furnace_gui_arrow_11",
-      "metadata": {
-        "return_type": "LOGIC",
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
-      "name": "BlastFurnaceGuiArrow12",
-      "type": "procedure",
-      "sortid": 212,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "blast_furnace_gui_arrow_12",
-      "metadata": {
-        "return_type": "LOGIC",
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
-      "name": "BlastFurnaceGuiArrow13",
-      "type": "procedure",
-      "sortid": 213,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "blast_furnace_gui_arrow_13",
-      "metadata": {
-        "return_type": "LOGIC",
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
-      "name": "BlastFurnaceGuiArrow14",
-      "type": "procedure",
-      "sortid": 214,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "blast_furnace_gui_arrow_14",
-      "metadata": {
-        "return_type": "LOGIC",
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
-      "name": "BlastFurnaceGuiArrow15",
-      "type": "procedure",
-      "sortid": 215,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "blast_furnace_gui_arrow_15",
-      "metadata": {
-        "return_type": "LOGIC",
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
-      "name": "BlastFurnaceGuiArrow16",
-      "type": "procedure",
-      "sortid": 216,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "blast_furnace_gui_arrow_16",
-      "metadata": {
-        "return_type": "LOGIC",
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
-      "name": "BlastFurnaceGuiArrow17",
-      "type": "procedure",
-      "sortid": 217,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "blast_furnace_gui_arrow_17",
-      "metadata": {
-        "return_type": "LOGIC",
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
-      "name": "BlastFurnaceGuiArrow18",
-      "type": "procedure",
-      "sortid": 218,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "blast_furnace_gui_arrow_18",
-      "metadata": {
-        "return_type": "LOGIC",
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
-      "name": "BlastFurnaceGuiArrow19",
-      "type": "procedure",
-      "sortid": 219,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "blast_furnace_gui_arrow_19",
-      "metadata": {
-        "return_type": "LOGIC",
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
       "name": "BlastFurnaceFire",
       "type": "procedure",
       "sortid": 220,
@@ -7980,7 +7410,7 @@
       "type": "gui",
       "sortid": 442,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "fuel_refinery_gui"
     },
@@ -12447,6 +11877,696 @@
       "ids": {},
       "registry_name": "client_event_bus_overworld_orbit",
       "path": "~/sky"
+    },
+    {
+      "name": "BlastFurnaceArrow1",
+      "type": "procedure",
+      "sortid": 717,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_1",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BlastFurnaceArrow2",
+      "type": "procedure",
+      "sortid": 718,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_2",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BlastFurnaceArrow3",
+      "type": "procedure",
+      "sortid": 719,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_3",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BlastFurnaceArrow4",
+      "type": "procedure",
+      "sortid": 720,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_4",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BlastFurnaceArrow5",
+      "type": "procedure",
+      "sortid": 721,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_5",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BlastFurnaceArrow6",
+      "type": "procedure",
+      "sortid": 722,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_6",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BlastFurnaceArrow7",
+      "type": "procedure",
+      "sortid": 723,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_7",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BlastFurnaceArrow8",
+      "type": "procedure",
+      "sortid": 724,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_8",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BlastFurnaceArrow9",
+      "type": "procedure",
+      "sortid": 725,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_9",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BlastFurnaceArrow10",
+      "type": "procedure",
+      "sortid": 726,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_10",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BlastFurnaceArrow11",
+      "type": "procedure",
+      "sortid": 727,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_11",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BlastFurnaceArrow12",
+      "type": "procedure",
+      "sortid": 728,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_12",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BlastFurnaceArrow13",
+      "type": "procedure",
+      "sortid": 729,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_13",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BlastFurnaceArrow14",
+      "type": "procedure",
+      "sortid": 730,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_14",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BlastFurnaceArrow15",
+      "type": "procedure",
+      "sortid": 731,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_15",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BlastFurnaceArrow16",
+      "type": "procedure",
+      "sortid": 732,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_16",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BlastFurnaceArrow17",
+      "type": "procedure",
+      "sortid": 733,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_17",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BlastFurnaceArrow18",
+      "type": "procedure",
+      "sortid": 734,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_18",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BlastFurnaceArrow19",
+      "type": "procedure",
+      "sortid": 735,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_19",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BlastFurnaceArrow20",
+      "type": "procedure",
+      "sortid": 736,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_20",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BlastFurnaceArrow21",
+      "type": "procedure",
+      "sortid": 737,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_21",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BlastFurnaceArrow22",
+      "type": "procedure",
+      "sortid": 738,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_22",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BlastFurnaceArrow23",
+      "type": "procedure",
+      "sortid": 739,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "blast_furnace_arrow_23",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
     }
   ],
   "variable_elements": [
@@ -12528,8 +12648,8 @@
     "en_us": {
       "item.boss_tools.fuel_bucket": "Fuel Bucket",
       "block.boss_tools.oxygen_bullet_generator": "Oxygen Bullet Generator",
-      "item.boss_tools.star_crawler_spawn_egg": "Star Crawler Spawn Egg",
       "item.boss_tools.iron_engine": "Iron Engine",
+      "item.boss_tools.star_crawler_spawn_egg": "Star Crawler Spawn Egg",
       "item.boss_tools.oxygen_tank": "Oxygen Tank",
       "block.boss_tools.mercury_iron_ore": "Mercury Iron Ore",
       "item.minecraft.lingering_potion.effect.tier_2_space_station_gui_potion_mars_orbit": "Lingering Tier2SpaceStationGUIPotionMarsorbit",
@@ -12537,9 +12657,9 @@
       "item.minecraft.potion.effect.tier_2_space_station_gui_potion_overworld_orbit": "Tier2SpaceStationGUIPotionOverworldorbit",
       "item.minecraft.lingering_potion.effect.tier_1_space_station_gui_potion": "Lingering Tier1SpaceStationGUIPotion",
       "item.boss_tools.iron_plate": "Iron Plate",
-      "item.boss_tools.umlaufbahnerde": "Admin Feuerzeug",
-      "item.boss_tools.desh_plate": "Desh Plate",
       "item.boss_tools.space_station": "Space Station",
+      "item.boss_tools.desh_plate": "Desh Plate",
+      "item.boss_tools.umlaufbahnerde": "Admin Feuerzeug",
       "item.boss_tools.compressed_silicon": "Compressed Silicon",
       "item.boss_tools.rocket_tier_2": "Rocket Spawn Egg",
       "effect.tier_2_space_station_gui_potion_overworld_orbit": "Tier2SpaceStationGUIPotionOverworldorbit",
@@ -12548,8 +12668,8 @@
       "itemGroup.tabspace_bosstools_blocks": "Space-Bosstools: Blocks",
       "effect.tier_3_space_station_gui_potion_overworld_orbit": "Tier3SpaceStationGUIPotionOverworldorbit",
       "block.boss_tools.mars_silicon_ore": "Mars Silicon Ore",
-      "item.boss_tools.mars": "Admin Feuerzeug",
       "item.boss_tools.ice_shard": "Ice Shard",
+      "item.boss_tools.mars": "Admin Feuerzeug",
       "item.minecraft.splash_potion.effect.bullet_generator": "Splash BulletGenerator",
       "item.minecraft.tipped_arrow.effect.tier_2_space_station_gui_potion_mars_orbit": "Arrow of Tier2SpaceStationGUIPotionMarsorbit",
       "biome.boss_tools.mars_biom": "Mars Biome",
@@ -12573,8 +12693,8 @@
       "item.minecraft.lingering_potion.effect.tier_3_space_station_gui_potion_mars_orbit": "Lingering Tier3SpaceStationGUIPotionMarsorbit",
       "item.boss_tools.diamond_tank": "Diamond Tank",
       "item.minecraft.lingering_potion.effect.rocket_potion_9": "Lingering Rocketpotion 9",
-      "item.minecraft.lingering_potion.effect.rocket_potion_8": "Lingering Rocketpotion 8",
       "item.minecraft.potion.effect.bee_potion": "BeePotion",
+      "item.minecraft.lingering_potion.effect.rocket_potion_8": "Lingering Rocketpotion 8",
       "item.boss_tools.golden_engine": "Golden Engine",
       "key.categories.spacebosstools": "Space-Bosstools",
       "block.boss_tools.rocket_launch_pad": "Rocket Launch Pad",
@@ -12591,8 +12711,8 @@
       "item.minecraft.splash_potion.effect.tier_3_space_station_gui_potion_mars_orbit": "Splash Tier3SpaceStationGUIPotionMarsorbit",
       "block.boss_tools.mars_iron_ore": "Mars Iron Ore",
       "block.boss_tools.coal_torch": "Coal Torch",
-      "item.minecraft.tipped_arrow.effect.rocketpotion_7": "Arrow of Rocketpotion 7",
       "block.boss_tools.nasa_workbench": "§dNASA Workbench",
+      "item.minecraft.tipped_arrow.effect.rocketpotion_7": "Arrow of Rocketpotion 7",
       "item.minecraft.lingering_potion.effect.tier_2_space_station_gui_potion_moon_orbit": "Lingering Tier2SpaceStationGUIPotionMoonorbit",
       "item.minecraft.tipped_arrow.effect.tier_3_space_station_gui_potion_overworld_orbit": "Arrow of Tier3SpaceStationGUIPotionOverworldorbit",
       "item.minecraft.tipped_arrow.effect.tier_2_space_station_gui_potion_overworld_orbit": "Arrow of Tier2SpaceStationGUIPotionOverworldorbit",
@@ -12778,6 +12898,10 @@
       },
       {
         "name": "sky",
+        "children": []
+      },
+      {
+        "name": "Animated Arrow",
         "children": []
       }
     ]

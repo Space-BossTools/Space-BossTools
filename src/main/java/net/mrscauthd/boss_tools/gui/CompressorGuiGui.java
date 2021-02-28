@@ -113,9 +113,9 @@ public class CompressorGuiGui extends BossToolsModElements.ModElement {
 					}
 				}
 			}
-			this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 41, 38) {
+			this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 40, 38) {
 			}));
-			this.customSlots.put(2, this.addSlot(new SlotItemHandler(internal, 2, 91, 38) {
+			this.customSlots.put(2, this.addSlot(new SlotItemHandler(internal, 2, 92, 38) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
 					return false;

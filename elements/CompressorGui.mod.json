@@ -37,7 +37,7 @@
           "disableStackInteraction": false,
           "dropItemsWhenNotBound": true,
           "name": "Slot #0",
-          "x": 165,
+          "x": 164,
           "y": 71
         }
       },
@@ -61,265 +61,8 @@
           "disableStackInteraction": false,
           "dropItemsWhenNotBound": true,
           "name": "Slot #2",
-          "x": 215,
+          "x": 216,
           "y": 71
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "arrowanimation0.png",
-          "use1Xscale": true,
-          "name": "arrowanimation0.png",
-          "x": 186,
-          "y": 73
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "arrowanimation1.png",
-          "use1Xscale": true,
-          "displayCondition": {
-            "name": "BlastFurnaceGuiArrow"
-          },
-          "name": "arrowanimation1.png",
-          "x": 186,
-          "y": 73
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "arrowanimation2.png",
-          "use1Xscale": true,
-          "displayCondition": {
-            "name": "BlastFurnaceGuiArrow2"
-          },
-          "name": "arrowanimation2.png",
-          "x": 186,
-          "y": 73
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "arrowanimation3.png",
-          "use1Xscale": true,
-          "displayCondition": {
-            "name": "BlastFurnaceGuiArrow3"
-          },
-          "name": "arrowanimation3.png",
-          "x": 186,
-          "y": 73
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "arrowanimation4.png",
-          "use1Xscale": true,
-          "displayCondition": {
-            "name": "BlastFurnaceGuiArrow4"
-          },
-          "name": "arrowanimation4.png",
-          "x": 186,
-          "y": 73
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "arrowanimation5.png",
-          "use1Xscale": true,
-          "displayCondition": {
-            "name": "BlastFurnaceGuiArrow5"
-          },
-          "name": "arrowanimation5.png",
-          "x": 186,
-          "y": 73
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "arrowanimation6.png",
-          "use1Xscale": true,
-          "displayCondition": {
-            "name": "BlastFurnaceGuiArrow6"
-          },
-          "name": "arrowanimation6.png",
-          "x": 186,
-          "y": 73
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "arrowanimation7.png",
-          "use1Xscale": true,
-          "displayCondition": {
-            "name": "BlastFurnaceGuiArrow7"
-          },
-          "name": "arrowanimation7.png",
-          "x": 186,
-          "y": 73
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "arrowanimation8.png",
-          "use1Xscale": true,
-          "displayCondition": {
-            "name": "BlastFurnaceGuiArrow8"
-          },
-          "name": "arrowanimation8.png",
-          "x": 186,
-          "y": 73
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "arrowanimation9.png",
-          "use1Xscale": true,
-          "displayCondition": {
-            "name": "BlastFurnaceGuiArrow9"
-          },
-          "name": "arrowanimation9.png",
-          "x": 186,
-          "y": 73
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "arrowanimation10.png",
-          "use1Xscale": true,
-          "displayCondition": {
-            "name": "BlastFurnaceGuiArrow10"
-          },
-          "name": "arrowanimation10.png",
-          "x": 186,
-          "y": 73
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "arrowanimation11.png",
-          "use1Xscale": true,
-          "displayCondition": {
-            "name": "BlastFurnaceGuiArrow11"
-          },
-          "name": "arrowanimation11.png",
-          "x": 186,
-          "y": 73
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "arrowanimation12.png",
-          "use1Xscale": true,
-          "displayCondition": {
-            "name": "BlastFurnaceGuiArrow12"
-          },
-          "name": "arrowanimation12.png",
-          "x": 186,
-          "y": 73
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "arrowanimation13.png",
-          "use1Xscale": true,
-          "displayCondition": {
-            "name": "BlastFurnaceGuiArrow13"
-          },
-          "name": "arrowanimation13.png",
-          "x": 186,
-          "y": 73
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "arrowanimation14.png",
-          "use1Xscale": true,
-          "displayCondition": {
-            "name": "BlastFurnaceGuiArrow14"
-          },
-          "name": "arrowanimation14.png",
-          "x": 186,
-          "y": 73
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "arrowanimation15.png",
-          "use1Xscale": true,
-          "displayCondition": {
-            "name": "BlastFurnaceGuiArrow15"
-          },
-          "name": "arrowanimation15.png",
-          "x": 186,
-          "y": 73
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "arrowanimation16.png",
-          "use1Xscale": true,
-          "displayCondition": {
-            "name": "BlastFurnaceGuiArrow16"
-          },
-          "name": "arrowanimation16.png",
-          "x": 186,
-          "y": 73
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "arrowanimation17.png",
-          "use1Xscale": true,
-          "displayCondition": {
-            "name": "BlastFurnaceGuiArrow17"
-          },
-          "name": "arrowanimation17.png",
-          "x": 186,
-          "y": 73
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "arrowanimation18.png",
-          "use1Xscale": true,
-          "displayCondition": {
-            "name": "BlastFurnaceGuiArrow18"
-          },
-          "name": "arrowanimation18.png",
-          "x": 186,
-          "y": 73
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "arrowanimation19.png",
-          "use1Xscale": true,
-          "displayCondition": {
-            "name": "BlastFurnaceGuiArrow19"
-          },
-          "name": "arrowanimation19.png",
-          "x": 186,
-          "y": 73
         }
       },
       {
@@ -328,7 +71,7 @@
           "image": "outputslot.png",
           "use1Xscale": false,
           "name": "outputslot.png",
-          "x": 211,
+          "x": 212,
           "y": 67
         }
       },
@@ -662,6 +405,315 @@
           "name": "energyfull22.png",
           "x": 266,
           "y": 45
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_1.png",
+          "use1Xscale": false,
+          "name": "animated_arrow_1.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_1.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow1"
+          },
+          "name": "animated_arrow_1.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_2.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow2"
+          },
+          "name": "animated_arrow_2.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_3.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow3"
+          },
+          "name": "animated_arrow_3.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_4.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow4"
+          },
+          "name": "animated_arrow_4.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_5.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow5"
+          },
+          "name": "animated_arrow_5.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_6.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow6"
+          },
+          "name": "animated_arrow_6.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_7.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow7"
+          },
+          "name": "animated_arrow_7.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_8.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow8"
+          },
+          "name": "animated_arrow_8.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_9.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow9"
+          },
+          "name": "animated_arrow_9.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_10.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow10"
+          },
+          "name": "animated_arrow_10.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_11.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow11"
+          },
+          "name": "animated_arrow_11.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_12.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow12"
+          },
+          "name": "animated_arrow_12.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_13.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow13"
+          },
+          "name": "animated_arrow_13.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_14.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow14"
+          },
+          "name": "animated_arrow_14.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_15.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow15"
+          },
+          "name": "animated_arrow_15.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_16.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow16"
+          },
+          "name": "animated_arrow_16.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_17.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow17"
+          },
+          "name": "animated_arrow_17.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_18.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow18"
+          },
+          "name": "animated_arrow_18.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_19.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow19"
+          },
+          "name": "animated_arrow_19.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_20.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow20"
+          },
+          "name": "animated_arrow_20.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_21.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow21"
+          },
+          "name": "animated_arrow_21.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_22.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow22"
+          },
+          "name": "animated_arrow_22.png",
+          "x": 186,
+          "y": 72
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_23.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "BlastFurnaceArrow23"
+          },
+          "name": "animated_arrow_23.png",
+          "x": 186,
+          "y": 72
         }
       }
     ]
