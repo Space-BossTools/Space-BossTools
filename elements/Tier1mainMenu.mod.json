@@ -16,8 +16,8 @@
           "image": "rocket_menu_background.png",
           "use1Xscale": true,
           "name": "rocket_menu_background.png",
-          "x": -175,
-          "y": -129
+          "x": -154,
+          "y": -144
         }
       },
       {
@@ -84,6 +84,26 @@
           "name": "milky_way.png",
           "x": 164,
           "y": 73
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "sun_main_menu.png",
+          "use1Xscale": false,
+          "name": "sun_main_menu.png",
+          "x": 248,
+          "y": 119
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "earth_main_menu.png",
+          "use1Xscale": true,
+          "name": "earth_main_menu.png",
+          "x": 248,
+          "y": 144
         }
       }
     ]

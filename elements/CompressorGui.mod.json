@@ -76,36 +76,13 @@
         }
       },
       {
-        "type": "label",
-        "data": {
-          "text": "<energy>",
-          "color": {
-            "value": -12829636,
-            "falpha": 0.0
-          },
-          "name": "<energy>",
-          "x": 266,
-          "y": 99
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "energyoutputslot.png",
-          "use1Xscale": true,
-          "name": "energyoutputslot.png",
-          "x": 263,
-          "y": 92
-        }
-      },
-      {
         "type": "image",
         "data": {
           "image": "energy_volume_fractional_vertical_bar_background.png",
           "use1Xscale": false,
           "name": "energy_volume_fractional_vertical_bar_background.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -117,8 +94,8 @@
             "name": "GeneratorEnergyGui1"
           },
           "name": "energyfull0.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -130,8 +107,8 @@
             "name": "GeneratorEngery2"
           },
           "name": "energyfull1.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -143,8 +120,8 @@
             "name": "GeneratorEngery3"
           },
           "name": "energyfull2.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -156,8 +133,8 @@
             "name": "GeneratorEngery4"
           },
           "name": "energyfull3.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -169,8 +146,8 @@
             "name": "GeneratorEngery5"
           },
           "name": "energyfull4.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -182,8 +159,8 @@
             "name": "GeneratorEngery6"
           },
           "name": "energyfull5.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -195,8 +172,8 @@
             "name": "GeneratorEngery7"
           },
           "name": "energyfull6.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -208,8 +185,8 @@
             "name": "GeneratorEngery8"
           },
           "name": "energyfull7.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -221,8 +198,8 @@
             "name": "GeneratorEngery9"
           },
           "name": "energyfull8.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -234,8 +211,8 @@
             "name": "GeneratorEngery10"
           },
           "name": "energyfull9.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -247,8 +224,8 @@
             "name": "GeneratorEngery11"
           },
           "name": "energyfull10.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -260,8 +237,8 @@
             "name": "GeneratorEngery12"
           },
           "name": "energyfull11.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -273,8 +250,8 @@
             "name": "GeneratorEngery13"
           },
           "name": "energyfull12.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -286,8 +263,8 @@
             "name": "GeneratorEngery14"
           },
           "name": "energyfull13.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -299,8 +276,8 @@
             "name": "GeneratorEngery15"
           },
           "name": "energyfull14.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -312,8 +289,8 @@
             "name": "GeneratorEngery16"
           },
           "name": "energyfull15.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -325,8 +302,8 @@
             "name": "GeneratorEngery17"
           },
           "name": "energyfull16.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -338,8 +315,8 @@
             "name": "GeneratorEngery18"
           },
           "name": "energyfull17.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -351,8 +328,8 @@
             "name": "GeneratorEngery19"
           },
           "name": "energyfull18.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -364,8 +341,8 @@
             "name": "GeneratorEngery20"
           },
           "name": "energyfull19.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -377,8 +354,8 @@
             "name": "GeneratorEngery21"
           },
           "name": "energyfull20.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -390,8 +367,8 @@
             "name": "GeneratorEngery22"
           },
           "name": "energyfull21.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {
@@ -403,8 +380,8 @@
             "name": "GeneratorEngery23"
           },
           "name": "energyfull22.png",
-          "x": 266,
-          "y": 45
+          "x": 269,
+          "y": 55
         }
       },
       {

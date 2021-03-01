@@ -1533,7 +1533,7 @@
       "type": "gui",
       "sortid": 173,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "generator_gui"
     },
@@ -3927,7 +3927,7 @@
       "type": "gui",
       "sortid": 303,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "oxygen_loader_gui"
     },
@@ -4326,7 +4326,7 @@
       "type": "gui",
       "sortid": 317,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "oxygen_bullet_generator_gui"
     },
@@ -4852,7 +4852,7 @@
       "type": "gui",
       "sortid": 335,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "compressor_gui"
     },
