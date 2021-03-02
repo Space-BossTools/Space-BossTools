@@ -31,6 +31,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.World;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.player.PlayerInventory;
@@ -63,6 +64,9 @@ public class RocketTier3GuiFuelGuiWindow extends ContainerScreen<RocketTier3GuiF
 		this.renderBackground(ms);
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
+		int fuel = (int) (entity.getPersistentData().getDouble("fuelgui"));
+		if (mouseX > guiLeft + 65 && mouseX < guiLeft + 114 && mouseY > guiTop + 20 && mouseY < guiTop + 69)
+			this.renderTooltip(ms, new StringTextComponent(/* (entity.getPersistentData().getDouble("fuel")) */ fuel + "%"), mouseX, mouseY);
 	}
 
 	@Override

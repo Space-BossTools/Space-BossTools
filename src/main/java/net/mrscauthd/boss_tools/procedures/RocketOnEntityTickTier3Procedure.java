@@ -365,5 +365,6 @@ public class RocketOnEntityTickTier3Procedure extends BossToolsModElements.ModEl
 				entity.getPersistentData().putDouble("AnimationRotation", 0);
 			}
 		}
+		entity.getPersistentData().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 4));
 	}
 }

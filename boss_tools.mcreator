@@ -1571,7 +1571,7 @@
       "type": "gui",
       "sortid": 175,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "rocket_tier_1_gui_fuel"
     },
@@ -3918,7 +3918,7 @@
       "type": "gui",
       "sortid": 302,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "rocket_tier_2_gui_fuel"
     },
@@ -5016,7 +5016,7 @@
       "type": "gui",
       "sortid": 343,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "rocket_tier_3_gui_fuel"
     },
@@ -12566,6 +12566,18 @@
             "type": "world"
           }
         ]
+      }
+    },
+    {
+      "name": "FuelGuiSyncEvent",
+      "type": "procedure",
+      "sortid": 740,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "fuel_gui_sync_event",
+      "metadata": {
+        "dependencies": []
       }
     }
   ],
