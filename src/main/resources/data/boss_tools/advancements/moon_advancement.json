@@ -1,0 +1,29 @@
+{
+  "display": {
+    "background": "minecraft:textures/block/stone.png",
+    "icon": {
+      "item": "boss_tools:moon_stone"
+    },
+    "title": {
+      "translate": "advancements.moon_advancement.title"
+    },
+    "description": {
+      "translate": "advancements.moon_advancement.descr"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "moon_advancement": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "boss_tools:moon"
+      }
+    }
+  },
+  "rewards": {
+    "experience": 7
+  }
+}

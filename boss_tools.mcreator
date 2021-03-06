@@ -12579,6 +12579,51 @@
       "metadata": {
         "dependencies": []
       }
+    },
+    {
+      "name": "RocketAdvancement",
+      "type": "achievement",
+      "sortid": 741,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "rocket_advancement"
+    },
+    {
+      "name": "RocketTier2Advancement",
+      "type": "achievement",
+      "sortid": 742,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "rocket_tier_2_advancement"
+    },
+    {
+      "name": "RocketTier3Advancement",
+      "type": "achievement",
+      "sortid": 743,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "rocket_tier_3_advancement"
+    },
+    {
+      "name": "MoonAdvancement",
+      "type": "achievement",
+      "sortid": 744,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "moon_advancement"
+    },
+    {
+      "name": "WorkbenchAdvancement",
+      "type": "achievement",
+      "sortid": 745,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "workbench_advancement"
     }
   ],
   "variable_elements": [
@@ -12691,6 +12736,7 @@
       "item.minecraft.lingering_potion.effect.player_movement": "Lingering PlayerMovement",
       "itemGroup.tabboss_tools": "Space-BossTools",
       "item.minecraft.potion.effect.rocket_potion_8": "Rocketpotion 8",
+      "advancements.workbench_advancement.title": "NASA Workbench",
       "entity.boss_tools.landing_gear": "Landing Gear",
       "item.minecraft.potion.effect.rocket_potion_9": "Rocketpotion 9",
       "block.boss_tools.flag_red": "Red Flag",
@@ -12698,6 +12744,8 @@
       "item.minecraft.tipped_arrow.effect.tier_3_space_station_gui_potion_mercury_orbit": "Arrow of Tier3SpaceStationGUIPotionMarsorbit",
       "item.minecraft.potion.effect.tier_3_space_station_gui_potion_overworld_orbit": "Tier3SpaceStationGUIPotionOverworldorbit",
       "biome.boss_tools.orbit_moon_biom": "Orbit Biome",
+      "advancements.rocket_tier_2_advancement.title": "Tier 2 Rocket",
+      "advancements.rocket_advancement.descr": "§bHas crafted a Tier 1 Rocket",
       "item.boss_tools.engine_casing": "Engine Casing",
       "item.boss_tools.landing_gear_spawn_egg": "Landing Gear Spawn Egg",
       "item.boss_tools.moon": "Admin Feuerzeug",
@@ -12722,14 +12770,17 @@
       "fluid.fuel": "Fuel",
       "item.minecraft.splash_potion.effect.tier_3_space_station_gui_potion_mars_orbit": "Splash Tier3SpaceStationGUIPotionMarsorbit",
       "block.boss_tools.mars_iron_ore": "Mars Iron Ore",
+      "advancements.rocket_advancement.title": "Tier 1 Rocket",
       "block.boss_tools.coal_torch": "Coal Torch",
       "item.minecraft.tipped_arrow.effect.rocketpotion_7": "Arrow of Rocketpotion 7",
       "block.boss_tools.nasa_workbench": "§dNASA Workbench",
       "item.minecraft.lingering_potion.effect.tier_2_space_station_gui_potion_moon_orbit": "Lingering Tier2SpaceStationGUIPotionMoonorbit",
       "item.minecraft.tipped_arrow.effect.tier_3_space_station_gui_potion_overworld_orbit": "Arrow of Tier3SpaceStationGUIPotionOverworldorbit",
       "item.minecraft.tipped_arrow.effect.tier_2_space_station_gui_potion_overworld_orbit": "Arrow of Tier2SpaceStationGUIPotionOverworldorbit",
+      "advancements.moon_advancement.title": "Moon",
       "block.boss_tools.mars_stone": "Mars Stone",
       "item.boss_tools.tier_1_rocket": "§bTier 1 Rocket",
+      "advancements.rocket_tier_3_advancement.title": "Tier 3 Rocket",
       "item.minecraft.tipped_arrow.effect.rocketpotion_2": "Arrow of Rocketpotion2",
       "item.minecraft.tipped_arrow.effect.rocketpotion_3": "Arrow of Rocketpotion3",
       "item.minecraft.tipped_arrow.effect.rocketpotion_4": "Arrow of Rocketpotion4",
@@ -12771,6 +12822,7 @@
       "block.boss_tools.fuel_refinery": "Fuel Refinery",
       "biome.boss_tools.mars_biome": "Moon Biome",
       "item.boss_tools.silicon_ingot": "Silicon Ingot",
+      "advancements.moon_advancement.descr": "§bHas entered the Moon",
       "itemGroup.tabspace_bosstools_basics": "Space-Bosstools: Basics",
       "block.boss_tools.energy_cable": "Energy Cable",
       "item.minecraft.splash_potion.effect.tier_1_space_station_gui_potion_moon": "Splash Tier1SpaceStationGUIPotionMoon",
@@ -12805,6 +12857,7 @@
       "block.boss_tools.sky_stone": "Sky Stone",
       "item.minecraft.lingering_potion.effect.tier_1_space_station_gui_potion_moon": "Lingering Tier1SpaceStationGUIPotionMoon",
       "biome.boss_tools.mercurybiome": "Mercury Biome",
+      "advancements.workbench_advancement.descr": "§bHas crafted a NASA Workbench",
       "biome.boss_tools.moon_biome": "Moon Biome",
       "block.boss_tools.flag_gray": "Gray Flag",
       "item.boss_tools.alien_bee": "Alien Bee Spawn Egg",
@@ -12813,6 +12866,7 @@
       "item.minecraft.lingering_potion.effect.bullet_generator": "Lingering BulletGenerator",
       "item.boss_tools.tier_2_rocket": "§bTier 2 Rocket",
       "item.minecraft.splash_potion.effect.tier_3_space_station_gui_potion_mercury_orbit": "Splash Tier3SpaceStationGUIPotionMarsorbit",
+      "advancements.rocket_tier_3_advancement.descr": "§bHas crafted a Tier 3 Rocket",
       "item.boss_tools.rocket_spawn_egg": "Rocket Spawn Egg",
       "item.minecraft.tipped_arrow.effect.tier_1_space_station_gui_potion": "Arrow of Tier1SpaceStationGUIPotion",
       "key.mcreator.powup_tier_3": "Tier 3 Rocket Start",
@@ -12859,6 +12913,7 @@
       "item.boss_tools.alien_spawn_egg": "Alien Spawn Egg",
       "key.mcreator.rocket_rotation_a": "Rocket Rotation Left",
       "block.boss_tools.blast_furnace": "Blast Furnace",
+      "advancements.rocket_tier_2_advancement.descr": "§bHas crafted a Tier 2 Rocket",
       "key.mcreator.rocket_rotation_b": "Rocket Rotation Right",
       "item.minecraft.lingering_potion.effect.tier_3_space_station_gui_potion_overworld_orbit": "Lingering Tier3SpaceStationGUIPotionOverworldorbit",
       "item.boss_tools.chesse": "Chesse",

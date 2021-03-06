@@ -1,0 +1,37 @@
+{
+  "display": {
+    "background": "minecraft:textures/block/stone.png",
+    "icon": {
+      "item": "boss_tools:tier_3_rocket"
+    },
+    "title": {
+      "translate": "advancements.rocket_tier_3_advancement.title"
+    },
+    "description": {
+      "translate": "advancements.rocket_tier_3_advancement.descr"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "rocket_tier_3_advancement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "boss_tools:tier_3_rocket",
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 7
+  }
+}

@@ -120,7 +120,7 @@ public class FuelRefineryGUIGuiWindow extends ContainerScreen<FuelRefineryGUIGui
 						return tileEntity.getTileData().getDouble(tag);
 					return -1;
 				}
-			}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "lava_gui"))) + " mb / 3000 mb"), mouseX, mouseY);
+			}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "lava_gui"))) + " mb / 3000.0 mb"), mouseX, mouseY);
 		// }
 		// ToolTip Ende
 		// toolTipStart Energy
