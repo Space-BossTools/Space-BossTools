@@ -14,20 +14,20 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
-/*import com.mrcrayfish.obfuscate.client.event.PlayerModelEvent;
+import com.mrcrayfish.obfuscate.client.event.PlayerModelEvent;
 import com.mrcrayfish.obfuscate.client.event.RenderItemEvent;
 import com.mrcrayfish.obfuscate.common.data.SyncedPlayerData;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
-*/
+
 
 import com.mrcrayfish.obfuscate.client.event.PlayerModelEvent;
 
 import java.util.Map;
 import java.util.HashMap;
 
-//import com.mrcrayfish.obfuscate.client.event.PlayerModelEvent;
+import com.mrcrayfish.obfuscate.client.event.PlayerModelEvent;
 
 @BossToolsModElements.ModElement.Tag
 public class PlayerRotationsTier2Procedure extends BossToolsModElements.ModElement {

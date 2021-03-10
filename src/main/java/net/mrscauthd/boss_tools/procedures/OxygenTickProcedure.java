@@ -315,9 +315,9 @@ public class OxygenTickProcedure extends BossToolsModElements.ModElement {
 								.getItem())) {
 							if ((((new Object() {
 								public ItemStack getItemStack(BlockPos pos, int sltid) {
-									TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-									if (_ent instanceof LockableLootTileEntity)
-										return ((LockableLootTileEntity) _ent).getStackInSlot(sltid);
+									TileEntity inv = world.getTileEntity(pos);
+									if (inv instanceof LockableLootTileEntity)
+										return ((LockableLootTileEntity) inv).getStackInSlot(sltid);
 									return ItemStack.EMPTY;
 								}
 							}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getOrCreateTag().getDouble("Energy")) <= 47999)) {
@@ -369,9 +369,9 @@ public class OxygenTickProcedure extends BossToolsModElements.ModElement {
 								.getItem() == new ItemStack(Blocks.SPRUCE_LEAVES, (int) (1)).getItem())) {
 							if ((((new Object() {
 								public ItemStack getItemStack(BlockPos pos, int sltid) {
-									TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-									if (_ent instanceof LockableLootTileEntity)
-										return ((LockableLootTileEntity) _ent).getStackInSlot(sltid);
+									TileEntity inv = world.getTileEntity(pos);
+									if (inv instanceof LockableLootTileEntity)
+										return ((LockableLootTileEntity) inv).getStackInSlot(sltid);
 									return ItemStack.EMPTY;
 								}
 							}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getOrCreateTag().getDouble("Energy")) <= 47999)) {
@@ -423,9 +423,9 @@ public class OxygenTickProcedure extends BossToolsModElements.ModElement {
 								.getItem())) {
 							if ((((new Object() {
 								public ItemStack getItemStack(BlockPos pos, int sltid) {
-									TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-									if (_ent instanceof LockableLootTileEntity)
-										return ((LockableLootTileEntity) _ent).getStackInSlot(sltid);
+									TileEntity inv = world.getTileEntity(pos);
+									if (inv instanceof LockableLootTileEntity)
+										return ((LockableLootTileEntity) inv).getStackInSlot(sltid);
 									return ItemStack.EMPTY;
 								}
 							}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getOrCreateTag().getDouble("Energy")) <= 47999)) {
@@ -477,9 +477,9 @@ public class OxygenTickProcedure extends BossToolsModElements.ModElement {
 								.getItem() == new ItemStack(Blocks.ACACIA_LEAVES, (int) (1)).getItem())) {
 							if ((((new Object() {
 								public ItemStack getItemStack(BlockPos pos, int sltid) {
-									TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-									if (_ent instanceof LockableLootTileEntity)
-										return ((LockableLootTileEntity) _ent).getStackInSlot(sltid);
+									TileEntity inv = world.getTileEntity(pos);
+									if (inv instanceof LockableLootTileEntity)
+										return ((LockableLootTileEntity) inv).getStackInSlot(sltid);
 									return ItemStack.EMPTY;
 								}
 							}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getOrCreateTag().getDouble("Energy")) <= 47999)) {
@@ -531,9 +531,9 @@ public class OxygenTickProcedure extends BossToolsModElements.ModElement {
 								.getItem() == new ItemStack(Blocks.ACACIA_LEAVES, (int) (1)).getItem())) {
 							if ((((new Object() {
 								public ItemStack getItemStack(BlockPos pos, int sltid) {
-									TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-									if (_ent instanceof LockableLootTileEntity)
-										return ((LockableLootTileEntity) _ent).getStackInSlot(sltid);
+									TileEntity inv = world.getTileEntity(pos);
+									if (inv instanceof LockableLootTileEntity)
+										return ((LockableLootTileEntity) inv).getStackInSlot(sltid);
 									return ItemStack.EMPTY;
 								}
 							}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getOrCreateTag().getDouble("Energy")) <= 47999)) {
@@ -585,9 +585,9 @@ public class OxygenTickProcedure extends BossToolsModElements.ModElement {
 								.getItem() == new ItemStack(Blocks.DARK_OAK_LEAVES, (int) (1)).getItem())) {
 							if ((((new Object() {
 								public ItemStack getItemStack(BlockPos pos, int sltid) {
-									TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-									if (_ent instanceof LockableLootTileEntity)
-										return ((LockableLootTileEntity) _ent).getStackInSlot(sltid);
+									TileEntity inv = world.getTileEntity(pos);
+									if (inv instanceof LockableLootTileEntity)
+										return ((LockableLootTileEntity) inv).getStackInSlot(sltid);
 									return ItemStack.EMPTY;
 								}
 							}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getOrCreateTag().getDouble("Energy")) <= 47999)) {
@@ -639,9 +639,9 @@ public class OxygenTickProcedure extends BossToolsModElements.ModElement {
 								.getItem() == new ItemStack(Blocks.JUNGLE_LEAVES, (int) (1)).getItem())) {
 							if ((((new Object() {
 								public ItemStack getItemStack(BlockPos pos, int sltid) {
-									TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-									if (_ent instanceof LockableLootTileEntity)
-										return ((LockableLootTileEntity) _ent).getStackInSlot(sltid);
+									TileEntity inv = world.getTileEntity(pos);
+									if (inv instanceof LockableLootTileEntity)
+										return ((LockableLootTileEntity) inv).getStackInSlot(sltid);
 									return ItemStack.EMPTY;
 								}
 							}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getOrCreateTag().getDouble("Energy")) <= 47999)) {
@@ -725,9 +725,9 @@ public class OxygenTickProcedure extends BossToolsModElements.ModElement {
 				}.getEnergyStored(world, new BlockPos((int) x, (int) y, (int) z))) >= 1)) {
 					if ((((new Object() {
 						public ItemStack getItemStack(BlockPos pos, int sltid) {
-							TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-							if (_ent instanceof LockableLootTileEntity)
-								return ((LockableLootTileEntity) _ent).getStackInSlot(sltid);
+							TileEntity inv = world.getTileEntity(pos);
+							if (inv instanceof LockableLootTileEntity)
+								return ((LockableLootTileEntity) inv).getStackInSlot(sltid);
 							return ItemStack.EMPTY;
 						}
 					}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getOrCreateTag().getDouble("Energy")) <= 47999)) {
@@ -776,9 +776,9 @@ public class OxygenTickProcedure extends BossToolsModElements.ModElement {
 				}
 				if ((((new Object() {
 					public ItemStack getItemStack(BlockPos pos, int sltid) {
-						TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-						if (_ent instanceof LockableLootTileEntity)
-							return ((LockableLootTileEntity) _ent).getStackInSlot(sltid);
+						TileEntity inv = world.getTileEntity(pos);
+						if (inv instanceof LockableLootTileEntity)
+							return ((LockableLootTileEntity) inv).getStackInSlot(sltid);
 						return ItemStack.EMPTY;
 					}
 				}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getOrCreateTag().getDouble("Energy")) <= 47999)) {
@@ -799,16 +799,16 @@ public class OxygenTickProcedure extends BossToolsModElements.ModElement {
 						}
 						(new Object() {
 							public ItemStack getItemStack(BlockPos pos, int sltid) {
-								TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-								if (_ent instanceof LockableLootTileEntity)
-									return ((LockableLootTileEntity) _ent).getStackInSlot(sltid);
+								TileEntity inv = world.getTileEntity(pos);
+								if (inv instanceof LockableLootTileEntity)
+									return ((LockableLootTileEntity) inv).getStackInSlot(sltid);
 								return ItemStack.EMPTY;
 							}
 						}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getOrCreateTag().putDouble("Energy", (((new Object() {
 							public ItemStack getItemStack(BlockPos pos, int sltid) {
-								TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-								if (_ent instanceof LockableLootTileEntity)
-									return ((LockableLootTileEntity) _ent).getStackInSlot(sltid);
+								TileEntity inv = world.getTileEntity(pos);
+								if (inv instanceof LockableLootTileEntity)
+									return ((LockableLootTileEntity) inv).getStackInSlot(sltid);
 								return ItemStack.EMPTY;
 							}
 						}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getOrCreateTag().getDouble("Energy")) + 8));
@@ -818,17 +818,17 @@ public class OxygenTickProcedure extends BossToolsModElements.ModElement {
 		}
 		if ((((new Object() {
 			public ItemStack getItemStack(BlockPos pos, int sltid) {
-				TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-				if (_ent instanceof LockableLootTileEntity)
-					return ((LockableLootTileEntity) _ent).getStackInSlot(sltid);
+				TileEntity inv = world.getTileEntity(pos);
+				if (inv instanceof LockableLootTileEntity)
+					return ((LockableLootTileEntity) inv).getStackInSlot(sltid);
 				return ItemStack.EMPTY;
 			}
 		}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getOrCreateTag().getDouble("Energy")) >= 48000)) {
 			(new Object() {
 				public ItemStack getItemStack(BlockPos pos, int sltid) {
-					TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-					if (_ent instanceof LockableLootTileEntity)
-						return ((LockableLootTileEntity) _ent).getStackInSlot(sltid);
+					TileEntity inv = world.getTileEntity(pos);
+					if (inv instanceof LockableLootTileEntity)
+						return ((LockableLootTileEntity) inv).getStackInSlot(sltid);
 					return ItemStack.EMPTY;
 				}
 			}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getOrCreateTag().putDouble("Energy", 48000);

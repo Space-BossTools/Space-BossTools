@@ -12587,7 +12587,8 @@
       "compiles": true,
       "locked_code": false,
       "ids": {},
-      "registry_name": "rocket_advancement"
+      "registry_name": "rocket_advancement",
+      "path": "~/Advancements"
     },
     {
       "name": "RocketTier2Advancement",
@@ -12596,7 +12597,8 @@
       "compiles": true,
       "locked_code": false,
       "ids": {},
-      "registry_name": "rocket_tier_2_advancement"
+      "registry_name": "rocket_tier_2_advancement",
+      "path": "~/Advancements"
     },
     {
       "name": "RocketTier3Advancement",
@@ -12605,7 +12607,8 @@
       "compiles": true,
       "locked_code": false,
       "ids": {},
-      "registry_name": "rocket_tier_3_advancement"
+      "registry_name": "rocket_tier_3_advancement",
+      "path": "~/Advancements"
     },
     {
       "name": "MoonAdvancement",
@@ -12614,7 +12617,8 @@
       "compiles": true,
       "locked_code": false,
       "ids": {},
-      "registry_name": "moon_advancement"
+      "registry_name": "moon_advancement",
+      "path": "~/Advancements"
     },
     {
       "name": "WorkbenchAdvancement",
@@ -12623,7 +12627,8 @@
       "compiles": true,
       "locked_code": false,
       "ids": {},
-      "registry_name": "workbench_advancement"
+      "registry_name": "workbench_advancement",
+      "path": "~/Advancements"
     }
   ],
   "variable_elements": [
@@ -12970,13 +12975,17 @@
       {
         "name": "Animated Arrow",
         "children": []
+      },
+      {
+        "name": "Advancements",
+        "children": []
       }
     ]
   },
   "workspaceSettings": {
     "modid": "boss_tools",
     "modName": "Space-Bosstools",
-    "version": "4.6",
+    "version": "4.7",
     "description": "Fly to Other Planets!",
     "author": "MrScautHD",
     "websiteURL": "https://www.curseforge.com/minecraft/mc-mods/space-bosstools",
