@@ -87,13 +87,17 @@ public class FallGravityProcedure extends BossToolsModElements.ModElement {
 																		new ResourceLocation("boss_tools:orbit_mercury"))))))))))) {
 			if (((((PlayerEntity) entity).abilities.isFlying) == (false))) {
 				if (((((PlayerEntity) entity).isElytraFlying()) == (false))) {
-					if (((entity.getMotion().getY()) <= (-0.01))) {
-						entity.setMotion((entity.getMotion().getX()), ((entity.getMotion().getY()) + 0.05), (entity.getMotion().getZ()));
-						entity.fallDistance = (float) (0.2);
-					}
-					if (((entity.getMotion().getY()) >= 0.08)) {
-						entity.setMotion((entity.getMotion().getX()), ((entity.getMotion().getY()) + 0.05), (entity.getMotion().getZ()));
-						entity.fallDistance = (float) (0.2);
+					if (((((PlayerEntity) entity).isSwimming()) == (false))) {
+						if (((entity.isInWater()) == (false))) {
+							if (((entity.getMotion().getY()) <= (-0.01))) {
+								entity.setMotion((entity.getMotion().getX()), ((entity.getMotion().getY()) + 0.05), (entity.getMotion().getZ()));
+								entity.fallDistance = (float) (0.2);
+							}
+							if (((entity.getMotion().getY()) >= 0.08)) {
+								entity.setMotion((entity.getMotion().getX()), ((entity.getMotion().getY()) + 0.05), (entity.getMotion().getZ()));
+								entity.fallDistance = (float) (0.2);
+							}
+						}
 					}
 				}
 			}
