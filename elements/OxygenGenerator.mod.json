@@ -69,6 +69,8 @@
     "fireSpreadSpeed": 0,
     "isLadder": false,
     "slipperiness": 0.6,
+    "speedFactor": 1.0,
+    "jumpFactor": 1.0,
     "reactionToPushing": "BLOCK",
     "isNotColidable": false,
     "soundOnStep": {

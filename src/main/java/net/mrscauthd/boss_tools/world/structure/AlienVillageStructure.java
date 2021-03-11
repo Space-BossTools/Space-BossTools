@@ -18,11 +18,13 @@ import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.World;
 import net.minecraft.world.ISeedReader;
+import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.Rotation;
@@ -73,6 +75,8 @@ public class AlienVillageStructure extends BossToolsModElements.ModElement {
 			return true;
 		}
 	};
+	private static final ConfiguredFeature<?, ?> configuredFeature = feature.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG)
+			.withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
 	public AlienVillageStructure(BossToolsModElements instance) {
 		super(instance, 100);
 		MinecraftForge.EVENT_BUS.register(this);
@@ -82,11 +86,11 @@ public class AlienVillageStructure extends BossToolsModElements.ModElement {
 		@SubscribeEvent
 		public void registerFeature(RegistryEvent.Register<Feature<?>> event) {
 			event.getRegistry().register(feature.setRegistryName("alien_village"));
+			Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation("boss_tools:alien_village"), configuredFeature);
 		}
 	}
 	@SubscribeEvent
 	public void addFeatureToBiomes(BiomeLoadingEvent event) {
-		event.getGeneration().getFeatures(GenerationStage.Decoration.SURFACE_STRUCTURES).add(() -> feature
-				.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+		event.getGeneration().getFeatures(GenerationStage.Decoration.SURFACE_STRUCTURES).add(() -> configuredFeature);
 	}
 }
