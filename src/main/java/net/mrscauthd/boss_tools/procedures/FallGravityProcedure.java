@@ -17,11 +17,8 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.RegistryKey;
-import net.minecraft.potion.Effects;
-import net.minecraft.potion.EffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Entity;
 
 import java.util.stream.Collectors;
@@ -132,14 +129,18 @@ public class FallGravityProcedure extends BossToolsModElements.ModElement {
 						}.compareDistOf(x, y, z)).collect(Collectors.toList());
 				for (Entity entityiterator : _entfound) {
 					if ((!(entityiterator instanceof PlayerEntity))) {
-						if ((!(entityiterator instanceof RocketEntity.CustomEntity))) {
-							if ((!(entityiterator instanceof LandingGearEntity.CustomEntity))) {
-								if ((!(entityiterator instanceof RocketEntity.CustomEntity))) {
-									if ((!(entityiterator instanceof RocketTier2Entity.CustomEntity))) {
-										if ((!(entityiterator instanceof RocketTier3Entity.CustomEntity))) {
-											if (entityiterator instanceof LivingEntity)
-												((LivingEntity) entityiterator).addPotionEffect(
-														new EffectInstance(Effects.SLOW_FALLING, (int) 120, (int) 1, (false), (false)));
+						if ((!(entityiterator instanceof LandingGearEntity.CustomEntity))) {
+							if ((!(entityiterator instanceof RocketEntity.CustomEntity))) {
+								if ((!(entityiterator instanceof RocketTier2Entity.CustomEntity))) {
+									if ((!(entityiterator instanceof RocketTier3Entity.CustomEntity))) {
+										if (((entityiterator.getMotion().getY()) <= (-0.1))) {
+											if (((entityiterator.getPersistentData().getDouble("EntityGravity")) <= 1)) {
+												entityiterator.getPersistentData().putDouble("EntityGravity", 2);
+												entityiterator.setMotion((entityiterator.getMotion().getX()),
+														((entityiterator.getMotion().getY()) + 0.04), (entityiterator.getMotion().getZ()));
+												entityiterator.fallDistance = (float) (0.2);
+												entityiterator.getPersistentData().putDouble("EntityGravity", 0);
+											}
 										}
 									}
 								}
