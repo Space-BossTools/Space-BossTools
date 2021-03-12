@@ -49,7 +49,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:space_armor_boots")
 	public static final Item boots = null;
 	public SpaceArmorItem(BossToolsModElements instance) {
-		super(instance, 58);
+		super(instance, 12);
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 
 			@Override
 			public net.minecraft.util.SoundEvent getSoundEvent() {
-				return (net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(""));
+				return (net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("item.armor.equip_leather"));
 			}
 
 			@Override
@@ -150,9 +150,6 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 					Map<String, Object> $_dependencies = new HashMap<>();
 					$_dependencies.put("entity", entity);
 					$_dependencies.put("itemstack", itemstack);
-					$_dependencies.put("x", x);
-					$_dependencies.put("y", y);
-					$_dependencies.put("z", z);
 					$_dependencies.put("world", world);
 					SpaceArmorBodyTickEventProcedure.executeProcedure($_dependencies);
 				}
