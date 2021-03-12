@@ -146,7 +146,7 @@ public class ClientEventBusMars {
 								matrixStack.rotate(Vector3f.YP.rotationDegrees(-90.0F));
 								matrixStack.rotate(Vector3f.XP.rotationDegrees(world.func_242415_f(partialTicks) * 360.0F));
 								matrix4f1 = matrixStack.getLast().getMatrix();
-								float f12 = 30.0F;
+								float f12 = 20.0F;
 								mc.getTextureManager().bindTexture(SUN_TEXTURES);
 								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 								bufferbuilder.pos(matrix4f1, -f12, 100.0F, -f12).tex(0.0F, 0.0F).endVertex();
