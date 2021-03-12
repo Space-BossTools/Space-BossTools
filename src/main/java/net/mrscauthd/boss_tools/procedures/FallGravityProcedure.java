@@ -137,7 +137,7 @@ public class FallGravityProcedure extends BossToolsModElements.ModElement {
 											if (((entityiterator.getPersistentData().getDouble("EntityGravity")) <= 1)) {
 												entityiterator.getPersistentData().putDouble("EntityGravity", 2);
 												entityiterator.setMotion((entityiterator.getMotion().getX()),
-														((entityiterator.getMotion().getY()) + 0.04), (entityiterator.getMotion().getZ()));
+														((entityiterator.getMotion().getY()) + 0.05), (entityiterator.getMotion().getZ()));
 												entityiterator.fallDistance = (float) (0.2);
 												entityiterator.getPersistentData().putDouble("EntityGravity", 0);
 											}
