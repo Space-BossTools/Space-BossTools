@@ -101,9 +101,6 @@
     "whenMobIsHurt": {
       "name": "Rockethurtentity2"
     },
-    "onRightClickedOn": {
-      "name": "Rocketrightclicktir2"
-    },
     "onMobTickUpdate": {
       "name": "RocketOnEntityTicktier2"
     },

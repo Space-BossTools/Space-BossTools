@@ -30,7 +30,7 @@
     "inventorySize": 9,
     "inventoryStackSize": 64,
     "onRightClickedOnBlock": {
-      "name": "Tier1RocketItemRightClickedOnBlock"
+      "name": "Tier1RocketItemPlaced"
     }
   }
 }

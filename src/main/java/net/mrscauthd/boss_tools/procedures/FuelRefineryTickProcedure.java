@@ -65,6 +65,7 @@ public class FuelRefineryTickProcedure extends BossToolsModElements.ModElement {
 		double z = dependencies.get("z") instanceof Integer ? (int) dependencies.get("z") : (double) dependencies.get("z");
 		IWorld world = (IWorld) dependencies.get("world");
 		double previousRecepie = 0;
+		double previousRecipe = 0;
 		previousRecepie = (double) (new Object() {
 			public double getValue(IWorld world, BlockPos pos, String tag) {
 				TileEntity tileEntity = world.getTileEntity(pos);

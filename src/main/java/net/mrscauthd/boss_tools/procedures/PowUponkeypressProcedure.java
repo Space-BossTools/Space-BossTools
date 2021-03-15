@@ -1,6 +1,5 @@
 package net.mrscauthd.boss_tools.procedures;
 
-import net.mrscauthd.boss_tools.potion.Rocketpotion2Potion;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
@@ -13,9 +12,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.potion.EffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Entity;
 
 import java.util.Map;
@@ -60,9 +57,6 @@ public class PowUponkeypressProcedure extends BossToolsModElements.ModElement {
 		if (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)) {
 			if ((((entity.getRidingEntity()).getPersistentData().getBoolean("Powup_trigger")) == (false))) {
 				if ((((entity.getRidingEntity()).getPersistentData().getDouble("fuel")) == 400)) {
-					if ((entity.getRidingEntity()) instanceof LivingEntity)
-						((LivingEntity) (entity.getRidingEntity()))
-								.addPotionEffect(new EffectInstance(Rocketpotion2Potion.potion, (int) 99999, (int) 13, (false), (false)));
 					if (world instanceof World && !world.isRemote()) {
 						((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
 								(net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("boss_tools:rocketfly")),

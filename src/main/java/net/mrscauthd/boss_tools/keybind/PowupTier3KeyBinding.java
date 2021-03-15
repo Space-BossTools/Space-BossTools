@@ -39,7 +39,7 @@ public class PowupTier3KeyBinding extends BossToolsModElements.ModElement {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void initElements() {
-		keys = new KeyBinding("key.mcreator.powup_tier_3", GLFW.GLFW_KEY_SPACE, "key.categories.spacebosstools");
+		keys = new KeyBinding("key.mcreator.rocket_start_3", GLFW.GLFW_KEY_SPACE, "key.categories.spacebosstools");
 		ClientRegistry.registerKeyBinding(keys);
 		MinecraftForge.EVENT_BUS.register(this);
 	}

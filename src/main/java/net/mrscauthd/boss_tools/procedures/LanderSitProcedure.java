@@ -122,6 +122,7 @@ public class LanderSitProcedure extends BossToolsModElements.ModElement {
 												}
 											});
 								}
+								entity.getPersistentData().putDouble("Bucket", 0);
 							}
 						}
 						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
@@ -137,6 +138,7 @@ public class LanderSitProcedure extends BossToolsModElements.ModElement {
 												}
 											});
 								}
+								entity.getPersistentData().putDouble("Bucket", 0);
 							}
 						}
 					}
@@ -191,6 +193,7 @@ public class LanderSitProcedure extends BossToolsModElements.ModElement {
 												}
 											});
 								}
+								entity.getPersistentData().putDouble("Bucket", 0);
 							}
 						}
 						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
@@ -206,6 +209,7 @@ public class LanderSitProcedure extends BossToolsModElements.ModElement {
 												}
 											});
 								}
+								entity.getPersistentData().putDouble("Bucket", 0);
 							}
 						}
 					}
@@ -260,6 +264,7 @@ public class LanderSitProcedure extends BossToolsModElements.ModElement {
 												}
 											});
 								}
+								entity.getPersistentData().putDouble("Bucket", 0);
 							}
 						}
 						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
@@ -275,6 +280,7 @@ public class LanderSitProcedure extends BossToolsModElements.ModElement {
 												}
 											});
 								}
+								entity.getPersistentData().putDouble("Bucket", 0);
 							}
 						}
 					}

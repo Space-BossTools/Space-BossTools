@@ -60,32 +60,6 @@ public class RocketOnEntityTickUpdateProcedure extends BossToolsModElements.ModE
 		double y = dependencies.get("y") instanceof Integer ? (int) dependencies.get("y") : (double) dependencies.get("y");
 		double z = dependencies.get("z") instanceof Integer ? (int) dependencies.get("z") : (double) dependencies.get("z");
 		IWorld world = (IWorld) dependencies.get("world");
-		if ((entity.isBeingRidden())) {
-			if (((entity.getPosY()) >= 600)) {
-				if (((entity.getPersistentData().getDouble("Powup_trigger")) == 1)) {
-					if (world instanceof ServerWorld) {
-						((World) world).getServer().getCommandManager().handleCommand(
-								new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-										new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-								"/stopsound @p neutral boss_tools:rocketfly");
-					}
-					if (world instanceof ServerWorld) {
-						((World) world).getServer().getCommandManager().handleCommand(
-								new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-										new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-								"/effect give @p boss_tools:rocketpotion_7 999999 1 true");
-					}
-					if (world instanceof ServerWorld) {
-						((World) world).getServer().getCommandManager().handleCommand(
-								new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-										new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-								"/effect give @p boss_tools:player_movement 999999 1 true");
-					}
-					if (!entity.world.isRemote())
-						entity.remove();
-				}
-			}
-		}
 		if (((entity.getPersistentData().getDouble("Powup_trigger")) == 1)) {
 			if (((entity.getPersistentData().getDouble("fly")) >= 200)) {
 				if (world instanceof ServerWorld) {

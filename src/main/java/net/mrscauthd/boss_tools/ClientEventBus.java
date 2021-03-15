@@ -138,18 +138,11 @@ public class ClientEventBus {
 																							// 1.0F
 								RenderSystem.color4f(1.0F, 1.0F, 1.0F, f11);
 								matrixStack.rotate(Vector3f.YP.rotationDegrees(-90.0F));
-								matrixStack.rotate(Vector3f.XP.rotationDegrees(world.func_242415_f(partialTicks) * 360.0F));
+								//matrixStack.rotate(Vector3f.XP.rotationDegrees(world.func_242415_f(partialTicks) * 360.0F));
+								matrixStack.rotate(Vector3f.XP.rotationDegrees(180.0F /*world.func_242415_f(partialTicks) * 360.0F */));
+								matrixStack.rotate(Vector3f.ZP.rotationDegrees(30.0F));
 								matrix4f1 = matrixStack.getLast().getMatrix();
 								float f12 = 30.0F;
-								mc.getTextureManager().bindTexture(SUN_TEXTURES);
-								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-								bufferbuilder.pos(matrix4f1, -f12, 100.0F, -f12).tex(0.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, f12, 100.0F, -f12).tex(1.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, f12, 100.0F, f12).tex(1.0F, 1.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, -f12, 100.0F, f12).tex(0.0F, 1.0F).endVertex();
-								bufferbuilder.finishDrawing();
-								WorldVertexBufferUploader.draw(bufferbuilder);
-								f12 = 20.0F;
 								mc.getTextureManager().bindTexture(MOON_PHASES_TEXTURES);
 								int k = world.getMoonPhase();
 								int l = k % 4;
@@ -159,16 +152,6 @@ public class ClientEventBus {
 								float f15 = (float) (l + 1) / 4.0F;
 								float f16 = (float) (i1 + 1) / 2.0F;
 								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-							//	bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(f15, f16).endVertex();
-							//	bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(f13, f16).endVertex();
-							//	bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(f13, f14).endVertex();
-							//	bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(f15, f14).endVertex();
-							//New System
-							//	bufferbuilder.pos(matrix4f1, -35, -100.0F, 35).tex(0.0F, 0.0F).endVertex();
-							//	bufferbuilder.pos(matrix4f1, 35, -100.0F, 35).tex(1.0F, 0.0F).endVertex();
-							//	bufferbuilder.pos(matrix4f1, 35, -100.0F, -35).tex(1.0F, 1.0F).endVertex();
-							//	bufferbuilder.pos(matrix4f1, -35, -100.0F, -35).tex(0.0F, 1.0F).endVertex();
-							//new Texture
 								bufferbuilder.pos(matrix4f1, -9, -100.0F, 9).tex(0.0F, 0.0F).endVertex();
 								bufferbuilder.pos(matrix4f1, 9, -100.0F, 9).tex(1.0F, 0.0F).endVertex();
 								bufferbuilder.pos(matrix4f1, 9, -100.0F, -9).tex(1.0F, 1.0F).endVertex();
@@ -185,7 +168,20 @@ public class ClientEventBus {
 								bufferbuilder.finishDrawing();
 								WorldVertexBufferUploader.draw(bufferbuilder);
 								//Earth Light end
+								//matrixStack.rotate(Vector3f.YP.rotationDegrees(-90.0F));
+								matrixStack.rotate(Vector3f.ZP.rotationDegrees(-30.0F));
+								matrixStack.rotate(Vector3f.XP.rotationDegrees(world.func_242415_f(partialTicks) * 360.0F));
+								matrix4f1 = matrixStack.getLast().getMatrix();
+								mc.getTextureManager().bindTexture(SUN_TEXTURES);
+								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+								bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(0.0F, 0.0F).endVertex();
+								bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(1.0F, 0.0F).endVertex();
+								bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(1.0F, 1.0F).endVertex();
+								bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(0.0F, 1.0F).endVertex();
+								bufferbuilder.finishDrawing();
+								WorldVertexBufferUploader.draw(bufferbuilder);
 								RenderSystem.disableTexture();
+								f12 = 20.0F;
 								// f11 = 1000.0F;// Star Brightness
 								float f10 = 1.0F;// world.getStarBrightness(partialTicks) * f11;
 								// f11

@@ -1,6 +1,9 @@
 
 package net.mrscauthd.boss_tools.gui;
 
+import net.mrscauthd.boss_tools.procedures.OpenTier1mainMenu4Procedure;
+import net.mrscauthd.boss_tools.procedures.OpenTier1mainMenu3Procedure;
+import net.mrscauthd.boss_tools.procedures.OpenTier1mainMenu2Procedure;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.items.ItemStackHandler;
@@ -174,6 +177,27 @@ public class Tier1mainMenuGui extends BossToolsModElements.ModElement {
 		// security measure to prevent arbitrary chunk generation
 		if (!world.isBlockLoaded(new BlockPos(x, y, z)))
 			return;
+		if (buttonID == 0) {
+			{
+				Map<String, Object> $_dependencies = new HashMap<>();
+				$_dependencies.put("entity", entity);
+				OpenTier1mainMenu2Procedure.executeProcedure($_dependencies);
+			}
+		}
+		if (buttonID == 1) {
+			{
+				Map<String, Object> $_dependencies = new HashMap<>();
+				$_dependencies.put("entity", entity);
+				OpenTier1mainMenu3Procedure.executeProcedure($_dependencies);
+			}
+		}
+		if (buttonID == 2) {
+			{
+				Map<String, Object> $_dependencies = new HashMap<>();
+				$_dependencies.put("entity", entity);
+				OpenTier1mainMenu4Procedure.executeProcedure($_dependencies);
+			}
+		}
 	}
 
 	private static void handleSlotAction(PlayerEntity entity, int slotID, int changeType, int meta, int x, int y, int z) {

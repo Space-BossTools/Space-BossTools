@@ -19,25 +19,25 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.IWorld;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector2f;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.potion.Effects;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.network.play.server.SPlayerAbilitiesPacket;
+import net.minecraft.network.play.server.SPlayEntityEffectPacket;
+import net.minecraft.network.play.server.SChangeGameStatePacket;
 import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.command.ICommandSource;
-import net.minecraft.command.CommandSource;
 import net.minecraft.block.Blocks;
 
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Collections;
 
 @BossToolsModElements.ModElement.Tag
 public class LandingGearfalltoworldProcedure extends BossToolsModElements.ModElement {
@@ -52,30 +52,12 @@ public class LandingGearfalltoworldProcedure extends BossToolsModElements.ModEle
 				BossToolsMod.LOGGER.warn("Failed to load dependency entity for procedure LandingGearfalltoworld!");
 			return;
 		}
-		if (dependencies.get("x") == null) {
-			if (!dependencies.containsKey("x"))
-				BossToolsMod.LOGGER.warn("Failed to load dependency x for procedure LandingGearfalltoworld!");
-			return;
-		}
-		if (dependencies.get("y") == null) {
-			if (!dependencies.containsKey("y"))
-				BossToolsMod.LOGGER.warn("Failed to load dependency y for procedure LandingGearfalltoworld!");
-			return;
-		}
-		if (dependencies.get("z") == null) {
-			if (!dependencies.containsKey("z"))
-				BossToolsMod.LOGGER.warn("Failed to load dependency z for procedure LandingGearfalltoworld!");
-			return;
-		}
 		if (dependencies.get("world") == null) {
 			if (!dependencies.containsKey("world"))
 				BossToolsMod.LOGGER.warn("Failed to load dependency world for procedure LandingGearfalltoworld!");
 			return;
 		}
 		Entity entity = (Entity) dependencies.get("entity");
-		double x = dependencies.get("x") instanceof Integer ? (int) dependencies.get("x") : (double) dependencies.get("x");
-		double y = dependencies.get("y") instanceof Integer ? (int) dependencies.get("y") : (double) dependencies.get("y");
-		double z = dependencies.get("z") instanceof Integer ? (int) dependencies.get("z") : (double) dependencies.get("z");
 		IWorld world = (IWorld) dependencies.get("world");
 		if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
 			if ((((entity.getRidingEntity()).getPersistentData().getDouble("Lander2")) == 1)) {
@@ -203,17 +185,41 @@ public class LandingGearfalltoworldProcedure extends BossToolsModElements.ModEle
 			}
 		}
 		if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
-			if ((world.func_241828_r().getRegistry(Registry.BIOME_KEY).getKey(world.getBiome(new BlockPos((int) x, (int) y, (int) z))) != null
-					&& world.func_241828_r().getRegistry(Registry.BIOME_KEY).getKey(world.getBiome(new BlockPos((int) x, (int) y, (int) z)))
-							.equals(new ResourceLocation("boss_tools:orbit_overworld_biom")))) {
-				if ((((entity.getRidingEntity()).getPosY()) < 1)) {
+			if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+					new ResourceLocation("boss_tools:umlaufbahnerde"))))) {
+				if ((((entity.getRidingEntity()).getPosY()) <= 1)) {
 					if (!(entity.getRidingEntity()).world.isRemote())
 						(entity.getRidingEntity()).remove();
-					if (world instanceof ServerWorld) {
-						((World) world).getServer().getCommandManager().handleCommand(
-								new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-										new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-								"/execute in minecraft:overworld run teleport @p ~ 500 ~");
+					if ((!((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (World.OVERWORLD)))) {
+						{
+							Entity _ent = entity;
+							if (!_ent.world.isRemote && _ent instanceof ServerPlayerEntity) {
+								RegistryKey<World> destinationType = World.OVERWORLD;
+								ServerWorld nextWorld = _ent.getServer().getWorld(destinationType);
+								if (nextWorld != null) {
+									((ServerPlayerEntity) _ent).connection
+											.sendPacket(new SChangeGameStatePacket(SChangeGameStatePacket.field_241768_e_, 0));
+									((ServerPlayerEntity) _ent).teleport(nextWorld, nextWorld.getSpawnPoint().getX(), 700,
+											nextWorld.getSpawnPoint().getZ(), _ent.rotationYaw, _ent.rotationPitch);
+									((ServerPlayerEntity) _ent).connection
+											.sendPacket(new SPlayerAbilitiesPacket(((ServerPlayerEntity) _ent).abilities));
+									for (EffectInstance effectinstance : ((ServerPlayerEntity) _ent).getActivePotionEffects()) {
+										((ServerPlayerEntity) _ent).connection
+												.sendPacket(new SPlayEntityEffectPacket(_ent.getEntityId(), effectinstance));
+									}
+								}
+							}
+						}
+					}
+					if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (World.OVERWORLD))) {
+						{
+							Entity _ent = entity;
+							_ent.setPositionAndUpdate((entity.getPosX()), 700, (entity.getPosZ()));
+							if (_ent instanceof ServerPlayerEntity) {
+								((ServerPlayerEntity) _ent).connection.setPlayerLocation((entity.getPosX()), 700, (entity.getPosZ()),
+										_ent.rotationYaw, _ent.rotationPitch, Collections.emptySet());
+							}
+						}
 					}
 					if (((world.isRemote()) == (false))) {
 						Entity entity2 = new LandingGearEntity.CustomEntity(LandingGearEntity.entity, entity.world);
@@ -344,17 +350,44 @@ public class LandingGearfalltoworldProcedure extends BossToolsModElements.ModEle
 					}
 				}
 			}
-			if ((world.func_241828_r().getRegistry(Registry.BIOME_KEY).getKey(world.getBiome(new BlockPos((int) x, (int) y, (int) z))) != null
-					&& world.func_241828_r().getRegistry(Registry.BIOME_KEY).getKey(world.getBiome(new BlockPos((int) x, (int) y, (int) z)))
-							.equals(new ResourceLocation("boss_tools:orbit_moon_biom")))) {
-				if ((((entity.getRidingEntity()).getPosY()) < 1)) {
+			if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+					new ResourceLocation("boss_tools:orbit_moon"))))) {
+				if ((((entity.getRidingEntity()).getPosY()) <= 1)) {
 					if (!(entity.getRidingEntity()).world.isRemote())
 						(entity.getRidingEntity()).remove();
-					if (world instanceof ServerWorld) {
-						((World) world).getServer().getCommandManager().handleCommand(
-								new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-										new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-								"/execute in boss_tools:moon run teleport @p ~ 500 ~");
+					if ((!((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
+							.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon")))))) {
+						{
+							Entity _ent = entity;
+							if (!_ent.world.isRemote && _ent instanceof ServerPlayerEntity) {
+								RegistryKey<World> destinationType = RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+										new ResourceLocation("boss_tools:moon"));
+								ServerWorld nextWorld = _ent.getServer().getWorld(destinationType);
+								if (nextWorld != null) {
+									((ServerPlayerEntity) _ent).connection
+											.sendPacket(new SChangeGameStatePacket(SChangeGameStatePacket.field_241768_e_, 0));
+									((ServerPlayerEntity) _ent).teleport(nextWorld, nextWorld.getSpawnPoint().getX(), 700,
+											nextWorld.getSpawnPoint().getZ(), _ent.rotationYaw, _ent.rotationPitch);
+									((ServerPlayerEntity) _ent).connection
+											.sendPacket(new SPlayerAbilitiesPacket(((ServerPlayerEntity) _ent).abilities));
+									for (EffectInstance effectinstance : ((ServerPlayerEntity) _ent).getActivePotionEffects()) {
+										((ServerPlayerEntity) _ent).connection
+												.sendPacket(new SPlayEntityEffectPacket(_ent.getEntityId(), effectinstance));
+									}
+								}
+							}
+						}
+					}
+					if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
+							.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon"))))) {
+						{
+							Entity _ent = entity;
+							_ent.setPositionAndUpdate((entity.getPosX()), 700, (entity.getPosZ()));
+							if (_ent instanceof ServerPlayerEntity) {
+								((ServerPlayerEntity) _ent).connection.setPlayerLocation((entity.getPosX()), 700, (entity.getPosZ()),
+										_ent.rotationYaw, _ent.rotationPitch, Collections.emptySet());
+							}
+						}
 					}
 					if (((world.isRemote()) == (false))) {
 						Entity entity2 = new LandingGearEntity.CustomEntity(LandingGearEntity.entity, entity.world);
@@ -485,17 +518,44 @@ public class LandingGearfalltoworldProcedure extends BossToolsModElements.ModEle
 					}
 				}
 			}
-			if ((world.func_241828_r().getRegistry(Registry.BIOME_KEY).getKey(world.getBiome(new BlockPos((int) x, (int) y, (int) z))) != null
-					&& world.func_241828_r().getRegistry(Registry.BIOME_KEY).getKey(world.getBiome(new BlockPos((int) x, (int) y, (int) z)))
-							.equals(new ResourceLocation("boss_tools:orbit_mars_biom")))) {
-				if ((((entity.getRidingEntity()).getPosY()) < 1)) {
+			if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+					new ResourceLocation("boss_tools:orbit_mars"))))) {
+				if ((((entity.getRidingEntity()).getPosY()) <= 1)) {
 					if (!(entity.getRidingEntity()).world.isRemote())
 						(entity.getRidingEntity()).remove();
-					if (world instanceof ServerWorld) {
-						((World) world).getServer().getCommandManager().handleCommand(
-								new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-										new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-								"/execute in boss_tools:mars run teleport @p ~ 500 ~");
+					if ((!((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
+							.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars")))))) {
+						{
+							Entity _ent = entity;
+							if (!_ent.world.isRemote && _ent instanceof ServerPlayerEntity) {
+								RegistryKey<World> destinationType = RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+										new ResourceLocation("boss_tools:mars"));
+								ServerWorld nextWorld = _ent.getServer().getWorld(destinationType);
+								if (nextWorld != null) {
+									((ServerPlayerEntity) _ent).connection
+											.sendPacket(new SChangeGameStatePacket(SChangeGameStatePacket.field_241768_e_, 0));
+									((ServerPlayerEntity) _ent).teleport(nextWorld, nextWorld.getSpawnPoint().getX(), 700,
+											nextWorld.getSpawnPoint().getZ(), _ent.rotationYaw, _ent.rotationPitch);
+									((ServerPlayerEntity) _ent).connection
+											.sendPacket(new SPlayerAbilitiesPacket(((ServerPlayerEntity) _ent).abilities));
+									for (EffectInstance effectinstance : ((ServerPlayerEntity) _ent).getActivePotionEffects()) {
+										((ServerPlayerEntity) _ent).connection
+												.sendPacket(new SPlayEntityEffectPacket(_ent.getEntityId(), effectinstance));
+									}
+								}
+							}
+						}
+					}
+					if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
+							.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars"))))) {
+						{
+							Entity _ent = entity;
+							_ent.setPositionAndUpdate((entity.getPosX()), 700, (entity.getPosZ()));
+							if (_ent instanceof ServerPlayerEntity) {
+								((ServerPlayerEntity) _ent).connection.setPlayerLocation((entity.getPosX()), 700, (entity.getPosZ()),
+										_ent.rotationYaw, _ent.rotationPitch, Collections.emptySet());
+							}
+						}
 					}
 					if (((world.isRemote()) == (false))) {
 						Entity entity2 = new LandingGearEntity.CustomEntity(LandingGearEntity.entity, entity.world);
@@ -626,17 +686,44 @@ public class LandingGearfalltoworldProcedure extends BossToolsModElements.ModEle
 					}
 				}
 			}
-			if ((world.func_241828_r().getRegistry(Registry.BIOME_KEY).getKey(world.getBiome(new BlockPos((int) x, (int) y, (int) z))) != null
-					&& world.func_241828_r().getRegistry(Registry.BIOME_KEY).getKey(world.getBiome(new BlockPos((int) x, (int) y, (int) z)))
-							.equals(new ResourceLocation("boss_tools:orbit_mercury_biom")))) {
-				if ((((entity.getRidingEntity()).getPosY()) < 1)) {
+			if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+					new ResourceLocation("boss_tools:orbit_mercury"))))) {
+				if ((((entity.getRidingEntity()).getPosY()) <= 1)) {
 					if (!(entity.getRidingEntity()).world.isRemote())
 						(entity.getRidingEntity()).remove();
-					if (world instanceof ServerWorld) {
-						((World) world).getServer().getCommandManager().handleCommand(
-								new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-										new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-								"/execute in boss_tools:mercury run teleport @p ~ 500 ~");
+					if ((!((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
+							.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury")))))) {
+						{
+							Entity _ent = entity;
+							if (!_ent.world.isRemote && _ent instanceof ServerPlayerEntity) {
+								RegistryKey<World> destinationType = RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+										new ResourceLocation("boss_tools:mercury"));
+								ServerWorld nextWorld = _ent.getServer().getWorld(destinationType);
+								if (nextWorld != null) {
+									((ServerPlayerEntity) _ent).connection
+											.sendPacket(new SChangeGameStatePacket(SChangeGameStatePacket.field_241768_e_, 0));
+									((ServerPlayerEntity) _ent).teleport(nextWorld, nextWorld.getSpawnPoint().getX(), 700,
+											nextWorld.getSpawnPoint().getZ(), _ent.rotationYaw, _ent.rotationPitch);
+									((ServerPlayerEntity) _ent).connection
+											.sendPacket(new SPlayerAbilitiesPacket(((ServerPlayerEntity) _ent).abilities));
+									for (EffectInstance effectinstance : ((ServerPlayerEntity) _ent).getActivePotionEffects()) {
+										((ServerPlayerEntity) _ent).connection
+												.sendPacket(new SPlayEntityEffectPacket(_ent.getEntityId(), effectinstance));
+									}
+								}
+							}
+						}
+					}
+					if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
+							.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury"))))) {
+						{
+							Entity _ent = entity;
+							_ent.setPositionAndUpdate((entity.getPosX()), 700, (entity.getPosZ()));
+							if (_ent instanceof ServerPlayerEntity) {
+								((ServerPlayerEntity) _ent).connection.setPlayerLocation((entity.getPosX()), 700, (entity.getPosZ()),
+										_ent.rotationYaw, _ent.rotationPitch, Collections.emptySet());
+							}
+						}
 					}
 					if (((world.isRemote()) == (false))) {
 						Entity entity2 = new LandingGearEntity.CustomEntity(LandingGearEntity.entity, entity.world);

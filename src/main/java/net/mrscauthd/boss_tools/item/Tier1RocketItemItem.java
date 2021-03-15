@@ -1,7 +1,7 @@
 
 package net.mrscauthd.boss_tools.item;
 
-import net.mrscauthd.boss_tools.procedures.Tier1RocketItemRightClickedOnBlockProcedure;
+import net.mrscauthd.boss_tools.procedures.Tier1RocketItemPlacedProcedure;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
@@ -72,7 +72,7 @@ public class Tier1RocketItemItem extends BossToolsModElements.ModElement {
 				$_dependencies.put("y", y);
 				$_dependencies.put("z", z);
 				$_dependencies.put("world", world);
-				Tier1RocketItemRightClickedOnBlockProcedure.executeProcedure($_dependencies);
+				Tier1RocketItemPlacedProcedure.executeProcedure($_dependencies);
 			}
 			return retval;
 		}

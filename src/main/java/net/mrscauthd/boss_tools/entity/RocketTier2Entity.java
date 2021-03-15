@@ -1,7 +1,6 @@
 
 package net.mrscauthd.boss_tools.entity;
 
-import net.mrscauthd.boss_tools.procedures.Rocketrightclicktir2Procedure;
 import net.mrscauthd.boss_tools.procedures.Rockethurtentity2Procedure;
 import net.mrscauthd.boss_tools.procedures.RocketOnEntityTicktier2Procedure;
 import net.mrscauthd.boss_tools.gui.RocketTier2GuiFuelGui;
@@ -83,7 +82,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 public class RocketTier2Entity extends BossToolsModElements.ModElement {
 	public static EntityType entity = null;
 	public RocketTier2Entity(BossToolsModElements instance) {
-		super(instance, 60);
+		super(instance, 14);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new ModelRegisterHandler());
 		NetworkLoader.registerMessages();
 	}
@@ -275,10 +274,6 @@ public class RocketTier2Entity extends BossToolsModElements.ModElement {
 			double y = this.getPosY();
 			double z = this.getPosZ();
 			Entity entity = this;
-			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				Rocketrightclicktir2Procedure.executeProcedure($_dependencies);
-			}
 			return retval;
 		}
 

@@ -6,6 +6,7 @@ import net.mrscauthd.boss_tools.BossToolsMod;
 import net.minecraft.world.World;
 import net.minecraft.world.IWorld;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.Block;
 
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class TorchUpdateTickProcedure extends BossToolsModElements.ModElement {
 	public TorchUpdateTickProcedure(BossToolsModElements instance) {
-		super(instance, 166);
+		super(instance, 755);
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {
@@ -41,7 +42,7 @@ public class TorchUpdateTickProcedure extends BossToolsModElements.ModElement {
 		double y = dependencies.get("y") instanceof Integer ? (int) dependencies.get("y") : (double) dependencies.get("y");
 		double z = dependencies.get("z") instanceof Integer ? (int) dependencies.get("z") : (double) dependencies.get("z");
 		IWorld world = (IWorld) dependencies.get("world");
-		if ((world.isAirBlock(new BlockPos((int) x, (int) (y - 1), (int) z)))) {
+		if (((world.getBlockState(new BlockPos((int) x, (int) (y - 1), (int) z))).getBlock() == Blocks.AIR.getDefaultState().getBlock())) {
 			if (world instanceof World) {
 				Block.spawnDrops(world.getBlockState(new BlockPos((int) x, (int) y, (int) z)), (World) world,
 						new BlockPos((int) x, (int) y, (int) z));

@@ -39,7 +39,7 @@ public class PowUpKeyBinding extends BossToolsModElements.ModElement {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void initElements() {
-		keys = new KeyBinding("key.mcreator.pow_up", GLFW.GLFW_KEY_SPACE, "key.categories.spacebosstools");
+		keys = new KeyBinding("key.mcreator.rocket_start", GLFW.GLFW_KEY_SPACE, "key.categories.spacebosstools");
 		ClientRegistry.registerKeyBinding(keys);
 		MinecraftForge.EVENT_BUS.register(this);
 	}

@@ -82,7 +82,7 @@ public class LandingGearOnEntityTickUpdateProcedure extends BossToolsModElements
 		}
 		if (((entity.getPersistentData().getDouble("Lander1")) == 1)) {
 			if (((entity.getMotion().getY()) >= (-0.01))) {
-				if (((entity.getPosY()) <= 495)) {
+				if (((entity.getPosY()) <= 695)) {
 					if (entity instanceof LivingEntity)
 						((LivingEntity) entity).clearActivePotions();
 					entity.getPersistentData().putDouble("Lander1", 0);
