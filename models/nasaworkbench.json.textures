@@ -3,9 +3,10 @@
     "default": {
       "map": {
         "1": "workbench_nasa_top",
-        "2": "model",
-        "3": "nasaworkbench",
+        "2": "workbench_nasa_top_2",
+        "3": "nasa_workbench_main",
         "4": "workbench_nasa_side",
+        "5": "workbench_nasa_holder",
         "missing": "workbench_nasa_top"
       },
       "name": "default"

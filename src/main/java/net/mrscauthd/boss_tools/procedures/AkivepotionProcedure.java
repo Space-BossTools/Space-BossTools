@@ -1,6 +1,5 @@
 package net.mrscauthd.boss_tools.procedures;
 
-import net.mrscauthd.boss_tools.potion.BulletGeneratorPotion;
 import net.mrscauthd.boss_tools.item.SpaceArmorItem;
 import net.mrscauthd.boss_tools.BossToolsModVariables;
 import net.mrscauthd.boss_tools.BossToolsModElements;
@@ -16,7 +15,6 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.DamageSource;
-import net.minecraft.potion.EffectInstance;
 import net.minecraft.item.ItemStack;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.entity.LivingEntity;
@@ -24,7 +22,6 @@ import net.minecraft.entity.Entity;
 
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Collection;
 
 @BossToolsModElements.ModElement.Tag
 public class AkivepotionProcedure extends BossToolsModElements.ModElement {
@@ -86,18 +83,7 @@ public class AkivepotionProcedure extends BossToolsModElements.ModElement {
 				}
 			}
 		}
-		if ((!(new Object() {
-			boolean check(Entity _entity) {
-				if (_entity instanceof LivingEntity) {
-					Collection<EffectInstance> effects = ((LivingEntity) _entity).getActivePotionEffects();
-					for (EffectInstance effect : effects) {
-						if (effect.getPotion() == BulletGeneratorPotion.potion)
-							return true;
-					}
-				}
-				return false;
-			}
-		}.check(entity)))) {
+		if ((!((entity.getPersistentData().getDouble("Oxygen_Bullet_Generator")) >= 0))) {
 			if ((!(((entity instanceof LivingEntity)
 					? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 0))
 					: ItemStack.EMPTY).getItem() == new ItemStack(SpaceArmorItem.helmet, (int) (1)).getItem()))) {
@@ -118,6 +104,15 @@ public class AkivepotionProcedure extends BossToolsModElements.ModElement {
 					: ItemStack.EMPTY).getItem() == new ItemStack(SpaceArmorItem.boots, (int) (1)).getItem()))) {
 				entity.getPersistentData().putBoolean("SpaceSuitB", (false));
 			}
+		}
+		if (((entity.getPersistentData().getDouble("Oxygen_Bullet_Generator")) >= 0)) {
+			entity.getPersistentData().putDouble("Oxygen_Bullet_Generator", ((entity.getPersistentData().getDouble("Oxygen_Bullet_Generator")) - 1));
+		}
+		if (((entity.getPersistentData().getDouble("Oxygen_Bullet_Generator")) == 1)) {
+			entity.getPersistentData().putBoolean("SpaceSuitH", (false));
+			entity.getPersistentData().putBoolean("SpaceSuitC", (false));
+			entity.getPersistentData().putBoolean("SpaceSuitL", (false));
+			entity.getPersistentData().putBoolean("SpaceSuitB", (false));
 		}
 	}
 
