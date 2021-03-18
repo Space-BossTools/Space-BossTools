@@ -5308,7 +5308,7 @@
       "type": "dimension",
       "sortid": 83,
       "compiles": true,
-      "locked_code": true,
+      "locked_code": false,
       "ids": {},
       "registry_name": "orbit_moon",
       "metadata": {
