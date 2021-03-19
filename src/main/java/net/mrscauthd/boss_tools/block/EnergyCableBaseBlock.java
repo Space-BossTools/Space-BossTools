@@ -34,6 +34,9 @@ import net.minecraft.util.Direction;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.LockableLootTileEntity;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.state.StateContainer;
+import net.minecraft.state.IntegerProperty;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.nbt.CompoundNBT;
@@ -92,9 +95,11 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 		RenderTypeLookup.setRenderLayer(block, RenderType.getCutout());
 	}
 	public static class CustomBlock extends Block {
+		public static IntegerProperty STATE = BlockStateProperties.AGE_0_5;
 		public CustomBlock() {
 			super(Block.Properties.create(Material.WOOD).sound(SoundType.STONE).hardnessAndResistance(0.5f, 10f).setLightLevel(s -> 0).notSolid()
 					.setOpaque((bs, br, bp) -> false));
+			this.setDefaultState(this.stateContainer.getBaseState().with(STATE, Integer.valueOf(0)));
 			setRegistryName("energy_cable");
 		}
 
@@ -103,6 +108,11 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 		public void addInformation(ItemStack itemstack, IBlockReader world, List<ITextComponent> list, ITooltipFlag flag) {
 			super.addInformation(itemstack, world, list, flag);
 			list.add(new StringTextComponent("\u00A79Capacity: \u00A771 FE/t"));
+		}
+
+		@Override
+		protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+			builder.add(STATE);
 		}
 
 		@Override
@@ -136,10 +146,83 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public void tick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-			super.tick(state, world, pos, random);
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
+			if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 0)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(0)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 1)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(1)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 2)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(2)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 3)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(3)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 4)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(4)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 5)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(5)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 6)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(6)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 7)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(7)), 3);
+			}
+			super.tick(state, world, pos, random);
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("x", x);

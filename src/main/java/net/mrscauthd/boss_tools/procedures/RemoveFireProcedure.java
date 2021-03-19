@@ -143,7 +143,7 @@ public class RemoveFireProcedure extends BossToolsModElements.ModElement {
 					((World) world).getServer().getCommandManager().handleCommand(
 							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
 									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/setblock ~ ~ ~ boss_tools:torch");
+							"/setblock ~ ~ ~ boss_tools:coal_torch");
 				}
 				if (world instanceof World && !world.isRemote()) {
 					((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
@@ -163,7 +163,7 @@ public class RemoveFireProcedure extends BossToolsModElements.ModElement {
 					((World) world).getServer().getCommandManager().handleCommand(
 							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
 									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/setblock ~ ~ ~ boss_tools:torch");
+							"/setblock ~ ~ ~ boss_tools:coal_torch");
 				}
 				if (world instanceof World && !world.isRemote()) {
 					((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
@@ -183,7 +183,7 @@ public class RemoveFireProcedure extends BossToolsModElements.ModElement {
 					((World) world).getServer().getCommandManager().handleCommand(
 							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
 									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/setblock ~ ~ ~ boss_tools:torch");
+							"/setblock ~ ~ ~ boss_tools:coal_torch");
 				}
 				if (world instanceof World && !world.isRemote()) {
 					((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
@@ -203,7 +203,7 @@ public class RemoveFireProcedure extends BossToolsModElements.ModElement {
 					((World) world).getServer().getCommandManager().handleCommand(
 							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
 									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/setblock ~ ~ ~ boss_tools:torch");
+							"/setblock ~ ~ ~ boss_tools:coal_torch");
 				}
 				if (world instanceof World && !world.isRemote()) {
 					((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
@@ -223,7 +223,7 @@ public class RemoveFireProcedure extends BossToolsModElements.ModElement {
 					((World) world).getServer().getCommandManager().handleCommand(
 							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
 									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/setblock ~ ~ ~ boss_tools:torch");
+							"/setblock ~ ~ ~ boss_tools:coal_torch");
 				}
 				if (world instanceof World && !world.isRemote()) {
 					((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
@@ -243,7 +243,7 @@ public class RemoveFireProcedure extends BossToolsModElements.ModElement {
 					((World) world).getServer().getCommandManager().handleCommand(
 							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
 									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/setblock ~ ~ ~ boss_tools:torch");
+							"/setblock ~ ~ ~ boss_tools:coal_torch");
 				}
 				if (world instanceof World && !world.isRemote()) {
 					((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
@@ -263,7 +263,7 @@ public class RemoveFireProcedure extends BossToolsModElements.ModElement {
 					((World) world).getServer().getCommandManager().handleCommand(
 							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
 									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/setblock ~ ~ ~ boss_tools:torch");
+							"/setblock ~ ~ ~ boss_tools:coal_torch");
 				}
 				if (world instanceof World && !world.isRemote()) {
 					((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
@@ -283,7 +283,7 @@ public class RemoveFireProcedure extends BossToolsModElements.ModElement {
 					((World) world).getServer().getCommandManager().handleCommand(
 							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
 									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/setblock ~ ~ ~ boss_tools:torch");
+							"/setblock ~ ~ ~ boss_tools:coal_torch");
 				}
 				if (world instanceof World && !world.isRemote()) {
 					((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
@@ -303,7 +303,7 @@ public class RemoveFireProcedure extends BossToolsModElements.ModElement {
 					((World) world).getServer().getCommandManager().handleCommand(
 							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
 									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/setblock ~ ~ ~ boss_tools:torch");
+							"/setblock ~ ~ ~ boss_tools:coal_torch");
 				}
 				if (world instanceof World && !world.isRemote()) {
 					((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
@@ -323,7 +323,7 @@ public class RemoveFireProcedure extends BossToolsModElements.ModElement {
 					((World) world).getServer().getCommandManager().handleCommand(
 							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
 									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/setblock ~ ~ ~ boss_tools:torch");
+							"/setblock ~ ~ ~ boss_tools:coal_torch");
 				}
 				if (world instanceof World && !world.isRemote()) {
 					((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
@@ -343,7 +343,7 @@ public class RemoveFireProcedure extends BossToolsModElements.ModElement {
 					((World) world).getServer().getCommandManager().handleCommand(
 							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
 									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/setblock ~ ~ ~ boss_tools:torch");
+							"/setblock ~ ~ ~ boss_tools:coal_torch");
 				}
 				if (world instanceof World && !world.isRemote()) {
 					((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
@@ -363,7 +363,7 @@ public class RemoveFireProcedure extends BossToolsModElements.ModElement {
 					((World) world).getServer().getCommandManager().handleCommand(
 							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
 									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/setblock ~ ~ ~ boss_tools:torch");
+							"/setblock ~ ~ ~ boss_tools:coal_torch");
 				}
 				if (world instanceof World && !world.isRemote()) {
 					((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
@@ -383,7 +383,7 @@ public class RemoveFireProcedure extends BossToolsModElements.ModElement {
 					((World) world).getServer().getCommandManager().handleCommand(
 							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
 									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/setblock ~ ~ ~ boss_tools:torch");
+							"/setblock ~ ~ ~ boss_tools:coal_torch");
 				}
 				if (world instanceof World && !world.isRemote()) {
 					((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
@@ -403,7 +403,7 @@ public class RemoveFireProcedure extends BossToolsModElements.ModElement {
 					((World) world).getServer().getCommandManager().handleCommand(
 							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
 									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/setblock ~ ~ ~ boss_tools:torch");
+							"/setblock ~ ~ ~ boss_tools:coal_torch");
 				}
 				if (world instanceof World && !world.isRemote()) {
 					((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
