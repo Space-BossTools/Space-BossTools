@@ -2,6 +2,7 @@
 package net.mrscauthd.boss_tools.block;
 
 import net.mrscauthd.boss_tools.procedures.EnergyCableBaseUpdateTickProcedure;
+import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ObjectHolder;
@@ -81,7 +82,7 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 	@Override
 	public void initElements() {
 		elements.blocks.add(() -> new CustomBlock());
-		elements.items.add(() -> new BlockItem(block, new Item.Properties().group(null)).setRegistryName(block.getRegistryName()));
+		elements.items.add(() -> new BlockItem(block, new Item.Properties().group(BossToolsItemGroup.tab)).setRegistryName(block.getRegistryName()));
 	}
 	private static class TileEntityRegisterHandler {
 		@SubscribeEvent
@@ -95,11 +96,12 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 		RenderTypeLookup.setRenderLayer(block, RenderType.getCutout());
 	}
 	public static class CustomBlock extends Block {
-		public static IntegerProperty STATE = BlockStateProperties.AGE_0_5;
+		public static final IntegerProperty STATE = BlockStateProperties.AGE_0_25;
+		public static final IntegerProperty LEVEL = BlockStateProperties.LEVEL_0_15;
 		public CustomBlock() {
-			super(Block.Properties.create(Material.WOOD).sound(SoundType.STONE).hardnessAndResistance(0.5f, 10f).setLightLevel(s -> 0).notSolid()
+			super(Block.Properties.create(Material.CARPET).sound(SoundType.STONE).hardnessAndResistance(0.5f, 10f).setLightLevel(s -> 0).notSolid()
 					.setOpaque((bs, br, bp) -> false));
-			this.setDefaultState(this.stateContainer.getBaseState().with(STATE, Integer.valueOf(0)));
+			this.setDefaultState(this.stateContainer.getBaseState().with(STATE, Integer.valueOf(0)).with(LEVEL, Integer.valueOf(0)));
 			setRegistryName("energy_cable");
 		}
 
@@ -112,7 +114,7 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-			builder.add(STATE);
+			builder.add(STATE, LEVEL);
 		}
 
 		@Override
@@ -221,6 +223,215 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 				}
 			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 7)) {
 				world.setBlockState(pos, state.with(STATE, Integer.valueOf(7)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 8)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(8)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 9)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(9)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 10)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(10)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 11)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(11)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 12)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(12)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 13)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(13)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 14)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(14)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 15)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(15)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 16)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(16)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 17)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(17)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 18)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(18)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 19)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(19)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 20)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(20)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 21)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(21)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 22)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(22)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 23)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(23)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 24)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(24)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 25)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(25)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 26)) {
+				world.setBlockState(pos, state.with(STATE, Integer.valueOf(26)), 3);
+			}
+			// New Objekt
+			if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "statusl")) == 0)) {
+				world.setBlockState(pos, state.with(LEVEL, Integer.valueOf(0)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "statusl")) == 1)) {
+				world.setBlockState(pos, state.with(LEVEL, Integer.valueOf(1)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "statusl")) == 2)) {
+				world.setBlockState(pos, state.with(LEVEL, Integer.valueOf(2)), 3);
+			} else if (((new Object() {
+				public double getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getDouble(tag);
+					return -1;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "statusl")) == 3)) {
+				world.setBlockState(pos, state.with(LEVEL, Integer.valueOf(3)), 3);
 			}
 			super.tick(state, world, pos, random);
 			{

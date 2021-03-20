@@ -378,6 +378,15 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				if (world instanceof World)
 					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
 		}
 		if (((new Object() {
 			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
@@ -433,7 +442,16 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				TileEntity _tileEntity = world.getTileEntity(_bp);
 				BlockState _bs = world.getBlockState(_bp);
 				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 1);
+					_tileEntity.getTileData().putDouble("status", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("statusl", 1);
 				if (world instanceof World)
 					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 			}
@@ -492,7 +510,16 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				TileEntity _tileEntity = world.getTileEntity(_bp);
 				BlockState _bs = world.getBlockState(_bp);
 				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 2);
+					_tileEntity.getTileData().putDouble("status", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("statusl", 2);
 				if (world instanceof World)
 					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 			}
@@ -551,7 +578,16 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				TileEntity _tileEntity = world.getTileEntity(_bp);
 				BlockState _bs = world.getBlockState(_bp);
 				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 3);
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("status", 1);
 				if (world instanceof World)
 					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 			}
@@ -577,7 +613,7 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
 				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
 				return _retval.get();
 			}
 		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z)))) && ((new Object() {
@@ -610,7 +646,16 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				TileEntity _tileEntity = world.getTileEntity(_bp);
 				BlockState _bs = world.getBlockState(_bp);
 				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 4);
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("status", 2);
 				if (world instanceof World)
 					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 			}
@@ -669,7 +714,16 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				TileEntity _tileEntity = world.getTileEntity(_bp);
 				BlockState _bs = world.getBlockState(_bp);
 				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 5);
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("status", 3);
 				if (world instanceof World)
 					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 			}
@@ -728,11 +782,20 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				TileEntity _tileEntity = world.getTileEntity(_bp);
 				BlockState _bs = world.getBlockState(_bp);
 				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 6);
+					_tileEntity.getTileData().putDouble("statusl", 0);
 				if (world instanceof World)
 					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 			}
-		}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("status", 4);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+		} // Logic
 		if (((new Object() {
 			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
 				AtomicBoolean _retval = new AtomicBoolean(false);
@@ -754,10 +817,10 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
 				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
 				return _retval.get();
 			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z)))) && ((!(new Object() {
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z)))) && ((!(new Object() {
 			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
@@ -795,7 +858,16 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				TileEntity _tileEntity = world.getTileEntity(_bp);
 				BlockState _bs = world.getBlockState(_bp);
 				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 7);
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("status", 5);
 				if (world instanceof World)
 					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 			}
@@ -821,10 +893,10 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
 				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
 				return _retval.get();
 			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z))) && ((!(new Object() {
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z))) && ((!(new Object() {
 			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
@@ -857,6 +929,167 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				return _retval.get();
 			}
 		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z - 1)))))))))))) {
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("status", 6);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+		}
+		if (((new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.UP).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y + 1), (int) z))) && ((!(new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z)))) && ((!(new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z)))) && ((new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) (x - 1), (int) y, (int) z))) && ((!(new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z)))) && ((!(new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.NORTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z + 1))))) && (!(new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.NORTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z - 1)))))))))))) {
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("status", 7);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+		}
+		if (((new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.UP).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y + 1), (int) z))) && ((!(new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z)))) && ((!(new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z)))) && ((!(new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) (x - 1), (int) y, (int) z)))) && ((new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z))) && ((!(new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.NORTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z + 1))))) && (!(new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.NORTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z - 1)))))))))))) {
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
 			if (!world.isRemote()) {
 				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
 				TileEntity _tileEntity = world.getTileEntity(_bp);
@@ -888,22 +1121,6 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
 				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z)))) && ((new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) (x - 1), (int) y, (int) z))) && ((!(new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
 					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
 				return _retval.get();
 			}
@@ -912,10 +1129,26 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
 				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) (x - 1), (int) y, (int) z)))) && ((!(new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z)))) && ((new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
 					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.NORTH).ifPresent(capability -> _retval.set(capability.canReceive()));
 				return _retval.get();
 			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z + 1))))) && (!(new Object() {
+		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z + 1)))) && (!(new Object() {
 			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
@@ -924,6 +1157,15 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				return _retval.get();
 			}
 		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z - 1)))))))))))) {
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
 			if (!world.isRemote()) {
 				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
 				TileEntity _tileEntity = world.getTileEntity(_bp);
@@ -955,144 +1197,10 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
 				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z)))) && ((!(new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
 					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
 				return _retval.get();
 			}
-		}.canReceiveEnergy(world, new BlockPos((int) (x - 1), (int) y, (int) z)))) && ((new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z))) && ((!(new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.NORTH).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z + 1))))) && (!(new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.NORTH).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z - 1)))))))))))) {
-			if (!world.isRemote()) {
-				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
-				TileEntity _tileEntity = world.getTileEntity(_bp);
-				BlockState _bs = world.getBlockState(_bp);
-				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 10);
-				if (world instanceof World)
-					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
-			}
-		}
-		if (((new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.UP).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y + 1), (int) z))) && ((!(new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z)))) && ((!(new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z)))) && ((!(new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) (x - 1), (int) y, (int) z)))) && ((!(new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z)))) && ((new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.NORTH).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z + 1)))) && (!(new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.NORTH).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z - 1)))))))))))) {
-			if (!world.isRemote()) {
-				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
-				TileEntity _tileEntity = world.getTileEntity(_bp);
-				BlockState _bs = world.getBlockState(_bp);
-				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 11);
-				if (world instanceof World)
-					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
-			}
-		}
-		if (((new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.UP).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y + 1), (int) z))) && ((!(new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z)))) && ((!(new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z)))) && ((!(new Object() {
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z)))) && ((!(new Object() {
 			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
@@ -1130,7 +1238,16 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				TileEntity _tileEntity = world.getTileEntity(_bp);
 				BlockState _bs = world.getBlockState(_bp);
 				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 12);
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("status", 10);
 				if (world instanceof World)
 					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 			}
@@ -1156,10 +1273,10 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
 				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
 				return _retval.get();
 			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z))) && ((!(new Object() {
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z))) && ((!(new Object() {
 			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
@@ -1192,6 +1309,167 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				return _retval.get();
 			}
 		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z - 1)))))))))))) {
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("status", 11);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+		}
+		if (((!(new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.UP).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y + 1), (int) z)))) && ((new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z))) && ((!(new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z)))) && ((new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) (x - 1), (int) y, (int) z))) && ((!(new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z)))) && ((!(new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.NORTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z + 1))))) && (!(new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.NORTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z - 1)))))))))))) {
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("status", 12);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+		}
+		if (((!(new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.UP).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y + 1), (int) z)))) && ((new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z))) && ((!(new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z)))) && ((!(new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) (x - 1), (int) y, (int) z)))) && ((new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z))) && ((!(new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.NORTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z + 1))))) && (!(new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.NORTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z - 1)))))))))))) {
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
 			if (!world.isRemote()) {
 				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
 				TileEntity _tileEntity = world.getTileEntity(_bp);
@@ -1223,22 +1501,6 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
 				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z)))) && ((new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) (x - 1), (int) y, (int) z))) && ((!(new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
 					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
 				return _retval.get();
 			}
@@ -1247,10 +1509,26 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
 				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) (x - 1), (int) y, (int) z)))) && ((!(new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
+				return _retval.get();
+			}
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z)))) && ((new Object() {
+			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
+				AtomicBoolean _retval = new AtomicBoolean(false);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
 					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.NORTH).ifPresent(capability -> _retval.set(capability.canReceive()));
 				return _retval.get();
 			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z + 1))))) && (!(new Object() {
+		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z + 1)))) && (!(new Object() {
 			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
@@ -1259,6 +1537,15 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				return _retval.get();
 			}
 		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z - 1)))))))))))) {
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
 			if (!world.isRemote()) {
 				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
 				TileEntity _tileEntity = world.getTileEntity(_bp);
@@ -1290,144 +1577,10 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
 				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z)))) && ((!(new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
 					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
 				return _retval.get();
 			}
-		}.canReceiveEnergy(world, new BlockPos((int) (x - 1), (int) y, (int) z)))) && ((new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z))) && ((!(new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.NORTH).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z + 1))))) && (!(new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.NORTH).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z - 1)))))))))))) {
-			if (!world.isRemote()) {
-				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
-				TileEntity _tileEntity = world.getTileEntity(_bp);
-				BlockState _bs = world.getBlockState(_bp);
-				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 15);
-				if (world instanceof World)
-					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
-			}
-		}
-		if (((!(new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.UP).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y + 1), (int) z)))) && ((new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z))) && ((!(new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z)))) && ((!(new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) (x - 1), (int) y, (int) z)))) && ((!(new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z)))) && ((new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.NORTH).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z + 1)))) && (!(new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.NORTH).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) y, (int) (z - 1)))))))))))) {
-			if (!world.isRemote()) {
-				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
-				TileEntity _tileEntity = world.getTileEntity(_bp);
-				BlockState _bs = world.getBlockState(_bp);
-				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 16);
-				if (world instanceof World)
-					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
-			}
-		}
-		if (((!(new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.UP).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y + 1), (int) z)))) && ((new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z))) && ((!(new Object() {
-			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
-				AtomicBoolean _retval = new AtomicBoolean(false);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
-				return _retval.get();
-			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z)))) && ((!(new Object() {
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z)))) && ((!(new Object() {
 			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
@@ -1465,7 +1618,16 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				TileEntity _tileEntity = world.getTileEntity(_bp);
 				BlockState _bs = world.getBlockState(_bp);
 				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 17);
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("status", 15);
 				if (world instanceof World)
 					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 			}
@@ -1491,10 +1653,10 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
 				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
 				return _retval.get();
 			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z))) && ((new Object() {
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z))) && ((new Object() {
 			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
@@ -1532,7 +1694,16 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				TileEntity _tileEntity = world.getTileEntity(_bp);
 				BlockState _bs = world.getBlockState(_bp);
 				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 18);
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("status", 16);
 				if (world instanceof World)
 					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 			}
@@ -1558,10 +1729,10 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
 				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
 				return _retval.get();
 			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z))) && ((!(new Object() {
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z))) && ((!(new Object() {
 			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
@@ -1599,7 +1770,16 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				TileEntity _tileEntity = world.getTileEntity(_bp);
 				BlockState _bs = world.getBlockState(_bp);
 				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 19);
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("status", 17);
 				if (world instanceof World)
 					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 			}
@@ -1625,10 +1805,10 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
 				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
 				return _retval.get();
 			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z))) && ((!(new Object() {
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z))) && ((!(new Object() {
 			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
@@ -1666,7 +1846,16 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				TileEntity _tileEntity = world.getTileEntity(_bp);
 				BlockState _bs = world.getBlockState(_bp);
 				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 20);
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("status", 18);
 				if (world instanceof World)
 					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 			}
@@ -1692,10 +1881,10 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
 				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
 				return _retval.get();
 			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z))) && ((!(new Object() {
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z))) && ((!(new Object() {
 			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
@@ -1733,7 +1922,16 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				TileEntity _tileEntity = world.getTileEntity(_bp);
 				BlockState _bs = world.getBlockState(_bp);
 				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 21);
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("status", 19);
 				if (world instanceof World)
 					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 			}
@@ -1759,10 +1957,10 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
 				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
 				return _retval.get();
 			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z)))) && ((new Object() {
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z)))) && ((new Object() {
 			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
@@ -1800,7 +1998,16 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				TileEntity _tileEntity = world.getTileEntity(_bp);
 				BlockState _bs = world.getBlockState(_bp);
 				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 22);
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("status", 20);
 				if (world instanceof World)
 					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 			}
@@ -1826,10 +2033,10 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
 				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
 				return _retval.get();
 			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z)))) && ((new Object() {
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z)))) && ((new Object() {
 			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
@@ -1867,7 +2074,16 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				TileEntity _tileEntity = world.getTileEntity(_bp);
 				BlockState _bs = world.getBlockState(_bp);
 				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 23);
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("status", 21);
 				if (world instanceof World)
 					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 			}
@@ -1893,10 +2109,10 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
 				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
 				return _retval.get();
 			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z)))) && ((new Object() {
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z)))) && ((new Object() {
 			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
@@ -1934,7 +2150,16 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				TileEntity _tileEntity = world.getTileEntity(_bp);
 				BlockState _bs = world.getBlockState(_bp);
 				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 24);
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("status", 22);
 				if (world instanceof World)
 					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 			}
@@ -1960,10 +2185,10 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
 				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
 				return _retval.get();
 			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z)))) && ((!(new Object() {
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z)))) && ((!(new Object() {
 			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
@@ -2001,7 +2226,16 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				TileEntity _tileEntity = world.getTileEntity(_bp);
 				BlockState _bs = world.getBlockState(_bp);
 				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 25);
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("status", 23);
 				if (world instanceof World)
 					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 			}
@@ -2027,10 +2261,10 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
 				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
 				return _retval.get();
 			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z)))) && ((!(new Object() {
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z)))) && ((!(new Object() {
 			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
@@ -2068,7 +2302,16 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				TileEntity _tileEntity = world.getTileEntity(_bp);
 				BlockState _bs = world.getBlockState(_bp);
 				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 26);
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("status", 24);
 				if (world instanceof World)
 					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 			}
@@ -2094,10 +2337,10 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
 				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> _retval.set(capability.canReceive()));
+					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH).ifPresent(capability -> _retval.set(capability.canReceive()));
 				return _retval.get();
 			}
-		}.canReceiveEnergy(world, new BlockPos((int) x, (int) (y - 1), (int) z)))) && ((!(new Object() {
+		}.canReceiveEnergy(world, new BlockPos((int) (x + 1), (int) y, (int) z)))) && ((!(new Object() {
 			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
 				AtomicBoolean _retval = new AtomicBoolean(false);
 				TileEntity _ent = world.getTileEntity(pos);
@@ -2135,7 +2378,16 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 				TileEntity _tileEntity = world.getTileEntity(_bp);
 				BlockState _bs = world.getBlockState(_bp);
 				if (_tileEntity != null)
-					_tileEntity.getTileData().putDouble("status", 27);
+					_tileEntity.getTileData().putDouble("statusl", 0);
+				if (world instanceof World)
+					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+			}
+			if (!world.isRemote()) {
+				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+				TileEntity _tileEntity = world.getTileEntity(_bp);
+				BlockState _bs = world.getBlockState(_bp);
+				if (_tileEntity != null)
+					_tileEntity.getTileData().putDouble("status", 25);
 				if (world instanceof World)
 					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 			}

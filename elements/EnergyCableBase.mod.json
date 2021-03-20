@@ -41,7 +41,7 @@
     "hasGravity": false,
     "isWaterloggable": false,
     "creativeTab": {
-      "value": "No creative tab entry"
+      "value": "CUSTOM:BossTools"
     },
     "destroyTool": "Not specified",
     "customDrop": {
@@ -54,7 +54,7 @@
     "canProvidePower": false,
     "lightOpacity": 0,
     "material": {
-      "value": "WOOD"
+      "value": "CARPET"
     },
     "tickRate": 1,
     "tickRandomly": false,
