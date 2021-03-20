@@ -338,60 +338,6 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 						return tileEntity.getTileData().getDouble(tag);
 					return -1;
 				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 20)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(20)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 21)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(21)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 22)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(22)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 23)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(23)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 24)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(24)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 25)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(25)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
 			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 26)) {
 				world.setBlockState(pos, state.with(STATE, Integer.valueOf(26)), 3);
 			}
