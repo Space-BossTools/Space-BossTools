@@ -1,0 +1,11 @@
+{
+  "mappings": {
+    "default": {
+      "map": {
+        "4": "cable_-y",
+        "7": "cable_mid"
+      },
+      "name": "default"
+    }
+  }
+}

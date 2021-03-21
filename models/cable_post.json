@@ -1,0 +1,54 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [8, 8],
+	"textures": {
+		"7": "Space-Bosstools-1.16.4-4.6/cable_mid",
+		"particle": "Space-Bosstools-1.16.4-4.6/cable_mid"
+	},
+	"elements": [
+		{
+			"from": [6.5, 6.5, 6.5],
+			"to": [9.5, 9.5, 9.5],
+			"faces": {
+				"north": {"uv": [0, 0, 6, 6], "texture": "#7"},
+				"east": {"uv": [0, 0, 6, 6], "texture": "#7"},
+				"south": {"uv": [0, 0, 6, 6], "texture": "#7"},
+				"west": {"uv": [0, 0, 6, 6], "texture": "#7"},
+				"up": {"uv": [0, 0, 6, 6], "texture": "#7"},
+				"down": {"uv": [0, 0, 6, 6], "texture": "#7"}
+			}
+		}
+	],
+	"groups": [0,
+		{
+			"name": "+y",
+			"origin": [0, 0, 0],
+			"children": []
+		},
+		{
+			"name": "-y",
+			"origin": [8, 8, 8],
+			"children": []
+		},
+		{
+			"name": "+x",
+			"origin": [8, 8, 8],
+			"children": []
+		},
+		{
+			"name": "-x",
+			"origin": [8, 8, 8],
+			"children": []
+		},
+		{
+			"name": "+z",
+			"origin": [8, 8, 8],
+			"children": []
+		},
+		{
+			"name": "-z",
+			"origin": [8, 8, 8],
+			"children": []
+		}
+	]
+}
