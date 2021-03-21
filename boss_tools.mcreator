@@ -11627,6 +11627,16 @@
         ]
       },
       "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "Energycable",
+      "type": "recipe",
+      "sortid": 766,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "energycable",
+      "path": "~/Recpies"
     }
   ],
   "variable_elements": [
