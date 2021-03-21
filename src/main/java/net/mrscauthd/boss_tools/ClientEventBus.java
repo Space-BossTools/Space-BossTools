@@ -138,8 +138,9 @@ public class ClientEventBus {
 																							// 1.0F
 								RenderSystem.color4f(1.0F, 1.0F, 1.0F, f11);
 								matrixStack.rotate(Vector3f.YP.rotationDegrees(-90.0F));
-								//matrixStack.rotate(Vector3f.XP.rotationDegrees(world.func_242415_f(partialTicks) * 360.0F));
-								matrixStack.rotate(Vector3f.XP.rotationDegrees(180.0F /*world.func_242415_f(partialTicks) * 360.0F */));
+								// matrixStack.rotate(Vector3f.XP.rotationDegrees(world.func_242415_f(partialTicks)
+								// * 360.0F));
+								matrixStack.rotate(Vector3f.XP.rotationDegrees(180.0F /* world.func_242415_f(partialTicks) * 360.0F */));
 								matrixStack.rotate(Vector3f.ZP.rotationDegrees(30.0F));
 								matrix4f1 = matrixStack.getLast().getMatrix();
 								float f12 = 30.0F;
@@ -158,7 +159,7 @@ public class ClientEventBus {
 								bufferbuilder.pos(matrix4f1, -9, -100.0F, -9).tex(0.0F, 1.0F).endVertex();
 								bufferbuilder.finishDrawing();
 								WorldVertexBufferUploader.draw(bufferbuilder);
-								//Earth light
+								// Earth light
 								mc.getTextureManager().bindTexture(EARTH_LIGHT_TEXTURES);
 								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 								bufferbuilder.pos(matrix4f1, -25, -100.0F, 25).tex(0.0F, 0.0F).endVertex();
@@ -167,8 +168,8 @@ public class ClientEventBus {
 								bufferbuilder.pos(matrix4f1, -25, -100.0F, -25).tex(0.0F, 1.0F).endVertex();
 								bufferbuilder.finishDrawing();
 								WorldVertexBufferUploader.draw(bufferbuilder);
-								//Earth Light end
-								//matrixStack.rotate(Vector3f.YP.rotationDegrees(-90.0F));
+								// Earth Light end
+								// matrixStack.rotate(Vector3f.YP.rotationDegrees(-90.0F));
 								matrixStack.rotate(Vector3f.ZP.rotationDegrees(-30.0F));
 								matrixStack.rotate(Vector3f.XP.rotationDegrees(world.func_242415_f(partialTicks) * 360.0F));
 								matrix4f1 = matrixStack.getLast().getMatrix();

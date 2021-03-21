@@ -22,6 +22,7 @@ import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.ITextComponent;
@@ -35,9 +36,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.LockableLootTileEntity;
-import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.StateContainer;
-import net.minecraft.state.IntegerProperty;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.nbt.CompoundNBT;
@@ -96,12 +96,23 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 		RenderTypeLookup.setRenderLayer(block, RenderType.getCutout());
 	}
 	public static class CustomBlock extends Block {
-		public static final IntegerProperty STATE = BlockStateProperties.AGE_0_25;
-		public static final IntegerProperty LEVEL = BlockStateProperties.LEVEL_0_15;
+		public static final BooleanProperty NORTH = BooleanProperty.create("north");
+		public static final BooleanProperty SOUTH = BooleanProperty.create("south");
+		public static final BooleanProperty EAST = BooleanProperty.create("east");
+		public static final BooleanProperty WEST = BooleanProperty.create("west");
+		public static final BooleanProperty DOWN = BooleanProperty.create("down");
+		public static final BooleanProperty UP = BooleanProperty.create("up");
+		// public static final EnumProperty<MiddleState> MIDDLE =
+		// EnumProperty.create("middle", MiddleState.class);
+		// public static final BooleanProperty WATERLOGGED =
+		// BlockStateProperties.WATERLOGGED;
+		public static final BooleanProperty[] CONNECTIONS = new BooleanProperty[]{DOWN, UP, NORTH, SOUTH, WEST, EAST};
 		public CustomBlock() {
 			super(Block.Properties.create(Material.CARPET).sound(SoundType.STONE).hardnessAndResistance(0.5f, 10f).setLightLevel(s -> 0).notSolid()
 					.setOpaque((bs, br, bp) -> false));
-			this.setDefaultState(this.stateContainer.getBaseState().with(STATE, Integer.valueOf(0)).with(LEVEL, Integer.valueOf(0)));
+			this.setDefaultState(this.stateContainer.getBaseState().with(NORTH, Boolean.valueOf(false)).with(SOUTH, Boolean.valueOf(false))
+					.with(EAST, Boolean.valueOf(false)).with(WEST, Boolean.valueOf(false)).with(DOWN, Boolean.valueOf(false))
+					.with(UP, Boolean.valueOf(false)));
 			setRegistryName("energy_cable");
 		}
 
@@ -114,7 +125,7 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-			builder.add(STATE, LEVEL);
+			builder.add(NORTH, SOUTH, EAST, WEST, UP, DOWN);
 		}
 
 		@Override
@@ -151,235 +162,53 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
-			if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
+			// world.setBlockState(pos, state.with(DOWN, Boolean.valueOf(true)), 3);
+			// world.setBlockState(pos, state.with(UP, Boolean.valueOf(true)), 3);
+			world.setBlockState(pos, state.with(DOWN, (new Object() {
+				public boolean getValue(IWorld world, BlockPos pos, String tag) {
 					TileEntity tileEntity = world.getTileEntity(pos);
 					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
+						return tileEntity.getTileData().getBoolean(tag);
+					return false;
 				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 0)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(0)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
+			}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "down"))).with(UP, (new Object() {
+				public boolean getValue(IWorld world, BlockPos pos, String tag) {
 					TileEntity tileEntity = world.getTileEntity(pos);
 					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
+						return tileEntity.getTileData().getBoolean(tag);
+					return false;
 				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 1)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(1)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
+			}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "up"))).with(NORTH, (new Object() {
+				public boolean getValue(IWorld world, BlockPos pos, String tag) {
 					TileEntity tileEntity = world.getTileEntity(pos);
 					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
+						return tileEntity.getTileData().getBoolean(tag);
+					return false;
 				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 2)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(2)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
+			}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "north"))).with(SOUTH, (new Object() {
+				public boolean getValue(IWorld world, BlockPos pos, String tag) {
 					TileEntity tileEntity = world.getTileEntity(pos);
 					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
+						return tileEntity.getTileData().getBoolean(tag);
+					return false;
 				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 3)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(3)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
+			}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "south"))).with(EAST, (new Object() {
+				public boolean getValue(IWorld world, BlockPos pos, String tag) {
 					TileEntity tileEntity = world.getTileEntity(pos);
 					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
+						return tileEntity.getTileData().getBoolean(tag);
+					return false;
 				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 4)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(4)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
+			}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "east"))).with(WEST, (new Object() {
+				public boolean getValue(IWorld world, BlockPos pos, String tag) {
 					TileEntity tileEntity = world.getTileEntity(pos);
 					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
+						return tileEntity.getTileData().getBoolean(tag);
+					return false;
 				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 5)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(5)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 6)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(6)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 7)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(7)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 8)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(8)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 9)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(9)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 10)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(10)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 11)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(11)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 12)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(12)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 13)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(13)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 14)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(14)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 15)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(15)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 16)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(16)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 17)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(17)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 18)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(18)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 19)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(19)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "status")) == 26)) {
-				world.setBlockState(pos, state.with(STATE, Integer.valueOf(26)), 3);
-			}
-			// New Objekt
-			if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "statusl")) == 0)) {
-				world.setBlockState(pos, state.with(LEVEL, Integer.valueOf(0)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "statusl")) == 1)) {
-				world.setBlockState(pos, state.with(LEVEL, Integer.valueOf(1)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "statusl")) == 2)) {
-				world.setBlockState(pos, state.with(LEVEL, Integer.valueOf(2)), 3);
-			} else if (((new Object() {
-				public double getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "statusl")) == 3)) {
-				world.setBlockState(pos, state.with(LEVEL, Integer.valueOf(3)), 3);
-			}
+			}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "west"))));
 			super.tick(state, world, pos, random);
+			// super.tick(state., world, pos, random);
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("x", x);
