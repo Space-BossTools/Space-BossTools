@@ -11,7 +11,7 @@
       },
       "apply": {
         "model": "boss_tools:block/energy_cable_side",
-        "uvlock": true
+        "uvlock": false
       }
     },
     {
@@ -21,7 +21,7 @@
       "apply": {
         "model": "boss_tools:block/energy_cable_side",
         "y": 180,
-        "uvlock": true
+        "uvlock": false
       }
     },
     {
@@ -31,7 +31,7 @@
       "apply": {
         "model": "boss_tools:block/energy_cable_side",
         "y": 270,
-        "uvlock": true
+        "uvlock": false
       }
     },
     {
@@ -41,7 +41,7 @@
       "apply": {
         "model": "boss_tools:block/energy_cable_side",
         "y": 90,
-        "uvlock": true
+        "uvlock": false
       }
     },
     {
@@ -50,7 +50,7 @@
       },
       "apply": {
         "model": "boss_tools:block/energy_cable_y_up",
-        "uvlock": true
+        "uvlock": false
       }
     },
     {
@@ -59,7 +59,7 @@
       },
       "apply": {
         "model": "boss_tools:block/energy_cable_y_down",
-        "uvlock": true
+        "uvlock": false
       }
     }
   ]
