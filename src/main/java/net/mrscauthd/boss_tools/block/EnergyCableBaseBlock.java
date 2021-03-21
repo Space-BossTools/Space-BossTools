@@ -36,6 +36,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.LockableLootTileEntity;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
@@ -102,17 +103,18 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 		public static final BooleanProperty WEST = BooleanProperty.create("west");
 		public static final BooleanProperty DOWN = BooleanProperty.create("down");
 		public static final BooleanProperty UP = BooleanProperty.create("up");
+		public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 		// public static final EnumProperty<MiddleState> MIDDLE =
 		// EnumProperty.create("middle", MiddleState.class);
 		// public static final BooleanProperty WATERLOGGED =
 		// BlockStateProperties.WATERLOGGED;
 		public static final BooleanProperty[] CONNECTIONS = new BooleanProperty[]{DOWN, UP, NORTH, SOUTH, WEST, EAST};
 		public CustomBlock() {
-			super(Block.Properties.create(Material.CARPET).sound(SoundType.STONE).hardnessAndResistance(0.5f, 10f).setLightLevel(s -> 0).notSolid()
+			super(Block.Properties.create(Material.WOOD).sound(SoundType.STONE).hardnessAndResistance(0.5f, 10f).setLightLevel(s -> 0).notSolid()
 					.setOpaque((bs, br, bp) -> false));
 			this.setDefaultState(this.stateContainer.getBaseState().with(NORTH, Boolean.valueOf(false)).with(SOUTH, Boolean.valueOf(false))
 					.with(EAST, Boolean.valueOf(false)).with(WEST, Boolean.valueOf(false)).with(DOWN, Boolean.valueOf(false))
-					.with(UP, Boolean.valueOf(false)));
+					.with(UP, Boolean.valueOf(false)).with(WATERLOGGED, false));
 			setRegistryName("energy_cable");
 		}
 
@@ -125,7 +127,7 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-			builder.add(NORTH, SOUTH, EAST, WEST, UP, DOWN);
+			builder.add(NORTH, SOUTH, EAST, WEST, UP, DOWN, WATERLOGGED);
 		}
 
 		@Override
@@ -154,7 +156,7 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
-			world.getPendingBlockTicks().scheduleTick(new BlockPos(x, y, z), this, 1);
+			world.getPendingBlockTicks().scheduleTick(new BlockPos(x, y, z), this, 0);
 		}
 
 		@Override
@@ -217,7 +219,7 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 				$_dependencies.put("world", world);
 				EnergyCableBaseUpdateTickProcedure.executeProcedure($_dependencies);
 			}
-			world.getPendingBlockTicks().scheduleTick(new BlockPos(x, y, z), this, 1);
+			world.getPendingBlockTicks().scheduleTick(new BlockPos(x, y, z), this, 0);
 		}
 
 		@Override
