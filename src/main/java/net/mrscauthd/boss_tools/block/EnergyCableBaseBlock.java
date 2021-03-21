@@ -45,18 +45,22 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.loot.LootContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.BlockItem;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ChestContainer;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.IWaterLoggable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Block;
 
@@ -96,19 +100,15 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 	public void clientLoad(FMLClientSetupEvent event) {
 		RenderTypeLookup.setRenderLayer(block, RenderType.getCutout());
 	}
-	public static class CustomBlock extends Block {
+	public static class CustomBlock extends Block implements IWaterLoggable {
 		public static final BooleanProperty NORTH = BooleanProperty.create("north");
 		public static final BooleanProperty SOUTH = BooleanProperty.create("south");
 		public static final BooleanProperty EAST = BooleanProperty.create("east");
 		public static final BooleanProperty WEST = BooleanProperty.create("west");
 		public static final BooleanProperty DOWN = BooleanProperty.create("down");
 		public static final BooleanProperty UP = BooleanProperty.create("up");
-		public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-		// public static final EnumProperty<MiddleState> MIDDLE =
-		// EnumProperty.create("middle", MiddleState.class);
-		// public static final BooleanProperty WATERLOGGED =
-		// BlockStateProperties.WATERLOGGED;
 		public static final BooleanProperty[] CONNECTIONS = new BooleanProperty[]{DOWN, UP, NORTH, SOUTH, WEST, EAST};
+		public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 		public CustomBlock() {
 			super(Block.Properties.create(Material.WOOD).sound(SoundType.STONE).hardnessAndResistance(0.5f, 10f).setLightLevel(s -> 0).notSolid()
 					.setOpaque((bs, br, bp) -> false));
@@ -126,11 +126,6 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 		}
 
 		@Override
-		protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-			builder.add(NORTH, SOUTH, EAST, WEST, UP, DOWN, WATERLOGGED);
-		}
-
-		@Override
 		public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
 			return true;
 		}
@@ -140,6 +135,31 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 			Vector3d offset = state.getOffset(world, pos);
 			return VoxelShapes.or(makeCuboidShape(4.800000000000001, 4.800000000000001, 4.800000000000001, 11.2, 11.2, 11.2)).withOffset(offset.x,
 					offset.y, offset.z);
+		}
+
+		@Override
+		public BlockState getStateForPlacement(BlockItemUseContext context) {
+			boolean flag = context.getWorld().getFluidState(context.getPos()).getFluid() == Fluids.WATER;
+			return this.getDefaultState().with(WATERLOGGED, flag);
+		}
+
+		@Override
+		protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+			builder.add(WATERLOGGED, NORTH, SOUTH, EAST, WEST, UP, DOWN);
+		}
+
+		@Override
+		public FluidState getFluidState(BlockState state) {
+			return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
+		}
+
+		@Override
+		public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos,
+				BlockPos facingPos) {
+			if (state.get(WATERLOGGED)) {
+				world.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+			}
+			return super.updatePostPlacement(state, facing, facingState, world, currentPos, facingPos);
 		}
 
 		@Override
@@ -156,7 +176,7 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
-			world.getPendingBlockTicks().scheduleTick(new BlockPos(x, y, z), this, 0);
+			world.getPendingBlockTicks().scheduleTick(new BlockPos(x, y, z), this, 1);
 		}
 
 		@Override
@@ -219,7 +239,7 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 				$_dependencies.put("world", world);
 				EnergyCableBaseUpdateTickProcedure.executeProcedure($_dependencies);
 			}
-			world.getPendingBlockTicks().scheduleTick(new BlockPos(x, y, z), this, 0);
+			world.getPendingBlockTicks().scheduleTick(new BlockPos(x, y, z), this, 1);
 		}
 
 		@Override

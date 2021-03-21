@@ -39,7 +39,7 @@
     "hardness": 0.5,
     "resistance": 10.0,
     "hasGravity": false,
-    "isWaterloggable": false,
+    "isWaterloggable": true,
     "creativeTab": {
       "value": "CUSTOM:BossTools"
     },
@@ -54,7 +54,7 @@
     "canProvidePower": false,
     "lightOpacity": 0,
     "material": {
-      "value": "CARPET"
+      "value": "WOOD"
     },
     "tickRate": 1,
     "tickRandomly": false,
