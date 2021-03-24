@@ -133,8 +133,7 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 		@Override
 		public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
 			Vector3d offset = state.getOffset(world, pos);
-			return VoxelShapes.or(makeCuboidShape(4.800000000000001, 4.800000000000001, 4.800000000000001, 11.2, 11.2, 11.2)).withOffset(offset.x,
-					offset.y, offset.z);
+			return VoxelShapes.or(makeCuboidShape(4.5, 4.5, 4.5, 11.5, 11.5, 11.5)).withOffset(offset.x, offset.y, offset.z);
 		}
 
 		@Override

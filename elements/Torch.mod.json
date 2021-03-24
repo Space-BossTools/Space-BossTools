@@ -52,7 +52,7 @@
     "canProvidePower": false,
     "lightOpacity": 0,
     "material": {
-      "value": "WOOD"
+      "value": "CARPET"
     },
     "tickRate": 1,
     "tickRandomly": false,

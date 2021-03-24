@@ -11647,6 +11647,16 @@
       "ids": {},
       "registry_name": "iron_mark",
       "path": "~/Blocks"
+    },
+    {
+      "name": "IronMarkRecpie",
+      "type": "recipe",
+      "sortid": 768,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "iron_mark_recpie",
+      "path": "~/Recpies"
     }
   ],
   "variable_elements": [
