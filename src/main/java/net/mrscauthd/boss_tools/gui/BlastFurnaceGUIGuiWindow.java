@@ -145,7 +145,7 @@ public class BlastFurnaceGUIGuiWindow extends ContainerScreen<BlastFurnaceGUIGui
 			this.blit(ms, this.guiLeft + 53, this.guiTop + 39, 0, 0, 15, 14, 15, 14);
 		}
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/outputslot.png"));
-		this.blit(ms, this.guiLeft + 99, this.guiTop + 33, 0, 0, -1, -1, -1, -1);
+		this.blit(ms, this.guiLeft + 99, this.guiTop + 33, 0, 0, 26, 26, 26, 26);
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/animated_arrow_1.png"));
 		this.blit(ms, this.guiLeft + 73, this.guiTop + 37, 0, 0, 22, 16, 22, 16);
 		if (BlastFurnaceArrow1Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {

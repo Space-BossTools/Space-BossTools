@@ -41,7 +41,7 @@ public class RocketRotationAKeyBinding extends BossToolsModElements.ModElement {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void initElements() {
-		keys = new KeyBinding("key.mcreator.rocket_rotation_a", GLFW.GLFW_KEY_A, "key.categories.spacebosstools");
+		keys = new KeyBinding("key.boss_tools.rocket_rotation_a", GLFW.GLFW_KEY_A, "key.categories.spacebosstools");
 		ClientRegistry.registerKeyBinding(keys);
 		MinecraftForge.EVENT_BUS.register(this);
 	}

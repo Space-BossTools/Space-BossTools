@@ -6,19 +6,24 @@ import net.mrscauthd.boss_tools.item.IceshardItem;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ObjectHolder;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.MinecraftForge;
 
+import net.minecraft.world.gen.feature.template.RuleTest;
 import net.minecraft.world.gen.feature.template.IRuleTestType;
-import net.minecraft.world.gen.feature.template.BlockMatchRuleTest;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.OreFeature;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.World;
 import net.minecraft.world.ISeedReader;
+import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
@@ -44,6 +49,7 @@ public class IcesoilBlock extends BossToolsModElements.ModElement {
 	public IcesoilBlock(BossToolsModElements instance) {
 		super(instance, 52);
 		MinecraftForge.EVENT_BUS.register(this);
+		FMLJavaModLoadingContext.get().getModEventBus().register(new FeatureRegisterHandler());
 	}
 
 	@Override
@@ -72,30 +78,49 @@ public class IcesoilBlock extends BossToolsModElements.ModElement {
 			return Collections.singletonList(new ItemStack(IceshardItem.block, (int) (3)));
 		}
 	}
+	private static Feature<OreFeatureConfig> feature = null;
+	private static ConfiguredFeature<?, ?> configuredFeature = null;
+	private static IRuleTestType<CustomRuleTest> CUSTOM_MATCH = null;
+	private static class CustomRuleTest extends RuleTest {
+		static final CustomRuleTest INSTANCE = new CustomRuleTest();
+		static final com.mojang.serialization.Codec<CustomRuleTest> codec = com.mojang.serialization.Codec.unit(() -> INSTANCE);
+		public boolean test(BlockState blockAt, Random random) {
+			boolean blockCriteria = false;
+			if (blockAt.getBlock() == MarsStoneBlock.block.getDefaultState().getBlock())
+				blockCriteria = true;
+			return blockCriteria;
+		}
+
+		protected IRuleTestType<?> getType() {
+			return CUSTOM_MATCH;
+		}
+	}
+
+	private static class FeatureRegisterHandler {
+		@SubscribeEvent
+		public void registerFeature(RegistryEvent.Register<Feature<?>> event) {
+			CUSTOM_MATCH = Registry.register(Registry.RULE_TEST, new ResourceLocation("boss_tools:mars_ice_shard_ore_match"),
+					() -> CustomRuleTest.codec);
+			feature = new OreFeature(OreFeatureConfig.CODEC) {
+				@Override
+				public boolean generate(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos, OreFeatureConfig config) {
+					RegistryKey<World> dimensionType = world.getWorld().getDimensionKey();
+					boolean dimensionCriteria = false;
+					if (dimensionType == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars")))
+						dimensionCriteria = true;
+					if (!dimensionCriteria)
+						return false;
+					return super.generate(world, generator, rand, pos, config);
+				}
+			};
+			configuredFeature = feature.withConfiguration(new OreFeatureConfig(CustomRuleTest.INSTANCE, block.getDefaultState(), 11)).range(64)
+					.square().func_242731_b(7);
+			event.getRegistry().register(feature.setRegistryName("mars_ice_shard_ore"));
+			Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation("boss_tools:mars_ice_shard_ore"), configuredFeature);
+		}
+	}
 	@SubscribeEvent
 	public void addFeatureToBiomes(BiomeLoadingEvent event) {
-		event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> new OreFeature(OreFeatureConfig.CODEC) {
-			@Override
-			public boolean generate(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos, OreFeatureConfig config) {
-				RegistryKey<World> dimensionType = world.getWorld().getDimensionKey();
-				boolean dimensionCriteria = false;
-				if (dimensionType == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars")))
-					dimensionCriteria = true;
-				if (!dimensionCriteria)
-					return false;
-				return super.generate(world, generator, rand, pos, config);
-			}
-		}.withConfiguration(new OreFeatureConfig(new BlockMatchRuleTest(MarsStoneBlock.block.getDefaultState().getBlock()) {
-			public boolean test(BlockState blockAt, Random random) {
-				boolean blockCriteria = false;
-				if (blockAt.getBlock() == MarsStoneBlock.block.getDefaultState().getBlock())
-					blockCriteria = true;
-				return blockCriteria;
-			}
-
-			protected IRuleTestType<?> getType() {
-				return IRuleTestType.BLOCK_MATCH;
-			}
-		}, block.getDefaultState(), 11)).range(64).square().func_242731_b(7));
+		event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> configuredFeature);
 	}
 }

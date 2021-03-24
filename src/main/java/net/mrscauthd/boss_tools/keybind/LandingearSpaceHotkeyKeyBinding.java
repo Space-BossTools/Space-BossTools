@@ -39,7 +39,7 @@ public class LandingearSpaceHotkeyKeyBinding extends BossToolsModElements.ModEle
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void initElements() {
-		keys = new KeyBinding("key.mcreator.landingear_space_hotkey", GLFW.GLFW_KEY_SPACE, "key.categories.spacebosstools");
+		keys = new KeyBinding("key.boss_tools.landingear_space_hotkey", GLFW.GLFW_KEY_SPACE, "key.categories.spacebosstools");
 		ClientRegistry.registerKeyBinding(keys);
 		MinecraftForge.EVENT_BUS.register(this);
 	}

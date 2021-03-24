@@ -53,6 +53,8 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 		double Energy4 = 0;
 		double Energy5 = 0;
 		double Energy6 = 0;
+		double math = 0;
+		double main = 0;
 		if ((new Object() {
 			public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
 				AtomicBoolean _retval = new AtomicBoolean(false);
