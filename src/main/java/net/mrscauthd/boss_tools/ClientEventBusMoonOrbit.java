@@ -7,13 +7,13 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.client.ISkyRenderHandler;
+import net.minecraftforge.client.ICloudRenderHandler;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.client.world.DimensionRenderInfo.FogType;
 import net.minecraft.client.world.DimensionRenderInfo;
@@ -25,6 +25,8 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.Minecraft;
+
+import javax.annotation.Nullable;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -61,6 +63,17 @@ public class ClientEventBusMoonOrbit {
 					// useThickFog
 					public boolean func_230493_a_(int posX, int posY) {
 						return false;
+					}
+
+					@Nullable
+					@Override
+					public ICloudRenderHandler getCloudRenderHandler() {
+						return new ICloudRenderHandler() {
+							@Override
+							public void render(int ticks, float partialTicks, MatrixStack matrixStack, ClientWorld world, Minecraft mc,
+									double viewEntityX, double viewEntityY, double viewEntityZ) {
+							}
+						};
 					}
 
 					@Override
@@ -134,31 +147,40 @@ public class ClientEventBusMoonOrbit {
 								RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE,
 										GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 								matrixStack.push();
-								float f11 = 100000.0F - world.getRainStrength(partialTicks);//Rrain basiss ist es auf 1.0F
+								float f11 = 100000.0F - world.getRainStrength(partialTicks);// Rrain basiss ist es auf
+																							// 1.0F
 								RenderSystem.color4f(1.0F, 1.0F, 1.0F, f11);
 								matrixStack.rotate(Vector3f.YP.rotationDegrees(-90.0F));
-								matrixStack.rotate(Vector3f.XP.rotationDegrees(0.0F /*world.func_242415_f(partialTicks) * 360.0F */));
-//Sun Rotation (Main Planet)
+								matrixStack.rotate(Vector3f.XP.rotationDegrees(0.0F /* world.func_242415_f(partialTicks) * 360.0F */));
+								// Sun Rotation (Main Planet)
 								matrix4f1 = matrixStack.getLast().getMatrix();
 								float f12 = 30.0F;
 								mc.getTextureManager().bindTexture(SUN_TEXTURES);
 								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-								/*bufferbuilder.pos(matrix4f1, -f12, 100.0F, -f12).tex(0.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, f12, 100.0F, -f12).tex(1.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, f12, 100.0F, f12).tex(1.0F, 1.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, -f12, 100.0F, f12).tex(0.0F, 1.0F).endVertex();
-*/
-								
-								//new System (Sun main Planet)
+								/*
+								 * bufferbuilder.pos(matrix4f1, -f12, 100.0F, -f12).tex(0.0F, 0.0F).endVertex();
+								 * bufferbuilder.pos(matrix4f1, f12, 100.0F, -f12).tex(1.0F, 0.0F).endVertex();
+								 * bufferbuilder.pos(matrix4f1, f12, 100.0F, f12).tex(1.0F, 1.0F).endVertex();
+								 * bufferbuilder.pos(matrix4f1, -f12, 100.0F, f12).tex(0.0F, 1.0F).endVertex();
+								 */
+								// new System (Sun main Planet)
 								float f17 = (float) mc.player.getEyePosition(partialTicks).y /*- world.getWorldInfo().getVoidFogHeight()*/;
-								bufferbuilder.pos(matrix4f1, -35.0F, -f17 -18.0F, 35.0F).tex(0.0F, 0.0F).endVertex(); //350 is nice but fps xD
-						     	bufferbuilder.pos(matrix4f1, 35.0F, -f17 -18.0F, 35.0F).tex(1.0F, 0.0F).endVertex();
-						     	bufferbuilder.pos(matrix4f1, 35.0F, -f17 -18.0F, -35.0F).tex(1.0F, 1.0F).endVertex();
-						     	bufferbuilder.pos(matrix4f1, -35.0F, -f17 -18.0F, -35.0F).tex(0.0F, 1.0F).endVertex();
+								bufferbuilder.pos(matrix4f1, -35.0F, -f17 - 18.0F, 35.0F).tex(0.0F, 0.0F).endVertex(); // 350
+																														// is
+																														// nice
+																														// but
+																														// fps
+																														// xD
+								bufferbuilder.pos(matrix4f1, 35.0F, -f17 - 18.0F, 35.0F).tex(1.0F, 0.0F).endVertex();
+								bufferbuilder.pos(matrix4f1, 35.0F, -f17 - 18.0F, -35.0F).tex(1.0F, 1.0F).endVertex();
+								bufferbuilder.pos(matrix4f1, -35.0F, -f17 - 18.0F, -35.0F).tex(0.0F, 1.0F).endVertex();
 								bufferbuilder.finishDrawing();
 								WorldVertexBufferUploader.draw(bufferbuilder);
 								f12 = 20.0F;
-								matrixStack.rotate(Vector3f.XP.rotationDegrees(world.func_242415_f(partialTicks) * 360.0F ));//Moon Rotation (Sun Planet)
+								matrixStack.rotate(Vector3f.XP.rotationDegrees(world.func_242415_f(partialTicks) * 360.0F));// Moon
+																															// Rotation
+																															// (Sun
+																															// Planet)
 								mc.getTextureManager().bindTexture(MOON_PHASES_TEXTURES);
 								int k = world.getMoonPhase();
 								int l = k % 4;
@@ -167,23 +189,28 @@ public class ClientEventBusMoonOrbit {
 								float f14 = (float) (i1 + 0) / 2.0F;
 								float f15 = (float) (l + 1) / 4.0F;
 								float f16 = (float) (i1 + 1) / 2.0F;
-								//New Orbit Planet System
-								//float f17 = (float) mc.player.getEyePosition(partialTicks).y /*- world.getWorldInfo().getVoidFogHeight()*/;
+								// New Orbit Planet System
+								// float f17 = (float) mc.player.getEyePosition(partialTicks).y /*-
+								// world.getWorldInfo().getVoidFogHeight()*/;
 								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-							 // bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(f15, f16).endVertex();
-							 //	bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(f13, f16).endVertex();
-							 // bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(f13, f14).endVertex();
-						     //	bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(f15, f14).endVertex();
-						     //New System
-							 	/*bufferbuilder.pos(matrix4f1, -300.0F, -f17 -18.0F, 300.0F).tex(f15, f16).endVertex(); //350 is nice but fps xD
-						     	bufferbuilder.pos(matrix4f1, 300.0F, -f17 -18.0F, 300.0F).tex(f13, f16).endVertex();
-						     	bufferbuilder.pos(matrix4f1, 300.0F, -f17 -18.0F, -300.0F).tex(f13, f14).endVertex();
-						     	bufferbuilder.pos(matrix4f1, -300.0F, -f17 -18.0F, -300.0F).tex(f15, f14).endVertex();*/
-						     //moon Texture
-							    bufferbuilder.pos(matrix4f1, -f12, 100.0F, -f12).tex(0.0F, 0.0F).endVertex();
-							 	bufferbuilder.pos(matrix4f1, f12, 100.0F, -f12).tex(1.0F, 0.0F).endVertex();
-							    bufferbuilder.pos(matrix4f1, f12, 100.0F, f12).tex(1.0F, 1.0F).endVertex();
-						     	bufferbuilder.pos(matrix4f1, -f12, 100.0F, f12).tex(0.0F, 1.0F).endVertex();
+								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(f15, f16).endVertex();
+								// bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(f13, f16).endVertex();
+								// bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(f13, f14).endVertex();
+								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(f15, f14).endVertex();
+								// New System
+								/*
+								 * bufferbuilder.pos(matrix4f1, -300.0F, -f17 -18.0F, 300.0F).tex(f15,
+								 * f16).endVertex(); //350 is nice but fps xD bufferbuilder.pos(matrix4f1,
+								 * 300.0F, -f17 -18.0F, 300.0F).tex(f13, f16).endVertex();
+								 * bufferbuilder.pos(matrix4f1, 300.0F, -f17 -18.0F, -300.0F).tex(f13,
+								 * f14).endVertex(); bufferbuilder.pos(matrix4f1, -300.0F, -f17 -18.0F,
+								 * -300.0F).tex(f15, f14).endVertex();
+								 */
+								// moon Texture
+								bufferbuilder.pos(matrix4f1, -f12, 100.0F, -f12).tex(0.0F, 0.0F).endVertex();
+								bufferbuilder.pos(matrix4f1, f12, 100.0F, -f12).tex(1.0F, 0.0F).endVertex();
+								bufferbuilder.pos(matrix4f1, f12, 100.0F, f12).tex(1.0F, 1.0F).endVertex();
+								bufferbuilder.pos(matrix4f1, -f12, 100.0F, f12).tex(0.0F, 1.0F).endVertex();
 								bufferbuilder.finishDrawing();
 								WorldVertexBufferUploader.draw(bufferbuilder);
 								RenderSystem.disableTexture();

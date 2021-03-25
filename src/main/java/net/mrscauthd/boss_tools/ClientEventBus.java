@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.client.ISkyRenderHandler;
+import net.minecraftforge.client.ICloudRenderHandler;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.util.math.vector.Vector3f;
@@ -24,6 +25,8 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.Minecraft;
+
+import javax.annotation.Nullable;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -50,7 +53,7 @@ public class ClientEventBus {
 		// field_175011_u # sky2VBO
 		DimensionRenderInfo.field_239208_a_.put(DIM_RENDER_INFO,
 				// cloudHeight, alternate sky color, fog type, render sky, diffuse lighting
-				new DimensionRenderInfo(999999999, false, FogType.NORMAL, false, false) {
+				new DimensionRenderInfo(128, false, FogType.NORMAL, false, false) {
 					@Override
 					// adjustSkyColor
 					public Vector3d func_230494_a_(Vector3d fogColor, float partialTicks) {
@@ -61,6 +64,17 @@ public class ClientEventBus {
 					// useThickFog
 					public boolean func_230493_a_(int posX, int posY) {
 						return false;
+					}
+
+					@Nullable
+					@Override
+					public ICloudRenderHandler getCloudRenderHandler() {
+						return new ICloudRenderHandler() {
+							@Override
+							public void render(int ticks, float partialTicks, MatrixStack matrixStack, ClientWorld world, Minecraft mc,
+									double viewEntityX, double viewEntityY, double viewEntityZ) {
+							}
+						};
 					}
 
 					@Override

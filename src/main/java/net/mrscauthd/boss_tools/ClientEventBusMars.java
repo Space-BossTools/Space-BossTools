@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.client.ISkyRenderHandler;
+import net.minecraftforge.client.ICloudRenderHandler;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.util.math.vector.Vector3f;
@@ -24,6 +25,8 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.Minecraft;
+
+import javax.annotation.Nullable;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -52,21 +55,31 @@ public class ClientEventBusMars {
 		DimensionRenderInfo.field_239208_a_.put(DIM_RENDER_INFO,
 				// cloudHeight, alternate sky color, fog type, render sky, diffuse lighting
 				new DimensionRenderInfo(999999999, false, FogType.NORMAL, false, false) {
-					/*@Override
-					// adjustSkyColor
-					public Vector3d func_230494_a_(Vector3d fogColor, float partialTicks) {
-						return fogColor;
-					}*/
-					//Mars sky
+					/*
+					 * @Override // adjustSkyColor public Vector3d func_230494_a_(Vector3d fogColor,
+					 * float partialTicks) { return fogColor; }
+					 */
+					// Mars sky
 					@Override
 					public Vector3d func_230494_a_(Vector3d color, float sunHeight) {
 						return new Vector3d(0.647058823529, 0.450980392157, 0.254901960784);
-						}
+					}
 
 					@Override
 					// useThickFog
 					public boolean func_230493_a_(int posX, int posY) {
-						return false; //eneable fog
+						return false; // eneable fog
+					}
+
+					@Nullable
+					@Override
+					public ICloudRenderHandler getCloudRenderHandler() {
+						return new ICloudRenderHandler() {
+							@Override
+							public void render(int ticks, float partialTicks, MatrixStack matrixStack, ClientWorld world, Minecraft mc,
+									double viewEntityX, double viewEntityY, double viewEntityZ) {
+							}
+						};
 					}
 
 					@Override
@@ -76,7 +89,7 @@ public class ClientEventBusMars {
 							@Override
 							public void render(int ticks, float partialTicks, MatrixStack matrixStack, ClientWorld world, Minecraft mc) {
 								RenderSystem.disableTexture();
-							    Vector3d vector3d = world.getSkyColor(mc.gameRenderer.getActiveRenderInfo().getBlockPos(), partialTicks);
+								Vector3d vector3d = world.getSkyColor(mc.gameRenderer.getActiveRenderInfo().getBlockPos(), partialTicks);
 								float f = (float) vector3d.x;
 								float f1 = (float) vector3d.y;
 								float f2 = (float) vector3d.z;
@@ -116,7 +129,7 @@ public class ClientEventBusMars {
 									matrixStack.push();
 									matrixStack.rotate(Vector3f.XP.rotationDegrees(90.0F));
 									float f3 = MathHelper.sin(world.getCelestialAngleRadians(partialTicks)) < 0.0F ? 180.0F : 0.0F;
-									matrixStack.rotate(Vector3f.ZP.rotationDegrees(f3));//rotation richtig with ^^
+									matrixStack.rotate(Vector3f.ZP.rotationDegrees(f3));// rotation richtig with ^^
 									matrixStack.rotate(Vector3f.ZP.rotationDegrees(90.0F));
 									float f4 = afloat[0];
 									float f5 = afloat[1];
@@ -164,90 +177,91 @@ public class ClientEventBusMars {
 								float f14 = (float) (i1 + 0) / 2.0F;
 								float f15 = (float) (l + 1) / 4.0F;
 								float f16 = (float) (i1 + 1) / 2.0F;
-								//moon Rotation
+								// moon Rotation
 								matrixStack.rotate(Vector3f.YP.rotationDegrees(-130.0F)); // Moon Rotation
-								//Moon Rotation stop
-								//moon on a other side
+								// Moon Rotation stop
+								// moon on a other side
 								matrixStack.rotate(Vector3f.ZP.rotationDegrees(100.0F));
-								//moon on a other side stop
+								// moon on a other side stop
 								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-							//	bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(f15, f16).endVertex();
-							//	bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(f13, f16).endVertex();
-							//	bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(f13, f14).endVertex();
-							//	bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(f15, f14).endVertex();
-							//New System
-								//bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(0.0F, 0.0F).endVertex();
-								//bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(1.0F, 0.0F).endVertex();
-								//bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(1.0F, 1.0F).endVertex();
-								//bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(0.0F, 1.0F).endVertex();
-								//New System
-								//bufferbuilder.pos(matrix4f1, -10, -100.0F, 10).tex(0.0F, 0.0F).endVertex();
-								//bufferbuilder.pos(matrix4f1, 10, -100.0F, 10).tex(1.0F, 0.0F).endVertex();
-								//bufferbuilder.pos(matrix4f1, 10, -100.0F, -10).tex(1.0F, 1.0F).endVertex();
-								//bufferbuilder.pos(matrix4f1, -10, -100.0F, -10).tex(0.0F, 1.0F).endVertex();
-								//New System
+								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(f15, f16).endVertex();
+								// bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(f13, f16).endVertex();
+								// bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(f13, f14).endVertex();
+								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(f15, f14).endVertex();
+								// New System
+								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(0.0F, 0.0F).endVertex();
+								// bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(1.0F, 0.0F).endVertex();
+								// bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(1.0F, 1.0F).endVertex();
+								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(0.0F,
+								// 1.0F).endVertex();
+								// New System
+								// bufferbuilder.pos(matrix4f1, -10, -100.0F, 10).tex(0.0F, 0.0F).endVertex();
+								// bufferbuilder.pos(matrix4f1, 10, -100.0F, 10).tex(1.0F, 0.0F).endVertex();
+								// bufferbuilder.pos(matrix4f1, 10, -100.0F, -10).tex(1.0F, 1.0F).endVertex();
+								// bufferbuilder.pos(matrix4f1, -10, -100.0F, -10).tex(0.0F, 1.0F).endVertex();
+								// New System
 								bufferbuilder.pos(matrix4f1, -3, -100.0F, 3).tex(0.0F, 0.0F).endVertex();
 								bufferbuilder.pos(matrix4f1, 3, -100.0F, 3).tex(1.0F, 0.0F).endVertex();
 								bufferbuilder.pos(matrix4f1, 3, -100.0F, -3).tex(1.0F, 1.0F).endVertex();
 								bufferbuilder.pos(matrix4f1, -3, -100.0F, -3).tex(0.0F, 1.0F).endVertex();
 								bufferbuilder.finishDrawing();
 								WorldVertexBufferUploader.draw(bufferbuilder);
-								
-								//New Planet EARTH
+								// New Planet EARTH
 								mc.getTextureManager().bindTexture(EARTH);
-								//moon Rotation
+								// moon Rotation
 								matrixStack.rotate(Vector3f.YP.rotationDegrees(-130.0F)); // Moon Rotation
-								//Moon Rotation stop
-								//moon on a other side
+								// Moon Rotation stop
+								// moon on a other side
 								matrixStack.rotate(Vector3f.ZP.rotationDegrees(210.0F));
-								//moon on a other side stop
+								// moon on a other side stop
 								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-							//	bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(f15, f16).endVertex();
-							//	bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(f13, f16).endVertex();
-							//	bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(f13, f14).endVertex();
-							//	bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(f15, f14).endVertex();
-							//New System
-								//bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(0.0F, 0.0F).endVertex();
-								//bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(1.0F, 0.0F).endVertex();
-								//bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(1.0F, 1.0F).endVertex();
-								//bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(0.0F, 1.0F).endVertex();
-								//New System
-								//bufferbuilder.pos(matrix4f1, -10, -100.0F, 10).tex(0.0F, 0.0F).endVertex();
-								//bufferbuilder.pos(matrix4f1, 10, -100.0F, 10).tex(1.0F, 0.0F).endVertex();
-								//bufferbuilder.pos(matrix4f1, 10, -100.0F, -10).tex(1.0F, 1.0F).endVertex();
-								//bufferbuilder.pos(matrix4f1, -10, -100.0F, -10).tex(0.0F, 1.0F).endVertex();
-								//New System
+								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(f15, f16).endVertex();
+								// bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(f13, f16).endVertex();
+								// bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(f13, f14).endVertex();
+								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(f15, f14).endVertex();
+								// New System
+								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(0.0F, 0.0F).endVertex();
+								// bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(1.0F, 0.0F).endVertex();
+								// bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(1.0F, 1.0F).endVertex();
+								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(0.0F,
+								// 1.0F).endVertex();
+								// New System
+								// bufferbuilder.pos(matrix4f1, -10, -100.0F, 10).tex(0.0F, 0.0F).endVertex();
+								// bufferbuilder.pos(matrix4f1, 10, -100.0F, 10).tex(1.0F, 0.0F).endVertex();
+								// bufferbuilder.pos(matrix4f1, 10, -100.0F, -10).tex(1.0F, 1.0F).endVertex();
+								// bufferbuilder.pos(matrix4f1, -10, -100.0F, -10).tex(0.0F, 1.0F).endVertex();
+								// New System
 								bufferbuilder.pos(matrix4f1, -1, -100.0F, 1).tex(0.0F, 0.0F).endVertex();
 								bufferbuilder.pos(matrix4f1, 1, -100.0F, 1).tex(1.0F, 0.0F).endVertex();
 								bufferbuilder.pos(matrix4f1, 1, -100.0F, -1).tex(1.0F, 1.0F).endVertex();
 								bufferbuilder.pos(matrix4f1, -1, -100.0F, -1).tex(0.0F, 1.0F).endVertex();
 								bufferbuilder.finishDrawing();
 								WorldVertexBufferUploader.draw(bufferbuilder);
-
-								//New Planet DEIMOS
+								// New Planet DEIMOS
 								mc.getTextureManager().bindTexture(DEIMOS);
-								//moon Rotation
+								// moon Rotation
 								matrixStack.rotate(Vector3f.YP.rotationDegrees(-110.0F)); // Moon Rotation
-								//Moon Rotation stop
-								//moon on a other side
+								// Moon Rotation stop
+								// moon on a other side
 								matrixStack.rotate(Vector3f.ZP.rotationDegrees(90.0F));
-								//moon on a other side stop
+								// moon on a other side stop
 								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-							//	bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(f15, f16).endVertex();
-							//	bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(f13, f16).endVertex();
-							//	bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(f13, f14).endVertex();
-							//	bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(f15, f14).endVertex();
-							//New System
-								//bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(0.0F, 0.0F).endVertex();
-								//bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(1.0F, 0.0F).endVertex();
-								//bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(1.0F, 1.0F).endVertex();
-								//bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(0.0F, 1.0F).endVertex();
-								//New System
-								//bufferbuilder.pos(matrix4f1, -10, -100.0F, 10).tex(0.0F, 0.0F).endVertex();
-								//bufferbuilder.pos(matrix4f1, 10, -100.0F, 10).tex(1.0F, 0.0F).endVertex();
-								//bufferbuilder.pos(matrix4f1, 10, -100.0F, -10).tex(1.0F, 1.0F).endVertex();
-								//bufferbuilder.pos(matrix4f1, -10, -100.0F, -10).tex(0.0F, 1.0F).endVertex();
-								//New System
+								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(f15, f16).endVertex();
+								// bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(f13, f16).endVertex();
+								// bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(f13, f14).endVertex();
+								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(f15, f14).endVertex();
+								// New System
+								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(0.0F, 0.0F).endVertex();
+								// bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(1.0F, 0.0F).endVertex();
+								// bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(1.0F, 1.0F).endVertex();
+								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(0.0F,
+								// 1.0F).endVertex();
+								// New System
+								// bufferbuilder.pos(matrix4f1, -10, -100.0F, 10).tex(0.0F, 0.0F).endVertex();
+								// bufferbuilder.pos(matrix4f1, 10, -100.0F, 10).tex(1.0F, 0.0F).endVertex();
+								// bufferbuilder.pos(matrix4f1, 10, -100.0F, -10).tex(1.0F, 1.0F).endVertex();
+								// bufferbuilder.pos(matrix4f1, -10, -100.0F, -10).tex(0.0F, 1.0F).endVertex();
+								// New System
 								bufferbuilder.pos(matrix4f1, -4, -100.0F, 4).tex(0.0F, 0.0F).endVertex();
 								bufferbuilder.pos(matrix4f1, 4, -100.0F, 4).tex(1.0F, 0.0F).endVertex();
 								bufferbuilder.pos(matrix4f1, 4, -100.0F, -4).tex(1.0F, 1.0F).endVertex();
@@ -256,7 +270,7 @@ public class ClientEventBusMars {
 								WorldVertexBufferUploader.draw(bufferbuilder);
 								RenderSystem.disableTexture();
 								f11 = 1.0F;// Star Brightness
-								float f10 = 1.0F;//world.getStarBrightness(partialTicks) * f11; //1.0F is default
+								float f10 = 1.0F;// world.getStarBrightness(partialTicks) * f11; //1.0F is default
 								// f11
 								if (f10 > 0.0F) {
 									RenderSystem.color4f(f10, f10, f10, f10);

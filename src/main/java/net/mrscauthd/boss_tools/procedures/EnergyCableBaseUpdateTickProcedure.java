@@ -396,14 +396,7 @@ public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.Mod
 					_ent.getCapability(CapabilityEnergy.ENERGY, null).ifPresent(capability -> _retval.set(capability.getEnergyStored()));
 				return _retval.get();
 			}
-		}.getEnergyStored(world, new BlockPos((int) x, (int) y, (int) z))) >= (new Object() {
-			public double getValue(IWorld world, BlockPos pos, String tag) {
-				TileEntity tileEntity = world.getTileEntity(pos);
-				if (tileEntity != null)
-					return tileEntity.getTileData().getDouble(tag);
-				return -1;
-			}
-		}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "energyall")))) {
+		}.getEnergyStored(world, new BlockPos((int) x, (int) y, (int) z))) >= 6)) {
 			if ((new Object() {
 				public boolean canReceiveEnergy(IWorld world, BlockPos pos) {
 					AtomicBoolean _retval = new AtomicBoolean(false);

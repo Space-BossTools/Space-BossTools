@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.client.ISkyRenderHandler;
+import net.minecraftforge.client.ICloudRenderHandler;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.util.math.vector.Vector3f;
@@ -24,6 +25,8 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.Minecraft;
+
+import javax.annotation.Nullable;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -60,6 +63,17 @@ public class ClientEventBusMercury {
 					// useThickFog
 					public boolean func_230493_a_(int posX, int posY) {
 						return false;
+					}
+
+					@Nullable
+					@Override
+					public ICloudRenderHandler getCloudRenderHandler() {
+						return new ICloudRenderHandler() {
+							@Override
+							public void render(int ticks, float partialTicks, MatrixStack matrixStack, ClientWorld world, Minecraft mc,
+									double viewEntityX, double viewEntityY, double viewEntityZ) {
+							}
+						};
 					}
 
 					@Override
@@ -158,11 +172,11 @@ public class ClientEventBusMercury {
 								float f15 = (float) (l + 1) / 4.0F;
 								float f16 = (float) (i1 + 1) / 2.0F;
 								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-							//	bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(f15, f16).endVertex();
-							//	bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(f13, f16).endVertex();
-							//	bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(f13, f14).endVertex();
-							//	bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(f15, f14).endVertex();
-							//New System
+								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(f15, f16).endVertex();
+								// bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(f13, f16).endVertex();
+								// bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(f13, f14).endVertex();
+								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(f15, f14).endVertex();
+								// New System
 								bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(0.0F, 0.0F).endVertex();
 								bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(1.0F, 0.0F).endVertex();
 								bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(1.0F, 1.0F).endVertex();
