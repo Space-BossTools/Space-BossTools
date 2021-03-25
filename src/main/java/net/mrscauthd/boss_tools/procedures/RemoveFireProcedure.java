@@ -82,7 +82,7 @@ public class RemoveFireProcedure extends BossToolsModElements.ModElement {
 			}
 		}
 		if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-				new ResourceLocation("boss_tools:umlaufbahnerde"))))) {
+				new ResourceLocation("boss_tools:orbit_overworld"))))) {
 			if (((world.getBlockState(new BlockPos((int) x, (int) y, (int) z))).getBlock() == Blocks.FIRE.getDefaultState().getBlock())) {
 				if (world instanceof ServerWorld) {
 					((World) world).getServer().getCommandManager().handleCommand(
@@ -177,7 +177,7 @@ public class RemoveFireProcedure extends BossToolsModElements.ModElement {
 			}
 		}
 		if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-				new ResourceLocation("boss_tools:umlaufbahnerde"))))) {
+				new ResourceLocation("boss_tools:orbit_overworld"))))) {
 			if (((world.getBlockState(new BlockPos((int) x, (int) y, (int) z))).getBlock() == Blocks.TORCH.getDefaultState().getBlock())) {
 				if (world instanceof ServerWorld) {
 					((World) world).getServer().getCommandManager().handleCommand(
@@ -317,7 +317,7 @@ public class RemoveFireProcedure extends BossToolsModElements.ModElement {
 			}
 		}
 		if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-				new ResourceLocation("boss_tools:umlaufbahnerde"))))) {
+				new ResourceLocation("boss_tools:orbit_overworld"))))) {
 			if (((world.getBlockState(new BlockPos((int) x, (int) y, (int) z))).getBlock() == Blocks.WALL_TORCH.getDefaultState().getBlock())) {
 				if (world instanceof ServerWorld) {
 					((World) world).getServer().getCommandManager().handleCommand(
@@ -439,7 +439,7 @@ public class RemoveFireProcedure extends BossToolsModElements.ModElement {
 			}
 		}
 		if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-				new ResourceLocation("boss_tools:umlaufbahnerde"))))) {
+				new ResourceLocation("boss_tools:orbit_overworld"))))) {
 			if (((world.getBlockState(new BlockPos((int) x, (int) y, (int) z))).getBlock() == Blocks.CAMPFIRE.getDefaultState().getBlock())) {
 				if (world instanceof ServerWorld) {
 					((World) world).getServer().getCommandManager().handleCommand(

@@ -828,7 +828,7 @@
       "compiles": true,
       "locked_code": true,
       "ids": {},
-      "registry_name": "umlaufbahnerde",
+      "registry_name": "orbit_overworld",
       "metadata": {
         "ep": false
       },
@@ -5308,7 +5308,7 @@
       "type": "dimension",
       "sortid": 83,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "orbit_moon",
       "metadata": {
@@ -11756,7 +11756,6 @@
       "block.boss_tools.moon_stone": "Moon Stone",
       "item.boss_tools.space_station": "Space Station",
       "item.boss_tools.desh_plate": "Desh Plate",
-      "item.boss_tools.umlaufbahnerde": "Admin Feuerzeug",
       "item.boss_tools.compressed_silicon": "Compressed Silicon",
       "item.boss_tools.mercury": "Admin Feuerzeug",
       "item.boss_tools.rocket_tier_2": "Rocket Spawn Egg",
@@ -11812,6 +11811,7 @@
       "item.boss_tools.hammer": "Hammer",
       "item.boss_tools.alien": "Alien Spawn Egg",
       "block.boss_tools.coal_generator": "Coal Generator",
+      "item.boss_tools.orbit_overworld": "Admin Feuerzeug",
       "item.boss_tools.engine_fan": "Engine Fan",
       "key.boss_tools.rocket_start_2": "Tier 2 Rocket Start",
       "key.boss_tools.rocket_start_3": "Tier 3 Rocket Start",

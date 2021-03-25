@@ -51,7 +51,7 @@ public class UmlaufbahnerdeDimension extends BossToolsModElements.ModElement {
 	 * DimensionRenderInfo> effectsRegistry = (Object2ObjectMap<ResourceLocation,
 	 * DimensionRenderInfo>) ObfuscationReflectionHelper
 	 * .getPrivateValue(DimensionRenderInfo.class, null, "field_239208_a_");
-	 * effectsRegistry.put(new ResourceLocation("boss_tools:umlaufbahnerde"),
+	 * effectsRegistry.put(new ResourceLocation("boss_tools:orbit_overworld"),
 	 * customEffect); } catch (Exception e) { e.printStackTrace(); } }); }
 	 */
 }

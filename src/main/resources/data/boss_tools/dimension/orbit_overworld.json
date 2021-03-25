@@ -1,5 +1,5 @@
 {
-  "type": "boss_tools:umlaufbahnerde",
+  "type": "boss_tools:orbit_overworld",
   "generator": {
     "type": "minecraft:noise",
     "seed": 0,
@@ -48,7 +48,7 @@
       ]
     },
     "settings": {
-      "name": "boss_tools:umlaufbahnerde",
+      "name": "boss_tools:orbit_overworld",
       "bedrock_roof_position": -10,
       "bedrock_floor_position": -10,
       "sea_level": 0,

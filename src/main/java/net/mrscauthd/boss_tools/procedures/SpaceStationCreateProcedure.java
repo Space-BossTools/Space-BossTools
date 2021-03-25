@@ -93,12 +93,12 @@ public class SpaceStationCreateProcedure extends BossToolsModElements.ModElement
 				((PlayerEntity) entity).sendStatusMessage(new StringTextComponent("\u00A7cWARNING! \u00A77Press \u00A7cSPACE\u00A77."), (true));
 			}
 			if ((!((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-					new ResourceLocation("boss_tools:umlaufbahnerde")))))) {
+					new ResourceLocation("boss_tools:orbit_overworld")))))) {
 				{
 					Entity _ent = entity;
 					if (!_ent.world.isRemote && _ent instanceof ServerPlayerEntity) {
 						RegistryKey<World> destinationType = RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-								new ResourceLocation("boss_tools:umlaufbahnerde"));
+								new ResourceLocation("boss_tools:orbit_overworld"));
 						ServerWorld nextWorld = _ent.getServer().getWorld(destinationType);
 						if (nextWorld != null) {
 							((ServerPlayerEntity) _ent).connection.sendPacket(new SChangeGameStatePacket(SChangeGameStatePacket.field_241768_e_, 0));
@@ -113,7 +113,7 @@ public class SpaceStationCreateProcedure extends BossToolsModElements.ModElement
 				}
 			}
 			if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-					new ResourceLocation("boss_tools:umlaufbahnerde"))))) {
+					new ResourceLocation("boss_tools:orbit_overworld"))))) {
 				{
 					Entity _ent = entity;
 					_ent.setPositionAndUpdate((entity.getPosX()), 700, (entity.getPosZ()));

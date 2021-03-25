@@ -186,7 +186,7 @@ public class LandingGearfalltoworldProcedure extends BossToolsModElements.ModEle
 		}
 		if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
 			if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-					new ResourceLocation("boss_tools:umlaufbahnerde"))))) {
+					new ResourceLocation("boss_tools:orbit_overworld"))))) {
 				if ((((entity.getRidingEntity()).getPosY()) <= 1)) {
 					if (!(entity.getRidingEntity()).world.isRemote())
 						(entity.getRidingEntity()).remove();
