@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.procedures;
 
+import net.mrscauthd.boss_tools.gui.Tier2mainMenuGui;
 import net.mrscauthd.boss_tools.gui.Tier1mainMenuSpaceStationGui;
 import net.mrscauthd.boss_tools.gui.Tier1mainMenuSpaceStation2Gui;
 import net.mrscauthd.boss_tools.gui.Tier1mainMenuGui;
@@ -206,7 +207,26 @@ public class PlayerOpenRocketMainMenusProcedure extends BossToolsModElements.Mod
 					}, _bpos);
 				}
 			}
-		}
+		} // Tier 2 Rocket
+		if (((entity.getPersistentData().getDouble("Tier_2_open_main_menu")) == 1)) {
+			{
+				Entity _ent = entity;
+				if (_ent instanceof ServerPlayerEntity) {
+					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+						@Override
+						public ITextComponent getDisplayName() {
+							return new StringTextComponent("Tier2mainMenu");
+						}
+
+						@Override
+						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+							return new Tier2mainMenuGui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+						}
+					}, _bpos);
+				}
+			}
+		} // Overworld
 	}
 
 	@SubscribeEvent

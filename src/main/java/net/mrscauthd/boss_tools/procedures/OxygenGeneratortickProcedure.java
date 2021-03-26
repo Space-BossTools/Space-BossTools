@@ -398,11 +398,21 @@ public class OxygenGeneratortickProcedure extends BossToolsModElements.ModElemen
 							return -1;
 						}
 					}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "OxygenLarge")) == 0)) {
-						{
-							TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-							int _amount = (int) 1;
-							if (_ent != null)
-								_ent.getCapability(CapabilityEnergy.ENERGY, null).ifPresent(capability -> capability.extractEnergy(_amount, false));
+						if (((new Object() {
+							public double getValue(IWorld world, BlockPos pos, String tag) {
+								TileEntity tileEntity = world.getTileEntity(pos);
+								if (tileEntity != null)
+									return tileEntity.getTileData().getDouble(tag);
+								return -1;
+							}
+						}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "energy_timer")) >= 2)) {
+							{
+								TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
+								int _amount = (int) 1;
+								if (_ent != null)
+									_ent.getCapability(CapabilityEnergy.ENERGY, null)
+											.ifPresent(capability -> capability.extractEnergy(_amount, false));
+							}
 						}
 						if (world instanceof ServerWorld) {
 							((World) world).getServer().getCommandManager().handleCommand(
@@ -437,17 +447,37 @@ public class OxygenGeneratortickProcedure extends BossToolsModElements.ModElemen
 							return -1;
 						}
 					}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "OxygenLarge")) == 1)) {
-						{
-							TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-							int _amount = (int) 1;
-							if (_ent != null)
-								_ent.getCapability(CapabilityEnergy.ENERGY, null).ifPresent(capability -> capability.extractEnergy(_amount, false));
+						if (!world.isRemote()) {
+							BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+							TileEntity _tileEntity = world.getTileEntity(_bp);
+							BlockState _bs = world.getBlockState(_bp);
+							if (_tileEntity != null)
+								_tileEntity.getTileData().putDouble("energy_timer", ((new Object() {
+									public double getValue(IWorld world, BlockPos pos, String tag) {
+										TileEntity tileEntity = world.getTileEntity(pos);
+										if (tileEntity != null)
+											return tileEntity.getTileData().getDouble(tag);
+										return -1;
+									}
+								}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "energy_timer")) + 1));
+							if (world instanceof World)
+								((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 						}
-						if (world instanceof ServerWorld) {
-							((World) world).getServer().getCommandManager().handleCommand(
-									new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-											new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-									"/particle minecraft:cloud ~0.5 ~1 ~0.5 0.1 .1 0.1 .001 1 force");
+						if (((new Object() {
+							public double getValue(IWorld world, BlockPos pos, String tag) {
+								TileEntity tileEntity = world.getTileEntity(pos);
+								if (tileEntity != null)
+									return tileEntity.getTileData().getDouble(tag);
+								return -1;
+							}
+						}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "energy_timer")) >= 2)) {
+							{
+								TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
+								int _amount = (int) 1;
+								if (_ent != null)
+									_ent.getCapability(CapabilityEnergy.ENERGY, null)
+											.ifPresent(capability -> capability.extractEnergy(_amount, false));
+							}
 						}
 						{
 							List<Entity> _entfound = world
@@ -467,6 +497,12 @@ public class OxygenGeneratortickProcedure extends BossToolsModElements.ModElemen
 									entityiterator.getPersistentData().putDouble("Oxygen_Bullet_Generator", 3);
 								}
 							}
+						}
+						if (world instanceof ServerWorld) {
+							((World) world).getServer().getCommandManager().handleCommand(
+									new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
+											new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
+									"/particle minecraft:cloud ~0.5 ~1 ~0.5 0.1 .1 0.1 .001 1 force");
 						}
 					}
 				}

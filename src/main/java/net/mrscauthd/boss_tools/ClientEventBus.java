@@ -73,6 +73,7 @@ public class ClientEventBus {
 							@Override
 							public void render(int ticks, float partialTicks, MatrixStack matrixStack, ClientWorld world, Minecraft mc,
 									double viewEntityX, double viewEntityY, double viewEntityZ) {
+									//Clouds Render with nothing in it nothing rendered
 							}
 						};
 					}

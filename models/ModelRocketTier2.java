@@ -1,5 +1,5 @@
-// Made with Blockbench 3.7.5
-// Exported for Minecraft version 1.15
+// Made with Blockbench 3.8.3
+// Exported for Minecraft version 1.15 - 1.16
 // Paste this class into your mod and generate all required imports
 
 public static class ModelRocketTier2 extends EntityModel<Entity> {
@@ -182,35 +182,35 @@ public static class ModelRocketTier2 extends EntityModel<Entity> {
 		bone.setRotationPoint(8.0F, 0.0F, 3.0F);
 		Rocket.addChild(bone);
 		setRotationAngle(bone, 0.0F, 0.8727F, 0.0F);
-		bone.setTextureOffset(43, 17).addBox(7.0F, -11.0F, -8.0F, 2.0F, 6.0F, 2.0F, 0.0F, false);
-		bone.setTextureOffset(43, 17).addBox(10.0F, -9.0F, -8.0F, 1.0F, 6.0F, 2.0F, 0.0F, false);
-		bone.setTextureOffset(43, 17).addBox(9.0F, -10.0F, -8.0F, 1.0F, 6.0F, 2.0F, 0.0F, false);
-		bone.setTextureOffset(43, 17).addBox(11.0F, -7.0F, -8.0F, 1.0F, 6.0F, 2.0F, 0.0F, false);
-		bone.setTextureOffset(43, 17).addBox(12.0F, -7.0F, -8.0F, 1.0F, 7.0F, 2.0F, 0.0F, false);
-		bone.setTextureOffset(43, 17).addBox(13.0F, -11.0F, -8.0F, 1.0F, 13.0F, 2.0F, 0.0F, false);
+		bone.setTextureOffset(43, 17).addBox(7.0F, -14.0F, -8.0F, 2.0F, 9.0F, 2.0F, 0.0F, false);
+		bone.setTextureOffset(43, 17).addBox(10.0F, -12.0F, -8.0F, 1.0F, 9.0F, 2.0F, 0.0F, false);
+		bone.setTextureOffset(43, 17).addBox(9.0F, -13.0F, -8.0F, 1.0F, 9.0F, 2.0F, 0.0F, false);
+		bone.setTextureOffset(43, 17).addBox(11.0F, -10.0F, -8.0F, 1.0F, 9.0F, 2.0F, 0.0F, false);
+		bone.setTextureOffset(43, 17).addBox(12.0F, -10.0F, -8.0F, 1.0F, 10.0F, 2.0F, 0.0F, false);
+		bone.setTextureOffset(43, 17).addBox(13.0F, -15.0F, -8.0F, 1.0F, 17.0F, 2.0F, 0.0F, false);
 
 		bone2 = new ModelRenderer(this);
 		bone2.setRotationPoint(8.0F, 0.0F, 3.0F);
 		Rocket.addChild(bone2);
 		setRotationAngle(bone2, 0.0F, 0.8727F, 0.0F);
-		bone2.setTextureOffset(43, 17).addBox(-14.8917F, -11.0F, -9.9549F, 2.0F, 6.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-4.8F, -11.0F, 2.1117F, 2.0F, 6.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-2.9F, -11.0F, -19.8502F, 2.0F, 6.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-16.8917F, -9.0F, -9.9549F, 1.0F, 6.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-4.8F, -9.0F, 5.1117F, 2.0F, 6.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-2.9F, -9.0F, -21.8502F, 2.0F, 6.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-15.8917F, -10.0F, -9.9549F, 1.0F, 6.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-4.8F, -10.0F, 4.1117F, 2.0F, 6.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-2.9F, -10.0F, -20.8502F, 2.0F, 6.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-17.8917F, -7.0F, -9.9549F, 1.0F, 6.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-4.8F, -7.0F, 6.1117F, 2.0F, 6.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-2.9F, -7.0F, -22.8502F, 2.0F, 6.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-18.8917F, -7.0F, -9.9549F, 1.0F, 7.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-4.8F, -7.0F, 7.1117F, 2.0F, 7.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-2.9F, -7.0F, -23.8502F, 2.0F, 7.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-19.8917F, -11.0F, -9.9549F, 1.0F, 13.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-4.8F, -11.0F, 8.1117F, 2.0F, 13.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-2.9F, -11.0F, -24.8502F, 2.0F, 13.0F, 1.0F, 0.0F, true);
+		bone2.setTextureOffset(43, 17).addBox(-14.8917F, -14.0F, -9.9549F, 2.0F, 9.0F, 2.0F, 0.0F, true);
+		bone2.setTextureOffset(43, 17).addBox(-4.8F, -14.0F, 2.1117F, 2.0F, 9.0F, 2.0F, 0.0F, true);
+		bone2.setTextureOffset(43, 17).addBox(-2.9F, -14.0F, -19.8502F, 2.0F, 9.0F, 2.0F, 0.0F, true);
+		bone2.setTextureOffset(43, 17).addBox(-16.8917F, -12.0F, -9.9549F, 1.0F, 9.0F, 2.0F, 0.0F, true);
+		bone2.setTextureOffset(43, 17).addBox(-4.8F, -12.0F, 5.1117F, 2.0F, 9.0F, 1.0F, 0.0F, true);
+		bone2.setTextureOffset(43, 17).addBox(-2.9F, -12.0F, -21.8502F, 2.0F, 9.0F, 1.0F, 0.0F, true);
+		bone2.setTextureOffset(43, 17).addBox(-15.8917F, -13.0F, -9.9549F, 1.0F, 9.0F, 2.0F, 0.0F, true);
+		bone2.setTextureOffset(43, 17).addBox(-4.8F, -13.0F, 4.1117F, 2.0F, 9.0F, 1.0F, 0.0F, true);
+		bone2.setTextureOffset(43, 17).addBox(-2.9F, -13.0F, -20.8502F, 2.0F, 9.0F, 1.0F, 0.0F, true);
+		bone2.setTextureOffset(43, 17).addBox(-17.8917F, -10.0F, -9.9549F, 1.0F, 9.0F, 2.0F, 0.0F, true);
+		bone2.setTextureOffset(43, 17).addBox(-4.8F, -10.0F, 6.1117F, 2.0F, 9.0F, 1.0F, 0.0F, true);
+		bone2.setTextureOffset(43, 17).addBox(-2.9F, -10.0F, -22.8502F, 2.0F, 9.0F, 1.0F, 0.0F, true);
+		bone2.setTextureOffset(43, 17).addBox(-18.8917F, -10.0F, -9.9549F, 1.0F, 10.0F, 2.0F, 0.0F, true);
+		bone2.setTextureOffset(43, 17).addBox(-4.8F, -10.0F, 7.1117F, 2.0F, 10.0F, 1.0F, 0.0F, true);
+		bone2.setTextureOffset(43, 17).addBox(-2.9F, -10.0F, -23.8502F, 2.0F, 10.0F, 1.0F, 0.0F, true);
+		bone2.setTextureOffset(43, 17).addBox(-19.8917F, -15.0F, -9.9549F, 1.0F, 17.0F, 2.0F, 0.0F, true);
+		bone2.setTextureOffset(43, 17).addBox(-4.8F, -15.0F, 8.1117F, 2.0F, 17.0F, 1.0F, 0.0F, true);
+		bone2.setTextureOffset(43, 17).addBox(-2.9F, -15.0F, -24.8502F, 2.0F, 17.0F, 1.0F, 0.0F, true);
 	}
 
 	@Override

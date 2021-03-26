@@ -1,5 +1,5 @@
-// Made with Blockbench 3.7.5
-// Exported for Minecraft version 1.15
+// Made with Blockbench 3.8.3
+// Exported for Minecraft version 1.15 - 1.16
 // Paste this class into your mod and generate all required imports
 
 public static class ModelRocketTier1 extends EntityModel<Entity> {
@@ -11,10 +11,10 @@ public static class ModelRocketTier1 extends EntityModel<Entity> {
 
 		Rocket = new ModelRenderer(this);
 		Rocket.setRotationPoint(0.0F, 23.0F, 0.0F);
-		Rocket.setTextureOffset(43, 17).addBox(11.0F, -7.0F, -1.0F, 1.0F, 6.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -7.0F, -12.0F, 2.0F, 6.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(-12.0F, -7.0F, -1.0F, 1.0F, 6.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -7.0F, 11.0F, 2.0F, 6.0F, 1.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(11.0F, -8.0F, -1.0F, 1.0F, 7.0F, 2.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -8.0F, -12.0F, 2.0F, 7.0F, 1.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(-12.0F, -8.0F, -1.0F, 1.0F, 7.0F, 2.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -8.0F, 11.0F, 2.0F, 7.0F, 1.0F, 0.0F, false);
 		Rocket.setTextureOffset(273, 90).addBox(4.0F, -31.0F, -8.0F, 3.0F, 7.0F, 1.0F, 0.0F, false);
 		Rocket.setTextureOffset(273, 90).addBox(-7.0F, -31.0F, -8.0F, 3.0F, 7.0F, 1.0F, 0.0F, false);
 		Rocket.setTextureOffset(85, 46).addBox(3.0F, -31.0F, -8.1F, 1.0F, 7.0F, 1.0F, 0.0F, false);
@@ -34,26 +34,26 @@ public static class ModelRocketTier1 extends EntityModel<Entity> {
 		Rocket.setTextureOffset(307, 78).addBox(7.0F, -40.0F, 7.0F, 1.0F, 35.0F, 1.0F, 0.0F, false);
 		Rocket.setTextureOffset(307, 78).addBox(7.0F, -37.0F, -8.0F, 1.0F, 32.0F, 1.0F, 0.0F, false);
 		Rocket.setTextureOffset(307, 78).addBox(7.0F, -40.0F, -8.0F, 1.0F, 3.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(10.0F, -9.0F, -1.0F, 1.0F, 6.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -9.0F, -11.0F, 2.0F, 6.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(-11.0F, -9.0F, -1.0F, 1.0F, 6.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -9.0F, 10.0F, 2.0F, 6.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(9.0F, -10.0F, -1.0F, 1.0F, 6.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -10.0F, -10.0F, 2.0F, 6.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(-10.0F, -10.0F, -1.0F, 1.0F, 6.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -10.0F, 9.0F, 2.0F, 6.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(12.0F, -7.0F, -1.0F, 1.0F, 7.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -7.0F, -13.0F, 2.0F, 7.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(-13.0F, -7.0F, -1.0F, 1.0F, 7.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -7.0F, 12.0F, 2.0F, 7.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(13.0F, -11.0F, -1.0F, 1.0F, 13.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -11.0F, -14.0F, 2.0F, 13.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(-14.0F, -11.0F, -1.0F, 1.0F, 13.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -11.0F, 13.0F, 2.0F, 13.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(8.0F, -11.0F, -1.0F, 1.0F, 6.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -11.0F, -9.0F, 2.0F, 6.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(-9.0F, -11.0F, -1.0F, 1.0F, 6.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -11.0F, 8.0F, 2.0F, 6.0F, 1.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(10.0F, -10.0F, -1.0F, 1.0F, 7.0F, 2.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -10.0F, -11.0F, 2.0F, 7.0F, 1.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(-11.0F, -10.0F, -1.0F, 1.0F, 7.0F, 2.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -10.0F, 10.0F, 2.0F, 7.0F, 1.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(9.0F, -11.0F, -1.0F, 1.0F, 7.0F, 2.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -11.0F, -10.0F, 2.0F, 7.0F, 1.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(-10.0F, -11.0F, -1.0F, 1.0F, 7.0F, 2.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -11.0F, 9.0F, 2.0F, 7.0F, 1.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(12.0F, -8.0F, -1.0F, 1.0F, 8.0F, 2.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -8.0F, -13.0F, 2.0F, 8.0F, 1.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(-13.0F, -8.0F, -1.0F, 1.0F, 8.0F, 2.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -8.0F, 12.0F, 2.0F, 8.0F, 1.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(13.0F, -13.0F, -1.0F, 1.0F, 15.0F, 2.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -13.0F, -14.0F, 2.0F, 15.0F, 1.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(-14.0F, -13.0F, -1.0F, 1.0F, 15.0F, 2.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -13.0F, 13.0F, 2.0F, 15.0F, 1.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(8.0F, -12.0F, -1.0F, 1.0F, 7.0F, 2.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -12.0F, -9.0F, 2.0F, 7.0F, 1.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(-9.0F, -12.0F, -1.0F, 1.0F, 7.0F, 2.0F, 0.0F, false);
+		Rocket.setTextureOffset(43, 17).addBox(-1.0F, -12.0F, 8.0F, 2.0F, 7.0F, 1.0F, 0.0F, false);
 		Rocket.setTextureOffset(277, 106).addBox(7.0F, -39.0F, -7.0F, 1.0F, 34.0F, 14.0F, 0.0F, false);
 		Rocket.setTextureOffset(33, 87).addBox(4.0F, -41.0F, -7.0F, 2.0F, 1.0F, 14.0F, 0.0F, false);
 		Rocket.setTextureOffset(33, 87).addBox(6.0F, -41.0F, -6.0F, 1.0F, 1.0F, 12.0F, 0.0F, false);
