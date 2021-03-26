@@ -82,7 +82,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 public class RocketTier3Entity extends BossToolsModElements.ModElement {
 	public static EntityType entity = null;
 	public RocketTier3Entity(BossToolsModElements instance) {
-		super(instance, 59);
+		super(instance, 13);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new ModelRegisterHandler());
 		NetworkLoader.registerMessages();
 	}
@@ -197,6 +197,18 @@ public class RocketTier3Entity extends BossToolsModElements.ModElement {
 			if (source == DamageSource.DROWN)
 				return false;
 			if (source == DamageSource.LIGHTNING_BOLT)
+				return false;
+			if (source.isExplosion())
+				return false;
+			if (source.getDamageType().equals("trident"))
+				return false;
+			if (source == DamageSource.ANVIL)
+				return false;
+			if (source == DamageSource.DRAGON_BREATH)
+				return false;
+			if (source == DamageSource.WITHER)
+				return false;
+			if (source.getDamageType().equals("witherSkull"))
 				return false;
 			return super.attackEntityFrom(source, amount);
 		}
