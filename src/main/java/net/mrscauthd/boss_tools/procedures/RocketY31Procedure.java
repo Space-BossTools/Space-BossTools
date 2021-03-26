@@ -13,7 +13,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class RocketY31Procedure extends BossToolsModElements.ModElement {
 	public RocketY31Procedure(BossToolsModElements instance) {
-		super(instance, 673);
+		super(instance, 536);
 	}
 
 	public static boolean executeProcedure(Map<String, Object> dependencies) {

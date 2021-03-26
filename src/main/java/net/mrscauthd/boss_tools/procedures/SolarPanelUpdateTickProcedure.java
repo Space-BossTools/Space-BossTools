@@ -18,7 +18,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class SolarPanelUpdateTickProcedure extends BossToolsModElements.ModElement {
 	public SolarPanelUpdateTickProcedure(BossToolsModElements instance) {
-		super(instance, 558);
+		super(instance, 427);
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {

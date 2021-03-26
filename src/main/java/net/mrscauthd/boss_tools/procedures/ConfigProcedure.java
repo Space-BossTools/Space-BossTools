@@ -20,7 +20,7 @@ import java.io.BufferedReader;
 @BossToolsModElements.ModElement.Tag
 public class ConfigProcedure extends BossToolsModElements.ModElement {
 	public ConfigProcedure(BossToolsModElements instance) {
-		super(instance, 538);
+		super(instance, 407);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 

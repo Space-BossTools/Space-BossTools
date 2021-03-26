@@ -11,7 +11,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class StarCrawlerOnEntityTickUpdateProcedure extends BossToolsModElements.ModElement {
 	public StarCrawlerOnEntityTickUpdateProcedure(BossToolsModElements instance) {
-		super(instance, 537);
+		super(instance, 406);
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {

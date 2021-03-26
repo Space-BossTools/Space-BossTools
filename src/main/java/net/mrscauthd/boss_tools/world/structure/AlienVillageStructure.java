@@ -41,7 +41,7 @@ public class AlienVillageStructure extends BossToolsModElements.ModElement {
 	private static Feature<NoFeatureConfig> feature = null;
 	private static ConfiguredFeature<?, ?> configuredFeature = null;
 	public AlienVillageStructure(BossToolsModElements instance) {
-		super(instance, 100);
+		super(instance, 94);
 		MinecraftForge.EVENT_BUS.register(this);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new FeatureRegisterHandler());
 	}

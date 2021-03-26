@@ -25,7 +25,7 @@ public class MercurystoneBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:mercury_stone")
 	public static final Block block = null;
 	public MercurystoneBlock(BossToolsModElements instance) {
-		super(instance, 45);
+		super(instance, 46);
 	}
 
 	@Override

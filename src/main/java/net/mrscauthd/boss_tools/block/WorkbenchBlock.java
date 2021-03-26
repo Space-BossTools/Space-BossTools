@@ -91,7 +91,7 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:nasa_workbench")
 	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
 	public WorkbenchBlock(BossToolsModElements instance) {
-		super(instance, 55);
+		super(instance, 57);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new TileEntityRegisterHandler());
 	}
 

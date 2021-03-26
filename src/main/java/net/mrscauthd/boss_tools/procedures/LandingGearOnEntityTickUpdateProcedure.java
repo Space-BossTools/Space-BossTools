@@ -19,7 +19,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class LandingGearOnEntityTickUpdateProcedure extends BossToolsModElements.ModElement {
 	public LandingGearOnEntityTickUpdateProcedure(BossToolsModElements instance) {
-		super(instance, 191);
+		super(instance, 154);
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {

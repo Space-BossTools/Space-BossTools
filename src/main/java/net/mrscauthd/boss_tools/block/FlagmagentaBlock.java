@@ -41,7 +41,7 @@ public class FlagmagentaBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:flag_magenta")
 	public static final Block block = null;
 	public FlagmagentaBlock(BossToolsModElements instance) {
-		super(instance, 71);
+		super(instance, 73);
 	}
 
 	@Override

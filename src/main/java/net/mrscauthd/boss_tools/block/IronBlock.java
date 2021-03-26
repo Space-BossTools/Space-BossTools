@@ -46,7 +46,7 @@ public class IronBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:mars_iron_ore")
 	public static final Block block = null;
 	public IronBlock(BossToolsModElements instance) {
-		super(instance, 51);
+		super(instance, 52);
 		MinecraftForge.EVENT_BUS.register(this);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new FeatureRegisterHandler());
 	}

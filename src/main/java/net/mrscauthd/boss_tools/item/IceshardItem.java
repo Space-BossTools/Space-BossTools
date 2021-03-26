@@ -16,7 +16,7 @@ public class IceshardItem extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:ice_shard")
 	public static final Item block = null;
 	public IceshardItem(BossToolsModElements instance) {
-		super(instance, 24);
+		super(instance, 25);
 	}
 
 	@Override

@@ -26,7 +26,7 @@ import java.util.HashMap;
 @BossToolsModElements.ModElement.Tag
 public class RocketholdfixProcedure extends BossToolsModElements.ModElement {
 	public RocketholdfixProcedure(BossToolsModElements instance) {
-		super(instance, 709);
+		super(instance, 572);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 

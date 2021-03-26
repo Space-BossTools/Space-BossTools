@@ -1,0 +1,17 @@
+{
+  "_fv": 17,
+  "_type": "tag",
+  "definition": {
+    "type": "Items",
+    "items": [
+      {
+        "value": "CUSTOM:Fuel"
+      }
+    ],
+    "blocks": [],
+    "functions": [],
+    "entities": [],
+    "name": "rocket/fuel",
+    "namespace": "mod"
+  }
+}

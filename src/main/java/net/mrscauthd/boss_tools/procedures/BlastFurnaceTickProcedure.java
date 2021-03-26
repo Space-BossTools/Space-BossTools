@@ -23,7 +23,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class BlastFurnaceTickProcedure extends BossToolsModElements.ModElement {
 	public BlastFurnaceTickProcedure(BossToolsModElements instance) {
-		super(instance, 186);
+		super(instance, 150);
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {

@@ -31,13 +31,12 @@ public class FuelBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:fuel")
 	public static final FlowingFluidBlock block = null;
 	@ObjectHolder("boss_tools:fuel_bucket")
-	public static Item FuelBucket = null;
 	public static final Item bucket = null;
 	public static FlowingFluid flowing = null;
 	public static FlowingFluid still = null;
 	private ForgeFlowingFluid.Properties fluidproperties = null;
 	public FuelBlock(BossToolsModElements instance) {
-		super(instance, 15);
+		super(instance, 6);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new FluidRegisterHandler());
 	}
 	private static class FluidRegisterHandler {
@@ -63,10 +62,8 @@ public class FuelBlock extends BossToolsModElements.ModElement {
 		flowing = (FlowingFluid) new ForgeFlowingFluid.Flowing(fluidproperties).setRegistryName("fuel_flowing");
 		elements.blocks.add(() -> new FlowingFluidBlock(still, Block.Properties.create(Material.WATER)) {
 		}.setRegistryName("fuel"));
-		FuelBucket = new BucketItem(still, new Item.Properties().containerItem(Items.BUCKET).maxStackSize(1).group(BossToolsItemGroup.tab))
-						.setRegistryName("fuel_bucket");
 		elements.items
-				.add(() -> FuelBucket);/*new BucketItem(still, new Item.Properties().containerItem(Items.BUCKET).maxStackSize(1).group(BossToolsItemGroup.tab))
-						.setRegistryName("fuel_bucket"));*/
+				.add(() -> new BucketItem(still, new Item.Properties().containerItem(Items.BUCKET).maxStackSize(1).group(BossToolsItemGroup.tab))
+						.setRegistryName("fuel_bucket"));
 	}
 }

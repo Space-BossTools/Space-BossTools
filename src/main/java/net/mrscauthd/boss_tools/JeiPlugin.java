@@ -326,7 +326,7 @@ public class JeiPlugin implements IModPlugin {
         ArrayList<ItemStack> inputs = new ArrayList<>();
         ArrayList<ItemStack> outputs = new ArrayList<>();
 		inputs.add(new ItemStack(Items.LAVA_BUCKET));
-        outputs.add(new ItemStack(FuelBlock.FuelBucket));//FuelBuckedItem.block //FuelBlock.block
+        outputs.add(new ItemStack(FuelBlock.bucket));//FuelBuckedItem.block //FuelBlock.FuelBucket
         // ...
         recipes.add(new FuelMakerJeiCategory.FuelMakerRecipeWrapper(inputs, outputs));
         return recipes;
@@ -347,7 +347,7 @@ public class JeiPlugin implements IModPlugin {
         private List<Tier1RocketItemItemJeiCategory.Tier1RocketItemItemRecipeWrapper> generateTier1RocketItemItemRecipes() {
         List<Tier1RocketItemItemJeiCategory.Tier1RocketItemItemRecipeWrapper> recipes = new ArrayList<>();
         ArrayList<ItemStack> inputs = new ArrayList<>();
-		inputs.add(new ItemStack(FuelBlock.FuelBucket));
+		inputs.add(new ItemStack(FuelBlock.bucket));
         // ...
         recipes.add(new Tier1RocketItemItemJeiCategory.Tier1RocketItemItemRecipeWrapper(inputs));
         return recipes;

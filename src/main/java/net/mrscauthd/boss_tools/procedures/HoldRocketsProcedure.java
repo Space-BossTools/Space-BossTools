@@ -24,7 +24,7 @@ import com.mrcrayfish.obfuscate.client.event.PlayerModelEvent;
 @BossToolsModElements.ModElement.Tag
 public class HoldRocketsProcedure extends BossToolsModElements.ModElement {
 	public HoldRocketsProcedure(BossToolsModElements instance) {
-		super(instance, 534);
+		super(instance, 403);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 

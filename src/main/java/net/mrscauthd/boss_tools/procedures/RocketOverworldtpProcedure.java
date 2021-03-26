@@ -19,7 +19,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class RocketOverworldtpProcedure extends BossToolsModElements.ModElement {
 	public RocketOverworldtpProcedure(BossToolsModElements instance) {
-		super(instance, 125);
+		super(instance, 106);
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {

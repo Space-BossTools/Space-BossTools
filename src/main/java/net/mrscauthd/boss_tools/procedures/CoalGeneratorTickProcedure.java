@@ -25,7 +25,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class CoalGeneratorTickProcedure extends BossToolsModElements.ModElement {
 	public CoalGeneratorTickProcedure(BossToolsModElements instance) {
-		super(instance, 174);
+		super(instance, 141);
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {

@@ -29,7 +29,7 @@ public class IronMarkBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:iron_mark")
 	public static final Block block = null;
 	public IronMarkBlock(BossToolsModElements instance) {
-		super(instance, 767);
+		super(instance, 56);
 	}
 
 	@Override
