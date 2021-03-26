@@ -3,14 +3,14 @@
   "_type": "fluid",
   "definition": {
     "name": "Fuel",
-    "textureStill": "fuelstop",
-    "textureFlowing": "fluidflow",
+    "textureStill": "fuel_still",
+    "textureFlowing": "fuel_flow",
     "luminosity": 0,
     "density": 1000,
     "viscosity": 1000,
     "isGas": false,
     "type": "WATER",
-    "generateBucket": false,
+    "generateBucket": true,
     "creativeTab": {
       "value": "CUSTOM:BossTools"
     },

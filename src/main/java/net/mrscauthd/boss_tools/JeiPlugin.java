@@ -1,20 +1,4 @@
-/**
- * This mod element is always locked. Enter your code in the methods below.
- * If you don't need some of these methods, you can remove them as they
- * are overrides of the base class BossToolsModElements.ModElement.
- *
- * You can register new events in this class too.
- *
- * As this class is loaded into mod element list, it NEEDS to extend
- * ModElement class. If you remove this extend statement or remove the
- * constructor, the compilation will fail.
- *
- * If you want to make a plain independent class, create it in
- * "Workspace" -> "Source" menu.
- *
- * If you change workspace package, modid or prefix, you will need
- * to manually adapt this file to these changes or remake it.
-*/
+
 package net.mrscauthd.boss_tools;
 
 import mezz.jei.api.IModPlugin;
@@ -36,6 +20,8 @@ import net.minecraft.util.ResourceLocation;
 import net.mrscauthd.boss_tools.block.WorkbenchBlock;
 //FuelMaker
 import net.mrscauthd.boss_tools.block.FuelMakerBlock;
+//fuel
+import net.mrscauthd.boss_tools.block.FuelBlock;
 //Generator
 import net.mrscauthd.boss_tools.block.GeneratorBlock;
 //New maschine
@@ -108,6 +94,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.block.trees.OakTree;
+import net.minecraft.item.BucketItem;
 
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
@@ -339,7 +326,7 @@ public class JeiPlugin implements IModPlugin {
         ArrayList<ItemStack> inputs = new ArrayList<>();
         ArrayList<ItemStack> outputs = new ArrayList<>();
 		inputs.add(new ItemStack(Items.LAVA_BUCKET));
-        outputs.add(new ItemStack(FuelBuckedItem.block));
+        outputs.add(new ItemStack(FuelBlock.FuelBucket));//FuelBuckedItem.block //FuelBlock.block
         // ...
         recipes.add(new FuelMakerJeiCategory.FuelMakerRecipeWrapper(inputs, outputs));
         return recipes;
@@ -360,7 +347,7 @@ public class JeiPlugin implements IModPlugin {
         private List<Tier1RocketItemItemJeiCategory.Tier1RocketItemItemRecipeWrapper> generateTier1RocketItemItemRecipes() {
         List<Tier1RocketItemItemJeiCategory.Tier1RocketItemItemRecipeWrapper> recipes = new ArrayList<>();
         ArrayList<ItemStack> inputs = new ArrayList<>();
-		inputs.add(new ItemStack(FuelBuckedItem.block));
+		inputs.add(new ItemStack(FuelBlock.FuelBucket));
         // ...
         recipes.add(new Tier1RocketItemItemJeiCategory.Tier1RocketItemItemRecipeWrapper(inputs));
         return recipes;

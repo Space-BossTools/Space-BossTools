@@ -13,7 +13,7 @@ import net.minecraft.block.BlockState;
 
 @BossToolsModElements.ModElement.Tag
 public class FuelBuckedItem extends BossToolsModElements.ModElement {
-	@ObjectHolder("boss_tools:fuel_bucket")
+	@ObjectHolder("boss_tools:fuel_buckett")
 	public static final Item block = null;
 	public FuelBuckedItem(BossToolsModElements instance) {
 		super(instance, 6);
@@ -26,7 +26,7 @@ public class FuelBuckedItem extends BossToolsModElements.ModElement {
 	public static class ItemCustom extends Item {
 		public ItemCustom() {
 			super(new Item.Properties().group(BossToolsItemGroup.tab).maxStackSize(1).rarity(Rarity.COMMON));
-			setRegistryName("fuel_bucket");
+			setRegistryName("fuel_buckett");
 		}
 
 		@Override
