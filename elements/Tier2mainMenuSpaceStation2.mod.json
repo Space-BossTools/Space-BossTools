@@ -112,7 +112,7 @@
         "data": {
           "text": "CREATE",
           "onClick": {
-            "name": "SpaceStationCreate2"
+            "name": "Tier2SpaceStationCreate2"
           },
           "width": 70,
           "height": 20,

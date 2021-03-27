@@ -1,7 +1,7 @@
 
 package net.mrscauthd.boss_tools.gui;
 
-import net.mrscauthd.boss_tools.procedures.SpaceStationCreate2Procedure;
+import net.mrscauthd.boss_tools.procedures.Tier2SpaceStationCreate3Procedure;
 import net.mrscauthd.boss_tools.procedures.OpenTier2mainMenu3Procedure;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
@@ -191,7 +191,7 @@ public class Tier2mainMenuSpaceStation3Gui extends BossToolsModElements.ModEleme
 				$_dependencies.put("y", y);
 				$_dependencies.put("z", z);
 				$_dependencies.put("world", world);
-				SpaceStationCreate2Procedure.executeProcedure($_dependencies);
+				Tier2SpaceStationCreate3Procedure.executeProcedure($_dependencies);
 			}
 		}
 	}

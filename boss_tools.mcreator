@@ -11815,6 +11815,117 @@
         ]
       },
       "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "Tier3mainMenu",
+      "type": "gui",
+      "sortid": 645,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tier_3main_menu"
+    },
+    {
+      "name": "Tier2SpaceStationCreate1",
+      "type": "procedure",
+      "sortid": 646,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tier_2_space_station_create_1",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "Tier2SpaceStationCreate2",
+      "type": "procedure",
+      "sortid": 647,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tier_2_space_station_create_2",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "Tier2SpaceStationCreate3",
+      "type": "procedure",
+      "sortid": 648,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tier_2_space_station_create_3",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/RocketMainGuis"
     }
   ],
   "variable_elements": [
@@ -11900,8 +12011,8 @@
       "item.boss_tools.star_crawler_spawn_egg": "Star Crawler Spawn Egg",
       "block.boss_tools.mars_diamond_ore": "Mars Diamond Ore",
       "item.boss_tools.oxygen_tank": "Oxygen Tank",
-      "block.boss_tools.fuel_refinery": "Fuel Refinery",
       "block.boss_tools.mercury_iron_ore": "Mercury Iron Ore",
+      "block.boss_tools.fuel_refinery": "Fuel Refinery",
       "biome.boss_tools.mars_biome": "Moon Biome",
       "item.boss_tools.silicon_ingot": "Silicon Ingot",
       "advancements.moon_advancement.descr": "§bHas entered the Moon",
@@ -11912,8 +12023,8 @@
       "item.boss_tools.barrel": "Barrel",
       "item.boss_tools.iron_plate": "Iron Plate",
       "block.boss_tools.moon_stone": "Moon Stone",
-      "item.boss_tools.space_station": "Space Station",
       "item.boss_tools.desh_plate": "Desh Plate",
+      "item.boss_tools.space_station": "Space Station",
       "item.boss_tools.compressed_silicon": "Compressed Silicon",
       "item.boss_tools.mercury": "Admin Feuerzeug",
       "item.boss_tools.rocket_tier_2": "Rocket Spawn Egg",
