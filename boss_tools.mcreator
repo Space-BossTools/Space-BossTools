@@ -12277,6 +12277,24 @@
         ]
       },
       "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "Tier1mainMenuWhileThisGUIIsOpenTick",
+      "type": "procedure",
+      "sortid": 670,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tier_1main_menu_while_this_gui_is_open_tick",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/RocketMainGuis"
     }
   ],
   "variable_elements": [
