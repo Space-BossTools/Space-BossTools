@@ -1,0 +1,152 @@
+{
+  "_fv": 17,
+  "_type": "gui",
+  "definition": {
+    "type": 1,
+    "width": 176,
+    "height": 166,
+    "inventoryOffsetX": 0,
+    "inventoryOffsetY": 0,
+    "renderBgLayer": true,
+    "doesPauseGame": false,
+    "components": [
+      {
+        "type": "label",
+        "data": {
+          "text": "Inventory",
+          "color": {
+            "value": -12829636,
+            "falpha": 0.0
+          },
+          "name": "Inventory",
+          "x": 131,
+          "y": 109
+        }
+      },
+      {
+        "type": "inputslot",
+        "data": {
+          "inputLimit": {
+            "value": ""
+          },
+          "id": 0,
+          "disableStackInteraction": false,
+          "dropItemsWhenNotBound": true,
+          "name": "Slot #0",
+          "x": 160,
+          "y": 89
+        }
+      },
+      {
+        "type": "inputslot",
+        "data": {
+          "inputLimit": {
+            "value": ""
+          },
+          "id": 1,
+          "disableStackInteraction": false,
+          "dropItemsWhenNotBound": true,
+          "name": "Slot #1",
+          "x": 187,
+          "y": 89
+        }
+      },
+      {
+        "type": "outputslot",
+        "data": {
+          "id": 2,
+          "disableStackInteraction": false,
+          "dropItemsWhenNotBound": true,
+          "name": "Slot #2",
+          "x": 245,
+          "y": 89
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_1.png",
+          "use1Xscale": false,
+          "name": "animated_arrow_1.png",
+          "x": 212,
+          "y": 90
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "outputslot.png",
+          "use1Xscale": false,
+          "name": "outputslot.png",
+          "x": 241,
+          "y": 85
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "mercury.png",
+          "use1Xscale": false,
+          "name": "mercury.png",
+          "x": 161,
+          "y": 62
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "animated_arrow_1.png",
+          "use1Xscale": false,
+          "name": "animated_arrow_1.png",
+          "x": 212,
+          "y": 62
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "mars_main_menu.png",
+          "use1Xscale": false,
+          "name": "mars_main_menu.png",
+          "x": 246,
+          "y": 62
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "text": "Alien",
+          "color": {
+            "value": -12829636,
+            "falpha": 0.0
+          },
+          "name": "Alien",
+          "x": 201,
+          "y": 44
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "<",
+          "width": 12,
+          "height": 20,
+          "name": "<",
+          "x": 134,
+          "y": 60
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": ">",
+          "width": 12,
+          "height": 20,
+          "name": ">",
+          "x": 279,
+          "y": 60
+        }
+      }
+    ]
+  }
+}

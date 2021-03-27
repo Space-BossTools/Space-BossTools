@@ -56,6 +56,7 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.CreatureAttribute;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -75,7 +76,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 public class LandingGearEntity extends BossToolsModElements.ModElement {
 	public static EntityType entity = null;
 	public LandingGearEntity(BossToolsModElements instance) {
-		super(instance, 63);
+		super(instance, 80);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new ModelRegisterHandler());
 	}
 
@@ -230,6 +231,8 @@ public class LandingGearEntity extends BossToolsModElements.ModElement {
 		 * !EnchantmentHelper.hasVanishingCurse(itemstack)) {
 		 * this.entityDropItem(itemstack); } } }
 		 */
+
+
 		@Override
 		public void writeAdditional(CompoundNBT compound) {
 			super.writeAdditional(compound);

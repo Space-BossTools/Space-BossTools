@@ -12295,6 +12295,15 @@
         ]
       },
       "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "AlienTrade",
+      "type": "gui",
+      "sortid": 671,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "alien_trade"
     }
   ],
   "variable_elements": [
