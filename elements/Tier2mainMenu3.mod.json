@@ -16,21 +16,21 @@
           "image": "rocket_menu_background.png",
           "use1Xscale": true,
           "name": "rocket_menu_background.png",
-          "x": -154,
-          "y": -144
+          "x": -169,
+          "y": -113
         }
       },
       {
         "type": "button",
         "data": {
-          "text": "Overworld",
+          "text": "Back",
           "onClick": {
-            "name": "OpenTier2mainMenu2"
+            "name": "OpenTier2mainMenuBack"
           },
           "width": 70,
           "height": 20,
-          "name": "Overworld",
-          "x": 11,
+          "name": "Back",
+          "x": 9,
           "y": 87
         }
       },
@@ -39,37 +39,13 @@
         "data": {
           "text": "Mars",
           "onClick": {
-            "name": "OpenTier2mainMenu3"
+            "name": "Rocketmarsworldtp"
           },
           "width": 70,
           "height": 20,
           "name": "Mars",
-          "x": 11,
-          "y": 111
-        }
-      },
-      {
-        "type": "button",
-        "data": {
-          "text": "Mercury",
-          "onClick": {
-            "name": "OpenTier1mainMenu4"
-          },
-          "width": 70,
-          "height": 20,
-          "name": "Mercury",
-          "x": 11,
-          "y": 135
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "rocket_menu_list.png",
-          "use1Xscale": false,
-          "name": "rocket_menu_list.png",
-          "x": 1,
-          "y": 38
+          "x": 9,
+          "y": 110
         }
       },
       {
@@ -91,8 +67,8 @@
           "image": "milky_way.png",
           "use1Xscale": true,
           "name": "milky_way.png",
-          "x": 164,
-          "y": 73
+          "x": 236,
+          "y": 87
         }
       },
       {
@@ -101,8 +77,8 @@
           "image": "sun_main_menu.png",
           "use1Xscale": false,
           "name": "sun_main_menu.png",
-          "x": 248,
-          "y": 119
+          "x": 320,
+          "y": 134
         }
       },
       {
@@ -111,8 +87,8 @@
           "image": "earth_main_menu.png",
           "use1Xscale": true,
           "name": "earth_main_menu.png",
-          "x": 209,
-          "y": 108
+          "x": 286,
+          "y": 118
         }
       },
       {
@@ -121,8 +97,8 @@
           "image": "mars_main_menu.png",
           "use1Xscale": true,
           "name": "mars_main_menu.png",
-          "x": 285,
-          "y": 89
+          "x": 356,
+          "y": 103
         }
       },
       {
@@ -131,57 +107,45 @@
           "image": "mercury.png",
           "use1Xscale": true,
           "name": "mercury.png",
-          "x": 263,
-          "y": 128
+          "x": 335,
+          "y": 142
         }
       },
       {
         "type": "image",
         "data": {
-          "image": "space_station_check.png",
+          "image": "rocket_menu_list2.png",
           "use1Xscale": false,
-          "name": "space_station_check.png",
-          "x": 10,
-          "y": 86
+          "name": "rocket_menu_list2.png",
+          "x": 1,
+          "y": 38
         }
       },
       {
-        "type": "image",
+        "type": "button",
         "data": {
-          "image": "space_station_check.png",
-          "use1Xscale": false,
-          "name": "space_station_check.png",
-          "x": 10,
+          "text": "Orbit",
+          "onClick": {
+            "name": "RocketTier2OrbitTpMars"
+          },
+          "width": 37,
+          "height": 20,
+          "name": "Orbit",
+          "x": 84,
           "y": 110
         }
       },
       {
-        "type": "image",
+        "type": "button",
         "data": {
-          "image": "space_station_check.png",
-          "use1Xscale": false,
-          "name": "space_station_check.png",
-          "x": 10,
-          "y": 134
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "space_station_check_2.png",
-          "use1Xscale": false,
-          "name": "space_station_check_2.png",
-          "x": 10,
-          "y": 86
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "space_station_check_2.png",
-          "use1Xscale": false,
-          "name": "space_station_check_2.png",
-          "x": 10,
+          "text": "Space Station",
+          "onClick": {
+            "name": "OpenTier2SpaceStationMenu3"
+          },
+          "width": 75,
+          "height": 20,
+          "name": "Space Station",
+          "x": 126,
           "y": 110
         }
       }

@@ -11657,6 +11657,164 @@
       "ids": {},
       "registry_name": "rocket_fuel_tag",
       "path": "~/Tags"
+    },
+    {
+      "name": "OpenTier2mainMenu2",
+      "type": "procedure",
+      "sortid": 634,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "open_tier_2main_menu_2",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "OpenTier2mainMenuBack",
+      "type": "procedure",
+      "sortid": 635,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "open_tier_2main_menu_back",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "Tier2mainMenu2",
+      "type": "gui",
+      "sortid": 636,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tier_2main_menu_2",
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "Tier2mainMenu3",
+      "type": "gui",
+      "sortid": 637,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tier_2main_menu_3",
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "OpenTier2mainMenu3",
+      "type": "procedure",
+      "sortid": 638,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "open_tier_2main_menu_3",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "Tier2mainMenuSpaceStation1",
+      "type": "gui",
+      "sortid": 639,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tier_2main_menu_space_station_1",
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "Tier2mainMenuSpaceStation2",
+      "type": "gui",
+      "sortid": 640,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tier_2main_menu_space_station_2",
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "Tier2mainMenuSpaceStation3",
+      "type": "gui",
+      "sortid": 641,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tier_2main_menu_space_station_3",
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "OpenTier2SpaceStationMenu1",
+      "type": "procedure",
+      "sortid": 642,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "open_tier_2_space_station_menu_1",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "OpenTier2SpaceStationMenu2",
+      "type": "procedure",
+      "sortid": 643,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "open_tier_2_space_station_menu_2",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "OpenTier2SpaceStationMenu3",
+      "type": "procedure",
+      "sortid": 644,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "open_tier_2_space_station_menu_3",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/RocketMainGuis"
     }
   ],
   "variable_elements": [
@@ -11742,8 +11900,8 @@
       "item.boss_tools.star_crawler_spawn_egg": "Star Crawler Spawn Egg",
       "block.boss_tools.mars_diamond_ore": "Mars Diamond Ore",
       "item.boss_tools.oxygen_tank": "Oxygen Tank",
-      "block.boss_tools.mercury_iron_ore": "Mercury Iron Ore",
       "block.boss_tools.fuel_refinery": "Fuel Refinery",
+      "block.boss_tools.mercury_iron_ore": "Mercury Iron Ore",
       "biome.boss_tools.mars_biome": "Moon Biome",
       "item.boss_tools.silicon_ingot": "Silicon Ingot",
       "advancements.moon_advancement.descr": "§bHas entered the Moon",
@@ -11754,8 +11912,8 @@
       "item.boss_tools.barrel": "Barrel",
       "item.boss_tools.iron_plate": "Iron Plate",
       "block.boss_tools.moon_stone": "Moon Stone",
-      "item.boss_tools.desh_plate": "Desh Plate",
       "item.boss_tools.space_station": "Space Station",
+      "item.boss_tools.desh_plate": "Desh Plate",
       "item.boss_tools.compressed_silicon": "Compressed Silicon",
       "item.boss_tools.mercury": "Admin Feuerzeug",
       "item.boss_tools.rocket_tier_2": "Rocket Spawn Egg",
