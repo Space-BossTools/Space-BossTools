@@ -1,6 +1,6 @@
 package net.mrscauthd.boss_tools.procedures;
 
-import net.mrscauthd.boss_tools.item.FuelBuckedItem;
+import net.mrscauthd.boss_tools.block.FuelBlock;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
@@ -109,7 +109,7 @@ public class RocketOnEntityTickUpdateProcedure extends BossToolsModElements.ModE
 				});
 				return _retval.get();
 			}
-		}.getItemStack((int) (0), entity)).getItem() == new ItemStack(FuelBuckedItem.block, (int) (1)).getItem())) {
+		}.getItemStack((int) (0), entity)).getItem() == new ItemStack(FuelBlock.bucket, (int) (1)).getItem())) {
 			if (((entity.getPersistentData().getDouble("Rocketfuel")) == 0)) {
 				{
 					final ItemStack _setstack = new ItemStack(Items.BUCKET, (int) (1));

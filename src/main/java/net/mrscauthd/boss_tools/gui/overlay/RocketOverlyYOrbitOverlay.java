@@ -24,7 +24,7 @@ import com.google.common.collect.ImmutableMap;
 @BossToolsModElements.ModElement.Tag
 public class RocketOverlyYOrbitOverlay extends BossToolsModElements.ModElement {
 	public RocketOverlyYOrbitOverlay(BossToolsModElements instance) {
-		super(instance, 503);
+		super(instance, 437);
 	}
 
 	@Override

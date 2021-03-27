@@ -1,7 +1,7 @@
 
 package net.mrscauthd.boss_tools.gui;
 
-import net.mrscauthd.boss_tools.item.FuelBuckedItem;
+import net.mrscauthd.boss_tools.block.FuelBlock;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
@@ -41,7 +41,7 @@ public class RocketTier1GUIFuelGui extends BossToolsModElements.ModElement {
 	public static HashMap guistate = new HashMap();
 	private static ContainerType<GuiContainerMod> containerType = null;
 	public RocketTier1GUIFuelGui(BossToolsModElements instance) {
-		super(instance, 175);
+		super(instance, 142);
 		elements.addNetworkMessage(ButtonPressedMessage.class, ButtonPressedMessage::buffer, ButtonPressedMessage::new,
 				ButtonPressedMessage::handler);
 		elements.addNetworkMessage(GUISlotChangedMessage.class, GUISlotChangedMessage::buffer, GUISlotChangedMessage::new,
@@ -117,7 +117,8 @@ public class RocketTier1GUIFuelGui extends BossToolsModElements.ModElement {
 			this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 46, 22) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
-					return (new ItemStack(FuelBuckedItem.block, (int) (1)).getItem() == stack.getItem());
+					return (new ItemStack(FuelBlock.bucket, (int) (1)).getItem() == stack.getItem());
+					// FuelBlock.bucket
 				}
 			}));
 			int si;

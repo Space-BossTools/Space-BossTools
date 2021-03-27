@@ -4,8 +4,8 @@ import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.item.FuelBucketBigItem;
-import net.mrscauthd.boss_tools.item.FuelBuckedItem;
 import net.mrscauthd.boss_tools.item.BucketBigItem;
+import net.mrscauthd.boss_tools.block.FuelBlock;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
@@ -169,7 +169,7 @@ public class LandingGearEntityIsHurtProcedure extends BossToolsModElements.ModEl
 					});
 					return _retval.get();
 				}
-			}.getItemStack((int) (1), entity)).getItem() == new ItemStack(FuelBuckedItem.block, (int) (1)).getItem())) {
+			}.getItemStack((int) (1), entity)).getItem() == new ItemStack(FuelBlock.bucket, (int) (1)).getItem())) {
 				{
 					final ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
 					final int _sltid = (int) (1);
@@ -181,7 +181,7 @@ public class LandingGearEntityIsHurtProcedure extends BossToolsModElements.ModEl
 					});
 				}
 				if (world instanceof World && !world.isRemote()) {
-					ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(FuelBuckedItem.block, (int) (1)));
+					ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(FuelBlock.bucket, (int) (1)));
 					entityToSpawn.setPickupDelay((int) 10);
 					world.addEntity(entityToSpawn);
 				}

@@ -1,11 +1,11 @@
 package net.mrscauthd.boss_tools.procedures;
 
 import net.mrscauthd.boss_tools.item.FuelBucketBigItem;
-import net.mrscauthd.boss_tools.item.FuelBuckedItem;
 import net.mrscauthd.boss_tools.item.BucketBigItem;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketEntity;
+import net.mrscauthd.boss_tools.block.FuelBlock;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
@@ -69,7 +69,7 @@ public class LanderNBTProcedure extends BossToolsModElements.ModElement {
 					});
 					return _retval.get();
 				}
-			}.getItemStack((int) (0), (entity.getRidingEntity()))).getItem() == new ItemStack(FuelBuckedItem.block, (int) (1)).getItem())) {
+			}.getItemStack((int) (0), (entity.getRidingEntity()))).getItem() == new ItemStack(FuelBlock.bucket, (int) (1)).getItem())) {
 				entity.getPersistentData().putDouble("Bucket", 2);
 			}
 		}

@@ -4,9 +4,9 @@ import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.item.FuelBucketBigItem;
-import net.mrscauthd.boss_tools.item.FuelBuckedItem;
 import net.mrscauthd.boss_tools.item.BucketBigItem;
 import net.mrscauthd.boss_tools.entity.LandingGearEntity;
+import net.mrscauthd.boss_tools.block.FuelBlock;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
@@ -128,7 +128,7 @@ public class LanderSitProcedure extends BossToolsModElements.ModElement {
 						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
 							if (((entity.getPersistentData().getDouble("Bucket")) == 2)) {
 								{
-									final ItemStack _setstack = new ItemStack(FuelBuckedItem.block, (int) (1));
+									final ItemStack _setstack = new ItemStack(FuelBlock.bucket, (int) (1));
 									final int _sltid = (int) (1);
 									_setstack.setCount((int) 1);
 									(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)

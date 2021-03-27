@@ -12,6 +12,6 @@
     "functions": [],
     "entities": [],
     "name": "rocket/fuel",
-    "namespace": "mod"
+    "namespace": "forge"
   }
 }

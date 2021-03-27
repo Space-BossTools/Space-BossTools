@@ -732,16 +732,6 @@
       "registry_name": "fuel"
     },
     {
-      "name": "FuelBucked",
-      "type": "item",
-      "sortid": 16,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "fuel_buckett",
-      "path": "~/Items"
-    },
-    {
       "name": "Marsdiamond",
       "type": "block",
       "sortid": 54,
@@ -11661,9 +11651,9 @@
     {
       "name": "RocketFuelTag",
       "type": "tag",
-      "sortid": 631,
+      "sortid": 633,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "rocket_fuel_tag",
       "path": "~/Tags"
@@ -11769,7 +11759,6 @@
       "item.boss_tools.compressed_silicon": "Compressed Silicon",
       "item.boss_tools.mercury": "Admin Feuerzeug",
       "item.boss_tools.rocket_tier_2": "Rocket Spawn Egg",
-      "item.boss_tools.fuel_buckett": "Fuel Bucket",
       "item.boss_tools.golden_tank": "Golden Tank",
       "item.boss_tools.rocket": "Rocket Spawn Egg",
       "item.boss_tools.space_armor_boots": "Space Boots",
