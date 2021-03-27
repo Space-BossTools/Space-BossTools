@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.procedures;
 
+import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketEntity;
 import net.mrscauthd.boss_tools.BossToolsModElements;
@@ -86,6 +87,22 @@ public class RocketHighCheckProcedure extends BossToolsModElements.ModElement {
 								"/stopsound @p neutral boss_tools:rocketfly");
 					}
 					entity.getPersistentData().putDouble("Tier_2_open_main_menu", 1);
+					entity.getPersistentData().putDouble("Player_movement", 1);
+					if (!(entity.getRidingEntity()).world.isRemote())
+						(entity.getRidingEntity()).remove();
+				}
+			}
+		}
+		if ((((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity) == (true))) {
+			if ((((entity.getRidingEntity()).getPosY()) >= 600)) {
+				if ((((entity.getRidingEntity()).getPersistentData().getDouble("Powup_trigger")) == 1)) {
+					if (world instanceof ServerWorld) {
+						((World) world).getServer().getCommandManager().handleCommand(
+								new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
+										new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
+								"/stopsound @p neutral boss_tools:rocketfly");
+					}
+					entity.getPersistentData().putDouble("Tier_3_open_main_menu", 1);
 					entity.getPersistentData().putDouble("Player_movement", 1);
 					if (!(entity.getRidingEntity()).world.isRemote())
 						(entity.getRidingEntity()).remove();

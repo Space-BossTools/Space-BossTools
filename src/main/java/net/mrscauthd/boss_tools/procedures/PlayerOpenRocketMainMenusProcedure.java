@@ -1,5 +1,13 @@
 package net.mrscauthd.boss_tools.procedures;
 
+import net.mrscauthd.boss_tools.gui.Tier3mainMenuSpaceStation4Gui;
+import net.mrscauthd.boss_tools.gui.Tier3mainMenuSpaceStation3Gui;
+import net.mrscauthd.boss_tools.gui.Tier3mainMenuSpaceStation2Gui;
+import net.mrscauthd.boss_tools.gui.Tier3mainMenuSpaceStation1Gui;
+import net.mrscauthd.boss_tools.gui.Tier3mainMenuGui;
+import net.mrscauthd.boss_tools.gui.Tier3mainMenu4Gui;
+import net.mrscauthd.boss_tools.gui.Tier3mainMenu3Gui;
+import net.mrscauthd.boss_tools.gui.Tier3mainMenu2Gui;
 import net.mrscauthd.boss_tools.gui.Tier2mainMenuSpaceStation3Gui;
 import net.mrscauthd.boss_tools.gui.Tier2mainMenuSpaceStation2Gui;
 import net.mrscauthd.boss_tools.gui.Tier2mainMenuSpaceStation1Gui;
@@ -357,12 +365,12 @@ public class PlayerOpenRocketMainMenusProcedure extends BossToolsModElements.Mod
 					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
 						@Override
 						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier2mainMenu");
+							return new StringTextComponent("Tier3mainMenu");
 						}
 
 						@Override
 						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier2mainMenuGui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							return new Tier3mainMenuGui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
 						}
 					}, _bpos);
 				}
@@ -376,12 +384,12 @@ public class PlayerOpenRocketMainMenusProcedure extends BossToolsModElements.Mod
 					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
 						@Override
 						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier2mainMenu");
+							return new StringTextComponent("Tier3mainMenu");
 						}
 
 						@Override
 						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier2mainMenuGui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							return new Tier3mainMenuGui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
 						}
 					}, _bpos);
 				}
@@ -395,12 +403,12 @@ public class PlayerOpenRocketMainMenusProcedure extends BossToolsModElements.Mod
 					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
 						@Override
 						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier2mainMenu2");
+							return new StringTextComponent("Tier3mainMenu2");
 						}
 
 						@Override
 						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier2mainMenu2Gui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							return new Tier3mainMenu2Gui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
 						}
 					}, _bpos);
 				}
@@ -414,12 +422,31 @@ public class PlayerOpenRocketMainMenusProcedure extends BossToolsModElements.Mod
 					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
 						@Override
 						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier2mainMenu3");
+							return new StringTextComponent("Tier3mainMenu3");
 						}
 
 						@Override
 						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier2mainMenu3Gui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							return new Tier3mainMenu3Gui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+						}
+					}, _bpos);
+				}
+			}
+		} // Mercury
+		if (((entity.getPersistentData().getDouble("Tier_3_open_main_menu_4")) == 1)) {
+			{
+				Entity _ent = entity;
+				if (_ent instanceof ServerPlayerEntity) {
+					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+						@Override
+						public ITextComponent getDisplayName() {
+							return new StringTextComponent("Tier3mainMenu4");
+						}
+
+						@Override
+						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+							return new Tier3mainMenu4Gui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
 						}
 					}, _bpos);
 				}
@@ -433,12 +460,12 @@ public class PlayerOpenRocketMainMenusProcedure extends BossToolsModElements.Mod
 					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
 						@Override
 						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier2mainMenuSpaceStation1");
+							return new StringTextComponent("Tier3mainMenuSpaceStation1");
 						}
 
 						@Override
 						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier2mainMenuSpaceStation1Gui.GuiContainerMod(id, inventory,
+							return new Tier3mainMenuSpaceStation1Gui.GuiContainerMod(id, inventory,
 									new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
 						}
 					}, _bpos);
@@ -453,12 +480,12 @@ public class PlayerOpenRocketMainMenusProcedure extends BossToolsModElements.Mod
 					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
 						@Override
 						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier2mainMenuSpaceStation2");
+							return new StringTextComponent("Tier3mainMenuSpaceStation2");
 						}
 
 						@Override
 						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier2mainMenuSpaceStation2Gui.GuiContainerMod(id, inventory,
+							return new Tier3mainMenuSpaceStation2Gui.GuiContainerMod(id, inventory,
 									new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
 						}
 					}, _bpos);
@@ -473,12 +500,12 @@ public class PlayerOpenRocketMainMenusProcedure extends BossToolsModElements.Mod
 					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
 						@Override
 						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier2mainMenuSpaceStation3");
+							return new StringTextComponent("Tier3mainMenuSpaceStation3");
 						}
 
 						@Override
 						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier2mainMenuSpaceStation3Gui.GuiContainerMod(id, inventory,
+							return new Tier3mainMenuSpaceStation3Gui.GuiContainerMod(id, inventory,
 									new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
 						}
 					}, _bpos);
@@ -493,12 +520,12 @@ public class PlayerOpenRocketMainMenusProcedure extends BossToolsModElements.Mod
 					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
 						@Override
 						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier2mainMenuSpaceStation3");
+							return new StringTextComponent("Tier3mainMenuSpaceStation4");
 						}
 
 						@Override
 						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier2mainMenuSpaceStation3Gui.GuiContainerMod(id, inventory,
+							return new Tier3mainMenuSpaceStation4Gui.GuiContainerMod(id, inventory,
 									new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
 						}
 					}, _bpos);

@@ -11823,7 +11823,8 @@
       "compiles": true,
       "locked_code": false,
       "ids": {},
-      "registry_name": "tier_3main_menu"
+      "registry_name": "tier_3main_menu",
+      "path": "~/RocketMainGuis"
     },
     {
       "name": "Tier2SpaceStationCreate1",
@@ -11901,6 +11902,356 @@
       "locked_code": false,
       "ids": {},
       "registry_name": "tier_2_space_station_create_3",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "OpenTier3mainMenu",
+      "type": "procedure",
+      "sortid": 650,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "open_tier_3main_menu",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "Tier3mainMenu2",
+      "type": "gui",
+      "sortid": 651,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tier_3main_menu_2",
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "Tier3mainMenu3",
+      "type": "gui",
+      "sortid": 652,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tier_3main_menu_3",
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "Tier3mainMenu4",
+      "type": "gui",
+      "sortid": 653,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tier_3main_menu_4",
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "OpenTier3mainMenu4",
+      "type": "procedure",
+      "sortid": 655,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "open_tier_3main_menu_4",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "OpenTier3mainMenu2",
+      "type": "procedure",
+      "sortid": 656,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "open_tier_3main_menu_2",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "OpenTier3mainMenu3",
+      "type": "procedure",
+      "sortid": 657,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "open_tier_3main_menu_3",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "Tier3mainMenuSpaceStation1",
+      "type": "gui",
+      "sortid": 658,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tier_3main_menu_space_station_1",
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "Tier3mainMenuSpaceStation2",
+      "type": "gui",
+      "sortid": 659,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tier_3main_menu_space_station_2",
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "Tier3mainMenuSpaceStation3",
+      "type": "gui",
+      "sortid": 660,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tier_3main_menu_space_station_3",
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "Tier3mainMenuSpaceStation4",
+      "type": "gui",
+      "sortid": 661,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tier_3main_menu_space_station_4",
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "OpenTier3SpaceStationMenu1",
+      "type": "procedure",
+      "sortid": 662,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "open_tier_3_space_station_menu_1",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "OpenTier3SpaceStationMenu2",
+      "type": "procedure",
+      "sortid": 663,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "open_tier_3_space_station_menu_2",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "Opentier3SpaceStationMenu3",
+      "type": "procedure",
+      "sortid": 664,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "opentier_3_space_station_menu_3",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "OpenTier3SpaceStationMenu4",
+      "type": "procedure",
+      "sortid": 665,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "open_tier_3_space_station_menu_4",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      },
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "Tier3SpaceStationCreate1",
+      "type": "procedure",
+      "sortid": 666,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tier_3_space_station_create_1",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "Tier3SpaceStationCreate2",
+      "type": "procedure",
+      "sortid": 667,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tier_3_space_station_create_2",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "Tier3SpaceStationCreate3",
+      "type": "procedure",
+      "sortid": 668,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tier_3_space_station_create_3",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/RocketMainGuis"
+    },
+    {
+      "name": "Tier3SpaceStationCreate4",
+      "type": "procedure",
+      "sortid": 669,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tier_3_space_station_create_4",
       "metadata": {
         "dependencies": [
           {

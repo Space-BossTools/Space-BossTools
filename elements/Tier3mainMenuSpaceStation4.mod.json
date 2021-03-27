@@ -1,0 +1,149 @@
+{
+  "_fv": 17,
+  "_type": "gui",
+  "definition": {
+    "type": 0,
+    "width": 512,
+    "height": 512,
+    "inventoryOffsetX": 0,
+    "inventoryOffsetY": 0,
+    "renderBgLayer": false,
+    "doesPauseGame": false,
+    "components": [
+      {
+        "type": "image",
+        "data": {
+          "image": "rocket_menu_background.png",
+          "use1Xscale": true,
+          "name": "rocket_menu_background.png",
+          "x": -172,
+          "y": -108
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Back",
+          "onClick": {
+            "name": "OpenTier3mainMenu4"
+          },
+          "width": 70,
+          "height": 20,
+          "name": "Back",
+          "x": 11,
+          "y": 87
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "text": "CATALOG",
+          "color": {
+            "value": -1,
+            "falpha": 0.0
+          },
+          "name": "CATALOG",
+          "x": 23,
+          "y": 55
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "milky_way.png",
+          "use1Xscale": true,
+          "name": "milky_way.png",
+          "x": 126,
+          "y": 87
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "sun_main_menu.png",
+          "use1Xscale": false,
+          "name": "sun_main_menu.png",
+          "x": 210,
+          "y": 133
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "earth_main_menu.png",
+          "use1Xscale": true,
+          "name": "earth_main_menu.png",
+          "x": 168,
+          "y": 129
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "mars_main_menu.png",
+          "use1Xscale": true,
+          "name": "mars_main_menu.png",
+          "x": 245,
+          "y": 102
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "mercury.png",
+          "use1Xscale": true,
+          "name": "mercury.png",
+          "x": 225,
+          "y": 142
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "rocket_menu_list.png",
+          "use1Xscale": false,
+          "name": "rocket_menu_list.png",
+          "x": 1,
+          "y": 38
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "CREATE",
+          "onClick": {
+            "name": "Tier2SpaceStationCreate1"
+          },
+          "width": 70,
+          "height": 20,
+          "name": "CREATE",
+          "x": 11,
+          "y": 112
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "space_station_check.png",
+          "use1Xscale": false,
+          "name": "space_station_check.png",
+          "x": 10,
+          "y": 111
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "space_station_check_2.png",
+          "use1Xscale": false,
+          "displayCondition": {
+            "name": "Spacestationcheck1"
+          },
+          "name": "space_station_check_2.png",
+          "x": 10,
+          "y": 111
+        }
+      }
+    ]
+  }
+}
