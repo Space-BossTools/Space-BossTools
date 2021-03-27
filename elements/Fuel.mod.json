@@ -3,8 +3,8 @@
   "_type": "fluid",
   "definition": {
     "name": "Fuel",
-    "textureStill": "fuel_still",
-    "textureFlowing": "fuel_flow",
+    "textureStill": "fluid_fuel_still",
+    "textureFlowing": "fluid_fuel_flow",
     "luminosity": 0,
     "density": 1000,
     "viscosity": 1000,
