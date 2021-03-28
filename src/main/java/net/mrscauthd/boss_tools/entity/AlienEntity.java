@@ -44,6 +44,7 @@ import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.mrscauthd.boss_tools.TradeGoal;
+import net.minecraft.entity.monster.ZombieEntity;
 
 import java.util.*;
 
@@ -78,7 +79,7 @@ public class AlienEntity extends AnimalEntity implements IMerchant, INPC {
 	protected void registerGoals() {
 		super.registerGoals();
 		//this.eatGrassGoal = new EatGrassGoal(this);
-		this.goalSelector.addGoal(0, new SwimGoal(this));
+		this.goalSelector.addGoal(1, new SwimGoal(this));
 		this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
 		this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
 		this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, TEMPTATION_ITEMS, false));
@@ -86,7 +87,9 @@ public class AlienEntity extends AnimalEntity implements IMerchant, INPC {
 		this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
 		this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 6.0F));
 		this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
-		this.goalSelector.addGoal(9, new TradeGoal(this));
+		this.goalSelector.addGoal(0, new TradeGoal(this));
+		//this.goalSelector.addGoal(0, new TradeAlienWithPlayerGoal(this));
+		//this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
 	}
 
     /*@Override
@@ -240,7 +243,7 @@ public class AlienEntity extends AnimalEntity implements IMerchant, INPC {
 			if (avillagertrades$itrade != null) {
 				MerchantOffers merchantoffers = this.getOffers();
 
-				int max = 15;
+				int max = 10;
 				int min = 1;
 
 				this.addTrades(getOffers(), avillagertrades$itrade, new Random().nextInt((max+1)-min)+min);
