@@ -133,7 +133,7 @@ public class AlienEntity extends AnimalEntity implements IMerchant, INPC {
 		if (this.offers == null) {
 			this.offers = new MerchantOffers();
 
-			int max = 7;
+			int max = 18;
 			int min = 2;
 
 			for (int i = 0; i < new Random().nextInt((max+1)-min)+min; i++){
