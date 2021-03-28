@@ -127,6 +127,7 @@
   "key.boss_tools.rocket_rotation_b": "Rocket Rotation Right",
   "block.boss_tools.flag_magenta": "Magenta Flag",
   "key.boss_tools.rocket_rotation_a": "Rocket Rotation Left",
+  "itemGroup.tabspace_bosstools_spawn_eggs": "Space-Bosstools: Spawn Eggs",
   "block.boss_tools.flag": "Flag",
   "item.boss_tools.landing_gear": "Landing Gear Spawn Egg",
   "entity.boss_tools.rocket_tier_3": "Rocket",

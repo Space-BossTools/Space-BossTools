@@ -186,7 +186,7 @@
       "type": "mob",
       "sortid": 10,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "alien",
       "path": "~/Entitys"
@@ -12298,12 +12298,31 @@
     },
     {
       "name": "AlienTrade",
-      "type": "gui",
-      "sortid": 671,
+      "type": "code",
+      "sortid": 672,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "alien_trade"
+    },
+    {
+      "name": "MobInnet",
+      "type": "code",
+      "sortid": 673,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "mob_innet"
+    },
+    {
+      "name": "SpaceBosstoolsSpawnEggs",
+      "type": "tab",
+      "sortid": 675,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "space_bosstools_spawn_eggs",
+      "path": "~/CreativeTabs"
     }
   ],
   "variable_elements": [
@@ -12511,6 +12530,7 @@
       "key.boss_tools.rocket_rotation_b": "Rocket Rotation Right",
       "block.boss_tools.flag_magenta": "Magenta Flag",
       "key.boss_tools.rocket_rotation_a": "Rocket Rotation Left",
+      "itemGroup.tabspace_bosstools_spawn_eggs": "Space-Bosstools: Spawn Eggs",
       "block.boss_tools.flag": "Flag",
       "item.boss_tools.landing_gear": "Landing Gear Spawn Egg",
       "entity.boss_tools.rocket_tier_3": "Rocket",

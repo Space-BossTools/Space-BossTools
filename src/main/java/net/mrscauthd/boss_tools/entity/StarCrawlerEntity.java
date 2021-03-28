@@ -2,7 +2,7 @@
 package net.mrscauthd.boss_tools.entity;
 
 import net.mrscauthd.boss_tools.procedures.StarCrawlerOnEntityTickUpdateProcedure;
-import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
+import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsSpawnEggsItemGroup;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ForgeRegistries;
@@ -66,7 +66,7 @@ public class StarCrawlerEntity extends BossToolsModElements.ModElement {
 				.setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(CustomEntity::new).size(1.2999999999999998f, 1f))
 						.build("star_crawler").setRegistryName("star_crawler");
 		elements.entities.add(() -> entity);
-		elements.items.add(() -> new SpawnEggItem(entity, -13421773, -16724788, new Item.Properties().group(BossToolsItemGroup.tab))
+		elements.items.add(() -> new SpawnEggItem(entity, -13421773, -16724788, new Item.Properties().group(SpaceBosstoolsSpawnEggsItemGroup.tab))
 				.setRegistryName("star_crawler_spawn_egg"));
 	}
 

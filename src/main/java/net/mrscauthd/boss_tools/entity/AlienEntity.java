@@ -1,6 +1,23 @@
-
 package net.mrscauthd.boss_tools.entity;
 
+import com.google.common.collect.Sets;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.merchant.IMerchant;
+import net.minecraft.entity.merchant.villager.VillagerProfession;
+import net.minecraft.entity.merchant.villager.VillagerTrades;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.*;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraft.stats.Stats;
+import net.minecraft.util.*;
+import net.minecraft.village.GossipManager;
+import net.minecraft.world.server.ServerWorld;
 import net.mrscauthd.boss_tools.procedures.AlienOnEntityTickUpdateProcedure;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
 import net.mrscauthd.boss_tools.BossToolsModElements;
@@ -19,208 +36,282 @@ import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.World;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.DamageSource;
 import net.minecraft.network.IPacket;
-import net.minecraft.item.SpawnEggItem;
-import net.minecraft.item.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Item;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.RandomWalkingGoal;
-import net.minecraft.entity.ai.goal.PanicGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.mrscauthd.boss_tools.TradeGoal;
 
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
-@BossToolsModElements.ModElement.Tag
-public class AlienEntity extends BossToolsModElements.ModElement {
-	public static EntityType entity = null;
-	public AlienEntity(BossToolsModElements instance) {
-		super(instance, 10);
-		FMLJavaModLoadingContext.get().getModEventBus().register(new ModelRegisterHandler());
+import javax.annotation.Nullable;
+
+public class AlienEntity extends AnimalEntity implements IMerchant, INPC {
+//public class AlienEntity extends BossToolsModElements.ModElement implements IMerchant, INPC {
+
+	@Nullable
+	private PlayerEntity customer;
+	private Set<UUID> tradedCustomers = new HashSet<>();
+	@Nullable
+	private MerchantOffers offers;
+	private final GossipManager gossip = new GossipManager();
+
+	private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.EMERALD);
+
+	public AlienEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
+		super(type, worldIn);
+	}
+
+	public static AttributeModifierMap.MutableAttribute setCustomAttributes(){
+		return MobEntity.func_233666_p_()
+				.createMutableAttribute(Attributes.MAX_HEALTH, 20)
+				.createMutableAttribute(Attributes.MOVEMENT_SPEED,0.25D);
 	}
 
 	@Override
-	public void initElements() {
-		entity = (EntityType.Builder.<CustomEntity>create(CustomEntity::new, EntityClassification.MONSTER).setShouldReceiveVelocityUpdates(true)
-				.setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(CustomEntity::new).size(0.6f, 1.95f)).build("alien")
-						.setRegistryName("alien");
-		elements.entities.add(() -> entity);
-		elements.items.add(() -> new SpawnEggItem(entity, -13382401, -11650781, new Item.Properties().group(BossToolsItemGroup.tab))
-				.setRegistryName("alien_spawn_egg"));
+	protected void registerGoals() {
+		super.registerGoals();
+		//this.eatGrassGoal = new EatGrassGoal(this);
+		this.goalSelector.addGoal(0, new SwimGoal(this));
+		this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
+		this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
+		this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, TEMPTATION_ITEMS, false));
+		this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1D));
+		this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
+		this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
+		this.goalSelector.addGoal(9, new TradeGoal(this));
+	}
+
+    /*@Override
+    public ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
+        System.out.println("x");
+        return super.applyPlayerInteraction(player, vec, hand);
+    }*/
+
+	protected void resetCustomer() {
+		this.setCustomer((PlayerEntity)null);
+	}
+	public void onDeath(DamageSource cause) {
+		super.onDeath(cause);
+		this.resetCustomer();
 	}
 
 	@Override
-	public void init(FMLCommonSetupEvent event) {
-		DeferredWorkQueue.runLater(this::setupAttributes);
+	protected SoundEvent getAmbientSound() { return SoundEvents.ENTITY_VILLAGER_AMBIENT; }
+
+	@Override
+	protected SoundEvent getDeathSound() { return SoundEvents.ENTITY_VILLAGER_DEATH; }
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return SoundEvents.ENTITY_VILLAGER_HURT;
 	}
-	private static class ModelRegisterHandler {
-		@SubscribeEvent
-		@OnlyIn(Dist.CLIENT)
-		public void registerModels(ModelRegistryEvent event) {
-			RenderingRegistry.registerEntityRenderingHandler(entity, renderManager -> {
-				return new MobRenderer(renderManager, new Modelalien(), 0.5f) {
-					@Override
-					public ResourceLocation getEntityTexture(Entity entity) {
-						return new ResourceLocation("boss_tools:textures/entity_alien.png");
-					}
-				};
-			});
+
+	@Override
+	public void setCustomer(@Nullable PlayerEntity player) {
+		this.customer = player;
+	}
+
+	@Nullable
+	@Override
+	public PlayerEntity getCustomer() {
+		return this.customer;
+	}
+
+	@Override
+	public MerchantOffers getOffers() {
+		if (this.offers == null) {
+			this.offers = new MerchantOffers();
+
+			int max = 5;
+			int min = 2;
+
+			for (int i = 0; i < new Random().nextInt((max+1)-min)+min; i++){
+				this.populateTradeData(i);
+			}
+		}
+
+		return this.offers;
+	}
+
+	@Override
+	public void setClientSideOffers(@Nullable MerchantOffers offers) {
+
+	}
+
+	@Override
+	public void onTrade(MerchantOffer offer) {
+		offer.increaseUses();
+		if(this.customer != null)
+		{
+			this.tradedCustomers.add(this.customer.getUniqueID());
 		}
 	}
-	private void setupAttributes() {
-		AttributeModifierMap.MutableAttribute ammma = MobEntity.func_233666_p_();
-		ammma = ammma.createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.3);
-		ammma = ammma.createMutableAttribute(Attributes.MAX_HEALTH, 20);
-		ammma = ammma.createMutableAttribute(Attributes.ARMOR, 0);
-		ammma = ammma.createMutableAttribute(Attributes.ATTACK_DAMAGE, 3);
-		GlobalEntityTypeAttributes.put(entity, ammma.create());
+
+	@Override
+	public void verifySellingItem(ItemStack stack) {
+
 	}
-	public static class CustomEntity extends CreatureEntity {
-		public CustomEntity(FMLPlayMessages.SpawnEntity packet, World world) {
-			this(entity, world);
+
+	@Override
+	public World getWorld() {
+		return world;
+	}
+
+	@Override
+	public int getXp() {
+		return 0;
+	}
+
+	@Override
+	public void setXP(int xpIn) {
+
+	}
+
+	@Override
+	public boolean hasXPBar() {
+		return false;
+	}
+
+	public boolean isPreviousCustomer(PlayerEntity player)
+	{
+		return this.tradedCustomers.contains(player.getUniqueID());
+	}
+
+	@Override
+	public SoundEvent getYesSound() {
+		return null;
+	}
+
+	public void readAdditional(CompoundNBT compound) {
+		super.readAdditional(compound);
+		if (compound.contains("Offers", 10)) {
+			this.offers = new MerchantOffers(compound.getCompound("Offers"));
 		}
 
-		public CustomEntity(EntityType<CustomEntity> type, World world) {
-			super(type, world);
-			experienceValue = 5;
-			setNoAI(false);
-			enablePersistence();
+		//this.villagerInventory.read(compound.getList("Inventory", 10));
+	}
+
+	public void writeAdditional(CompoundNBT compound) {
+		super.writeAdditional(compound);
+		MerchantOffers merchantoffers = this.getOffers();
+		//if (!merchantoffers.isEmpty()) {
+		compound.put("Offers", merchantoffers.write());
+		//}
+
+		//compound.put("Inventory", this.villagerInventory.write());
+	}
+
+	protected void addTrades(MerchantOffers givenMerchantOffers, VillagerTrades.ITrade[] newTrades, int maxNumbers) {
+		Set<Integer> set = Sets.newHashSet();
+		if (newTrades.length > maxNumbers) {
+			while(set.size() < maxNumbers) {
+				set.add(this.rand.nextInt(newTrades.length));
+			}
+		} else {
+			for(int i = 0; i < newTrades.length; ++i) {
+				set.add(i);
+			}
 		}
 
-		@Override
-		public IPacket<?> createSpawnPacket() {
-			return NetworkHooks.getEntitySpawningPacket(this);
+		for(Integer integer : set) {
+			VillagerTrades.ITrade villagertrades$itrade = newTrades[integer];
+			MerchantOffer merchantoffer = villagertrades$itrade.getOffer(this, this.rand);
+			if (merchantoffer != null) {
+				givenMerchantOffers.add(merchantoffer);
+			}
 		}
 
-		@Override
-		protected void registerGoals() {
-			super.registerGoals();
-			this.goalSelector.addGoal(1, new RandomWalkingGoal(this, 1));
-			this.goalSelector.addGoal(2, new LookRandomlyGoal(this));
-			this.goalSelector.addGoal(3, new SwimGoal(this));
-			this.goalSelector.addGoal(4, new LeapAtTargetGoal(this, (float) 0.5));
-			this.goalSelector.addGoal(5, new PanicGoal(this, 0.8));
-		}
+	}
 
-		@Override
-		public CreatureAttribute getCreatureAttribute() {
-			return CreatureAttribute.UNDEAD;
-		}
+	protected void populateTradeData(int i)
+	{
+		//VillagerData villagerdata = this.getVillagerData();
+		Int2ObjectMap<VillagerTrades.ITrade[]> int2objectmap = AlienTrade.TRADES.get(VillagerProfession.WEAPONSMITH);
+		if (int2objectmap != null && !int2objectmap.isEmpty()) {
+			VillagerTrades.ITrade[] avillagertrades$itrade = int2objectmap.get(i);
+			if (avillagertrades$itrade != null) {
+				MerchantOffers merchantoffers = this.getOffers();
 
-		@Override
-		public boolean canDespawn(double distanceToClosestPlayer) {
-			return false;
-		}
+				int max = 15;
+				int min = 1;
 
-		protected void dropSpecialItems(DamageSource source, int looting, boolean recentlyHitIn) {
-			super.dropSpecialItems(source, looting, recentlyHitIn);
-			this.entityDropItem(new ItemStack(Items.ROTTEN_FLESH, (int) (1)));
-		}
-
-		@Override
-		public net.minecraft.util.SoundEvent getHurtSound(DamageSource ds) {
-			return (net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.villager.hurt"));
-		}
-
-		@Override
-		public net.minecraft.util.SoundEvent getDeathSound() {
-			return (net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.villager.death"));
-		}
-
-		@Override
-		public void baseTick() {
-			super.baseTick();
-			double x = this.getPosX();
-			double y = this.getPosY();
-			double z = this.getPosZ();
-			Entity entity = this;
-			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("entity", entity);
-				AlienOnEntityTickUpdateProcedure.executeProcedure($_dependencies);
+				this.addTrades(getOffers(), avillagertrades$itrade, new Random().nextInt((max+1)-min)+min);
 			}
 		}
 	}
 
-	// Made with Blockbench 3.6.6
-	// Exported for Minecraft version 1.15
-	// Paste this class into your mod and generate all required imports
-	public static class Modelalien extends EntityModel<Entity> {
-		private final ModelRenderer head;
-		private final ModelRenderer body;
-		private final ModelRenderer leg0;
-		private final ModelRenderer leg1;
-		private final ModelRenderer arms;
-		private final ModelRenderer head2;
-		public Modelalien() {
-			textureWidth = 64;
-			textureHeight = 64;
-			head = new ModelRenderer(this);
-			head.setRotationPoint(0.0F, 0.0F, 0.0F);
-			head.setTextureOffset(0, 0).addBox(-4.0F, -9.0F, -4.0F, 8.0F, 9.0F, 8.0F, 0.0F, true);
-			head.setTextureOffset(28, 0).addBox(-4.5F, -19.0F, -4.5F, 9.0F, 10.0F, 9.0F, 0.0F, true);
-			head.setTextureOffset(24, 0).addBox(-1.0F, -3.0F, -6.0F, 2.0F, 4.0F, 2.0F, 0.0F, true);
-			body = new ModelRenderer(this);
-			body.setRotationPoint(0.0F, 0.0F, 0.0F);
-			body.setTextureOffset(16, 20).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 12.0F, 6.0F, 0.0F, true);
-			body.setTextureOffset(0, 38).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 18.0F, 6.0F, 0.5F, true);
-			leg0 = new ModelRenderer(this);
-			leg0.setRotationPoint(2.0F, 12.0F, 0.0F);
-			leg0.setTextureOffset(0, 22).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.0F, true);
-			leg1 = new ModelRenderer(this);
-			leg1.setRotationPoint(-2.0F, 12.0F, 0.0F);
-			leg1.setTextureOffset(0, 22).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.0F, true);
-			arms = new ModelRenderer(this);
-			arms.setRotationPoint(0.0F, 2.0F, 0.0F);
-			setRotationAngle(arms, -0.7854F, 0.0F, 0.0F);
-			arms.setTextureOffset(40, 38).addBox(-4.0F, 2.0F, -2.0F, 8.0F, 4.0F, 4.0F, 0.0F, true);
-			arms.setTextureOffset(44, 22).addBox(4.0F, -2.0F, -2.0F, 4.0F, 8.0F, 4.0F, 0.0F, true);
-			arms.setTextureOffset(44, 22).addBox(-8.0F, -2.0F, -2.0F, 4.0F, 8.0F, 4.0F, 0.0F, true);
-			head2 = new ModelRenderer(this);
-			head2.setRotationPoint(0.0F, -10.0F, 0.0F);
+	public boolean hasCustomer() {
+		return this.customer != null;
+	}
+
+	@Override
+	public ActionResultType func_230254_b_(PlayerEntity sourceentity, Hand hand) {
+
+		//populateTradeData();
+		ItemStack itemstack = sourceentity.getHeldItem(hand);
+		if (hand == Hand.MAIN_HAND) {
+			if (!this.world.isRemote) {
+				//this.shakeHead();
+			}
+
+			sourceentity.addStat(Stats.TALKED_TO_VILLAGER);
 		}
 
-		@Override
-		public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue,
-				float alpha) {
-			head.render(matrixStack, buffer, packedLight, packedOverlay);
-			body.render(matrixStack, buffer, packedLight, packedOverlay);
-			leg0.render(matrixStack, buffer, packedLight, packedOverlay);
-			leg1.render(matrixStack, buffer, packedLight, packedOverlay);
-			arms.render(matrixStack, buffer, packedLight, packedOverlay);
-			head2.render(matrixStack, buffer, packedLight, packedOverlay);
+		//if (flag) {
+		//    return ActionResultType.func_233537_a_(this.world.isRemote);
+		//} else {
+		if (!this.world.isRemote) {
+			this.displayMerchantGui(sourceentity);
 		}
 
-		public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-			modelRenderer.rotateAngleX = x;
-			modelRenderer.rotateAngleY = y;
-			modelRenderer.rotateAngleZ = z;
+		return ActionResultType.func_233537_a_(this.world.isRemote);
+		//}
+	}
+
+	private void displayMerchantGui(PlayerEntity player) {
+		this.recalculateSpecialPricesFor(player);
+		this.setCustomer(player);
+		this.openMerchantContainer(player, this.getDisplayName(), 1);
+	}
+
+	private void recalculateSpecialPricesFor(PlayerEntity playerIn) {
+		int i = this.getPlayerReputation(playerIn);
+		if (i != 0) {
+			for(MerchantOffer merchantoffer : this.getOffers()) {
+				merchantoffer.increaseSpecialPrice(-MathHelper.floor((float)i * merchantoffer.getPriceMultiplier()));
+			}
 		}
 
-		public void setRotationAngles(Entity e, float f, float f1, float f2, float f3, float f4) {
-			this.head.rotateAngleY = f3 / (180F / (float) Math.PI);
-			this.head.rotateAngleX = f4 / (180F / (float) Math.PI);
-			this.leg0.rotateAngleX = MathHelper.cos(f * 1.0F) * -1.0F * f1;
-			this.leg1.rotateAngleX = MathHelper.cos(f * 1.0F) * 1.0F * f1;
+		if (playerIn.isPotionActive(Effects.HERO_OF_THE_VILLAGE)) {
+			EffectInstance effectinstance = playerIn.getActivePotionEffect(Effects.HERO_OF_THE_VILLAGE);
+			int k = effectinstance.getAmplifier();
+
+			for(MerchantOffer merchantoffer1 : this.getOffers()) {
+				double d0 = 0.3D + 0.0625D * (double)k;
+				int j = (int)Math.floor(d0 * (double)merchantoffer1.getBuyingStackFirst().getCount());
+				merchantoffer1.increaseSpecialPrice(-Math.max(j, 1));
+			}
 		}
+
+	}
+
+	public int getPlayerReputation(PlayerEntity player) {
+		return this.gossip.getReputation(player.getUniqueID(), (gossipType) -> {
+			return true;
+		});
+	}
+
+	@Nullable
+	@Override
+	public AgeableEntity func_241840_a(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) {
+		return null;
 	}
 }

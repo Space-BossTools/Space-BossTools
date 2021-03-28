@@ -6,7 +6,7 @@
     "width": 176,
     "height": 222,
     "inventoryOffsetX": 0,
-    "inventoryOffsetY": 27,
+    "inventoryOffsetY": 29,
     "renderBgLayer": true,
     "doesPauseGame": false,
     "components": [
@@ -229,7 +229,7 @@
           },
           "name": "Inventory",
           "x": 134,
-          "y": 136
+          "y": 138
         }
       },
       {

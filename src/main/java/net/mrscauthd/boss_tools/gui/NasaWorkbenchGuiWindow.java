@@ -69,7 +69,7 @@ public class NasaWorkbenchGuiWindow extends ContainerScreen<NasaWorkbenchGui.Gui
 	@Override
 	protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
 		this.font.drawString(ms, "NASA Workbench", 6, 5, -13421773);
-		this.font.drawString(ms, "Inventory", 8, 127, -13421773);
+		this.font.drawString(ms, "Inventory", 8, 129, -13421773);
 	}
 
 	@Override
