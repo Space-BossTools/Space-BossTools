@@ -12,12 +12,18 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
 import net.minecraft.village.GossipManager;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.server.ServerWorld;
+import net.mrscauthd.boss_tools.AlienJobs;
 import net.mrscauthd.boss_tools.procedures.AlienOnEntityTickUpdateProcedure;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
 import net.mrscauthd.boss_tools.BossToolsModElements;
@@ -44,7 +50,13 @@ import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.mrscauthd.boss_tools.TradeGoal;
+//import net.mrscauthd.boss_tools.TraderunGoal;
 import net.minecraft.entity.monster.ZombieEntity;
+
+import java.util.*;
+
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.mojang.blaze3d.matrix.MatrixStack;
 
 import java.util.*;
 
@@ -53,7 +65,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 
 import javax.annotation.Nullable;
 
-public class AlienEntity extends AnimalEntity implements IMerchant, INPC {
+public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 //public class AlienEntity extends BossToolsModElements.ModElement implements IMerchant, INPC {
 
 	@Nullable
@@ -62,12 +74,17 @@ public class AlienEntity extends AnimalEntity implements IMerchant, INPC {
 	@Nullable
 	private MerchantOffers offers;
 	private final GossipManager gossip = new GossipManager();
+	private static final DataParameter<Integer> ALIEN_TYPE = EntityDataManager.createKey(AlienEntity.class, DataSerializers.VARINT);
 
 	private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.EMERALD);
+	public AlienJobs job;
 
-	public AlienEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
+	public AlienEntity(EntityType<? extends AgeableEntity> type, World worldIn) {
 		super(type, worldIn);
 	}
+	    public int getJobId(){
+        return this.dataManager.get(ALIEN_TYPE);
+    }
 
 	public static AttributeModifierMap.MutableAttribute setCustomAttributes(){
 		return MobEntity.func_233666_p_()
@@ -81,13 +98,14 @@ public class AlienEntity extends AnimalEntity implements IMerchant, INPC {
 		//this.eatGrassGoal = new EatGrassGoal(this);
 		this.goalSelector.addGoal(1, new SwimGoal(this));
 		this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
-		this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
+		//this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
 		this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, TEMPTATION_ITEMS, false));
-		this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1D));
+		//this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1D));
 		this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
 		this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 6.0F));
 		this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
-		this.goalSelector.addGoal(0, new TradeGoal(this));
+		this.goalSelector.addGoal(1, new TradeGoal(this));
+		//this.goalSelector.addGoal(1, new TraderunGoal(this, 1.1D, TEMPTATION_ITEMS, false));
 		//this.goalSelector.addGoal(0, new TradeAlienWithPlayerGoal(this));
 		//this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
 	}
@@ -127,6 +145,41 @@ public class AlienEntity extends AnimalEntity implements IMerchant, INPC {
 	public PlayerEntity getCustomer() {
 		return this.customer;
 	}
+
+	@Override
+	public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+		spawnDataIn = super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+
+		//System.out.println("spawn");
+
+		List<AlienJobs> x = new ArrayList<>();
+		x = Arrays.asList(AlienJobs.values());
+
+		int max = x.size()-1;
+		int min = 0;
+
+		this.job = x.get(new Random().nextInt((max+1)-min)+min);
+		//System.out.println(job.id);
+
+		//this.id = job.id;
+
+		//this.id = 100;
+
+		//System.out.println("Alien: "+(job != null));
+
+		this.dataManager.set(ALIEN_TYPE, job.id);
+
+		this.getPersistentData().putDouble("texture", job.id);
+
+		return spawnDataIn;
+	}
+
+	@Override
+	protected void registerData() {
+		super.registerData();
+		this.dataManager.register(ALIEN_TYPE, 0);
+	}
+
 
 	@Override
 	public MerchantOffers getOffers() {
@@ -198,18 +251,27 @@ public class AlienEntity extends AnimalEntity implements IMerchant, INPC {
 		if (compound.contains("Offers", 10)) {
 			this.offers = new MerchantOffers(compound.getCompound("Offers"));
 		}
+		if (compound.contains("JobId")) {
+			int x = (compound.getInt("JobId"));
 
-		//this.villagerInventory.read(compound.getList("Inventory", 10));
+
+			System.out.println("load job " + x);
+
+			//this.id = x;
+
+			List<AlienJobs> y = new ArrayList<>();
+			y = Arrays.asList(AlienJobs.values());
+			this.job = y.get(x);
+
+			this.getPersistentData().putDouble("texture", job.id);
+		}
 	}
 
 	public void writeAdditional(CompoundNBT compound) {
 		super.writeAdditional(compound);
 		MerchantOffers merchantoffers = this.getOffers();
-		//if (!merchantoffers.isEmpty()) {
 		compound.put("Offers", merchantoffers.write());
-		//}
-
-		//compound.put("Inventory", this.villagerInventory.write());
+		compound.putInt("JobId", (int)this.getPersistentData().getDouble("texture"));
 	}
 
 	protected void addTrades(MerchantOffers givenMerchantOffers, VillagerTrades.ITrade[] newTrades, int maxNumbers) {
@@ -236,15 +298,16 @@ public class AlienEntity extends AnimalEntity implements IMerchant, INPC {
 
 	protected void populateTradeData(int i)
 	{
+		Int2ObjectMap<VillagerTrades.ITrade[]> int2objectmap = AlienTrade.TRADES.get(job);
 		//VillagerData villagerdata = this.getVillagerData();
-		Int2ObjectMap<VillagerTrades.ITrade[]> int2objectmap = AlienTrade.TRADES.get(VillagerProfession.WEAPONSMITH);
+		//Int2ObjectMap<VillagerTrades.ITrade[]> int2objectmap = AlienTrade.TRADES.get(VillagerProfession.WEAPONSMITH);
 		if (int2objectmap != null && !int2objectmap.isEmpty()) {
 			VillagerTrades.ITrade[] avillagertrades$itrade = int2objectmap.get(i);
 			if (avillagertrades$itrade != null) {
 				MerchantOffers merchantoffers = this.getOffers();
 
 				int max = 18;
-				int min = 1;
+				int min = 3;
 
 				this.addTrades(getOffers(), avillagertrades$itrade, new Random().nextInt((max+1)-min)+min);
 			}
@@ -317,4 +380,9 @@ public class AlienEntity extends AnimalEntity implements IMerchant, INPC {
 	public AgeableEntity func_241840_a(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) {
 		return null;
 	}
+	public ResourceLocation getTexture() {
+        List<AlienJobs> y = new ArrayList<>();
+        y = Arrays.asList(AlienJobs.values());
+        return y.get((int)this.getPersistentData().getDouble("texture")).TEXTURE;
+    }
 }
