@@ -50,8 +50,9 @@ import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.mrscauthd.boss_tools.TradeGoal;
-//import net.mrscauthd.boss_tools.TraderunGoal;
+import net.mrscauthd.boss_tools.FollowGoal;
 import net.minecraft.entity.monster.ZombieEntity;
+import net.minecraft.util.text.ITextComponent;
 
 import java.util.*;
 
@@ -96,8 +97,8 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 	protected void registerGoals() {
 		super.registerGoals();
 		//this.eatGrassGoal = new EatGrassGoal(this);
-		this.goalSelector.addGoal(1, new SwimGoal(this));
-		this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
+		this.goalSelector.addGoal(2, new SwimGoal(this));
+		this.goalSelector.addGoal(2, new PanicGoal(this, 1.25D));
 		//this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
 		this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, TEMPTATION_ITEMS, false));
 		//this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1D));
@@ -105,6 +106,7 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 		this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 6.0F));
 		this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
 		this.goalSelector.addGoal(1, new TradeGoal(this));
+		this.goalSelector.addGoal(1, new FollowGoal(this, 1.1D,false));
 		//this.goalSelector.addGoal(1, new TraderunGoal(this, 1.1D, TEMPTATION_ITEMS, false));
 		//this.goalSelector.addGoal(0, new TradeAlienWithPlayerGoal(this));
 		//this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
@@ -245,6 +247,24 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 	public SoundEvent getYesSound() {
 		return null;
 	}
+	
+	@Override
+    public void tick() {
+        super.tick();
+        if(job == null){
+            List<AlienJobs> x = new ArrayList<>();
+            x = Arrays.asList(AlienJobs.values());
+
+            int max = x.size()-1;
+            int min = 0;
+
+            this.job = x.get(new Random().nextInt((max+1)-min)+min);
+
+            this.dataManager.set(ALIEN_TYPE, job.id);
+
+            this.getPersistentData().putDouble("texture", job.id);
+        }
+    }
 
 	public void readAdditional(CompoundNBT compound) {
 		super.readAdditional(compound);
@@ -255,7 +275,7 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 			int x = (compound.getInt("JobId"));
 
 
-			System.out.println("load job " + x);
+		//	System.out.println("load job " + x);
 
 			//this.id = x;
 
@@ -345,7 +365,7 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 	private void displayMerchantGui(PlayerEntity player) {
 		this.recalculateSpecialPricesFor(player);
 		this.setCustomer(player);
-		this.openMerchantContainer(player, this.getDisplayName(), 1);
+		this.openMerchantContainer(player, ITextComponent.getTextComponentOrEmpty(this.getDisplayName().getString()+" - "+this.job.getJobDisplayname().getString()), 1);
 	}
 
 	private void recalculateSpecialPricesFor(PlayerEntity playerIn) {

@@ -17,8 +17,6 @@ public class TradeGoal extends Goal {
 			return false;
 		} else if (this.entity.isInWater()) {
 			return false;
-		} else if (!this.entity.isOnGround()) {
-			return false;
 		} else if (this.entity.velocityChanged) {
 			return false;
 		} else {
