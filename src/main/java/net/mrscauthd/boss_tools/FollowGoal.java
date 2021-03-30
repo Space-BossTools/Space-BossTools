@@ -153,5 +153,6 @@ public class FollowGoal extends Goal {
      */
     public boolean isRunning() {
         return this.isRunning;
+       // return true;
     }
 }

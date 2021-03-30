@@ -182,6 +182,24 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 		super.registerData();
 		this.dataManager.register(ALIEN_TYPE, 0);
 	}
+	
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float amount) {
+		//System.out.println("hit");
+		for(MerchantOffer merchantoffer : this.getOffers()) {
+			merchantoffer.resetUses();
+		}
+
+		//}
+
+		//for(int j = 0; j < i; ++j) {
+		for(MerchantOffer merchantoffer : this.getOffers()) {
+			int max = 2;
+			int min = 0;
+			merchantoffer.increaseSpecialPrice((int) Math.floor((amount*new Random().nextInt((max+1)-min)+min)));
+		}
+		return super.attackEntityFrom(source,amount);
+	}
 
 
 	@Override
@@ -344,6 +362,7 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 
 		//populateTradeData();
 		ItemStack itemstack = sourceentity.getHeldItem(hand);
+		if(!this.hasCustomer()){
 		if (hand == Hand.MAIN_HAND) {
 			if (!this.world.isRemote) {
 				//this.shakeHead();
@@ -361,6 +380,7 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 
 		return ActionResultType.func_233537_a_(this.world.isRemote);
 		//}
+		}
 	}
 	//@OnlyIn(Dist.CLIENT)
 	private void displayMerchantGui(PlayerEntity player) {
