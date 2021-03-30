@@ -26,7 +26,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.mrscauthd.boss_tools.AlienJobs;
 import net.mrscauthd.boss_tools.procedures.AlienOnEntityTickUpdateProcedure;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
-import net.mrscauthd.boss_tools.BossToolsModElements;
+//import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -53,6 +53,7 @@ import net.mrscauthd.boss_tools.TradeGoal;
 import net.mrscauthd.boss_tools.FollowGoal;
 import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.*;
 
@@ -361,11 +362,14 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 		return ActionResultType.func_233537_a_(this.world.isRemote);
 		//}
 	}
-
+	//@OnlyIn(Dist.CLIENT)
 	private void displayMerchantGui(PlayerEntity player) {
 		this.recalculateSpecialPricesFor(player);
 		this.setCustomer(player);
-		this.openMerchantContainer(player, ITextComponent.getTextComponentOrEmpty(this.getDisplayName().getString()+" - "+this.job.getJobDisplayname().getString()), 1);
+		//this.openMerchantContainer(player, ITextComponent.getTextComponentOrEmpty(this.getDisplayName().getString()+" - "+this.job.getJobDisplayname().getString()), 1);
+		//this.openMerchantContainer(player, ITextComponent.getTextComponentOrEmpty(this.getDisplayName().getUnformattedComponentText() + " - " + this.job.getJobDisplayname().getUnformattedComponentText()), 1);
+		this.openMerchantContainer(player, new TranslationTextComponent(this.getDisplayName().getString() + " - " +  this.job.getJobDisplayname().getString()),1);
+		
 	}
 
 	private void recalculateSpecialPricesFor(PlayerEntity playerIn) {
