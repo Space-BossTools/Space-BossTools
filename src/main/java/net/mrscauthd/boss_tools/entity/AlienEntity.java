@@ -377,10 +377,9 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 		if (!this.world.isRemote) {
 			this.displayMerchantGui(sourceentity);
 		}
-
-		return ActionResultType.func_233537_a_(this.world.isRemote);
 		//}
 		}
+		return ActionResultType.func_233537_a_(this.world.isRemote);
 	}
 	//@OnlyIn(Dist.CLIENT)
 	private void displayMerchantGui(PlayerEntity player) {

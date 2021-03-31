@@ -12350,6 +12350,18 @@
       "locked_code": true,
       "ids": {},
       "registry_name": "follow_goal"
+    },
+    {
+      "name": "PlayerRenderer",
+      "type": "procedure",
+      "sortid": 680,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "player_renderer",
+      "metadata": {
+        "dependencies": []
+      }
     }
   ],
   "variable_elements": [
