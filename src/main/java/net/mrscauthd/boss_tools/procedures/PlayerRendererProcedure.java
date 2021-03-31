@@ -53,7 +53,7 @@ public class PlayerRendererProcedure extends BossToolsModElements.ModElement {
 		public void renderPlayerPre(EntityEvent.Size size) {
 			if (((size.getEntity().getRidingEntity()) instanceof RocketEntity.CustomEntity)) {
 			size.setNewEyeHeight(1f);
-			}
+			}//l
 		}
 	@SubscribeEvent
 	public void onPlayerTick(TickEvent.PlayerTickEvent event) {
