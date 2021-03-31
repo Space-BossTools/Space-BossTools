@@ -49,12 +49,12 @@ public class PlayerRendererProcedure extends BossToolsModElements.ModElement {
 			// event.getRenderer();
 		}
 	}
-		@SubscribeEvent
+	/*	@SubscribeEvent
 		public void renderPlayerPre(EntityEvent.Size size) {
 			if (((size.getEntity().getRidingEntity()) instanceof RocketEntity.CustomEntity)) {
 			size.setNewEyeHeight(1f);
 			}//l
-		}
+		}*/
 	@SubscribeEvent
 	public void onPlayerTick(TickEvent.PlayerTickEvent event) {
 		if (event.phase == TickEvent.Phase.END) {
