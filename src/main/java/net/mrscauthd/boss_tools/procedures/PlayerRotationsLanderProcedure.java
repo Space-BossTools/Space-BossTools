@@ -69,19 +69,19 @@ public class PlayerRotationsLanderProcedure extends BossToolsModElements.ModElem
 				model.bipedHead.rotationPointY = (float) Math.toRadians(500F);
 				model.bipedHead.rotationPointZ = (float) Math.toRadians(-100F);
 				//Disable model
-				model.bipedHead.showModel = (false);
-				model.bipedBody.showModel = (false);
-				model.bipedRightArm.showModel = (false);
-				model.bipedLeftArm.showModel = (false);
-				model.bipedRightLeg.showModel = (false);
-				model.bipedLeftLeg.showModel = (false);
+			//	model.bipedHead.showModel = (false);
+			//	model.bipedBody.showModel = (false);
+			//	model.bipedRightArm.showModel = (false);
+			//	model.bipedLeftArm.showModel = (false);
+			//	model.bipedRightLeg.showModel = (false);
+			//	model.bipedLeftLeg.showModel = (false);
 				//Disable Layers
-				model.bipedHeadwear.showModel = (false);
-				model.bipedBodyWear.showModel = (false);
-				model.bipedRightArmwear.showModel = (false);
-				model.bipedLeftArmwear.showModel = (false);
-				model.bipedRightLegwear.showModel = (false);
-				model.bipedLeftLegwear.showModel = (false);
+			//	model.bipedHeadwear.showModel = (false);
+			//	model.bipedBodyWear.showModel = (false);
+			//	model.bipedRightArmwear.showModel = (false);
+			//	model.bipedLeftArmwear.showModel = (false);
+			//	model.bipedRightLegwear.showModel = (false);
+			//	model.bipedLeftLegwear.showModel = (false);
 				//model.isChild = (true);
 				// Arms
 				// model.bipedRightArm.rotateAngleX = (float) Math.toRadians(0F); //bugy

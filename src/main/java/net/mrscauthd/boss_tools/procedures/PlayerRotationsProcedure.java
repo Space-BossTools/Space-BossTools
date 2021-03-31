@@ -56,6 +56,8 @@ public class PlayerRotationsProcedure extends BossToolsModElements.ModElement {
 				model.bipedLeftLeg.rotateAngleY = (float) Math.toRadians(3F);
 				model.bipedRightLeg.rotateAngleY = (float) Math.toRadians(3F);
 				// Arms
+				model.bipedRightArm.rotationPointX = (float) Math.toRadians(-250F);//-200
+				model.bipedLeftArm.rotationPointX = (float) Math.toRadians(250F);
 				//model.bipedRightArm.rotateAngleX = (float) Math.toRadians(0);
 				//model.bipedLeftArm.rotateAngleX = (float) Math.toRadians(0);
 				// model.bipedRightArm.rotateAngleX = (float) Math.toRadians(0F); //bugy
