@@ -47,7 +47,7 @@ import io.netty.buffer.Unpooled;
 @BossToolsModElements.ModElement.Tag
 public class PlayerOpenRocketMainMenusProcedure extends BossToolsModElements.ModElement {
 	public PlayerOpenRocketMainMenusProcedure(BossToolsModElements instance) {
-		super(instance, 612);
+		super(instance, 616);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 

@@ -13,7 +13,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class RocketRotationAOnKeyReleasedProcedure extends BossToolsModElements.ModElement {
 	public RocketRotationAOnKeyReleasedProcedure(BossToolsModElements instance) {
-		super(instance, 312);
+		super(instance, 316);
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {

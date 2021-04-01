@@ -22,7 +22,7 @@ public class SiliconIngotItem extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:silicon_ingot")
 	public static final Item block = null;
 	public SiliconIngotItem(BossToolsModElements instance) {
-		super(instance, 19);
+		super(instance, 18);
 	}
 
 	@Override

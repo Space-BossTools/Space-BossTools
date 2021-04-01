@@ -13,7 +13,7 @@ import net.minecraft.item.ItemGroup;
 @BossToolsModElements.ModElement.Tag
 public class SpaceBosstoolsMaterialsItemGroup extends BossToolsModElements.ModElement {
 	public SpaceBosstoolsMaterialsItemGroup(BossToolsModElements instance) {
-		super(instance, 425);
+		super(instance, 429);
 	}
 
 	@Override

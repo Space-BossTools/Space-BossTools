@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "facing=south": {
+      "model": "boss_tools:block/block_of_rusted_iron_pillar"
+    },
+    "facing=north": {
+      "model": "boss_tools:block/block_of_rusted_iron_pillar"
+    },
+    "facing=east": {
+      "model": "boss_tools:block/block_of_rusted_iron_pillar",
+      "x": 90
+    },
+    "facing=west": {
+      "model": "boss_tools:block/block_of_rusted_iron_pillar",
+      "x": 90
+    },
+    "facing=up": {
+      "model": "boss_tools:block/block_of_rusted_iron_pillar",
+      "x": 90,
+      "y": 90
+    },
+    "facing=down": {
+      "model": "boss_tools:block/block_of_rusted_iron_pillar",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

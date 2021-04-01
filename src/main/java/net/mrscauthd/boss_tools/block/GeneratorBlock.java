@@ -82,7 +82,7 @@ public class GeneratorBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:coal_generator")
 	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
 	public GeneratorBlock(BossToolsModElements instance) {
-		super(instance, 59);
+		super(instance, 63);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new TileEntityRegisterHandler());
 	}
 

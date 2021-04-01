@@ -12,7 +12,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class LaunchpadbaseUpdateTickProcedure extends BossToolsModElements.ModElement {
 	public LaunchpadbaseUpdateTickProcedure(BossToolsModElements instance) {
-		super(instance, 401);
+		super(instance, 405);
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {

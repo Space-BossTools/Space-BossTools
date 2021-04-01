@@ -55,6 +55,17 @@ public class PlayerRendererProcedure extends BossToolsModElements.ModElement {
 			size.setNewEyeHeight(1f);
 			}//l
 		}*/
+	/*	@SubscribeEvent
+		public void renderPlayerPre(EntityEvent.Size event) {
+		Entity entity = event.getEntity();
+			if (entity.getRidingEntity() instanceof RocketEntity.CustomEntity) {
+				RocketEntity.CustomEntity rocket = (RocketEntity.CustomEntity) entity.getRidingEntity();
+//rocket.do stuff here
+//something like below
+				//rocket.setNewSize(EntitySize.flexible(0.7f, 1.9f));
+				event.setNewEyeHeight(1.f);
+			}
+		}*/
 	@SubscribeEvent
 	public void onPlayerTick(TickEvent.PlayerTickEvent event) {
 		if (event.phase == TickEvent.Phase.END) {

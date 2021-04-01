@@ -16,7 +16,7 @@ public class IronplateItem extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:iron_plate")
 	public static final Item block = null;
 	public IronplateItem(BossToolsModElements instance) {
-		super(instance, 20);
+		super(instance, 19);
 	}
 
 	@Override

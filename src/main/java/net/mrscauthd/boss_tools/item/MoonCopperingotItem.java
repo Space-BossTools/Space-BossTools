@@ -22,7 +22,7 @@ public class MoonCopperingotItem extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:desh_ingot")
 	public static final Item block = null;
 	public MoonCopperingotItem(BossToolsModElements instance) {
-		super(instance, 18);
+		super(instance, 17);
 	}
 
 	@Override

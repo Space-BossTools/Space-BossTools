@@ -12,7 +12,7 @@ import net.minecraft.entity.item.PaintingType;
 @BossToolsModElements.ModElement.Tag
 public class PaintingmathPainting extends BossToolsModElements.ModElement {
 	public PaintingmathPainting(BossToolsModElements instance) {
-		super(instance, 434);
+		super(instance, 438);
 		FMLJavaModLoadingContext.get().getModEventBus().register(this);
 	}
 

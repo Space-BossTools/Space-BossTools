@@ -16,7 +16,7 @@ public class HammerItem extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:hammer")
 	public static final Item block = null;
 	public HammerItem(BossToolsModElements instance) {
-		super(instance, 26);
+		super(instance, 25);
 	}
 
 	@Override

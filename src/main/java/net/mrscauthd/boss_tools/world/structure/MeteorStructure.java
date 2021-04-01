@@ -41,7 +41,7 @@ public class MeteorStructure extends BossToolsModElements.ModElement {
 	private static Feature<NoFeatureConfig> feature = null;
 	private static ConfiguredFeature<?, ?> configuredFeature = null;
 	public MeteorStructure(BossToolsModElements instance) {
-		super(instance, 107);
+		super(instance, 111);
 		MinecraftForge.EVENT_BUS.register(this);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new FeatureRegisterHandler());
 	}

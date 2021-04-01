@@ -28,7 +28,7 @@ import java.util.Collections;
 @BossToolsModElements.ModElement.Tag
 public class RocketoverworldumlaufbahnProcedure extends BossToolsModElements.ModElement {
 	public RocketoverworldumlaufbahnProcedure(BossToolsModElements instance) {
-		super(instance, 120);
+		super(instance, 124);
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {

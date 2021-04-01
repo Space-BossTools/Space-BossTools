@@ -18,7 +18,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class RocketOverlyYMarsmainProcedure extends BossToolsModElements.ModElement {
 	public RocketOverlyYMarsmainProcedure(BossToolsModElements instance) {
-		super(instance, 568);
+		super(instance, 572);
 	}
 
 	public static boolean executeProcedure(Map<String, Object> dependencies) {

@@ -27,7 +27,7 @@ import java.util.HashMap;
 @BossToolsModElements.ModElement.Tag
 public class LanderNBTProcedure extends BossToolsModElements.ModElement {
 	public LanderNBTProcedure(BossToolsModElements instance) {
-		super(instance, 619);
+		super(instance, 623);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 

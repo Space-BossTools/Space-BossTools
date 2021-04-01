@@ -1,7 +1,7 @@
 package net.mrscauthd.boss_tools;
 
 import net.mrscauthd.boss_tools.entity.AlienEntity;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.ai.goal.Goal;
 
