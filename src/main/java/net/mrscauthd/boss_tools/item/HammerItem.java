@@ -44,6 +44,14 @@ public class HammerItem extends BossToolsModElements.ModElement {
 			return retval;
 		}
 
+		// duping FIX
+		@Override
+		public boolean isRepairable(ItemStack stack) {
+			return !canRepair;
+			// return canRepair
+		}
+		// Duping FIX end
+		
 		@Override
 		public int getItemEnchantability() {
 			return 0;
