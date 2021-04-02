@@ -47,7 +47,8 @@ public class HammerItem extends BossToolsModElements.ModElement {
 		// duping FIX
 		@Override
 		public boolean isRepairable(ItemStack stack) {
-			return !canRepair;
+			return false;
+			//return !canRepair;
 			// return canRepair
 		}
 		// Duping FIX end
