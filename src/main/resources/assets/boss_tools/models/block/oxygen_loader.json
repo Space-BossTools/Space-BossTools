@@ -3,7 +3,7 @@
   "textures": {
     "down": "boss_tools:blocks/machineback",
     "up": "boss_tools:blocks/machineback",
-    "north": "boss_tools:blocks/oxygengeneratorfront",
+    "north": "boss_tools:blocks/oxygengeneratorfront_inactive",
     "east": "boss_tools:blocks/machineside",
     "south": "boss_tools:blocks/machineside",
     "west": "boss_tools:blocks/machineside",

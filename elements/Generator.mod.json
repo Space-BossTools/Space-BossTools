@@ -5,7 +5,7 @@
     "texture": "generator_top",
     "textureTop": "generator_top",
     "textureLeft": "machineside",
-    "textureFront": "generator_front",
+    "textureFront": "generator_front_inactive",
     "textureRight": "machineside",
     "textureBack": "machineside",
     "renderType": 10,

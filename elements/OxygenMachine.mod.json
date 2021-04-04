@@ -5,7 +5,7 @@
     "texture": "machineback",
     "textureTop": "machineback",
     "textureLeft": "machineside",
-    "textureFront": "oxygengeneratorfront",
+    "textureFront": "oxygengeneratorfront_inactive",
     "textureRight": "machineside",
     "textureBack": "machineside",
     "renderType": 10,
