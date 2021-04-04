@@ -5,42 +5,42 @@
     "recipeType": "Crafting",
     "xpReward": 0.0,
     "cookingTime": 200,
-    "recipeRetstackSize": 4,
+    "recipeRetstackSize": 8,
     "group": "",
     "recipeShapeless": false,
     "recipeSlots": [
       {
-        "value": "Items.IRON_NUGGET"
-      },
-      {
-        "value": "Items.COAL"
+        "value": "CUSTOM:Ironplate"
       },
       {
         "value": "Items.IRON_NUGGET"
       },
       {
-        "value": "Items.COAL"
+        "value": "CUSTOM:Ironplate"
+      },
+      {
+        "value": "Items.IRON_NUGGET"
       },
       {
         "value": "Items.IRON_INGOT"
       },
       {
-        "value": "Items.COAL"
+        "value": "Items.IRON_NUGGET"
+      },
+      {
+        "value": "CUSTOM:Ironplate"
       },
       {
         "value": "Items.IRON_NUGGET"
       },
       {
-        "value": "Items.COAL"
-      },
-      {
-        "value": "Items.IRON_NUGGET"
+        "value": "CUSTOM:Ironplate"
       }
     ],
     "recipeReturnStack": {
-      "value": "CUSTOM:IronMark"
+      "value": "CUSTOM:BlockOfIronPlating"
     },
-    "name": "iron_mark_recpie",
+    "name": "blockof_iron_plating_recpie",
     "namespace": "mod"
   }
 }

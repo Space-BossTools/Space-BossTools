@@ -5,42 +5,42 @@
     "recipeType": "Crafting",
     "xpReward": 0.0,
     "cookingTime": 200,
-    "recipeRetstackSize": 4,
+    "recipeRetstackSize": 8,
     "group": "",
     "recipeShapeless": false,
     "recipeSlots": [
       {
-        "value": "Items.IRON_NUGGET"
+        "value": "Items.GOLD_INGOT"
       },
       {
-        "value": "Items.COAL"
+        "value": "Items.QUARTZ"
       },
       {
-        "value": "Items.IRON_NUGGET"
+        "value": "Items.GOLD_INGOT"
       },
       {
-        "value": "Items.COAL"
+        "value": "Items.QUARTZ"
       },
       {
         "value": "Items.IRON_INGOT"
       },
       {
-        "value": "Items.COAL"
+        "value": "Items.QUARTZ"
       },
       {
-        "value": "Items.IRON_NUGGET"
+        "value": "Items.GOLD_INGOT"
       },
       {
-        "value": "Items.COAL"
+        "value": "Items.QUARTZ"
       },
       {
-        "value": "Items.IRON_NUGGET"
+        "value": "Items.GOLD_INGOT"
       }
     ],
     "recipeReturnStack": {
-      "value": "CUSTOM:IronMark"
+      "value": "CUSTOM:BlockOfRustedIronPillar"
     },
-    "name": "iron_mark_recpie",
+    "name": "blockof_rusted_iron_pillar_recpie",
     "namespace": "mod"
   }
 }

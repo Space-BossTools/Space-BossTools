@@ -6,10 +6,9 @@ license="Not specified"
 modId="boss_tools"
 version="4.8"
 displayName="Space-Bosstools"
-credits="Made by MrScautHD"
+credits="MrScautHD"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/space-bosstools"
-logoFile="logo.png"
-authors="MrScautHD"
+authors="MrScautHD,PixKnight (Textures),Galacticraft (Mod idea)"
 description='''
 Fly to Other Planets!
 '''
