@@ -1173,7 +1173,7 @@
       "type": "block",
       "sortid": 67,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "oxygen_loader",
       "path": "~/Blocks"
@@ -12322,7 +12322,8 @@
             "type": "entity"
           }
         ]
-      }
+      },
+      "path": "~/Procedures"
     }
   ],
   "variable_elements": [
