@@ -182,11 +182,12 @@ public class OxygenGeneratortickProcedure extends BossToolsModElements.ModElemen
 								}.compareDistOf((x + 0.5), y, (z + 0.5))).collect(Collectors.toList());
 						for (Entity entityiterator : _entfound) {
 							if ((entityiterator instanceof PlayerEntity)) {
-								entityiterator.getPersistentData().putBoolean("SpaceSuitH", (false));
-								entityiterator.getPersistentData().putBoolean("SpaceSuitC", (false));
-								entityiterator.getPersistentData().putBoolean("SpaceSuitL", (false));
-								entityiterator.getPersistentData().putBoolean("SpaceSuitB", (false));
-								entityiterator.getPersistentData().putDouble("Oxygen_Bullet_Generator", 0);
+								if (world instanceof ServerWorld) {
+									((World) world).getServer().getCommandManager()
+											.handleCommand(new CommandSource(ICommandSource.DUMMY, new Vector3d((x + 0.5), y, (z + 0.5)),
+													Vector2f.ZERO, (ServerWorld) world, 4, "", new StringTextComponent(""),
+													((World) world).getServer(), null).withFeedbackDisabled(), "");
+								}
 							}
 						}
 					}
@@ -430,11 +431,7 @@ public class OxygenGeneratortickProcedure extends BossToolsModElements.ModElemen
 									}.compareDistOf((x + 0.5), y, (z + 0.5))).collect(Collectors.toList());
 							for (Entity entityiterator : _entfound) {
 								if ((entityiterator instanceof PlayerEntity)) {
-									entityiterator.getPersistentData().putBoolean("SpaceSuitH", (true));
-									entityiterator.getPersistentData().putBoolean("SpaceSuitC", (true));
-									entityiterator.getPersistentData().putBoolean("SpaceSuitL", (true));
-									entityiterator.getPersistentData().putBoolean("SpaceSuitB", (true));
-									entityiterator.getPersistentData().putDouble("Oxygen_Bullet_Generator", 3);
+									entityiterator.getPersistentData().putDouble("Oxygen_Bullet_Generator", 1);
 								}
 							}
 						}
@@ -490,11 +487,7 @@ public class OxygenGeneratortickProcedure extends BossToolsModElements.ModElemen
 									}.compareDistOf((x + 0.5), y, (z + 0.5))).collect(Collectors.toList());
 							for (Entity entityiterator : _entfound) {
 								if ((entityiterator instanceof PlayerEntity)) {
-									entityiterator.getPersistentData().putBoolean("SpaceSuitH", (true));
-									entityiterator.getPersistentData().putBoolean("SpaceSuitC", (true));
-									entityiterator.getPersistentData().putBoolean("SpaceSuitL", (true));
-									entityiterator.getPersistentData().putBoolean("SpaceSuitB", (true));
-									entityiterator.getPersistentData().putDouble("Oxygen_Bullet_Generator", 3);
+									entityiterator.getPersistentData().putDouble("Oxygen_Bullet_Generator", 1);
 								}
 							}
 						}

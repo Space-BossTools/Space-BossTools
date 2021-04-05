@@ -59,7 +59,7 @@ public class MeteorStructure extends BossToolsModElements.ModElement {
 						dimensionCriteria = true;
 					if (!dimensionCriteria)
 						return false;
-					if ((random.nextInt(1000000) + 1) <= 1000) {
+					if ((random.nextInt(1000000) + 1) <= 2000) {
 						int count = random.nextInt(1) + 1;
 						for (int a = 0; a < count; a++) {
 							int i = ci + random.nextInt(16);

@@ -61,29 +61,31 @@ public class AkivepotionProcedure extends BossToolsModElements.ModElement {
 																: World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
 																		new ResourceLocation("boss_tools:orbit_mercury"))))))))))) {// Config
 			if (((BossToolsModVariables.oxygen_system) == 1)) {
-				if (((entity.getPersistentData().getBoolean("SpaceSuitH")) == (false))) {
-					if (entity instanceof LivingEntity) {
-						((LivingEntity) entity).attackEntityFrom(new DamageSource("oxygen").setDamageBypassesArmor(), (float) 1);
+				if (((entity.getPersistentData().getDouble("Oxygen_Bullet_Generator")) == 0)) {
+					if (((entity.getPersistentData().getBoolean("SpaceSuitH")) == (false))) {
+						if (entity instanceof LivingEntity) {
+							((LivingEntity) entity).attackEntityFrom(new DamageSource("oxygen").setDamageBypassesArmor(), (float) 1);
+						}
 					}
-				}
-				if (((entity.getPersistentData().getBoolean("SpaceSuitC")) == (false))) {
-					if (entity instanceof LivingEntity) {
-						((LivingEntity) entity).attackEntityFrom(new DamageSource("oxygen").setDamageBypassesArmor(), (float) 1);
+					if (((entity.getPersistentData().getBoolean("SpaceSuitC")) == (false))) {
+						if (entity instanceof LivingEntity) {
+							((LivingEntity) entity).attackEntityFrom(new DamageSource("oxygen").setDamageBypassesArmor(), (float) 1);
+						}
 					}
-				}
-				if (((entity.getPersistentData().getBoolean("SpaceSuitL")) == (false))) {
-					if (entity instanceof LivingEntity) {
-						((LivingEntity) entity).attackEntityFrom(new DamageSource("oxygen").setDamageBypassesArmor(), (float) 1);
+					if (((entity.getPersistentData().getBoolean("SpaceSuitL")) == (false))) {
+						if (entity instanceof LivingEntity) {
+							((LivingEntity) entity).attackEntityFrom(new DamageSource("oxygen").setDamageBypassesArmor(), (float) 1);
+						}
 					}
-				}
-				if (((entity.getPersistentData().getBoolean("SpaceSuitB")) == (false))) {
-					if (entity instanceof LivingEntity) {
-						((LivingEntity) entity).attackEntityFrom(new DamageSource("oxygen").setDamageBypassesArmor(), (float) 1);
+					if (((entity.getPersistentData().getBoolean("SpaceSuitB")) == (false))) {
+						if (entity instanceof LivingEntity) {
+							((LivingEntity) entity).attackEntityFrom(new DamageSource("oxygen").setDamageBypassesArmor(), (float) 1);
+						}
 					}
 				}
 			}
 		}
-		if ((!((entity.getPersistentData().getDouble("Oxygen_Bullet_Generator")) >= 0))) {
+		if (((entity.getPersistentData().getDouble("Oxygen_Bullet_Generator")) == 0)) {
 			if ((!(((entity instanceof LivingEntity)
 					? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 0))
 					: ItemStack.EMPTY).getItem() == new ItemStack(SpaceArmorItem.helmet, (int) (1)).getItem()))) {
@@ -104,15 +106,6 @@ public class AkivepotionProcedure extends BossToolsModElements.ModElement {
 					: ItemStack.EMPTY).getItem() == new ItemStack(SpaceArmorItem.boots, (int) (1)).getItem()))) {
 				entity.getPersistentData().putBoolean("SpaceSuitB", (false));
 			}
-		}
-		if (((entity.getPersistentData().getDouble("Oxygen_Bullet_Generator")) >= 0)) {
-			entity.getPersistentData().putDouble("Oxygen_Bullet_Generator", ((entity.getPersistentData().getDouble("Oxygen_Bullet_Generator")) - 1));
-		}
-		if (((entity.getPersistentData().getDouble("Oxygen_Bullet_Generator")) == 1)) {
-			entity.getPersistentData().putBoolean("SpaceSuitH", (false));
-			entity.getPersistentData().putBoolean("SpaceSuitC", (false));
-			entity.getPersistentData().putBoolean("SpaceSuitL", (false));
-			entity.getPersistentData().putBoolean("SpaceSuitB", (false));
 		}
 	}
 

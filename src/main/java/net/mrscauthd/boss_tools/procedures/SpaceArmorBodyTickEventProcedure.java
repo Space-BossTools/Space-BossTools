@@ -45,7 +45,7 @@ public class SpaceArmorBodyTickEventProcedure extends BossToolsModElements.ModEl
 		Entity entity = (Entity) dependencies.get("entity");
 		ItemStack itemstack = (ItemStack) dependencies.get("itemstack");
 		IWorld world = (IWorld) dependencies.get("world");
-		if ((!((entity.getPersistentData().getDouble("Oxygen_Bullet_Generator")) >= 0))) {
+		if (((entity.getPersistentData().getDouble("Oxygen_Bullet_Generator")) == 0)) {
 			if ((new Object() {
 				public boolean checkGamemode(Entity _ent) {
 					if (_ent instanceof ServerPlayerEntity) {
