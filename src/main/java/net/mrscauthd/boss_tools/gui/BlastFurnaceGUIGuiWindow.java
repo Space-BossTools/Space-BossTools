@@ -1,8 +1,6 @@
 
 package net.mrscauthd.boss_tools.gui;
 
-import org.lwjgl.opengl.GL11;
-
 import net.mrscauthd.boss_tools.procedures.BlastFurnaceFireProcedure;
 import net.mrscauthd.boss_tools.procedures.BlastFurnaceFire9Procedure;
 import net.mrscauthd.boss_tools.procedures.BlastFurnaceFire8Procedure;
@@ -29,7 +27,6 @@ import net.mrscauthd.boss_tools.procedures.BlastFurnaceArrow23Procedure;
 import net.mrscauthd.boss_tools.procedures.BlastFurnaceArrow22Procedure;
 import net.mrscauthd.boss_tools.procedures.BlastFurnaceArrow21Procedure;
 import net.mrscauthd.boss_tools.procedures.BlastFurnaceArrow20Procedure;
-import net.mrscauthd.boss_tools.procedures.BlastFurnaceArrow1Procedure;
 import net.mrscauthd.boss_tools.procedures.BlastFurnaceArrow19Procedure;
 import net.mrscauthd.boss_tools.procedures.BlastFurnaceArrow18Procedure;
 import net.mrscauthd.boss_tools.procedures.BlastFurnaceArrow17Procedure;
@@ -52,6 +49,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.Minecraft;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import com.google.common.collect.ImmutableMap;
@@ -80,8 +78,10 @@ public class BlastFurnaceGUIGuiWindow extends ContainerScreen<BlastFurnaceGUIGui
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float par1, int par2, int par3) {
-		GL11.glColor4f(1, 1, 1, 1);
+	protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float partialTicks, int gx, int gy) {
+		RenderSystem.color4f(1, 1, 1, 1);
+		RenderSystem.enableBlend();
+		RenderSystem.defaultBlendFunc();
 		Minecraft.getInstance().getTextureManager().bindTexture(texture);
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
@@ -148,10 +148,6 @@ public class BlastFurnaceGUIGuiWindow extends ContainerScreen<BlastFurnaceGUIGui
 		this.blit(ms, this.guiLeft + 99, this.guiTop + 33, 0, 0, 26, 26, 26, 26);
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/animated_arrow_1.png"));
 		this.blit(ms, this.guiLeft + 73, this.guiTop + 37, 0, 0, 22, 16, 22, 16);
-		if (BlastFurnaceArrow1Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/animated_arrow_1.png"));
-			this.blit(ms, this.guiLeft + 73, this.guiTop + 37, 0, 0, 22, 16, 22, 16);
-		}
 		if (BlastFurnaceArrow2Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/animated_arrow_2.png"));
 			this.blit(ms, this.guiLeft + 73, this.guiTop + 37, 0, 0, 22, 16, 22, 16);
@@ -240,6 +236,7 @@ public class BlastFurnaceGUIGuiWindow extends ContainerScreen<BlastFurnaceGUIGui
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/animated_arrow_23.png"));
 			this.blit(ms, this.guiLeft + 73, this.guiTop + 37, 0, 0, 22, 16, 22, 16);
 		}
+		RenderSystem.disableBlend();
 	}
 
 	@Override

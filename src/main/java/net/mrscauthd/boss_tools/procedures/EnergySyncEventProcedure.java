@@ -26,11 +26,11 @@ public class EnergySyncEventProcedure extends BossToolsModElements.ModElement {
 	public EnergySyncEventProcedure(BossToolsModElements instance) {
 		super(instance, 754);
 		MinecraftForge.EVENT_BUS.register(this);
-		NetworkLoader.registerMessages();
+		//NetworkLoader.registerMessages();
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {
-		Entity entity = (Entity) dependencies.get("entity");
+	/*	Entity entity = (Entity) dependencies.get("entity");
 		// IWorld world = (IWorld) dependencies.get("world");
 		if (!entity.world.isRemote) {
 			NetworkLoader.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity),
@@ -95,6 +95,6 @@ public class EnergySyncEventProcedure extends BossToolsModElements.ModElement {
 			dependencies.put("entity", entity);
 			dependencies.put("event", event);
 			this.executeProcedure(dependencies);
-		}
+		}*/
 	}
 }

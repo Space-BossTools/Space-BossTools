@@ -12410,9 +12410,9 @@
       "item.boss_tools.star_crawler_spawn_egg": "Star Crawler Spawn Egg",
       "block.boss_tools.mars_diamond_ore": "Mars Diamond Ore",
       "item.boss_tools.oxygen_tank": "Oxygen Tank",
-      "block.boss_tools.mercury_iron_ore": "Mercury Iron Ore",
-      "block.boss_tools.fuel_refinery": "Fuel Refinery",
       "block.boss_tools.block_of_rusted_iron_plating": "Block of Rusted Iron Plating",
+      "block.boss_tools.fuel_refinery": "Fuel Refinery",
+      "block.boss_tools.mercury_iron_ore": "Mercury Iron Ore",
       "biome.boss_tools.mars_biome": "Moon Biome",
       "item.boss_tools.silicon_ingot": "Silicon Ingot",
       "advancements.moon_advancement.descr": "§bHas entered the Moon",
@@ -12691,5 +12691,5 @@
     "modElementsPackage": "net.mrscauthd.boss_tools",
     "lockBaseModFiles": false
   },
-  "mcreatorVersion": 202100112313
+  "mcreatorVersion": 202100114310
 }

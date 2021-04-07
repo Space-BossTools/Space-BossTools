@@ -2,8 +2,6 @@
 package net.mrscauthd.boss_tools.gui;
 
 import net.mrscauthd.boss_tools.procedures.Tier1mainMenuWhileThisGUIIsOpenTickProcedure;
-import net.mrscauthd.boss_tools.procedures.OpenTier1mainMenu4Procedure;
-import net.mrscauthd.boss_tools.procedures.OpenTier1mainMenu3Procedure;
 import net.mrscauthd.boss_tools.procedures.OpenTier1mainMenu2Procedure;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
@@ -201,20 +199,6 @@ public class Tier1mainMenuGui extends BossToolsModElements.ModElement {
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("entity", entity);
 				OpenTier1mainMenu2Procedure.executeProcedure($_dependencies);
-			}
-		}
-		if (buttonID == 1) {
-			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("entity", entity);
-				OpenTier1mainMenu3Procedure.executeProcedure($_dependencies);
-			}
-		}
-		if (buttonID == 2) {
-			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("entity", entity);
-				OpenTier1mainMenu4Procedure.executeProcedure($_dependencies);
 			}
 		}
 	}

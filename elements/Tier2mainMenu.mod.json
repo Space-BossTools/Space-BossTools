@@ -1,5 +1,5 @@
 {
-  "_fv": 17,
+  "_fv": 18,
   "_type": "gui",
   "definition": {
     "type": 0,
@@ -52,9 +52,6 @@
         "type": "button",
         "data": {
           "text": "Mercury",
-          "onClick": {
-            "name": "OpenTier1mainMenu4"
-          },
           "width": 70,
           "height": 20,
           "name": "Mercury",

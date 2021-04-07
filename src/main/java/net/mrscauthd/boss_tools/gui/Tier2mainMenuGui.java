@@ -4,7 +4,6 @@ package net.mrscauthd.boss_tools.gui;
 import net.mrscauthd.boss_tools.procedures.Tier1mainMenuWhileThisGUIIsOpenTickProcedure;
 import net.mrscauthd.boss_tools.procedures.OpenTier2mainMenu3Procedure;
 import net.mrscauthd.boss_tools.procedures.OpenTier2mainMenu2Procedure;
-import net.mrscauthd.boss_tools.procedures.OpenTier1mainMenu4Procedure;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.items.ItemStackHandler;
@@ -69,7 +68,6 @@ public class Tier2mainMenuGui extends BossToolsModElements.ModElement {
 			double z = entity.getPosZ();
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("entity", entity);
 				Tier1mainMenuWhileThisGUIIsOpenTickProcedure.executeProcedure($_dependencies);
 			}
 		}
@@ -209,13 +207,6 @@ public class Tier2mainMenuGui extends BossToolsModElements.ModElement {
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("entity", entity);
 				OpenTier2mainMenu3Procedure.executeProcedure($_dependencies);
-			}
-		}
-		if (buttonID == 2) {
-			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("entity", entity);
-				OpenTier1mainMenu4Procedure.executeProcedure($_dependencies);
 			}
 		}
 	}

@@ -1,5 +1,5 @@
 {
-  "_fv": 17,
+  "_fv": 18,
   "_type": "gui",
   "definition": {
     "type": 1,
@@ -282,19 +282,6 @@
         "data": {
           "image": "animated_arrow_1.png",
           "use1Xscale": false,
-          "name": "animated_arrow_1.png",
-          "x": 198,
-          "y": 71
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "animated_arrow_1.png",
-          "use1Xscale": false,
-          "displayCondition": {
-            "name": "BlastFurnaceArrow1"
-          },
           "name": "animated_arrow_1.png",
           "x": 198,
           "y": 71

@@ -1,8 +1,6 @@
 
 package net.mrscauthd.boss_tools.gui;
 
-import org.lwjgl.opengl.GL11;
-
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -19,7 +17,6 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.Minecraft;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 @OnlyIn(Dist.CLIENT)
@@ -46,11 +43,10 @@ public class Tier3mainMenuGuiWindow extends ContainerScreen<Tier3mainMenuGui.Gui
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float par1, int par2, int par3) {
-		GL11.glColor4f(1, 1, 1, 1);
+	protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float partialTicks, int gx, int gy) {
+		RenderSystem.color4f(1, 1, 1, 1);
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
-		RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_menu_background.png"));
 		this.blit(ms, this.guiLeft + -111, this.guiTop + -8, 0, 0, 769, 499, 769, 499);
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_menu_list.png"));
@@ -75,6 +71,7 @@ public class Tier3mainMenuGuiWindow extends ContainerScreen<Tier3mainMenuGui.Gui
 		this.blit(ms, this.guiLeft + 52, this.guiTop + 222, 0, 0, 80, 22, 80, 22);
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/space_station_check_2.png"));
 		this.blit(ms, this.guiLeft + 52, this.guiTop + 246, 0, 0, 80, 22, 80, 22);
+		RenderSystem.disableBlend();
 	}
 
 	@Override

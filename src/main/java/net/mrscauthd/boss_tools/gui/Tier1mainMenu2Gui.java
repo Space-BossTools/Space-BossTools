@@ -73,7 +73,6 @@ public class Tier1mainMenu2Gui extends BossToolsModElements.ModElement {
 			double z = entity.getPosZ();
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("entity", entity);
 				Tier1mainMenuWhileThisGUIIsOpenTickProcedure.executeProcedure($_dependencies);
 			}
 		}

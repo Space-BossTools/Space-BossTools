@@ -1,5 +1,5 @@
 {
-  "_fv": 17,
+  "_fv": 18,
   "_type": "biome",
   "definition": {
     "name": "Moon Biome",
@@ -89,7 +89,8 @@
     "spawnShipwreck": false,
     "oceanRuinType": "NONE",
     "defaultFeatures": [
-      "Caves"
+      "Caves",
+      "FrozenTopLayer"
     ],
     "spawnEntries": []
   }
