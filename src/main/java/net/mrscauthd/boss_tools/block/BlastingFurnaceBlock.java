@@ -33,8 +33,10 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.LockableLootTileEntity;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.DirectionProperty;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.NetworkManager;
@@ -96,15 +98,16 @@ public class BlastingFurnaceBlock extends BossToolsModElements.ModElement {
 
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+		public static final BooleanProperty ACTIAVATED = BlockStateProperties.LIT;
 		public CustomBlock() {
 			super(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(1f, 10f).setLightLevel(s -> 0));
-			this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
+			this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(ACTIAVATED, Boolean.valueOf(false)));
 			setRegistryName("blast_furnace");
 		}
 
 		@Override
 		protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-			builder.add(FACING);
+			builder.add(FACING, ACTIAVATED);
 		}
 
 		public BlockState rotate(BlockState state, Rotation rot) {
@@ -145,10 +148,22 @@ public class BlastingFurnaceBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public void tick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-			super.tick(state, world, pos, random);
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
+			if (((new Object() {
+				public boolean getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getBoolean(tag);
+					return false;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "activated")) == (true))) {
+				world.setBlockState(pos, state.with(ACTIAVATED, Boolean.valueOf(true)), 3);
+			} else {
+				world.setBlockState(pos, state.with(ACTIAVATED, Boolean.valueOf(false)), 3);
+			}
+			super.tick(state, world, pos, random);
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("x", x);

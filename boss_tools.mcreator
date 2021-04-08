@@ -1287,7 +1287,7 @@
       "type": "block",
       "sortid": 68,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "oxygen_bullet_generator",
       "path": "~/Blocks"
@@ -1347,7 +1347,7 @@
       "type": "block",
       "sortid": 63,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "coal_generator",
       "path": "~/Blocks"
@@ -1529,7 +1529,7 @@
       "type": "block",
       "sortid": 65,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "blast_furnace",
       "path": "~/Blocks"
@@ -4793,7 +4793,7 @@
       "type": "block",
       "sortid": 66,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "compressor",
       "path": "~/Blocks"
@@ -5841,7 +5841,7 @@
       "type": "block",
       "sortid": 64,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "fuel_refinery",
       "path": "~/Blocks"
@@ -12410,9 +12410,9 @@
       "item.boss_tools.star_crawler_spawn_egg": "Star Crawler Spawn Egg",
       "block.boss_tools.mars_diamond_ore": "Mars Diamond Ore",
       "item.boss_tools.oxygen_tank": "Oxygen Tank",
-      "block.boss_tools.block_of_rusted_iron_plating": "Block of Rusted Iron Plating",
-      "block.boss_tools.fuel_refinery": "Fuel Refinery",
       "block.boss_tools.mercury_iron_ore": "Mercury Iron Ore",
+      "block.boss_tools.fuel_refinery": "Fuel Refinery",
+      "block.boss_tools.block_of_rusted_iron_plating": "Block of Rusted Iron Plating",
       "biome.boss_tools.mars_biome": "Moon Biome",
       "item.boss_tools.silicon_ingot": "Silicon Ingot",
       "advancements.moon_advancement.descr": "§bHas entered the Moon",
@@ -12671,7 +12671,7 @@
   "workspaceSettings": {
     "modid": "boss_tools",
     "modName": "Space-Bosstools",
-    "version": "4.8",
+    "version": "4.9",
     "description": "Fly to Other Planets!",
     "author": "MrScautHD,PixKnight (Textures),Galacticraft (Mod idea)",
     "websiteURL": "https://www.curseforge.com/minecraft/mc-mods/space-bosstools",
