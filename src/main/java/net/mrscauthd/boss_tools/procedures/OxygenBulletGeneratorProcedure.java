@@ -14,8 +14,8 @@ import java.util.Map;
 import java.util.HashMap;
 
 @BossToolsModElements.ModElement.Tag
-public class OxygenBulletGeneratorTickProcedure extends BossToolsModElements.ModElement {
-	public OxygenBulletGeneratorTickProcedure(BossToolsModElements instance) {
+public class OxygenBulletGeneratorProcedure extends BossToolsModElements.ModElement {
+	public OxygenBulletGeneratorProcedure(BossToolsModElements instance) {
 		super(instance, 691);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
@@ -23,12 +23,16 @@ public class OxygenBulletGeneratorTickProcedure extends BossToolsModElements.Mod
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("entity") == null) {
 			if (!dependencies.containsKey("entity"))
-				BossToolsMod.LOGGER.warn("Failed to load dependency entity for procedure OxygenBulletGeneratorTick!");
+				BossToolsMod.LOGGER.warn("Failed to load dependency entity for procedure OxygenBulletGenerator!");
 			return;
 		}
 		Entity entity = (Entity) dependencies.get("entity");
-		if (((entity.getPersistentData().getDouble("Oxygen_Bullet_Generator")) == 1)) {
-			entity.getPersistentData().putDouble("Oxygen_Bullet_Generator", 0);
+		entity.getPersistentData().putDouble("timer_oxygen", ((entity.getPersistentData().getDouble("timer_oxygen")) + 1));
+		if (((entity.getPersistentData().getDouble("timer_oxygen")) >= 4)) {
+			if (((entity.getPersistentData().getBoolean("Oxygen_Bullet_Generator")) == (true))) {
+				entity.getPersistentData().putBoolean("Oxygen_Bullet_Generator", (false));
+				entity.getPersistentData().putDouble("timer_oxygen", 0);
+			}
 		}
 	}
 

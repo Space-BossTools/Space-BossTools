@@ -12308,13 +12308,13 @@
       }
     },
     {
-      "name": "OxygenBulletGeneratorTick",
+      "name": "OxygenBulletGenerator",
       "type": "procedure",
       "sortid": 691,
       "compiles": true,
       "locked_code": false,
       "ids": {},
-      "registry_name": "oxygen_bullet_generator_tick",
+      "registry_name": "oxygen_bullet_generator",
       "metadata": {
         "dependencies": [
           {
@@ -12322,8 +12322,7 @@
             "type": "entity"
           }
         ]
-      },
-      "path": "~/Procedures"
+      }
     }
   ],
   "variable_elements": [

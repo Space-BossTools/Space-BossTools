@@ -44,6 +44,12 @@ public class AkivepotionProcedure extends BossToolsModElements.ModElement {
 		Entity entity = (Entity) dependencies.get("entity");
 		IWorld world = (IWorld) dependencies.get("world");
 		double Damage = 0;
+		if (((entity.getPersistentData().getBoolean("Oxygen_Bullet_Generator")) == (true))) {
+			entity.getPersistentData().putBoolean("SpaceSuitH", (true));
+			entity.getPersistentData().putBoolean("SpaceSuitC", (true));
+			entity.getPersistentData().putBoolean("SpaceSuitL", (true));
+			entity.getPersistentData().putBoolean("SpaceSuitB", (true));
+		}
 		if ((((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
 				new ResourceLocation("boss_tools:moon"))))
 				|| (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
@@ -60,8 +66,8 @@ public class AkivepotionProcedure extends BossToolsModElements.ModElement {
 																? (((World) world).getDimensionKey())
 																: World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
 																		new ResourceLocation("boss_tools:orbit_mercury"))))))))))) {// Config
-			if (((BossToolsModVariables.oxygen_system) == 1)) {
-				if (((entity.getPersistentData().getDouble("Oxygen_Bullet_Generator")) == 0)) {
+			if ((!(entity.getPersistentData().getBoolean("Oxygen_Bullet_Generator")))) {
+				if (((BossToolsModVariables.oxygen_system) == 1)) {
 					if (((entity.getPersistentData().getBoolean("SpaceSuitH")) == (false))) {
 						if (entity instanceof LivingEntity) {
 							((LivingEntity) entity).attackEntityFrom(new DamageSource("oxygen").setDamageBypassesArmor(), (float) 1);
@@ -85,7 +91,7 @@ public class AkivepotionProcedure extends BossToolsModElements.ModElement {
 				}
 			}
 		}
-		if (((entity.getPersistentData().getDouble("Oxygen_Bullet_Generator")) == 0)) {
+		if ((!(entity.getPersistentData().getBoolean("Oxygen_Bullet_Generator")))) {
 			if ((!(((entity instanceof LivingEntity)
 					? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 0))
 					: ItemStack.EMPTY).getItem() == new ItemStack(SpaceArmorItem.helmet, (int) (1)).getItem()))) {

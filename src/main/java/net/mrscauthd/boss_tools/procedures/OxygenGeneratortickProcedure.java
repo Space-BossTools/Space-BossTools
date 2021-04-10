@@ -431,7 +431,8 @@ public class OxygenGeneratortickProcedure extends BossToolsModElements.ModElemen
 									}.compareDistOf((x + 0.5), y, (z + 0.5))).collect(Collectors.toList());
 							for (Entity entityiterator : _entfound) {
 								if ((entityiterator instanceof PlayerEntity)) {
-									entityiterator.getPersistentData().putDouble("Oxygen_Bullet_Generator", 1);
+									entityiterator.getPersistentData().putBoolean("Oxygen_Bullet_Generator", (true));
+									entityiterator.getPersistentData().putDouble("timer_oxygen", 0);
 								}
 							}
 						}
@@ -487,7 +488,8 @@ public class OxygenGeneratortickProcedure extends BossToolsModElements.ModElemen
 									}.compareDistOf((x + 0.5), y, (z + 0.5))).collect(Collectors.toList());
 							for (Entity entityiterator : _entfound) {
 								if ((entityiterator instanceof PlayerEntity)) {
-									entityiterator.getPersistentData().putDouble("Oxygen_Bullet_Generator", 1);
+									entityiterator.getPersistentData().putBoolean("Oxygen_Bullet_Generator", (true));
+									entityiterator.getPersistentData().putDouble("timer_oxygen", 0);
 								}
 							}
 						}

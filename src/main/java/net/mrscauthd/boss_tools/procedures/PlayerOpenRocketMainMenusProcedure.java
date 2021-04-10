@@ -180,7 +180,8 @@ public class PlayerOpenRocketMainMenusProcedure extends BossToolsModElements.Mod
 		} // Player Movement
 		if (((entity.getPersistentData().getDouble("Player_movement")) == 1)) {
 			entity.setMotion((entity.getMotion().getX()), ((entity.getMotion().getY()) + 0.08), (entity.getMotion().getZ()));
-			entity.getPersistentData().putDouble("Oxygen_Bullet_Generator", 1);
+			entity.getPersistentData().putBoolean("Oxygen_Bullet_Generator", (true));
+			entity.getPersistentData().putDouble("timer_oxygen", 0);
 		} // Space Station Menu
 		if (((entity.getPersistentData().getDouble("Tier_1_space_station_open")) == 1)) {
 			{
