@@ -23,7 +23,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class SpaceArmorBodyTickEventProcedure extends BossToolsModElements.ModElement {
 	public SpaceArmorBodyTickEventProcedure(BossToolsModElements instance) {
-		super(instance, 133);
+		super(instance, 139);
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {
@@ -80,6 +80,26 @@ public class SpaceArmorBodyTickEventProcedure extends BossToolsModElements.ModEl
 						(itemstack).getOrCreateTag().putDouble("Energytick", (((itemstack).getOrCreateTag().getDouble("Energytick")) + 1));
 						if ((((itemstack).getOrCreateTag().getDouble("Energytick")) >= 2)) {
 							(itemstack).getOrCreateTag().putDouble("Energy", (((itemstack).getOrCreateTag().getDouble("Energy")) - 1));
+							if ((((itemstack).getOrCreateTag().getDouble("Energy")) == 1000)) {
+								if (entity instanceof PlayerEntity && !entity.world.isRemote()) {
+									((PlayerEntity) entity).sendStatusMessage(new StringTextComponent("\u00A7cWARNING! \u00A761000 \u00A79Oxygen!"),
+											(false));
+								}
+								if (entity instanceof PlayerEntity && !entity.world.isRemote()) {
+									((PlayerEntity) entity).sendStatusMessage(new StringTextComponent("\u00A7cWARNING! \u00A761000 \u00A79Oxygen!"),
+											(true));
+								}
+							}
+							if ((((itemstack).getOrCreateTag().getDouble("Energy")) == 1)) {
+								if (entity instanceof PlayerEntity && !entity.world.isRemote()) {
+									((PlayerEntity) entity).sendStatusMessage(new StringTextComponent("\u00A7cWARNING! \u00A760 \u00A79Oxygen!"),
+											(false));
+								}
+								if (entity instanceof PlayerEntity && !entity.world.isRemote()) {
+									((PlayerEntity) entity).sendStatusMessage(new StringTextComponent("\u00A7cWARNING! \u00A760 \u00A79Oxygen!"),
+											(true));
+								}
+							}
 							(itemstack).getOrCreateTag().putDouble("Energytick", 0);
 						}
 						entity.getPersistentData().putBoolean("SpaceSuitC", (true));
@@ -87,22 +107,6 @@ public class SpaceArmorBodyTickEventProcedure extends BossToolsModElements.ModEl
 				}
 				if ((((itemstack).getOrCreateTag().getDouble("Energy")) <= 1)) {
 					entity.getPersistentData().putBoolean("SpaceSuitC", (false));
-				}
-				if ((((itemstack).getOrCreateTag().getDouble("Energy")) == 1000)) {
-					if (entity instanceof PlayerEntity && !entity.world.isRemote()) {
-						((PlayerEntity) entity).sendStatusMessage(new StringTextComponent("\u00A7cWARNING! \u00A761000 \u00A79Oxygen!"), (false));
-					}
-					if (entity instanceof PlayerEntity && !entity.world.isRemote()) {
-						((PlayerEntity) entity).sendStatusMessage(new StringTextComponent("\u00A7cWARNING! \u00A761000 \u00A79Oxygen!"), (true));
-					}
-				}
-				if ((((itemstack).getOrCreateTag().getDouble("Energy")) == 1)) {
-					if (entity instanceof PlayerEntity && !entity.world.isRemote()) {
-						((PlayerEntity) entity).sendStatusMessage(new StringTextComponent("\u00A7cWARNING! \u00A760 \u00A79Oxygen!"), (false));
-					}
-					if (entity instanceof PlayerEntity && !entity.world.isRemote()) {
-						((PlayerEntity) entity).sendStatusMessage(new StringTextComponent("\u00A7cWARNING! \u00A760 \u00A79Oxygen!"), (true));
-					}
 				}
 			}
 		}

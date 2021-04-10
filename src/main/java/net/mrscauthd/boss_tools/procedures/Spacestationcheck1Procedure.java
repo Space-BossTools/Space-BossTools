@@ -13,7 +13,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class Spacestationcheck1Procedure extends BossToolsModElements.ModElement {
 	public Spacestationcheck1Procedure(BossToolsModElements instance) {
-		super(instance, 627);
+		super(instance, 610);
 	}
 
 	public static boolean executeProcedure(Map<String, Object> dependencies) {

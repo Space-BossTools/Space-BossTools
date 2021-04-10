@@ -34,7 +34,7 @@
     ],
     "name": "Sky Stone",
     "specialInfo": [],
-    "hardness": 0.5,
+    "hardness": 1.5,
     "resistance": 10.0,
     "hasGravity": false,
     "isWaterloggable": false,

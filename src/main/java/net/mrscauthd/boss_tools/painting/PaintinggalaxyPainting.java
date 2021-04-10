@@ -12,7 +12,7 @@ import net.minecraft.entity.item.PaintingType;
 @BossToolsModElements.ModElement.Tag
 public class PaintinggalaxyPainting extends BossToolsModElements.ModElement {
 	public PaintinggalaxyPainting(BossToolsModElements instance) {
-		super(instance, 434);
+		super(instance, 417);
 		FMLJavaModLoadingContext.get().getModEventBus().register(this);
 	}
 

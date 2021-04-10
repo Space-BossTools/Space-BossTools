@@ -34,7 +34,7 @@
     ],
     "name": "Moon Cheese Ore",
     "specialInfo": [],
-    "hardness": 1.0,
+    "hardness": 1.5,
     "resistance": 10.0,
     "hasGravity": false,
     "isWaterloggable": false,

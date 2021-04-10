@@ -36,7 +36,7 @@
     "specialInfo": [
       "§7Can only be found on the §6Mars"
     ],
-    "hardness": 1.0,
+    "hardness": 1.5,
     "resistance": 10.0,
     "hasGravity": false,
     "isWaterloggable": false,

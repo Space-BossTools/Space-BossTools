@@ -26,7 +26,7 @@ import java.util.Collections;
 @BossToolsModElements.ModElement.Tag
 public class RocketTier1OverworldtpProcedure extends BossToolsModElements.ModElement {
 	public RocketTier1OverworldtpProcedure(BossToolsModElements instance) {
-		super(instance, 164);
+		super(instance, 170);
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {
@@ -93,8 +93,8 @@ public class RocketTier1OverworldtpProcedure extends BossToolsModElements.ModEle
 					ServerWorld nextWorld = _ent.getServer().getWorld(destinationType);
 					if (nextWorld != null) {
 						((ServerPlayerEntity) _ent).connection.sendPacket(new SChangeGameStatePacket(SChangeGameStatePacket.field_241768_e_, 0));
-						((ServerPlayerEntity) _ent).teleport(nextWorld, nextWorld.getSpawnPoint().getX(), 700, nextWorld.getSpawnPoint().getZ(),
-								_ent.rotationYaw, _ent.rotationPitch);
+						((ServerPlayerEntity) _ent).teleport(nextWorld, entity.getPosX(), 700, entity.getPosZ(), _ent.rotationYaw,
+								_ent.rotationPitch);
 						((ServerPlayerEntity) _ent).connection.sendPacket(new SPlayerAbilitiesPacket(((ServerPlayerEntity) _ent).abilities));
 						for (EffectInstance effectinstance : ((ServerPlayerEntity) _ent).getActivePotionEffects()) {
 							((ServerPlayerEntity) _ent).connection.sendPacket(new SPlayEntityEffectPacket(_ent.getEntityId(), effectinstance));

@@ -31,7 +31,7 @@ public class LandingearSpaceHotkeyKeyBinding extends BossToolsModElements.ModEle
 	@OnlyIn(Dist.CLIENT)
 	private KeyBinding keys;
 	public LandingearSpaceHotkeyKeyBinding(BossToolsModElements instance) {
-		super(instance, 162);
+		super(instance, 168);
 		elements.addNetworkMessage(KeyBindingPressedMessage.class, KeyBindingPressedMessage::buffer, KeyBindingPressedMessage::new,
 				KeyBindingPressedMessage::handler);
 	}

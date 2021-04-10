@@ -41,7 +41,7 @@ public class FlagLimeBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:flag_lime")
 	public static final Block block = null;
 	public FlagLimeBlock(BossToolsModElements instance) {
-		super(instance, 76);
+		super(instance, 82);
 	}
 
 	@Override

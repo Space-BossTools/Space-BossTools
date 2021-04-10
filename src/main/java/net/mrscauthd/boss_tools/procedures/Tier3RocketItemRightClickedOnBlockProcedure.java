@@ -30,7 +30,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class Tier3RocketItemRightClickedOnBlockProcedure extends BossToolsModElements.ModElement {
 	public Tier3RocketItemRightClickedOnBlockProcedure(BossToolsModElements instance) {
-		super(instance, 313);
+		super(instance, 319);
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {
