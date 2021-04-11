@@ -76,8 +76,8 @@ public class UmlaufbahneffectsProcedure extends BossToolsModElements.ModElement 
 							if (nextWorld != null) {
 								((ServerPlayerEntity) _ent).connection
 										.sendPacket(new SChangeGameStatePacket(SChangeGameStatePacket.field_241768_e_, 0));
-								((ServerPlayerEntity) _ent).teleport(nextWorld, nextWorld.getSpawnPoint().getX(), 450,
-										nextWorld.getSpawnPoint().getZ(), _ent.rotationYaw, _ent.rotationPitch);
+								((ServerPlayerEntity) _ent).teleport(nextWorld, entity.getPosX(), 450, entity.getPosZ(), _ent.rotationYaw,
+										_ent.rotationPitch);
 								((ServerPlayerEntity) _ent).connection.sendPacket(new SPlayerAbilitiesPacket(((ServerPlayerEntity) _ent).abilities));
 								for (EffectInstance effectinstance : ((ServerPlayerEntity) _ent).getActivePotionEffects()) {
 									((ServerPlayerEntity) _ent).connection
@@ -103,8 +103,8 @@ public class UmlaufbahneffectsProcedure extends BossToolsModElements.ModElement 
 							if (nextWorld != null) {
 								((ServerPlayerEntity) _ent).connection
 										.sendPacket(new SChangeGameStatePacket(SChangeGameStatePacket.field_241768_e_, 0));
-								((ServerPlayerEntity) _ent).teleport(nextWorld, nextWorld.getSpawnPoint().getX(), 450,
-										nextWorld.getSpawnPoint().getZ(), _ent.rotationYaw, _ent.rotationPitch);
+								((ServerPlayerEntity) _ent).teleport(nextWorld, entity.getPosX(), 450, entity.getPosZ(), _ent.rotationYaw,
+										_ent.rotationPitch);
 								((ServerPlayerEntity) _ent).connection.sendPacket(new SPlayerAbilitiesPacket(((ServerPlayerEntity) _ent).abilities));
 								for (EffectInstance effectinstance : ((ServerPlayerEntity) _ent).getActivePotionEffects()) {
 									((ServerPlayerEntity) _ent).connection
@@ -130,8 +130,8 @@ public class UmlaufbahneffectsProcedure extends BossToolsModElements.ModElement 
 							if (nextWorld != null) {
 								((ServerPlayerEntity) _ent).connection
 										.sendPacket(new SChangeGameStatePacket(SChangeGameStatePacket.field_241768_e_, 0));
-								((ServerPlayerEntity) _ent).teleport(nextWorld, nextWorld.getSpawnPoint().getX(), 450,
-										nextWorld.getSpawnPoint().getZ(), _ent.rotationYaw, _ent.rotationPitch);
+								((ServerPlayerEntity) _ent).teleport(nextWorld, entity.getPosX(), 450, entity.getPosZ(), _ent.rotationYaw,
+										_ent.rotationPitch);
 								((ServerPlayerEntity) _ent).connection.sendPacket(new SPlayerAbilitiesPacket(((ServerPlayerEntity) _ent).abilities));
 								for (EffectInstance effectinstance : ((ServerPlayerEntity) _ent).getActivePotionEffects()) {
 									((ServerPlayerEntity) _ent).connection
@@ -157,8 +157,8 @@ public class UmlaufbahneffectsProcedure extends BossToolsModElements.ModElement 
 							if (nextWorld != null) {
 								((ServerPlayerEntity) _ent).connection
 										.sendPacket(new SChangeGameStatePacket(SChangeGameStatePacket.field_241768_e_, 0));
-								((ServerPlayerEntity) _ent).teleport(nextWorld, nextWorld.getSpawnPoint().getX(), 450,
-										nextWorld.getSpawnPoint().getZ(), _ent.rotationYaw, _ent.rotationPitch);
+								((ServerPlayerEntity) _ent).teleport(nextWorld, entity.getPosX(), 450, entity.getPosZ(), _ent.rotationYaw,
+										_ent.rotationPitch);
 								((ServerPlayerEntity) _ent).connection.sendPacket(new SPlayerAbilitiesPacket(((ServerPlayerEntity) _ent).abilities));
 								for (EffectInstance effectinstance : ((ServerPlayerEntity) _ent).getActivePotionEffects()) {
 									((ServerPlayerEntity) _ent).connection
