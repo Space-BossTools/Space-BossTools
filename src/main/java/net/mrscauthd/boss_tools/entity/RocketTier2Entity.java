@@ -159,6 +159,17 @@ public class RocketTier2Entity extends BossToolsModElements.ModElement {
 		}
 
 		@Override
+		protected void removePassenger(Entity passenger) {
+			if (passenger.isSneaking() && !passenger.world.isRemote) {
+				if (passenger instanceof ServerPlayerEntity) {
+					ServerPlayerEntity playerEntity = (ServerPlayerEntity) passenger;
+					playerEntity.getPersistentData().putBoolean("dismount", true);
+				}
+			}
+			super.removePassenger(passenger);
+		}
+
+		@Override
 		public net.minecraft.util.SoundEvent getHurtSound(DamageSource ds) {
 			return (net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(""));
 		}

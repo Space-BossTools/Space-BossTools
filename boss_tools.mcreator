@@ -12383,6 +12383,32 @@
       "ids": {},
       "registry_name": "cracked_moon_brick_slab",
       "path": "~/Blocks"
+    },
+    {
+      "name": "CountDown",
+      "type": "overlay",
+      "sortid": 675,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "count_down"
+    },
+    {
+      "name": "RocketDismount",
+      "type": "procedure",
+      "sortid": 676,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "rocket_dismount",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      }
     }
   ],
   "variable_elements": [

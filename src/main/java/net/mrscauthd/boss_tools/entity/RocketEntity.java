@@ -158,6 +158,7 @@ public class RocketEntity extends BossToolsModElements.ModElement {
 			return super.getMountedYOffset() + -1.7000000000000002;
 		}
 
+
 		@Override
 		public net.minecraft.util.SoundEvent getHurtSound(DamageSource ds) {
 			return (net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(""));
