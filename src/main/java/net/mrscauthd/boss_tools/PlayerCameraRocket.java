@@ -56,18 +56,18 @@ public class PlayerCameraRocket extends BossToolsModElements.ModElement {
 			boolean rocketsit = Minecraft.getInstance().player.getPersistentData().getBoolean("rocketsit");
 			if (rocketsit) {
 				// event.setFOV(event.getFOV() + 35);
-				if (Minecraft.getInstance().gameSettings.getPointOfView().equals(PointOfView.FIRST_PERSON)) {
+			/*	if (Minecraft.getInstance().gameSettings.getPointOfView().equals(PointOfView.FIRST_PERSON)) {
 					event.setFOV(event.getFOV() + 0);
-				}
+				}*/
 				if (Minecraft.getInstance().gameSettings.getPointOfView().equals(PointOfView.THIRD_PERSON_FRONT)) {
 					event.setFOV(100); // event.setFOV(event.getFOV() - 35);
 				}
 				if (Minecraft.getInstance().gameSettings.getPointOfView().equals(PointOfView.THIRD_PERSON_BACK)) {
 					event.setFOV(100); // event.setFOV(event.getFOV() - 35);
 				}
-			} else {
+			}/* else {
 				event.setFOV(event.getFOV());
-			}
+			}*/
 			// if(Minecraft.getInstance().gameSettings.getPointOfView().equals(PointOfView.FIRST_PERSON))
 			// {
 			// event.setFOV(event.getFOV() -35);

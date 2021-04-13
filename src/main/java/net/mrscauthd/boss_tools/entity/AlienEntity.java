@@ -24,6 +24,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.server.ServerWorld;
 import net.mrscauthd.boss_tools.AlienJobs;
+import net.mrscauthd.boss_tools.BossToolsModVariables;
 import net.mrscauthd.boss_tools.procedures.AlienOnEntityTickUpdateProcedure;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
 //import net.mrscauthd.boss_tools.BossToolsModElements;
@@ -84,9 +85,9 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 	public AlienEntity(EntityType<? extends AgeableEntity> type, World worldIn) {
 		super(type, worldIn);
 	}
-	    public int getJobId(){
-        return this.dataManager.get(ALIEN_TYPE);
-    }
+	public int getJobId(){
+		return this.dataManager.get(ALIEN_TYPE);
+	}
 
 	public static AttributeModifierMap.MutableAttribute setCustomAttributes(){
 		return MobEntity.func_233666_p_()
@@ -182,7 +183,7 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 		super.registerData();
 		this.dataManager.register(ALIEN_TYPE, 0);
 	}
-	
+
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		//System.out.println("hit");
@@ -266,24 +267,24 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 	public SoundEvent getYesSound() {
 		return null;
 	}
-	
+
 	@Override
-    public void tick() {
-        super.tick();
-        if(job == null){
-            List<AlienJobs> x = new ArrayList<>();
-            x = Arrays.asList(AlienJobs.values());
+	public void tick() {
+		super.tick();
+		if(job == null){
+			List<AlienJobs> x = new ArrayList<>();
+			x = Arrays.asList(AlienJobs.values());
 
-            int max = x.size()-1;
-            int min = 0;
+			int max = x.size()-1;
+			int min = 0;
 
-            this.job = x.get(new Random().nextInt((max+1)-min)+min);
+			this.job = x.get(new Random().nextInt((max+1)-min)+min);
 
-            this.dataManager.set(ALIEN_TYPE, job.id);
+			this.dataManager.set(ALIEN_TYPE, job.id);
 
-            this.getPersistentData().putDouble("texture", job.id);
-        }
-    }
+			this.getPersistentData().putDouble("texture", job.id);
+		}
+	}
 
 	public void readAdditional(CompoundNBT compound) {
 		super.readAdditional(compound);
@@ -294,7 +295,7 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 			int x = (compound.getInt("JobId"));
 
 
-		//	System.out.println("load job " + x);
+			//	System.out.println("load job " + x);
 
 			//this.id = x;
 
@@ -363,21 +364,21 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 		//populateTradeData();
 		ItemStack itemstack = sourceentity.getHeldItem(hand);
 		if(!this.hasCustomer()){
-		if (hand == Hand.MAIN_HAND) {
-			if (!this.world.isRemote) {
-				//this.shakeHead();
+			if (hand == Hand.MAIN_HAND) {
+				if (!this.world.isRemote) {
+					//this.shakeHead();
+				}
+
+				sourceentity.addStat(Stats.TALKED_TO_VILLAGER);
 			}
 
-			sourceentity.addStat(Stats.TALKED_TO_VILLAGER);
-		}
-
-		//if (flag) {
-		//    return ActionResultType.func_233537_a_(this.world.isRemote);
-		//} else {
-		if (!this.world.isRemote) {
-			this.displayMerchantGui(sourceentity);
-		}
-		//}
+			//if (flag) {
+			//    return ActionResultType.func_233537_a_(this.world.isRemote);
+			//} else {
+			if (!this.world.isRemote) {
+				this.displayMerchantGui(sourceentity);
+			}
+			//}
 		}
 		return ActionResultType.func_233537_a_(this.world.isRemote);
 	}
@@ -388,7 +389,7 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 		//this.openMerchantContainer(player, ITextComponent.getTextComponentOrEmpty(this.getDisplayName().getString()+" - "+this.job.getJobDisplayname().getString()), 1);
 		//this.openMerchantContainer(player, ITextComponent.getTextComponentOrEmpty(this.getDisplayName().getUnformattedComponentText() + " - " + this.job.getJobDisplayname().getUnformattedComponentText()), 1);
 		this.openMerchantContainer(player, new TranslationTextComponent(this.getDisplayName().getString() + " - " +  this.job.getJobDisplayname().getString()),1);
-		
+
 	}
 
 	private void recalculateSpecialPricesFor(PlayerEntity playerIn) {
@@ -424,8 +425,21 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 		return null;
 	}
 	public ResourceLocation getTexture() {
-        List<AlienJobs> y = new ArrayList<>();
-        y = Arrays.asList(AlienJobs.values());
-        return y.get((int)this.getPersistentData().getDouble("texture")).TEXTURE;
-    }
+		List<AlienJobs> y = new ArrayList<>();
+		y = Arrays.asList(AlienJobs.values());
+		return y.get((int)this.getPersistentData().getDouble("texture")).TEXTURE;
+	}
+	@Override
+	public void baseTick() {
+		super.baseTick();
+		double x = this.getPosX();
+		double y = this.getPosY();
+		double z = this.getPosZ();
+		Entity entity = this;
+		if (((BossToolsModVariables.Config) == 2)) {
+			if (!entity.world.isRemote())
+				entity.remove();
+		}
+	}
+
 }
