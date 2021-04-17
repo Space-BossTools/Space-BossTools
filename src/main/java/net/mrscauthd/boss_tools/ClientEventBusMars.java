@@ -55,6 +55,7 @@ public class ClientEventBusMars {
 		DimensionRenderInfo.field_239208_a_.put(DIM_RENDER_INFO,
 				// cloudHeight, alternate sky color, fog type, render sky, diffuse lighting
 				new DimensionRenderInfo(999999999, false, FogType.NORMAL, false, false) {
+				//new DimensionRenderInfo(Float.NaN, true, FogType.NONE, false, false) {
 					/*
 					 * @Override // adjustSkyColor public Vector3d func_230494_a_(Vector3d fogColor,
 					 * float partialTicks) { return fogColor; }
