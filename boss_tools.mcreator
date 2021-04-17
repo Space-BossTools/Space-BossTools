@@ -12431,6 +12431,16 @@
       "ids": {},
       "registry_name": "moon_glow_stone_ore_loot_table",
       "path": "~/LootTable"
+    },
+    {
+      "name": "MarsIceShardOre",
+      "type": "loottable",
+      "sortid": 679,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "mars_ice_shard_ore",
+      "path": "~/LootTable"
     }
   ],
   "variable_elements": [

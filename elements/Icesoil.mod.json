@@ -46,7 +46,7 @@
       "value": "CUSTOM:Iceshard"
     },
     "dropAmount": 3,
-    "useLootTableForDrops": false,
+    "useLootTableForDrops": true,
     "enchantPowerBonus": 0.0,
     "plantsGrowOn": false,
     "canProvidePower": false,
