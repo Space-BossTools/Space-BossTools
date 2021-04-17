@@ -87,7 +87,7 @@ public class AlienZombieOnEntityTickUpdateProcedure extends BossToolsModElements
 							if (entity instanceof LivingEntity) {
 								Entity _ent = entity;
 								if (!_ent.world.isRemote()) {
-									AlienspitentityItem.shoot(_ent.world, (LivingEntity) entity, new Random(), (float) 0.8, (float) 8, (int) 1);
+									AlienspitentityItem.shoot(_ent.world, (LivingEntity) entity, new Random(), (float) 0.8, (float) 6, (int) 1);
 								}
 							}
 							entity.getPersistentData().putDouble("AlienSpit", 0);
