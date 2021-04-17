@@ -23,7 +23,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class TorchOnBlockRightClickedProcedure extends BossToolsModElements.ModElement {
 	public TorchOnBlockRightClickedProcedure(BossToolsModElements instance) {
-		super(instance, 148);
+		super(instance, 149);
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {

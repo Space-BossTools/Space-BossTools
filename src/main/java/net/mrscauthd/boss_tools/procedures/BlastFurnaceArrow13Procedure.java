@@ -12,7 +12,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class BlastFurnaceArrow13Procedure extends BossToolsModElements.ModElement {
 	public BlastFurnaceArrow13Procedure(BossToolsModElements instance) {
-		super(instance, 580);
+		super(instance, 581);
 	}
 
 	public static boolean executeProcedure(Map<String, Object> dependencies) {

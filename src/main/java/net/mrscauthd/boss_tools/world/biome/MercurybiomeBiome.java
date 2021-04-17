@@ -22,7 +22,7 @@ import net.minecraft.world.biome.Biome;
 public class MercurybiomeBiome extends BossToolsModElements.ModElement {
 	public static Biome biome;
 	public MercurybiomeBiome(BossToolsModElements instance) {
-		super(instance, 297);
+		super(instance, 298);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new BiomeRegisterHandler());
 	}
 	private static class BiomeRegisterHandler {

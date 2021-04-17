@@ -23,7 +23,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class SpaceArmorBodyTickEventProcedure extends BossToolsModElements.ModElement {
 	public SpaceArmorBodyTickEventProcedure(BossToolsModElements instance) {
-		super(instance, 140);
+		super(instance, 141);
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {

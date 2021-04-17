@@ -18,7 +18,7 @@ import java.util.Collections;
 @BossToolsModElements.ModElement.Tag
 public class RocketDismountProcedure extends BossToolsModElements.ModElement {
 	public RocketDismountProcedure(BossToolsModElements instance) {
-		super(instance, 676);
+		super(instance, 677);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 

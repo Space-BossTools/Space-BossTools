@@ -10,7 +10,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class OpenTier3mainMenu3Procedure extends BossToolsModElements.ModElement {
 	public OpenTier3mainMenu3Procedure(BossToolsModElements instance) {
-		super(instance, 641);
+		super(instance, 642);
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {

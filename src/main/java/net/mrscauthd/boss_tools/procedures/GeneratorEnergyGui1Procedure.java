@@ -12,7 +12,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class GeneratorEnergyGui1Procedure extends BossToolsModElements.ModElement {
 	public GeneratorEnergyGui1Procedure(BossToolsModElements instance) {
-		super(instance, 190);
+		super(instance, 191);
 	}
 
 	public static boolean executeProcedure(Map<String, Object> dependencies) {

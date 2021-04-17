@@ -25,7 +25,7 @@ public class MrrcuryCobblestoneBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:mercury_cobblestone")
 	public static final Block block = null;
 	public MrrcuryCobblestoneBlock(BossToolsModElements instance) {
-		super(instance, 47);
+		super(instance, 48);
 	}
 
 	@Override

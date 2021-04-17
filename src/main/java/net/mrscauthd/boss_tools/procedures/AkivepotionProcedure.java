@@ -26,7 +26,7 @@ import java.util.HashMap;
 @BossToolsModElements.ModElement.Tag
 public class AkivepotionProcedure extends BossToolsModElements.ModElement {
 	public AkivepotionProcedure(BossToolsModElements instance) {
-		super(instance, 138);
+		super(instance, 139);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 

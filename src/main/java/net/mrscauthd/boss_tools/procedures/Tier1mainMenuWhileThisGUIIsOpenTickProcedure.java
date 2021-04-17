@@ -7,7 +7,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class Tier1mainMenuWhileThisGUIIsOpenTickProcedure extends BossToolsModElements.ModElement {
 	public Tier1mainMenuWhileThisGUIIsOpenTickProcedure(BossToolsModElements instance) {
-		super(instance, 654);
+		super(instance, 655);
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {

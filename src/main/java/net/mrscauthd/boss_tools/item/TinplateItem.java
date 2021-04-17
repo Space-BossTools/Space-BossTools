@@ -16,7 +16,7 @@ public class TinplateItem extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:desh_plate")
 	public static final Item block = null;
 	public TinplateItem(BossToolsModElements instance) {
-		super(instance, 20);
+		super(instance, 21);
 	}
 
 	@Override

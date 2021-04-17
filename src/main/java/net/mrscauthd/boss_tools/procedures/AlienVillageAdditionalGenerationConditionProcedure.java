@@ -8,7 +8,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class AlienVillageAdditionalGenerationConditionProcedure extends BossToolsModElements.ModElement {
 	public AlienVillageAdditionalGenerationConditionProcedure(BossToolsModElements instance) {
-		super(instance, 384);
+		super(instance, 385);
 	}
 
 	public static boolean executeProcedure(Map<String, Object> dependencies) {

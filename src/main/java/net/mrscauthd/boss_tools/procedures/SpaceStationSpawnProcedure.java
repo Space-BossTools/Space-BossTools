@@ -24,7 +24,7 @@ import java.util.HashMap;
 @BossToolsModElements.ModElement.Tag
 public class SpaceStationSpawnProcedure extends BossToolsModElements.ModElement {
 	public SpaceStationSpawnProcedure(BossToolsModElements instance) {
-		super(instance, 331);
+		super(instance, 332);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 

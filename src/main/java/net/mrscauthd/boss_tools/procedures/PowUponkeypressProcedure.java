@@ -20,7 +20,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class PowUponkeypressProcedure extends BossToolsModElements.ModElement {
 	public PowUponkeypressProcedure(BossToolsModElements instance) {
-		super(instance, 137);
+		super(instance, 138);
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {
