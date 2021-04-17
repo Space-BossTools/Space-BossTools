@@ -12411,6 +12411,16 @@
       "locked_code": true,
       "ids": {},
       "registry_name": "oxygen_tank_check"
+    },
+    {
+      "name": "MoonGlowstoneOre",
+      "type": "block",
+      "sortid": 678,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "moon_glowstone_ore",
+      "path": "~/Blocks"
     }
   ],
   "variable_elements": [
@@ -12658,6 +12668,7 @@
       "block.boss_tools.flag_lime": "Lime Flag",
       "biome.boss_tools.orbit_mercury_biom": "Orbit Biome",
       "biome.boss_tools.orbit_mars_biom": "Orbit Biome",
+      "block.boss_tools.moon_glowstone_ore": "Moon Glowstone Ore",
       "block.boss_tools.moon_bricks": "Moon Bricks",
       "item.boss_tools.rocket_tier_3_spawn_egg": "Rocket Spawn Egg",
       "block.boss_tools.oxygen_loader": "Oxygen Loader",
