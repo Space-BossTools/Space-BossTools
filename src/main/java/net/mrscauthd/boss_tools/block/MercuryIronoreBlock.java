@@ -46,7 +46,7 @@ public class MercuryIronoreBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:mercury_iron_ore")
 	public static final Block block = null;
 	public MercuryIronoreBlock(BossToolsModElements instance) {
-		super(instance, 55);
+		super(instance, 56);
 		MinecraftForge.EVENT_BUS.register(this);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new FeatureRegisterHandler());
 	}

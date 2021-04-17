@@ -26,7 +26,7 @@ import java.util.HashMap;
 @BossToolsModElements.ModElement.Tag
 public class RocketHighCheckProcedure extends BossToolsModElements.ModElement {
 	public RocketHighCheckProcedure(BossToolsModElements instance) {
-		super(instance, 603);
+		super(instance, 604);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 

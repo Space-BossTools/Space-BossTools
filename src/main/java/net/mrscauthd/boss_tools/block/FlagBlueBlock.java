@@ -41,7 +41,7 @@ public class FlagBlueBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:flag_blue")
 	public static final Block block = null;
 	public FlagBlueBlock(BossToolsModElements instance) {
-		super(instance, 76);
+		super(instance, 77);
 	}
 
 	@Override

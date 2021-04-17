@@ -27,9 +27,6 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.RegistryKey;
-import net.minecraft.loot.LootContext;
-import net.minecraft.item.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.BlockItem;
 import net.minecraft.block.material.MaterialColor;
@@ -39,15 +36,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Block;
 
 import java.util.Random;
-import java.util.List;
-import java.util.Collections;
 
 @BossToolsModElements.ModElement.Tag
 public class MoonGlowstoneOreBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:moon_glowstone_ore")
 	public static final Block block = null;
 	public MoonGlowstoneOreBlock(BossToolsModElements instance) {
-		super(instance, 678);
+		super(instance, 51);
 		MinecraftForge.EVENT_BUS.register(this);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new FeatureRegisterHandler());
 	}
@@ -68,14 +63,6 @@ public class MoonGlowstoneOreBlock extends BossToolsModElements.ModElement {
 		@Override
 		public MaterialColor getMaterialColor() {
 			return MaterialColor.ORANGE_TERRACOTTA;
-		}
-
-		@Override
-		public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-			List<ItemStack> dropsOriginal = super.getDrops(state, builder);
-			if (!dropsOriginal.isEmpty())
-				return dropsOriginal;
-			return Collections.singletonList(new ItemStack(Items.GLOWSTONE_DUST, (int) (3)));
 		}
 	}
 	private static Feature<OreFeatureConfig> feature = null;
@@ -114,7 +101,7 @@ public class MoonGlowstoneOreBlock extends BossToolsModElements.ModElement {
 				}
 			};
 			configuredFeature = feature.withConfiguration(new OreFeatureConfig(CustomRuleTest.INSTANCE, block.getDefaultState(), 11)).range(50)
-					.square().func_242731_b(5);
+					.square().func_242731_b(4);
 			event.getRegistry().register(feature.setRegistryName("moon_glowstone_ore"));
 			Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation("boss_tools:moon_glowstone_ore"), configuredFeature);
 		}

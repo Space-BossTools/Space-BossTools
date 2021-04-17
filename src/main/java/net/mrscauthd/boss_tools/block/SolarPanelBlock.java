@@ -90,7 +90,7 @@ public class SolarPanelBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:solar_panel")
 	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
 	public SolarPanelBlock(BossToolsModElements instance) {
-		super(instance, 68);
+		super(instance, 69);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new TileEntityRegisterHandler());
 	}
 

@@ -12,7 +12,7 @@ import java.util.Map;
 @BossToolsModElements.ModElement.Tag
 public class LandingGearEntityDiesProcedure extends BossToolsModElements.ModElement {
 	public LandingGearEntityDiesProcedure(BossToolsModElements instance) {
-		super(instance, 173);
+		super(instance, 174);
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {

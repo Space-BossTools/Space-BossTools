@@ -30,7 +30,7 @@ import java.util.Collections;
 @BossToolsModElements.ModElement.Tag
 public class Tier3SpaceStationCreate1Procedure extends BossToolsModElements.ModElement {
 	public Tier3SpaceStationCreate1Procedure(BossToolsModElements instance) {
-		super(instance, 649);
+		super(instance, 650);
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {

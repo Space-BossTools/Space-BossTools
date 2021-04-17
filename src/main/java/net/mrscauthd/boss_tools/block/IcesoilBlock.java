@@ -47,7 +47,7 @@ public class IcesoilBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:mars_ice_shard_ore")
 	public static final Block block = null;
 	public IcesoilBlock(BossToolsModElements instance) {
-		super(instance, 53);
+		super(instance, 54);
 		MinecraftForge.EVENT_BUS.register(this);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new FeatureRegisterHandler());
 	}

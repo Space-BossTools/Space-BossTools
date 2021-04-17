@@ -38,7 +38,7 @@ public class Tier2mainMenuSpaceStation3Gui extends BossToolsModElements.ModEleme
 	public static HashMap guistate = new HashMap();
 	private static ContainerType<GuiContainerMod> containerType = null;
 	public Tier2mainMenuSpaceStation3Gui(BossToolsModElements instance) {
-		super(instance, 626);
+		super(instance, 627);
 		elements.addNetworkMessage(ButtonPressedMessage.class, ButtonPressedMessage::buffer, ButtonPressedMessage::new,
 				ButtonPressedMessage::handler);
 		elements.addNetworkMessage(GUISlotChangedMessage.class, GUISlotChangedMessage::buffer, GUISlotChangedMessage::new,

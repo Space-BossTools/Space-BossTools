@@ -46,7 +46,7 @@
       "value": "Items.GLOWSTONE_DUST"
     },
     "dropAmount": 3,
-    "useLootTableForDrops": false,
+    "useLootTableForDrops": true,
     "enchantPowerBonus": 0.0,
     "plantsGrowOn": false,
     "canProvidePower": false,
@@ -110,7 +110,7 @@
         "value": "CUSTOM:MoonStone"
       }
     ],
-    "frequencyPerChunks": 5,
+    "frequencyPerChunks": 4,
     "frequencyOnChunk": 11,
     "minGenerateHeight": 1,
     "maxGenerateHeight": 50

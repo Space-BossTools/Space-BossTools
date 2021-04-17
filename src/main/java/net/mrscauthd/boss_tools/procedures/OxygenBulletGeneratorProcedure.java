@@ -16,7 +16,7 @@ import java.util.HashMap;
 @BossToolsModElements.ModElement.Tag
 public class OxygenBulletGeneratorProcedure extends BossToolsModElements.ModElement {
 	public OxygenBulletGeneratorProcedure(BossToolsModElements instance) {
-		super(instance, 674);
+		super(instance, 675);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 

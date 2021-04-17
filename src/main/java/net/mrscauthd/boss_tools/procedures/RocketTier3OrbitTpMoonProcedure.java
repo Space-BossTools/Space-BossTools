@@ -28,7 +28,7 @@ import java.util.Collections;
 @BossToolsModElements.ModElement.Tag
 public class RocketTier3OrbitTpMoonProcedure extends BossToolsModElements.ModElement {
 	public RocketTier3OrbitTpMoonProcedure(BossToolsModElements instance) {
-		super(instance, 309);
+		super(instance, 310);
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {
