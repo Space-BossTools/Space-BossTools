@@ -12568,6 +12568,12 @@
       "type": "number",
       "scope": "global",
       "value": "0"
+    },
+    {
+      "name": "AlienZombie",
+      "type": "number",
+      "scope": "global",
+      "value": "0"
     }
   ],
   "sound_elements": [
@@ -12885,7 +12891,7 @@
   "workspaceSettings": {
     "modid": "boss_tools",
     "modName": "Space-Bosstools",
-    "version": "4.9",
+    "version": "5.0",
     "description": "Fly to Other Planets!",
     "author": "MrScautHD,PixKnight (Textures),Galacticraft (Mod idea)",
     "websiteURL": "https://www.curseforge.com/minecraft/mc-mods/space-bosstools",

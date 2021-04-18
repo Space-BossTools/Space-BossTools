@@ -41,6 +41,7 @@ public class BossToolsModVariables {
 	public static double ConfigMeteor = 0;
 	public static double oxygen_system = 0;
 	public static double StarCrawler = 0;
+	public static double AlienZombie = 0;
 	@CapabilityInject(PlayerVariables.class)
 	public static Capability<PlayerVariables> PLAYER_VARIABLES_CAPABILITY = null;
 	@SubscribeEvent

@@ -1,6 +1,7 @@
 package net.mrscauthd.boss_tools.procedures;
 
 import net.mrscauthd.boss_tools.item.AlienspitentityItem;
+import net.mrscauthd.boss_tools.BossToolsModVariables;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
@@ -62,7 +63,7 @@ public class AlienZombieOnEntityTickUpdateProcedure extends BossToolsModElements
 		{
 			List<Entity> _entfound = world
 					.getEntitiesWithinAABB(Entity.class,
-							new AxisAlignedBB(x - (10 / 2d), y - (10 / 2d), z - (10 / 2d), x + (10 / 2d), y + (10 / 2d), z + (10 / 2d)), null)
+							new AxisAlignedBB(x - (17 / 2d), y - (17 / 2d), z - (17 / 2d), x + (17 / 2d), y + (17 / 2d), z + (17 / 2d)), null)
 					.stream().sorted(new Object() {
 						Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
 							return Comparator.comparing((Function<Entity, Double>) (_entcnd -> _entcnd.getDistanceSq(_x, _y, _z)));
@@ -91,10 +92,15 @@ public class AlienZombieOnEntityTickUpdateProcedure extends BossToolsModElements
 								}
 							}
 							entity.getPersistentData().putDouble("AlienSpit", 0);
+							entity.getPersistentData().putBoolean("RangedAttacking", (false));
 						}
 					}
 				}
 			}
+		} // Config
+		if (((BossToolsModVariables.AlienZombie) == 2)) {
+			if (!entity.world.isRemote())
+				entity.remove();
 		}
 	}
 }

@@ -31,7 +31,8 @@ public class ConfigProcedure extends BossToolsModElements.ModElement {
 		String alienhouseconfig = "";
 		String oxygen = "";
 		String titleconfig = "";
-		File boss_tools = new File(((System.getProperty("user.dir")) + "" + ("//config/")) + "/" + "Space-Bosstools-Config.toml");
+		String AlienZombie = "";
+		File boss_tools = new File(((System.getProperty("user.dir")) + "" + ("//config/")) + "/" + "space-bosstools-config.toml");
 		try {
 			final BufferedReader boss_toolsReader = new BufferedReader(new FileReader(boss_tools));
 			String boss_toolsReadLine = null;
@@ -43,11 +44,11 @@ public class ConfigProcedure extends BossToolsModElements.ModElement {
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}
-		if ((!(((titleconfig)).equals("# Space-Bosstools-Config #")))) {
+		if ((!(((titleconfig)).equals("# Space-Bosstools-Config-v5.0#")))) {
 			try {
 				FileWriter boss_toolswriter = new FileWriter(boss_tools);
 				BufferedWriter boss_toolsbw = new BufferedWriter(boss_toolswriter);
-				boss_toolsbw.write("# Space-Bosstools-Config #");
+				boss_toolsbw.write("# Space-Bosstools-Config-v5.0#");
 				boss_toolsbw.newLine();
 				boss_toolsbw.write("Alien Spawn = true");
 				boss_toolsbw.newLine();
@@ -58,6 +59,8 @@ public class ConfigProcedure extends BossToolsModElements.ModElement {
 				boss_toolsbw.write("Oxygen System = true");
 				boss_toolsbw.newLine();
 				boss_toolsbw.write("Star Crawler = true");
+				boss_toolsbw.newLine();
+				boss_toolsbw.write("Alien Zombie = true");
 				boss_toolsbw.close();
 				boss_toolswriter.close();
 			} catch (FileNotFoundException fileNotFoundException) {
@@ -81,6 +84,8 @@ public class ConfigProcedure extends BossToolsModElements.ModElement {
 			oxygen = (String) (boss_toolsReadLine);
 			boss_toolsReadLine = boss_toolsReader.readLine();
 			StarCrawler = (String) (boss_toolsReadLine);
+			boss_toolsReadLine = boss_toolsReader.readLine();
+			AlienZombie = (String) (boss_toolsReadLine);
 			boss_toolsReader.close();
 		} catch (FileNotFoundException fileNotFoundException) {
 			fileNotFoundException.printStackTrace();
@@ -131,6 +136,15 @@ public class ConfigProcedure extends BossToolsModElements.ModElement {
 		}
 		if (((!(((StarCrawler)).equals("Star Crawler = true"))) && (!(((StarCrawler)).equals("Star Crawler = false"))))) {
 			BossToolsModVariables.StarCrawler = (double) 1;
+		} // Alien Zombie
+		if ((((AlienZombie)).equals("Alien Zombie = true"))) {
+			BossToolsModVariables.AlienZombie = (double) 1;
+		}
+		if ((((AlienZombie)).equals("Alien Zombie = false"))) {
+			BossToolsModVariables.AlienZombie = (double) 2;
+		}
+		if (((!(((AlienZombie)).equals("Alien Zombie = true"))) && (!(((AlienZombie)).equals("Alien Zombie = false"))))) {
+			BossToolsModVariables.AlienZombie = (double) 1;
 		}
 	}
 
