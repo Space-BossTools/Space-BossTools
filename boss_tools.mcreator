@@ -12489,7 +12489,8 @@
       "compiles": true,
       "locked_code": false,
       "ids": {},
-      "registry_name": "alienspitentity"
+      "registry_name": "alienspitentity",
+      "path": "~/Entitys"
     },
     {
       "name": "AlienZombieOnEntityTickUpdate",
