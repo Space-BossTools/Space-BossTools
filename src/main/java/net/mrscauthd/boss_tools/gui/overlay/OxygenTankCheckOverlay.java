@@ -58,9 +58,10 @@ public class OxygenTankCheckOverlay extends BossToolsModElements.ModElement {
 				Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(),
 						event.getWindow().getScaledHeight(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight());
 				// Texture Full
+				
 				Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheckfull.png"));
-				Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(),
-						event.getWindow().getScaledHeight() - 212, event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight() - 60);
+				Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 97, 0, 97, event.getWindow().getScaledWidth(),//100 is Kommplet leer / 0 ist kommplet Voll
+						event.getWindow().getScaledHeight() - 0, event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight() - 0);
 			}
 			RenderSystem.depthMask(true);
 			RenderSystem.enableDepthTest();
