@@ -13,6 +13,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraft.world.World;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.client.Minecraft;
@@ -29,12 +31,16 @@ public class EnergySyncEventProcedure extends BossToolsModElements.ModElement {
 		//NetworkLoader.registerMessages();
 	}
 
-	public static void executeProcedure(Map<String, Object> dependencies) {
-	/*	Entity entity = (Entity) dependencies.get("entity");
+/*	public static void executeProcedure(Map<String, Object> dependencies) {
+		Entity entity = (Entity) dependencies.get("entity");
 		// IWorld world = (IWorld) dependencies.get("world");
 		if (!entity.world.isRemote) {
 			NetworkLoader.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity),
-					new EnergySpinPacket(entity.getEntityId(), entity.getPersistentData().getDouble("Energy")));
+					new EnergySpinPacket(entity.getEntityId(),
+							(((entity instanceof LivingEntity)
+									? ((LivingEntity) entity)
+											.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 2))
+									: ItemStack.EMPTY).getOrCreateTag().getDouble("Energy"))));
 		}
 	}
 	// packages System
@@ -72,9 +78,14 @@ public class EnergySyncEventProcedure extends BossToolsModElements.ModElement {
 		public static void handle(EnergySpinPacket msg, Supplier<NetworkEvent.Context> ctx) {
 			ctx.get().enqueueWork(() -> {
 				Entity entity = Minecraft.getInstance().world.getEntityByID(msg.entityId);
-				if (entity instanceof LivingEntity) {
-					((LivingEntity) entity).getPersistentData().putDouble("Energy", msg.energy);
-				}
+			//	if (entity instanceof LivingEntity) {
+					// ((LivingEntity) entity).getPersistentData().putDouble("Energy", msg.energy);
+					// (((entity instanceof LivingEntity)
+					((entity instanceof LivingEntity)
+							? ((LivingEntity) entity)
+									.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 2))
+							: ItemStack.EMPTY).getOrCreateTag().putDouble("Energy", msg.energy);
+			//	}
 			});
 			ctx.get().setPacketHandled(true);
 		}
@@ -95,6 +106,6 @@ public class EnergySyncEventProcedure extends BossToolsModElements.ModElement {
 			dependencies.put("entity", entity);
 			dependencies.put("event", event);
 			this.executeProcedure(dependencies);
-		}*/
-	}
+		}
+	}*/
 }

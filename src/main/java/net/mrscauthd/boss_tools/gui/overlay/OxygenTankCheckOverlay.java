@@ -53,15 +53,90 @@ public class OxygenTankCheckOverlay extends BossToolsModElements.ModElement {
 			if ((((entity instanceof LivingEntity)
 					? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 2))
 					: ItemStack.EMPTY).getItem() == new ItemStack(SpaceArmorItem.body, (int) (1)).getItem())) {
+				//set Energy
+				double EnergyNBT = (double) (((entity instanceof LivingEntity)
+						? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 2))
+						: ItemStack.EMPTY).getOrCreateTag().getDouble("Energy"));
 				//Main Texture
-				Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck.png"));
-				Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(),
-						event.getWindow().getScaledHeight(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight());
-				// Texture Full
-				
-				Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheckfull.png"));
-				Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 2, 0, 2, event.getWindow().getScaledWidth(),//100 is Kommplet leer / 0 ist kommplet Voll // 54 Kommplet leer / 3 kommplet voll /2 
-						event.getWindow().getScaledHeight() - 0, event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight() - 0);
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck.png"));
+				//Math Textures
+				if (EnergyNBT >= 1920) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck1.png"));
+				}
+				if (EnergyNBT >= 3840) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck2.png"));
+				}
+				if (EnergyNBT >= 5760) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck3.png"));
+				}
+				if (EnergyNBT >= 7680) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck4.png"));
+				}
+				if (EnergyNBT >= 9600) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck5.png"));
+				}
+				if (EnergyNBT >= 11520) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck6.png"));
+				}
+				if (EnergyNBT >= 13440) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck7.png"));
+				}
+				if (EnergyNBT >= 15360) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck8.png"));
+				}
+				if (EnergyNBT >= 17280) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck9.png"));
+				}
+				if (EnergyNBT >= 19200) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck10.png"));
+				}
+				if (EnergyNBT >= 21120) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck11.png"));
+				}
+				if (EnergyNBT >= 23040) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck12.png"));
+				}
+				if (EnergyNBT >= 24960) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck13.png"));
+				}
+				if (EnergyNBT >= 26880) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck14.png"));
+				}
+				if (EnergyNBT >= 28800) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck15.png"));
+				}
+				if (EnergyNBT >= 30720) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck16.png"));
+				}
+				if (EnergyNBT >= 32640) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck17.png"));
+				}
+				if (EnergyNBT >= 34560) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck18.png"));
+				}
+				if (EnergyNBT >= 36480) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck19.png"));
+				}
+				if (EnergyNBT >= 38400) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck20.png"));
+				}
+				if (EnergyNBT >= 40320) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck21.png"));
+				}
+				if (EnergyNBT >= 42240) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck22.png"));
+				}
+				if (EnergyNBT >= 44160) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck23.png"));
+				}
+				if (EnergyNBT >= 46080) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck24.png"));
+				}
+				if (EnergyNBT >= 48000) {
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck25.png"));
+				}
+					Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(),
+							event.getWindow().getScaledHeight(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight());
 			}
 			RenderSystem.depthMask(true);
 			RenderSystem.enableDepthTest();
