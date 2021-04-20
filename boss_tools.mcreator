@@ -12404,15 +12404,6 @@
       "path": "~/Procedures"
     },
     {
-      "name": "OxygenTankCheck",
-      "type": "overlay",
-      "sortid": 678,
-      "compiles": true,
-      "locked_code": true,
-      "ids": {},
-      "registry_name": "oxygen_tank_check"
-    },
-    {
       "name": "MoonGlowstoneOre",
       "type": "block",
       "sortid": 52,
@@ -12525,6 +12516,15 @@
         ]
       },
       "path": "~/Procedures"
+    },
+    {
+      "name": "OxygenTankCheck",
+      "type": "overlay",
+      "sortid": 684,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "oxygen_tank_check"
     }
   ],
   "variable_elements": [

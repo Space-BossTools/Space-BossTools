@@ -26,7 +26,7 @@ import java.util.HashMap;
 @BossToolsModElements.ModElement.Tag
 public class EnergySyncEventProcedure extends BossToolsModElements.ModElement {
 	public EnergySyncEventProcedure(BossToolsModElements instance) {
-		super(instance, 754);
+		super(instance, 800);
 		MinecraftForge.EVENT_BUS.register(this);
 		//NetworkLoader.registerMessages();
 	}

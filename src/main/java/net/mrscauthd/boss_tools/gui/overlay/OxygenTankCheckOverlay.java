@@ -53,13 +53,13 @@ public class OxygenTankCheckOverlay extends BossToolsModElements.ModElement {
 			if ((((entity instanceof LivingEntity)
 					? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 2))
 					: ItemStack.EMPTY).getItem() == new ItemStack(SpaceArmorItem.body, (int) (1)).getItem())) {
-				//set Energy
+				// set Energy
 				double EnergyNBT = (double) (((entity instanceof LivingEntity)
 						? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 2))
 						: ItemStack.EMPTY).getOrCreateTag().getDouble("Energy"));
-				//Main Texture
-					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck.png"));
-				//Math Textures
+				// Main Texture
+				Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck.png"));
+				// Math Textures
 				if (EnergyNBT >= 1920) {
 					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck1.png"));
 				}
@@ -135,8 +135,8 @@ public class OxygenTankCheckOverlay extends BossToolsModElements.ModElement {
 				if (EnergyNBT >= 48000) {
 					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygentankcheck25.png"));
 				}
-					Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(),
-							event.getWindow().getScaledHeight(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight());
+				Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(),
+						event.getWindow().getScaledHeight(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight());
 			}
 			RenderSystem.depthMask(true);
 			RenderSystem.enableDepthTest();
