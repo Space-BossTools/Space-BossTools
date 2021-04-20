@@ -54,7 +54,7 @@ public class AlienZombieEntity extends BossToolsModElements.ModElement {
 	public AlienZombieEntity(BossToolsModElements instance) {
 		super(instance, 15);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new ModelRegisterHandler());
-		FMLJavaModLoadingContext.get().getModEventBus().register(new EntityAttributesRegisterHandler());
+		//FMLJavaModLoadingContext.get().getModEventBus().register(new EntityAttributesRegisterHandler());
 	}
 
 	@Override

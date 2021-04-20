@@ -17,6 +17,9 @@ import net.minecraft.entity.Entity;
 
 import java.util.Map;
 import java.util.HashMap;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.api.distmarker.Dist;
+
 
 @BossToolsModElements.ModElement.Tag
 public class PlayerRendererProcedure extends BossToolsModElements.ModElement {
@@ -29,7 +32,8 @@ public class PlayerRendererProcedure extends BossToolsModElements.ModElement {
 
 	public static void executeProcedure(Map<String, Object> dependencies) {
 	}
-
+	
+	@OnlyIn(Dist.CLIENT)
 	@SubscribeEvent
 	public void render(RenderPlayerEvent event) {
 		/*if (((event.getEntity().getRidingEntity()) instanceof RocketEntity.CustomEntity)) {

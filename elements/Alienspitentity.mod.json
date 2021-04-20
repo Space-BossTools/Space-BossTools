@@ -32,7 +32,7 @@
       "value": "CUSTOM:Iceshard"
     },
     "bulletModel": "Default",
-    "customBulletModelTexture": "sun_main_menu.png",
+    "customBulletModelTexture": "",
     "onBulletFlyingTick": {
       "name": "AlienspitentityWhileBulletFlyingTick"
     }

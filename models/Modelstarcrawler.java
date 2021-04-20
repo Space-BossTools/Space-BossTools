@@ -309,5 +309,6 @@ public static class Modelstarcrawler extends EntityModel<Entity> {
 
 	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity e) {
 		super.setRotationAngles(f, f1, f2, f3, f4, f5, e);
+		this.Arm1.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * f1;
 	}
 }
