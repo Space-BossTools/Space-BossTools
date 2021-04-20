@@ -83,7 +83,7 @@
       "value": ""
     },
     "hurtSound": {
-      "value": "entity.pillager.hurt"
+      "value": ""
     },
     "deathSound": {
       "value": "entity.pillager.death"

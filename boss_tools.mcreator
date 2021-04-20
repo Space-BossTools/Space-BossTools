@@ -12284,18 +12284,6 @@
       "path": "~/Recpies"
     },
     {
-      "name": "EnergySyncEvent",
-      "type": "procedure",
-      "sortid": 674,
-      "compiles": true,
-      "locked_code": true,
-      "ids": {},
-      "registry_name": "energy_sync_event",
-      "metadata": {
-        "dependencies": []
-      }
-    },
-    {
       "name": "OxygenBulletGeneratorSync",
       "type": "procedure",
       "sortid": 675,

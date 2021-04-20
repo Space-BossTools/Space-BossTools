@@ -25,7 +25,7 @@ public class PlayerCameraRocket extends BossToolsModElements.ModElement {
 	public PlayerCameraRocket(BossToolsModElements elements) {
 		super(elements, 600);
 		MinecraftForge.EVENT_BUS.register(this);
-		System.out.println("EventFOVRegister");
+	//	System.out.println("EventFOVRegister");
 	}
 
 	public static void executeProcedure(Map<String, Object> dependencies) {
