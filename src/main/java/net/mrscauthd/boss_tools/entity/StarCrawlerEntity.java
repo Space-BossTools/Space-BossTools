@@ -12,7 +12,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
@@ -34,6 +33,7 @@ import net.minecraft.entity.ai.goal.RandomWalkingGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.MobEntity;
@@ -57,7 +57,9 @@ public class StarCrawlerEntity extends BossToolsModElements.ModElement {
 	public StarCrawlerEntity(BossToolsModElements instance) {
 		super(instance, 16);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new ModelRegisterHandler());
-	//	FMLJavaModLoadingContext.get().getModEventBus().register(new EntityAttributesRegisterHandler());
+		// FMLJavaModLoadingContext.get().getModEventBus().register(new
+		// EntityAttributesRegisterHandler());
+		// MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@Override
@@ -87,19 +89,14 @@ public class StarCrawlerEntity extends BossToolsModElements.ModElement {
 			});
 		}
 	}
-
-	private static class EntityAttributesRegisterHandler {
-		@SubscribeEvent
-		public void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
-			AttributeModifierMap.MutableAttribute ammma = MobEntity.func_233666_p_();
-			ammma = ammma.createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4);
-			ammma = ammma.createMutableAttribute(Attributes.MAX_HEALTH, 40);
-			ammma = ammma.createMutableAttribute(Attributes.ARMOR, 0);
-			ammma = ammma.createMutableAttribute(Attributes.ATTACK_DAMAGE, 9);
-			event.put(entity, ammma.create());
-		}
+	private void setupAttributes() {
+		AttributeModifierMap.MutableAttribute ammma = MobEntity.func_233666_p_();
+		ammma = ammma.createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4);
+		ammma = ammma.createMutableAttribute(Attributes.MAX_HEALTH, 40);
+		ammma = ammma.createMutableAttribute(Attributes.ARMOR, 0);
+		ammma = ammma.createMutableAttribute(Attributes.ATTACK_DAMAGE, 9);
+		GlobalEntityTypeAttributes.put(entity, ammma.create());
 	}
-
 	public static class CustomEntity extends MonsterEntity {
 		public CustomEntity(FMLPlayMessages.SpawnEntity packet, World world) {
 			this(entity, world);
