@@ -12425,7 +12425,7 @@
       "name": "AlienZombie",
       "type": "mob",
       "sortid": 15,
-      "compiles": true,
+      "compiles": false,
       "locked_code": true,
       "ids": {},
       "registry_name": "alien_zombie",

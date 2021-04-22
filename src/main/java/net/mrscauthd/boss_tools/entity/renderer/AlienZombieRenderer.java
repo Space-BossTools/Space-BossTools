@@ -184,7 +184,6 @@ public class AlienZombieRenderer {
 			this.monsterarm2.rotateAngleY = MathHelper.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;
 			this.arms.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * f1;
 			this.arm2.rotateAngleX = MathHelper.cos(f * 0.6662F) * f1;
-
 		}
 	}
 }
