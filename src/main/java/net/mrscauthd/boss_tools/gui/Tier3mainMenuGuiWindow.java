@@ -104,16 +104,22 @@ public class Tier3mainMenuGuiWindow extends ContainerScreen<Tier3mainMenuGui.Gui
 		super.init(minecraft, width, height);
 		minecraft.keyboardListener.enableRepeatEvents(true);
 		this.addButton(new Button(this.guiLeft + 53, this.guiTop + 223, 70, 20, new StringTextComponent("Overworld"), e -> {
-			BossToolsMod.PACKET_HANDLER.sendToServer(new Tier3mainMenuGui.ButtonPressedMessage(0, x, y, z));
-			Tier3mainMenuGui.handleButtonAction(entity, 0, x, y, z);
+			if (true) {
+				BossToolsMod.PACKET_HANDLER.sendToServer(new Tier3mainMenuGui.ButtonPressedMessage(0, x, y, z));
+				Tier3mainMenuGui.handleButtonAction(entity, 0, x, y, z);
+			}
 		}));
 		this.addButton(new Button(this.guiLeft + 53, this.guiTop + 247, 70, 20, new StringTextComponent("Mars"), e -> {
-			BossToolsMod.PACKET_HANDLER.sendToServer(new Tier3mainMenuGui.ButtonPressedMessage(1, x, y, z));
-			Tier3mainMenuGui.handleButtonAction(entity, 1, x, y, z);
+			if (true) {
+				BossToolsMod.PACKET_HANDLER.sendToServer(new Tier3mainMenuGui.ButtonPressedMessage(1, x, y, z));
+				Tier3mainMenuGui.handleButtonAction(entity, 1, x, y, z);
+			}
 		}));
 		this.addButton(new Button(this.guiLeft + 53, this.guiTop + 271, 70, 20, new StringTextComponent("Mercury"), e -> {
-			BossToolsMod.PACKET_HANDLER.sendToServer(new Tier3mainMenuGui.ButtonPressedMessage(2, x, y, z));
-			Tier3mainMenuGui.handleButtonAction(entity, 2, x, y, z);
+			if (true) {
+				BossToolsMod.PACKET_HANDLER.sendToServer(new Tier3mainMenuGui.ButtonPressedMessage(2, x, y, z));
+				Tier3mainMenuGui.handleButtonAction(entity, 2, x, y, z);
+			}
 		}));
 	}
 }

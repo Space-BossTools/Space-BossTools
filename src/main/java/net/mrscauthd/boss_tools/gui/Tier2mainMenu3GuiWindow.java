@@ -94,20 +94,28 @@ public class Tier2mainMenu3GuiWindow extends ContainerScreen<Tier2mainMenu3Gui.G
 		super.init(minecraft, width, height);
 		minecraft.keyboardListener.enableRepeatEvents(true);
 		this.addButton(new Button(this.guiLeft + 51, this.guiTop + 223, 70, 20, new StringTextComponent("Back"), e -> {
-			BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenu3Gui.ButtonPressedMessage(0, x, y, z));
-			Tier2mainMenu3Gui.handleButtonAction(entity, 0, x, y, z);
+			if (true) {
+				BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenu3Gui.ButtonPressedMessage(0, x, y, z));
+				Tier2mainMenu3Gui.handleButtonAction(entity, 0, x, y, z);
+			}
 		}));
 		this.addButton(new Button(this.guiLeft + 51, this.guiTop + 246, 70, 20, new StringTextComponent("Mars"), e -> {
-			BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenu3Gui.ButtonPressedMessage(1, x, y, z));
-			Tier2mainMenu3Gui.handleButtonAction(entity, 1, x, y, z);
+			if (true) {
+				BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenu3Gui.ButtonPressedMessage(1, x, y, z));
+				Tier2mainMenu3Gui.handleButtonAction(entity, 1, x, y, z);
+			}
 		}));
 		this.addButton(new Button(this.guiLeft + 126, this.guiTop + 246, 37, 20, new StringTextComponent("Orbit"), e -> {
-			BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenu3Gui.ButtonPressedMessage(2, x, y, z));
-			Tier2mainMenu3Gui.handleButtonAction(entity, 2, x, y, z);
+			if (true) {
+				BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenu3Gui.ButtonPressedMessage(2, x, y, z));
+				Tier2mainMenu3Gui.handleButtonAction(entity, 2, x, y, z);
+			}
 		}));
 		this.addButton(new Button(this.guiLeft + 168, this.guiTop + 246, 75, 20, new StringTextComponent("Space Station"), e -> {
-			BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenu3Gui.ButtonPressedMessage(3, x, y, z));
-			Tier2mainMenu3Gui.handleButtonAction(entity, 3, x, y, z);
+			if (true) {
+				BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenu3Gui.ButtonPressedMessage(3, x, y, z));
+				Tier2mainMenu3Gui.handleButtonAction(entity, 3, x, y, z);
+			}
 		}));
 	}
 }

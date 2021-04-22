@@ -104,12 +104,16 @@ public class Tier3mainMenuSpaceStation1GuiWindow extends ContainerScreen<Tier3ma
 		super.init(minecraft, width, height);
 		minecraft.keyboardListener.enableRepeatEvents(true);
 		this.addButton(new Button(this.guiLeft + 53, this.guiTop + 223, 70, 20, new StringTextComponent("Back"), e -> {
-			BossToolsMod.PACKET_HANDLER.sendToServer(new Tier3mainMenuSpaceStation1Gui.ButtonPressedMessage(0, x, y, z));
-			Tier3mainMenuSpaceStation1Gui.handleButtonAction(entity, 0, x, y, z);
+			if (true) {
+				BossToolsMod.PACKET_HANDLER.sendToServer(new Tier3mainMenuSpaceStation1Gui.ButtonPressedMessage(0, x, y, z));
+				Tier3mainMenuSpaceStation1Gui.handleButtonAction(entity, 0, x, y, z);
+			}
 		}));
 		this.addButton(new Button(this.guiLeft + 53, this.guiTop + 248, 70, 20, new StringTextComponent("CREATE"), e -> {
-			BossToolsMod.PACKET_HANDLER.sendToServer(new Tier3mainMenuSpaceStation1Gui.ButtonPressedMessage(1, x, y, z));
-			Tier3mainMenuSpaceStation1Gui.handleButtonAction(entity, 1, x, y, z);
+			if (true) {
+				BossToolsMod.PACKET_HANDLER.sendToServer(new Tier3mainMenuSpaceStation1Gui.ButtonPressedMessage(1, x, y, z));
+				Tier3mainMenuSpaceStation1Gui.handleButtonAction(entity, 1, x, y, z);
+			}
 		}));
 	}
 }

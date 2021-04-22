@@ -94,32 +94,46 @@ public class Tier2mainMenu2GuiWindow extends ContainerScreen<Tier2mainMenu2Gui.G
 		super.init(minecraft, width, height);
 		minecraft.keyboardListener.enableRepeatEvents(true);
 		this.addButton(new Button(this.guiLeft + 51, this.guiTop + 223, 70, 20, new StringTextComponent("Back"), e -> {
-			BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenu2Gui.ButtonPressedMessage(0, x, y, z));
-			Tier2mainMenu2Gui.handleButtonAction(entity, 0, x, y, z);
+			if (true) {
+				BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenu2Gui.ButtonPressedMessage(0, x, y, z));
+				Tier2mainMenu2Gui.handleButtonAction(entity, 0, x, y, z);
+			}
 		}));
 		this.addButton(new Button(this.guiLeft + 51, this.guiTop + 246, 70, 20, new StringTextComponent("Overworld"), e -> {
-			BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenu2Gui.ButtonPressedMessage(1, x, y, z));
-			Tier2mainMenu2Gui.handleButtonAction(entity, 1, x, y, z);
+			if (true) {
+				BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenu2Gui.ButtonPressedMessage(1, x, y, z));
+				Tier2mainMenu2Gui.handleButtonAction(entity, 1, x, y, z);
+			}
 		}));
 		this.addButton(new Button(this.guiLeft + 51, this.guiTop + 269, 70, 20, new StringTextComponent("Moon"), e -> {
-			BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenu2Gui.ButtonPressedMessage(2, x, y, z));
-			Tier2mainMenu2Gui.handleButtonAction(entity, 2, x, y, z);
+			if (true) {
+				BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenu2Gui.ButtonPressedMessage(2, x, y, z));
+				Tier2mainMenu2Gui.handleButtonAction(entity, 2, x, y, z);
+			}
 		}));
 		this.addButton(new Button(this.guiLeft + 126, this.guiTop + 246, 37, 20, new StringTextComponent("Orbit"), e -> {
-			BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenu2Gui.ButtonPressedMessage(3, x, y, z));
-			Tier2mainMenu2Gui.handleButtonAction(entity, 3, x, y, z);
+			if (true) {
+				BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenu2Gui.ButtonPressedMessage(3, x, y, z));
+				Tier2mainMenu2Gui.handleButtonAction(entity, 3, x, y, z);
+			}
 		}));
 		this.addButton(new Button(this.guiLeft + 126, this.guiTop + 269, 37, 20, new StringTextComponent("Orbit"), e -> {
-			BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenu2Gui.ButtonPressedMessage(4, x, y, z));
-			Tier2mainMenu2Gui.handleButtonAction(entity, 4, x, y, z);
+			if (true) {
+				BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenu2Gui.ButtonPressedMessage(4, x, y, z));
+				Tier2mainMenu2Gui.handleButtonAction(entity, 4, x, y, z);
+			}
 		}));
 		this.addButton(new Button(this.guiLeft + 168, this.guiTop + 269, 75, 20, new StringTextComponent("Space Station"), e -> {
-			BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenu2Gui.ButtonPressedMessage(5, x, y, z));
-			Tier2mainMenu2Gui.handleButtonAction(entity, 5, x, y, z);
+			if (true) {
+				BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenu2Gui.ButtonPressedMessage(5, x, y, z));
+				Tier2mainMenu2Gui.handleButtonAction(entity, 5, x, y, z);
+			}
 		}));
 		this.addButton(new Button(this.guiLeft + 168, this.guiTop + 246, 75, 20, new StringTextComponent("Space Station"), e -> {
-			BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenu2Gui.ButtonPressedMessage(6, x, y, z));
-			Tier2mainMenu2Gui.handleButtonAction(entity, 6, x, y, z);
+			if (true) {
+				BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenu2Gui.ButtonPressedMessage(6, x, y, z));
+				Tier2mainMenu2Gui.handleButtonAction(entity, 6, x, y, z);
+			}
 		}));
 	}
 }
