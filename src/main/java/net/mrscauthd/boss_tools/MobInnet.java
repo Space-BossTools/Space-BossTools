@@ -1,6 +1,8 @@
-
 package net.mrscauthd.boss_tools;
 
+import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
 import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsSpawnEggsItemGroup;
 import net.mrscauthd.boss_tools.entity.AlienEntity;
 
@@ -24,42 +26,52 @@ import net.minecraft.entity.CreatureEntity;
 
 @BossToolsModElements.ModElement.Tag
 public class MobInnet extends BossToolsModElements.ModElement {
-	public static final DeferredRegister<EntityType<?>> ENTITYS = DeferredRegister.create(ForgeRegistries.ENTITIES, "boss_tools");
-	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, "boss_tools");
-	public static RegistryObject<EntityType<?>> ALIEN = ENTITYS.register("alien", () -> EntityType.Builder
-			.create(AlienEntity::new, EntityClassification.CREATURE).size(0.75f, 2.5f).build(new ResourceLocation("boss_tools", "alien").toString()));
-	public static final RegistryObject<ModSpawnEggs> ALIEN_SPAWN_EGG = ITEMS.register("alien_spawn_egg",
-			() -> new ModSpawnEggs(ALIEN, -13382401, -11650781, new Item.Properties().group(SpaceBosstoolsSpawnEggsItemGroup.tab)));
-	/**
-	 * Do not remove this constructor
-	 */
-	public MobInnet(BossToolsModElements instance) {
-		super(instance, 673);
-	}
+    public static final DeferredRegister<EntityType<?>> ENTITYS = DeferredRegister.create(ForgeRegistries.ENTITIES, "boss_tools");
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, "boss_tools");
+    public static RegistryObject<EntityType<?>> ALIEN = ENTITYS.register("alien", () -> EntityType.Builder
+            .create(AlienEntity::new, EntityClassification.CREATURE).size(0.75f, 2.5f).build(new ResourceLocation("boss_tools", "alien").toString()));
+    public static final RegistryObject<ModSpawnEggs> ALIEN_SPAWN_EGG = ITEMS.register("alien_spawn_egg",
+            () -> new ModSpawnEggs(ALIEN, -13382401, -11650781, new Item.Properties().group(SpaceBosstoolsSpawnEggsItemGroup.tab)));
+    /**
+     * Do not remove this constructor
+     */
+    public MobInnet(BossToolsModElements instance) {
+        super(instance, 673);
+    }
 
-	@SubscribeEvent
-	public static void onClientSetup(FMLClientSetupEvent event) {
-		// RenderingRegistry.registerEntityRenderingHandler(STEntitys.ROCKET.get(),
-		// ((IRenderFactory) RocketRenderer::new));
-		// RenderingRegistry.registerEntityRenderingHandler(ALIEN.get(),
-		// ((IRenderFactory) AlienRenderer::new));
-	}
+    @SubscribeEvent
+    public static void onClientSetup(FMLClientSetupEvent event) {
+        // RenderingRegistry.registerEntityRenderingHandler(STEntitys.ROCKET.get(),
+        // ((IRenderFactory) RocketRenderer::new));
+        // RenderingRegistry.registerEntityRenderingHandler(ALIEN.get(),
+        // ((IRenderFactory) AlienRenderer::new));
+    }
 
-	@Override
-	public void initElements() {
-		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-		ENTITYS.register(bus);
-		ITEMS.register(bus);
-	}
+    @Override
+    public void initElements() {
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        MinecraftForge.EVENT_BUS.register(this);
+        bus.addGenericListener(Structure.class, this::onRegisterStructures);
+        ENTITYS.register(bus);
+        ITEMS.register(bus);
+    }
 
-	@Override
-	public void init(FMLCommonSetupEvent event) {
-		DeferredWorkQueue.runLater(() -> {
-			GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) ALIEN.get(), AlienEntity.setCustomAttributes().create());
-		});
-	}
+    @Override
+    public void init(FMLCommonSetupEvent event) {
+        DeferredWorkQueue.runLater(() -> {
+            GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) ALIEN.get(), AlienEntity.setCustomAttributes().create());
+        });
+    }
+    public void onRegisterStructures(final RegistryEvent.Register<Structure<?>> event) {
+        ModConfiguredStructure.registerConfiguredStructures();
+    }
+    private void setup(final FMLCommonSetupEvent event)
+    {
+        StructurePool.init();
+    }
 
-	@Override
-	public void serverLoad(FMLServerStartingEvent event) {
-	}
+    @Override
+    public void serverLoad(FMLServerStartingEvent event) {
+    }
 }

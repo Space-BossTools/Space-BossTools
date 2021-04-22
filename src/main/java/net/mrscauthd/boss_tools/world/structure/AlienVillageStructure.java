@@ -59,7 +59,7 @@ public class AlienVillageStructure extends BossToolsModElements.ModElement {
 						dimensionCriteria = true;
 					if (!dimensionCriteria)
 						return false;
-					if ((random.nextInt(1000000) + 1) <= 800) {
+					if ((random.nextInt(1000000) + 1) <= 10000) {
 						int count = random.nextInt(1) + 1;
 						for (int a = 0; a < count; a++) {
 							int i = ci + random.nextInt(16);
@@ -75,7 +75,7 @@ public class AlienVillageStructure extends BossToolsModElements.ModElement {
 							if (!AlienVillageAdditionalGenerationConditionProcedure.executeProcedure(ImmutableMap.of()))
 								continue;
 							Template template = world.getWorld().getStructureTemplateManager()
-									.getTemplateDefaulted(new ResourceLocation("boss_tools", "ruin"));
+									.getTemplateDefaulted(new ResourceLocation("boss_tools", "alien_village1"));
 							if (template == null)
 								return false;
 							template.func_237144_a_(world, spawnTo,

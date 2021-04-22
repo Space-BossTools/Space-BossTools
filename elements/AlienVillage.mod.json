@@ -2,10 +2,10 @@
   "_fv": 18,
   "_type": "structure",
   "definition": {
-    "structure": "ruin",
+    "structure": "alien_village1",
     "randomlyRotateStructure": true,
     "surfaceDetectionType": "First motion blocking block",
-    "spawnProbability": 800,
+    "spawnProbability": 10000,
     "minCountPerChunk": 1,
     "maxCountPerChunk": 1,
     "spawnLocation": "Ground",
