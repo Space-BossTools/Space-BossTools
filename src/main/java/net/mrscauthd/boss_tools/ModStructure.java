@@ -28,7 +28,7 @@ import java.util.Locale;
 
 public class ModStructure {
 
-    public static final Structure<VillageConfig> STRUCTURE = register(new ResourceLocation("boss_tools", "structures"), new AlienStructure(VillageConfig.field_236533_a_), GenerationStage.Decoration.SURFACE_STRUCTURES, new StructureSeparationSettings(32, 8, 1075254), true);
+    public static final Structure<VillageConfig> STRUCTURE = register(new ResourceLocation("boss_tools", "alien_village"), new AlienStructure(VillageConfig.field_236533_a_), GenerationStage.Decoration.SURFACE_STRUCTURES, new StructureSeparationSettings(25, 8, 1075254), true);
 
     private static <F extends Structure<?>> F register(ResourceLocation p_236394_0_, F p_236394_1_, GenerationStage.Decoration p_236394_2_, StructureSeparationSettings structureSeparationSettings, boolean transformSurroundingLand) {
         Structure.NAME_STRUCTURE_BIMAP.put(p_236394_0_.toString(), p_236394_1_);

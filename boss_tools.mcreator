@@ -192,16 +192,6 @@
       "path": "~/Entitys"
     },
     {
-      "name": "AlienVillage",
-      "type": "structure",
-      "sortid": 106,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "alien_village",
-      "path": "~/Stuctures"
-    },
-    {
       "name": "Ironplate",
       "type": "item",
       "sortid": 20,
@@ -1579,7 +1569,7 @@
       "type": "biome",
       "sortid": 163,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "moon_biom",
       "path": "~/Biome"

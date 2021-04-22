@@ -3,6 +3,7 @@ package net.mrscauthd.boss_tools.world.biome;
 
 import net.mrscauthd.boss_tools.block.MoonsandBlock;
 import net.mrscauthd.boss_tools.block.MoonStoneBlock;
+import net.mrscauthd.boss_tools.ModConfiguredStructure;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
