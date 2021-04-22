@@ -17,8 +17,8 @@ public class StructurePool {
 
     static {
 
-        startPool = JigsawPatternRegistry.func_244094_a(new JigsawPattern(new ResourceLocation("tutorial/sandstone_platform"), new ResourceLocation("empty"), ImmutableList.of(Pair.of(JigsawPiece.func_242849_a(new ResourceLocation("boss_tools", "structure_tutorial/sandstone_platform").toString()), 2)), JigsawPattern.PlacementBehaviour.RIGID));
-        JigsawPatternRegistry.func_244094_a(new JigsawPattern(new ResourceLocation("boss_tools", "tutorial/pillar"), new ResourceLocation("empty"), ImmutableList.of(Pair.of(JigsawPiece.func_242849_a(new ResourceLocation("boss_tools", "structure_tutorial/pillar").toString()), 1)), JigsawPattern.PlacementBehaviour.RIGID));
+        startPool = JigsawPatternRegistry.func_244094_a(new JigsawPattern(new ResourceLocation("boss_tools/alien_village1"), new ResourceLocation("empty"), ImmutableList.of(Pair.of(JigsawPiece.func_242849_a(new ResourceLocation("boss_tools", "alien_village1").toString()), 2)), JigsawPattern.PlacementBehaviour.RIGID));
+        JigsawPatternRegistry.func_244094_a(new JigsawPattern(new ResourceLocation("boss_tools", "boss_tools/alien_village1"), new ResourceLocation("empty"), ImmutableList.of(Pair.of(JigsawPiece.func_242849_a(new ResourceLocation("boss_tools", "alien_village1").toString()), 1)), JigsawPattern.PlacementBehaviour.RIGID));
 
     }
 
