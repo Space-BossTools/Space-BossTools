@@ -15,7 +15,7 @@ public class ModConfiguredStructure {
 
     public static void registerConfiguredStructures() {
         Registry<StructureFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE;
-        Registry.register(registry, new ResourceLocation("boss_tools", "configured_tutorial_structure"), TUTORIAL_STRUCTURE);
+        Registry.register(registry, new ResourceLocation("boss_tools", "alien_village"), TUTORIAL_STRUCTURE);
     }
 
 }

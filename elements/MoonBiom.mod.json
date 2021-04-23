@@ -79,7 +79,7 @@
     },
     "spawnStronghold": false,
     "spawnMineshaft": false,
-    "spawnPillagerOutpost": false,
+    "spawnPillagerOutpost": true,
     "villageType": "none",
     "spawnWoodlandMansion": false,
     "spawnJungleTemple": false,

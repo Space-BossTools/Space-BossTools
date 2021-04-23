@@ -2,7 +2,7 @@
   "required": true,
   "package": "net.mrscauthd.boss_tools.mixin",
   "compatibilityLevel": "JAVA_8",
-  "refmap": "examplemod.refmap.json",
+  "refmap": "boss_tools.refmap.json",
   "mixins": [
     "BiomeMakerMixin"
   ],

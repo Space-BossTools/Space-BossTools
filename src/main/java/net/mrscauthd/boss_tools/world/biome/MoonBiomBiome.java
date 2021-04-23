@@ -1,9 +1,9 @@
 
 package net.mrscauthd.boss_tools.world.biome;
 
+import net.mrscauthd.boss_tools.ModConfiguredStructure;
 import net.mrscauthd.boss_tools.block.MoonsandBlock;
 import net.mrscauthd.boss_tools.block.MoonStoneBlock;
-import net.mrscauthd.boss_tools.ModConfiguredStructure;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -13,6 +13,7 @@ import net.minecraftforge.event.RegistryEvent;
 
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.biome.BiomeGenerationSettings;
@@ -32,9 +33,12 @@ public class MoonBiomBiome extends BossToolsModElements.ModElement {
 			if (biome == null) {
 				BiomeAmbience effects = new BiomeAmbience.Builder().setFogColor(-16777216).setWaterColor(4159204).setWaterFogColor(329011)
 						.withSkyColor(-16777216).withFoliageColor(-16724992).withGrassColor(-16724992).build();
+
 				BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder()
 						.withSurfaceBuilder(SurfaceBuilder.DEFAULT.func_242929_a(new SurfaceBuilderConfig(MoonsandBlock.block.getDefaultState(),
-								MoonStoneBlock.block.getDefaultState(), MoonStoneBlock.block.getDefaultState())));
+								MoonStoneBlock.block.getDefaultState(), MoonStoneBlock.block.getDefaultState()))).withStructure(ModConfiguredStructure.TUTORIAL_STRUCTURE);
+				biomeGenerationSettings.withStructure(ModConfiguredStructure.TUTORIAL_STRUCTURE);
+				System.out.println(biomeGenerationSettings.withStructure(ModConfiguredStructure.TUTORIAL_STRUCTURE));
 				DefaultBiomeFeatures.withCavesAndCanyons(biomeGenerationSettings);
 				DefaultBiomeFeatures.withFrozenTopLayer(biomeGenerationSettings);
 				MobSpawnInfo.Builder mobSpawnInfo = new MobSpawnInfo.Builder().isValidSpawnBiomeForPlayer();
