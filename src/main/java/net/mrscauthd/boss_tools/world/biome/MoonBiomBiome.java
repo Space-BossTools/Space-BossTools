@@ -2,6 +2,8 @@
 package net.mrscauthd.boss_tools.world.biome;
 
 import net.mrscauthd.boss_tools.ModConfiguredStructure;
+import net.mrscauthd.boss_tools.STConfiguredStructures;
+import net.mrscauthd.boss_tools.STStructures;
 import net.mrscauthd.boss_tools.block.MoonsandBlock;
 import net.mrscauthd.boss_tools.block.MoonStoneBlock;
 import net.mrscauthd.boss_tools.BossToolsModElements;
@@ -24,7 +26,7 @@ import net.minecraft.world.biome.Biome;
 public class MoonBiomBiome extends BossToolsModElements.ModElement {
 	public static Biome biome;
 	public MoonBiomBiome(BossToolsModElements instance) {
-		super(instance, 163);
+		super(instance, 963);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new BiomeRegisterHandler());
 	}
 	private static class BiomeRegisterHandler {
@@ -36,8 +38,8 @@ public class MoonBiomBiome extends BossToolsModElements.ModElement {
 
 				BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder()
 						.withSurfaceBuilder(SurfaceBuilder.DEFAULT.func_242929_a(new SurfaceBuilderConfig(MoonsandBlock.block.getDefaultState(),
-								MoonStoneBlock.block.getDefaultState(), MoonStoneBlock.block.getDefaultState()))).withStructure(ModConfiguredStructure.TUTORIAL_STRUCTURE);
-				biomeGenerationSettings.withStructure(ModConfiguredStructure.TUTORIAL_STRUCTURE);
+								MoonStoneBlock.block.getDefaultState(), MoonStoneBlock.block.getDefaultState()))).withStructure(STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE);
+			//	biomeGenerationSettings.withStructure(STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE);
 				System.out.println(biomeGenerationSettings.withStructure(ModConfiguredStructure.TUTORIAL_STRUCTURE));
 				DefaultBiomeFeatures.withCavesAndCanyons(biomeGenerationSettings);
 				DefaultBiomeFeatures.withFrozenTopLayer(biomeGenerationSettings);
@@ -46,6 +48,7 @@ public class MoonBiomBiome extends BossToolsModElements.ModElement {
 						.downfall(0f).setEffects(effects).withMobSpawnSettings(mobSpawnInfo.copy())
 						.withGenerationSettings(biomeGenerationSettings.build()).build();
 				event.getRegistry().register(biome.setRegistryName("boss_tools:moon_biom"));
+				return;
 			}
 		}
 	}

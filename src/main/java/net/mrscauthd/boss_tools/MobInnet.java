@@ -1,8 +1,19 @@
+
 package net.mrscauthd.boss_tools;
 
+import com.mojang.serialization.Codec;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
+import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.FlatChunkGenerator;
 import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsSpawnEggsItemGroup;
 import net.mrscauthd.boss_tools.entity.AlienEntity;
 
@@ -23,6 +34,8 @@ import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.CreatureEntity;
+
+import java.lang.reflect.Method;
 
 @BossToolsModElements.ModElement.Tag
 public class MobInnet extends BossToolsModElements.ModElement {
@@ -55,6 +68,38 @@ public class MobInnet extends BossToolsModElements.ModElement {
         bus.addGenericListener(Structure.class, this::onRegisterStructures);
         ENTITYS.register(bus);
         ITEMS.register(bus);
+
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        STStructures.DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
+        modEventBus.addListener(this::setup2);
+        IEventBus forgeBus = MinecraftForge.EVENT_BUS;
+        forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing);
+        forgeBus.addListener(EventPriority.HIGH, this::biomeModification);
+    }
+    public void setup2(final FMLCommonSetupEvent event)
+    {
+        event.enqueueWork(() -> {
+            STStructures.setupStructures();
+            STConfiguredStructures.registerConfiguredStructures();
+        });
+    }
+
+    public void biomeModification(final BiomeLoadingEvent event) {
+        event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE);
+    }
+    private static Method GETCODEC_METHOD;
+    public void addDimensionalSpacing(final WorldEvent.Load event) {
+        if (event.getWorld() instanceof ServerWorld) {
+            ServerWorld serverWorld = (ServerWorld) event.getWorld();
+            try {
+                if (GETCODEC_METHOD == null)
+                    GETCODEC_METHOD = ObfuscationReflectionHelper.findMethod(ChunkGenerator.class, "codec");
+                ResourceLocation cgRL = Registry.CHUNK_GENERATOR_CODEC.getKey((Codec<? extends ChunkGenerator>) GETCODEC_METHOD.invoke(serverWorld.getChunkProvider().generator));
+                if (cgRL != null && cgRL.getNamespace().equals("terraforged")) return;
+            } catch (Exception e) {
+                // StructureTutorialMain.LOGGER.error("Was unable to check if " + serverWorld.dimension().location() + " is using Terraforged's ChunkGenerator.");
+            }
+        }
     }
 
     @Override
