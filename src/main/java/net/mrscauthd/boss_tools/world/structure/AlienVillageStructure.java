@@ -45,7 +45,7 @@ public class AlienVillageStructure extends Structure<NoFeatureConfig> {
 	public AlienVillageStructure(Codec<NoFeatureConfig> codec) {
 		super(codec);
 		//MinecraftForge.EVENT_BUS.register(this);
-		System.out.println("its works!");
+		//System.out.println("its works!");
 	}
 
 	/**

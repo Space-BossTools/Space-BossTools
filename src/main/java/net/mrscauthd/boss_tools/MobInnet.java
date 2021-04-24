@@ -95,7 +95,7 @@ public class MobInnet extends BossToolsModElements.ModElement {
         if (event.getName().equals(new ResourceLocation("boss_tools:moon_biom"))) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE);
         }
-        event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE);
+       // event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE);
     }
     private static Method GETCODEC_METHOD;
     public void addDimensionalSpacing(final WorldEvent.Load event) {
@@ -103,7 +103,7 @@ public class MobInnet extends BossToolsModElements.ModElement {
             ServerWorld serverWorld = (ServerWorld) event.getWorld();
             try {
                 if (GETCODEC_METHOD == null)
-                    GETCODEC_METHOD = ObfuscationReflectionHelper.findMethod(ChunkGenerator.class, "codec");
+                    GETCODEC_METHOD = ObfuscationReflectionHelper.findMethod(ChunkGenerator.class, "func_230347_a_");
                 ResourceLocation cgRL = Registry.CHUNK_GENERATOR_CODEC.getKey((Codec<? extends ChunkGenerator>) GETCODEC_METHOD.invoke(serverWorld.getChunkProvider().generator));
                 if (cgRL != null && cgRL.getNamespace().equals("terraforged")) return;
             } catch (Exception e) {
