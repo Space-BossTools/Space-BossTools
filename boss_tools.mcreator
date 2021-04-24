@@ -12539,6 +12539,34 @@
       "locked_code": true,
       "ids": {},
       "registry_name": "mod_structure"
+    },
+    {
+      "name": "STConfiguredStructures",
+      "type": "code",
+      "sortid": 689,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "st_configured_structures"
+    },
+    {
+      "name": "STStructures",
+      "type": "code",
+      "sortid": 690,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "st_structures"
+    },
+    {
+      "name": "AlienVillage",
+      "type": "structure",
+      "sortid": 691,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "alien_village",
+      "path": "~/Stuctures"
     }
   ],
   "variable_elements": [

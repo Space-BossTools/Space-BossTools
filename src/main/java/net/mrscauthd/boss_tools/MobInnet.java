@@ -69,9 +69,41 @@ public class MobInnet extends BossToolsModElements.ModElement {
         ENTITYS.register(bus);
         ITEMS.register(bus);
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
+        forgeBus.addListener(EventPriority.HIGH, this::biomeModificationa);
+
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        STStructures.DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
+        modEventBus.addListener(this::setup2);
+        forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing);
         forgeBus.addListener(EventPriority.HIGH, this::biomeModification);
     }
+    public void setup2(final FMLCommonSetupEvent event)
+    {
+        event.enqueueWork(() -> {
+            STStructures.setupStructures();
+            STConfiguredStructures.registerConfiguredStructures();
+        });
+    }
 
+    public void biomeModification(final BiomeLoadingEvent event) {
+        if (event.getName().equals(new ResourceLocation("boss_tools", "moon_biom"))) {
+            event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE);
+        }
+    }
+    private static Method GETCODEC_METHOD;
+    public void addDimensionalSpacing(final WorldEvent.Load event) {
+        if (event.getWorld() instanceof ServerWorld) {
+            ServerWorld serverWorld = (ServerWorld) event.getWorld();
+            try {
+                if (GETCODEC_METHOD == null)
+                    GETCODEC_METHOD = ObfuscationReflectionHelper.findMethod(ChunkGenerator.class, "codec");
+                ResourceLocation cgRL = Registry.CHUNK_GENERATOR_CODEC.getKey((Codec<? extends ChunkGenerator>) GETCODEC_METHOD.invoke(serverWorld.getChunkProvider().generator));
+                if (cgRL != null && cgRL.getNamespace().equals("terraforged")) return;
+            } catch (Exception e) {
+                // StructureTutorialMain.LOGGER.error("Was unable to check if " + serverWorld.dimension().location() + " is using Terraforged's ChunkGenerator.");
+            }
+        }
+    }
     @Override
     public void init(FMLCommonSetupEvent event) {
         DeferredWorkQueue.runLater(() -> {
@@ -86,7 +118,7 @@ public class MobInnet extends BossToolsModElements.ModElement {
         StructurePool.init();
     }
 
-    public void biomeModification(final BiomeLoadingEvent event) {
+    public void biomeModificationa(final BiomeLoadingEvent event) {
         if (event.getName().equals(new ResourceLocation("boss_tools", "moon_biom"))) {
             event.getGeneration().getStructures().add(() -> ModConfiguredStructure.TUTORIAL_STRUCTURE);
         }
