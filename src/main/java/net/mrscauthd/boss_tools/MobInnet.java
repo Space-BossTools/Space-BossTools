@@ -2,11 +2,14 @@
 package net.mrscauthd.boss_tools;
 
 import com.mojang.serialization.Codec;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.FlatChunkGenerator;
 import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.settings.DimensionStructuresSettings;
+import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -36,6 +39,8 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.CreatureEntity;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 @BossToolsModElements.ModElement.Tag
 public class MobInnet extends BossToolsModElements.ModElement {
@@ -49,7 +54,7 @@ public class MobInnet extends BossToolsModElements.ModElement {
      * Do not remove this constructor
      */
     public MobInnet(BossToolsModElements instance) {
-        super(instance, 673);
+        super(instance, 901);
     }
 
     @SubscribeEvent
@@ -86,9 +91,11 @@ public class MobInnet extends BossToolsModElements.ModElement {
     }
 
     public void biomeModification(final BiomeLoadingEvent event) {
-        if (event.getName().equals(new ResourceLocation("boss_tools", "moon_biom"))) {
+        RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
+        if (event.getName().equals(new ResourceLocation("boss_tools:moon_biom"))) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE);
         }
+        event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE);
     }
     private static Method GETCODEC_METHOD;
     public void addDimensionalSpacing(final WorldEvent.Load event) {
@@ -102,8 +109,18 @@ public class MobInnet extends BossToolsModElements.ModElement {
             } catch (Exception e) {
                 // StructureTutorialMain.LOGGER.error("Was unable to check if " + serverWorld.dimension().location() + " is using Terraforged's ChunkGenerator.");
             }
+            if(serverWorld.getChunkProvider().getChunkGenerator() instanceof FlatChunkGenerator &&
+                    serverWorld.getDimensionType().equals(World.OVERWORLD)){
+                return;
+            }
+            Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
+            tempMap.putIfAbsent(STStructures.RUN_DOWN_HOUSE.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.RUN_DOWN_HOUSE.get()));
+          //  serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_() = tempMap;
+            serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
         }
     }
+
+
     @Override
     public void init(FMLCommonSetupEvent event) {
         DeferredWorkQueue.runLater(() -> {
