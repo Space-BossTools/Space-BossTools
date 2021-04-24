@@ -1,9 +1,9 @@
 
 package net.mrscauthd.boss_tools.world.biome;
 
-import net.mrscauthd.boss_tools.ModConfiguredStructure;
-import net.mrscauthd.boss_tools.STConfiguredStructures;
-import net.mrscauthd.boss_tools.STStructures;
+import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.Features;
+import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.mrscauthd.boss_tools.block.MoonsandBlock;
 import net.mrscauthd.boss_tools.block.MoonStoneBlock;
 import net.mrscauthd.boss_tools.BossToolsModElements;
@@ -15,7 +15,6 @@ import net.minecraftforge.event.RegistryEvent;
 
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
-import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.biome.BiomeGenerationSettings;
@@ -26,7 +25,7 @@ import net.minecraft.world.biome.Biome;
 public class MoonBiomBiome extends BossToolsModElements.ModElement {
 	public static Biome biome;
 	public MoonBiomBiome(BossToolsModElements instance) {
-		super(instance, 963);
+		super(instance, 163);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new BiomeRegisterHandler());
 	}
 	private static class BiomeRegisterHandler {
@@ -35,12 +34,14 @@ public class MoonBiomBiome extends BossToolsModElements.ModElement {
 			if (biome == null) {
 				BiomeAmbience effects = new BiomeAmbience.Builder().setFogColor(-16777216).setWaterColor(4159204).setWaterFogColor(329011)
 						.withSkyColor(-16777216).withFoliageColor(-16724992).withGrassColor(-16724992).build();
-
 				BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder()
 						.withSurfaceBuilder(SurfaceBuilder.DEFAULT.func_242929_a(new SurfaceBuilderConfig(MoonsandBlock.block.getDefaultState(),
-								MoonStoneBlock.block.getDefaultState(), MoonStoneBlock.block.getDefaultState()))).withStructure(STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE);
-			//	biomeGenerationSettings.withStructure(STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE);
-				System.out.println(biomeGenerationSettings.withStructure(ModConfiguredStructure.TUTORIAL_STRUCTURE));
+								MoonStoneBlock.block.getDefaultState(), MoonStoneBlock.block.getDefaultState())));
+				biomeGenerationSettings.withStructure(StructureFeatures.RUINED_PORTAL_DESERT);
+
+				biomeGenerationSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_DEAD_BUSH_2);
+				biomeGenerationSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_CACTUS_DESERT);
+				biomeGenerationSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_SUGAR_CANE);
 				DefaultBiomeFeatures.withCavesAndCanyons(biomeGenerationSettings);
 				DefaultBiomeFeatures.withFrozenTopLayer(biomeGenerationSettings);
 				MobSpawnInfo.Builder mobSpawnInfo = new MobSpawnInfo.Builder().isValidSpawnBiomeForPlayer();
@@ -48,7 +49,6 @@ public class MoonBiomBiome extends BossToolsModElements.ModElement {
 						.downfall(0f).setEffects(effects).withMobSpawnSettings(mobSpawnInfo.copy())
 						.withGenerationSettings(biomeGenerationSettings.build()).build();
 				event.getRegistry().register(biome.setRegistryName("boss_tools:moon_biom"));
-				return;
 			}
 		}
 	}

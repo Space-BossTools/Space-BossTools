@@ -6,6 +6,6 @@ import net.minecraft.world.gen.feature.structure.VillageConfig;
 
 public class AlienStructure extends JigsawStructure {
     public AlienStructure(Codec<VillageConfig> p_i232001_1_) {
-        super(p_i232001_1_, 0, true, true);
+        super(p_i232001_1_, -20, true, true);
     }
 }
