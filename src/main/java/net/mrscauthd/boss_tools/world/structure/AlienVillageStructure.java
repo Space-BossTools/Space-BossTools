@@ -153,7 +153,7 @@ public class AlienVillageStructure extends Structure<NoFeatureConfig> {
 			 * structure will spawn at terrain height instead. Set that parameter to false to
 			 * force the structure to spawn at blockpos's Y value instead. You got options here!
 			 */
-			BlockPos blockpos = new BlockPos(x, -20, z);
+			BlockPos blockpos = new BlockPos(x, -21, z);
 
 			// All a structure has to do is call this method to turn it into a jigsaw based structure!
 
@@ -173,7 +173,7 @@ public class AlienVillageStructure extends Structure<NoFeatureConfig> {
 							// Our structure is only 1 block out and isn't recursive so any value of 1 or more doesn't change anything.
 							// However, I recommend you keep this a high value so people can use datapacks to add additional pieces to your structure easily.
 							// But don't make it too large for recursive structures like villages or you'll crash server due to hundreds of pieces attempting to generate!
-							20),
+							25),
 					AbstractVillagePiece::new,
 					chunkGenerator,
 					templateManagerIn,

@@ -12505,42 +12505,6 @@
       "registry_name": "oxygen_tank_check"
     },
     {
-      "name": "StructurePool",
-      "type": "code",
-      "sortid": 685,
-      "compiles": true,
-      "locked_code": true,
-      "ids": {},
-      "registry_name": "structure_pool"
-    },
-    {
-      "name": "AlienStructure",
-      "type": "code",
-      "sortid": 686,
-      "compiles": true,
-      "locked_code": true,
-      "ids": {},
-      "registry_name": "alien_structure"
-    },
-    {
-      "name": "ModConfiguredStructure",
-      "type": "code",
-      "sortid": 687,
-      "compiles": true,
-      "locked_code": true,
-      "ids": {},
-      "registry_name": "mod_configured_structure"
-    },
-    {
-      "name": "ModStructure",
-      "type": "code",
-      "sortid": 688,
-      "compiles": true,
-      "locked_code": true,
-      "ids": {},
-      "registry_name": "mod_structure"
-    },
-    {
       "name": "STConfiguredStructures",
       "type": "code",
       "sortid": 689,

@@ -67,14 +67,14 @@ public class MobInnet extends BossToolsModElements.ModElement {
 
     @Override
     public void initElements() {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+       // FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         MinecraftForge.EVENT_BUS.register(this);
-        bus.addGenericListener(Structure.class, this::onRegisterStructures);
+        //bus.addGenericListener(Structure.class, this::onRegisterStructures);
         ENTITYS.register(bus);
         ITEMS.register(bus);
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
-        forgeBus.addListener(EventPriority.HIGH, this::biomeModificationa);
+      //  forgeBus.addListener(EventPriority.HIGH, this::biomeModificationa);
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         STStructures.DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
@@ -115,7 +115,7 @@ public class MobInnet extends BossToolsModElements.ModElement {
             }
             Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
             tempMap.putIfAbsent(STStructures.RUN_DOWN_HOUSE.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.RUN_DOWN_HOUSE.get()));
-          //  serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_() = tempMap;
+            //  serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_() = tempMap;
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
         }
     }
@@ -126,19 +126,6 @@ public class MobInnet extends BossToolsModElements.ModElement {
         DeferredWorkQueue.runLater(() -> {
             GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) ALIEN.get(), AlienEntity.setCustomAttributes().create());
         });
-    }
-    public void onRegisterStructures(final RegistryEvent.Register<Structure<?>> event) {
-        ModConfiguredStructure.registerConfiguredStructures();
-    }
-    private void setup(final FMLCommonSetupEvent event)
-    {
-        StructurePool.init();
-    }
-
-    public void biomeModificationa(final BiomeLoadingEvent event) {
-        if (event.getName().equals(new ResourceLocation("boss_tools", "moon_biom"))) {
-            event.getGeneration().getStructures().add(() -> ModConfiguredStructure.TUTORIAL_STRUCTURE);
-        }
     }
 
     @Override
