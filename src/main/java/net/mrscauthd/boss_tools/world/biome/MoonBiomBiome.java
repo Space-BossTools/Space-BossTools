@@ -1,9 +1,6 @@
 
 package net.mrscauthd.boss_tools.world.biome;
 
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.Features;
-import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.mrscauthd.boss_tools.block.MoonsandBlock;
 import net.mrscauthd.boss_tools.block.MoonStoneBlock;
 import net.mrscauthd.boss_tools.BossToolsModElements;
@@ -15,6 +12,7 @@ import net.minecraftforge.event.RegistryEvent;
 
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.biome.BiomeGenerationSettings;
@@ -37,11 +35,7 @@ public class MoonBiomBiome extends BossToolsModElements.ModElement {
 				BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder()
 						.withSurfaceBuilder(SurfaceBuilder.DEFAULT.func_242929_a(new SurfaceBuilderConfig(MoonsandBlock.block.getDefaultState(),
 								MoonStoneBlock.block.getDefaultState(), MoonStoneBlock.block.getDefaultState())));
-				biomeGenerationSettings.withStructure(StructureFeatures.RUINED_PORTAL_DESERT);
-
-				biomeGenerationSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_DEAD_BUSH_2);
-				biomeGenerationSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_CACTUS_DESERT);
-				biomeGenerationSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_SUGAR_CANE);
+				biomeGenerationSettings.withStructure(StructureFeatures.PILLAGER_OUTPOST);
 				DefaultBiomeFeatures.withCavesAndCanyons(biomeGenerationSettings);
 				DefaultBiomeFeatures.withFrozenTopLayer(biomeGenerationSettings);
 				MobSpawnInfo.Builder mobSpawnInfo = new MobSpawnInfo.Builder().isValidSpawnBiomeForPlayer();

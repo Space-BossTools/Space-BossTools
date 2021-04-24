@@ -12,9 +12,9 @@ public class BiomeMakerMixin {
 
     @ModifyVariable(method = "makePlainsBiome", ordinal = 0, at = @At(value = "STORE", ordinal = 0))
     private static BiomeGenerationSettings.Builder addCustomStructure(BiomeGenerationSettings.Builder builder, boolean sunflower) {
-        if (!sunflower) {
+        //if (!sunflower) {
             builder.withStructure(ModConfiguredStructure.TUTORIAL_STRUCTURE);
-        }
+      //  }
 
         return builder;
     }

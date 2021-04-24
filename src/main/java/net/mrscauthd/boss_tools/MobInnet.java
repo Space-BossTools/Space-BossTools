@@ -68,6 +68,8 @@ public class MobInnet extends BossToolsModElements.ModElement {
         bus.addGenericListener(Structure.class, this::onRegisterStructures);
         ENTITYS.register(bus);
         ITEMS.register(bus);
+        IEventBus forgeBus = MinecraftForge.EVENT_BUS;
+        forgeBus.addListener(EventPriority.HIGH, this::biomeModification);
     }
 
     @Override
@@ -82,6 +84,12 @@ public class MobInnet extends BossToolsModElements.ModElement {
     private void setup(final FMLCommonSetupEvent event)
     {
         StructurePool.init();
+    }
+
+    public void biomeModification(final BiomeLoadingEvent event) {
+        if (event.getName().equals(new ResourceLocation("boss_tools", "moon_biom"))) {
+            event.getGeneration().getStructures().add(() -> ModConfiguredStructure.TUTORIAL_STRUCTURE);
+        }
     }
 
     @Override

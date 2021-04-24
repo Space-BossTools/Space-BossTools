@@ -1569,7 +1569,7 @@
       "type": "biome",
       "sortid": 163,
       "compiles": true,
-      "locked_code": true,
+      "locked_code": false,
       "ids": {},
       "registry_name": "moon_biom",
       "path": "~/Biome"
