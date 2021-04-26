@@ -102,7 +102,7 @@ public class MobInnet extends BossToolsModElements.ModElement {
         if (event.getName().equals(new ResourceLocation("boss_tools:moon_biom"))) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE);
         }
-        if (event.getName().equals(new ResourceLocation("boss_tools:moon_biom"))) {
+        if (event.getName().equals(new ResourceLocation("plains"))) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
             // event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE)
         }

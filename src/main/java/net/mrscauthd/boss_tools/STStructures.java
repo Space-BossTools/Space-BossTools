@@ -67,7 +67,7 @@ public class STStructures {
         //meteor
         setupMapSpacingAndLand(
                 METEOR.get(), /* The instance of the structure */
-                new StructureSeparationSettings(44 /* average distance apart in chunks between spawn attempts */,
+                new StructureSeparationSettings(24 /* average distance apart in chunks between spawn attempts */,
                         9 /* minimum distance apart in chunks between spawn attempts */,
                         1234567890 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
                 true);
@@ -123,6 +123,7 @@ public class STStructures {
              *
              * DEFAULTS requires AccessTransformer  (See resources/META-INF/accesstransformer.cfg)
              */
+             
             DimensionStructuresSettings.field_236191_b_ =
                     ImmutableMap.<Structure<?>, StructureSeparationSettings>builder()
                             .putAll(DimensionStructuresSettings.field_236191_b_)

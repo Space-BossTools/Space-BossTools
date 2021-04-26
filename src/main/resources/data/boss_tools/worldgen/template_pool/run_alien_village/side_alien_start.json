@@ -5,7 +5,7 @@
     {
       "weight": 100,
       "element": {
-        "location": "boss_tools::alien_village1",
+        "location": "boss_tools:alien_village1",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
