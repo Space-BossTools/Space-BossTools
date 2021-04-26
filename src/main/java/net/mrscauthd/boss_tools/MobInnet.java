@@ -67,26 +67,33 @@ public class MobInnet extends BossToolsModElements.ModElement {
 
     @Override
     public void initElements() {
-       // FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        // FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         MinecraftForge.EVENT_BUS.register(this);
         //bus.addGenericListener(Structure.class, this::onRegisterStructures);
         ENTITYS.register(bus);
         ITEMS.register(bus);
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
-      //  forgeBus.addListener(EventPriority.HIGH, this::biomeModificationa);
+        //  forgeBus.addListener(EventPriority.HIGH, this::biomeModificationa);
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        //alien Village
         STStructures.DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
         modEventBus.addListener(this::setup2);
         forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing);
         forgeBus.addListener(EventPriority.HIGH, this::biomeModification);
+        //Meteor
+        STStructures.METEOR_DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
+        //forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing3);
     }
     public void setup2(final FMLCommonSetupEvent event)
     {
         event.enqueueWork(() -> {
             STStructures.setupStructures();
             STConfiguredStructures.registerConfiguredStructures();
+            //Meteor
+            //STStructures.setupStructures();
+            //STConfiguredStructures.registerConfiguredStructures();
         });
     }
 
@@ -95,7 +102,10 @@ public class MobInnet extends BossToolsModElements.ModElement {
         if (event.getName().equals(new ResourceLocation("boss_tools:moon_biom"))) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE);
         }
-       // event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE);
+        if (event.getName().equals(new ResourceLocation("boss_tools:moon_biom"))) {
+            event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
+            // event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE)
+        }
     }
     private static Method GETCODEC_METHOD;
     public void addDimensionalSpacing(final WorldEvent.Load event) {
@@ -116,9 +126,20 @@ public class MobInnet extends BossToolsModElements.ModElement {
             Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
             tempMap.putIfAbsent(STStructures.RUN_DOWN_HOUSE.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.RUN_DOWN_HOUSE.get()));
             //  serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_() = tempMap;
+            //meteor
+           // tempMap.putIfAbsent(STStructures.METEOR.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.METEOR.get()));
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
+            
+            Map<Structure<?>, StructureSeparationSettings> tempMap1 = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
+            //tempMap.putIfAbsent(STStructures.RUN_DOWN_HOUSE.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.RUN_DOWN_HOUSE.get()));
+            //  serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_() = tempMap;
+            //meteor
+            tempMap1.putIfAbsent(STStructures.METEOR.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.METEOR.get()));
+            serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap1;
+
         }
     }
+// Meteor
 
 
     @Override

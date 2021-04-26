@@ -13,6 +13,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.boss_tools.world.structure.AlienVillageStructure;
+import net.mrscauthd.boss_tools.world.structure.MeteorStructure;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +30,8 @@ public class STStructures {
      * is no Deferred Registry system for them.
      */
     public static final DeferredRegister<Structure<?>> DEFERRED_REGISTRY_STRUCTURE = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, "boss_tools");
-
+    //MEteor
+    public static final DeferredRegister<Structure<?>> METEOR_DEFERRED_REGISTRY_STRUCTURE = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, "boss_tools");
     /**
      * Registers the structure itself and sets what its path is. In this case, the
      * structure will have the resourcelocation of structure_tutorial:run_down_house.
@@ -46,7 +48,8 @@ public class STStructures {
      * So it is best to keep your structure names the same as long as you can instead of changing them frequently.
      */
     public static final RegistryObject<Structure<NoFeatureConfig>> RUN_DOWN_HOUSE = DEFERRED_REGISTRY_STRUCTURE.register("alien_structure", () -> (new AlienVillageStructure(NoFeatureConfig.field_236558_a_)));
-
+    //meteor
+    public static final RegistryObject<Structure<NoFeatureConfig>> METEOR = METEOR_DEFERRED_REGISTRY_STRUCTURE.register("meteor_structure", () -> (new MeteorStructure(NoFeatureConfig.field_236558_a_)));
     /**
      * This is where we set the rarity of your structures and determine if land conforms to it.
      * See the comments in below for more details.
@@ -61,6 +64,13 @@ public class STStructures {
 
 
         // Add more structures here and so on
+        //meteor
+        setupMapSpacingAndLand(
+                METEOR.get(), /* The instance of the structure */
+                new StructureSeparationSettings(44 /* average distance apart in chunks between spawn attempts */,
+                        9 /* minimum distance apart in chunks between spawn attempts */,
+                        1234567890 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
+                true);
     }
 
     /**
@@ -139,7 +149,7 @@ public class STStructures {
                 if (structureMap instanceof ImmutableMap) {
                     Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(structureMap);
                     tempMap.put(structure, structureSeparationSettings);
-                //    settings.getValue().getStructures().func_236195_a_() = tempMap;
+                    //    settings.getValue().getStructures().func_236195_a_() = tempMap;
                 } else {
                     structureMap.put(structure, structureSeparationSettings);
                 }

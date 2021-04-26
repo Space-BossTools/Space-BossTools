@@ -486,7 +486,7 @@
       "type": "structure",
       "sortid": 119,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "meteor",
       "path": "~/Stuctures"

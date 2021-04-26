@@ -2,14 +2,14 @@
   "_fv": 18,
   "_type": "structure",
   "definition": {
-    "structure": "meteor",
+    "structure": "active_obsidian_meteor_1",
     "randomlyRotateStructure": false,
     "surfaceDetectionType": "First motion blocking block",
-    "spawnProbability": 2000,
+    "spawnProbability": 10000,
     "minCountPerChunk": 1,
     "maxCountPerChunk": 1,
     "spawnLocation": "Ground",
-    "spawnHeightOffset": -5,
+    "spawnHeightOffset": -9,
     "spawnXOffset": 0,
     "spawnZOffset": 0,
     "spawnWorldTypes": [
