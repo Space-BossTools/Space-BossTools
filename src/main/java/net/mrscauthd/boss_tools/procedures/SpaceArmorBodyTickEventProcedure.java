@@ -10,6 +10,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.RegistryKey;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.item.ItemStack;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -72,10 +73,11 @@ public class SpaceArmorBodyTickEventProcedure extends BossToolsModElements.ModEl
 																? (((World) world).getDimensionKey())
 																: World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
 																		new ResourceLocation("boss_tools:orbit_mars"))))
-																|| ((world instanceof World
+																|| (((world instanceof World
 																		? (((World) world).getDimensionKey())
 																		: World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-																				new ResourceLocation("boss_tools:orbit_mercury"))))))))))) {
+																				new ResourceLocation("boss_tools:orbit_mercury"))))
+																		|| (entity.areEyesInFluid(FluidTags.WATER)))))))))) {
 					if ((((itemstack).getOrCreateTag().getDouble("Energy")) >= 1)) {
 						(itemstack).getOrCreateTag().putDouble("Energytick", (((itemstack).getOrCreateTag().getDouble("Energytick")) + 1));
 						if ((((itemstack).getOrCreateTag().getDouble("Energytick")) >= 2)) {
@@ -103,6 +105,7 @@ public class SpaceArmorBodyTickEventProcedure extends BossToolsModElements.ModEl
 							(itemstack).getOrCreateTag().putDouble("Energytick", 0);
 						}
 						entity.getPersistentData().putBoolean("SpaceSuitC", (true));
+						entity.setAir(300);
 					}
 				}
 				if ((((itemstack).getOrCreateTag().getDouble("Energy")) <= 1)) {

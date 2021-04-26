@@ -27,6 +27,7 @@ import net.minecraft.world.World;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Direction;
@@ -52,7 +53,6 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.CreatureAttribute;
-import net.minecraft.enchantment.EnchantmentHelper;
 
 import javax.annotation.Nullable;
 import javax.annotation.Nonnull;
@@ -203,7 +203,7 @@ public class LandingGearEntity extends BossToolsModElements.ModElement {
 				return LazyOptional.of(() -> combined).cast();
 			return super.getCapability(capability, side);
 		}
-		
+
 		/*
 		 * @Override protected void dropInventory() { super.dropInventory(); for (int i
 		 * = 0; i < inventory.getSlots(); ++i) { ItemStack itemstack =
@@ -211,7 +211,6 @@ public class LandingGearEntity extends BossToolsModElements.ModElement {
 		 * !EnchantmentHelper.hasVanishingCurse(itemstack)) {
 		 * this.entityDropItem(itemstack); } } }
 		 */
-
 		@Override
 		public void writeAdditional(CompoundNBT compound) {
 			super.writeAdditional(compound);
