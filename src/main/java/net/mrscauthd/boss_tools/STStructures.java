@@ -104,11 +104,12 @@ public class STStructures {
          * NOISE_AFFECTING_FEATURES requires AccessTransformer  (See resources/META-INF/accesstransformer.cfg)
          */
         if (transformSurroundingLand) {
-            Structure.field_236384_t_ =
+          //This Code Add Automatic world generation change for structure
+          /*  Structure.field_236384_t_ =
                     ImmutableList.<Structure<?>>builder()
                             .addAll(Structure.field_236384_t_)
                             .add(structure)
-                            .build();
+                            .build();*/
 
             /*
              * This is the map that holds the default spacing of all structures.
@@ -138,7 +139,7 @@ public class STStructures {
              * that field only applies for the default overworld and won't add to other worldtypes or dimensions (like amplified or Nether).
              * So yeah, don't do DimensionSettings.BUILTIN_OVERWORLD. Use the NOISE_GENERATOR_SETTINGS loop below instead if you must.
              */
-            WorldGenRegistries.NOISE_SETTINGS.getEntries().forEach(settings -> {
+		            WorldGenRegistries.NOISE_SETTINGS.getEntries().forEach(settings -> {
                 Map<Structure<?>, StructureSeparationSettings> structureMap = settings.getValue().getStructures().func_236195_a_();
 
                 /*
