@@ -17,15 +17,12 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.tags.Tag;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.item.Item;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.Entity;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.client.Minecraft;
 import net.minecraft.block.Block;
 
 import java.util.function.Supplier;
@@ -104,12 +101,6 @@ public class BossToolsModElements {
 		return enchantments;
 	}
 	public static class ModElement implements Comparable<ModElement> {
-		// camera
-		protected Vector3d getLeashPosition(float partialTicks) {
-			Entity entity = Minecraft.getInstance().renderViewEntity;
-			return entity.func_242282_l(partialTicks).add(0.0D, (double) entity.getEyeHeight() * 0.7D, 0.0D);
-		}
-		// camera
 		@Retention(RetentionPolicy.RUNTIME)
 		public @interface Tag {
 		}
