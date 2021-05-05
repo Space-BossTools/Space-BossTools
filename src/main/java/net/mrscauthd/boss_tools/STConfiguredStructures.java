@@ -36,6 +36,7 @@ public class STConfiguredStructures {
             Registry<StructureFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE;
             Registry.register(registry, new ResourceLocation("boss_tools", "configured_run_down_house"), CONFIGURED_RUN_DOWN_HOUSE);
             Registry.register(registry, new ResourceLocation("boss_tools", "meteor_configured_run_down_house"), METEOR_CONFIGURED_RUN_DOWN_HOUSE);
+           // Registry.register(registry, new ResourceLocation("boss_tools", "meteor_dungeon_configured_run_down_house"), METEOR_CONFIGURED_RUN_DOWN_HOUSE);
 
         //    FlatGenerationSettings.field_236932_a_.put(STStructures.RUN_DOWN_HOUSE, CONFIGURED_RUN_DOWN_HOUSE);
             FlatGenerationSettings.STRUCTURES.put(STStructures.RUN_DOWN_HOUSE.get(), CONFIGURED_RUN_DOWN_HOUSE);
