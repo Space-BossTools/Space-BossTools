@@ -12531,6 +12531,16 @@
       "ids": {},
       "registry_name": "alien_village",
       "path": "~/Stuctures"
+    },
+    {
+      "name": "MarsDiamodOre",
+      "type": "loottable",
+      "sortid": 692,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "mars_diamod_ore",
+      "path": "~/LootTable"
     }
   ],
   "variable_elements": [

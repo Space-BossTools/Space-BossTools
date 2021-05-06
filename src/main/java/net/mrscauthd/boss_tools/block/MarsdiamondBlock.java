@@ -27,9 +27,6 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.RegistryKey;
-import net.minecraft.loot.LootContext;
-import net.minecraft.item.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.BlockItem;
 import net.minecraft.block.material.MaterialColor;
@@ -39,8 +36,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Block;
 
 import java.util.Random;
-import java.util.List;
-import java.util.Collections;
 
 @BossToolsModElements.ModElement.Tag
 public class MarsdiamondBlock extends BossToolsModElements.ModElement {
@@ -68,14 +63,6 @@ public class MarsdiamondBlock extends BossToolsModElements.ModElement {
 		@Override
 		public MaterialColor getMaterialColor() {
 			return MaterialColor.ORANGE_TERRACOTTA;
-		}
-
-		@Override
-		public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-			List<ItemStack> dropsOriginal = super.getDrops(state, builder);
-			if (!dropsOriginal.isEmpty())
-				return dropsOriginal;
-			return Collections.singletonList(new ItemStack(Items.DIAMOND, (int) (1)));
 		}
 	}
 	private static Feature<OreFeatureConfig> feature = null;
