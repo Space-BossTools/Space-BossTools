@@ -116,6 +116,9 @@ public class MobInnet extends BossToolsModElements.ModElement {
        if (event.getName().equals(new ResourceLocation("forest"))) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
         }
+       if (event.getName().equals(new ResourceLocation("desert"))) {
+            event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
+        }
     }
     private static Method GETCODEC_METHOD;
     public void addDimensionalSpacing(final WorldEvent.Load event) {
