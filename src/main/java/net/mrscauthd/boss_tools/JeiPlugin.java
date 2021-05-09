@@ -1,6 +1,7 @@
 
 package net.mrscauthd.boss_tools;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -13,10 +14,16 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 //workbench
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.fml.client.gui.GuiUtils;
 import net.mrscauthd.boss_tools.block.WorkbenchBlock;
 //FuelMaker
 import net.mrscauthd.boss_tools.block.FuelMakerBlock;
@@ -92,6 +99,7 @@ import net.minecraftforge.api.distmarker.Dist;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import net.minecraft.block.trees.OakTree;
 import net.minecraft.item.BucketItem;
@@ -405,7 +413,13 @@ public static class OxygenMachineJeiCategory implements IRecipeCategory<OxygenMa
 			this.title = "Oxygen Loader";
 			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygenmachineguitexture.png"), 0, 0, 144, 84);
 		}
-
+        @Override
+        public List<ITextComponent> getTooltipStrings(OxygenMachineRecipeWrapper recipe, double mouseX, double mouseY) {
+                if (mouseX > 102 && mouseX < 127 && mouseY > 16 && mouseY < 65) {
+                return Collections.singletonList(new TranslationTextComponent("Energy" + " FE / 9000.0 FE"));
+           }
+            return Collections.emptyList();
+        }
 		@Override
 		public ResourceLocation getUid() {
 			return Uid;
