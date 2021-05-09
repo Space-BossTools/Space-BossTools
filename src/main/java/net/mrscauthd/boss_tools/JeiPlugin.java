@@ -466,11 +466,11 @@ public class JeiPlugin implements IModPlugin {
         }
         @Override
         public List<ITextComponent> getTooltipStrings(OxygenMachineRecipeWrapper recipe, double mouseX, double mouseY) {
-                counter = counter - 1;
-                if (counter <= 0){
-                    counter = 9000;
-            }
-            animation = counter;
+            //   counter = counter - 1;
+            //    if (counter <= 0){
+            //        counter = 9000;
+            // }
+            // animation = counter;
             if (mouseX > 102 && mouseX < 127 && mouseY > 16 && mouseY < 65) {
                 return Collections.singletonList(new TranslationTextComponent(animation + " FE / 9000.0 FE"));
             }
@@ -494,6 +494,13 @@ public class JeiPlugin implements IModPlugin {
 
         @Override
         public IDrawable getBackground() {
+            //animation tick
+            counter = counter - 1;
+            if (counter <= 0){
+                counter = 9000;
+            }
+            animation = counter;
+            //animation tick
             if (counter >= 360 && counter <= 720) {
                 return textureanimation1;
             }
