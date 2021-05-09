@@ -179,6 +179,7 @@ public class JeiPlugin implements IModPlugin {
         ArrayList<ItemStack> outputs = new ArrayList<>();
         inputs.add(new ItemStack(SpaceArmorItem.body));
         inputs.add(new ItemStack(Items.OAK_LEAVES));
+        inputs.get(0).getTag().putDouble("Energy", 48000);
         // ...
         recipes.add(new OxygenMachineJeiCategory.OxygenMachineRecipeWrapper(inputs));
         return recipes;
@@ -492,7 +493,7 @@ public class JeiPlugin implements IModPlugin {
             return title;
         }
 
-        @Override
+       @Override
         public IDrawable getBackground() {
             //animation tick
             counter = counter - 1;
@@ -540,34 +541,34 @@ public class JeiPlugin implements IModPlugin {
             if (counter >= 4680 && counter <= 5040) {
                 return textureanimation13;
             }
-            if (counter >= 5040 && counter <= 5760) {
+            if (counter >= 5040 && counter <= 5400) {
                 return textureanimation14;
             }
-            if (counter >= 5760 && counter <= 6120) {
+            if (counter >= 5040 && counter <= 5760) {
                 return textureanimation15;
             }
-            if (counter >= 6120 && counter <= 6480) {
+            if (counter >= 5760 && counter <= 6120) {
                 return textureanimation16;
             }
-            if (counter >= 6480 && counter <= 6840) {
+            if (counter >= 6120 && counter <= 6480) {
                 return textureanimation17;
             }
-            if (counter >= 6840 && counter <= 7200) {
+            if (counter >= 6480 && counter <= 6840) {
                 return textureanimation18;
             }
-            if (counter >= 7200 && counter <= 7560) {
+            if (counter >= 6840 && counter <= 7200) {
                 return textureanimation19;
             }
-            if (counter >= 7560 && counter <= 7920) {
+            if (counter >= 7200 && counter <= 7560) {
                 return textureanimation20;
             }
-            if (counter >= 7920 && counter <= 8280) {
+            if (counter >= 7560 && counter <= 8000) {
                 return textureanimation21;
             }
-            if (counter >= 8280 && counter <= 8640) {
+            if (counter >= 8000 && counter <= 8560) {
                 return textureanimation22;
             }
-            if (counter >= 8640 && counter <= 9000) {
+            if (counter >= 8560 && counter <= 9000) {
                 return textureanimation23;
             }
             return background;
@@ -593,6 +594,8 @@ public class JeiPlugin implements IModPlugin {
             stacks.set(input1, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
             stacks.set(input2, iIngredients.getInputs(VanillaTypes.ITEM).get(1));
             // ...
+            //stacks.getGuiIngredients().get(0).getDisplayedIngredient().getTag().putDouble("Energy", stacks.getGuiIngredients().get(0).getDisplayedIngredient().getTag().getDouble("Energy") + 1);
+            //System.out.println("test");
         }
         public static class OxygenMachineRecipeWrapper {
             private ArrayList input;
