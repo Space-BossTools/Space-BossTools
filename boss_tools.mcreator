@@ -5612,7 +5612,7 @@
       "type": "item",
       "sortid": 2,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_2_rocket",
       "path": "~/Items"
@@ -5622,7 +5622,7 @@
       "type": "procedure",
       "sortid": 320,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_2_rocket_item_right_clicked_on_block",
       "metadata": {
@@ -5656,7 +5656,7 @@
       "type": "item",
       "sortid": 3,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_3_rocket",
       "path": "~/Items"
@@ -5666,7 +5666,7 @@
       "type": "procedure",
       "sortid": 321,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_3_rocket_item_right_clicked_on_block",
       "metadata": {

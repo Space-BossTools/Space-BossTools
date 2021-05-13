@@ -11,9 +11,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.IWorld;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.ResourceLocation;
@@ -26,8 +23,6 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.Entity;
-import net.minecraft.command.ICommandSource;
-import net.minecraft.command.CommandSource;
 import net.minecraft.block.Blocks;
 
 import java.util.Map;
@@ -75,10 +70,21 @@ public class Tier1RocketItemPlacedProcedure extends BossToolsModElements.ModElem
 				if (((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY).getOrCreateTag()
 						.getDouble("Rocketfuel")) == 0)) {
 					if (world instanceof ServerWorld) {
-						((World) world).getServer().getCommandManager().handleCommand(
-								new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-										new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-								"/summon boss_tools:rocket ~0.5 ~1 ~0.5");
+						Entity entityToSpawn = new RocketEntity.CustomEntity(RocketEntity.entity, (World) world);
+						entityToSpawn.setLocationAndAngles((x + 0.5), (y + 1), (z + 0.5), (float) 0, (float) 0);
+						entityToSpawn.setRenderYawOffset((float) 0);
+						entityToSpawn.setMotion(0, 0, 0);
+						entityToSpawn.rotationYaw = (float) (0);
+						entityToSpawn.setRenderYawOffset(entityToSpawn.rotationYaw);
+						entityToSpawn.prevRotationYaw = entityToSpawn.rotationYaw;
+						if (entityToSpawn instanceof MobEntity)
+							((MobEntity) entityToSpawn).prevRenderYawOffset = entityToSpawn.rotationYaw;
+						((MobEntity) entityToSpawn).rotationYawHead = entityToSpawn.rotationYaw;
+						((MobEntity) entityToSpawn).prevRotationYawHead = entityToSpawn.rotationYaw;
+						((MobEntity) entityToSpawn).onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(entityToSpawn.getPosition()),
+								SpawnReason.MOB_SUMMONED, (ILivingEntityData) null, (CompoundNBT) null);
+						entityToSpawn.getPersistentData().putDouble("Rocketfuel", 0);
+						world.addEntity(entityToSpawn);
 					}
 					if (world instanceof World && !world.isRemote()) {
 						((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
@@ -117,7 +123,6 @@ public class Tier1RocketItemPlacedProcedure extends BossToolsModElements.ModElem
 						entityToSpawn.getPersistentData().putDouble("fuel",
 								(((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY).getOrCreateTag()
 										.getDouble("fuel")));
-										
 						world.addEntity(entityToSpawn);
 					}
 					if (world instanceof World && !world.isRemote()) {

@@ -62,6 +62,7 @@ public class Rockethurtentity2Procedure extends BossToolsModElements.ModElement 
 		double y = dependencies.get("y") instanceof Integer ? (int) dependencies.get("y") : (double) dependencies.get("y");
 		double z = dependencies.get("z") instanceof Integer ? (int) dependencies.get("z") : (double) dependencies.get("z");
 		IWorld world = (IWorld) dependencies.get("world");
+		ItemStack itemfuel = ItemStack.EMPTY;
 		if ((!(entity.isBeingRidden()))) {
 			if (((new Object() {
 				public ItemStack getItemStack(int sltid, Entity entity) {
@@ -113,12 +114,23 @@ public class Rockethurtentity2Procedure extends BossToolsModElements.ModElement 
 					world.addEntity(entityToSpawn);
 				}
 			}
-			if (!entity.world.isRemote())
-				entity.remove();
-			if (world instanceof World && !world.isRemote()) {
-				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(Tier2RocketItemItem.block, (int) (1)));
-				entityToSpawn.setPickupDelay((int) 10);
-				world.addEntity(entityToSpawn);
+			if (((entity.getPersistentData().getDouble("Rocketfuel")) == 0)) {
+				if (world instanceof World && !world.isRemote()) {
+					ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(Tier2RocketItemItem.block, (int) (1)));
+					entityToSpawn.setPickupDelay((int) 10);
+					world.addEntity(entityToSpawn);
+				}
+			}
+			if (((entity.getPersistentData().getDouble("Rocketfuel")) == 1)) {
+				itemfuel = new ItemStack(Tier2RocketItemItem.block, (int) (1));
+				(itemfuel).getOrCreateTag().putDouble("Rocketfuel", 1);
+				(itemfuel).getOrCreateTag().putDouble("fuel", (entity.getPersistentData().getDouble("fuel")));
+				(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 4));
+				if (world instanceof World && !world.isRemote()) {
+					ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
+					entityToSpawn.setPickupDelay((int) 10);
+					world.addEntity(entityToSpawn);
+				}
 			}
 			if (world instanceof ServerWorld) {
 				((World) world).getServer().getCommandManager().handleCommand(
@@ -126,6 +138,8 @@ public class Rockethurtentity2Procedure extends BossToolsModElements.ModElement 
 								new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
 						"/stopsound @p neutral boss_tools:rocketfly");
 			}
+			if (!entity.world.isRemote())
+				entity.remove();
 		}
 	}
 }

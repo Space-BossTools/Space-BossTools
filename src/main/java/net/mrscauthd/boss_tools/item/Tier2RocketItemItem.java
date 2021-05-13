@@ -8,6 +8,8 @@ import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.minecraftforge.registries.ObjectHolder;
 
 import net.minecraft.world.World;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ActionResultType;
@@ -16,9 +18,11 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.block.BlockState;
 
 import java.util.Map;
+import java.util.List;
 import java.util.HashMap;
 
 @BossToolsModElements.ModElement.Tag
@@ -52,6 +56,13 @@ public class Tier2RocketItemItem extends BossToolsModElements.ModElement {
 		@Override
 		public float getDestroySpeed(ItemStack par1ItemStack, BlockState par2Block) {
 			return 1F;
+		}
+
+		@Override
+		public void addInformation(ItemStack itemstack, World world, List<ITextComponent> list, ITooltipFlag flag) {
+			super.addInformation(itemstack, world, list, flag);
+			int fuel = (int) (itemstack.getOrCreateTag().getDouble("fuelgui"));
+			list.add(new StringTextComponent(fuel + "%" + " " + "Fuel"));
 		}
 
 		@Override
