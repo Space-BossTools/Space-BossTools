@@ -39,6 +39,7 @@ public class FuelSyncEventProcedure extends BossToolsModElements.ModElement {
 		registerMessages();
 		MinecraftForge.EVENT_BUS.register(this);
 	}
+	
 
 	public static void executeProcedure(Map<String, Object> dependencies) {
 	}
