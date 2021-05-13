@@ -62,6 +62,7 @@ public class RocketEntityIsHurt1Procedure extends BossToolsModElements.ModElemen
 		double y = dependencies.get("y") instanceof Integer ? (int) dependencies.get("y") : (double) dependencies.get("y");
 		double z = dependencies.get("z") instanceof Integer ? (int) dependencies.get("z") : (double) dependencies.get("z");
 		IWorld world = (IWorld) dependencies.get("world");
+		ItemStack itemfuel = ItemStack.EMPTY;
 		if ((!(entity.isBeingRidden()))) {
 			if (((new Object() {
 				public ItemStack getItemStack(int sltid, Entity entity) {
@@ -115,10 +116,21 @@ public class RocketEntityIsHurt1Procedure extends BossToolsModElements.ModElemen
 			}
 			if (!entity.world.isRemote())
 				entity.remove();
-			if (world instanceof World && !world.isRemote()) {
-				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(Tier1RocketItemItem.block, (int) (1)));
-				entityToSpawn.setPickupDelay((int) 10);
-				world.addEntity(entityToSpawn);
+			if (((entity.getPersistentData().getDouble("Rocketfuel")) == 0)) {
+				if (world instanceof World && !world.isRemote()) {
+					ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(Tier1RocketItemItem.block, (int) (1)));
+					entityToSpawn.setPickupDelay((int) 10);
+					world.addEntity(entityToSpawn);
+				}
+			}
+			if (((entity.getPersistentData().getDouble("Rocketfuel")) == 1)) {
+				itemfuel = new ItemStack(Tier1RocketItemItem.block, (int) (1));
+				(itemfuel).getOrCreateTag().putDouble("fuel", 100);
+				if (world instanceof World && !world.isRemote()) {
+					ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
+					entityToSpawn.setPickupDelay((int) 10);
+					world.addEntity(entityToSpawn);
+				}
 			}
 			if (world instanceof ServerWorld) {
 				((World) world).getServer().getCommandManager().handleCommand(

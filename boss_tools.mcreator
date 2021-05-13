@@ -7617,7 +7617,7 @@
       "type": "item",
       "sortid": 1,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_1_rocket",
       "path": "~/Items"
@@ -9440,7 +9440,7 @@
       "type": "procedure",
       "sortid": 613,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_1_rocket_item_placed",
       "metadata": {
