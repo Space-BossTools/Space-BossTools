@@ -114,8 +114,6 @@ public class RocketEntityIsHurt1Procedure extends BossToolsModElements.ModElemen
 					world.addEntity(entityToSpawn);
 				}
 			}
-			if (!entity.world.isRemote())
-				entity.remove();
 			if (((entity.getPersistentData().getDouble("Rocketfuel")) == 0)) {
 				if (world instanceof World && !world.isRemote()) {
 					ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(Tier1RocketItemItem.block, (int) (1)));
@@ -125,7 +123,9 @@ public class RocketEntityIsHurt1Procedure extends BossToolsModElements.ModElemen
 			}
 			if (((entity.getPersistentData().getDouble("Rocketfuel")) == 1)) {
 				itemfuel = new ItemStack(Tier1RocketItemItem.block, (int) (1));
-				(itemfuel).getOrCreateTag().putDouble("fuel", 100);
+				(itemfuel).getOrCreateTag().putDouble("Rocketfuel", 1);
+				(itemfuel).getOrCreateTag().putDouble("fuel", (entity.getPersistentData().getDouble("fuel")));
+				(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 4));
 				if (world instanceof World && !world.isRemote()) {
 					ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
 					entityToSpawn.setPickupDelay((int) 10);
@@ -138,6 +138,8 @@ public class RocketEntityIsHurt1Procedure extends BossToolsModElements.ModElemen
 								new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
 						"/stopsound @p neutral boss_tools:rocketfly");
 			}
+			if (!entity.world.isRemote())
+				entity.remove();
 		}
 	}
 }
