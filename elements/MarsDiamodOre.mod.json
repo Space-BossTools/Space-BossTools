@@ -44,7 +44,7 @@
             "maxCount": 1,
             "minEnchantmentLevel": 1,
             "maxEnchantmentLevel": 3,
-            "affectedByFortune": false,
+            "affectedByFortune": true,
             "explosionDecay": true,
             "silkTouchMode": 2
           }
