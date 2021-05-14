@@ -113,7 +113,7 @@
       "type": "armor",
       "sortid": 11,
       "compiles": true,
-      "locked_code": true,
+      "locked_code": false,
       "ids": {},
       "registry_name": "space_armor",
       "metadata": {
@@ -11071,7 +11071,7 @@
   "workspaceSettings": {
     "modid": "boss_tools",
     "modName": "Space-Bosstools",
-    "version": "5.1",
+    "version": "5.2",
     "description": "Fly to Other Planets!",
     "author": "MrScautHD,PixKnight (Textures),Galacticraft (Mod idea)",
     "websiteURL": "https://www.curseforge.com/minecraft/mc-mods/space-bosstools",
