@@ -62,7 +62,7 @@ public class Tier1RocketItemItem extends BossToolsModElements.ModElement {
 		public void addInformation(ItemStack itemstack, World world, List<ITextComponent> list, ITooltipFlag flag) {
 			super.addInformation(itemstack, world, list, flag);
 			int fuel = (int) (itemstack.getOrCreateTag().getDouble("fuelgui"));
-			list.add(new StringTextComponent(fuel + "%" + " " + "Fuel"));
+			list.add(new StringTextComponent("\u00A77" + fuel + "%" + " " + "\u00A79Fuel"));
 		}
 
 		@Override

@@ -1,6 +1,8 @@
 
 package net.mrscauthd.boss_tools.item;
 
+import org.lwjgl.opengl.GL11;
+
 import net.mrscauthd.boss_tools.procedures.SpaceArmorLeggingsTickEventProcedure;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorHelmetTickEventProcedure;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorBootsTickEventProcedure;
@@ -99,6 +101,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.HEAD, new Item.Properties().group(BossToolsItemGroup.tab)) {
 			@Override
 			public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
+				GL11.glEnable(GL11.GL_BLEND);
 				return "boss_tools:textures/models/armor/spacesuitmode__layer_" + (slot == EquipmentSlotType.LEGS ? "2" : "1") + ".png";
 			}
 
@@ -119,6 +122,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 			@Override
 			@OnlyIn(Dist.CLIENT)
 			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
+				GL11.glEnable(GL11.GL_BLEND);
 				BipedModel armorModel = new BipedModel(1);
 				armorModel.bipedBody = new Modelspacesuitnew().Body;
 				armorModel.bipedLeftArm = new Modelspacesuitnew().arml;
@@ -138,6 +142,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 
 			@Override
 			public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
+				//GL11.glEnable(GL11.GL_BLEND);
 				return "boss_tools:textures/models/armor/spacesuitmode__layer_" + (slot == EquipmentSlotType.LEGS ? "2" : "1") + ".png";
 			}
 
@@ -158,6 +163,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.LEGS, new Item.Properties().group(BossToolsItemGroup.tab)) {
 			@Override
 			public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
+				//GL11.glEnable(GL11.GL_BLEND);
 				return "boss_tools:textures/models/armor/spacesuitmode__layer_" + (slot == EquipmentSlotType.LEGS ? "2" : "1") + ".png";
 			}
 
@@ -176,6 +182,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.FEET, new Item.Properties().group(BossToolsItemGroup.tab)) {
 			@Override
 			public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
+				//GL11.glEnable(GL11.GL_BLEND);
 				return "boss_tools:textures/models/armor/spacesuitmode__layer_" + (slot == EquipmentSlotType.LEGS ? "2" : "1") + ".png";
 			}
 
@@ -201,6 +208,8 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 		private final ModelRenderer armr;
 		private final ModelRenderer arml;
 		public Modelspacesuitnew() {
+			// render
+			//GL11.glEnable(GL11.GL_BLEND);
 			textureWidth = 64;
 			textureHeight = 32;
 			kopf = new ModelRenderer(this);
@@ -353,15 +362,16 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 			arml.setRotationPoint(5.0F, 2.0F, 0.0F);
 			arml.setTextureOffset(40, 16).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.25F, false);
 			arml.setTextureOffset(40, 16).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.0F, false);
+			//GL11.glDisable(GL11.GL_BLEND);
 		}
 
 		@Override
 		public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue,
 				float alpha) {
-			kopf.render(matrixStack, buffer, packedLight, packedOverlay);
-			Body.render(matrixStack, buffer, packedLight, packedOverlay);
-			armr.render(matrixStack, buffer, packedLight, packedOverlay);
-			arml.render(matrixStack, buffer, packedLight, packedOverlay);
+				kopf.render(matrixStack, buffer, packedLight, packedOverlay);
+				Body.render(matrixStack, buffer, packedLight, packedOverlay);
+				armr.render(matrixStack, buffer, packedLight, packedOverlay);
+				arml.render(matrixStack, buffer, packedLight, packedOverlay);
 		}
 
 		public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
