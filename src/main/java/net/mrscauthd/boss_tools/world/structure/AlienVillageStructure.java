@@ -84,8 +84,8 @@ public class AlienVillageStructure extends Structure<NoFeatureConfig> {
 	 *       that are not your own.
 	 */
 	private static final List<MobSpawnInfo.Spawners> STRUCTURE_MONSTERS = ImmutableList.of(
-			new MobSpawnInfo.Spawners(EntityType.ILLUSIONER, 100, 4, 9),
-			new MobSpawnInfo.Spawners(EntityType.VINDICATOR, 100, 4, 9)
+			//new MobSpawnInfo.Spawners(EntityType.ILLUSIONER, 100, 4, 9),
+			//new MobSpawnInfo.Spawners(EntityType.VINDICATOR, 100, 4, 9)
 	);
 	@Override
 	public List<MobSpawnInfo.Spawners> getDefaultSpawnList() {
@@ -93,8 +93,8 @@ public class AlienVillageStructure extends Structure<NoFeatureConfig> {
 	}
 
 	private static final List<MobSpawnInfo.Spawners> STRUCTURE_CREATURES = ImmutableList.of(
-			new MobSpawnInfo.Spawners(EntityType.SHEEP, 30, 10, 15),
-			new MobSpawnInfo.Spawners(EntityType.RABBIT, 100, 1, 2)
+			//new MobSpawnInfo.Spawners(EntityType.SHEEP, 30, 10, 15),
+			//new MobSpawnInfo.Spawners(EntityType.RABBIT, 100, 1, 2)
 	);
 	@Override
 	public List<MobSpawnInfo.Spawners> getDefaultCreatureSpawnList() {

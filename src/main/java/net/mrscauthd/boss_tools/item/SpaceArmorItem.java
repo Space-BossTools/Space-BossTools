@@ -1,8 +1,6 @@
 
 package net.mrscauthd.boss_tools.item;
 
-import org.lwjgl.opengl.GL11;
-
 import net.mrscauthd.boss_tools.procedures.SpaceArmorLeggingsTickEventProcedure;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorHelmetTickEventProcedure;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorBootsTickEventProcedure;
@@ -51,7 +49,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:space_armor_boots")
 	public static final Item boots = null;
 	public SpaceArmorItem(BossToolsModElements instance) {
-		super(instance, 12);
+		super(instance, 11);
 	}
 
 	@Override
@@ -100,9 +98,19 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 		};
 		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.HEAD, new Item.Properties().group(BossToolsItemGroup.tab)) {
 			@Override
+			@OnlyIn(Dist.CLIENT)
+			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
+				BipedModel armorModel = new BipedModel(1);
+				armorModel.bipedHead = new Modelspacesuit().kopf;
+				armorModel.isSneak = living.isSneaking();
+				armorModel.isSitting = defaultModel.isSitting;
+				armorModel.isChild = living.isChild();
+				return armorModel;
+			}
+
+			@Override
 			public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-				GL11.glEnable(GL11.GL_BLEND);
-				return "boss_tools:textures/models/armor/spacesuitmode__layer_" + (slot == EquipmentSlotType.LEGS ? "2" : "1") + ".png";
+				return "boss_tools:textures/spacesuitmode__layer_1_head.png";
 			}
 
 			@Override
@@ -122,11 +130,10 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 			@Override
 			@OnlyIn(Dist.CLIENT)
 			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
-				// GL11.glEnable(GL11.GL_BLEND);
 				BipedModel armorModel = new BipedModel(1);
-				armorModel.bipedBody = new Modelspacesuitnew().Body;
-				armorModel.bipedLeftArm = new Modelspacesuitnew().arml;
-				armorModel.bipedRightArm = new Modelspacesuitnew().armr;
+				armorModel.bipedBody = new Modelspacesuit().Body;
+				armorModel.bipedLeftArm = new Modelspacesuit().arml;
+				armorModel.bipedRightArm = new Modelspacesuit().armr;
 				armorModel.isSneak = living.isSneaking();
 				armorModel.isSitting = defaultModel.isSitting;
 				armorModel.isChild = living.isChild();
@@ -142,7 +149,6 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 
 			@Override
 			public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-				GL11.glEnable(GL11.GL_BLEND);
 				return "boss_tools:textures/models/armor/spacesuitmode__layer_" + (slot == EquipmentSlotType.LEGS ? "2" : "1") + ".png";
 			}
 
@@ -162,9 +168,20 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 		}.setRegistryName("space_armor_chestplate"));
 		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.LEGS, new Item.Properties().group(BossToolsItemGroup.tab)) {
 			@Override
+			@OnlyIn(Dist.CLIENT)
+			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
+				BipedModel armorModel = new BipedModel(1);
+				armorModel.bipedLeftLeg = new Modelarmor_leggings().LeftLeg;
+				armorModel.bipedRightLeg = new Modelarmor_leggings().RightLeg;
+				armorModel.isSneak = living.isSneaking();
+				armorModel.isSitting = defaultModel.isSitting;
+				armorModel.isChild = living.isChild();
+				return armorModel;
+			}
+
+			@Override
 			public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-				GL11.glEnable(GL11.GL_BLEND);
-				return "boss_tools:textures/models/armor/spacesuitmode__layer_" + (slot == EquipmentSlotType.LEGS ? "2" : "1") + ".png";
+				return "boss_tools:textures/spacesuitmode__layer_2.png";
 			}
 
 			@Override
@@ -181,8 +198,19 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 		}.setRegistryName("space_armor_leggings"));
 		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.FEET, new Item.Properties().group(BossToolsItemGroup.tab)) {
 			@Override
+			@OnlyIn(Dist.CLIENT)
+			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
+				BipedModel armorModel = new BipedModel(1);
+				armorModel.bipedLeftLeg = new Modelspacesuit().Left_Foot;
+				armorModel.bipedRightLeg = new Modelspacesuit().Right_Foot;
+				armorModel.isSneak = living.isSneaking();
+				armorModel.isSitting = defaultModel.isSitting;
+				armorModel.isChild = living.isChild();
+				return armorModel;
+			}
+
+			@Override
 			public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-				GL11.glEnable(GL11.GL_BLEND);
 				return "boss_tools:textures/models/armor/spacesuitmode__layer_" + (slot == EquipmentSlotType.LEGS ? "2" : "1") + ".png";
 			}
 
@@ -199,170 +227,44 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 			}
 		}.setRegistryName("space_armor_boots"));
 	}
-	// Made with Blockbench 3.6.0
-	// Exported for Minecraft version 1.15
+	// Made with Blockbench 3.8.4
+	// Exported for Minecraft version 1.15 - 1.16
 	// Paste this class into your mod and generate all required imports
-	public static class Modelspacesuitnew extends EntityModel<Entity> {
+	public static class Modelspacesuit extends EntityModel<Entity> {
 		private final ModelRenderer kopf;
 		private final ModelRenderer Body;
 		private final ModelRenderer armr;
 		private final ModelRenderer arml;
-		public Modelspacesuitnew() {
-			// render
-			// GL11.glEnable(GL11.GL_BLEND);
+		private final ModelRenderer Left_Foot;
+		private final ModelRenderer Right_Foot;
+		public Modelspacesuit() {
 			textureWidth = 64;
-			textureHeight = 32;
+			textureHeight = 64;
 			kopf = new ModelRenderer(this);
 			kopf.setRotationPoint(0.0F, 0.0F, 0.0F);
 			setRotationAngle(kopf, -0.0175F, 0.0873F, 0.0F);
-			kopf.setTextureOffset(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, 0.0F, false);
+			kopf.setTextureOffset(0, 16).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, 0.0F, false);
 			kopf.setTextureOffset(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, 0.5F, false);
 			Body = new ModelRenderer(this);
 			Body.setRotationPoint(0.0F, 0.0F, 0.0F);
-			Body.setTextureOffset(16, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, 0.0F, false);
-			Body.setTextureOffset(16, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, 0.25F, false);
-			Body.setTextureOffset(60, 2).addBox(-3.5F, 8.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 0).addBox(-1.5F, 2.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(0.5F, 8.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 0).addBox(2.5F, 2.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 0).addBox(-1.5F, 3.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 0).addBox(2.5F, 3.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-1.5F, 4.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(2.5F, 4.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-1.5F, 5.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(2.5F, 5.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-1.5F, 6.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(2.5F, 6.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-1.5F, 7.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(2.5F, 7.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-1.5F, 8.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(2.5F, 8.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 0).addBox(-1.5F, 2.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 0).addBox(2.5F, 2.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 0).addBox(-1.5F, 3.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 0).addBox(2.5F, 3.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-1.5F, 4.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(2.5F, 4.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-1.5F, 5.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(2.5F, 5.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-1.5F, 6.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(2.5F, 6.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-1.5F, 7.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(2.5F, 7.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-1.5F, 8.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(2.5F, 8.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 0).addBox(-1.5F, 2.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 0).addBox(2.5F, 2.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 0).addBox(-1.5F, 3.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 0).addBox(2.5F, 3.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-1.5F, 4.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(2.5F, 4.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-1.5F, 5.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(2.5F, 5.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-1.5F, 6.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(2.5F, 6.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-1.5F, 7.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(2.5F, 7.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-1.5F, 8.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(2.5F, 8.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 0).addBox(-2.5F, 2.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 0).addBox(1.5F, 2.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 0).addBox(-2.5F, 3.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-2.5F, 4.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-2.5F, 5.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-2.5F, 6.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-2.5F, 7.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-2.5F, 8.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(1.5F, 8.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 0).addBox(-2.5F, 2.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 0).addBox(1.5F, 2.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 0).addBox(-2.5F, 3.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-2.5F, 4.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-2.5F, 5.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-2.5F, 6.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-2.5F, 7.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-2.5F, 8.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(1.5F, 8.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 0).addBox(-2.5F, 2.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 0).addBox(1.5F, 2.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 0).addBox(-2.5F, 7.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 0).addBox(1.5F, 7.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 2).addBox(-2.5F, 3.0F, 5.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 2).addBox(1.5F, 3.0F, 5.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 2).addBox(-2.5F, 2.0F, 6.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 2).addBox(1.5F, 2.0F, 6.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 2).addBox(-2.5F, 1.0F, 6.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 2).addBox(1.5F, 1.0F, 6.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 2).addBox(-2.5F, 0.0F, 6.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 2).addBox(1.5F, 0.0F, 6.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 2).addBox(-2.5F, -1.0F, 6.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 2).addBox(1.5F, -1.0F, 6.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 2).addBox(-2.5F, -2.0F, 5.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 2).addBox(1.5F, -2.0F, 5.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 2).addBox(-2.5F, -3.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 2).addBox(1.5F, -3.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 2).addBox(-2.5F, -3.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 2).addBox(1.5F, -3.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 2).addBox(-2.5F, -3.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 2).addBox(1.5F, -3.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 0).addBox(-2.5F, 3.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-2.5F, 4.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(1.5F, 4.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-2.5F, 5.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(1.5F, 5.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-2.5F, 6.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(1.5F, 6.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-2.5F, 8.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(1.5F, 8.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 0).addBox(-3.5F, 2.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 0).addBox(0.5F, 2.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 0).addBox(-3.5F, 3.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 0).addBox(0.5F, 3.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-3.5F, 4.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(0.5F, 4.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-3.5F, 5.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(0.5F, 5.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-3.5F, 6.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(0.5F, 6.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-3.5F, 7.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(0.5F, 7.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-3.5F, 8.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(0.5F, 8.0F, 2.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 0).addBox(-3.5F, 2.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 0).addBox(0.5F, 2.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 0).addBox(-3.5F, 3.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 0).addBox(0.5F, 3.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-3.5F, 4.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(0.5F, 4.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-3.5F, 5.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(0.5F, 5.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-3.5F, 6.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(0.5F, 6.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-3.5F, 7.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(0.5F, 7.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-3.5F, 8.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(0.5F, 8.0F, 3.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 0).addBox(-3.5F, 2.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 0).addBox(0.5F, 2.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 0).addBox(-3.5F, 3.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(56, 0).addBox(0.5F, 3.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-3.5F, 4.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(0.5F, 4.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-3.5F, 5.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(0.5F, 5.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-3.5F, 6.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(0.5F, 6.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(-3.5F, 7.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-			Body.setTextureOffset(60, 2).addBox(0.5F, 7.0F, 4.2F, 1.0F, 1.0F, 1.0F, 0.0F, false);
+			Body.setTextureOffset(0, 32).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, 0.0F, false);
+			Body.setTextureOffset(28, 28).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, 0.25F, false);
+			Body.setTextureOffset(50, 29).addBox(-3.0F, 5.0F, -2.5F, 6.0F, 4.0F, 1.0F, 0.25F, false);
+			Body.setTextureOffset(0, 55).addBox(-2.5F, 1.0F, 2.55F, 5.0F, 8.0F, 1.0F, 0.5F, false);
 			armr = new ModelRenderer(this);
 			armr.setRotationPoint(-5.0F, 2.0F, 0.0F);
-			armr.setTextureOffset(40, 16).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.25F, false);
-			armr.setTextureOffset(40, 16).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.0F, false);
+			armr.setTextureOffset(20, 44).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.0F, false);
 			arml = new ModelRenderer(this);
 			arml.setRotationPoint(5.0F, 2.0F, 0.0F);
-			arml.setTextureOffset(40, 16).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.25F, false);
-			arml.setTextureOffset(40, 16).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.0F, false);
-			// GL11.glDisable(GL11.GL_BLEND);
+			arml.setTextureOffset(32, 0).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.0F, false);
+			Left_Foot = new ModelRenderer(this);
+			Left_Foot.setRotationPoint(2.0F, 12.0F, 0.0F);
+			Left_Foot.setTextureOffset(48, 44).addBox(-2.0F, 6.0F, -2.0F, 4.0F, 6.0F, 4.0F, 0.5F, false);
+			Left_Foot.setTextureOffset(48, 54).addBox(-2.0F, 6.0F, -2.0F, 4.0F, 6.0F, 4.0F, 0.25F, false);
+			Right_Foot = new ModelRenderer(this);
+			Right_Foot.setRotationPoint(-2.0F, 12.0F, 0.0F);
+			Right_Foot.setTextureOffset(48, 44).addBox(-2.0F, 6.0F, -2.0F, 4.0F, 6.0F, 4.0F, 0.5F, false);
+			Right_Foot.setTextureOffset(48, 54).addBox(-2.0F, 6.0F, -2.0F, 4.0F, 6.0F, 4.0F, 0.25F, false);
 		}
 
 		@Override
@@ -372,6 +274,42 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 			Body.render(matrixStack, buffer, packedLight, packedOverlay);
 			armr.render(matrixStack, buffer, packedLight, packedOverlay);
 			arml.render(matrixStack, buffer, packedLight, packedOverlay);
+			Left_Foot.render(matrixStack, buffer, packedLight, packedOverlay);
+			Right_Foot.render(matrixStack, buffer, packedLight, packedOverlay);
+		}
+
+		public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
+			modelRenderer.rotateAngleX = x;
+			modelRenderer.rotateAngleY = y;
+			modelRenderer.rotateAngleZ = z;
+		}
+
+		public void setRotationAngles(Entity e, float f, float f1, float f2, float f3, float f4) {
+		}
+	}
+
+	// Made with Blockbench 3.8.4
+	// Exported for Minecraft version 1.15 - 1.16
+	// Paste this class into your mod and generate all required imports
+	public static class Modelarmor_leggings extends EntityModel<Entity> {
+		private final ModelRenderer RightLeg;
+		private final ModelRenderer LeftLeg;
+		public Modelarmor_leggings() {
+			textureWidth = 64;
+			textureHeight = 32;
+			RightLeg = new ModelRenderer(this);
+			RightLeg.setRotationPoint(-1.9F, 12.0F, 0.0F);
+			RightLeg.setTextureOffset(0, 16).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.0F, false);
+			LeftLeg = new ModelRenderer(this);
+			LeftLeg.setRotationPoint(1.9F, 12.0F, 0.0F);
+			LeftLeg.setTextureOffset(0, 16).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.0F, true);
+		}
+
+		@Override
+		public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue,
+				float alpha) {
+			RightLeg.render(matrixStack, buffer, packedLight, packedOverlay);
+			LeftLeg.render(matrixStack, buffer, packedLight, packedOverlay);
 		}
 
 		public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
