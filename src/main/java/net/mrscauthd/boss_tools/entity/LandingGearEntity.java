@@ -27,7 +27,6 @@ import net.minecraft.world.World;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Direction;
@@ -64,7 +63,9 @@ import io.netty.buffer.Unpooled;
 
 @BossToolsModElements.ModElement.Tag
 public class LandingGearEntity extends BossToolsModElements.ModElement {
-	public static EntityType entity = null;
+	public static EntityType entity = (EntityType.Builder.<CustomEntity>create(CustomEntity::new, EntityClassification.MONSTER)
+			.setShouldReceiveVelocityUpdates(true).setTrackingRange(100).setUpdateInterval(3).setCustomClientFactory(CustomEntity::new).immuneToFire()
+			.size(0.6f, 2f)).build("landing_gear").setRegistryName("landing_gear");
 	public LandingGearEntity(BossToolsModElements instance) {
 		super(instance, 92);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new LandingGearRenderer.ModelRegisterHandler());
@@ -73,9 +74,6 @@ public class LandingGearEntity extends BossToolsModElements.ModElement {
 
 	@Override
 	public void initElements() {
-		entity = (EntityType.Builder.<CustomEntity>create(CustomEntity::new, EntityClassification.MONSTER).setShouldReceiveVelocityUpdates(true)
-				.setTrackingRange(100).setUpdateInterval(3).setCustomClientFactory(CustomEntity::new).immuneToFire().size(0.6f, 2f))
-						.build("landing_gear").setRegistryName("landing_gear");
 		elements.entities.add(() -> entity);
 	}
 
@@ -168,6 +166,18 @@ public class LandingGearEntity extends BossToolsModElements.ModElement {
 			if (source == DamageSource.DROWN)
 				return false;
 			if (source == DamageSource.LIGHTNING_BOLT)
+				return false;
+			if (source.isExplosion())
+				return false;
+			if (source.getDamageType().equals("trident"))
+				return false;
+			if (source == DamageSource.ANVIL)
+				return false;
+			if (source == DamageSource.DRAGON_BREATH)
+				return false;
+			if (source == DamageSource.WITHER)
+				return false;
+			if (source.getDamageType().equals("witherSkull"))
 				return false;
 			return super.attackEntityFrom(source, amount);
 		}

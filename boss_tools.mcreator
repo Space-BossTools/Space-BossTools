@@ -10704,6 +10704,15 @@
       "ids": {},
       "registry_name": "mars_diamod_ore",
       "path": "~/LootTable"
+    },
+    {
+      "name": "LanderWaning",
+      "type": "overlay",
+      "sortid": 693,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "lander_waning"
     }
   ],
   "variable_elements": [
