@@ -20,12 +20,9 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.Mirror;
 import net.minecraft.util.Direction;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.StateContainer;
-import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.loot.LootContext;
 import net.minecraft.item.ItemStack;
@@ -39,7 +36,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.IWaterLoggable;
-import net.minecraft.block.HorizontalBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Block;
 
@@ -69,12 +65,11 @@ public class RockedBaseBlock extends BossToolsModElements.ModElement {
 		RenderTypeLookup.setRenderLayer(block, RenderType.getCutout());
 	}
 	public static class CustomBlock extends Block implements IWaterLoggable {
-		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 		public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 		public CustomBlock() {
 			super(Block.Properties.create(Material.ROCK).sound(SoundType.METAL).hardnessAndResistance(5f, 10f).setLightLevel(s -> 0).harvestLevel(1)
 					.harvestTool(ToolType.PICKAXE).setRequiresTool().notSolid().setOpaque((bs, br, bp) -> false));
-			this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(WATERLOGGED, false));
+			this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, false));
 			setRegistryName("rocket_launch_pad");
 		}
 
@@ -86,36 +81,18 @@ public class RockedBaseBlock extends BossToolsModElements.ModElement {
 		@Override
 		public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
 			Vector3d offset = state.getOffset(world, pos);
-			switch ((Direction) state.get(FACING)) {
-				case SOUTH :
-				default :
-					return VoxelShapes.or(makeCuboidShape(16, 0, 16, 0, 2, 0)).withOffset(offset.x, offset.y, offset.z);
-				case NORTH :
-					return VoxelShapes.or(makeCuboidShape(0, 0, 0, 16, 2, 16)).withOffset(offset.x, offset.y, offset.z);
-				case EAST :
-					return VoxelShapes.or(makeCuboidShape(16, 0, 0, 0, 2, 16)).withOffset(offset.x, offset.y, offset.z);
-				case WEST :
-					return VoxelShapes.or(makeCuboidShape(0, 0, 16, 16, 2, 0)).withOffset(offset.x, offset.y, offset.z);
-			}
-		}
-
-		@Override
-		protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-			builder.add(FACING, WATERLOGGED);
-		}
-
-		public BlockState rotate(BlockState state, Rotation rot) {
-			return state.with(FACING, rot.rotate(state.get(FACING)));
-		}
-
-		public BlockState mirror(BlockState state, Mirror mirrorIn) {
-			return state.rotate(mirrorIn.toRotation(state.get(FACING)));
+			return VoxelShapes.or(makeCuboidShape(0, 0, 0, 16, 2, 16)).withOffset(offset.x, offset.y, offset.z);
 		}
 
 		@Override
 		public BlockState getStateForPlacement(BlockItemUseContext context) {
-			boolean flag = context.getWorld().getFluidState(context.getPos()).getFluid() == Fluids.WATER;;
-			return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite()).with(WATERLOGGED, flag);
+			boolean flag = context.getWorld().getFluidState(context.getPos()).getFluid() == Fluids.WATER;
+			return this.getDefaultState().with(WATERLOGGED, flag);
+		}
+
+		@Override
+		protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+			builder.add(WATERLOGGED);
 		}
 
 		@Override
