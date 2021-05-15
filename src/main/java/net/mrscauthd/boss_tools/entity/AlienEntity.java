@@ -247,6 +247,11 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 	public int getXp() {
 		return 0;
 	}
+	//remove despawning
+	@Override
+	public boolean canDespawn(double distanceToClosestPlayer) {
+		return false;
+	}
 
 	@Override
 	public void setXP(int xpIn) {
