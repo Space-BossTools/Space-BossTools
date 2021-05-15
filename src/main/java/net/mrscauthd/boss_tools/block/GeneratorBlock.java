@@ -12,7 +12,6 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.energy.EnergyStorage;
@@ -25,7 +24,6 @@ import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.ITextComponent;
@@ -62,8 +60,6 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.SoundType;
@@ -105,15 +101,11 @@ public class GeneratorBlock extends BossToolsModElements.ModElement {
 			event.getRegistry().register(TileEntityType.Builder.create(CustomTileEntity::new, block).build(null).setRegistryName("coal_generator"));
 		}
 	}
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void clientLoad(FMLClientSetupEvent event) {
-		RenderTypeLookup.setRenderLayer(block, RenderType.getTranslucent());
-	}
+
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 		public static final BooleanProperty ACTIAVATED = BlockStateProperties.LIT;
-		boolean light;
+		boolean light = false;
 		public CustomBlock() {
 			super(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 10f).setLightLevel(s -> 0).harvestLevel(1)
 					.harvestTool(ToolType.PICKAXE).setRequiresTool());
@@ -126,20 +118,6 @@ public class GeneratorBlock extends BossToolsModElements.ModElement {
 		public void addInformation(ItemStack itemstack, IBlockReader world, List<ITextComponent> list, ITooltipFlag flag) {
 			super.addInformation(itemstack, world, list, flag);
 			list.add(new StringTextComponent("\u00A79Producing: \u00A772 \u00A77FE/t"));
-		}
-
-		@Override
-		public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
-			if (light == true) {
-				//System.out.println("test1");
-				return 15;
-			}
-			if (light == false) {
-				//System.out.println("test1");
-				return 0;
-			}
-			//System.out.println("test");
-			return super.getLightValue(state, world, pos);
 		}
 
 		@Override
@@ -200,15 +178,6 @@ public class GeneratorBlock extends BossToolsModElements.ModElement {
 			} else {
 				world.setBlockState(pos, state.with(ACTIAVATED, Boolean.valueOf(false)), 3);
 			}
-			// set light lvl
-			light = (((new Object() {
-				public boolean getValue(IWorld world, BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getBoolean(tag);
-					return false;
-				}
-			}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "activated"))));
 			super.tick(state, world, pos, random);
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();

@@ -143,7 +143,8 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 			@Override
 			public void addInformation(ItemStack itemstack, World world, List<ITextComponent> list, ITooltipFlag flag) {
 				super.addInformation(itemstack, world, list, flag);
-				list.add(new StringTextComponent("<ENBT:number:Energy>"));
+				list.add(new StringTextComponent(
+						"\u00A79Oxygen:\u00A76 " + String.valueOf(itemstack.getOrCreateTag().getDouble("Energy")) + "\u00A78 | \u00A7c48000.0"));
 			}
 
 			@Override

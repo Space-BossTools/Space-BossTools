@@ -3,44 +3,6 @@ package net.mrscauthd.boss_tools.gui;
 
 import org.lwjgl.opengl.GL11;
 
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery9Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery8Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery7Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery6Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery5Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery4Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery3Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery2Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery23Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery22Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery21Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery20Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery19Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery18Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery17Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery16Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery15Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery14Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery13Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery12Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery11Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery10Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEnergyGui1Procedure;
-import net.mrscauthd.boss_tools.procedures.BlastFurnaceFireProcedure;
-import net.mrscauthd.boss_tools.procedures.BlastFurnaceFire9Procedure;
-import net.mrscauthd.boss_tools.procedures.BlastFurnaceFire8Procedure;
-import net.mrscauthd.boss_tools.procedures.BlastFurnaceFire7Procedure;
-import net.mrscauthd.boss_tools.procedures.BlastFurnaceFire6Procedure;
-import net.mrscauthd.boss_tools.procedures.BlastFurnaceFire5Procedure;
-import net.mrscauthd.boss_tools.procedures.BlastFurnaceFire4Procedure;
-import net.mrscauthd.boss_tools.procedures.BlastFurnaceFire3Procedure;
-import net.mrscauthd.boss_tools.procedures.BlastFurnaceFire2Procedure;
-import net.mrscauthd.boss_tools.procedures.BlastFurnaceFire14Procedure;
-import net.mrscauthd.boss_tools.procedures.BlastFurnaceFire13Procedure;
-import net.mrscauthd.boss_tools.procedures.BlastFurnaceFire12Procedure;
-import net.mrscauthd.boss_tools.procedures.BlastFurnaceFire11Procedure;
-import net.mrscauthd.boss_tools.procedures.BlastFurnaceFire10Procedure;
-
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
@@ -57,8 +19,6 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.Minecraft;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-
-import com.google.common.collect.ImmutableMap;
 
 @OnlyIn(Dist.CLIENT)
 public class GeneratorGUIGuiWindow extends ContainerScreen<GeneratorGUIGui.GuiContainerMod> {
@@ -93,189 +53,189 @@ public class GeneratorGUIGuiWindow extends ContainerScreen<GeneratorGUIGui.GuiCo
 			}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "energy_fe_gui"))) + " FE / 9000.0 FE"), mouseX, mouseY);
 	}
 
-    @Override
-    protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float par1, int par2, int par3) {
-        GL11.glColor4f(1, 1, 1, 1);
-        Minecraft.getInstance().getTextureManager().bindTexture(texture);
-        int k = (this.width - this.xSize) / 2;
-        int l = (this.height - this.ySize) / 2;
-        this.blit(ms, k, l, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
-        Minecraft.getInstance().getTextureManager()
-                .bindTexture(new ResourceLocation("boss_tools:textures/energy_volume_fractional_vertical_bar_background.png"));
-        this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        //get NBTS
-        //Fire NBT
-        double animation = (double) (new Object() {
-            public double getValue(IWorld world, BlockPos pos, String tag) {
-                TileEntity tileEntity = world.getTileEntity(pos);
-                if (tileEntity != null)
-                    return tileEntity.getTileData().getDouble(tag);
-                return -1;
-            }
-        }.getValue(world, new BlockPos((int) x, (int) y, (int) z), "fire"));
-        //Energy NBT
-        double energyanimation = (double) (new Object() {
-            public double getValue(IWorld world, BlockPos pos, String tag) {
-                TileEntity tileEntity = world.getTileEntity(pos);
-                if (tileEntity != null)
-                    return tileEntity.getTileData().getDouble(tag);
-                return -1;
-            }
-        }.getValue(world, new BlockPos((int) x, (int) y, (int) z), "EnergyGui"));
-        //Background
-        Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off.png"));
-        this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
-        //Fire Animation
-        if (animation <= 108) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_on.png"));
-            this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 14, 14, 14, 14);
-        }
-        if (animation <= 100) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off2.png"));
-            this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
-        }
-        if (animation <= 92) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off3.png"));
-            this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
-        }
-        if (animation <= 84) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off4.png"));
-            this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
-        }
-        if (animation <= 76) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off5.png"));
-            this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
-        }
-        if (animation <= 68) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off6.png"));
-            this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
-        }
-        if (animation <= 60) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off7.png"));
-            this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
-        }
-        if (animation <= 52) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off8.png"));
-            this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
-        }
-        if (animation <= 44) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off9.png"));
-            this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
-        }
-        if (animation <= 36) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off10.png"));
-            this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
-        }
-        if (animation <= 28) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off11.png"));
-            this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
-        }
-        if (animation <= 20) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off12.png"));
-            this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
-        }
-        if (animation <= 12) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off13.png"));
-            this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
-        }
-        if (animation <= 1) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off14.png"));
-            this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
-        }
-        //Energy bar
-        if (energyanimation >= 360) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull0.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-        if (energyanimation >= 720) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull1.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-        if (energyanimation >= 1080) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull2.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-        if (energyanimation >= 1440) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull3.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-        if (energyanimation >= 1800) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull4.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-        if (energyanimation >= 2160) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull5.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-        if (energyanimation >= 2520) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull6.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-        if (energyanimation >= 3240) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull7.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-        if (energyanimation >= 3600) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull8.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-        if (energyanimation >= 3960) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull9.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-        if (energyanimation >= 4320) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull10.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-        if (energyanimation >= 4680) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull11.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-        if (energyanimation >= 5040) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull12.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-        if (energyanimation >= 5400) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull13.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-        if (energyanimation >= 5760) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull14.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-        if (energyanimation >= 6120) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull15.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-        if (energyanimation >= 6480) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull16.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-        if (energyanimation >= 6840) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull17.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-        if (energyanimation >= 7200) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull18.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-        if (energyanimation >= 7560) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull19.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-        if (energyanimation >= 8000) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull20.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-        if (energyanimation >= 8560) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull21.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-        if (energyanimation >= 9000) {
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull22.png"));
-            this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-        }
-    }
+	@Override
+	protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float par1, int par2, int par3) {
+		GL11.glColor4f(1, 1, 1, 1);
+		Minecraft.getInstance().getTextureManager().bindTexture(texture);
+		int k = (this.width - this.xSize) / 2;
+		int l = (this.height - this.ySize) / 2;
+		this.blit(ms, k, l, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
+		Minecraft.getInstance().getTextureManager()
+				.bindTexture(new ResourceLocation("boss_tools:textures/energy_volume_fractional_vertical_bar_background.png"));
+		this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		// get NBTS
+		// Fire NBT
+		double animation = (double) (new Object() {
+			public double getValue(IWorld world, BlockPos pos, String tag) {
+				TileEntity tileEntity = world.getTileEntity(pos);
+				if (tileEntity != null)
+					return tileEntity.getTileData().getDouble(tag);
+				return -1;
+			}
+		}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "fire"));
+		// Energy NBT
+		double energyanimation = (double) (new Object() {
+			public double getValue(IWorld world, BlockPos pos, String tag) {
+				TileEntity tileEntity = world.getTileEntity(pos);
+				if (tileEntity != null)
+					return tileEntity.getTileData().getDouble(tag);
+				return -1;
+			}
+		}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "EnergyGui"));
+		// Background
+		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off.png"));
+		this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
+		// Fire Animation
+		if (animation <= 108) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_on.png"));
+			this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 14, 14, 14, 14);
+		}
+		if (animation <= 100) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off2.png"));
+			this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
+		}
+		if (animation <= 92) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off3.png"));
+			this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
+		}
+		if (animation <= 84) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off4.png"));
+			this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
+		}
+		if (animation <= 76) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off5.png"));
+			this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
+		}
+		if (animation <= 68) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off6.png"));
+			this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
+		}
+		if (animation <= 60) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off7.png"));
+			this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
+		}
+		if (animation <= 52) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off8.png"));
+			this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
+		}
+		if (animation <= 44) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off9.png"));
+			this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
+		}
+		if (animation <= 36) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off10.png"));
+			this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
+		}
+		if (animation <= 28) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off11.png"));
+			this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
+		}
+		if (animation <= 20) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off12.png"));
+			this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
+		}
+		if (animation <= 12) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off13.png"));
+			this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
+		}
+		if (animation <= 1) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off14.png"));
+			this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);
+		}
+		// Energy bar
+		if (energyanimation >= 360) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull0.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+		if (energyanimation >= 720) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull1.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+		if (energyanimation >= 1080) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull2.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+		if (energyanimation >= 1440) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull3.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+		if (energyanimation >= 1800) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull4.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+		if (energyanimation >= 2160) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull5.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+		if (energyanimation >= 2520) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull6.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+		if (energyanimation >= 3240) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull7.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+		if (energyanimation >= 3600) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull8.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+		if (energyanimation >= 3960) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull9.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+		if (energyanimation >= 4320) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull10.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+		if (energyanimation >= 4680) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull11.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+		if (energyanimation >= 5040) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull12.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+		if (energyanimation >= 5400) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull13.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+		if (energyanimation >= 5760) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull14.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+		if (energyanimation >= 6120) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull15.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+		if (energyanimation >= 6480) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull16.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+		if (energyanimation >= 6840) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull17.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+		if (energyanimation >= 7200) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull18.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+		if (energyanimation >= 7560) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull19.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+		if (energyanimation >= 8000) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull20.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+		if (energyanimation >= 8560) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull21.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+		if (energyanimation >= 9000) {
+			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull22.png"));
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		}
+	}
 
 	@Override
 	public boolean keyPressed(int key, int b, int c) {

@@ -113,7 +113,7 @@
       "type": "armor",
       "sortid": 11,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "space_armor",
       "metadata": {
