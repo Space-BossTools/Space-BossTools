@@ -1529,7 +1529,7 @@
       "type": "gui",
       "sortid": 161,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "blast_furnace_gui",
       "path": "~/GUIS"
