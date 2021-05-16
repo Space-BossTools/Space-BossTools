@@ -3,74 +3,7 @@ package net.mrscauthd.boss_tools.gui;
 
 import org.lwjgl.opengl.GL11;
 
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery9Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery8Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery7Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery6Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery5Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery4Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery3Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery2Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery23Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery22Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery21Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery20Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery19Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery18Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery17Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery16Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery15Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery14Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery13Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery12Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery11Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery10Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEnergyGui1Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank9Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank8Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank7Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank6Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank5Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank4Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank45Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank44Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank43Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank42Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank41Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank40Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank3Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank39Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank38Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank37Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank36Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank35Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank34Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank33Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank32Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank31Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank30Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank2Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank29Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank28Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank27Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank26Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank25Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank24Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank23Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank22Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank21Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank20Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank19Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank18Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank17Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank16Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank15Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank14Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank13Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank12Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank11Procedure;
-import net.mrscauthd.boss_tools.procedures.Fueltank10Procedure;
-
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
@@ -86,9 +19,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.Minecraft;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import java.util.concurrent.atomic.AtomicInteger;
 
-import com.google.common.collect.ImmutableMap;
+import com.mojang.blaze3d.matrix.MatrixStack;
 
 @OnlyIn(Dist.CLIENT)
 public class FuelRefineryGUIGuiWindow extends ContainerScreen<FuelRefineryGUIGui.GuiContainerMod> {
@@ -124,7 +57,7 @@ public class FuelRefineryGUIGuiWindow extends ContainerScreen<FuelRefineryGUIGui
 		// }
 		// ToolTip Ende
 		// toolTipStart Energy
-		if (mouseX > guiLeft + 143 && mouseX < guiLeft + 168 && mouseY > guiTop + 21 && mouseY < guiTop + 70)
+		if (mouseX > guiLeft + 143 && mouseX < guiLeft + 168 && mouseY > guiTop + 20 && mouseY < guiTop + 69)
 			this.renderTooltip(ms, new StringTextComponent(((new Object() {
 				public double getValue(IWorld world, BlockPos pos, String tag) {
 					TileEntity tileEntity = world.getTileEntity(pos);
@@ -142,276 +75,300 @@ public class FuelRefineryGUIGuiWindow extends ContainerScreen<FuelRefineryGUIGui
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
 		this.blit(ms, k, l, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
+		// Energy NBT
+		double energyanimation = (double) (new Object() {
+			public double getValue(IWorld world, BlockPos pos, String tag) {
+				TileEntity tileEntity = world.getTileEntity(pos);
+				if (tileEntity != null)
+					return tileEntity.getTileData().getDouble(tag);
+				return -1;
+			}
+		}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "EnergyGui"));
+		// Fuel Tank
+		double lavaanimation = ((new Object() {
+			public int getFluidTankLevel(BlockPos pos, int tank) {
+				AtomicInteger _retval = new AtomicInteger(0);
+				TileEntity _ent = world.getTileEntity(pos);
+				if (_ent != null)
+					_ent.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)
+							.ifPresent(capability -> _retval.set(capability.getFluidInTank(tank).getAmount()));
+				return _retval.get();
+			}
+		}.getFluidTankLevel(new BlockPos((int) x, (int) y, (int) z), (int) 1)));
+		// energy 0
 		Minecraft.getInstance().getTextureManager()
 				.bindTexture(new ResourceLocation("boss_tools:textures/energy_volume_fractional_vertical_bar_background.png"));
-		this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
-		if (GeneratorEnergyGui1Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
+		// Energy bar
+		if (energyanimation >= 360) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull0.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery2Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 720) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull1.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery3Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 1080) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull2.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery4Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 1440) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull3.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery5Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 1800) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull4.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery6Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 2160) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull5.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery7Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 2520) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull6.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery8Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 3240) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull7.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery9Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 3600) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull8.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery10Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 3960) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull9.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery11Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 4320) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull10.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery12Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 4680) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull11.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery13Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 5040) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull12.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery14Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 5400) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull13.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery15Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 5760) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull14.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery16Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 6120) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull15.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery17Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 6480) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull16.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery18Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 6840) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull17.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery19Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 7200) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull18.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery20Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 7560) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull19.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery21Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 8000) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull20.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery22Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 8560) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull21.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery23Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 9000) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull22.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 22, 0, 0, 24, 48, 24, 48);
+			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
+		// lava 0
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new.png"));
 		this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
-		if (Fueltank2Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		// lava animation
+		if (lavaanimation >= 120) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_43.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank3Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 180) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_42.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank4Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 240) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_41.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank5Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 300) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_40.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank6Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 360) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_39.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank7Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 420) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_38.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank8Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 480) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_37.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank9Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 540) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_36.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank10Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 600) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_35.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank11Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 660) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_34.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank12Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 720) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_33.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank13Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 780) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_32.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank14Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 840) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_31.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank15Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 900) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_30.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank16Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 1000) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_29.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank17Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 1070) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_28.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank18Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 1140) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_27.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank19Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 1210) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_26.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank20Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 1280) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_25.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank21Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 1350) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_24.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank22Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 1420) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_23.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank23Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 1490) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_22.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank24Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 1560) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_21.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank25Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 1630) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_20.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank26Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 1700) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_19.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank27Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 1770) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_18.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank28Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 1840) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_17.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank29Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 1910) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_16.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank30Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 2000) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_15.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank31Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 2060) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_14.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank32Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 2120) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_13.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank33Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 2180) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_12.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank34Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 2240) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_11.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank35Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 2300) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_10.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank36Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 2360) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_9.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank37Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 2420) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_8.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank38Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 2480) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_7.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank39Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 2540) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_6.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank40Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 2600) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_5.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank41Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 2660) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_4.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank42Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 2750) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_3.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank43Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 2810) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_2.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank44Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 2900) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new2_1.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}
-		if (Fueltank45Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (lavaanimation >= 3000) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_full_new2.png"));
 			this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		}

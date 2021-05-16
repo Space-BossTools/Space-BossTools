@@ -5,42 +5,6 @@ import org.lwjgl.opengl.GL11;
 
 import net.mrscauthd.boss_tools.procedures.Oxygenlargeshow2Procedure;
 import net.mrscauthd.boss_tools.procedures.Oxygenlargeshow1Procedure;
-import net.mrscauthd.boss_tools.procedures.OxygenGeneratorFire9Procedure;
-import net.mrscauthd.boss_tools.procedures.OxygenGeneratorFire8Procedure;
-import net.mrscauthd.boss_tools.procedures.OxygenGeneratorFire7Procedure;
-import net.mrscauthd.boss_tools.procedures.OxygenGeneratorFire6Procedure;
-import net.mrscauthd.boss_tools.procedures.OxygenGeneratorFire5Procedure;
-import net.mrscauthd.boss_tools.procedures.OxygenGeneratorFire4Procedure;
-import net.mrscauthd.boss_tools.procedures.OxygenGeneratorFire3Procedure;
-import net.mrscauthd.boss_tools.procedures.OxygenGeneratorFire2Procedure;
-import net.mrscauthd.boss_tools.procedures.OxygenGeneratorFire1Procedure;
-import net.mrscauthd.boss_tools.procedures.OxygenGeneratorFire13Procedure;
-import net.mrscauthd.boss_tools.procedures.OxygenGeneratorFire12Procedure;
-import net.mrscauthd.boss_tools.procedures.OxygenGeneratorFire11Procedure;
-import net.mrscauthd.boss_tools.procedures.OxygenGeneratorFire10Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery9Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery8Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery7Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery6Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery5Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery4Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery3Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery2Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery23Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery22Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery21Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery20Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery19Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery18Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery17Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery16Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery15Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery14Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery13Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery12Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery11Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEngery10Procedure;
-import net.mrscauthd.boss_tools.procedures.GeneratorEnergyGui1Procedure;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -103,152 +67,173 @@ public class OxygenBulletGeneratorGUIGuiWindow extends ContainerScreen<OxygenBul
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
 		this.blit(ms, k, l, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
+		// Energy NBT
+		double energyanimation = (double) (new Object() {
+			public double getValue(IWorld world, BlockPos pos, String tag) {
+				TileEntity tileEntity = world.getTileEntity(pos);
+				if (tileEntity != null)
+					return tileEntity.getTileData().getDouble(tag);
+				return -1;
+			}
+		}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "EnergyGui"));
+		// Oxygen NBT
+		double oxygenanimation = (double) (new Object() {
+			public double getValue(IWorld world, BlockPos pos, String tag) {
+				TileEntity tileEntity = world.getTileEntity(pos);
+				if (tileEntity != null)
+					return tileEntity.getTileData().getDouble(tag);
+				return -1;
+			}
+		}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "fire"));
+		// energy 0
 		Minecraft.getInstance().getTextureManager()
 				.bindTexture(new ResourceLocation("boss_tools:textures/energy_volume_fractional_vertical_bar_background.png"));
 		this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		if (GeneratorEnergyGui1Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		// Energy bar
+		if (energyanimation >= 360) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull0.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery2Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 720) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull1.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery3Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 1080) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull2.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery4Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 1440) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull3.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery5Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 1800) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull4.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery6Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 2160) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull5.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery7Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 2520) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull6.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery8Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 3240) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull7.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery9Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 3600) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull8.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery10Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 3960) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull9.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery11Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 4320) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull10.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery12Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 4680) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull11.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery13Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 5040) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull12.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery14Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 5400) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull13.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery15Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 5760) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull14.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery16Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 6120) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull15.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery17Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 6480) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull16.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery18Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 6840) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull17.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery19Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 7200) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull18.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery20Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 7560) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull19.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery21Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 8000) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull20.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery22Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 8560) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull21.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
-		if (GeneratorEngery23Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (energyanimation >= 9000) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull22.png"));
 			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
 		}
+		// oxygen 0
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload0.png"));
 		this.blit(ms, this.guiLeft + 76, this.guiTop + 28, 0, 0, 15, 14, 15, 14);
-		if (OxygenGeneratorFire1Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (oxygenanimation <= 400) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenloadfull.png"));
 			this.blit(ms, this.guiLeft + 76, this.guiTop + 28, 0, 0, 15, 14, 15, 14);
 		}
-		if (OxygenGeneratorFire2Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (oxygenanimation <= 367) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload1.png"));
 			this.blit(ms, this.guiLeft + 76, this.guiTop + 28, 0, 0, 15, 14, 15, 14);
 		}
-		if (OxygenGeneratorFire3Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (oxygenanimation <= 334) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload2.png"));
 			this.blit(ms, this.guiLeft + 76, this.guiTop + 28, 0, 0, 15, 14, 15, 14);
 		}
-		if (OxygenGeneratorFire4Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (oxygenanimation <= 301) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload3.png"));
 			this.blit(ms, this.guiLeft + 76, this.guiTop + 28, 0, 0, 15, 14, 15, 14);
 		}
-		if (OxygenGeneratorFire5Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (oxygenanimation <= 268) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload4.png"));
 			this.blit(ms, this.guiLeft + 76, this.guiTop + 28, 0, 0, 15, 14, 15, 14);
 		}
-		if (OxygenGeneratorFire6Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (oxygenanimation <= 235) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload5.png"));
 			this.blit(ms, this.guiLeft + 76, this.guiTop + 28, 0, 0, 15, 14, 15, 14);
 		}
-		if (OxygenGeneratorFire7Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (oxygenanimation <= 202) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload6.png"));
 			this.blit(ms, this.guiLeft + 76, this.guiTop + 28, 0, 0, 15, 14, 15, 14);
 		}
-		if (OxygenGeneratorFire8Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (oxygenanimation <= 169) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload7.png"));
 			this.blit(ms, this.guiLeft + 76, this.guiTop + 28, 0, 0, 15, 14, 15, 14);
 		}
-		if (OxygenGeneratorFire9Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (oxygenanimation <= 136) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload8.png"));
 			this.blit(ms, this.guiLeft + 76, this.guiTop + 28, 0, 0, 15, 14, 15, 14);
 		}
-		if (OxygenGeneratorFire10Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (oxygenanimation <= 103) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload9.png"));
 			this.blit(ms, this.guiLeft + 76, this.guiTop + 28, 0, 0, 15, 14, 15, 14);
 		}
-		if (OxygenGeneratorFire11Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (oxygenanimation <= 70) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload10.png"));
 			this.blit(ms, this.guiLeft + 76, this.guiTop + 28, 0, 0, 15, 14, 15, 14);
 		}
-		if (OxygenGeneratorFire12Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (oxygenanimation <= 37) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload11.png"));
 			this.blit(ms, this.guiLeft + 76, this.guiTop + 28, 0, 0, 15, 14, 15, 14);
 		}
-		if (OxygenGeneratorFire13Procedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world))) {
+		if (oxygenanimation <= 1) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload12.png"));
 			this.blit(ms, this.guiLeft + 76, this.guiTop + 28, 0, 0, 15, 14, 15, 14);
 		}
