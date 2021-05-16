@@ -52,6 +52,8 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.CreatureAttribute;
+import net.minecraft.client.settings.PointOfView;
+import net.minecraft.client.Minecraft;
 
 import javax.annotation.Nullable;
 import javax.annotation.Nonnull;
@@ -126,7 +128,10 @@ public class LandingGearEntity extends BossToolsModElements.ModElement {
 
 		@Override
 		public double getMountedYOffset() {
-			return super.getMountedYOffset() + -0.6;
+			if (Minecraft.getInstance().gameSettings.getPointOfView().equals(PointOfView.FIRST_PERSON)) {
+				return super.getMountedYOffset() + -0.25;
+			}
+			return super.getMountedYOffset() + -0.7;
 		}
 
 		@Override
