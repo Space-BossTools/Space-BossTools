@@ -19,11 +19,6 @@ repositories {
     url = "https://modmaven.k-4u.nl/"
   }
 }
-	allprojects {
-		repositories {
-			maven { url 'https://jitpack.io' }
-		}
-	}
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 
@@ -73,7 +68,6 @@ dependencies {
   compileOnly fg.deobf("mezz.jei:jei-1.16.4:7.6.0.62:api")
   runtimeOnly fg.deobf("mezz.jei:jei-1.16.4:7.6.0.62")
     annotationProcessor 'org.spongepowered:mixin:0.8.2:processor'
-implementation 'com.github.MrScautHD:Space-Bosstools:1.16.5-5.2.1'
 }
 jar {
     manifest {
