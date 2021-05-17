@@ -16,25 +16,14 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.common.MinecraftForge;
 
-import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.IWorld;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector2f;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.command.ICommandSource;
-import net.minecraft.command.CommandSource;
 
-import java.util.stream.Collectors;
-import java.util.function.Function;
 import java.util.Map;
-import java.util.List;
 import java.util.HashMap;
-import java.util.Comparator;
 
 @BossToolsModElements.ModElement.Tag
 public class LanderSitProcedure extends BossToolsModElements.ModElement {
@@ -49,97 +38,58 @@ public class LanderSitProcedure extends BossToolsModElements.ModElement {
 				BossToolsMod.LOGGER.warn("Failed to load dependency entity for procedure LanderSit!");
 			return;
 		}
-		if (dependencies.get("x") == null) {
-			if (!dependencies.containsKey("x"))
-				BossToolsMod.LOGGER.warn("Failed to load dependency x for procedure LanderSit!");
-			return;
-		}
-		if (dependencies.get("y") == null) {
-			if (!dependencies.containsKey("y"))
-				BossToolsMod.LOGGER.warn("Failed to load dependency y for procedure LanderSit!");
-			return;
-		}
-		if (dependencies.get("z") == null) {
-			if (!dependencies.containsKey("z"))
-				BossToolsMod.LOGGER.warn("Failed to load dependency z for procedure LanderSit!");
-			return;
-		}
-		if (dependencies.get("world") == null) {
-			if (!dependencies.containsKey("world"))
-				BossToolsMod.LOGGER.warn("Failed to load dependency world for procedure LanderSit!");
-			return;
-		}
 		Entity entity = (Entity) dependencies.get("entity");
-		double x = dependencies.get("x") instanceof Integer ? (int) dependencies.get("x") : (double) dependencies.get("x");
-		double y = dependencies.get("y") instanceof Integer ? (int) dependencies.get("y") : (double) dependencies.get("y");
-		double z = dependencies.get("z") instanceof Integer ? (int) dependencies.get("z") : (double) dependencies.get("z");
-		IWorld world = (IWorld) dependencies.get("world");
 		if (((entity.getPersistentData().getDouble("Landersit")) == 1)) {
 			if (((entity.getPersistentData().getDouble("LanderSpawn")) == 1)) {
 				entity.getPersistentData().putDouble("LanderSpawn", 0);
-				if (world instanceof ServerWorld) {
-					((World) world).getServer().getCommandManager().handleCommand(
-							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/summon boss_tools:landing_gear");
+				Entity entity2 = new LandingGearEntity.CustomEntity(LandingGearEntity.entity, entity.world);
+				entity2.setPositionAndUpdate(entity.getPosX(), entity.getPosY(), entity.getPosZ());
+				entity2.rotationYaw = (float) (0);
+				if (entity2 instanceof MobEntity)
+					entity2.setRenderYawOffset(entity2.rotationYaw);
+				entity2.prevRotationYaw = entity2.rotationYaw;
+				((MobEntity) entity2).prevRotationYawHead = entity2.rotationYaw;
+				entity.world.addEntity(entity2);
+				entity.startRiding(entity2);
+				Entity entityiterator = entity2;
+				entity.getPersistentData().putDouble("Landersit", 0);
+				if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+					{
+						final ItemStack _setstack = new ItemStack(Tier1RocketItemItem.block, (int) (1));
+						final int _sltid = (int) (0);
+						_setstack.setCount((int) 1);
+						(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+							if (capability instanceof IItemHandlerModifiable) {
+								((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
+							}
+						});
+					}
 				}
-			}
-			{
-				List<Entity> _entfound = world.getEntitiesWithinAABB(Entity.class,
-						new AxisAlignedBB(x - (0.1 / 2d), (y + 1) - (0.1 / 2d), z - (0.1 / 2d), x + (0.1 / 2d), (y + 1) + (0.1 / 2d), z + (0.1 / 2d)),
-						null).stream().sorted(new Object() {
-							Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-								return Comparator.comparing((Function<Entity, Double>) (_entcnd -> _entcnd.getDistanceSq(_x, _y, _z)));
-							}
-						}.compareDistOf(x, (y + 1), z)).collect(Collectors.toList());
-				for (Entity entityiterator : _entfound) {
-					if ((entityiterator instanceof LandingGearEntity.CustomEntity)) {
-						entity.startRiding(entityiterator);
-						entity.getPersistentData().putDouble("Landersit", 0);
-						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
-							{
-								final ItemStack _setstack = new ItemStack(Tier1RocketItemItem.block, (int) (1));
-								final int _sltid = (int) (0);
-								_setstack.setCount((int) 1);
-								(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
-										.ifPresent(capability -> {
-											if (capability instanceof IItemHandlerModifiable) {
-												((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-											}
-										});
-							}
-						}
-						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
-							if (((entity.getPersistentData().getDouble("Bucket")) == 1)) {
-								{
-									final ItemStack _setstack = new ItemStack(Items.BUCKET, (int) (1));
-									final int _sltid = (int) (1);
-									_setstack.setCount((int) 1);
-									(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
-											.ifPresent(capability -> {
-												if (capability instanceof IItemHandlerModifiable) {
-													((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-												}
-											});
+				if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+					if (((entity.getPersistentData().getDouble("Bucket")) == 1)) {
+						{
+							final ItemStack _setstack = new ItemStack(Items.BUCKET, (int) (1));
+							final int _sltid = (int) (1);
+							_setstack.setCount((int) 1);
+							(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+								if (capability instanceof IItemHandlerModifiable) {
+									((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
 								}
-								entity.getPersistentData().putDouble("Bucket", 0);
-							}
+							});
 						}
-						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
-							if (((entity.getPersistentData().getDouble("Bucket")) == 2)) {
-								{
-									final ItemStack _setstack = new ItemStack(FuelBlock.bucket, (int) (1));
-									final int _sltid = (int) (1);
-									_setstack.setCount((int) 1);
-									(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
-											.ifPresent(capability -> {
-												if (capability instanceof IItemHandlerModifiable) {
-													((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-												}
-											});
+					}
+				}
+				if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+					if (((entity.getPersistentData().getDouble("Bucket")) == 2)) {
+						{
+							final ItemStack _setstack = new ItemStack(FuelBlock.bucket, (int) (1));
+							final int _sltid = (int) (1);
+							_setstack.setCount((int) 1);
+							(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+								if (capability instanceof IItemHandlerModifiable) {
+									((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
 								}
-								entity.getPersistentData().putDouble("Bucket", 0);
-							}
+							});
 						}
 					}
 				}
@@ -148,69 +98,54 @@ public class LanderSitProcedure extends BossToolsModElements.ModElement {
 		if (((entity.getPersistentData().getDouble("Landersit")) == 2)) {
 			if (((entity.getPersistentData().getDouble("LanderSpawn")) == 1)) {
 				entity.getPersistentData().putDouble("LanderSpawn", 0);
-				if (world instanceof ServerWorld) {
-					((World) world).getServer().getCommandManager().handleCommand(
-							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/summon boss_tools:landing_gear");
+				Entity entity2 = new LandingGearEntity.CustomEntity(LandingGearEntity.entity, entity.world);
+				entity2.setPositionAndUpdate(entity.getPosX(), entity.getPosY(), entity.getPosZ());
+				entity2.rotationYaw = (float) (0);
+				if (entity2 instanceof MobEntity)
+					entity2.setRenderYawOffset(entity2.rotationYaw);
+				entity2.prevRotationYaw = entity2.rotationYaw;
+				((MobEntity) entity2).prevRotationYawHead = entity2.rotationYaw;
+				entity.world.addEntity(entity2);
+				entity.startRiding(entity2);
+				Entity entityiterator = entity2;
+				entity.getPersistentData().putDouble("Landersit", 0);
+				if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+					{
+						final ItemStack _setstack = new ItemStack(Tier2RocketItemItem.block, (int) (1));
+						final int _sltid = (int) (0);
+						_setstack.setCount((int) 1);
+						(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+							if (capability instanceof IItemHandlerModifiable) {
+								((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
+							}
+						});
+					}
 				}
-			}
-			{
-				List<Entity> _entfound = world.getEntitiesWithinAABB(Entity.class,
-						new AxisAlignedBB(x - (0.1 / 2d), (y + 1) - (0.1 / 2d), z - (0.1 / 2d), x + (0.1 / 2d), (y + 1) + (0.1 / 2d), z + (0.1 / 2d)),
-						null).stream().sorted(new Object() {
-							Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-								return Comparator.comparing((Function<Entity, Double>) (_entcnd -> _entcnd.getDistanceSq(_x, _y, _z)));
-							}
-						}.compareDistOf(x, (y + 1), z)).collect(Collectors.toList());
-				for (Entity entityiterator : _entfound) {
-					if ((entityiterator instanceof LandingGearEntity.CustomEntity)) {
-						entity.startRiding(entityiterator);
-						entity.getPersistentData().putDouble("Landersit", 0);
-						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
-							{
-								final ItemStack _setstack = new ItemStack(Tier2RocketItemItem.block, (int) (1));
-								final int _sltid = (int) (0);
-								_setstack.setCount((int) 1);
-								(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
-										.ifPresent(capability -> {
-											if (capability instanceof IItemHandlerModifiable) {
-												((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-											}
-										});
-							}
-						}
-						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
-							if (((entity.getPersistentData().getDouble("Bucket")) == 1)) {
-								{
-									final ItemStack _setstack = new ItemStack(BucketBigItem.block, (int) (1));
-									final int _sltid = (int) (1);
-									_setstack.setCount((int) 1);
-									(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
-											.ifPresent(capability -> {
-												if (capability instanceof IItemHandlerModifiable) {
-													((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-												}
-											});
+				if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+					if (((entity.getPersistentData().getDouble("Bucket")) == 1)) {
+						{
+							final ItemStack _setstack = new ItemStack(BucketBigItem.block, (int) (1));
+							final int _sltid = (int) (1);
+							_setstack.setCount((int) 1);
+							(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+								if (capability instanceof IItemHandlerModifiable) {
+									((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
 								}
-								entity.getPersistentData().putDouble("Bucket", 0);
-							}
+							});
 						}
-						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
-							if (((entity.getPersistentData().getDouble("Bucket")) == 2)) {
-								{
-									final ItemStack _setstack = new ItemStack(FuelBucketBigItem.block, (int) (1));
-									final int _sltid = (int) (1);
-									_setstack.setCount((int) 1);
-									(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
-											.ifPresent(capability -> {
-												if (capability instanceof IItemHandlerModifiable) {
-													((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-												}
-											});
+					}
+				}
+				if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+					if (((entity.getPersistentData().getDouble("Bucket")) == 2)) {
+						{
+							final ItemStack _setstack = new ItemStack(FuelBucketBigItem.block, (int) (1));
+							final int _sltid = (int) (1);
+							_setstack.setCount((int) 1);
+							(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+								if (capability instanceof IItemHandlerModifiable) {
+									((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
 								}
-								entity.getPersistentData().putDouble("Bucket", 0);
-							}
+							});
 						}
 					}
 				}
@@ -219,69 +154,54 @@ public class LanderSitProcedure extends BossToolsModElements.ModElement {
 		if (((entity.getPersistentData().getDouble("Landersit")) == 3)) {
 			if (((entity.getPersistentData().getDouble("LanderSpawn")) == 1)) {
 				entity.getPersistentData().putDouble("LanderSpawn", 0);
-				if (world instanceof ServerWorld) {
-					((World) world).getServer().getCommandManager().handleCommand(
-							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/summon boss_tools:landing_gear");
+				Entity entity2 = new LandingGearEntity.CustomEntity(LandingGearEntity.entity, entity.world);
+				entity2.setPositionAndUpdate(entity.getPosX(), entity.getPosY(), entity.getPosZ());
+				entity2.rotationYaw = (float) (0);
+				if (entity2 instanceof MobEntity)
+					entity2.setRenderYawOffset(entity2.rotationYaw);
+				entity2.prevRotationYaw = entity2.rotationYaw;
+				((MobEntity) entity2).prevRotationYawHead = entity2.rotationYaw;
+				entity.world.addEntity(entity2);
+				entity.startRiding(entity2);
+				Entity entityiterator = entity2;
+				entity.getPersistentData().putDouble("Landersit", 0);
+				if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+					{
+						final ItemStack _setstack = new ItemStack(Tier3RocketItemItem.block, (int) (1));
+						final int _sltid = (int) (0);
+						_setstack.setCount((int) 1);
+						(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+							if (capability instanceof IItemHandlerModifiable) {
+								((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
+							}
+						});
+					}
 				}
-			}
-			{
-				List<Entity> _entfound = world.getEntitiesWithinAABB(Entity.class,
-						new AxisAlignedBB(x - (0.1 / 2d), (y + 1) - (0.1 / 2d), z - (0.1 / 2d), x + (0.1 / 2d), (y + 1) + (0.1 / 2d), z + (0.1 / 2d)),
-						null).stream().sorted(new Object() {
-							Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-								return Comparator.comparing((Function<Entity, Double>) (_entcnd -> _entcnd.getDistanceSq(_x, _y, _z)));
-							}
-						}.compareDistOf(x, (y + 1), z)).collect(Collectors.toList());
-				for (Entity entityiterator : _entfound) {
-					if ((entityiterator instanceof LandingGearEntity.CustomEntity)) {
-						entity.startRiding(entityiterator);
-						entity.getPersistentData().putDouble("Landersit", 0);
-						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
-							{
-								final ItemStack _setstack = new ItemStack(Tier3RocketItemItem.block, (int) (1));
-								final int _sltid = (int) (0);
-								_setstack.setCount((int) 1);
-								(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
-										.ifPresent(capability -> {
-											if (capability instanceof IItemHandlerModifiable) {
-												((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-											}
-										});
-							}
-						}
-						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
-							if (((entity.getPersistentData().getDouble("Bucket")) == 1)) {
-								{
-									final ItemStack _setstack = new ItemStack(BucketBigItem.block, (int) (1));
-									final int _sltid = (int) (1);
-									_setstack.setCount((int) 1);
-									(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
-											.ifPresent(capability -> {
-												if (capability instanceof IItemHandlerModifiable) {
-													((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-												}
-											});
+				if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+					if (((entity.getPersistentData().getDouble("Bucket")) == 1)) {
+						{
+							final ItemStack _setstack = new ItemStack(BucketBigItem.block, (int) (1));
+							final int _sltid = (int) (1);
+							_setstack.setCount((int) 1);
+							(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+								if (capability instanceof IItemHandlerModifiable) {
+									((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
 								}
-								entity.getPersistentData().putDouble("Bucket", 0);
-							}
+							});
 						}
-						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
-							if (((entity.getPersistentData().getDouble("Bucket")) == 2)) {
-								{
-									final ItemStack _setstack = new ItemStack(FuelBucketBigItem.block, (int) (1));
-									final int _sltid = (int) (1);
-									_setstack.setCount((int) 1);
-									(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
-											.ifPresent(capability -> {
-												if (capability instanceof IItemHandlerModifiable) {
-													((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-												}
-											});
+					}
+				}
+				if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+					if (((entity.getPersistentData().getDouble("Bucket")) == 2)) {
+						{
+							final ItemStack _setstack = new ItemStack(FuelBucketBigItem.block, (int) (1));
+							final int _sltid = (int) (1);
+							_setstack.setCount((int) 1);
+							(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+								if (capability instanceof IItemHandlerModifiable) {
+									((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
 								}
-								entity.getPersistentData().putDouble("Bucket", 0);
-							}
+							});
 						}
 					}
 				}

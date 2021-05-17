@@ -9,7 +9,6 @@ import net.minecraft.world.IWorld;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector2f;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.command.ICommandSource;
 import net.minecraft.command.CommandSource;
@@ -81,13 +80,9 @@ public class LandingGearOnEntityTickUpdateProcedure extends BossToolsModElements
 			}
 		}
 		if (((entity.getPersistentData().getDouble("Lander1")) == 1)) {
-			if (((entity.getMotion().getY()) >= (-0.01))) {
-				if (((entity.getPosY()) <= 695)) {
-					if (entity instanceof LivingEntity)
-						((LivingEntity) entity).clearActivePotions();
-					entity.getPersistentData().putDouble("Lander1", 0);
-					entity.getPersistentData().putDouble("Lander2", 0);
-				}
+			if ((((entity.isOnGround()) == (true)) || ((entity.isInWater()) == (true)))) {
+				entity.getPersistentData().putDouble("Lander1", 0);
+				entity.getPersistentData().putDouble("Lander2", 0);
 			}
 		}
 	}

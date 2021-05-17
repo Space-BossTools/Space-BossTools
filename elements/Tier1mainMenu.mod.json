@@ -169,9 +169,6 @@
           "y": 86
         }
       }
-    ],
-    "onTick": {
-      "name": "Tier1mainMenuWhileThisGUIIsOpenTick"
-    }
+    ]
   }
 }

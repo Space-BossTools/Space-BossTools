@@ -122,6 +122,12 @@ public class RocketTier3Entity extends BossToolsModElements.ModElement {
 			super.registerGoals();
 		}
 
+		// Lead FIX
+		@Override
+		public boolean canBeLeashedTo(PlayerEntity player) {
+			return false;
+		}
+
 		@Override
 		public CreatureAttribute getCreatureAttribute() {
 			return CreatureAttribute.UNDEFINED;

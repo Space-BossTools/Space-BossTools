@@ -3247,22 +3247,6 @@
           {
             "name": "entity",
             "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
           }
         ]
       },
@@ -5343,19 +5327,6 @@
       "path": "~/RocketMainGuis"
     },
     {
-      "name": "Tier1mainMenuWhileThisGUIIsOpenTick",
-      "type": "procedure",
-      "sortid": 655,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "tier_1main_menu_while_this_gui_is_open_tick",
-      "metadata": {
-        "dependencies": []
-      },
-      "path": "~/RocketMainGuis"
-    },
-    {
       "name": "AlienTrade",
       "type": "code",
       "sortid": 656,
@@ -5847,13 +5818,30 @@
       "path": "~/LootTable"
     },
     {
-      "name": "LanderWaning",
+      "name": "LanderSpace",
+      "type": "procedure",
+      "sortid": 694,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "lander_space",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LanderWarning",
       "type": "overlay",
-      "sortid": 693,
+      "sortid": 695,
       "compiles": true,
       "locked_code": true,
       "ids": {},
-      "registry_name": "lander_waning"
+      "registry_name": "lander_warning"
     }
   ],
   "variable_elements": [

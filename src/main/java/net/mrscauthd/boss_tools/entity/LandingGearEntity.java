@@ -52,6 +52,7 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.CreatureAttribute;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.client.settings.PointOfView;
 import net.minecraft.client.Minecraft;
 
@@ -87,7 +88,7 @@ public class LandingGearEntity extends BossToolsModElements.ModElement {
 		public void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
 			AttributeModifierMap.MutableAttribute ammma = MobEntity.func_233666_p_();
 			ammma = ammma.createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.3);
-			ammma = ammma.createMutableAttribute(Attributes.MAX_HEALTH, 10);
+			ammma = ammma.createMutableAttribute(Attributes.MAX_HEALTH, 1);
 			ammma = ammma.createMutableAttribute(Attributes.ARMOR, 0);
 			ammma = ammma.createMutableAttribute(Attributes.ATTACK_DAMAGE, 3);
 			event.put(entity, ammma.create());
@@ -109,6 +110,12 @@ public class LandingGearEntity extends BossToolsModElements.ModElement {
 		@Override
 		public IPacket<?> createSpawnPacket() {
 			return NetworkHooks.getEntitySpawningPacket(this);
+		}
+
+		// Lead FIX
+		@Override
+		public boolean canBeLeashedTo(PlayerEntity player) {
+			return false;
 		}
 
 		@Override
@@ -219,13 +226,17 @@ public class LandingGearEntity extends BossToolsModElements.ModElement {
 			return super.getCapability(capability, side);
 		}
 
-		/*
-		 * @Override protected void dropInventory() { super.dropInventory(); for (int i
-		 * = 0; i < inventory.getSlots(); ++i) { ItemStack itemstack =
-		 * inventory.getStackInSlot(i); if (!itemstack.isEmpty() &&
-		 * !EnchantmentHelper.hasVanishingCurse(itemstack)) {
-		 * this.entityDropItem(itemstack); } } }
-		 */
+		@Override
+		protected void dropInventory() {
+			super.dropInventory();
+			for (int i = 0; i < inventory.getSlots(); ++i) {
+				ItemStack itemstack = inventory.getStackInSlot(i);
+				if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
+					this.entityDropItem(itemstack);
+				}
+			}
+		}
+
 		@Override
 		public void writeAdditional(CompoundNBT compound) {
 			super.writeAdditional(compound);

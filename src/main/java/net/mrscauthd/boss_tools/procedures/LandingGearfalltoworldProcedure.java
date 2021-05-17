@@ -22,7 +22,6 @@ import net.minecraft.world.IWorld;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.RegistryKey;
-import net.minecraft.potion.Effects;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.network.play.server.SPlayerAbilitiesPacket;
 import net.minecraft.network.play.server.SPlayEntityEffectPacket;
@@ -30,7 +29,7 @@ import net.minecraft.network.play.server.SChangeGameStatePacket;
 import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.block.Blocks;
 
@@ -224,8 +223,14 @@ public class LandingGearfalltoworldProcedure extends BossToolsModElements.ModEle
 					if (((world.isRemote()) == (false))) {
 						Entity entity2 = new LandingGearEntity.CustomEntity(LandingGearEntity.entity, entity.world);
 						entity2.setPositionAndUpdate(entity.getPosX(), entity.getPosY(), entity.getPosZ());
+						entity2.rotationYaw = (float) (0);
+						if (entity2 instanceof MobEntity)
+							entity2.setRenderYawOffset(entity2.rotationYaw);
+						entity2.prevRotationYaw = entity2.rotationYaw;
+						((MobEntity) entity2).prevRotationYawHead = entity2.rotationYaw;
 						entity.world.addEntity(entity2);
 						entity.startRiding(entity2);
+						Entity entityiterator = entity2;
 						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
 							if (((entity.getPersistentData().getDouble("RocketTier")) == 1)) {
 								{
@@ -340,9 +345,6 @@ public class LandingGearfalltoworldProcedure extends BossToolsModElements.ModEle
 						}
 						if (((entity.getPersistentData().getDouble("Landerfly")) == 1)) {
 							if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
-								if ((entity.getRidingEntity()) instanceof LivingEntity)
-									((LivingEntity) (entity.getRidingEntity()))
-											.addPotionEffect(new EffectInstance(Effects.SLOW_FALLING, (int) 1800, (int) 3, (false), (false)));
 								(entity.getRidingEntity()).getPersistentData().putDouble("Lander1", 1);
 								entity.getPersistentData().putDouble("Landerfly", 0);
 							}
@@ -392,8 +394,14 @@ public class LandingGearfalltoworldProcedure extends BossToolsModElements.ModEle
 					if (((world.isRemote()) == (false))) {
 						Entity entity2 = new LandingGearEntity.CustomEntity(LandingGearEntity.entity, entity.world);
 						entity2.setPositionAndUpdate(entity.getPosX(), entity.getPosY(), entity.getPosZ());
+						entity2.rotationYaw = (float) (0);
+						if (entity2 instanceof MobEntity)
+							entity2.setRenderYawOffset(entity2.rotationYaw);
+						entity2.prevRotationYaw = entity2.rotationYaw;
+						((MobEntity) entity2).prevRotationYawHead = entity2.rotationYaw;
 						entity.world.addEntity(entity2);
 						entity.startRiding(entity2);
+						Entity entityiterator = entity2;
 						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
 							if (((entity.getPersistentData().getDouble("RocketTier")) == 1)) {
 								{
@@ -508,9 +516,6 @@ public class LandingGearfalltoworldProcedure extends BossToolsModElements.ModEle
 						}
 						if (((entity.getPersistentData().getDouble("Landerfly")) == 1)) {
 							if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
-								if ((entity.getRidingEntity()) instanceof LivingEntity)
-									((LivingEntity) (entity.getRidingEntity()))
-											.addPotionEffect(new EffectInstance(Effects.SLOW_FALLING, (int) 1800, (int) 3, (false), (false)));
 								(entity.getRidingEntity()).getPersistentData().putDouble("Lander1", 1);
 								entity.getPersistentData().putDouble("Landerfly", 0);
 							}
@@ -560,8 +565,14 @@ public class LandingGearfalltoworldProcedure extends BossToolsModElements.ModEle
 					if (((world.isRemote()) == (false))) {
 						Entity entity2 = new LandingGearEntity.CustomEntity(LandingGearEntity.entity, entity.world);
 						entity2.setPositionAndUpdate(entity.getPosX(), entity.getPosY(), entity.getPosZ());
+						entity2.rotationYaw = (float) (0);
+						if (entity2 instanceof MobEntity)
+							entity2.setRenderYawOffset(entity2.rotationYaw);
+						entity2.prevRotationYaw = entity2.rotationYaw;
+						((MobEntity) entity2).prevRotationYawHead = entity2.rotationYaw;
 						entity.world.addEntity(entity2);
 						entity.startRiding(entity2);
+						Entity entityiterator = entity2;
 						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
 							if (((entity.getPersistentData().getDouble("RocketTier")) == 1)) {
 								{
@@ -676,9 +687,6 @@ public class LandingGearfalltoworldProcedure extends BossToolsModElements.ModEle
 						}
 						if (((entity.getPersistentData().getDouble("Landerfly")) == 1)) {
 							if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
-								if ((entity.getRidingEntity()) instanceof LivingEntity)
-									((LivingEntity) (entity.getRidingEntity()))
-											.addPotionEffect(new EffectInstance(Effects.SLOW_FALLING, (int) 1800, (int) 3, (false), (false)));
 								(entity.getRidingEntity()).getPersistentData().putDouble("Lander1", 1);
 								entity.getPersistentData().putDouble("Landerfly", 0);
 							}
@@ -728,8 +736,14 @@ public class LandingGearfalltoworldProcedure extends BossToolsModElements.ModEle
 					if (((world.isRemote()) == (false))) {
 						Entity entity2 = new LandingGearEntity.CustomEntity(LandingGearEntity.entity, entity.world);
 						entity2.setPositionAndUpdate(entity.getPosX(), entity.getPosY(), entity.getPosZ());
+						entity2.rotationYaw = (float) (0);
+						if (entity2 instanceof MobEntity)
+							entity2.setRenderYawOffset(entity2.rotationYaw);
+						entity2.prevRotationYaw = entity2.rotationYaw;
+						((MobEntity) entity2).prevRotationYawHead = entity2.rotationYaw;
 						entity.world.addEntity(entity2);
 						entity.startRiding(entity2);
+						Entity entityiterator = entity2;
 						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
 							if (((entity.getPersistentData().getDouble("RocketTier")) == 1)) {
 								{
@@ -844,9 +858,6 @@ public class LandingGearfalltoworldProcedure extends BossToolsModElements.ModEle
 						}
 						if (((entity.getPersistentData().getDouble("Landerfly")) == 1)) {
 							if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
-								if ((entity.getRidingEntity()) instanceof LivingEntity)
-									((LivingEntity) (entity.getRidingEntity()))
-											.addPotionEffect(new EffectInstance(Effects.SLOW_FALLING, (int) 1800, (int) 3, (false), (false)));
 								(entity.getRidingEntity()).getPersistentData().putDouble("Lander1", 1);
 								entity.getPersistentData().putDouble("Landerfly", 0);
 							}

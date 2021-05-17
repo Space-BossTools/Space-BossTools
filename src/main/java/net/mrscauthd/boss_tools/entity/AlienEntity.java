@@ -139,6 +139,12 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 		return SoundEvents.ENTITY_VILLAGER_HURT;
 	}
 
+	// Lead FIX
+	@Override
+	public boolean canBeLeashedTo(PlayerEntity player) {
+		return false;
+	}
+
 	@Override
 	public void setCustomer(@Nullable PlayerEntity player) {
 		this.customer = player;

@@ -117,6 +117,12 @@ public class RocketEntity extends BossToolsModElements.ModElement {
 			return NetworkHooks.getEntitySpawningPacket(this);
 		}
 
+		// Lead FIX
+		@Override
+		public boolean canBeLeashedTo(PlayerEntity player) {
+			return false;
+		}
+
 		@Override
 		protected void registerGoals() {
 			super.registerGoals();

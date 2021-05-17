@@ -1,7 +1,6 @@
 
 package net.mrscauthd.boss_tools.gui;
 
-import net.mrscauthd.boss_tools.procedures.Tier1mainMenuWhileThisGUIIsOpenTickProcedure;
 import net.mrscauthd.boss_tools.procedures.RocketmarsworldtpProcedure;
 import net.mrscauthd.boss_tools.procedures.RocketTier2OrbitTpMarsProcedure;
 import net.mrscauthd.boss_tools.procedures.OpenTier2mainMenuBackProcedure;
@@ -15,9 +14,7 @@ import net.minecraftforge.fml.network.IContainerFactory;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
@@ -47,7 +44,6 @@ public class Tier2mainMenu3Gui extends BossToolsModElements.ModElement {
 				GUISlotChangedMessage::handler);
 		containerType = new ContainerType<>(new GuiContainerModFactory());
 		FMLJavaModLoadingContext.get().getModEventBus().register(new ContainerRegisterHandler());
-		MinecraftForge.EVENT_BUS.register(this);
 	}
 	private static class ContainerRegisterHandler {
 		@SubscribeEvent
@@ -58,21 +54,6 @@ public class Tier2mainMenu3Gui extends BossToolsModElements.ModElement {
 	@OnlyIn(Dist.CLIENT)
 	public void initElements() {
 		DeferredWorkQueue.runLater(() -> ScreenManager.registerFactory(containerType, Tier2mainMenu3GuiWindow::new));
-	}
-
-	@SubscribeEvent
-	public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-		PlayerEntity entity = event.player;
-		if (event.phase == TickEvent.Phase.END && entity.openContainer instanceof GuiContainerMod) {
-			World world = entity.world;
-			double x = entity.getPosX();
-			double y = entity.getPosY();
-			double z = entity.getPosZ();
-			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				Tier1mainMenuWhileThisGUIIsOpenTickProcedure.executeProcedure($_dependencies);
-			}
-		}
 	}
 	public static class GuiContainerModFactory implements IContainerFactory {
 		public GuiContainerMod create(int id, PlayerInventory inv, PacketBuffer extraData) {
