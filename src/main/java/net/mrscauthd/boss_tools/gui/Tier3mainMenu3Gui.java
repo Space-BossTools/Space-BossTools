@@ -189,9 +189,6 @@ public class Tier3mainMenu3Gui extends BossToolsModElements.ModElement {
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("entity", entity);
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
 				$_dependencies.put("world", world);
 				RocketTier3MarsTpProcedure.executeProcedure($_dependencies);
 			}
@@ -200,9 +197,6 @@ public class Tier3mainMenu3Gui extends BossToolsModElements.ModElement {
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("entity", entity);
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
 				$_dependencies.put("world", world);
 				RocketTier3OrbitTpMarsProcedure.executeProcedure($_dependencies);
 			}

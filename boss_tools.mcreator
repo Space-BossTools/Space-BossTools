@@ -418,18 +418,6 @@
             "type": "entity"
           },
           {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
             "name": "world",
             "type": "world"
           }
@@ -450,18 +438,6 @@
           {
             "name": "entity",
             "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
           },
           {
             "name": "world",
@@ -591,18 +567,6 @@
           {
             "name": "entity",
             "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
           },
           {
             "name": "world",
@@ -861,18 +825,6 @@
           {
             "name": "entity",
             "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
           },
           {
             "name": "world",
@@ -1686,34 +1638,6 @@
       "path": "~/Procedures"
     },
     {
-      "name": "LandingGearSpace",
-      "type": "procedure",
-      "sortid": 169,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "landing_gear_space",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          }
-        ]
-      },
-      "path": "~/Procedures"
-    },
-    {
-      "name": "LandingearSpaceHotkey",
-      "type": "keybind",
-      "sortid": 170,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "landingear_space_hotkey",
-      "path": "~/keybinding"
-    },
-    {
       "name": "RocketTier1moonTp",
       "type": "procedure",
       "sortid": 171,
@@ -1726,18 +1650,6 @@
           {
             "name": "entity",
             "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
           },
           {
             "name": "world",
@@ -1762,18 +1674,6 @@
             "type": "entity"
           },
           {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
             "name": "world",
             "type": "world"
           }
@@ -1794,18 +1694,6 @@
           {
             "name": "entity",
             "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
           },
           {
             "name": "world",
@@ -2377,18 +2265,6 @@
             "type": "entity"
           },
           {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
             "name": "world",
             "type": "world"
           }
@@ -2409,18 +2285,6 @@
           {
             "name": "entity",
             "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
           },
           {
             "name": "world",
@@ -2445,18 +2309,6 @@
             "type": "entity"
           },
           {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
             "name": "world",
             "type": "world"
           }
@@ -2479,18 +2331,6 @@
             "type": "entity"
           },
           {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
             "name": "world",
             "type": "world"
           }
@@ -2511,18 +2351,6 @@
           {
             "name": "entity",
             "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
           },
           {
             "name": "world",
@@ -2586,18 +2414,6 @@
             "type": "entity"
           },
           {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
             "name": "world",
             "type": "world"
           }
@@ -2618,18 +2434,6 @@
           {
             "name": "entity",
             "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
           },
           {
             "name": "world",
@@ -2654,18 +2458,6 @@
             "type": "entity"
           },
           {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
             "name": "world",
             "type": "world"
           }
@@ -2686,18 +2478,6 @@
           {
             "name": "entity",
             "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
           },
           {
             "name": "world",
@@ -2722,18 +2502,6 @@
             "type": "entity"
           },
           {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
             "name": "world",
             "type": "world"
           }
@@ -2754,18 +2522,6 @@
           {
             "name": "entity",
             "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
           },
           {
             "name": "world",
@@ -6066,7 +5822,6 @@
       "key.mcreator.rocket_start_3": "Tier 3 Rocket Start",
       "block.boss_tools.block_of_steel": "Block of Steel",
       "item.boss_tools.diamond_engine": "Diamond Engine",
-      "key.boss_tools.landingear_space_hotkey": "Landing Gear",
       "item.boss_tools.alien_spawn_egg": "Alien Spawn Egg",
       "key.mcreator.rocket_rotation_a": "Rocket Rotation Left",
       "block.boss_tools.blast_furnace": "Blast Furnace",

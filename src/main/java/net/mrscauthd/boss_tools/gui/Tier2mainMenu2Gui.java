@@ -192,9 +192,6 @@ public class Tier2mainMenu2Gui extends BossToolsModElements.ModElement {
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("entity", entity);
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
 				$_dependencies.put("world", world);
 				RocketOverworldtpProcedure.executeProcedure($_dependencies);
 			}
@@ -203,9 +200,6 @@ public class Tier2mainMenu2Gui extends BossToolsModElements.ModElement {
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("entity", entity);
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
 				$_dependencies.put("world", world);
 				RocketmoonGuiMoonTpProcedure.executeProcedure($_dependencies);
 			}
@@ -214,9 +208,6 @@ public class Tier2mainMenu2Gui extends BossToolsModElements.ModElement {
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("entity", entity);
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
 				$_dependencies.put("world", world);
 				RocketoverworldumlaufbahnProcedure.executeProcedure($_dependencies);
 			}
@@ -225,9 +216,6 @@ public class Tier2mainMenu2Gui extends BossToolsModElements.ModElement {
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("entity", entity);
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
 				$_dependencies.put("world", world);
 				RocketTier2OrbitTpMoonProcedure.executeProcedure($_dependencies);
 			}
