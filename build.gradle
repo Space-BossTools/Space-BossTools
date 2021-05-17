@@ -3,6 +3,7 @@ buildscript {
         maven { url = 'https://maven.minecraftforge.net' }
         mavenCentral()
 	maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+	maven { url 'https://jitpack.io' }
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.+', changing: true
@@ -68,6 +69,7 @@ dependencies {
   compileOnly fg.deobf("mezz.jei:jei-1.16.4:7.6.0.62:api")
   runtimeOnly fg.deobf("mezz.jei:jei-1.16.4:7.6.0.62")
     annotationProcessor 'org.spongepowered:mixin:0.8.2:processor'
+  implementation 'com.github.MrScautHD:Space-Bosstools:master'
 }
 jar {
     manifest {
@@ -91,3 +93,4 @@ apply from: 'mcreator.gradle'
 mixin {
     add sourceSets.main, "boss_tools.refmap.json"
 }
+
