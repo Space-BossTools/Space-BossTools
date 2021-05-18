@@ -1,6 +1,8 @@
 
 package net.mrscauthd.boss_tools.item;
 
+import org.lwjgl.opengl.GL11;
+
 import net.mrscauthd.boss_tools.procedures.SpaceArmorLeggingsTickEventProcedure;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorHelmetTickEventProcedure;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorBootsTickEventProcedure;
@@ -24,6 +26,7 @@ import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.client.util.ITooltipFlag;
@@ -100,6 +103,23 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 			@Override
 			@OnlyIn(Dist.CLIENT)
 			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
+				if (!(living instanceof ArmorStandEntity)) {
+					try {
+						GL11.glEnable(GL11.GL_BLEND);
+						GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+						GL11.glPushAttrib(GL11.GL_ENABLE_BIT); // save the current modes
+						// change modes here, do your rendering
+						BipedModel armorModel = new BipedModel(1);
+						armorModel.bipedHead = new Modelspacesuit().kopf;
+						armorModel.isSneak = living.isSneaking();
+						armorModel.isSitting = defaultModel.isSitting;
+						armorModel.isChild = living.isChild();
+						return armorModel;
+					} finally {
+						GL11.glPopAttrib(); // restore the previous modes
+						// GL11.glDisable(GL11.GL_BLEND);
+					}
+				}
 				BipedModel armorModel = new BipedModel(1);
 				armorModel.bipedHead = new Modelspacesuit().kopf;
 				armorModel.isSneak = living.isSneaking();
@@ -265,6 +285,8 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 			Right_Foot.setRotationPoint(-2.0F, 12.0F, 0.0F);
 			Right_Foot.setTextureOffset(48, 44).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, 0.4F, false);
 			Right_Foot.setTextureOffset(48, 54).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, 0.26F, false);
+			// RenderSystem.disableBlend();
+			// RenderSystem.defaultBlendFunc();
 		}
 
 		@Override
