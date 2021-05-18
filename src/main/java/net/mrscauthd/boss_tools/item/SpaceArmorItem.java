@@ -114,12 +114,14 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 						armorModel.isSneak = living.isSneaking();
 						armorModel.isSitting = defaultModel.isSitting;
 						armorModel.isChild = living.isChild();
+						GL11.glDisable(GL11.GL_BLEND);
 						return armorModel;
 					} finally {
 						GL11.glPopAttrib(); // restore the previous modes
 						// GL11.glDisable(GL11.GL_BLEND);
 					}
 				}
+				// GL11.glDisable(GL11.GL_BLEND);
 				BipedModel armorModel = new BipedModel(1);
 				armorModel.bipedHead = new Modelspacesuit().kopf;
 				armorModel.isSneak = living.isSneaking();
