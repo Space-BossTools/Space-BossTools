@@ -34,7 +34,7 @@ public class LanderSpaceProcedure extends BossToolsModElements.ModElement {
 		Entity entity = (Entity) dependencies.get("entity");
 		if ((InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_SPACE))) {
 			if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
-				if ((((entity.getRidingEntity()).getMotion().getY()) <= (-0.05))) {
+				if ((((entity.getRidingEntity()).isOnGround()) == (false))) {
 					(entity.getRidingEntity()).setMotion(((entity.getRidingEntity()).getMotion().getX()),
 							(((entity.getRidingEntity()).getMotion().getY()) * 0.91), ((entity.getRidingEntity()).getMotion().getZ()));
 				}
