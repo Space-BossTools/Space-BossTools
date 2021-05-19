@@ -35,11 +35,13 @@ public class LanderSpaceProcedure extends BossToolsModElements.ModElement {
 		if ((InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_SPACE))) {
 			if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
 				if ((((entity.getRidingEntity()).isOnGround()) == (false))) {
-					(entity.getRidingEntity()).setMotion(((entity.getRidingEntity()).getMotion().getX()),
-							(((entity.getRidingEntity()).getMotion().getY()) * 0.91), ((entity.getRidingEntity()).getMotion().getZ()));
+					if ((((entity.getRidingEntity()).getMotion().getY()) <= (-0.05))) {
+						(entity.getRidingEntity()).setMotion(((entity.getRidingEntity()).getMotion().getX()),
+								(((entity.getRidingEntity()).getMotion().getY()) * 0.91), ((entity.getRidingEntity()).getMotion().getZ()));
+					}
+					(entity.getRidingEntity()).getPersistentData().putDouble("Lander1", 1);
+					(entity.getRidingEntity()).getPersistentData().putDouble("Lander2", 1);
 				}
-				(entity.getRidingEntity()).getPersistentData().putDouble("Lander1", 1);
-				(entity.getRidingEntity()).getPersistentData().putDouble("Lander2", 1);
 			}
 		}
 		if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
