@@ -51,8 +51,10 @@ public class Tier1mainMenuSpaceStation2GuiWindow extends ContainerScreen<Tier1ma
 		RenderSystem.color4f(1, 1, 1, 1);
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
+		int Width = Minecraft.getInstance().getMainWindow().getScaledWidth();
+		int Heigh = Minecraft.getInstance().getMainWindow().getScaledHeight();
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_menu_background.png"));
-		this.blit(ms, this.guiLeft + -129, this.guiTop + 28, 0, 0, 769, 499, 769, 499);
+		this.blit(ms, 0, 0, 0, 0, Width, Heigh, Width, Heigh);
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/milky_way.png"));
 		this.blit(ms, this.guiLeft + 168, this.guiTop + 223, 0, 0, 175, 101, 175, 101);
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/sun_main_menu.png"));

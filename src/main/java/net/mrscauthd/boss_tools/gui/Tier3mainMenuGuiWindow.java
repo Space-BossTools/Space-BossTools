@@ -47,8 +47,10 @@ public class Tier3mainMenuGuiWindow extends ContainerScreen<Tier3mainMenuGui.Gui
 		RenderSystem.color4f(1, 1, 1, 1);
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
-		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_menu_background.png"));
-		this.blit(ms, this.guiLeft + -111, this.guiTop + -8, 0, 0, 769, 499, 769, 499);
+        int Width = Minecraft.getInstance().getMainWindow().getScaledWidth();
+        int Heigh = Minecraft.getInstance().getMainWindow().getScaledHeight();
+        Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_menu_background.png"));
+        this.blit(ms, 0, 0, 0, 0, Width, Heigh, Width, Heigh);
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_menu_list.png"));
 		this.blit(ms, this.guiLeft + 43, this.guiTop + 174, 0, 0, 160, 160, 160, 160);
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/milky_way.png"));

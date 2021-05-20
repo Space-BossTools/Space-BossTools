@@ -3783,7 +3783,7 @@
       "type": "gui",
       "sortid": 429,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_1main_menu",
       "path": "~/RocketMainGuis"
@@ -4029,7 +4029,7 @@
       "type": "gui",
       "sortid": 599,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_1main_menu_2",
       "path": "~/RocketMainGuis"
@@ -4240,7 +4240,7 @@
       "type": "gui",
       "sortid": 609,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_1main_menu_space_station",
       "path": "~/RocketMainGuis"
@@ -4355,7 +4355,7 @@
       "type": "gui",
       "sortid": 614,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_2main_menu",
       "path": "~/RocketMainGuis"
@@ -4365,7 +4365,7 @@
       "type": "gui",
       "sortid": 615,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_1main_menu_space_station_2",
       "path": "~/RocketMainGuis"
@@ -4503,7 +4503,7 @@
       "type": "gui",
       "sortid": 623,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_2main_menu_2",
       "path": "~/RocketMainGuis"
@@ -4513,7 +4513,7 @@
       "type": "gui",
       "sortid": 624,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_2main_menu_3",
       "path": "~/RocketMainGuis"
@@ -4541,7 +4541,7 @@
       "type": "gui",
       "sortid": 626,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_2main_menu_space_station_1",
       "path": "~/RocketMainGuis"
@@ -4551,7 +4551,7 @@
       "type": "gui",
       "sortid": 627,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_2main_menu_space_station_2",
       "path": "~/RocketMainGuis"
@@ -4561,7 +4561,7 @@
       "type": "gui",
       "sortid": 628,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_2main_menu_space_station_3",
       "path": "~/RocketMainGuis"
@@ -4625,7 +4625,7 @@
       "type": "gui",
       "sortid": 632,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_3main_menu",
       "path": "~/RocketMainGuis"
@@ -4755,7 +4755,7 @@
       "type": "gui",
       "sortid": 637,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_3main_menu_2",
       "path": "~/RocketMainGuis"
@@ -4765,7 +4765,7 @@
       "type": "gui",
       "sortid": 638,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_3main_menu_3",
       "path": "~/RocketMainGuis"
@@ -4775,7 +4775,7 @@
       "type": "gui",
       "sortid": 639,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_3main_menu_4",
       "path": "~/RocketMainGuis"
@@ -4839,7 +4839,7 @@
       "type": "gui",
       "sortid": 643,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_3main_menu_space_station_1",
       "path": "~/RocketMainGuis"
@@ -4849,7 +4849,7 @@
       "type": "gui",
       "sortid": 644,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_3main_menu_space_station_2",
       "path": "~/RocketMainGuis"
@@ -4859,7 +4859,7 @@
       "type": "gui",
       "sortid": 645,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_3main_menu_space_station_3",
       "path": "~/RocketMainGuis"
@@ -4869,7 +4869,7 @@
       "type": "gui",
       "sortid": 646,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "tier_3main_menu_space_station_4",
       "path": "~/RocketMainGuis"
@@ -5690,9 +5690,9 @@
       "item.boss_tools.star_crawler_spawn_egg": "Star Crawler Spawn Egg",
       "block.boss_tools.mars_diamond_ore": "Mars Diamond Ore",
       "item.boss_tools.oxygen_tank": "Oxygen Tank",
-      "block.boss_tools.block_of_rusted_iron_plating": "Block of Rusted Iron Plating",
-      "block.boss_tools.fuel_refinery": "Fuel Refinery",
       "block.boss_tools.mercury_iron_ore": "Mercury Iron Ore",
+      "block.boss_tools.fuel_refinery": "Fuel Refinery",
+      "block.boss_tools.block_of_rusted_iron_plating": "Block of Rusted Iron Plating",
       "biome.boss_tools.mars_biome": "Moon Biome",
       "block.boss_tools.cracked_moon_bricks": "Cracked Moon Bricks",
       "item.boss_tools.silicon_ingot": "Silicon Ingot",
