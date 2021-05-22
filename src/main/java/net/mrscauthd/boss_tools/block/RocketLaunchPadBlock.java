@@ -118,10 +118,22 @@ public class RocketLaunchPadBlock extends BossToolsModElements.ModElement {
 		@Override
 		public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
 			Vector3d offset = state.getOffset(world, pos);
-			if (stage == true) {
+			if (((new Object() {
+				public boolean getValue(IBlockReader world, BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getBoolean(tag);
+					return false;
+				}
+			}.getValue(world, pos, "stage"))) == true) {
+				// System.out.println(stage + "1");
 				return VoxelShapes.or(makeCuboidShape(0, 0, 0, 16, 3.04, 16)).withOffset(offset.x, offset.y, offset.z);
+			} else {
+				// System.out.println(stage + "2");
+				return VoxelShapes.or(makeCuboidShape(0, 0, 0, 16, 2, 16)).withOffset(offset.x, offset.y, offset.z);
 			}
-			return VoxelShapes.or(makeCuboidShape(0, 0, 0, 16, 2, 16)).withOffset(offset.x, offset.y, offset.z);
+			// return VoxelShapes.or(makeCuboidShape(0, 0, 0, 16, 2,
+			// 16)).withOffset(offset.x, offset.y, offset.z);
 		}
 
 		@Override
