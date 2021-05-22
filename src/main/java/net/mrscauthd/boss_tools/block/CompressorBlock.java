@@ -82,7 +82,7 @@ public class CompressorBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:compressor")
 	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
 	public CompressorBlock(BossToolsModElements instance) {
-		super(instance, 66);
+		super(instance, 74);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new TileEntityRegisterHandler());
 	}
 

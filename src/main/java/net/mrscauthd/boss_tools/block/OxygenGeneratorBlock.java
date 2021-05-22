@@ -85,7 +85,7 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:oxygen_bullet_generator")
 	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
 	public OxygenGeneratorBlock(BossToolsModElements instance) {
-		super(instance, 68);
+		super(instance, 76);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new TileEntityRegisterHandler());
 	}
 

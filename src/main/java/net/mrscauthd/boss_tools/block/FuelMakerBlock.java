@@ -84,7 +84,7 @@ public class FuelMakerBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:fuel_refinery")
 	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
 	public FuelMakerBlock(BossToolsModElements instance) {
-		super(instance, 64);
+		super(instance, 72);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new TileEntityRegisterHandler());
 	}
 
