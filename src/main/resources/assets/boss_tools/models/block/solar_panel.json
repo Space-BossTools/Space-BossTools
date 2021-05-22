@@ -1,12 +1,12 @@
 {
-  "parent": "boss_tools:custom/solarpanel",
+  "parent": "block/cube",
   "textures": {
-    "all": "boss_tools:blocks/solar_panel_side",
-    "particle": "boss_tools:blocks/solar_panel_side",
-    "0": "boss_tools:blocks/solar_panel_side",
-    "1": "boss_tools:blocks/solar_panel_top",
-    "2": "boss_tools:blocks/solar_panel_top_2",
-    "3": "boss_tools:blocks/solar_panel_top_4",
-    "missing": "boss_tools:blocks/solar_panel_top"
+    "down": "boss_tools:blocks/machineback",
+    "up": "boss_tools:blocks/block_solar_panel_top",
+    "north": "boss_tools:blocks/block_solar_panel_side",
+    "east": "boss_tools:blocks/block_solar_panel_side",
+    "south": "boss_tools:blocks/block_solar_panel_side",
+    "west": "boss_tools:blocks/block_solar_panel_side",
+    "particle": "boss_tools:blocks/machineback"
   }
 }

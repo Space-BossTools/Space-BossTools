@@ -1072,6 +1072,18 @@ public class JeiPlugin implements IModPlugin {
             this.title = "Tier 1 Rocket";
             this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/rocket_gui_jui.png"), 0, 0, 128, 71);
         }
+        @Override
+        public List<ITextComponent> getTooltipStrings(Tier1RocketItemItemRecipeWrapper recipe, double mouseX, double mouseY) {
+            //   counter = counter - 1;
+            //    if (counter <= 0){
+            //        counter = 9000;
+            // }
+            // animation = counter;
+            if (mouseX > 64 && mouseX < 113 && mouseY > 10 && mouseY < 59) {
+                return Collections.singletonList(new TranslationTextComponent("100%"));
+            }
+            return Collections.emptyList();
+        }
 
         @Override
         public ResourceLocation getUid() {
@@ -1135,6 +1147,18 @@ public class JeiPlugin implements IModPlugin {
         public Tier2RocketItemItemJeiCategory(IGuiHelper guiHelper) {
             this.title = "Tier 2 Rocket";
             this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/rocket_gui_jui.png"), 0, 0, 128, 71);
+        }
+        @Override
+        public List<ITextComponent> getTooltipStrings(Tier2RocketItemItemJeiCategory.Tier2RocketItemItemRecipeWrapper recipe, double mouseX, double mouseY) {
+            //   counter = counter - 1;
+            //    if (counter <= 0){
+            //        counter = 9000;
+            // }
+            // animation = counter;
+            if (mouseX > 64 && mouseX < 113 && mouseY > 10 && mouseY < 59) {
+                return Collections.singletonList(new TranslationTextComponent("100%"));
+            }
+            return Collections.emptyList();
         }
 
         @Override
@@ -1273,6 +1297,18 @@ public class JeiPlugin implements IModPlugin {
         public Tier3RocketItemItemJeiCategory(IGuiHelper guiHelper) {
             this.title = "Tier 3 Rocket";
             this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/rocket_gui_jui.png"), 0, 0, 128, 71);
+        }
+        @Override
+        public List<ITextComponent> getTooltipStrings(Tier3RocketItemItemJeiCategory.Tier3RocketItemItemRecipeWrapper recipe, double mouseX, double mouseY) {
+            //   counter = counter - 1;
+            //    if (counter <= 0){
+            //        counter = 9000;
+            // }
+            // animation = counter;
+            if (mouseX > 64 && mouseX < 113 && mouseY > 10 && mouseY < 59) {
+                return Collections.singletonList(new TranslationTextComponent("100%"));
+            }
+            return Collections.emptyList();
         }
 
         @Override

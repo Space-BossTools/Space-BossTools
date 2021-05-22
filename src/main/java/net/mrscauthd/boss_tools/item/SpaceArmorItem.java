@@ -103,24 +103,6 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 			@Override
 			@OnlyIn(Dist.CLIENT)
 			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
-				if (!(living instanceof ArmorStandEntity)) {
-					try {
-						GL11.glEnable(GL11.GL_BLEND);
-						GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-						GL11.glPushAttrib(GL11.GL_ENABLE_BIT); // save the current modes
-						// change modes here, do your rendering
-						BipedModel armorModel = new BipedModel(1);
-						armorModel.bipedHead = new Modelspacesuit().kopf;
-						armorModel.isSneak = living.isSneaking();
-						armorModel.isSitting = defaultModel.isSitting;
-						armorModel.isChild = living.isChild();
-						GL11.glDisable(GL11.GL_BLEND);
-						return armorModel;
-					} finally {
-						GL11.glPopAttrib(); // restore the previous modes
-						// GL11.glDisable(GL11.GL_BLEND);
-					}
-				}
 				// GL11.glDisable(GL11.GL_BLEND);
 				BipedModel armorModel = new BipedModel(1);
 				armorModel.bipedHead = new Modelspacesuit().kopf;
