@@ -1,5 +1,7 @@
 package net.mrscauthd.boss_tools.procedures;
 
+import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
+import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketEntity;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
@@ -49,6 +51,54 @@ public class PowUpOnKeyReleasedProcedure {
 		double z = dependencies.get("z") instanceof Integer ? (int) dependencies.get("z") : (double) dependencies.get("z");
 		IWorld world = (IWorld) dependencies.get("world");
 		if (((entity.getRidingEntity()) instanceof RocketEntity.CustomEntity)) {
+			if ((((entity.getRidingEntity()).getPersistentData().getBoolean("Powup_trigger")) == (false))) {
+				if ((((entity.getRidingEntity()).getPersistentData().getDouble("fuel")) == 400)) {
+					if (world instanceof World && !world.isRemote()) {
+						((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
+								(net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("boss_tools:rocketfly")),
+								SoundCategory.NEUTRAL, (float) 3, (float) 1);
+					} else {
+						((World) world).playSound(x, y, z,
+								(net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("boss_tools:rocketfly")),
+								SoundCategory.NEUTRAL, (float) 3, (float) 1, false);
+					}
+					(entity.getRidingEntity()).getPersistentData().putDouble("Powup", 1);
+					(entity.getRidingEntity()).getPersistentData().putBoolean("Powup_trigger", (true));
+				} else {
+					if (entity instanceof PlayerEntity && !entity.world.isRemote()) {
+						((PlayerEntity) entity).sendStatusMessage(
+								new StringTextComponent(
+										"\u00A7cNO FUEL! \u00A77Fill the Rocket with \u00A7cFuel\u00A77. (\u00A76Sneak and Right Click\u00A77)"),
+								(false));
+					}
+				}
+			}
+		}
+		if (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)) {
+			if ((((entity.getRidingEntity()).getPersistentData().getBoolean("Powup_trigger")) == (false))) {
+				if ((((entity.getRidingEntity()).getPersistentData().getDouble("fuel")) == 400)) {
+					if (world instanceof World && !world.isRemote()) {
+						((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
+								(net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("boss_tools:rocketfly")),
+								SoundCategory.NEUTRAL, (float) 3, (float) 1);
+					} else {
+						((World) world).playSound(x, y, z,
+								(net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("boss_tools:rocketfly")),
+								SoundCategory.NEUTRAL, (float) 3, (float) 1, false);
+					}
+					(entity.getRidingEntity()).getPersistentData().putDouble("Powup", 1);
+					(entity.getRidingEntity()).getPersistentData().putBoolean("Powup_trigger", (true));
+				} else {
+					if (entity instanceof PlayerEntity && !entity.world.isRemote()) {
+						((PlayerEntity) entity).sendStatusMessage(
+								new StringTextComponent(
+										"\u00A7cNO FUEL! \u00A77Fill the Rocket with \u00A7cFuel\u00A77. (\u00A76Sneak and Right Click\u00A77)"),
+								(false));
+					}
+				}
+			}
+		}
+		if (((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)) {
 			if ((((entity.getRidingEntity()).getPersistentData().getBoolean("Powup_trigger")) == (false))) {
 				if ((((entity.getRidingEntity()).getPersistentData().getDouble("fuel")) == 400)) {
 					if (world instanceof World && !world.isRemote()) {

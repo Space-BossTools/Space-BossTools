@@ -926,50 +926,6 @@
       "path": "~/Procedures"
     },
     {
-      "name": "PowUpTier2",
-      "type": "keybind",
-      "sortid": 136,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "rocket_start_2",
-      "path": "~/keybinding"
-    },
-    {
-      "name": "PowUponkeypress",
-      "type": "procedure",
-      "sortid": 137,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "pow_uponkeypress",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      },
-      "path": "~/Procedures"
-    },
-    {
       "name": "Akivepotion",
       "type": "procedure",
       "sortid": 138,
@@ -2047,50 +2003,6 @@
       "path": "~/Procedures"
     },
     {
-      "name": "PowupTier3",
-      "type": "keybind",
-      "sortid": 187,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "rocket_start_3",
-      "path": "~/keybinding"
-    },
-    {
-      "name": "PowUponkeypressTier3",
-      "type": "procedure",
-      "sortid": 188,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "pow_uponkeypress_tier_3",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      },
-      "path": "~/Procedures"
-    },
-    {
       "name": "RocketTier3GuiFuel",
       "type": "gui",
       "sortid": 189,
@@ -2692,98 +2604,6 @@
         ]
       },
       "path": "~/Procedures"
-    },
-    {
-      "name": "RotationA",
-      "type": "procedure",
-      "sortid": 214,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "rotation_a",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          }
-        ]
-      },
-      "path": "~/Procedures"
-    },
-    {
-      "name": "RocketRotationA",
-      "type": "keybind",
-      "sortid": 215,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "rocket_rotation_a",
-      "path": "~/keybinding"
-    },
-    {
-      "name": "RocketRotationAOnKeyReleased",
-      "type": "procedure",
-      "sortid": 216,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "rocket_rotation_a_on_key_released",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          }
-        ]
-      },
-      "path": "~/Procedures"
-    },
-    {
-      "name": "RotationB",
-      "type": "procedure",
-      "sortid": 217,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "rotation_b",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          }
-        ]
-      },
-      "path": "~/Procedures"
-    },
-    {
-      "name": "RotationBReleased",
-      "type": "procedure",
-      "sortid": 218,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "rotation_b_released",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          }
-        ]
-      },
-      "path": "~/Procedures"
-    },
-    {
-      "name": "RocketRotationB",
-      "type": "keybind",
-      "sortid": 219,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "rocket_rotation_b",
-      "path": "~/keybinding"
     },
     {
       "name": "PlayerRotations",
@@ -5571,6 +5391,23 @@
       "ids": {},
       "registry_name": "rocket_launch_pad",
       "path": "~/Blocks"
+    },
+    {
+      "name": "PressHotkeys",
+      "type": "procedure",
+      "sortid": 386,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "press_hotkeys",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      }
     }
   ],
   "variable_elements": [
@@ -5663,9 +5500,9 @@
       "item.boss_tools.iron_engine": "Iron Engine",
       "block.boss_tools.mars_diamond_ore": "Mars Diamond Ore",
       "item.boss_tools.oxygen_tank": "Oxygen Tank",
-      "block.boss_tools.block_of_rusted_iron_plating": "Block of Rusted Iron Plating",
-      "block.boss_tools.fuel_refinery": "Fuel Refinery",
       "block.boss_tools.mercury_iron_ore": "Mercury Iron Ore",
+      "block.boss_tools.fuel_refinery": "Fuel Refinery",
+      "block.boss_tools.block_of_rusted_iron_plating": "Block of Rusted Iron Plating",
       "biome.boss_tools.mars_biome": "Moon Biome",
       "block.boss_tools.cracked_moon_bricks": "Cracked Moon Bricks",
       "item.boss_tools.silicon_ingot": "Silicon Ingot",
@@ -5697,7 +5534,6 @@
       "biome.boss_tools.mars_biom": "Mars Biome",
       "block.boss_tools.flag_cyan": "Cyan Flag",
       "block.boss_tools.flag_light_blue": "Light Blue Flag",
-      "key.mcreator.rocket_start": "Tier 1 Rocket Start",
       "block.boss_tools.moon_sand": "Moon Sand",
       "job.boss_tools.job2": "Fisherman",
       "job.boss_tools.job1": "Farmer",
@@ -5744,8 +5580,6 @@
       "item.boss_tools.alienspitentity": "Alienspitentitytest",
       "block.boss_tools.coal_generator": "Coal Generator",
       "item.boss_tools.engine_fan": "Engine Fan",
-      "key.boss_tools.rocket_start_2": "Tier 2 Rocket Start",
-      "key.boss_tools.rocket_start_3": "Tier 3 Rocket Start",
       "fluid.fuel": "Fuel",
       "block.boss_tools.flag_pink": "Pink Flag",
       "block.boss_tools.flag_purple": "Purple Flag",
@@ -5775,31 +5609,25 @@
       "job.boss_tools.job11": "Butcher",
       "item.boss_tools.space_armor_chestplate": "Space Suit",
       "block.boss_tools.flag_brown": "Brown Flag",
-      "key.boss_tools.rocket_start": "Tier 1 Rocket Start",
+      "key.boss_tools.rocket_start": "Rocket Start",
       "item.boss_tools.space_armorbody": "Space Suit",
       "block.boss_tools.compressor": "Compressor",
       "block.boss_tools.mars_sand": "Mars Sand",
       "block.boss_tools.moon_iron_ore": "Moon Iron Ore",
       "item.boss_tools.space_armorlegs": "Space Pants",
       "item.boss_tools.rocket_fin": "Rocket Fin",
-      "key.mcreator.rocket_start_2": "Tier 2 Rocket Start",
       "block.boss_tools.flag_orange": "Orange Flag",
-      "key.mcreator.rocket_start_3": "Tier 3 Rocket Start",
       "block.boss_tools.block_of_steel": "Block of Steel",
       "item.boss_tools.diamond_engine": "Diamond Engine",
       "item.boss_tools.alien_spawn_egg": "Alien Spawn Egg",
-      "key.mcreator.rocket_rotation_a": "Rocket Rotation Left",
       "block.boss_tools.blast_furnace": "Blast Furnace",
       "advancements.rocket_tier_2_advancement.descr": "§bHas crafted a Tier 2 Rocket",
       "block.boss_tools.moon_brick_stairs": "Moon Brick Stairs",
       "block.boss_tools.flag_green": "Green Flag",
-      "key.mcreator.rocket_rotation_b": "Rocket Rotation Right",
       "block.boss_tools.flag_yellow": "Yellow Flag",
       "item.boss_tools.chesse": "Chesse",
       "item.boss_tools.battery": "Battery",
-      "key.boss_tools.rocket_rotation_b": "Rocket Rotation Right",
       "block.boss_tools.flag_magenta": "Magenta Flag",
-      "key.boss_tools.rocket_rotation_a": "Rocket Rotation Left",
       "itemGroup.tabspace_bosstools_spawn_eggs": "Space-Bosstools: Spawn Eggs",
       "block.boss_tools.flag": "Flag",
       "item.boss_tools.landing_gear": "Landing Gear Spawn Egg",
