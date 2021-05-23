@@ -2,7 +2,6 @@ package net.mrscauthd.boss_tools.procedures;
 
 import net.mrscauthd.boss_tools.item.AlienspitentityItem;
 import net.mrscauthd.boss_tools.BossToolsModVariables;
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraft.world.IWorld;
@@ -23,12 +22,7 @@ import java.util.Map;
 import java.util.List;
 import java.util.Comparator;
 
-@BossToolsModElements.ModElement.Tag
-public class AlienZombieOnEntityTickUpdateProcedure extends BossToolsModElements.ModElement {
-	public AlienZombieOnEntityTickUpdateProcedure(BossToolsModElements instance) {
-		super(instance, 683);
-	}
-
+public class AlienZombieOnEntityTickUpdateProcedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("entity") == null) {
 			if (!dependencies.containsKey("entity"))

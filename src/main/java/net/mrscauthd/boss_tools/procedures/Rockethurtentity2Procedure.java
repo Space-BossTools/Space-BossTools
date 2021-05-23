@@ -3,7 +3,6 @@ package net.mrscauthd.boss_tools.procedures;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
 import net.mrscauthd.boss_tools.item.FuelBucketBigItem;
 import net.mrscauthd.boss_tools.item.BucketBigItem;
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -25,12 +24,7 @@ import net.minecraft.block.Blocks;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
-public class Rockethurtentity2Procedure extends BossToolsModElements.ModElement {
-	public Rockethurtentity2Procedure(BossToolsModElements instance) {
-		super(instance, 121);
-	}
-
+public class Rockethurtentity2Procedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("entity") == null) {
 			if (!dependencies.containsKey("entity"))

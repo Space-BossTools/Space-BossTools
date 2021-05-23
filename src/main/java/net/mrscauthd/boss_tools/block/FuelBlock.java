@@ -57,11 +57,12 @@ public class FuelBlock extends BossToolsModElements.ModElement {
 	public void initElements() {
 		fluidproperties = new ForgeFlowingFluid.Properties(() -> still, () -> flowing, FluidAttributes
 				.builder(new ResourceLocation("boss_tools:blocks/fluid_fuel_still"), new ResourceLocation("boss_tools:blocks/fluid_fuel_flow"))
-				.luminosity(0).density(1000).viscosity(1000)).bucket(() -> bucket).block(() -> block);
+				.luminosity(0).density(1000).viscosity(1000)).explosionResistance(100f).bucket(() -> bucket).block(() -> block);
 		still = (FlowingFluid) new ForgeFlowingFluid.Source(fluidproperties).setRegistryName("fuel");
 		flowing = (FlowingFluid) new ForgeFlowingFluid.Flowing(fluidproperties).setRegistryName("fuel_flowing");
-		elements.blocks.add(() -> new FlowingFluidBlock(still, Block.Properties.create(Material.WATER)) {
-		}.setRegistryName("fuel"));
+		elements.blocks
+				.add(() -> new FlowingFluidBlock(still, Block.Properties.create(Material.WATER).hardnessAndResistance(100f).setLightLevel(s -> 0)) {
+				}.setRegistryName("fuel"));
 		elements.items
 				.add(() -> new BucketItem(still, new Item.Properties().containerItem(Items.BUCKET).maxStackSize(1).group(BossToolsItemGroup.tab))
 						.setRegistryName("fuel_bucket"));

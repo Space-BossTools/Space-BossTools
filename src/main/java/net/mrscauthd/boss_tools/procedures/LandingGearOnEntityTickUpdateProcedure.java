@@ -1,6 +1,5 @@
 package net.mrscauthd.boss_tools.procedures;
 
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraft.world.server.ServerWorld;
@@ -15,12 +14,7 @@ import net.minecraft.command.CommandSource;
 
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
-public class LandingGearOnEntityTickUpdateProcedure extends BossToolsModElements.ModElement {
-	public LandingGearOnEntityTickUpdateProcedure(BossToolsModElements instance) {
-		super(instance, 166);
-	}
-
+public class LandingGearOnEntityTickUpdateProcedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("entity") == null) {
 			if (!dependencies.containsKey("entity"))

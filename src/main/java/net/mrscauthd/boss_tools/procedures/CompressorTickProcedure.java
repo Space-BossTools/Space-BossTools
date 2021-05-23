@@ -3,7 +3,6 @@ package net.mrscauthd.boss_tools.procedures;
 import net.mrscauthd.boss_tools.item.CompressesteelItem;
 import net.mrscauthd.boss_tools.item.CompressedsiliconItem;
 import net.mrscauthd.boss_tools.item.CompressedTinItem;
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -24,12 +23,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
-public class CompressorTickProcedure extends BossToolsModElements.ModElement {
-	public CompressorTickProcedure(BossToolsModElements instance) {
-		super(instance, 291);
-	}
-
+public class CompressorTickProcedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("x") == null) {
 			if (!dependencies.containsKey("x"))

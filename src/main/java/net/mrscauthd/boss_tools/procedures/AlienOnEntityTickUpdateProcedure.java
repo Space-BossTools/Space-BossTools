@@ -1,19 +1,13 @@
 package net.mrscauthd.boss_tools.procedures;
 
 import net.mrscauthd.boss_tools.BossToolsModVariables;
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraft.entity.Entity;
 
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
-public class AlienOnEntityTickUpdateProcedure extends BossToolsModElements.ModElement {
-	public AlienOnEntityTickUpdateProcedure(BossToolsModElements instance) {
-		super(instance, 115);
-	}
-
+public class AlienOnEntityTickUpdateProcedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("entity") == null) {
 			if (!dependencies.containsKey("entity"))

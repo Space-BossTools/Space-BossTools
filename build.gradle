@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.+', changing: true
-        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+	classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
 repositories {
@@ -67,7 +67,7 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.1.0'
   compileOnly fg.deobf("mezz.jei:jei-1.16.4:7.6.0.62:api")
   runtimeOnly fg.deobf("mezz.jei:jei-1.16.4:7.6.0.62")
-    annotationProcessor 'org.spongepowered:mixin:0.8.2:processor'
+  annotationProcessor 'org.spongepowered:mixin:0.8.2:processor'
 }
 jar {
     manifest {
@@ -86,7 +86,6 @@ jar {
 apply plugin: 'org.spongepowered.mixin'
 
 apply from: 'mcreator.gradle'
-
 
 mixin {
     add sourceSets.main, "boss_tools.refmap.json"

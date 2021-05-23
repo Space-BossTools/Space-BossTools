@@ -1,6 +1,5 @@
 package net.mrscauthd.boss_tools.procedures;
 
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraft.world.IWorld;
@@ -9,12 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
-public class Oxygenlargeshow1Procedure extends BossToolsModElements.ModElement {
-	public Oxygenlargeshow1Procedure(BossToolsModElements instance) {
-		super(instance, 288);
-	}
-
+public class Oxygenlargeshow1Procedure {
 	public static boolean executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("x") == null) {
 			if (!dependencies.containsKey("x"))

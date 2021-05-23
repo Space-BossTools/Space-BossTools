@@ -1,6 +1,5 @@
 package net.mrscauthd.boss_tools.procedures;
 
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.registries.ForgeRegistries;
@@ -20,12 +19,7 @@ import net.minecraft.block.Blocks;
 
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
-public class TorchOnBlockRightClickedProcedure extends BossToolsModElements.ModElement {
-	public TorchOnBlockRightClickedProcedure(BossToolsModElements instance) {
-		super(instance, 149);
-	}
-
+public class TorchOnBlockRightClickedProcedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("entity") == null) {
 			if (!dependencies.containsKey("entity"))

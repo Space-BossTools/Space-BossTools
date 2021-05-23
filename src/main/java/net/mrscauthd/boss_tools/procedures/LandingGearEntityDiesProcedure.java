@@ -1,6 +1,5 @@
 package net.mrscauthd.boss_tools.procedures;
 
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraft.world.World;
@@ -9,12 +8,7 @@ import net.minecraft.world.Explosion;
 
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
-public class LandingGearEntityDiesProcedure extends BossToolsModElements.ModElement {
-	public LandingGearEntityDiesProcedure(BossToolsModElements instance) {
-		super(instance, 175);
-	}
-
+public class LandingGearEntityDiesProcedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("x") == null) {
 			if (!dependencies.containsKey("x"))

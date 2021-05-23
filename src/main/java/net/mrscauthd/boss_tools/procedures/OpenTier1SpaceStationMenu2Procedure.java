@@ -1,18 +1,12 @@
 package net.mrscauthd.boss_tools.procedures;
 
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraft.entity.Entity;
 
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
-public class OpenTier1SpaceStationMenu2Procedure extends BossToolsModElements.ModElement {
-	public OpenTier1SpaceStationMenu2Procedure(BossToolsModElements instance) {
-		super(instance, 617);
-	}
-
+public class OpenTier1SpaceStationMenu2Procedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("entity") == null) {
 			if (!dependencies.containsKey("entity"))

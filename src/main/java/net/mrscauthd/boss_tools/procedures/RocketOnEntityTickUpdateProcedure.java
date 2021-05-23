@@ -1,7 +1,6 @@
 package net.mrscauthd.boss_tools.procedures;
 
 import net.mrscauthd.boss_tools.block.FuelBlock;
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -23,12 +22,7 @@ import net.minecraft.command.CommandSource;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
-public class RocketOnEntityTickUpdateProcedure extends BossToolsModElements.ModElement {
-	public RocketOnEntityTickUpdateProcedure(BossToolsModElements instance) {
-		super(instance, 100);
-	}
-
+public class RocketOnEntityTickUpdateProcedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("entity") == null) {
 			if (!dependencies.containsKey("entity"))

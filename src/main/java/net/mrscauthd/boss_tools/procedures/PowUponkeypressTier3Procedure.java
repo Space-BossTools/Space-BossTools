@@ -1,7 +1,6 @@
 package net.mrscauthd.boss_tools.procedures;
 
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.registries.ForgeRegistries;
@@ -17,12 +16,7 @@ import net.minecraft.entity.Entity;
 
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
-public class PowUponkeypressTier3Procedure extends BossToolsModElements.ModElement {
-	public PowUponkeypressTier3Procedure(BossToolsModElements instance) {
-		super(instance, 296);
-	}
-
+public class PowUponkeypressTier3Procedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("entity") == null) {
 			if (!dependencies.containsKey("entity"))

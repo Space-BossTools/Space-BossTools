@@ -3,19 +3,13 @@ package net.mrscauthd.boss_tools.procedures;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketEntity;
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraft.entity.Entity;
 
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
-public class RocketRotationAOnKeyReleasedProcedure extends BossToolsModElements.ModElement {
-	public RocketRotationAOnKeyReleasedProcedure(BossToolsModElements instance) {
-		super(instance, 324);
-	}
-
+public class RocketRotationAOnKeyReleasedProcedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("entity") == null) {
 			if (!dependencies.containsKey("entity"))

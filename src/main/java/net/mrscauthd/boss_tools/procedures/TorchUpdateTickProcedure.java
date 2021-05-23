@@ -1,6 +1,5 @@
 package net.mrscauthd.boss_tools.procedures;
 
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraft.world.World;
@@ -11,12 +10,7 @@ import net.minecraft.block.Block;
 
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
-public class TorchUpdateTickProcedure extends BossToolsModElements.ModElement {
-	public TorchUpdateTickProcedure(BossToolsModElements instance) {
-		super(instance, 607);
-	}
-
+public class TorchUpdateTickProcedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("x") == null) {
 			if (!dependencies.containsKey("x"))

@@ -1,6 +1,5 @@
 package net.mrscauthd.boss_tools.procedures;
 
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraft.world.World;
@@ -21,12 +20,7 @@ import net.minecraft.client.Minecraft;
 
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
-public class SpaceArmorBodyTickEventProcedure extends BossToolsModElements.ModElement {
-	public SpaceArmorBodyTickEventProcedure(BossToolsModElements instance) {
-		super(instance, 141);
-	}
-
+public class SpaceArmorBodyTickEventProcedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("entity") == null) {
 			if (!dependencies.containsKey("entity"))

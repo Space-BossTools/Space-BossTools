@@ -1,6 +1,5 @@
 package net.mrscauthd.boss_tools.procedures;
 
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -22,12 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
-public class CoalGeneratorTickProcedure extends BossToolsModElements.ModElement {
-	public CoalGeneratorTickProcedure(BossToolsModElements instance) {
-		super(instance, 153);
-	}
-
+public class CoalGeneratorTickProcedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("x") == null) {
 			if (!dependencies.containsKey("x"))

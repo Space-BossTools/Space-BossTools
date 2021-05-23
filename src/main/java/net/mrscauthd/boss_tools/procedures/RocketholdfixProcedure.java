@@ -3,12 +3,11 @@ package net.mrscauthd.boss_tools.procedures;
 import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.common.MinecraftForge;
 
 import net.minecraft.world.World;
 import net.minecraft.world.IWorld;
@@ -23,13 +22,28 @@ import net.minecraft.block.Blocks;
 import java.util.Map;
 import java.util.HashMap;
 
-@BossToolsModElements.ModElement.Tag
-public class RocketholdfixProcedure extends BossToolsModElements.ModElement {
-	public RocketholdfixProcedure(BossToolsModElements instance) {
-		super(instance, 561);
-		MinecraftForge.EVENT_BUS.register(this);
+public class RocketholdfixProcedure {
+	@Mod.EventBusSubscriber
+	private static class GlobalTrigger {
+		@SubscribeEvent
+		public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+			if (event.phase == TickEvent.Phase.END) {
+				Entity entity = event.player;
+				World world = entity.world;
+				double i = entity.getPosX();
+				double j = entity.getPosY();
+				double k = entity.getPosZ();
+				Map<String, Object> dependencies = new HashMap<>();
+				dependencies.put("x", i);
+				dependencies.put("y", j);
+				dependencies.put("z", k);
+				dependencies.put("world", world);
+				dependencies.put("entity", entity);
+				dependencies.put("event", event);
+				executeProcedure(dependencies);
+			}
+		}
 	}
-
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("entity") == null) {
 			if (!dependencies.containsKey("entity"))
@@ -213,25 +227,6 @@ public class RocketholdfixProcedure extends BossToolsModElements.ModElement {
 				entityToSpawn.setPickupDelay((int) 10);
 				world.addEntity(entityToSpawn);
 			}
-		}
-	}
-
-	@SubscribeEvent
-	public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-		if (event.phase == TickEvent.Phase.END) {
-			Entity entity = event.player;
-			World world = entity.world;
-			double i = entity.getPosX();
-			double j = entity.getPosY();
-			double k = entity.getPosZ();
-			Map<String, Object> dependencies = new HashMap<>();
-			dependencies.put("x", i);
-			dependencies.put("y", j);
-			dependencies.put("z", k);
-			dependencies.put("world", world);
-			dependencies.put("entity", entity);
-			dependencies.put("event", event);
-			this.executeProcedure(dependencies);
 		}
 	}
 }

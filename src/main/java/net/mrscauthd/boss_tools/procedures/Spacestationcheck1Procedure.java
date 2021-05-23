@@ -1,7 +1,6 @@
 package net.mrscauthd.boss_tools.procedures;
 
 import net.mrscauthd.boss_tools.item.OrbitPlacerItem;
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraft.item.ItemStack;
@@ -10,12 +9,7 @@ import net.minecraft.entity.Entity;
 
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
-public class Spacestationcheck1Procedure extends BossToolsModElements.ModElement {
-	public Spacestationcheck1Procedure(BossToolsModElements instance) {
-		super(instance, 612);
-	}
-
+public class Spacestationcheck1Procedure {
 	public static boolean executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("entity") == null) {
 			if (!dependencies.containsKey("entity"))

@@ -15,7 +15,6 @@ import net.mrscauthd.boss_tools.item.EngineTier3Item;
 import net.mrscauthd.boss_tools.item.CompressesteelItem;
 import net.mrscauthd.boss_tools.item.CompressedsiliconItem;
 import net.mrscauthd.boss_tools.item.CompressedTinItem;
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.registries.ForgeRegistries;
@@ -37,12 +36,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
-public class WorkbenchUpdateTickProcedure extends BossToolsModElements.ModElement {
-	public WorkbenchUpdateTickProcedure(BossToolsModElements instance) {
-		super(instance, 157);
-	}
-
+public class WorkbenchUpdateTickProcedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("x") == null) {
 			if (!dependencies.containsKey("x"))

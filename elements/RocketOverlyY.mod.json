@@ -1,5 +1,5 @@
 {
-  "_fv": 18,
+  "_fv": 19,
   "_type": "overlay",
   "definition": {
     "priority": "HIGHEST",
@@ -7,6 +7,13 @@
     "baseTexture": "rocket_y_main_1.png",
     "displayCondition": {
       "name": "RocketOverlyYDisplayOverlayIngame"
+    },
+    "gridSettings": {
+      "sx": 18,
+      "sy": 18,
+      "ox": 11,
+      "oy": 15,
+      "snapOnGrid": false
     }
   }
 }

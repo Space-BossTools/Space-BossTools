@@ -6,7 +6,6 @@ import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.item.FuelBucketBigItem;
 import net.mrscauthd.boss_tools.item.BucketBigItem;
 import net.mrscauthd.boss_tools.block.FuelBlock;
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -23,12 +22,7 @@ import net.minecraft.block.Blocks;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
-public class LandingGearEntityIsHurtProcedure extends BossToolsModElements.ModElement {
-	public LandingGearEntityIsHurtProcedure(BossToolsModElements instance) {
-		super(instance, 168);
-	}
-
+public class LandingGearEntityIsHurtProcedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("entity") == null) {
 			if (!dependencies.containsKey("entity"))

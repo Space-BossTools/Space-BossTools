@@ -1,5 +1,5 @@
 {
-  "_fv": 18,
+  "_fv": 19,
   "_type": "fluid",
   "definition": {
     "name": "Fuel",
@@ -14,6 +14,12 @@
     "creativeTab": {
       "value": "CUSTOM:BossTools"
     },
+    "resistance": 100.0,
+    "luminance": 0,
+    "emissiveRendering": false,
+    "flammability": 0,
+    "fireSpreadSpeed": 0,
+    "colorOnMap": "DEFAULT",
     "frequencyOnChunks": 5,
     "spawnWorldTypes": [],
     "restrictionBiomes": []

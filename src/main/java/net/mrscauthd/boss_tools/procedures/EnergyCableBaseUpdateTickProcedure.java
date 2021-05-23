@@ -1,6 +1,5 @@
 package net.mrscauthd.boss_tools.procedures;
 
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -16,12 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
-public class EnergyCableBaseUpdateTickProcedure extends BossToolsModElements.ModElement {
-	public EnergyCableBaseUpdateTickProcedure(BossToolsModElements instance) {
-		super(instance, 384);
-	}
-
+public class EnergyCableBaseUpdateTickProcedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("x") == null) {
 			if (!dependencies.containsKey("x"))

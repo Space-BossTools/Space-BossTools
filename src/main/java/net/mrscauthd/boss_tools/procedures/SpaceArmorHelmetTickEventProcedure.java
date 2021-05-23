@@ -1,18 +1,12 @@
 package net.mrscauthd.boss_tools.procedures;
 
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraft.entity.Entity;
 
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
-public class SpaceArmorHelmetTickEventProcedure extends BossToolsModElements.ModElement {
-	public SpaceArmorHelmetTickEventProcedure(BossToolsModElements instance) {
-		super(instance, 105);
-	}
-
+public class SpaceArmorHelmetTickEventProcedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("entity") == null) {
 			if (!dependencies.containsKey("entity"))

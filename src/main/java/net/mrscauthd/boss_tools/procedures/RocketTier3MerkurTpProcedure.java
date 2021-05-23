@@ -1,6 +1,5 @@
 package net.mrscauthd.boss_tools.procedures;
 
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraft.world.server.ServerWorld;
@@ -21,12 +20,7 @@ import net.minecraft.entity.Entity;
 import java.util.Map;
 import java.util.Collections;
 
-@BossToolsModElements.ModElement.Tag
-public class RocketTier3MerkurTpProcedure extends BossToolsModElements.ModElement {
-	public RocketTier3MerkurTpProcedure(BossToolsModElements instance) {
-		super(instance, 307);
-	}
-
+public class RocketTier3MerkurTpProcedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("entity") == null) {
 			if (!dependencies.containsKey("entity"))

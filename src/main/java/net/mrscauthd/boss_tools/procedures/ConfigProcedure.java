@@ -1,10 +1,10 @@
 package net.mrscauthd.boss_tools.procedures;
 
 import net.mrscauthd.boss_tools.BossToolsModVariables;
-import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.Map;
 import java.util.Collections;
@@ -17,13 +17,14 @@ import java.io.File;
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
 
-@BossToolsModElements.ModElement.Tag
-public class ConfigProcedure extends BossToolsModElements.ModElement {
-	public ConfigProcedure(BossToolsModElements instance) {
-		super(instance, 396);
-		MinecraftForge.EVENT_BUS.register(this);
+public class ConfigProcedure {
+	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+	private static class GlobalTrigger {
+		@SubscribeEvent
+		public static void init(FMLCommonSetupEvent event) {
+			executeProcedure(Collections.emptyMap());
+		}
 	}
-
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		String testconfig = "";
 		String Meteor = "";
@@ -146,10 +147,5 @@ public class ConfigProcedure extends BossToolsModElements.ModElement {
 		if (((!(((AlienZombie)).equals("Alien Zombie = true"))) && (!(((AlienZombie)).equals("Alien Zombie = false"))))) {
 			BossToolsModVariables.AlienZombie = (double) 1;
 		}
-	}
-
-	@Override
-	public void init(FMLCommonSetupEvent event) {
-		this.executeProcedure(Collections.emptyMap());
 	}
 }

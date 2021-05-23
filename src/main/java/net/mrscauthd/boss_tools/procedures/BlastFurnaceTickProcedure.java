@@ -1,7 +1,6 @@
 package net.mrscauthd.boss_tools.procedures;
 
 import net.mrscauthd.boss_tools.item.SteahlItem;
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -20,12 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
-public class BlastFurnaceTickProcedure extends BossToolsModElements.ModElement {
-	public BlastFurnaceTickProcedure(BossToolsModElements instance) {
-		super(instance, 162);
-	}
-
+public class BlastFurnaceTickProcedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("x") == null) {
 			if (!dependencies.containsKey("x"))

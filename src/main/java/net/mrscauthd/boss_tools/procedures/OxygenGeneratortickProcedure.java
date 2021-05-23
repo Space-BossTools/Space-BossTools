@@ -1,6 +1,5 @@
 package net.mrscauthd.boss_tools.procedures;
 
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -33,12 +32,7 @@ import java.util.Map;
 import java.util.List;
 import java.util.Comparator;
 
-@BossToolsModElements.ModElement.Tag
-public class OxygenGeneratortickProcedure extends BossToolsModElements.ModElement {
-	public OxygenGeneratortickProcedure(BossToolsModElements instance) {
-		super(instance, 150);
-	}
-
+public class OxygenGeneratortickProcedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("x") == null) {
 			if (!dependencies.containsKey("x"))

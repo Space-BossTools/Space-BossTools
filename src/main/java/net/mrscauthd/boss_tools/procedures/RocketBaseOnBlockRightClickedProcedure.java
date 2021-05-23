@@ -1,7 +1,6 @@
 package net.mrscauthd.boss_tools.procedures;
 
 import net.mrscauthd.boss_tools.block.RocketLaunchPadBlock;
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraft.world.World;
@@ -12,12 +11,7 @@ import net.minecraft.block.BlockState;
 
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
-public class RocketBaseOnBlockRightClickedProcedure extends BossToolsModElements.ModElement {
-	public RocketBaseOnBlockRightClickedProcedure(BossToolsModElements instance) {
-		super(instance, 236);
-	}
-
+public class RocketBaseOnBlockRightClickedProcedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("x") == null) {
 			if (!dependencies.containsKey("x"))

@@ -1,6 +1,5 @@
 package net.mrscauthd.boss_tools.procedures;
 
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraft.world.server.ServerWorld;
@@ -19,12 +18,7 @@ import net.minecraft.entity.Entity;
 import java.util.Map;
 import java.util.Collections;
 
-@BossToolsModElements.ModElement.Tag
-public class RocketTier3OverworldTpProcedure extends BossToolsModElements.ModElement {
-	public RocketTier3OverworldTpProcedure(BossToolsModElements instance) {
-		super(instance, 304);
-	}
-
+public class RocketTier3OverworldTpProcedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("entity") == null) {
 			if (!dependencies.containsKey("entity"))

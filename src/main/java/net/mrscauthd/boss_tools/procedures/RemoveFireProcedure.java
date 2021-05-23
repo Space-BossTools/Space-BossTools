@@ -1,12 +1,11 @@
 package net.mrscauthd.boss_tools.procedures;
 
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.common.MinecraftForge;
 
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
@@ -27,13 +26,26 @@ import net.minecraft.block.Blocks;
 import java.util.Map;
 import java.util.HashMap;
 
-@BossToolsModElements.ModElement.Tag
-public class RemoveFireProcedure extends BossToolsModElements.ModElement {
-	public RemoveFireProcedure(BossToolsModElements instance) {
-		super(instance, 147);
-		MinecraftForge.EVENT_BUS.register(this);
+public class RemoveFireProcedure {
+	@Mod.EventBusSubscriber
+	private static class GlobalTrigger {
+		@SubscribeEvent
+		public static void onBlockPlace(BlockEvent.EntityPlaceEvent event) {
+			Entity entity = event.getEntity();
+			IWorld world = event.getWorld();
+			Map<String, Object> dependencies = new HashMap<>();
+			dependencies.put("x", event.getPos().getX());
+			dependencies.put("y", event.getPos().getY());
+			dependencies.put("z", event.getPos().getZ());
+			dependencies.put("px", entity.getPosX());
+			dependencies.put("py", entity.getPosY());
+			dependencies.put("pz", entity.getPosZ());
+			dependencies.put("world", world);
+			dependencies.put("entity", entity);
+			dependencies.put("event", event);
+			executeProcedure(dependencies);
+		}
 	}
-
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("x") == null) {
 			if (!dependencies.containsKey("x"))
@@ -493,22 +505,5 @@ public class RemoveFireProcedure extends BossToolsModElements.ModElement {
 				}
 			}
 		}
-	}
-
-	@SubscribeEvent
-	public void onBlockPlace(BlockEvent.EntityPlaceEvent event) {
-		Entity entity = event.getEntity();
-		IWorld world = event.getWorld();
-		Map<String, Object> dependencies = new HashMap<>();
-		dependencies.put("x", event.getPos().getX());
-		dependencies.put("y", event.getPos().getY());
-		dependencies.put("z", event.getPos().getZ());
-		dependencies.put("px", entity.getPosX());
-		dependencies.put("py", entity.getPosY());
-		dependencies.put("pz", entity.getPosZ());
-		dependencies.put("world", world);
-		dependencies.put("entity", entity);
-		dependencies.put("event", event);
-		this.executeProcedure(dependencies);
 	}
 }

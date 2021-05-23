@@ -2,7 +2,6 @@ package net.mrscauthd.boss_tools.procedures;
 
 import net.mrscauthd.boss_tools.item.FuelBucketBigItem;
 import net.mrscauthd.boss_tools.item.BucketBigItem;
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -23,12 +22,7 @@ import net.minecraft.command.CommandSource;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
-public class RocketOnEntityTicktier2Procedure extends BossToolsModElements.ModElement {
-	public RocketOnEntityTicktier2Procedure(BossToolsModElements instance) {
-		super(instance, 136);
-	}
-
+public class RocketOnEntityTicktier2Procedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("entity") == null) {
 			if (!dependencies.containsKey("entity"))
