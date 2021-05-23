@@ -5,12 +5,12 @@
     "renderType": 0,
     "texture": "item_ice_shard",
     "customModelName": "Normal",
-    "name": "Alienspitentity",
+    "name": "Alienspitentitytest",
     "specialInfo": [],
     "creativeTab": {
       "value": "No creative tab entry"
     },
-    "stackSize": 0,
+    "stackSize": 1,
     "ammoItem": {
       "value": ""
     },
