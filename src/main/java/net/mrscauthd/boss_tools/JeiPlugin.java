@@ -146,6 +146,8 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipes(generateGeneratorRecipes(), GeneratorJeiCategory.Uid);
         //generator Recpie 2
         registration.addRecipes(generateGeneratorRecipes2(), GeneratorJeiCategory.Uid);
+        //generator Recpie 3
+        registration.addRecipes(generateGeneratorRecipes3(), GeneratorJeiCategory.Uid);
         //workbench
         registration.addRecipes(generateWorkbenchRecipes(), WorkbenchJeiCategory.Uid);
         //workbench Tier 2
@@ -208,6 +210,15 @@ public class JeiPlugin implements IModPlugin {
         List<GeneratorJeiCategory.GeneratorRecipeWrapper> recipes = new ArrayList<>();
         ArrayList<ItemStack> inputs = new ArrayList<>();
         inputs.add(new ItemStack(Items.COAL_BLOCK));
+        // ...
+        recipes.add(new GeneratorJeiCategory.GeneratorRecipeWrapper(inputs));
+        return recipes;
+    }
+    //Generator
+    private List<GeneratorJeiCategory.GeneratorRecipeWrapper> generateGeneratorRecipes3() {
+        List<GeneratorJeiCategory.GeneratorRecipeWrapper> recipes = new ArrayList<>();
+        ArrayList<ItemStack> inputs = new ArrayList<>();
+        inputs.add(new ItemStack(Items.CHARCOAL));
         // ...
         recipes.add(new GeneratorJeiCategory.GeneratorRecipeWrapper(inputs));
         return recipes;
@@ -685,9 +696,72 @@ public class JeiPlugin implements IModPlugin {
         // ...
         private final String title;
         private final IDrawable background;
+        private final IDrawable textureanimation1;
+        private final IDrawable textureanimation2;
+        private final IDrawable textureanimation3;
+        private final IDrawable textureanimation4;
+        private final IDrawable textureanimation5;
+        private final IDrawable textureanimation6;
+        private final IDrawable textureanimation7;
+        private final IDrawable textureanimation8;
+        private final IDrawable textureanimation9;
+        private final IDrawable textureanimation10;
+        private final IDrawable textureanimation11;
+        private final IDrawable textureanimation12;
+        private final IDrawable textureanimation13;
+        private final IDrawable textureanimation14;
+        private final IDrawable textureanimation15;
+        private final IDrawable textureanimation16;
+        private final IDrawable textureanimation17;
+        private final IDrawable textureanimation18;
+        private final IDrawable textureanimation19;
+        private final IDrawable textureanimation20;
+        private final IDrawable textureanimation21;
+        private final IDrawable textureanimation22;
+        private final IDrawable textureanimation23;
+
+        //Animation nummber
+        int counter = 0;
+        int animation = 1 ;
         public GeneratorJeiCategory(IGuiHelper guiHelper) {
             this.title = "Coal Generator";
-            this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coalgeneratortexture.png"), 0, 0, 144, 84);
+            this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen0.png"), 0, 0, 144, 84);
+            //animation
+            this.textureanimation1 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen1.png"), 0, 0, 144, 84);
+            this.textureanimation2 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen2.png"), 0, 0, 144, 84);
+            this.textureanimation3 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen3.png"), 0, 0, 144, 84);
+            this.textureanimation4 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen4.png"), 0, 0, 144, 84);
+            this.textureanimation5 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen5.png"), 0, 0, 144, 84);
+            this.textureanimation6 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen6.png"), 0, 0, 144, 84);
+            this.textureanimation7 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen7.png"), 0, 0, 144, 84);
+            this.textureanimation8 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen8.png"), 0, 0, 144, 84);
+            this.textureanimation9 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen9.png"), 0, 0, 144, 84);
+            this.textureanimation10 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen10.png"), 0, 0, 144, 84);
+            this.textureanimation11 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen11.png"), 0, 0, 144, 84);
+            this.textureanimation12 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen12.png"), 0, 0, 144, 84);
+            this.textureanimation13 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen13.png"), 0, 0, 144, 84);
+            this.textureanimation14 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen14.png"), 0, 0, 144, 84);
+            this.textureanimation15 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen15.png"), 0, 0, 144, 84);
+            this.textureanimation16 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen16.png"), 0, 0, 144, 84);
+            this.textureanimation17 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen17.png"), 0, 0, 144, 84);
+            this.textureanimation18 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen18.png"), 0, 0, 144, 84);
+            this.textureanimation19 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen19.png"), 0, 0, 144, 84);
+            this.textureanimation20 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen20.png"), 0, 0, 144, 84);
+            this.textureanimation21 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen21.png"), 0, 0, 144, 84);
+            this.textureanimation22 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen22.png"), 0, 0, 144, 84);
+            this.textureanimation23 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen23.png"), 0, 0, 144, 84);
+        }
+        @Override
+        public List<ITextComponent> getTooltipStrings(GeneratorJeiCategory.GeneratorRecipeWrapper recipe, double mouseX, double mouseY) {
+            //   counter = counter - 1;
+            //    if (counter <= 0){
+            //        counter = 9000;
+            // }
+            // animation = counter;
+            if (mouseX > 106 && mouseX < 131 && mouseY > 15 && mouseY < 64) {
+                return Collections.singletonList(new TranslationTextComponent(animation + " FE / 9000.0 FE"));
+            }
+            return Collections.emptyList();
         }
 
         @Override
@@ -707,6 +781,82 @@ public class JeiPlugin implements IModPlugin {
 
         @Override
         public IDrawable getBackground() {
+            //animation tick
+            counter = counter + 1;
+            if (counter >= 9000){
+                counter = 0;
+            }
+            animation = counter;
+            //animation tick
+            if (counter >= 360 && counter <= 720) {
+                return textureanimation1;
+            }
+            if (counter >= 720 && counter <= 1080) {
+                return textureanimation2;
+            }
+            if (counter >= 1080 && counter <= 1440) {
+                return textureanimation3;
+            }
+            if (counter >= 1440 && counter <= 1800) {
+                return textureanimation4;
+            }
+            if (counter >= 1800 && counter <= 2160) {
+                return textureanimation5;
+            }
+            if (counter >= 2160 && counter <= 2520) {
+                return textureanimation6;
+            }
+            if (counter >= 2520 && counter <= 2880) {
+                return textureanimation7;
+            }
+            if (counter >= 2880 && counter <= 3240) {
+                return textureanimation8;
+            }
+            if (counter >= 3240 && counter <= 3600) {
+                return textureanimation9;
+            }
+            if (counter >= 3600 && counter <= 3960) {
+                return textureanimation10;
+            }
+            if (counter >= 3960 && counter <= 4320) {
+                return textureanimation11;
+            }
+            if (counter >= 4320 && counter <= 4680) {
+                return textureanimation12;
+            }
+            if (counter >= 4680 && counter <= 5040) {
+                return textureanimation13;
+            }
+            if (counter >= 5040 && counter <= 5400) {
+                return textureanimation14;
+            }
+            if (counter >= 5040 && counter <= 5760) {
+                return textureanimation15;
+            }
+            if (counter >= 5760 && counter <= 6120) {
+                return textureanimation16;
+            }
+            if (counter >= 6120 && counter <= 6480) {
+                return textureanimation17;
+            }
+            if (counter >= 6480 && counter <= 6840) {
+                return textureanimation18;
+            }
+            if (counter >= 6840 && counter <= 7200) {
+                return textureanimation19;
+            }
+            if (counter >= 7200 && counter <= 7560) {
+                return textureanimation20;
+            }
+            if (counter >= 7560 && counter <= 8000) {
+                return textureanimation21;
+            }
+            if (counter >= 8000 && counter <= 8560) {
+                return textureanimation22;
+            }
+            if (counter >= 8560 && counter <= 9000) {
+                return textureanimation23;
+            }
             return background;
         }
 
