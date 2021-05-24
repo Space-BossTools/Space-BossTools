@@ -51,7 +51,7 @@ public class Tier1mainMenuGuiWindow extends ContainerScreen<Tier1mainMenuGui.Gui
 		// list.add(new StringTextComponent("test2"));
 		// if (mouseX > guiLeft + 65 && mouseX < guiLeft + 114 && mouseY > guiTop + 20
 		// && mouseY < guiTop + 69)
-		this.renderTooltip(ms, new StringTextComponent("test2"), mouseX, mouseY);
+	//	this.renderTooltip(ms, new StringTextComponent("test2"), mouseX, mouseY);
 		// this.renderTooltip(ms, new StringTextComponent("test2"), mouseX,mouseY);
 	}
 
