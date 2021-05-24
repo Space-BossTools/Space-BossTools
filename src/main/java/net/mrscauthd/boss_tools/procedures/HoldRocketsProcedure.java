@@ -25,7 +25,7 @@ public class HoldRocketsProcedure {
 	private static class GlobalTrigger {
 		@OnlyIn(Dist.CLIENT)
 		@SubscribeEvent
-		public void setupPlayerRotations(PlayerModelEvent.SetupAngles.Post event) {
+		public static void setupPlayerRotations(PlayerModelEvent.SetupAngles.Post event) {
 			Entity entity = event.getEntity();
 			PlayerModel playerModel = event.getModelPlayer();
 			Map<String, Object> dependencies = new HashMap<>();

@@ -14,7 +14,6 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.item.ItemStack;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.command.ICommandSource;
 import net.minecraft.command.CommandSource;
@@ -54,32 +53,6 @@ public class RocketOnEntityTicktier2Procedure {
 		double y = dependencies.get("y") instanceof Integer ? (int) dependencies.get("y") : (double) dependencies.get("y");
 		double z = dependencies.get("z") instanceof Integer ? (int) dependencies.get("z") : (double) dependencies.get("z");
 		IWorld world = (IWorld) dependencies.get("world");
-		if ((entity.isBeingRidden())) {
-			if (((entity.getPosY()) >= 600)) {
-				if (((entity.getPersistentData().getDouble("Powup_trigger")) == 1)) {
-					if (world instanceof ServerWorld) {
-						((World) world).getServer().getCommandManager().handleCommand(
-								new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-										new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-								"/stopsound @p neutral boss_tools:rocketfly");
-					}
-					if (world instanceof ServerWorld) {
-						((World) world).getServer().getCommandManager().handleCommand(
-								new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-										new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-								"/effect give @p boss_tools:rocket_potion_8 999999 1 true");
-					}
-					if (world instanceof ServerWorld) {
-						((World) world).getServer().getCommandManager().handleCommand(
-								new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-										new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-								"/effect give @p boss_tools:player_movement 999999 1 true");
-					}
-					if (!entity.world.isRemote())
-						entity.remove();
-				}
-			}
-		}
 		if (((entity.getPersistentData().getDouble("Powup_trigger")) == 1)) {
 			if (((entity.getPersistentData().getDouble("fly")) >= 200)) {
 				if (world instanceof ServerWorld) {
@@ -320,26 +293,6 @@ public class RocketOnEntityTicktier2Procedure {
 							"/title @p title {\"text\":\"1\",\"color\":\"red\",\"bold\":\"false\"}");
 				}
 			}
-		}
-		if (((entity.getPersistentData().getDouble("Rotation")) >= 1)) {
-			entity.rotationYaw = (float) (((entity.rotationYaw) - 1));
-			entity.setRenderYawOffset(entity.rotationYaw);
-			entity.prevRotationYaw = entity.rotationYaw;
-			if (entity instanceof LivingEntity) {
-				((LivingEntity) entity).prevRenderYawOffset = entity.rotationYaw;
-			}
-		}
-		if (((entity.getPersistentData().getDouble("RotationB")) >= 1)) {
-			entity.rotationYaw = (float) (((entity.rotationYaw) + 1));
-			entity.setRenderYawOffset(entity.rotationYaw);
-			entity.prevRotationYaw = entity.rotationYaw;
-			if (entity instanceof LivingEntity) {
-				((LivingEntity) entity).prevRenderYawOffset = entity.rotationYaw;
-			}
-		}
-		if ((!(entity.isBeingRidden()))) {
-			entity.getPersistentData().putDouble("Rotation", 0);
-			entity.getPersistentData().putDouble("RotationB", 0);
 		}
 		if (((entity.getPersistentData().getDouble("Powup")) == 1)) {
 			entity.getPersistentData().putDouble("AnimationRotation", ((entity.getPersistentData().getDouble("AnimationRotation")) + 1));

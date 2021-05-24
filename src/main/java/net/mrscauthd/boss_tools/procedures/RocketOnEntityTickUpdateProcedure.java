@@ -14,7 +14,6 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.command.ICommandSource;
 import net.minecraft.command.CommandSource;
@@ -295,26 +294,6 @@ public class RocketOnEntityTickUpdateProcedure {
 							"/title @p title {\"text\":\"1\",\"color\":\"red\",\"bold\":\"false\"}");
 				}
 			}
-		}
-		if (((entity.getPersistentData().getDouble("Rotation")) >= 1)) {
-			entity.rotationYaw = (float) (((entity.rotationYaw) - 1));
-			entity.setRenderYawOffset(entity.rotationYaw);
-			entity.prevRotationYaw = entity.rotationYaw;
-			if (entity instanceof LivingEntity) {
-				((LivingEntity) entity).prevRenderYawOffset = entity.rotationYaw;
-			}
-		}
-		if (((entity.getPersistentData().getDouble("RotationB")) >= 1)) {
-			entity.rotationYaw = (float) (((entity.rotationYaw) + 1));
-			entity.setRenderYawOffset(entity.rotationYaw);
-			entity.prevRotationYaw = entity.rotationYaw;
-			if (entity instanceof LivingEntity) {
-				((LivingEntity) entity).prevRenderYawOffset = entity.rotationYaw;
-			}
-		}
-		if ((!(entity.isBeingRidden()))) {
-			entity.getPersistentData().putDouble("Rotation", 0);
-			entity.getPersistentData().putDouble("RotationB", 0);
 		}
 		if (((entity.getPersistentData().getDouble("Powup")) == 1)) {
 			entity.getPersistentData().putDouble("AnimationRotation", ((entity.getPersistentData().getDouble("AnimationRotation")) + 1));

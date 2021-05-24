@@ -3,15 +3,16 @@ package net.mrscauthd.boss_tools.keybind;
 
 import org.lwjgl.glfw.GLFW;
 
-import net.mrscauthd.boss_tools.entity.LandingGearEntity;
+import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
+import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
+import net.mrscauthd.boss_tools.entity.RocketEntity;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.fml.network.NetworkEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
@@ -19,17 +20,19 @@ import net.minecraft.world.World;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.client.util.InputMappings;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.Minecraft;
 
 import java.util.function.Supplier;
 
 @BossToolsModElements.ModElement.Tag
-public class LanderPressSpaceKeyBinding extends BossToolsModElements.ModElement {
+public class RocketKeyRotationDKeyBinding extends BossToolsModElements.ModElement {
 	@OnlyIn(Dist.CLIENT)
 	private KeyBinding keys;
-	public LanderPressSpaceKeyBinding(BossToolsModElements instance) {
-		super(instance, 387);
+	public RocketKeyRotationDKeyBinding(BossToolsModElements instance) {
+		super(instance, 391);
 		elements.addNetworkMessage(KeyBindingPressedMessage.class, KeyBindingPressedMessage::buffer, KeyBindingPressedMessage::new,
 				KeyBindingPressedMessage::handler);
 	}
@@ -37,17 +40,18 @@ public class LanderPressSpaceKeyBinding extends BossToolsModElements.ModElement 
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void initElements() {
-		keys = new KeyBinding("key.boss_tools.lander_press_space", GLFW.GLFW_KEY_SPACE, "key.categories.spacebosstools");
-		ClientRegistry.registerKeyBinding(keys);
+		// keys = new KeyBinding("key.boss_tools.rocket_key_rotation_d",
+		// GLFW.GLFW_KEY_0, "key.categories.misc");
+		// ClientRegistry.registerKeyBinding(keys);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@SubscribeEvent
 	@OnlyIn(Dist.CLIENT)
-	public void onKeyInput(InputEvent.KeyInputEvent event) {
-		if (Minecraft.getInstance().currentScreen == null) {
-			if (event.getKey() == keys.getKey().getKeyCode()) {
-				if (event.getAction() == GLFW.GLFW_PRESS) {
+	public void onKeyInput(TickEvent.ClientTickEvent event) {
+		if (event.phase == TickEvent.Phase.END) {
+			if ((InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_D))) {
+				if (Minecraft.getInstance().currentScreen == null) {
 					BossToolsMod.PACKET_HANDLER.sendToServer(new KeyBindingPressedMessage(0, 0));
 					pressAction(Minecraft.getInstance().player, 0, 0);
 				}
@@ -88,20 +92,16 @@ public class LanderPressSpaceKeyBinding extends BossToolsModElements.ModElement 
 		if (!world.isBlockLoaded(new BlockPos(x, y, z)))
 			return;
 		if (type == 0) {
-			if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
-				if ((((entity.getRidingEntity()).isOnGround()) == (false))) {
-					if ((((entity.getRidingEntity()).getMotion().getY()) <= (-0.05))) {
-						(entity.getRidingEntity()).setMotion(((entity.getRidingEntity()).getMotion().getX()),
-								(((entity.getRidingEntity()).getMotion().getY()) * 0.91), ((entity.getRidingEntity()).getMotion().getZ()));
-					}
-					(entity.getRidingEntity()).getPersistentData().putDouble("Lander1", 1);
-					(entity.getRidingEntity()).getPersistentData().putDouble("Lander2", 1);
+			if ((((entity.getRidingEntity()) instanceof RocketEntity.CustomEntity)
+					|| (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)
+							|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)))) {
+				(entity.getRidingEntity()).rotationYaw = (float) ((((entity.getRidingEntity()).rotationYaw) + 1));
+				(entity.getRidingEntity()).setRenderYawOffset((entity.getRidingEntity()).rotationYaw);
+				(entity.getRidingEntity()).prevRotationYaw = (entity.getRidingEntity()).rotationYaw;
+				if ((entity.getRidingEntity()) instanceof LivingEntity) {
+					((LivingEntity) (entity.getRidingEntity())).prevRenderYawOffset = (entity.getRidingEntity()).rotationYaw;
 				}
 			}
-			if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
-				(entity.getRidingEntity()).fallDistance = (float) (((((entity.getRidingEntity()).getMotion().getY()) * (-1)) * 4.5));
-			}
-			System.out.println("test");
 		}
 	}
 }

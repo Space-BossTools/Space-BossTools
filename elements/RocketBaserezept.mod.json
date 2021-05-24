@@ -38,7 +38,7 @@
       }
     ],
     "recipeReturnStack": {
-      "value": "CUSTOM:RockedBase"
+      "value": "CUSTOM:RocketLaunchPad"
     },
     "name": "rocket_baserezept",
     "namespace": "mod"

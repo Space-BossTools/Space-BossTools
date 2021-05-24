@@ -3,7 +3,7 @@
   "_type": "keybind",
   "definition": {
     "triggerKey": "SPACE",
-    "keyBindingName": "Lander",
+    "keyBindingName": "Lander Key Space",
     "keyBindingCategoryKey": "spacebosstools",
     "onKeyPressed": {
       "name": "LanderSpace"

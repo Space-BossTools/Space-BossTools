@@ -28,6 +28,5 @@ public class LanderSpaceProcedure {
 		if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
 			(entity.getRidingEntity()).fallDistance = (float) (((((entity.getRidingEntity()).getMotion().getY()) * (-1)) * 4.5));
 		}
-		System.out.println("test");
 	}
 }

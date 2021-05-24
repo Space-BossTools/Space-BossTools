@@ -1,0 +1,12 @@
+{
+  "_fv": 19,
+  "_type": "keybind",
+  "definition": {
+    "triggerKey": "0",
+    "keyBindingName": "Rocket Key Rotation A",
+    "keyBindingCategoryKey": "misc",
+    "onKeyPressed": {
+      "name": "RocketRotationA"
+    }
+  }
+}
