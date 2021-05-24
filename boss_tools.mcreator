@@ -5421,23 +5421,6 @@
       "ids": {},
       "registry_name": "rocket_key_rotation_d",
       "path": "~/keybinding"
-    },
-    {
-      "name": "Test",
-      "type": "procedure",
-      "sortid": 392,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "test",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          }
-        ]
-      }
     }
   ],
   "variable_elements": [
