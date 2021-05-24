@@ -33,6 +33,7 @@ public class ConfigProcedure {
 		String oxygen = "";
 		String titleconfig = "";
 		String AlienZombie = "";
+		String EntityDamage = "";
 		File boss_tools = new File(((System.getProperty("user.dir")) + "" + ("//config/")) + "/" + "space-bosstools-config.toml");
 		try {
 			final BufferedReader boss_toolsReader = new BufferedReader(new FileReader(boss_tools));
@@ -45,11 +46,11 @@ public class ConfigProcedure {
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}
-		if ((!(((titleconfig)).equals("# Space-Bosstools-Config-v5.0#")))) {
+		if ((!(((titleconfig)).equals("# Space-Bosstools-Config-v5.3#")))) {
 			try {
 				FileWriter boss_toolswriter = new FileWriter(boss_tools);
 				BufferedWriter boss_toolsbw = new BufferedWriter(boss_toolswriter);
-				boss_toolsbw.write("# Space-Bosstools-Config-v5.0#");
+				boss_toolsbw.write("# Space-Bosstools-Config-v5.3#");
 				boss_toolsbw.newLine();
 				boss_toolsbw.write("Alien Spawn = true");
 				boss_toolsbw.newLine();
@@ -57,11 +58,13 @@ public class ConfigProcedure {
 				boss_toolsbw.newLine();
 				boss_toolsbw.write("Meteor Structure = true");
 				boss_toolsbw.newLine();
-				boss_toolsbw.write("Oxygen System = true");
+				boss_toolsbw.write("Player Oxygen System = true");
 				boss_toolsbw.newLine();
 				boss_toolsbw.write("Star Crawler = true");
 				boss_toolsbw.newLine();
 				boss_toolsbw.write("Alien Zombie = true");
+				boss_toolsbw.newLine();
+				boss_toolsbw.write("Entity Oxygen Damage = true");
 				boss_toolsbw.close();
 				boss_toolswriter.close();
 			} catch (FileNotFoundException fileNotFoundException) {
@@ -87,6 +90,8 @@ public class ConfigProcedure {
 			StarCrawler = (String) (boss_toolsReadLine);
 			boss_toolsReadLine = boss_toolsReader.readLine();
 			AlienZombie = (String) (boss_toolsReadLine);
+			boss_toolsReadLine = boss_toolsReader.readLine();
+			EntityDamage = (String) (boss_toolsReadLine);
 			boss_toolsReader.close();
 		} catch (FileNotFoundException fileNotFoundException) {
 			fileNotFoundException.printStackTrace();
@@ -120,13 +125,13 @@ public class ConfigProcedure {
 		if (((!(((Meteor)).equals("Meteor Structure = true"))) && (!(((Meteor)).equals("Meteor Structure = false"))))) {
 			BossToolsModVariables.ConfigMeteor = (double) 1;
 		} // logic oxygen System
-		if ((((oxygen)).equals("Oxygen System = true"))) {
+		if ((((oxygen)).equals("Player Oxygen System = true"))) {
 			BossToolsModVariables.oxygen_system = (double) 1;
 		}
-		if ((((oxygen)).equals("Oxygen System = false"))) {
+		if ((((oxygen)).equals("Player Oxygen System = false"))) {
 			BossToolsModVariables.oxygen_system = (double) 2;
 		}
-		if (((!(((oxygen)).equals("Oxygen System = true"))) && (!(((oxygen)).equals("Oxygen System = false"))))) {
+		if (((!(((oxygen)).equals("Player Oxygen System = true"))) && (!(((oxygen)).equals("Player Oxygen System = false"))))) {
 			BossToolsModVariables.oxygen_system = (double) 1;
 		} // Star Crawler
 		if ((((StarCrawler)).equals("Star Crawler = true"))) {
@@ -146,6 +151,15 @@ public class ConfigProcedure {
 		}
 		if (((!(((AlienZombie)).equals("Alien Zombie = true"))) && (!(((AlienZombie)).equals("Alien Zombie = false"))))) {
 			BossToolsModVariables.AlienZombie = (double) 1;
+		} // Entity Damage
+		if ((((EntityDamage)).equals("Entity Oxygen Damage = true"))) {
+			BossToolsModVariables.EntityDamage = (double) 1;
+		}
+		if ((((EntityDamage)).equals("Entity Oxygen Damage = false"))) {
+			BossToolsModVariables.EntityDamage = (double) 2;
+		}
+		if (((!(((EntityDamage)).equals("Entity Oxygen Damage = true"))) && (!(((EntityDamage)).equals("Entity Oxygen Damage = false"))))) {
+			BossToolsModVariables.EntityDamage = (double) 1;
 		}
 	}
 }

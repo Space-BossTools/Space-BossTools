@@ -5421,6 +5421,50 @@
       "ids": {},
       "registry_name": "rocket_key_rotation_d",
       "path": "~/keybinding"
+    },
+    {
+      "name": "EntitiesSpace",
+      "type": "tag",
+      "sortid": 392,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "entities_space",
+      "path": "~/Tags"
+    },
+    {
+      "name": "EntityisinSpace",
+      "type": "procedure",
+      "sortid": 393,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "entityisin_space",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Procedures"
     }
   ],
   "variable_elements": [
@@ -5471,6 +5515,12 @@
       "type": "number",
       "scope": "global",
       "value": "0"
+    },
+    {
+      "name": "EntityDamage",
+      "type": "number",
+      "scope": "global",
+      "value": "0"
     }
   ],
   "sound_elements": [
@@ -5513,9 +5563,9 @@
       "item.boss_tools.iron_engine": "Iron Engine",
       "block.boss_tools.mars_diamond_ore": "Mars Diamond Ore",
       "item.boss_tools.oxygen_tank": "Oxygen Tank",
-      "block.boss_tools.mercury_iron_ore": "Mercury Iron Ore",
-      "block.boss_tools.fuel_refinery": "Fuel Refinery",
       "block.boss_tools.block_of_rusted_iron_plating": "Block of Rusted Iron Plating",
+      "block.boss_tools.fuel_refinery": "Fuel Refinery",
+      "block.boss_tools.mercury_iron_ore": "Mercury Iron Ore",
       "biome.boss_tools.mars_biome": "Moon Biome",
       "block.boss_tools.cracked_moon_bricks": "Cracked Moon Bricks",
       "item.boss_tools.silicon_ingot": "Silicon Ingot",
@@ -5525,8 +5575,8 @@
       "block.boss_tools.energy_cable": "Energy Cable",
       "key.boss_tools.rocket_key_rotation_a": "Rocket Key Rotation A",
       "item.boss_tools.barrel": "Barrel",
-      "item.boss_tools.iron_plate": "Iron Plate",
       "key.boss_tools.rocket_key_rotation_d": "Rocket Key Rotation D",
+      "item.boss_tools.iron_plate": "Iron Plate",
       "block.boss_tools.moon_stone": "Moon Stone",
       "item.boss_tools.desh_plate": "Desh Plate",
       "item.boss_tools.space_station": "Space Station",
