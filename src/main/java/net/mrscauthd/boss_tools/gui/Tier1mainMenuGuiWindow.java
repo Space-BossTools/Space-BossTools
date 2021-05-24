@@ -16,6 +16,9 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.Minecraft;
 
+import java.util.HashMap;
+import java.util.ArrayList;
+
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
@@ -24,6 +27,7 @@ public class Tier1mainMenuGuiWindow extends ContainerScreen<Tier1mainMenuGui.Gui
 	private World world;
 	private int x, y, z;
 	private PlayerEntity entity;
+	private final static HashMap guistate = Tier1mainMenuGui.guistate;
 	public Tier1mainMenuGuiWindow(Tier1mainMenuGui.GuiContainerMod container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
 		this.world = container.world;
@@ -40,6 +44,15 @@ public class Tier1mainMenuGuiWindow extends ContainerScreen<Tier1mainMenuGui.Gui
 		this.renderBackground(ms);
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
+		ArrayList<ITextComponent> list = new ArrayList<ITextComponent>();
+		list.add(new StringTextComponent("test1"));
+		list.add(new StringTextComponent("test2"));
+		// list.add("Ford");
+		// list.add(new StringTextComponent("test2"));
+		// if (mouseX > guiLeft + 65 && mouseX < guiLeft + 114 && mouseY > guiTop + 20
+		// && mouseY < guiTop + 69)
+		this.renderTooltip(ms, new StringTextComponent("test2"), mouseX, mouseY);
+		// this.renderTooltip(ms, new StringTextComponent("test2"), mouseX,mouseY);
 	}
 
 	@Override

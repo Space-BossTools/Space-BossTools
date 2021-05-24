@@ -5,6 +5,7 @@ import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
@@ -20,18 +21,20 @@ import java.util.HashMap;
 import com.mrcrayfish.obfuscate.client.event.PlayerModelEvent;
 
 public class HoldRocketsProcedure {
-	@OnlyIn(Dist.CLIENT)
-	@SubscribeEvent
-	public void setupPlayerRotations(PlayerModelEvent.SetupAngles.Post event) {
-		Entity entity = event.getEntity();
-		PlayerModel playerModel = event.getModelPlayer();
-		Map<String, Object> dependencies = new HashMap<>();
-		dependencies.put("entity", entity);
-		dependencies.put("playerModel", playerModel);
-		dependencies.put("event", event);
-		this.executeProcedure(dependencies);
+	@Mod.EventBusSubscriber
+	private static class GlobalTrigger {
+		@OnlyIn(Dist.CLIENT)
+		@SubscribeEvent
+		public void setupPlayerRotations(PlayerModelEvent.SetupAngles.Post event) {
+			Entity entity = event.getEntity();
+			PlayerModel playerModel = event.getModelPlayer();
+			Map<String, Object> dependencies = new HashMap<>();
+			dependencies.put("entity", entity);
+			dependencies.put("playerModel", playerModel);
+			dependencies.put("event", event);
+			executeProcedure(dependencies);
+		}
 	}
-
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("entity") == null) {
 			if (!dependencies.containsKey("entity"))

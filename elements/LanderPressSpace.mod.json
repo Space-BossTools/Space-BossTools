@@ -1,0 +1,12 @@
+{
+  "_fv": 19,
+  "_type": "keybind",
+  "definition": {
+    "triggerKey": "SPACE",
+    "keyBindingName": "Lander",
+    "keyBindingCategoryKey": "spacebosstools",
+    "onKeyPressed": {
+      "name": "LanderSpace"
+    }
+  }
+}
