@@ -46,25 +46,6 @@ public class LandingGearOnEntityTickUpdateProcedure {
 		double y = dependencies.get("y") instanceof Integer ? (int) dependencies.get("y") : (double) dependencies.get("y");
 		double z = dependencies.get("z") instanceof Integer ? (int) dependencies.get("z") : (double) dependencies.get("z");
 		IWorld world = (IWorld) dependencies.get("world");
-		if (world instanceof ServerWorld) {
-			((World) world).getServer().getCommandManager()
-					.handleCommand(
-							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/team add SpaceBossToolsRo");
-		}
-		if (world instanceof ServerWorld) {
-			((World) world).getServer().getCommandManager().handleCommand(
-					new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-							new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-					"/team modify SpaceBossToolsRo collisionRule never");
-		}
-		if (world instanceof ServerWorld) {
-			((World) world).getServer().getCommandManager().handleCommand(
-					new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-							new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-					"/team join SpaceBossToolsRo @e[type=boss_tools:landing_gear,]");
-		}
 		if (((entity.getPersistentData().getDouble("Lander1")) == 1)) {
 			if (world instanceof ServerWorld) {
 				((World) world).getServer().getCommandManager().handleCommand(

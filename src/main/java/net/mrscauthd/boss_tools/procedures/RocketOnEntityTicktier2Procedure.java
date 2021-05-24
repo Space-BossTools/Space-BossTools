@@ -75,25 +75,6 @@ public class RocketOnEntityTicktier2Procedure {
 					entity.remove();
 			}
 		}
-		if (world instanceof ServerWorld) {
-			((World) world).getServer().getCommandManager()
-					.handleCommand(
-							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/team add SpaceBossToolsRo");
-		}
-		if (world instanceof ServerWorld) {
-			((World) world).getServer().getCommandManager().handleCommand(
-					new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-							new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-					"/team modify SpaceBossToolsRo collisionRule never");
-		}
-		if (world instanceof ServerWorld) {
-			((World) world).getServer().getCommandManager().handleCommand(
-					new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-							new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-					"/team join SpaceBossToolsRo @e[type=boss_tools:rocket_tier_2,]");
-		}
 		if (((new Object() {
 			public ItemStack getItemStack(int sltid, Entity entity) {
 				AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);

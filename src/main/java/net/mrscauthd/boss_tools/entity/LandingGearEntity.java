@@ -120,6 +120,21 @@ public class LandingGearEntity extends BossToolsModElements.ModElement {
 			return false;
 		}
 
+		// HitBox
+		@Override
+		public boolean func_241845_aY() {
+			return true;
+		}
+
+		// Hit Box FIX
+		@Override
+		protected void collideWithEntity(Entity p_82167_1_) {
+		}
+
+		@Override
+		public void applyEntityCollision(Entity entityIn) {
+		}
+
 		@Override
 		protected void registerGoals() {
 			super.registerGoals();

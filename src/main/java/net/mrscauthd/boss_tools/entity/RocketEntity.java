@@ -123,6 +123,15 @@ public class RocketEntity extends BossToolsModElements.ModElement {
 			return false;
 		}
 
+		// Hit Box FIX
+		@Override
+		protected void collideWithEntity(Entity p_82167_1_) {
+		}
+
+		@Override
+		public void applyEntityCollision(Entity entityIn) {
+		}
+
 		@Override
 		protected void registerGoals() {
 			super.registerGoals();

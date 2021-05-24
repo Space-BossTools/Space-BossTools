@@ -50,7 +50,7 @@ public class PlayerRotationsLanderProcedure extends BossToolsModElements.ModElem
 				// model.bipedRightArm.rotateAngleX = (float) Math.toRadians(-60F);
 				// model.bipedRightLeg.rotationPointY = (float) Math.toRadians(0);
 				// Legs
-				model.bipedRightLeg.rotationPointY = (float) Math.toRadians(5F);
+			/*	model.bipedRightLeg.rotationPointY = (float) Math.toRadians(5F);
 				model.bipedLeftLeg.rotationPointY = (float) Math.toRadians(5F);
 				model.bipedRightLeg.rotateAngleX = (float) Math.toRadians(0F);
 				model.bipedLeftLeg.rotateAngleX = (float) Math.toRadians(0F);
@@ -67,7 +67,7 @@ public class PlayerRotationsLanderProcedure extends BossToolsModElements.ModElem
 				model.bipedBodyWear.rotationPointZ = (float) Math.toRadians(-200F);
 				// Head
 				model.bipedHead.rotationPointY = (float) Math.toRadians(500F);
-				model.bipedHead.rotationPointZ = (float) Math.toRadians(-100F);
+				model.bipedHead.rotationPointZ = (float) Math.toRadians(-100F);*/
 				//Disable model
 			//	model.bipedHead.showModel = (false);
 			//	model.bipedBody.showModel = (false);
