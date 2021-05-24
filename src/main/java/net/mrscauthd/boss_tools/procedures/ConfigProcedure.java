@@ -54,7 +54,7 @@ public class ConfigProcedure {
 				boss_toolsbw.newLine();
 				boss_toolsbw.write("Alien Spawn = true");
 				boss_toolsbw.newLine();
-				boss_toolsbw.write("Alien Ruin Structure = true");
+				boss_toolsbw.write("Alien Village Structure = true");
 				boss_toolsbw.newLine();
 				boss_toolsbw.write("Meteor Structure = true");
 				boss_toolsbw.newLine();
@@ -107,13 +107,14 @@ public class ConfigProcedure {
 		if (((!(((testconfig)).equals("Alien Spawn = true"))) && (!(((testconfig)).equals("Alien Spawn = false"))))) {
 			BossToolsModVariables.Config = (double) 1;
 		} // logic Alien House
-		if ((((alienhouseconfig)).equals("Alien Ruin Structure = true"))) {
+		if ((((alienhouseconfig)).equals("Alien Village Structure = true"))) {
 			BossToolsModVariables.Configalienhouse = (double) 1;
 		}
-		if ((((alienhouseconfig)).equals("Alien Ruin Structure = false"))) {
+		if ((((alienhouseconfig)).equals("Alien Village Structure = false"))) {
 			BossToolsModVariables.Configalienhouse = (double) 2;
 		}
-		if (((!(((alienhouseconfig)).equals("Alien Ruin Structure = true"))) && (!(((alienhouseconfig)).equals("Alien Ruin Structure = false"))))) {
+		if (((!(((alienhouseconfig)).equals("Alien Village Structure = true")))
+				&& (!(((alienhouseconfig)).equals("Alien Village Structure = false"))))) {
 			BossToolsModVariables.Configalienhouse = (double) 1;
 		} // logic Meteor
 		if ((((Meteor)).equals("Meteor Structure = true"))) {

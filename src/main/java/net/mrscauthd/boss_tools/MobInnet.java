@@ -37,6 +37,7 @@ import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.CreatureEntity;
+import net.mrscauthd.boss_tools.BossToolsModVariables;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -99,24 +100,24 @@ public class MobInnet extends BossToolsModElements.ModElement {
 
     public void biomeModification(final BiomeLoadingEvent event) {
         RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
-        if (event.getName().equals(new ResourceLocation("boss_tools:moon_biom"))) {
+        if (event.getName().equals(new ResourceLocation("boss_tools:moon_biom")) && BossToolsModVariables.Configalienhouse == 1) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE);
         }
-        if (event.getName().equals(new ResourceLocation("plains"))) {
+        if (event.getName().equals(new ResourceLocation("plains")) && BossToolsModVariables.ConfigMeteor == 1) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
             // event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE)
         }
-        if (event.getName().equals(new ResourceLocation("snowy_tundra"))) {
+        if (event.getName().equals(new ResourceLocation("snowy_tundra")) && BossToolsModVariables.ConfigMeteor == 1) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
             // event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE)
         }
      //  if (event.getName().equals(new ResourceLocation("boss_tools:mars_biom"))) {
      //       event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
      //   }
-       if (event.getName().equals(new ResourceLocation("forest"))) {
+       if (event.getName().equals(new ResourceLocation("forest")) && BossToolsModVariables.ConfigMeteor == 1) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
         }
-       if (event.getName().equals(new ResourceLocation("desert"))) {
+       if (event.getName().equals(new ResourceLocation("desert")) && BossToolsModVariables.ConfigMeteor == 1) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
         }
     }
