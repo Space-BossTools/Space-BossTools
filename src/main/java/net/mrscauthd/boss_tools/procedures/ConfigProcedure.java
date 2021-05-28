@@ -12,10 +12,12 @@ import java.util.Collections;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.io.FileReader;
-import java.io.FileNotFoundException;
 import java.io.File;
-import java.io.BufferedWriter;
 import java.io.BufferedReader;
+
+import com.google.gson.JsonObject;
+import com.google.gson.GsonBuilder;
+import com.google.gson.Gson;
 
 public class ConfigProcedure {
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -26,141 +28,95 @@ public class ConfigProcedure {
 		}
 	}
 	public static void executeProcedure(Map<String, Object> dependencies) {
-		String testconfig = "";
-		String Meteor = "";
-		String StarCrawler = "";
-		String alienhouseconfig = "";
-		String oxygen = "";
-		String titleconfig = "";
-		String AlienZombie = "";
-		String EntityDamage = "";
-		File boss_tools = new File(((System.getProperty("user.dir")) + "" + ("//config/")) + "/" + "space-bosstools-config.toml");
-		try {
-			final BufferedReader boss_toolsReader = new BufferedReader(new FileReader(boss_tools));
-			String boss_toolsReadLine = null;
-			boss_toolsReadLine = boss_toolsReader.readLine();
-			titleconfig = (String) (boss_toolsReadLine);
-			boss_toolsReader.close();
-		} catch (FileNotFoundException fileNotFoundException) {
-			fileNotFoundException.printStackTrace();
-		} catch (IOException exception) {
-			exception.printStackTrace();
-		}
-		if ((!(((titleconfig)).equals("# Space-Bosstools-Config-v5.3#")))) {
+		File boss_tools = new File(((System.getProperty("user.dir")) + "" + ("//config/")), File.separator + "space-bosstools-config.json");
+		if (!boss_tools.exists()) {
 			try {
-				FileWriter boss_toolswriter = new FileWriter(boss_tools);
-				BufferedWriter boss_toolsbw = new BufferedWriter(boss_toolswriter);
-				boss_toolsbw.write("# Space-Bosstools-Config-v5.3#");
-				boss_toolsbw.newLine();
-				boss_toolsbw.write("Alien Spawn = true");
-				boss_toolsbw.newLine();
-				boss_toolsbw.write("Alien Village Structure = true");
-				boss_toolsbw.newLine();
-				boss_toolsbw.write("Meteor Structure = true");
-				boss_toolsbw.newLine();
-				boss_toolsbw.write("Player Oxygen System = true");
-				boss_toolsbw.newLine();
-				boss_toolsbw.write("Star Crawler = true");
-				boss_toolsbw.newLine();
-				boss_toolsbw.write("Alien Zombie = true");
-				boss_toolsbw.newLine();
-				boss_toolsbw.write("Entity Oxygen Damage = true");
-				boss_toolsbw.close();
-				boss_toolswriter.close();
-			} catch (FileNotFoundException fileNotFoundException) {
-				fileNotFoundException.printStackTrace();
+				boss_tools.createNewFile();
+				// new
+				Gson gson = new GsonBuilder().setPrettyPrinting().create();
+				JsonObject Config = new JsonObject();
+				Config.addProperty("Alien Spawn", (true));
+				Config.addProperty("Star Crawler Spawn", (true));
+				Config.addProperty("Alien Zombie Spawn", (true));
+				Config.addProperty("Alien Village Structure", (true));
+				Config.addProperty("Meteor Structure", (true));
+				Config.addProperty("Player Oxygen System", (true));
+				try {
+					FileWriter boss_toolsfw = new FileWriter(boss_tools);
+					boss_toolsfw.write(gson.toJson(Config));
+					boss_toolsfw.close();
+				} catch (IOException exception) {
+					exception.printStackTrace();
+				}
 			} catch (IOException exception) {
 				exception.printStackTrace();
 			}
-		} // logic Alien Spawn
-		try {
-			final BufferedReader boss_toolsReader = new BufferedReader(new FileReader(boss_tools));
-			String boss_toolsReadLine = null;
-			boss_toolsReadLine = boss_toolsReader.readLine();
-			titleconfig = (String) (boss_toolsReadLine);
-			boss_toolsReadLine = boss_toolsReader.readLine();
-			testconfig = (String) (boss_toolsReadLine);
-			boss_toolsReadLine = boss_toolsReader.readLine();
-			alienhouseconfig = (String) (boss_toolsReadLine);
-			boss_toolsReadLine = boss_toolsReader.readLine();
-			Meteor = (String) (boss_toolsReadLine);
-			boss_toolsReadLine = boss_toolsReader.readLine();
-			oxygen = (String) (boss_toolsReadLine);
-			boss_toolsReadLine = boss_toolsReader.readLine();
-			StarCrawler = (String) (boss_toolsReadLine);
-			boss_toolsReadLine = boss_toolsReader.readLine();
-			AlienZombie = (String) (boss_toolsReadLine);
-			boss_toolsReadLine = boss_toolsReader.readLine();
-			EntityDamage = (String) (boss_toolsReadLine);
-			boss_toolsReader.close();
-		} catch (FileNotFoundException fileNotFoundException) {
-			fileNotFoundException.printStackTrace();
-		} catch (IOException exception) {
-			exception.printStackTrace();
 		}
-		if ((((testconfig)).equals("Alien Spawn = true"))) {
-			BossToolsModVariables.Config = (double) 1;
-		}
-		if ((((testconfig)).equals("Alien Spawn = false"))) {
-			BossToolsModVariables.Config = (double) 2;
-		}
-		if (((!(((testconfig)).equals("Alien Spawn = true"))) && (!(((testconfig)).equals("Alien Spawn = false"))))) {
-			BossToolsModVariables.Config = (double) 1;
-		} // logic Alien House
-		if ((((alienhouseconfig)).equals("Alien Village Structure = true"))) {
-			BossToolsModVariables.Configalienhouse = (double) 1;
-		}
-		if ((((alienhouseconfig)).equals("Alien Village Structure = false"))) {
-			BossToolsModVariables.Configalienhouse = (double) 2;
-		}
-		if (((!(((alienhouseconfig)).equals("Alien Village Structure = true")))
-				&& (!(((alienhouseconfig)).equals("Alien Village Structure = false"))))) {
-			BossToolsModVariables.Configalienhouse = (double) 1;
-		} // logic Meteor
-		if ((((Meteor)).equals("Meteor Structure = true"))) {
-			BossToolsModVariables.ConfigMeteor = (double) 1;
-		}
-		if ((((Meteor)).equals("Meteor Structure = false"))) {
-			BossToolsModVariables.ConfigMeteor = (double) 2;
-		}
-		if (((!(((Meteor)).equals("Meteor Structure = true"))) && (!(((Meteor)).equals("Meteor Structure = false"))))) {
-			BossToolsModVariables.ConfigMeteor = (double) 1;
-		} // logic oxygen System
-		if ((((oxygen)).equals("Player Oxygen System = true"))) {
-			BossToolsModVariables.oxygen_system = (double) 1;
-		}
-		if ((((oxygen)).equals("Player Oxygen System = false"))) {
-			BossToolsModVariables.oxygen_system = (double) 2;
-		}
-		if (((!(((oxygen)).equals("Player Oxygen System = true"))) && (!(((oxygen)).equals("Player Oxygen System = false"))))) {
-			BossToolsModVariables.oxygen_system = (double) 1;
-		} // Star Crawler
-		if ((((StarCrawler)).equals("Star Crawler = true"))) {
-			BossToolsModVariables.StarCrawler = (double) 1;
-		}
-		if ((((StarCrawler)).equals("Star Crawler = false"))) {
-			BossToolsModVariables.StarCrawler = (double) 2;
-		}
-		if (((!(((StarCrawler)).equals("Star Crawler = true"))) && (!(((StarCrawler)).equals("Star Crawler = false"))))) {
-			BossToolsModVariables.StarCrawler = (double) 1;
-		} // Alien Zombie
-		if ((((AlienZombie)).equals("Alien Zombie = true"))) {
-			BossToolsModVariables.AlienZombie = (double) 1;
-		}
-		if ((((AlienZombie)).equals("Alien Zombie = false"))) {
-			BossToolsModVariables.AlienZombie = (double) 2;
-		}
-		if (((!(((AlienZombie)).equals("Alien Zombie = true"))) && (!(((AlienZombie)).equals("Alien Zombie = false"))))) {
-			BossToolsModVariables.AlienZombie = (double) 1;
-		} // Entity Damage
-		if ((((EntityDamage)).equals("Entity Oxygen Damage = true"))) {
-			BossToolsModVariables.EntityDamage = (double) 1;
-		}
-		if ((((EntityDamage)).equals("Entity Oxygen Damage = false"))) {
-			BossToolsModVariables.EntityDamage = (double) 2;
-		}
-		if (((!(((EntityDamage)).equals("Entity Oxygen Damage = true"))) && (!(((EntityDamage)).equals("Entity Oxygen Damage = false"))))) {
-			BossToolsModVariables.EntityDamage = (double) 1;
+		{
+			try {
+				BufferedReader boss_toolsReader = new BufferedReader(new FileReader(boss_tools));
+				StringBuilder jsonstringbuilder = new StringBuilder();
+				String line;
+				while ((line = boss_toolsReader.readLine()) != null) {
+					jsonstringbuilder.append(line);
+				}
+				JsonObject Config = new Gson().fromJson(jsonstringbuilder.toString(), JsonObject.class);
+				// First
+				if (Config == null) { // Category check
+					Gson gson = new GsonBuilder().setPrettyPrinting().create();
+					Config = new JsonObject();
+					Config.addProperty("Alien Spawn", (true));
+					Config.addProperty("Star Crawler Spawn", (true));
+					Config.addProperty("Alien Zombie Spawn", (true));
+					Config.addProperty("Alien Village Structure", (true));
+					Config.addProperty("Meteor Structure", (true));
+					Config.addProperty("Player Oxygen System", (true));
+					Config.addProperty("Entity Oxygen System", (true));
+					try {
+						FileWriter boss_toolsfw = new FileWriter(boss_tools);
+						boss_toolsfw.write(gson.toJson(Config));
+						boss_toolsfw.close();
+					} catch (IOException exception) {
+						exception.printStackTrace();
+					}
+				}
+				// in category check
+				if (Config.get("Alien Spawn") == null || Config.get("Star Crawler Spawn") == null || Config.get("Alien Zombie Spawn") == null
+						|| Config.get("Alien Village Structure") == null || Config.get("Meteor Structure") == null
+						|| Config.get("Player Oxygen System") == null || Config.get("Entity Oxygen System") == null) {
+					Gson gson = new GsonBuilder().setPrettyPrinting().create();
+					Config = new JsonObject();
+					Config.addProperty("Alien Spawn", (true));
+					Config.addProperty("Star Crawler Spawn", (true));
+					Config.addProperty("Alien Zombie Spawn", (true));
+					Config.addProperty("Alien Village Structure", (true));
+					Config.addProperty("Meteor Structure", (true));
+					Config.addProperty("Player Oxygen System", (true));
+					Config.addProperty("Entity Oxygen System", (true));
+					try {
+						FileWriter boss_toolsfw = new FileWriter(boss_tools);
+						boss_toolsfw.write(gson.toJson(Config));
+						boss_toolsfw.close();
+					} catch (IOException exception) {
+						exception.printStackTrace();
+					}
+				}
+				// first end
+				boss_toolsReader.close();
+				// first
+				BossToolsModVariables.AlienSpawing = (boolean) Config.get("Alien Spawn").getAsBoolean();
+				BossToolsModVariables.StarCrawlerSpawn = (boolean) Config.get("Star Crawler Spawn").getAsBoolean();
+				BossToolsModVariables.AlienZombieSpawn = (boolean) Config.get("Alien Zombie Spawn").getAsBoolean();
+				// Category structures
+				BossToolsModVariables.AlienVillageStructure = (boolean) Config.get("Alien Village Structure").getAsBoolean();
+				BossToolsModVariables.MeteorStructure = (boolean) Config.get("Meteor Structure").getAsBoolean();
+				// Oxygen System
+				BossToolsModVariables.PlayerOxygenSystem = (boolean) Config.get("Player Oxygen System").getAsBoolean();
+				BossToolsModVariables.EntityOxygenSystem = (boolean) Config.get("Entity Oxygen System").getAsBoolean();
+				// next
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

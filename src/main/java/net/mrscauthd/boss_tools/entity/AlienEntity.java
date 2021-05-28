@@ -25,7 +25,7 @@ import net.minecraft.world.IServerWorld;
 import net.minecraft.world.server.ServerWorld;
 import net.mrscauthd.boss_tools.AlienJobs;
 import net.mrscauthd.boss_tools.BossToolsModVariables;
-import net.mrscauthd.boss_tools.procedures.AlienOnEntityTickUpdateProcedure;
+//import net.mrscauthd.boss_tools.procedures.AlienOnEntityTickUpdateProcedure;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
 //import net.mrscauthd.boss_tools.BossToolsModElements;
 
@@ -447,7 +447,7 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 		double y = this.getPosY();
 		double z = this.getPosZ();
 		Entity entity = this;
-		if (((BossToolsModVariables.Config) == 2)) {
+		if (((BossToolsModVariables.AlienSpawing) == false)) {
 			if (!entity.world.isRemote())
 				entity.remove();
 		}

@@ -1,5 +1,8 @@
 package net.mrscauthd.boss_tools;
 
+import net.mrscauthd.boss_tools.world.structure.MeteorStructure;
+import net.mrscauthd.boss_tools.world.structure.AlienVillageStructure;
+
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -36,13 +39,13 @@ public class BossToolsModVariables {
 	private void init(FMLCommonSetupEvent event) {
 		CapabilityManager.INSTANCE.register(PlayerVariables.class, new PlayerVariablesStorage(), PlayerVariables::new);
 	}
-	public static double Config = 0;
-	public static double Configalienhouse = 0;
-	public static double ConfigMeteor = 0;
-	public static double oxygen_system = 0;
-	public static double StarCrawler = 0;
-	public static double AlienZombie = 0;
-	public static double EntityDamage = 0;
+	public static boolean AlienSpawing = true;
+	public static boolean AlienVillageStructure = true;
+	public static boolean MeteorStructure = true;
+	public static boolean PlayerOxygenSystem = true;
+	public static boolean StarCrawlerSpawn = true;
+	public static boolean AlienZombieSpawn = true;
+	public static boolean EntityOxygenSystem = true;
 	@CapabilityInject(PlayerVariables.class)
 	public static Capability<PlayerVariables> PLAYER_VARIABLES_CAPABILITY = null;
 	@SubscribeEvent

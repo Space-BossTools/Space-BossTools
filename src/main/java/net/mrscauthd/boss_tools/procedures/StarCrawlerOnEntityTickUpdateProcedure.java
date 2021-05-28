@@ -16,7 +16,7 @@ public class StarCrawlerOnEntityTickUpdateProcedure {
 		}
 		Entity entity = (Entity) dependencies.get("entity");
 		// Config
-		if (((BossToolsModVariables.StarCrawler) == 2)) {
+		if (((BossToolsModVariables.StarCrawlerSpawn) == (false))) {
 			if (!entity.world.isRemote())
 				entity.remove();
 		}

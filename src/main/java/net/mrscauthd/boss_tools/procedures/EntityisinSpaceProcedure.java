@@ -73,7 +73,7 @@ public class EntityisinSpaceProcedure {
 		double z = dependencies.get("z") instanceof Integer ? (int) dependencies.get("z") : (double) dependencies.get("z");
 		IWorld world = (IWorld) dependencies.get("world");
 		// Config
-		if (((BossToolsModVariables.EntityDamage) == 1)) {
+		if (((BossToolsModVariables.EntityOxygenSystem) == (true))) {
 			if ((EntityTypeTags.getCollection().getTagByID(new ResourceLocation(("forge:entities/space").toLowerCase(java.util.Locale.ENGLISH)))
 					.contains(entity.getType()))) {
 				if ((((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon"))))
