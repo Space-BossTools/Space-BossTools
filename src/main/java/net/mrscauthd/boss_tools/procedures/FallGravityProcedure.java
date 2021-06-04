@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.procedures;
 
+import net.mrscauthd.boss_tools.entity.RoverEntity;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketEntity;
@@ -147,13 +148,15 @@ public class FallGravityProcedure {
 							if ((!(entityiterator instanceof RocketEntity.CustomEntity))) {
 								if ((!(entityiterator instanceof RocketTier2Entity.CustomEntity))) {
 									if ((!(entityiterator instanceof RocketTier3Entity.CustomEntity))) {
-										if (((entityiterator.getMotion().getY()) <= (-0.1))) {
-											if (((entityiterator.getPersistentData().getDouble("EntityGravity")) <= 1)) {
-												entityiterator.getPersistentData().putDouble("EntityGravity", 2);
-												entityiterator.setMotion((entityiterator.getMotion().getX()),
-														((entityiterator.getMotion().getY()) + 0.05), (entityiterator.getMotion().getZ()));
-												entityiterator.fallDistance = (float) (0.2);
-												entityiterator.getPersistentData().putDouble("EntityGravity", 0);
+										if ((!(entityiterator instanceof RoverEntity.CustomEntity))) {
+											if (((entityiterator.getMotion().getY()) <= (-0.1))) {
+												if (((entityiterator.getPersistentData().getDouble("EntityGravity")) <= 1)) {
+													entityiterator.getPersistentData().putDouble("EntityGravity", 2);
+													entityiterator.setMotion((entityiterator.getMotion().getX()),
+															((entityiterator.getMotion().getY()) + 0.05), (entityiterator.getMotion().getZ()));
+													entityiterator.fallDistance = (float) (0.2);
+													entityiterator.getPersistentData().putDouble("EntityGravity", 0);
+												}
 											}
 										}
 									}

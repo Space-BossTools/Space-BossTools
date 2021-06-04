@@ -1396,7 +1396,7 @@ public class JeiPlugin implements IModPlugin {
         private final IDrawable textureanimation23;
 
         //Animation nummber
-        int counter = 0;
+        int counter = 9000;
         int animation = 1 ;
         public CompressorJeiCategory(IGuiHelper guiHelper) {
             this.title = "Compressor";
@@ -1458,80 +1458,80 @@ public class JeiPlugin implements IModPlugin {
         @Override
         public IDrawable getBackground() {
             //animation tick
-            counter = counter + 1;
-            if (counter >= 9000){
-                counter = 0;
+            counter = counter - 1;
+            if (counter <= 1){
+                counter = 9000;
             }
             animation = counter;
             //animation tick
             if (counter >= 360 && counter <= 720) {
-                return textureanimation1;
+                return textureanimation23;
             }
             if (counter >= 720 && counter <= 1080) {
-                return textureanimation2;
+                return textureanimation22;
             }
             if (counter >= 1080 && counter <= 1440) {
-                return textureanimation3;
+                return textureanimation21;
             }
             if (counter >= 1440 && counter <= 1800) {
-                return textureanimation4;
+                return textureanimation20;
             }
             if (counter >= 1800 && counter <= 2160) {
-                return textureanimation5;
+                return textureanimation19;
             }
             if (counter >= 2160 && counter <= 2520) {
-                return textureanimation6;
+                return textureanimation18;
             }
             if (counter >= 2520 && counter <= 2880) {
-                return textureanimation7;
+                return textureanimation17;
             }
             if (counter >= 2880 && counter <= 3240) {
-                return textureanimation8;
+                return textureanimation16;
             }
             if (counter >= 3240 && counter <= 3600) {
-                return textureanimation9;
+                return textureanimation15;
             }
             if (counter >= 3600 && counter <= 3960) {
-                return textureanimation10;
+                return textureanimation14;
             }
             if (counter >= 3960 && counter <= 4320) {
-                return textureanimation11;
+                return textureanimation13;
             }
             if (counter >= 4320 && counter <= 4680) {
                 return textureanimation12;
             }
             if (counter >= 4680 && counter <= 5040) {
-                return textureanimation13;
+                return textureanimation11;
             }
             if (counter >= 5040 && counter <= 5400) {
-                return textureanimation14;
+                return textureanimation10;
             }
             if (counter >= 5040 && counter <= 5760) {
-                return textureanimation15;
+                return textureanimation9;
             }
             if (counter >= 5760 && counter <= 6120) {
-                return textureanimation16;
+                return textureanimation8;
             }
             if (counter >= 6120 && counter <= 6480) {
-                return textureanimation17;
+                return textureanimation7;
             }
             if (counter >= 6480 && counter <= 6840) {
-                return textureanimation18;
+                return textureanimation6;
             }
             if (counter >= 6840 && counter <= 7200) {
-                return textureanimation19;
+                return textureanimation5;
             }
             if (counter >= 7200 && counter <= 7560) {
-                return textureanimation20;
+                return textureanimation4;
             }
             if (counter >= 7560 && counter <= 8000) {
-                return textureanimation21;
+                return textureanimation3;
             }
             if (counter >= 8000 && counter <= 8560) {
-                return textureanimation22;
+                return textureanimation2;
             }
             if (counter >= 8560 && counter <= 9000) {
-                return textureanimation23;
+                return textureanimation1;
             }
             return background;
         }

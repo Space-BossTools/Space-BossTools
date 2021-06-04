@@ -3,6 +3,7 @@ package net.mrscauthd.boss_tools.keybind;
 
 import org.lwjgl.glfw.GLFW;
 
+import net.mrscauthd.boss_tools.entity.RoverEntity;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketEntity;
@@ -101,6 +102,11 @@ public class RocketKeyRotationDKeyBinding extends BossToolsModElements.ModElemen
 				if ((entity.getRidingEntity()) instanceof LivingEntity) {
 					((LivingEntity) (entity.getRidingEntity())).prevRenderYawOffset = (entity.getRidingEntity()).rotationYaw;
 				}
+			}
+			// Rover
+			if ((entity.getRidingEntity()) instanceof RoverEntity.CustomEntity) {
+				entity.getRidingEntity().getPersistentData().putDouble("Rotation",
+						entity.getRidingEntity().getPersistentData().getDouble("Rotation") + 1);
 			}
 		}
 	}

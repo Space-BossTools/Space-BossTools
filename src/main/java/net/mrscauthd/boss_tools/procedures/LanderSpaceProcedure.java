@@ -19,7 +19,7 @@ public class LanderSpaceProcedure {
 			if ((((entity.getRidingEntity()).isOnGround()) == (false))) {
 				if ((((entity.getRidingEntity()).getMotion().getY()) <= (-0.05))) {
 					(entity.getRidingEntity()).setMotion(((entity.getRidingEntity()).getMotion().getX()),
-							(((entity.getRidingEntity()).getMotion().getY()) * 0.85), ((entity.getRidingEntity()).getMotion().getZ()));
+							(((entity.getRidingEntity()).getMotion().getY()) * 0.86), ((entity.getRidingEntity()).getMotion().getZ()));
 				}
 				(entity.getRidingEntity()).getPersistentData().putDouble("Lander1", 1);
 				(entity.getRidingEntity()).getPersistentData().putDouble("Lander2", 1);

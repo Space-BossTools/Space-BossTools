@@ -1,8 +1,6 @@
 
 package net.mrscauthd.boss_tools.item;
 
-import org.lwjgl.opengl.GL11;
-
 import net.mrscauthd.boss_tools.procedures.SpaceArmorLeggingsTickEventProcedure;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorHelmetTickEventProcedure;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorBootsTickEventProcedure;
@@ -26,7 +24,6 @@ import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.client.util.ITooltipFlag;
@@ -276,12 +273,22 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 		@Override
 		public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue,
 				float alpha) {
-			kopf.render(matrixStack, buffer, packedLight, packedOverlay);
+			matrixStack.push();
+			// matrixStack.pop();
+			matrixStack.translate(0.0D, (double)(16.0f / 16.0F), (double)(0f / 16.0F));
+			kopf.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, false ? alpha : 100.0F);
+			 //matrixStack.push();
+			//matrixStack.pop();
+
+			matrixStack.push();
+			matrixStack.translate(0.0D, (double)(24f / 16.0F), 0.0D);
+			//kopf.render(matrixStack, buffer, packedLight, packedOverlay);
 			Body.render(matrixStack, buffer, packedLight, packedOverlay);
 			armr.render(matrixStack, buffer, packedLight, packedOverlay);
 			arml.render(matrixStack, buffer, packedLight, packedOverlay);
 			Left_Foot.render(matrixStack, buffer, packedLight, packedOverlay);
 			Right_Foot.render(matrixStack, buffer, packedLight, packedOverlay);
+			//matrixStack.pop();
 		}
 
 		public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
