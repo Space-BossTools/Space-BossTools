@@ -273,16 +273,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 		@Override
 		public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue,
 				float alpha) {
-			matrixStack.push();
-			// matrixStack.pop();
-			matrixStack.translate(0.0D, (double)(16.0f / 16.0F), (double)(0f / 16.0F));
-			kopf.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, false ? alpha : 100.0F);
-			 //matrixStack.push();
-			//matrixStack.pop();
-
-			matrixStack.push();
-			matrixStack.translate(0.0D, (double)(24f / 16.0F), 0.0D);
-			//kopf.render(matrixStack, buffer, packedLight, packedOverlay);
+			kopf.render(matrixStack, buffer, packedLight, packedOverlay);
 			Body.render(matrixStack, buffer, packedLight, packedOverlay);
 			armr.render(matrixStack, buffer, packedLight, packedOverlay);
 			arml.render(matrixStack, buffer, packedLight, packedOverlay);

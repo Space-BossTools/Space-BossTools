@@ -32,6 +32,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.entity.projectile.PotionEntity;
 import net.minecraft.entity.projectile.ArrowEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -129,6 +130,26 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 		public void applyEntityCollision(Entity entityIn) {
 		}
 
+		@Override
+		protected void removePassenger(Entity passenger) {
+			if (passenger.isSneaking() && !passenger.world.isRemote) {
+				if (passenger instanceof ServerPlayerEntity) {
+					ServerPlayerEntity playerEntity = (ServerPlayerEntity) passenger;
+					wheel = 0;
+				}
+			}
+			super.removePassenger(passenger);
+		}
+
+		@Override
+		public double getMountedYOffset() {
+			return super.getMountedYOffset() + -0.1;
+		}
+
+		public float getDamageTaken() {
+			return 0;
+		}
+
 		// test end
 		@Override
 		public IPacket<?> createSpawnPacket() {
@@ -210,6 +231,8 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 			double y = this.getPosY();
 			double z = this.getPosZ();
 			Entity entity = this;
+			// damage remove
+			// entity.isInvulnerable();
 			return retval;
 		}
 
@@ -220,6 +243,9 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 			double y = this.getPosY();
 			double z = this.getPosZ();
 			Entity entity = this;
+			// fall damage
+			// entity.getAlwaysRenderNameTagForRender();
+			this.fallDistance = (float) (0);
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
 				RoverOnEntityTickUpdateProcedure.executeProcedure($_dependencies);
@@ -237,6 +263,7 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 		public void travel(Vector3d dir) {
 			Entity entity = this.getPassengers().isEmpty() ? null : (Entity) this.getPassengers().get(0);
 			if (this.isBeingRidden()) {
+				// entity.fallDistance = (float) (0);
 				this.rotationYaw = this.rotationYaw = (float) this.getPersistentData().getDouble("Rotation"); // change
 				this.prevRotationYaw = this.rotationYaw;
 				this.rotationPitch = entity.rotationPitch * 0.5F;
@@ -249,6 +276,7 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 				if (entity instanceof LivingEntity) {
 					float forward = ((LivingEntity) entity).moveForward;
 					if (forward >= 0) {
+						System.out.println(forward + "test1");
 						float strafe = 0;
 						if (this.getAIMoveSpeed() >= 0.01) {
 							// wheel
@@ -264,27 +292,31 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 							this.setAIMoveSpeed(0f);
 							// wheel
 							if (wheel != 0) {
-							if (wheel >= 0) {
-								wheel = wheel - 0.02;
+								if (wheel >= 0) {
+									wheel = wheel - 0.02;
 								}
 							}
 						}
 						this.getPersistentData().putDouble("Wheel", this.getPersistentData().getDouble("Wheel") + wheel);// 0.35
 						super.travel(new Vector3d(strafe, 0, forward));
 					}
-					if (forward <= -0.1) {
-					wheel = 0;
+					if (forward <= -0.01) {
+						System.out.println(forward + "test2");
+						wheel = 0;
 						float strafe = 0;
 						if (this.getAIMoveSpeed() >= 0.01) {
 							this.getPersistentData().putDouble("Wheel", this.getPersistentData().getDouble("Wheel") - 0.14);
 						}
-						if (this.getAIMoveSpeed() <= 0.06) { // weil es ja erst gemacht werden muss das ist nur der block
+						if (this.getAIMoveSpeed() <= 0.06) { // weil es ja erst gemacht werden muss das ist nur der
+																// block
 							this.setAIMoveSpeed(this.getAIMoveSpeed() + (float) 0.02);
-							// System.out.println(this.getAIMoveSpeed());
+						}
+						if (this.getAIMoveSpeed() >= 0.08) { // FIX
+							this.setAIMoveSpeed((float) 0);
 						}
 						if (forward == 0) {
 							this.setAIMoveSpeed(0f);
-							//wheel = 0;
+							// wheel = 0;
 						}
 						super.travel(new Vector3d(strafe, 0, forward));
 					}
@@ -298,6 +330,8 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 				this.limbSwingAmount += (f1 - this.limbSwingAmount) * 0.4F;
 				this.limbSwing += this.limbSwingAmount;
 				return;
+			} else {
+				// wheel = 0;
 			}
 			this.stepHeight = 0.5F;
 			this.jumpMovementFactor = 0.02F;
