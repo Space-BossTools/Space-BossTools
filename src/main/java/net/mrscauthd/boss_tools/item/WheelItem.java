@@ -12,11 +12,11 @@ import net.minecraft.item.Item;
 import net.minecraft.block.BlockState;
 
 @BossToolsModElements.ModElement.Tag
-public class OxygenTankItem extends BossToolsModElements.ModElement {
-	@ObjectHolder("boss_tools:oxygen_tank")
+public class WheelItem extends BossToolsModElements.ModElement {
+	@ObjectHolder("boss_tools:wheel")
 	public static final Item block = null;
-	public OxygenTankItem(BossToolsModElements instance) {
-		super(instance, 33);
+	public WheelItem(BossToolsModElements instance) {
+		super(instance, 30);
 	}
 
 	@Override
@@ -25,8 +25,8 @@ public class OxygenTankItem extends BossToolsModElements.ModElement {
 	}
 	public static class ItemCustom extends Item {
 		public ItemCustom() {
-			super(new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab).maxStackSize(1).rarity(Rarity.COMMON));
-			setRegistryName("oxygen_tank");
+			super(new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab).maxStackSize(64).rarity(Rarity.COMMON));
+			setRegistryName("wheel");
 		}
 
 		@Override

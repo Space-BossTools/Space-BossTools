@@ -16,7 +16,7 @@ public class RocketNoseItem extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:nose_cone")
 	public static final Item block = null;
 	public RocketNoseItem(BossToolsModElements instance) {
-		super(instance, 34);
+		super(instance, 35);
 	}
 
 	@Override

@@ -5,42 +5,42 @@
     "recipeType": "Crafting",
     "xpReward": 0.0,
     "cookingTime": 200,
-    "recipeRetstackSize": 1,
+    "recipeRetstackSize": 2,
     "group": "",
     "recipeShapeless": false,
     "recipeSlots": [
       {
-        "value": "Items.DYE#4"
+        "value": "Items.DYE#16"
       },
       {
-        "value": ""
+        "value": "Items.SLIME_BALL"
       },
       {
-        "value": "Blocks.CHEST"
+        "value": "Items.DYE#16"
       },
       {
-        "value": "CUSTOM:Ironplate"
-      },
-      {
-        "value": "Blocks.FURNACE"
-      },
-      {
-        "value": "CUSTOM:BucketBig"
-      },
-      {
-        "value": "CUSTOM:Wheel"
+        "value": "Items.SLIME_BALL"
       },
       {
         "value": "CUSTOM:Steahl"
       },
       {
-        "value": "CUSTOM:Wheel"
+        "value": "Items.SLIME_BALL"
+      },
+      {
+        "value": "Items.DYE#16"
+      },
+      {
+        "value": "Items.SLIME_BALL"
+      },
+      {
+        "value": "Items.DYE#16"
       }
     ],
     "recipeReturnStack": {
-      "value": "CUSTOM:RoverItem"
+      "value": "CUSTOM:Wheel"
     },
-    "name": "rover_recpie",
+    "name": "wheel_recpie",
     "namespace": "mod"
   }
 }
