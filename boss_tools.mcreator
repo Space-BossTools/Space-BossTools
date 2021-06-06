@@ -5510,6 +5510,16 @@
           }
         ]
       }
+    },
+    {
+      "name": "RoverRecpie",
+      "type": "recipe",
+      "sortid": 384,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "rover_recpie",
+      "path": "~/Recpies"
     }
   ],
   "variable_elements": [
@@ -5687,7 +5697,7 @@
       "item.boss_tools.golden_engine": "Golden Engine",
       "key.categories.spacebosstools": "Space-Bosstools",
       "advancements.rocket_tier_3_advancement.descr": "§bHas crafted a Tier 3 Rocket",
-      "item.boss_tools.rover_item": "Rover Item",
+      "item.boss_tools.rover_item": "§bRover",
       "item.boss_tools.rocket_spawn_egg": "Rocket Spawn Egg",
       "block.boss_tools.rocket_launch_pad": "Rocket Launch Pad",
       "item.boss_tools.hammer": "Hammer",

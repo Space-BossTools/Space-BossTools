@@ -118,10 +118,10 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 		}
 
 		// HitBox
-		@Override
-		public boolean func_241845_aY() {
-			return true;
-		}
+	//	@Override
+	//	public boolean func_241845_aY() {
+	//		return true;
+	//	}
 
 		// Hit Box FIX
 		@Override
@@ -138,6 +138,7 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 				if (passenger instanceof ServerPlayerEntity) {
 					ServerPlayerEntity playerEntity = (ServerPlayerEntity) passenger;
 					wheel = 0;
+					this.setAIMoveSpeed(0f);
 				}
 			}
 			super.removePassenger(passenger);

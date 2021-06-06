@@ -1,0 +1,46 @@
+{
+  "_fv": 21,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "recipeRetstackSize": 1,
+    "group": "",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": "Items.DYE#4"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "CUSTOM:Steahl"
+      },
+      {
+        "value": "CUSTOM:Ironplate"
+      },
+      {
+        "value": "CUSTOM:SolarPanel"
+      },
+      {
+        "value": "CUSTOM:BucketBig"
+      },
+      {
+        "value": "Blocks.LAPIS_BLOCK"
+      },
+      {
+        "value": "CUSTOM:Steahl"
+      },
+      {
+        "value": "Blocks.LAPIS_BLOCK"
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:RoverItem"
+    },
+    "name": "rover_recpie",
+    "namespace": "mod"
+  }
+}

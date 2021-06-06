@@ -5,7 +5,7 @@
     "renderType": 1,
     "texture": "rover",
     "customModelName": "roveritem:default",
-    "name": "Rover Item",
+    "name": "§bRover",
     "rarity": "COMMON",
     "creativeTab": {
       "value": "CUSTOM:BossTools"
