@@ -16,7 +16,7 @@ public class EngineTier3Item extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:diamond_engine")
 	public static final Item block = null;
 	public EngineTier3Item(BossToolsModElements instance) {
-		super(instance, 40);
+		super(instance, 41);
 	}
 
 	@Override

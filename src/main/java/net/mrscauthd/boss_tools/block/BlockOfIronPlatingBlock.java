@@ -24,7 +24,7 @@ public class BlockOfIronPlatingBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:block_of_iron_plating")
 	public static final Block block = null;
 	public BlockOfIronPlatingBlock(BossToolsModElements instance) {
-		super(instance, 60);
+		super(instance, 61);
 	}
 
 	@Override

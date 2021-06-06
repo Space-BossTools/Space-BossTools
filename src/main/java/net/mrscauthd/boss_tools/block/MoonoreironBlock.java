@@ -46,7 +46,7 @@ public class MoonoreironBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:moon_iron_ore")
 	public static final Block block = null;
 	public MoonoreironBlock(BossToolsModElements instance) {
-		super(instance, 50);
+		super(instance, 51);
 		MinecraftForge.EVENT_BUS.register(this);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new FeatureRegisterHandler());
 	}

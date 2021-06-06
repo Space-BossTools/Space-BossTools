@@ -16,7 +16,7 @@ public class BucketBigItem extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:barrel")
 	public static final Item block = null;
 	public BucketBigItem(BossToolsModElements instance) {
-		super(instance, 7);
+		super(instance, 8);
 	}
 
 	@Override

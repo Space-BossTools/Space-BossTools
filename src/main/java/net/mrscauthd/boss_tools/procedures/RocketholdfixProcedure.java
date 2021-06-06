@@ -3,6 +3,7 @@ package net.mrscauthd.boss_tools.procedures;
 import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
+import net.mrscauthd.boss_tools.item.RoverItemItem;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.fml.common.Mod;
@@ -125,6 +126,23 @@ public class RocketholdfixProcedure {
 				entityToSpawn.setPickupDelay((int) 10);
 				world.addEntity(entityToSpawn);
 			}
+		}
+		if (((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
+				.getItem() == new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem())
+				&& (((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
+						.getItem() == new ItemStack(RoverItemItem.block, (int) (1)).getItem()))) {
+			if (entity instanceof LivingEntity) {
+				ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
+				_setstack.setCount((int) 1);
+				((LivingEntity) entity).setHeldItem(Hand.OFF_HAND, _setstack);
+				if (entity instanceof ServerPlayerEntity)
+					((ServerPlayerEntity) entity).inventory.markDirty();
+			}
+			if (world instanceof World && !world.isRemote()) {
+				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(RoverItemItem.block, (int) (1)));
+				entityToSpawn.setPickupDelay((int) 10);
+				world.addEntity(entityToSpawn);
+			}
 		} // Tier 2
 		if (((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
 				.getItem() == new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem())
@@ -176,6 +194,23 @@ public class RocketholdfixProcedure {
 				entityToSpawn.setPickupDelay((int) 10);
 				world.addEntity(entityToSpawn);
 			}
+		}
+		if (((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
+				.getItem() == new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem())
+				&& (((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
+						.getItem() == new ItemStack(RoverItemItem.block, (int) (1)).getItem()))) {
+			if (entity instanceof LivingEntity) {
+				ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
+				_setstack.setCount((int) 1);
+				((LivingEntity) entity).setHeldItem(Hand.OFF_HAND, _setstack);
+				if (entity instanceof ServerPlayerEntity)
+					((ServerPlayerEntity) entity).inventory.markDirty();
+			}
+			if (world instanceof World && !world.isRemote()) {
+				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(RoverItemItem.block, (int) (1)));
+				entityToSpawn.setPickupDelay((int) 10);
+				world.addEntity(entityToSpawn);
+			}
 		} // Tier 3
 		if (((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
 				.getItem() == new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem())
@@ -224,6 +259,91 @@ public class RocketholdfixProcedure {
 			}
 			if (world instanceof World && !world.isRemote()) {
 				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(Tier3RocketItemItem.block, (int) (1)));
+				entityToSpawn.setPickupDelay((int) 10);
+				world.addEntity(entityToSpawn);
+			}
+		}
+		if (((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
+				.getItem() == new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem())
+				&& (((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
+						.getItem() == new ItemStack(RoverItemItem.block, (int) (1)).getItem()))) {
+			if (entity instanceof LivingEntity) {
+				ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
+				_setstack.setCount((int) 1);
+				((LivingEntity) entity).setHeldItem(Hand.OFF_HAND, _setstack);
+				if (entity instanceof ServerPlayerEntity)
+					((ServerPlayerEntity) entity).inventory.markDirty();
+			}
+			if (world instanceof World && !world.isRemote()) {
+				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(RoverItemItem.block, (int) (1)));
+				entityToSpawn.setPickupDelay((int) 10);
+				world.addEntity(entityToSpawn);
+			}
+		} // Rover
+		if (((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
+				.getItem() == new ItemStack(RoverItemItem.block, (int) (1)).getItem())
+				&& (((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
+						.getItem() == new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem()))) {
+			if (entity instanceof LivingEntity) {
+				ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
+				_setstack.setCount((int) 1);
+				((LivingEntity) entity).setHeldItem(Hand.OFF_HAND, _setstack);
+				if (entity instanceof ServerPlayerEntity)
+					((ServerPlayerEntity) entity).inventory.markDirty();
+			}
+			if (world instanceof World && !world.isRemote()) {
+				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(Tier1RocketItemItem.block, (int) (1)));
+				entityToSpawn.setPickupDelay((int) 10);
+				world.addEntity(entityToSpawn);
+			}
+		}
+		if (((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
+				.getItem() == new ItemStack(RoverItemItem.block, (int) (1)).getItem())
+				&& (((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
+						.getItem() == new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem()))) {
+			if (entity instanceof LivingEntity) {
+				ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
+				_setstack.setCount((int) 1);
+				((LivingEntity) entity).setHeldItem(Hand.OFF_HAND, _setstack);
+				if (entity instanceof ServerPlayerEntity)
+					((ServerPlayerEntity) entity).inventory.markDirty();
+			}
+			if (world instanceof World && !world.isRemote()) {
+				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(Tier2RocketItemItem.block, (int) (1)));
+				entityToSpawn.setPickupDelay((int) 10);
+				world.addEntity(entityToSpawn);
+			}
+		}
+		if (((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
+				.getItem() == new ItemStack(RoverItemItem.block, (int) (1)).getItem())
+				&& (((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
+						.getItem() == new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem()))) {
+			if (entity instanceof LivingEntity) {
+				ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
+				_setstack.setCount((int) 1);
+				((LivingEntity) entity).setHeldItem(Hand.OFF_HAND, _setstack);
+				if (entity instanceof ServerPlayerEntity)
+					((ServerPlayerEntity) entity).inventory.markDirty();
+			}
+			if (world instanceof World && !world.isRemote()) {
+				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(Tier3RocketItemItem.block, (int) (1)));
+				entityToSpawn.setPickupDelay((int) 10);
+				world.addEntity(entityToSpawn);
+			}
+		}
+		if (((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
+				.getItem() == new ItemStack(RoverItemItem.block, (int) (1)).getItem())
+				&& (((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
+						.getItem() == new ItemStack(RoverItemItem.block, (int) (1)).getItem()))) {
+			if (entity instanceof LivingEntity) {
+				ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
+				_setstack.setCount((int) 1);
+				((LivingEntity) entity).setHeldItem(Hand.OFF_HAND, _setstack);
+				if (entity instanceof ServerPlayerEntity)
+					((ServerPlayerEntity) entity).inventory.markDirty();
+			}
+			if (world instanceof World && !world.isRemote()) {
+				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(RoverItemItem.block, (int) (1)));
 				entityToSpawn.setPickupDelay((int) 10);
 				world.addEntity(entityToSpawn);
 			}

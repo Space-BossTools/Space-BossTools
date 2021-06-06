@@ -30,7 +30,7 @@ public class BlockOfRustedIronPillarBlock extends BossToolsModElements.ModElemen
 	@ObjectHolder("boss_tools:block_of_rusted_iron_pillar")
 	public static final Block block = null;
 	public BlockOfRustedIronPillarBlock(BossToolsModElements instance) {
-		super(instance, 61);
+		super(instance, 62);
 	}
 
 	@Override

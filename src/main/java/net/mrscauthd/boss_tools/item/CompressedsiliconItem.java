@@ -16,7 +16,7 @@ public class CompressedsiliconItem extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:compressed_silicon")
 	public static final Item block = null;
 	public CompressedsiliconItem(BossToolsModElements instance) {
-		super(instance, 24);
+		super(instance, 25);
 	}
 
 	@Override

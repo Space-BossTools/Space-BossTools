@@ -78,7 +78,7 @@ public class RocketLaunchPadBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:rocket_launch_pad")
 	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
 	public RocketLaunchPadBlock(BossToolsModElements instance) {
-		super(instance, 4);
+		super(instance, 5);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new TileEntityRegisterHandler());
 	}
 

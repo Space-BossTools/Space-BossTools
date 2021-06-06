@@ -46,7 +46,7 @@ public class CheeseBlockBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:moon_cheese_ore")
 	public static final Block block = null;
 	public CheeseBlockBlock(BossToolsModElements instance) {
-		super(instance, 51);
+		super(instance, 52);
 		MinecraftForge.EVENT_BUS.register(this);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new FeatureRegisterHandler());
 	}

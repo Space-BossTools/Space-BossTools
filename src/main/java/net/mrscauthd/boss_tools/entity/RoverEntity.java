@@ -54,7 +54,7 @@ import java.util.HashMap;
 public class RoverEntity extends BossToolsModElements.ModElement {
 	public static EntityType entity = (EntityType.Builder.<CustomEntity>create(CustomEntity::new, EntityClassification.MONSTER)
 			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(CustomEntity::new).immuneToFire()
-			.size(2.5f, 0.5f)).build("rover").setRegistryName("rover");
+			.size(2.5f, 1.0f)).build("rover").setRegistryName("rover");
 	public static double wheel = 0;
 	public RoverEntity(BossToolsModElements instance) {
 		super(instance, 394);
@@ -144,7 +144,7 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 
 		@Override
 		public double getMountedYOffset() {
-			return super.getMountedYOffset() + -0.1;
+			return super.getMountedYOffset() + -0.5;
 		}
 
 		// public float getDamageTaken() {
