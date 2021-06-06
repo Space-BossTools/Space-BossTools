@@ -1,8 +1,9 @@
 {
-  "_fv": 19,
+  "_fv": 21,
   "_type": "fluid",
   "definition": {
     "name": "Fuel",
+    "bucketName": "Fuel Bucket",
     "textureStill": "fluid_fuel_still",
     "textureFlowing": "fluid_fuel_flow",
     "luminosity": 0,
@@ -14,6 +15,8 @@
     "creativeTab": {
       "value": "CUSTOM:BossTools"
     },
+    "rarity": "COMMON",
+    "specialInfo": [],
     "resistance": 100.0,
     "luminance": 0,
     "emissiveRendering": false,

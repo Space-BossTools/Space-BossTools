@@ -15,6 +15,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.item.Rarity;
 import net.minecraft.item.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.BucketItem;
@@ -57,14 +58,14 @@ public class FuelBlock extends BossToolsModElements.ModElement {
 	public void initElements() {
 		fluidproperties = new ForgeFlowingFluid.Properties(() -> still, () -> flowing, FluidAttributes
 				.builder(new ResourceLocation("boss_tools:blocks/fluid_fuel_still"), new ResourceLocation("boss_tools:blocks/fluid_fuel_flow"))
-				.luminosity(0).density(1000).viscosity(1000)).explosionResistance(100f).bucket(() -> bucket).block(() -> block);
+				.luminosity(0).density(1000).viscosity(1000).rarity(Rarity.COMMON)).explosionResistance(100f).bucket(() -> bucket).block(() -> block);
 		still = (FlowingFluid) new ForgeFlowingFluid.Source(fluidproperties).setRegistryName("fuel");
 		flowing = (FlowingFluid) new ForgeFlowingFluid.Flowing(fluidproperties).setRegistryName("fuel_flowing");
 		elements.blocks
 				.add(() -> new FlowingFluidBlock(still, Block.Properties.create(Material.WATER).hardnessAndResistance(100f).setLightLevel(s -> 0)) {
 				}.setRegistryName("fuel"));
-		elements.items
-				.add(() -> new BucketItem(still, new Item.Properties().containerItem(Items.BUCKET).maxStackSize(1).group(BossToolsItemGroup.tab))
+		elements.items.add(() -> new BucketItem(still,
+				new Item.Properties().containerItem(Items.BUCKET).maxStackSize(1).group(BossToolsItemGroup.tab).rarity(Rarity.COMMON))
 						.setRegistryName("fuel_bucket"));
 	}
 }

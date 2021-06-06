@@ -13,6 +13,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.item.ItemStack;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.client.network.play.NetworkPlayerInfo;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
@@ -99,7 +100,8 @@ public class SpaceArmorBodyTickEventProcedure {
 							(itemstack).getOrCreateTag().putDouble("Energytick", 0);
 						}
 						entity.getPersistentData().putBoolean("SpaceSuitC", (true));
-						entity.setAir(300);
+						if (entity instanceof LivingEntity)
+							((LivingEntity) entity).setAir((int) 300);
 					}
 				}
 				if ((((itemstack).getOrCreateTag().getDouble("Energy")) <= 1)) {
