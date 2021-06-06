@@ -34,6 +34,7 @@ import net.minecraft.entity.projectile.PotionEntity;
 import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.MobEntity;
@@ -146,9 +147,9 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 			return super.getMountedYOffset() + -0.1;
 		}
 
-	//	public float getDamageTaken() {
-	//		return 0;
-	//	}
+		// public float getDamageTaken() {
+		// return 0;
+		// }
 
 		// test end
 		@Override
@@ -276,7 +277,7 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 				if (entity instanceof LivingEntity) {
 					float forward = ((LivingEntity) entity).moveForward;
 					if (forward >= 0) {
-						//System.out.println(forward + "test1");
+						// System.out.println(forward + "test1");
 						float strafe = 0;
 						if (this.getAIMoveSpeed() >= 0.01) {
 							// wheel
@@ -301,7 +302,7 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 						super.travel(new Vector3d(strafe, 0, forward));
 					}
 					if (forward <= -0.01) {
-						//System.out.println(forward + "test2");
+						// System.out.println(forward + "test2");
 						wheel = 0;
 						float strafe = 0;
 						if (this.getAIMoveSpeed() >= 0.01) {

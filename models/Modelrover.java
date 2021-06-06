@@ -1,103 +1,110 @@
-// Made with Blockbench 3.8.2
-// Exported for Minecraft version 1.15
+// Made with Blockbench 3.8.4
+// Exported for Minecraft version 1.15 - 1.16
 // Paste this class into your mod and generate all required imports
 
 public static class Modelrover extends EntityModel<Entity> {
-	private final ModelRenderer bone;
-	private final ModelRenderer bone2;
-	private final ModelRenderer wellback1;
-	private final ModelRenderer wellfront1;
-	private final ModelRenderer wellfront2;
-	private final ModelRenderer wellback2;
-	private final ModelRenderer bb_main;
+	private final ModelRenderer Frame;
+	private final ModelRenderer cube_r1;
+	private final ModelRenderer cube_r2;
+	private final ModelRenderer cube_r3;
+	private final ModelRenderer Wheel1;
+	private final ModelRenderer Wheel2;
+	private final ModelRenderer Wheel3;
+	private final ModelRenderer Wheel4;
+	private final ModelRenderer sat;
+	private final ModelRenderer cube_r4;
+	private final ModelRenderer cube_r5;
 
 	public Modelrover() {
 		textureWidth = 128;
 		textureHeight = 128;
 
-		bone = new ModelRenderer(this);
-		bone.setRotationPoint(-7.0F, 18.0F, 8.0F);
-		setRotationAngle(bone, -0.2618F, 0.0F, 0.0F);
-		bone.setTextureOffset(32, 0).addBox(-3.0F, -21.2187F, -5.3173F, 20.0F, 24.0F, 2.0F, 0.0F, false);
+		Frame = new ModelRenderer(this);
+		Frame.setRotationPoint(0.0F, 24.0F, 0.0F);
+		Frame.setTextureOffset(0, 0).addBox(-7.0F, -4.0F, -21.0F, 14.0F, 1.0F, 29.0F, 0.0F, false);
+		Frame.setTextureOffset(22, 32).addBox(5.0F, -6.0F, -15.0F, 0.0F, 2.0F, 10.0F, 0.0F, false);
+		Frame.setTextureOffset(22, 30).addBox(-5.0F, -6.0F, -15.0F, 0.0F, 2.0F, 10.0F, 0.0F, false);
+		Frame.setTextureOffset(33, 32).addBox(-7.0F, -3.0F, 5.0F, 14.0F, 1.0F, 1.0F, 0.0F, false);
+		Frame.setTextureOffset(33, 30).addBox(-7.0F, -3.0F, -19.0F, 14.0F, 1.0F, 1.0F, 0.0F, false);
+		Frame.setTextureOffset(31, 49).addBox(-5.0F, -5.0F, -22.0F, 4.0F, 1.0F, 5.0F, 0.0F, false);
+		Frame.setTextureOffset(33, 36).addBox(-3.0F, -5.0F, -23.0F, 6.0F, 1.0F, 1.0F, 0.0F, false);
+		Frame.setTextureOffset(0, 5).addBox(-1.0F, -5.0F, -22.0F, 3.0F, 1.0F, 1.0F, 0.0F, false);
+		Frame.setTextureOffset(4, 7).addBox(-4.0F, -6.0F, -21.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
+		Frame.setTextureOffset(0, 7).addBox(-4.0F, -9.0F, -21.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
+		Frame.setTextureOffset(0, 51).addBox(3.0F, -20.0F, -22.0F, 1.0F, 17.0F, 1.0F, 0.0F, false);
+		Frame.setTextureOffset(46, 54).addBox(-5.0F, -8.0F, -22.0F, 3.0F, 2.0F, 3.0F, 0.0F, false);
+		Frame.setTextureOffset(13, 54).addBox(-5.0F, -11.0F, -22.0F, 3.0F, 2.0F, 3.0F, 0.0F, false);
+		Frame.setTextureOffset(0, 40).addBox(-5.0F, -14.0F, 7.0F, 10.0F, 10.0F, 1.0F, 0.0F, false);
+		Frame.setTextureOffset(0, 30).addBox(-6.0F, -5.0F, -5.0F, 12.0F, 1.0F, 9.0F, 0.0F, false);
+		Frame.setTextureOffset(0, 20).addBox(-4.0F, -8.0F, -17.0F, 8.0F, 4.0F, 5.0F, 0.0F, false);
+		Frame.setTextureOffset(0, 30).addBox(7.0F, -6.25F, -19.75F, 2.0F, 0.0F, 5.0F, 0.0F, false);
+		Frame.setTextureOffset(0, 0).addBox(-9.0F, -6.25F, -19.75F, 2.0F, 0.0F, 5.0F, 0.0F, false);
+		Frame.setTextureOffset(20, 20).addBox(7.0F, -6.25F, 4.25F, 2.0F, 0.0F, 5.0F, 0.0F, false);
+		Frame.setTextureOffset(16, 20).addBox(-9.0F, -6.25F, 4.25F, 2.0F, 0.0F, 5.0F, 0.0F, false);
+		Frame.setTextureOffset(22, 44).addBox(7.0F, -6.25F, -14.75F, 2.0F, 5.0F, 0.0F, 0.0F, false);
+		Frame.setTextureOffset(0, 0).addBox(-9.0F, -6.25F, -14.75F, 2.0F, 5.0F, 0.0F, 0.0F, false);
+		Frame.setTextureOffset(0, 30).addBox(7.0F, -6.25F, 9.25F, 2.0F, 5.0F, 0.0F, 0.0F, false);
+		Frame.setTextureOffset(0, 20).addBox(-9.0F, -6.25F, 9.25F, 2.0F, 5.0F, 0.0F, 0.0F, false);
 
-		bone2 = new ModelRenderer(this);
-		bone2.setRotationPoint(-7.0F, 7.0F, 11.0F);
-		setRotationAngle(bone2, -0.0873F, 0.0F, 0.0F);
-		bone2.setTextureOffset(100, 34).addBox(1.0F, -18.3593F, -3.5791F, 12.0F, 8.0F, 2.0F, 0.0F, false);
+		cube_r1 = new ModelRenderer(this);
+		cube_r1.setRotationPoint(0.0F, -4.8695F, 4.9914F);
+		Frame.addChild(cube_r1);
+		setRotationAngle(cube_r1, -0.1309F, 0.0F, 0.0F);
+		cube_r1.setTextureOffset(0, 9).addBox(-6.0F, -9.0F, -1.0F, 12.0F, 10.0F, 1.0F, 0.0F, false);
 
-		wellback1 = new ModelRenderer(this);
-		wellback1.setRotationPoint(21.0F, 19.0F, 18.0F);
-		wellback1.setTextureOffset(50, 28).addBox(-3.0F, -5.0F, -5.0F, 6.0F, 10.0F, 10.0F, 0.0F, false);
+		cube_r2 = new ModelRenderer(this);
+		cube_r2.setRotationPoint(0.0F, -4.0F, -21.0F);
+		Frame.addChild(cube_r2);
+		setRotationAngle(cube_r2, -0.2182F, 0.0F, 0.0F);
+		cube_r2.setTextureOffset(4, 51).addBox(-1.0F, -6.0F, 0.0F, 6.0F, 6.0F, 0.0F, 0.0F, false);
 
-		wellfront1 = new ModelRenderer(this);
-		wellfront1.setRotationPoint(21.0F, 19.0F, -44.0F);
-		wellfront1.setTextureOffset(50, 28).addBox(-3.0F, -5.0F, -5.0F, 6.0F, 10.0F, 10.0F, 0.0F, false);
+		cube_r3 = new ModelRenderer(this);
+		cube_r3.setRotationPoint(0.0F, -4.9992F, -22.9995F);
+		Frame.addChild(cube_r3);
+		setRotationAngle(cube_r3, 0.5672F, 0.0F, 0.0F);
+		cube_r3.setTextureOffset(31, 34).addBox(-3.0F, 0.0F, -2.0F, 6.0F, 0.0F, 2.0F, 0.0F, false);
 
-		wellfront2 = new ModelRenderer(this);
-		wellfront2.setRotationPoint(-21.0F, 19.0F, -44.0F);
-		wellfront2.setTextureOffset(50, 28).addBox(-3.0F, -5.0F, -5.0F, 6.0F, 10.0F, 10.0F, 0.0F, false);
+		Wheel1 = new ModelRenderer(this);
+		Wheel1.setRotationPoint(7.0F, 21.5F, -18.5F);
+		Wheel1.setTextureOffset(46, 44).addBox(0.0F, -2.5F, -2.5F, 2.0F, 5.0F, 5.0F, 0.0F, false);
 
-		wellback2 = new ModelRenderer(this);
-		wellback2.setRotationPoint(-21.0F, 19.0F, 18.0F);
-		wellback2.setTextureOffset(50, 28).addBox(-3.0F, -5.0F, -5.0F, 6.0F, 10.0F, 10.0F, 0.0F, false);
+		Wheel2 = new ModelRenderer(this);
+		Wheel2.setRotationPoint(8.0F, 21.5F, 5.5F);
+		Wheel2.setTextureOffset(46, 34).addBox(-1.0F, -2.5F, -2.5F, 2.0F, 5.0F, 5.0F, 0.0F, false);
 
-		bb_main = new ModelRenderer(this);
-		bb_main.setRotationPoint(0.0F, 24.0F, 0.0F);
-		bb_main.setTextureOffset(0, 76).addBox(-16.0F, -6.0F, -19.0F, 32.0F, 2.0F, 18.0F, 0.0F, false);
-		bb_main.setTextureOffset(37, 84).addBox(-22.0F, -6.0F, -45.0F, 10.0F, 2.0F, 2.0F, 0.0F, false);
-		bb_main.setTextureOffset(18, 77).addBox(-12.0F, -6.0F, -27.0F, 24.0F, 2.0F, 8.0F, 0.0F, false);
-		bb_main.setTextureOffset(38, 80).addBox(12.0F, -6.0F, -45.0F, 10.0F, 2.0F, 2.0F, 0.0F, false);
-		bb_main.setTextureOffset(0, 32).addBox(-10.0F, -8.0F, -15.0F, 20.0F, 2.0F, 18.0F, 0.0F, false);
-		bb_main.setTextureOffset(39, 83).addBox(12.0F, -6.0F, -21.0F, 2.0F, 2.0F, 2.0F, 0.0F, false);
-		bb_main.setTextureOffset(44, 84).addBox(-14.0F, -6.0F, -21.0F, 2.0F, 2.0F, 2.0F, 0.0F, false);
-		bb_main.setTextureOffset(44, 98).addBox(-14.0F, -22.0F, 11.0F, 28.0F, 16.0F, 14.0F, 0.0F, false);
-		bb_main.setTextureOffset(56, 0).addBox(16.0F, -6.0F, 17.0F, 6.0F, 2.0F, 2.0F, 0.0F, false);
-		bb_main.setTextureOffset(56, 0).addBox(-22.0F, -6.0F, 17.0F, 6.0F, 2.0F, 2.0F, 0.0F, false);
-		bb_main.setTextureOffset(0, 120).addBox(-8.0F, -10.0F, -29.0F, 18.0F, 4.0F, 4.0F, 0.0F, false);
-		bb_main.setTextureOffset(0, 106).addBox(-4.0F, -8.0F, -55.0F, 10.0F, 4.0F, 10.0F, 0.0F, false);
-		bb_main.setTextureOffset(0, 76).addBox(-16.0F, -6.0F, -1.0F, 32.0F, 2.0F, 18.0F, 0.0F, false);
-		bb_main.setTextureOffset(0, 60).addBox(-16.0F, -6.0F, 17.0F, 32.0F, 2.0F, 10.0F, 0.0F, false);
-		bb_main.setTextureOffset(0, 120).addBox(-8.0F, -10.0F, -33.0F, 18.0F, 4.0F, 4.0F, 0.0F, false);
-		bb_main.setTextureOffset(0, 120).addBox(-8.0F, -10.0F, -37.0F, 18.0F, 4.0F, 4.0F, 0.0F, false);
-		bb_main.setTextureOffset(0, 120).addBox(-8.0F, -10.0F, -41.0F, 18.0F, 4.0F, 4.0F, 0.0F, false);
-		bb_main.setTextureOffset(0, 120).addBox(-8.0F, -10.0F, -45.0F, 18.0F, 4.0F, 4.0F, 0.0F, false);
-		bb_main.setTextureOffset(18, 79).addBox(-12.0F, -6.0F, -35.0F, 24.0F, 2.0F, 8.0F, 0.0F, false);
-		bb_main.setTextureOffset(18, 80).addBox(-12.0F, -6.0F, -43.0F, 24.0F, 2.0F, 8.0F, 0.0F, false);
-		bb_main.setTextureOffset(18, 80).addBox(-12.0F, -6.0F, -51.0F, 24.0F, 2.0F, 8.0F, 0.0F, false);
-		bb_main.setTextureOffset(22, 120).addBox(-10.0F, -10.0F, -29.0F, 2.0F, 4.0F, 4.0F, 0.0F, false);
-		bb_main.setTextureOffset(22, 120).addBox(-10.0F, -10.0F, -33.0F, 2.0F, 4.0F, 4.0F, 0.0F, false);
-		bb_main.setTextureOffset(104, 20).addBox(-6.0F, -8.0F, -55.0F, 2.0F, 4.0F, 10.0F, 0.0F, false);
-		bb_main.setTextureOffset(33, 82).addBox(16.0F, -14.0F, -45.0F, 8.0F, 2.0F, 8.0F, 0.0F, false);
-		bb_main.setTextureOffset(34, 82).addBox(16.0F, -12.0F, -37.0F, 8.0F, 8.0F, 2.0F, 0.0F, false);
-		bb_main.setTextureOffset(35, 82).addBox(16.0F, -6.0F, -43.0F, 2.0F, 2.0F, 6.0F, 0.0F, false);
-		bb_main.setTextureOffset(33, 83).addBox(16.0F, -12.0F, -45.0F, 2.0F, 6.0F, 2.0F, 0.0F, false);
-		bb_main.setTextureOffset(28, 83).addBox(16.0F, -14.0F, 17.0F, 8.0F, 2.0F, 8.0F, 0.0F, false);
-		bb_main.setTextureOffset(34, 86).addBox(16.0F, -12.0F, 25.0F, 8.0F, 8.0F, 2.0F, 0.0F, false);
-		bb_main.setTextureOffset(36, 82).addBox(16.0F, -12.0F, 17.0F, 2.0F, 6.0F, 2.0F, 0.0F, false);
-		bb_main.setTextureOffset(32, 80).addBox(16.0F, -6.0F, 19.0F, 2.0F, 2.0F, 6.0F, 0.0F, false);
-		bb_main.setTextureOffset(33, 80).addBox(-24.0F, -14.0F, 17.0F, 8.0F, 2.0F, 8.0F, 0.0F, false);
-		bb_main.setTextureOffset(29, 81).addBox(-24.0F, -12.0F, 25.0F, 8.0F, 8.0F, 2.0F, 0.0F, false);
-		bb_main.setTextureOffset(33, 78).addBox(-18.0F, -12.0F, 17.0F, 2.0F, 6.0F, 2.0F, 0.0F, false);
-		bb_main.setTextureOffset(30, 84).addBox(-18.0F, -6.0F, 19.0F, 2.0F, 2.0F, 6.0F, 0.0F, false);
-		bb_main.setTextureOffset(28, 82).addBox(-24.0F, -12.0F, -37.0F, 8.0F, 8.0F, 2.0F, 0.0F, false);
-		bb_main.setTextureOffset(23, 77).addBox(-24.0F, -14.0F, -45.0F, 8.0F, 2.0F, 8.0F, 0.0F, false);
-		bb_main.setTextureOffset(33, 82).addBox(-18.0F, -12.0F, -45.0F, 2.0F, 6.0F, 2.0F, 0.0F, false);
-		bb_main.setTextureOffset(39, 83).addBox(-18.0F, -6.0F, -43.0F, 2.0F, 2.0F, 6.0F, 0.0F, false);
-		bb_main.setTextureOffset(22, 120).addBox(-10.0F, -10.0F, -37.0F, 2.0F, 4.0F, 4.0F, 0.0F, false);
-		bb_main.setTextureOffset(22, 120).addBox(-10.0F, -10.0F, -41.0F, 2.0F, 4.0F, 4.0F, 0.0F, false);
-		bb_main.setTextureOffset(22, 120).addBox(-10.0F, -10.0F, -45.0F, 2.0F, 4.0F, 4.0F, 0.0F, false);
+		Wheel3 = new ModelRenderer(this);
+		Wheel3.setRotationPoint(-8.0F, 21.5F, -18.5F);
+		Wheel3.setTextureOffset(37, 39).addBox(-1.0F, -2.5F, -2.5F, 2.0F, 5.0F, 5.0F, 0.0F, false);
+
+		Wheel4 = new ModelRenderer(this);
+		Wheel4.setRotationPoint(-8.0F, 21.5F, 5.5F);
+		Wheel4.setTextureOffset(22, 44).addBox(-1.0F, -2.5F, -2.5F, 2.0F, 5.0F, 5.0F, 0.0F, false);
+
+		sat = new ModelRenderer(this);
+		sat.setRotationPoint(3.458F, 4.2756F, -21.6895F);
+
+		cube_r4 = new ModelRenderer(this);
+		cube_r4.setRotationPoint(0.042F, -0.2756F, 0.1895F);
+		sat.addChild(cube_r4);
+		setRotationAngle(cube_r4, 0.2618F, 0.2182F, 0.0F);
+		cube_r4.setTextureOffset(0, 0).addBox(-4.5F, 0.0F, -4.5F, 9.0F, 0.0F, 9.0F, 0.0F, false);
+
+		cube_r5 = new ModelRenderer(this);
+		cube_r5.setRotationPoint(-0.042F, -1.7244F, -0.1895F);
+		sat.addChild(cube_r5);
+		setRotationAngle(cube_r5, 0.2618F, 0.2182F, 0.0F);
+		cube_r5.setTextureOffset(0, 35).addBox(-0.5F, -1.5F, -0.5F, 1.0F, 3.0F, 1.0F, 0.0F, false);
 	}
 
 	@Override
 	public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red,
 			float green, float blue, float alpha) {
-		bone.render(matrixStack, buffer, packedLight, packedOverlay);
-		bone2.render(matrixStack, buffer, packedLight, packedOverlay);
-		wellback1.render(matrixStack, buffer, packedLight, packedOverlay);
-		wellfront1.render(matrixStack, buffer, packedLight, packedOverlay);
-		wellfront2.render(matrixStack, buffer, packedLight, packedOverlay);
-		wellback2.render(matrixStack, buffer, packedLight, packedOverlay);
-		bb_main.render(matrixStack, buffer, packedLight, packedOverlay);
+		Frame.render(matrixStack, buffer, packedLight, packedOverlay);
+		Wheel1.render(matrixStack, buffer, packedLight, packedOverlay);
+		Wheel2.render(matrixStack, buffer, packedLight, packedOverlay);
+		Wheel3.render(matrixStack, buffer, packedLight, packedOverlay);
+		Wheel4.render(matrixStack, buffer, packedLight, packedOverlay);
+		sat.render(matrixStack, buffer, packedLight, packedOverlay);
 	}
 
 	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
