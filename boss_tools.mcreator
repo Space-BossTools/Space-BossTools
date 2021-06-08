@@ -2814,36 +2814,6 @@
       "path": "~/Blocks"
     },
     {
-      "name": "EnergyCableBaseUpdateTick",
-      "type": "procedure",
-      "sortid": 223,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "energy_cable_base_update_tick",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      },
-      "path": "~/Procedures"
-    },
-    {
       "name": "Iceshard",
       "type": "item",
       "sortid": 26,
