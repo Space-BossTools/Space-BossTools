@@ -3,7 +3,7 @@
   "_type": "item",
   "definition": {
     "renderType": 1,
-    "texture": "rover",
+    "texture": "rover_item",
     "customModelName": "roveritem:default",
     "name": "§bRover",
     "rarity": "COMMON",

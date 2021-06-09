@@ -81,19 +81,19 @@ public static class Modelrover extends EntityModel<Entity> {
 		Wheel4.setTextureOffset(22, 44).addBox(-1.0F, -2.5F, -2.5F, 2.0F, 5.0F, 5.0F, 0.0F, false);
 
 		sat = new ModelRenderer(this);
-		sat.setRotationPoint(3.458F, 4.2756F, -21.6895F);
+		sat.setRotationPoint(3.458F, 4.2756F, -21.5F);
 
 		cube_r4 = new ModelRenderer(this);
-		cube_r4.setRotationPoint(0.042F, -0.2756F, 0.1895F);
+		cube_r4.setRotationPoint(0.042F, -0.2756F, 0.0F);
 		sat.addChild(cube_r4);
-		setRotationAngle(cube_r4, 0.2618F, 0.2182F, 0.0F);
-		cube_r4.setTextureOffset(0, 0).addBox(-4.5F, 0.0F, -4.5F, 9.0F, 0.0F, 9.0F, 0.0F, false);
+		setRotationAngle(cube_r4, 0.2618F, 0.0F, 0.0F);
+		cube_r4.setTextureOffset(0, 0).addBox(-4.5F, 0.15F, -4.5F, 9.0F, 0.0F, 9.0F, 0.0F, false);
 
 		cube_r5 = new ModelRenderer(this);
-		cube_r5.setRotationPoint(-0.042F, -1.7244F, -0.1895F);
+		cube_r5.setRotationPoint(-0.042F, -1.7244F, -0.379F);
 		sat.addChild(cube_r5);
-		setRotationAngle(cube_r5, 0.2618F, 0.2182F, 0.0F);
-		cube_r5.setTextureOffset(0, 35).addBox(-0.5F, -1.5F, -0.5F, 1.0F, 3.0F, 1.0F, 0.0F, false);
+		setRotationAngle(cube_r5, 0.2618F, 0.0F, 0.0F);
+		cube_r5.setTextureOffset(0, 35).addBox(-0.416F, -1.3511F, -0.531F, 1.0F, 3.0F, 1.0F, 0.0F, false);
 	}
 
 	@Override
