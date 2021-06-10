@@ -519,7 +519,7 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 						if (this.getPersistentData().getDouble("fuel") >= 1) {
 							if (this.getAIMoveSpeed() >= 0.01) {
 								// wheel
-								if (wheel <= 0.30) {
+								if (wheel <= 0.32) {
 									wheel = wheel + 0.02;
 								}
 							}
