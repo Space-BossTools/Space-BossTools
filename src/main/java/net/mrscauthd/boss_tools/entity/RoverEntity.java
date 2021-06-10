@@ -3,10 +3,16 @@ package net.mrscauthd.boss_tools.entity;
 
 import net.mrscauthd.boss_tools.procedures.RoverOnEntityTickUpdateProcedure;
 import net.mrscauthd.boss_tools.procedures.RoverEntityIsHurtProcedure;
+import net.mrscauthd.boss_tools.gui.Rover1GUIGui;
 import net.mrscauthd.boss_tools.entity.renderer.RoverRenderer;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.items.wrapper.EntityHandsInvWrapper;
+import net.minecraftforge.items.wrapper.EntityArmorInvWrapper;
+import net.minecraftforge.items.wrapper.CombinedInvWrapper;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.NetworkRegistry;
@@ -17,23 +23,33 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.World;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Direction;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.IPacket;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.item.ItemStack;
+import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.entity.projectile.PotionEntity;
 import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -44,12 +60,18 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.CreatureAttribute;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.block.BlockState;
+
+import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 
 import java.util.function.Supplier;
 import java.util.Map;
 import java.util.HashMap;
+
+import io.netty.buffer.Unpooled;
 
 @BossToolsModElements.ModElement.Tag
 public class RoverEntity extends BossToolsModElements.ModElement {
@@ -81,6 +103,112 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 			ammma = ammma.createMutableAttribute(Attributes.ARMOR, 0);
 			ammma = ammma.createMutableAttribute(Attributes.ATTACK_DAMAGE, 0);
 			event.put(entity, ammma.create());
+		}
+	}
+
+	// packages System
+	private static class NetworkLoader {
+		public static SimpleChannel INSTANCE;
+		private static int id = 1;
+		public static int nextID() {
+			return id++;
+		}
+
+		public static void registerMessages() {
+			INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation("boss_tools", "rover_link"), () -> "1.0", s -> true, s -> true);
+			INSTANCE.registerMessage(nextID(), RotationSpinPacket.class, RotationSpinPacket::encode, RotationSpinPacket::decode,
+					RotationSpinPacket::handle);
+			// new animationpitch
+			INSTANCE.registerMessage(nextID(), WheelSpinPacket.class, WheelSpinPacket::encode, WheelSpinPacket::decode, WheelSpinPacket::handle);
+			// fuel
+			INSTANCE.registerMessage(nextID(), FuelSpinPacket.class, FuelSpinPacket::encode, FuelSpinPacket::decode, FuelSpinPacket::handle);
+		}
+	}
+
+	// First Animation
+	private static class RotationSpinPacket {
+		private double rotation;
+		private int entityId;
+		public RotationSpinPacket(int entityId, double rotation) {
+			this.rotation = rotation;
+			this.entityId = entityId;
+		}
+
+		public static void encode(RotationSpinPacket msg, PacketBuffer buf) {
+			buf.writeInt(msg.entityId);
+			buf.writeDouble(msg.rotation);
+		}
+
+		public static RotationSpinPacket decode(PacketBuffer buf) {
+			return new RotationSpinPacket(buf.readInt(), buf.readDouble());
+		}
+
+		public static void handle(RotationSpinPacket msg, Supplier<NetworkEvent.Context> ctx) {
+			ctx.get().enqueueWork(() -> {
+				Entity entity = Minecraft.getInstance().world.getEntityByID(msg.entityId);
+				if (entity instanceof LivingEntity) {
+					((LivingEntity) entity).getPersistentData().putDouble("Rotation", msg.rotation);
+				}
+			});
+			ctx.get().setPacketHandled(true);
+		}
+	}
+
+	// Wheel Animation
+	private static class WheelSpinPacket {
+		private double wheel;
+		private int entityId;
+		public WheelSpinPacket(int entityId, double wheel) {
+			this.wheel = wheel;
+			this.entityId = entityId;
+		}
+
+		public static void encode(WheelSpinPacket msg, PacketBuffer buf) {
+			buf.writeInt(msg.entityId);
+			buf.writeDouble(msg.wheel);
+		}
+
+		public static WheelSpinPacket decode(PacketBuffer buf) {
+			return new WheelSpinPacket(buf.readInt(), buf.readDouble());
+		}
+
+		public static void handle(WheelSpinPacket msg, Supplier<NetworkEvent.Context> ctx) {
+			ctx.get().enqueueWork(() -> {
+				Entity entity = Minecraft.getInstance().world.getEntityByID(msg.entityId);
+				if (entity instanceof LivingEntity) {
+					((LivingEntity) entity).getPersistentData().putDouble("Wheel", msg.wheel);
+				}
+			});
+			ctx.get().setPacketHandled(true);
+		}
+	}
+
+	// Animation
+	private static class FuelSpinPacket {
+		private double fuel;
+		private int entityId;
+		public FuelSpinPacket(int entityId, double fuel) {
+			this.fuel = fuel;
+			this.entityId = entityId;
+		}
+
+		public static void encode(FuelSpinPacket msg, PacketBuffer buf) {
+			buf.writeInt(msg.entityId);
+			buf.writeDouble(msg.fuel);
+		}
+
+		public static FuelSpinPacket decode(PacketBuffer buf) {
+			return new FuelSpinPacket(buf.readInt(), buf.readDouble());
+		}
+
+		public static void handle(FuelSpinPacket msg, Supplier<NetworkEvent.Context> ctx) {
+			ctx.get().enqueueWork(() -> {
+				Entity entity = Minecraft.getInstance().world.getEntityByID(msg.entityId);
+				if (entity instanceof LivingEntity) {
+					((LivingEntity) entity).getPersistentData().putDouble("fuel", msg.fuel);
+				}
+			});
+			ctx.get().setPacketHandled(true);
 		}
 	}
 
@@ -118,11 +246,10 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 		}
 
 		// HitBox
-	//	@Override
-	//	public boolean func_241845_aY() {
-	//		return true;
-	//	}
-
+		// @Override
+		// public boolean func_241845_aY() {
+		// return true;
+		// }
 		// Hit Box FIX
 		@Override
 		protected void collideWithEntity(Entity p_82167_1_) {
@@ -148,11 +275,52 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 		public double getMountedYOffset() {
 			return super.getMountedYOffset() + -0.4;
 		}
-
 		// public float getDamageTaken() {
 		// return 0;
 		// }
 		// test end
+		// Inv
+		private final ItemStackHandler inventory = new ItemStackHandler(9) {
+			@Override
+			public int getSlotLimit(int slot) {
+				return 64;
+			}
+		};
+		private final CombinedInvWrapper combined = new CombinedInvWrapper(inventory, new EntityHandsInvWrapper(this),
+				new EntityArmorInvWrapper(this));
+		@Override
+		public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
+			if (this.isAlive() && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side == null)
+				return LazyOptional.of(() -> combined).cast();
+			return super.getCapability(capability, side);
+		}
+
+		@Override
+		protected void dropInventory() {
+			super.dropInventory();
+			for (int i = 0; i < inventory.getSlots(); ++i) {
+				ItemStack itemstack = inventory.getStackInSlot(i);
+				if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
+					this.entityDropItem(itemstack);
+				}
+			}
+		}
+
+		@Override
+		public void writeAdditional(CompoundNBT compound) {
+			super.writeAdditional(compound);
+			compound.put("InventoryCustom", inventory.serializeNBT());
+		}
+
+		@Override
+		public void readAdditional(CompoundNBT compound) {
+			super.readAdditional(compound);
+			INBT inventoryCustom = compound.get("InventoryCustom");
+			if (inventoryCustom instanceof CompoundNBT)
+				inventory.deserializeNBT((CompoundNBT) inventoryCustom);
+		}
+
+		// inv End
 		@Override
 		public IPacket<?> createSpawnPacket() {
 			return NetworkHooks.getEntitySpawningPacket(this);
@@ -230,21 +398,45 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 			return super.attackEntityFrom(source, amount);
 		}
 
+		// inv open
 		@Override
 		public ActionResultType func_230254_b_(PlayerEntity sourceentity, Hand hand) {
 			ItemStack itemstack = sourceentity.getHeldItem(hand);
 			ActionResultType retval = ActionResultType.func_233537_a_(this.world.isRemote());
+			if (sourceentity.isSecondaryUseActive()) {
+				if (sourceentity instanceof ServerPlayerEntity) {
+					NetworkHooks.openGui((ServerPlayerEntity) sourceentity, new INamedContainerProvider() {
+						@Override
+						public ITextComponent getDisplayName() {
+							return new StringTextComponent("Rover");
+						}
+
+						@Override
+						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+							PacketBuffer packetBuffer = new PacketBuffer(Unpooled.buffer());
+							packetBuffer.writeBlockPos(new BlockPos(sourceentity.getPosition()));
+							packetBuffer.writeByte(0);
+							packetBuffer.writeVarInt(CustomEntity.this.getEntityId());
+							return new Rover1GUIGui.GuiContainerMod(id, inventory, packetBuffer);
+						}
+					}, buf -> {
+						buf.writeBlockPos(new BlockPos(sourceentity.getPosition()));
+						buf.writeByte(0);
+						buf.writeVarInt(this.getEntityId());
+					});
+				}
+				return ActionResultType.func_233537_a_(this.world.isRemote());
+			}
 			super.func_230254_b_(sourceentity, hand);
 			sourceentity.startRiding(this);
 			double x = this.getPosX();
 			double y = this.getPosY();
 			double z = this.getPosZ();
 			Entity entity = this;
-			// damage remove
-			// entity.isInvulnerable();
 			return retval;
 		}
 
+		// inv open end
 		@Override
 		public void baseTick() {
 			super.baseTick();
@@ -252,6 +444,11 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 			double y = this.getPosY();
 			double z = this.getPosZ();
 			Entity entity = this;
+			{
+				Map<String, Object> $_dependencies = new HashMap<>();
+				$_dependencies.put("entity", entity);
+				RoverOnEntityTickUpdateProcedure.executeProcedure($_dependencies);
+			}
 			// fall damage
 			// entity.getAlwaysRenderNameTagForRender();
 			this.fallDistance = (float) (0);
@@ -266,6 +463,10 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 			if (!this.world.isRemote)
 				NetworkLoader.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> this),
 						new WheelSpinPacket(this.getEntityId(), this.getPersistentData().getDouble("Wheel")));
+			// new Nbt
+			if (!this.world.isRemote)
+				NetworkLoader.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> this),
+						new FuelSpinPacket(this.getEntityId(), this.getPersistentData().getDouble("fuel")));
 		}
 
 		@Override
@@ -287,17 +488,19 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 					if (forward >= 0) {
 						// System.out.println(forward + "test1");
 						float strafe = 0;
-						if (this.getAIMoveSpeed() >= 0.01) {
-							// wheel
-							if (wheel <= 0.35) {
-								wheel = wheel + 0.02;
+						if (this.getPersistentData().getDouble("fuel") >= 1) {
+							if (this.getAIMoveSpeed() >= 0.01) {
+								// wheel
+								if (wheel <= 0.30) {
+									wheel = wheel + 0.02;
+								}
+							}
+							if (this.getAIMoveSpeed() <= 0.25) {
+								this.setAIMoveSpeed(this.getAIMoveSpeed() + (float) 0.02);
+								// System.out.println(this.getAIMoveSpeed());
 							}
 						}
-						if (this.getAIMoveSpeed() <= 0.25) {
-							this.setAIMoveSpeed(this.getAIMoveSpeed() + (float) 0.02);
-							// System.out.println(this.getAIMoveSpeed());
-						}
-						if (forward == 0) {
+						if (forward == 0 || this.getPersistentData().getDouble("fuel") <= 1) {
 							this.setAIMoveSpeed(0f);
 							// wheel
 							if (wheel != 0) {
@@ -313,21 +516,31 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 						// System.out.println(forward + "test2");
 						wheel = 0;
 						float strafe = 0;
-						if (this.getAIMoveSpeed() >= 0.01) {
-							this.getPersistentData().putDouble("Wheel", this.getPersistentData().getDouble("Wheel") - 0.14);
-						}
-						if (this.getAIMoveSpeed() <= 0.06) { // weil es ja erst gemacht werden muss das ist nur der
-																// block
-							this.setAIMoveSpeed(this.getAIMoveSpeed() + (float) 0.02);
+						if (this.getPersistentData().getDouble("fuel") >= 1) {
+							if (this.getAIMoveSpeed() >= 0.01) {
+								this.getPersistentData().putDouble("Wheel", this.getPersistentData().getDouble("Wheel") - 0.14);
+							}
+							if (this.getAIMoveSpeed() <= 0.04) { // weil es ja erst gemacht werden muss das ist nur der
+																	// block
+								this.setAIMoveSpeed(this.getAIMoveSpeed() + (float) 0.02);
+							}
 						}
 						if (this.getAIMoveSpeed() >= 0.08) { // FIX
 							this.setAIMoveSpeed((float) 0);
 						}
-						if (forward == 0) {
+						if (forward == 0 || this.getPersistentData().getDouble("fuel") <= 1) {
 							this.setAIMoveSpeed(0f);
 							// wheel = 0;
 						}
 						super.travel(new Vector3d(strafe, 0, forward));
+					}
+					if (this.getPersistentData().getDouble("fuel") >= 1) {
+						if (forward <= -0.01) {
+							this.getPersistentData().putDouble("fuel", this.getPersistentData().getDouble("fuel") - 1);
+						}
+						if (forward >= 0.01) {
+							this.getPersistentData().putDouble("fuel", this.getPersistentData().getDouble("fuel") - 1);
+						}
 					}
 				}
 				this.prevLimbSwingAmount = this.limbSwingAmount;
@@ -345,81 +558,6 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 			this.stepHeight = 0.5F;
 			this.jumpMovementFactor = 0.02F;
 			super.travel(dir);
-		}
-	}
-
-	// packages System
-	private static class NetworkLoader {
-		public static SimpleChannel INSTANCE;
-		private static int id = 1;
-		public static int nextID() {
-			return id++;
-		}
-
-		public static void registerMessages() {
-			INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation("boss_tools", "rover_link"), () -> "1.0", s -> true, s -> true);
-			INSTANCE.registerMessage(nextID(), RotationSpinPacket.class, RotationSpinPacket::encode, RotationSpinPacket::decode,
-					RotationSpinPacket::handle);
-			// new animationpitch
-			INSTANCE.registerMessage(nextID(), WheelSpinPacket.class, WheelSpinPacket::encode, WheelSpinPacket::decode, WheelSpinPacket::handle);
-		}
-	}
-
-	// First Animation
-	private static class RotationSpinPacket {
-		private double rotation;
-		private int entityId;
-		public RotationSpinPacket(int entityId, double rotation) {
-			this.rotation = rotation;
-			this.entityId = entityId;
-		}
-
-		public static void encode(RotationSpinPacket msg, PacketBuffer buf) {
-			buf.writeInt(msg.entityId);
-			buf.writeDouble(msg.rotation);
-		}
-
-		public static RotationSpinPacket decode(PacketBuffer buf) {
-			return new RotationSpinPacket(buf.readInt(), buf.readDouble());
-		}
-
-		public static void handle(RotationSpinPacket msg, Supplier<NetworkEvent.Context> ctx) {
-			ctx.get().enqueueWork(() -> {
-				Entity entity = Minecraft.getInstance().world.getEntityByID(msg.entityId);
-				if (entity instanceof LivingEntity) {
-					((LivingEntity) entity).getPersistentData().putDouble("Rotation", msg.rotation);
-				}
-			});
-			ctx.get().setPacketHandled(true);
-		}
-	}
-
-	// Wheel Animation
-	private static class WheelSpinPacket {
-		private double wheel;
-		private int entityId;
-		public WheelSpinPacket(int entityId, double wheel) {
-			this.wheel = wheel;
-			this.entityId = entityId;
-		}
-
-		public static void encode(WheelSpinPacket msg, PacketBuffer buf) {
-			buf.writeInt(msg.entityId);
-			buf.writeDouble(msg.wheel);
-		}
-
-		public static WheelSpinPacket decode(PacketBuffer buf) {
-			return new WheelSpinPacket(buf.readInt(), buf.readDouble());
-		}
-
-		public static void handle(WheelSpinPacket msg, Supplier<NetworkEvent.Context> ctx) {
-			ctx.get().enqueueWork(() -> {
-				Entity entity = Minecraft.getInstance().world.getEntityByID(msg.entityId);
-				if (entity instanceof LivingEntity) {
-					((LivingEntity) entity).getPersistentData().putDouble("Wheel", msg.wheel);
-				}
-			});
-			ctx.get().setPacketHandled(true);
 		}
 	}
 }

@@ -118,7 +118,7 @@ public class Rover1GUIGui extends BossToolsModElements.ModElement {
 			this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 8, 63) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
-					return (new ItemStack(FuelBlock.bucket, (int) (1)).getItem() == stack.getItem() || new ItemStack(FuelBucketBigItem.block, (int) (1)).getItem() == stack.getItem());
+					return (new ItemStack(FuelBlock.bucket, (int) (1)).getItem() == stack.getItem()/* || new ItemStack(FuelBucketBigItem.block, (int) (1)).getItem() == stack.getItem()*/);
 				}
 			}));
 			this.customSlots.put(1, this.addSlot(new SlotItemHandler(internal, 1, 151, 16) {
