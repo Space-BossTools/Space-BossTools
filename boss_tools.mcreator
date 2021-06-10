@@ -5413,7 +5413,28 @@
       "ids": {},
       "registry_name": "rover_entity_is_hurt",
       "metadata": {
-        "dependencies": []
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
       }
     },
     {
@@ -5448,7 +5469,7 @@
       "type": "item",
       "sortid": 4,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "rover_item",
       "path": "~/Items"
@@ -5458,7 +5479,7 @@
       "type": "procedure",
       "sortid": 384,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "rover_item_right_clicked_on_block",
       "metadata": {
@@ -5614,9 +5635,9 @@
       "item.boss_tools.iron_engine": "Iron Engine",
       "block.boss_tools.mars_diamond_ore": "Mars Diamond Ore",
       "item.boss_tools.oxygen_tank": "Oxygen Tank",
-      "block.boss_tools.block_of_rusted_iron_plating": "Block of Rusted Iron Plating",
-      "block.boss_tools.fuel_refinery": "Fuel Refinery",
       "block.boss_tools.mercury_iron_ore": "Mercury Iron Ore",
+      "block.boss_tools.fuel_refinery": "Fuel Refinery",
+      "block.boss_tools.block_of_rusted_iron_plating": "Block of Rusted Iron Plating",
       "biome.boss_tools.mars_biome": "Moon Biome",
       "block.boss_tools.cracked_moon_bricks": "Cracked Moon Bricks",
       "fluid.boss_tools.fuel": "Fuel",

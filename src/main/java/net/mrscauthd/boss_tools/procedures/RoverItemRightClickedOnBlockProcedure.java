@@ -88,7 +88,12 @@ public class RoverItemRightClickedOnBlockProcedure {
 					((MobEntity) entityToSpawn).prevRotationYawHead = entityToSpawn.rotationYaw;
 					((MobEntity) entityToSpawn).onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(entityToSpawn.getPosition()),
 							SpawnReason.MOB_SUMMONED, (ILivingEntityData) null, (CompoundNBT) null);
-					entityToSpawn.getPersistentData().putDouble("", 0);
+					entityToSpawn.getPersistentData().putDouble("fuel",
+							(((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY).getOrCreateTag()
+									.getDouble("fuel")));
+					entityToSpawn.getPersistentData().putDouble("Rocketfuel",
+							(((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY).getOrCreateTag()
+									.getDouble("Rocketfuel")));
 					world.addEntity(entityToSpawn);
 				}
 				if (world instanceof World && !world.isRemote()) {

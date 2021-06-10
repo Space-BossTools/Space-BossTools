@@ -295,17 +295,13 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 			return super.getCapability(capability, side);
 		}
 
-		@Override
-		protected void dropInventory() {
-			super.dropInventory();
-			for (int i = 0; i < inventory.getSlots(); ++i) {
-				ItemStack itemstack = inventory.getStackInSlot(i);
-				if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
-					this.entityDropItem(itemstack);
-				}
-			}
-		}
-
+		/*
+		 * @Override protected void dropInventory() { super.dropInventory(); for (int i
+		 * = 0; i < inventory.getSlots(); ++i) { ItemStack itemstack =
+		 * inventory.getStackInSlot(i); if (!itemstack.isEmpty() &&
+		 * !EnchantmentHelper.hasVanishingCurse(itemstack)) {
+		 * this.entityDropItem(itemstack); } } }
+		 */
 		@Override
 		public void writeAdditional(CompoundNBT compound) {
 			super.writeAdditional(compound);
@@ -365,9 +361,31 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 			double z = this.getPosZ();
 			Entity entity = this;
 			Entity sourceentity = source.getTrueSource();
-			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				RoverEntityIsHurtProcedure.executeProcedure($_dependencies);
+			if (sourceentity != null) {
+				if (sourceentity.isSneaking() == true) {
+					for (int i = 0; i < inventory.getSlots(); ++i) {
+						ItemStack itemstack = inventory.getStackInSlot(i);
+						if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
+							this.entityDropItem(itemstack);
+						}
+					}
+					Map<String, Object> $_dependencies = new HashMap<>();
+					$_dependencies.put("entity", entity);
+					$_dependencies.put("x", x);
+					$_dependencies.put("y", y);
+					$_dependencies.put("z", z);
+					$_dependencies.put("world", world);
+					RoverEntityIsHurtProcedure.executeProcedure($_dependencies);
+				}
+			}
+			if (sourceentity == null) {
+				for (int i = 0; i < inventory.getSlots(); ++i) {
+					ItemStack itemstack = inventory.getStackInSlot(i);
+					if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
+						this.entityDropItem(itemstack);
+					}
+				}
+				this.remove();
 			}
 			if (source.getImmediateSource() instanceof ArrowEntity)
 				return false;
@@ -452,10 +470,6 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 			// fall damage
 			// entity.getAlwaysRenderNameTagForRender();
 			this.fallDistance = (float) (0);
-			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				RoverOnEntityTickUpdateProcedure.executeProcedure($_dependencies);
-			}
 			if (!this.world.isRemote)
 				NetworkLoader.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> this),
 						new RotationSpinPacket(this.getEntityId(), this.getPersistentData().getDouble("Rotation")));

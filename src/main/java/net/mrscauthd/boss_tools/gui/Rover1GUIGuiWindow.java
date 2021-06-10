@@ -42,7 +42,7 @@ public class Rover1GUIGuiWindow extends ContainerScreen<Rover1GUIGui.GuiContaine
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 		// Tooltip
 		if (mouseX > guiLeft + 8 && mouseX < guiLeft + 23 && mouseY > guiTop + 13 && mouseY < guiTop + 62)
-			this.renderTooltip(ms, new StringTextComponent(entity.getPersistentData().getDouble("fuel") + " mb / 3000.0 mb"), mouseX, mouseY);
+			this.renderTooltip(ms, new StringTextComponent(entity.getPersistentData().getDouble("fuel") + " mb / 16000.0 mb"), mouseX, mouseY);
 	}
 
 	@Override
