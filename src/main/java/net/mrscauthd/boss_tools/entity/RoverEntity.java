@@ -564,10 +564,10 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 					}
 					if (this.getPersistentData().getDouble("fuel") >= 1) {
 						if (forward <= -0.01) {
-							this.getPersistentData().putDouble("fuel", this.getPersistentData().getDouble("fuel") - 1);
+							this.getPersistentData().putDouble("fuel", this.getPersistentData().getDouble("fuel") - 2);
 						}
 						if (forward >= 0.01) {
-							this.getPersistentData().putDouble("fuel", this.getPersistentData().getDouble("fuel") - 1);
+							this.getPersistentData().putDouble("fuel", this.getPersistentData().getDouble("fuel") - 2);
 						}
 					}
 				}

@@ -105,6 +105,7 @@ public class RocketKeyRotationDKeyBinding extends BossToolsModElements.ModElemen
 			}
 			// Rover
 			if ((entity.getRidingEntity()) instanceof RoverEntity.CustomEntity) {
+			float forward = ((LivingEntity) entity).moveForward;
 				if (entity.getRidingEntity().getPersistentData().getDouble("fuel") >= 1) {
 					if (forward >= 0.01) {
 						entity.getRidingEntity().getPersistentData().putDouble("Rotation",
