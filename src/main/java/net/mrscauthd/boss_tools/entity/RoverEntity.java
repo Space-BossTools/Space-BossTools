@@ -3,6 +3,7 @@ package net.mrscauthd.boss_tools.entity;
 
 import net.mrscauthd.boss_tools.procedures.RoverOnEntityTickUpdateProcedure;
 import net.mrscauthd.boss_tools.procedures.RoverEntityIsHurtProcedure;
+import net.mrscauthd.boss_tools.item.RoverItemItem;
 import net.mrscauthd.boss_tools.gui.Rover1GUIGui;
 import net.mrscauthd.boss_tools.entity.renderer.RoverRenderer;
 import net.mrscauthd.boss_tools.BossToolsModElements;
@@ -51,6 +52,7 @@ import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.MobEntity;
@@ -378,15 +380,27 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 					RoverEntityIsHurtProcedure.executeProcedure($_dependencies);
 				}
 			}
-			if (sourceentity == null) {
+			if (sourceentity == null && entity.isBeingRidden() == false) {
 				for (int i = 0; i < inventory.getSlots(); ++i) {
 					ItemStack itemstack = inventory.getStackInSlot(i);
 					if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
 						this.entityDropItem(itemstack);
 					}
 				}
+				ItemStack itemfuel = ItemStack.EMPTY;
+				itemfuel = new ItemStack(RoverItemItem.block, (int) (1));
+				(itemfuel).getOrCreateTag().putDouble("Rocketfuel", (entity.getPersistentData().getDouble("Rocketfuel")));
+				(itemfuel).getOrCreateTag().putDouble("fuel", (entity.getPersistentData().getDouble("fuel")));
+				(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 160));
+				if (world instanceof World && !world.isRemote()) {
+					ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
+					entityToSpawn.setPickupDelay((int) 10);
+					world.addEntity(entityToSpawn);
+				}
 				this.remove();
 			}
+			if (source == DamageSource.FALLING_BLOCK)
+				return false;
 			if (source.getImmediateSource() instanceof ArrowEntity)
 				return false;
 			if (source.getImmediateSource() instanceof PlayerEntity)
