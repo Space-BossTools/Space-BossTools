@@ -51,5 +51,8 @@ public class RoverOnEntityTickUpdateProcedure {
 				entity.getPersistentData().putDouble("Rocketfuel", 0);
 			}
 		}
+		if (((entity.getPersistentData().getDouble("fuel")) >= 16000)) {
+			entity.getPersistentData().putDouble("fuel", 16000);
+		}
 	}
 }

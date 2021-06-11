@@ -149,16 +149,16 @@ public class RoverRenderer {
 			this.Wheel4.rotateAngleX = f2 / (180F / (float) Math.PI);
 			if (e instanceof LivingEntity) {
 				if (e.getPersistentData().getDouble("Wheel") == 1) {
-					this.Wheel1.rotateAngleX = (float) (f / 3);
-					this.Wheel2.rotateAngleX = (float) (f / 3);
-					this.Wheel3.rotateAngleX = (float) (f / 3);
-					this.Wheel4.rotateAngleX = (float) (f / 3);
+					this.Wheel1.rotateAngleX = (float) (f / 4);
+					this.Wheel2.rotateAngleX = (float) (f / 4);
+					this.Wheel3.rotateAngleX = (float) (f / 4);
+					this.Wheel4.rotateAngleX = (float) (f / 4);
 				}
 				if (e.getPersistentData().getDouble("Wheel") == 0) {
-					this.Wheel1.rotateAngleX = (float) (f / 3);
-					this.Wheel2.rotateAngleX = (float) (f / 3);
-					this.Wheel3.rotateAngleX = (float) (f / 3);
-					this.Wheel4.rotateAngleX = (float) (f / 3);
+					this.Wheel1.rotateAngleX = (float) (f / 4);
+					this.Wheel2.rotateAngleX = (float) (f / 4);
+					this.Wheel3.rotateAngleX = (float) (f / 4);
+					this.Wheel4.rotateAngleX = (float) (f / 4);
 				}
 				//System.out.println(f);
 			}
