@@ -624,9 +624,9 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 					}
 					if (this.getPersistentData().getDouble("fuel") == 2) {
 						if (entity instanceof PlayerEntity) {
-							((PlayerEntity) entity).sendStatusMessage(new StringTextComponent("\\u00A7cNO FUEL!"), (false));
+							((PlayerEntity) entity).sendStatusMessage(new StringTextComponent("\u00A7cNO FUEL!"), (true));
+							}
 						}
-					}
 					if (this.getPersistentData().getDouble("fuel") >= 1) {
 						if (forward <= -0.01) {
 							this.getPersistentData().putDouble("fuel", this.getPersistentData().getDouble("fuel") - 2);
