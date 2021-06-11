@@ -521,7 +521,6 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 					System.out.println(speed);
 				}
 			}
-
 			//}
 		*/	// movement end
 			//test 2
@@ -632,6 +631,7 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 						}
 					}
 				}
+				if (this.getPersistentData().getDouble("Wheel") == 1) {
 				this.prevLimbSwingAmount = this.limbSwingAmount;
 				double d1 = this.getPosX() - this.prevPosX;
 				double d0 = this.getPosZ() - this.prevPosZ;
@@ -640,6 +640,17 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 					f1 = 1.0F;
 				this.limbSwingAmount += (f1 - this.limbSwingAmount) * 0.4F;
 				this.limbSwing += this.limbSwingAmount;
+				}
+				if (this.getPersistentData().getDouble("Wheel") == 0) {
+				this.prevLimbSwingAmount = this.limbSwingAmount;
+				double d1 = this.getPosX() - this.prevPosX;
+				double d0 = this.getPosZ() - this.prevPosZ;
+				float f1 = - MathHelper.sqrt(d1 * d1 + d0 * d0) * 8.0F;
+				if (f1 > 1.0F)
+					f1 = 1.0F;
+				this.limbSwingAmount += (f1 - this.limbSwingAmount) * 0.8F;
+				this.limbSwing += this.limbSwingAmount;
+				}
 				return;
 			} else {
 				// wheel = 0;

@@ -155,12 +155,12 @@ public class RoverRenderer {
 					this.Wheel4.rotateAngleX = (float) (f / 3);
 				}
 				if (e.getPersistentData().getDouble("Wheel") == 0) {
-					this.Wheel1.rotateAngleX = (float) (f / 4);
-					this.Wheel2.rotateAngleX = (float) (f / 4);
-					this.Wheel3.rotateAngleX = (float) (f / 4);
-					this.Wheel4.rotateAngleX = (float) (f / 4);
+					this.Wheel1.rotateAngleX = (float) (f / 3);
+					this.Wheel2.rotateAngleX = (float) (f / 3);
+					this.Wheel3.rotateAngleX = (float) (f / 3);
+					this.Wheel4.rotateAngleX = (float) (f / 3);
 				}
-				System.out.println(this.Wheel1.rotateAngleX);
+				//System.out.println(f);
 			}
 			// sat
 			this.sat.rotateAngleY = (float) f2 / 20f;
