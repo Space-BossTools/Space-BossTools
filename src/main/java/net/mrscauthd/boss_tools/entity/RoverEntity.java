@@ -80,7 +80,9 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 	public static EntityType entity = (EntityType.Builder.<CustomEntity>create(CustomEntity::new, EntityClassification.MONSTER)
 			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(CustomEntity::new).immuneToFire()
 			.size(2.5f, 1.0f)).build("rover").setRegistryName("rover");
-	public static double wheel = 0;
+	public static double speed = 0;
+	public static boolean fw = false;
+	public static float forward = 0;
 	public RoverEntity(BossToolsModElements instance) {
 		super(instance, 394);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new RoverRenderer.ModelRegisterHandler());
@@ -117,7 +119,7 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 		}
 
 		public static void registerMessages() {
-			INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation("boss_tools", "rover_link"), () -> "1.0", s -> true, s -> true);
+			INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation("boss_tools", "rover_link"), () -> "100.0", s -> true, s -> true);
 			INSTANCE.registerMessage(nextID(), RotationSpinPacket.class, RotationSpinPacket::encode, RotationSpinPacket::decode,
 					RotationSpinPacket::handle);
 			// new animationpitch
@@ -266,7 +268,7 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 			if (passenger.isSneaking() && !passenger.world.isRemote) {
 				if (passenger instanceof ServerPlayerEntity) {
 					ServerPlayerEntity playerEntity = (ServerPlayerEntity) passenger;
-					wheel = 0;
+					//wheel = 0;
 					this.setAIMoveSpeed(0f);
 				}
 			}
@@ -476,6 +478,65 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 			double y = this.getPosY();
 			double z = this.getPosZ();
 			Entity entity = this;
+			Entity entity2 = this.getPassengers().isEmpty() ? null : (Entity) this.getPassengers().get(0);
+/*			//movement
+			float forward = 0;
+			if (this.isBeingRidden()) {
+				forward = ((LivingEntity) entity2).moveForward;
+			}
+			if (this.getPersistentData().getDouble("fuel") != 0) {
+				if (this.getPersistentData().getDouble("fuel") >= 1) {
+					if (forward >= 0.01) {
+						if (speed <= 0.26) {
+							speed = speed + 0.015;
+							System.out.println("1");
+							this.setAIMoveSpeed((float) speed);
+							this.getPersistentData().putDouble("Wheel",  speed);
+						}
+					}
+					if (forward <= -0.01) {
+						if (speed >= -0.08) {
+							speed = speed - 0.015;
+							System.out.println("2");
+							this.setAIMoveSpeed((float) - speed); //-
+							this.getPersistentData().putDouble("Wheel",  speed);
+						}
+					}
+				}
+			}
+			if (forward == 0) {
+				if (speed != 0) {
+					if (speed >= 0.008) {
+						speed = speed - 0.015;
+						System.out.println("3");
+						this.setAIMoveSpeed((float) - speed); //-
+						this.getPersistentData().putDouble("Wheel",  speed);
+					}
+					if (speed <= -0.008) {
+						speed = speed + 0.015;
+						System.out.println("4");
+						this.setAIMoveSpeed((float) speed);
+						this.getPersistentData().putDouble("Wheel",  speed);
+					}
+					System.out.println(speed);
+				}
+			}
+
+			//}
+		*/	// movement end
+			//test 2
+			if (entity2 instanceof LivingEntity) {
+				forward = ((LivingEntity) entity2).moveForward;
+			}
+			if (forward >= 0.01) {
+				//fw = true;
+				this.getPersistentData().putDouble("Wheel", 1);
+			}
+			if (forward <= -0.01) {
+				//fw = false;
+				this.getPersistentData().putDouble("Wheel", 0);
+			}
+			//test2
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("entity", entity);
@@ -519,8 +580,8 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 						if (this.getPersistentData().getDouble("fuel") >= 1) {
 							if (this.getAIMoveSpeed() >= 0.01) {
 								// wheel
-								if (wheel <= 0.32) {
-									wheel = wheel + 0.02;
+								if (speed <= 0.32) {
+									speed = speed + 0.02;
 								}
 							}
 							if (this.getAIMoveSpeed() <= 0.25) {
@@ -531,25 +592,25 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 						if (forward == 0 || this.getPersistentData().getDouble("fuel") <= 1) {
 							this.setAIMoveSpeed(0f);
 							// wheel
-							if (wheel != 0) {
-								if (wheel >= 0) {
-									wheel = wheel - 0.02;
+							if (speed != 0) {
+								if (speed >= 0) {
+									speed = speed - 0.02;
 								}
 							}
 						}
-						this.getPersistentData().putDouble("Wheel", this.getPersistentData().getDouble("Wheel") + wheel);// 0.35
+						//this.getPersistentData().putDouble("Wheel", this.getPersistentData().getDouble("Wheel") + speed);// 0.35
 						super.travel(new Vector3d(strafe, 0, forward));
 					}
 					if (forward <= -0.01) {
 						// System.out.println(forward + "test2");
-						wheel = 0;
+						speed = 0;
 						float strafe = 0;
 						if (this.getPersistentData().getDouble("fuel") >= 1) {
 							if (this.getAIMoveSpeed() >= 0.01) {
-								this.getPersistentData().putDouble("Wheel", this.getPersistentData().getDouble("Wheel") - 0.14);
+						//		this.getPersistentData().putDouble("Wheel", this.getPersistentData().getDouble("Wheel") - 0.08);
 							}
 							if (this.getAIMoveSpeed() <= 0.04) { // weil es ja erst gemacht werden muss das ist nur der
-																	// block
+								// block
 								this.setAIMoveSpeed(this.getAIMoveSpeed() + (float) 0.02);
 							}
 						}

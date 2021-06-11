@@ -5435,7 +5435,8 @@
             "type": "world"
           }
         ]
-      }
+      },
+      "path": "~/Procedures"
     },
     {
       "name": "RoverOnEntityTickUpdate",
@@ -5452,7 +5453,8 @@
             "type": "entity"
           }
         ]
-      }
+      },
+      "path": "~/Procedures"
     },
     {
       "name": "Rover1GUI",

@@ -133,7 +133,7 @@ public class MobInnet extends BossToolsModElements.ModElement {
             } catch (Exception e) {
                 // StructureTutorialMain.LOGGER.error("Was unable to check if " + serverWorld.dimension().location() + " is using Terraforged's ChunkGenerator.");
             }
-            if(serverWorld.getChunkProvider().getChunkGenerator() instanceof FlatChunkGenerator &&
+            if(serverWorld.getChunkProvider().getChunkGenerator() instanceof FlatChunkGenerator ||
                     serverWorld.getDimensionType().equals(World.OVERWORLD)){
                 return;
             }

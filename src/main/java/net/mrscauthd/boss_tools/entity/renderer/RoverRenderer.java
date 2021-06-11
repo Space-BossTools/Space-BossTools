@@ -124,7 +124,7 @@ public class RoverRenderer {
 
 		@Override
 		public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue,
-				float alpha) {
+						   float alpha) {
 			matrixStack.scale(2.0f, 2.0f, 2.0f);
 			matrixStack.translate(0.0D, -0.75D, 0.0D);
 			Frame.render(matrixStack, buffer, packedLight, packedOverlay);
@@ -148,10 +148,19 @@ public class RoverRenderer {
 			this.Wheel3.rotateAngleX = f2 / (180F / (float) Math.PI);
 			this.Wheel4.rotateAngleX = f2 / (180F / (float) Math.PI);
 			if (e instanceof LivingEntity) {
-				this.Wheel1.rotateAngleX = (float) ((LivingEntity) e).getPersistentData().getDouble("Wheel");
-				this.Wheel2.rotateAngleX = (float) ((LivingEntity) e).getPersistentData().getDouble("Wheel");
-				this.Wheel3.rotateAngleX = (float) ((LivingEntity) e).getPersistentData().getDouble("Wheel");
-				this.Wheel4.rotateAngleX = (float) ((LivingEntity) e).getPersistentData().getDouble("Wheel");
+				if (e.getPersistentData().getDouble("Wheel") == 1) {
+					this.Wheel1.rotateAngleX = (float) (f / 3);
+					this.Wheel2.rotateAngleX = (float) (f / 3);
+					this.Wheel3.rotateAngleX = (float) (f / 3);
+					this.Wheel4.rotateAngleX = (float) (f / 3);
+				}
+				if (e.getPersistentData().getDouble("Wheel") == 0) {
+					this.Wheel1.rotateAngleX = (float) (f / 4);
+					this.Wheel2.rotateAngleX = (float) (f / 4);
+					this.Wheel3.rotateAngleX = (float) (f / 4);
+					this.Wheel4.rotateAngleX = (float) (f / 4);
+				}
+				System.out.println(this.Wheel1.rotateAngleX);
 			}
 			// sat
 			this.sat.rotateAngleY = (float) f2 / 20f;
