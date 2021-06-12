@@ -82,6 +82,8 @@ import net.mrscauthd.boss_tools.item.FuelBucketBigItem;
 //RocketNose
 import net.mrscauthd.boss_tools.item.RocketNoseItem;
 //OxygenMachine
+//Rover
+import net.mrscauthd.boss_tools.item.RoverItemItem;
 import net.minecraftforge.registries.ObjectHolder;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import net.minecraftforge.items.IItemHandler;
@@ -136,6 +138,8 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipeCategories(new FuelMakerJeiCategory(jeiHelper.getGuiHelper()));
         //Fuel Maker Recpie 2
         registration.addRecipeCategories(new FuelMaker2JeiCategory(jeiHelper.getGuiHelper()));
+        //Rover
+        registration.addRecipeCategories(new RoverJeiCategory(jeiHelper.getGuiHelper()));
     }
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
@@ -172,6 +176,8 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipes(generateFuelMakerRecipes(), FuelMakerJeiCategory.Uid);
         //fuel Maker 2 Recpie
         registration.addRecipes(generateFuelMakerRecipes2(), FuelMaker2JeiCategory.Uid);
+        //Rover
+        registration.addRecipes(generateRoverRecipes(), RoverJeiCategory.Uid);
         // ...
     }
 
@@ -390,6 +396,15 @@ public class JeiPlugin implements IModPlugin {
         recipes.add(new Tier3RocketItemItemJeiCategory.Tier3RocketItemItemRecipeWrapper(inputs));
         return recipes;
     }
+    //Rover
+    private List<RoverJeiCategory.RoverRecipeWrapper> generateRoverRecipes() {
+        List<RoverJeiCategory.RoverRecipeWrapper> recipes = new ArrayList<>();
+        ArrayList<ItemStack> inputs = new ArrayList<>();
+        inputs.add(new ItemStack(FuelBlock.bucket));
+        // ...
+        recipes.add(new RoverJeiCategory.RoverRecipeWrapper(inputs));
+        return recipes;
+    }
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(OxygenMachineBlock.block), OxygenMachineJeiCategory.Uid);
@@ -413,6 +428,8 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(FuelMakerBlock.block), FuelMakerJeiCategory.Uid);
         //fuel Maker Recpie 2
         registration.addRecipeCatalyst(new ItemStack(FuelMakerBlock.block), FuelMaker2JeiCategory.Uid);
+        //Rover
+        registration.addRecipeCatalyst(new ItemStack(RoverItemItem.block), RoverJeiCategory.Uid);
     }
     public static class OxygenMachineJeiCategory implements IRecipeCategory<OxygenMachineJeiCategory.OxygenMachineRecipeWrapper> {
         private static ResourceLocation Uid = new ResourceLocation("boss_tools", "oxygenmachinecategory");
@@ -2076,6 +2093,82 @@ public class JeiPlugin implements IModPlugin {
 
             public ArrayList getOutput() {
                 return output;
+            }
+        }
+    }
+    //RocketTier1Gui
+    public static class RoverJeiCategory implements IRecipeCategory<RoverJeiCategory.RoverRecipeWrapper> {
+        private static ResourceLocation Uid = new ResourceLocation("boss_tools", "rovercategory");
+        private static final int input1 = 0; // THE NUMBER = SLOTID
+        // ...
+        private final String title;
+        private final IDrawable background;
+        public RoverJeiCategory(IGuiHelper guiHelper) {
+            this.title = "Rover";
+            this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/rover_jei.png"), 0, 0, 144, 84);
+        }
+        @Override
+        public List<ITextComponent> getTooltipStrings(RoverRecipeWrapper recipe, double mouseX, double mouseY) {
+            //   counter = counter - 1;
+            //    if (counter <= 0){
+            //        counter = 9000;
+            // }
+            // animation = counter;
+            if (mouseX > 8 && mouseX < 23 && mouseY > 7 && mouseY < 56) {
+                return Collections.singletonList(new TranslationTextComponent("16000.0" + " mb / 16000.0 mb"));
+            }
+            return Collections.emptyList();
+        }
+
+        @Override
+        public ResourceLocation getUid() {
+            return Uid;
+        }
+
+        @Override
+        public Class<? extends RoverRecipeWrapper> getRecipeClass() {
+            return RoverJeiCategory.RoverRecipeWrapper.class;
+        }
+
+        @Override
+        public String getTitle() {
+            return title;
+        }
+
+        @Override
+        public IDrawable getBackground() {
+            return background;
+        }
+
+        @Override
+        public IDrawable getIcon() {
+            return null;
+        }
+
+        @Override
+        public void setIngredients(RoverRecipeWrapper recipeWrapper, IIngredients iIngredients) {
+            iIngredients.setInputs(VanillaTypes.ITEM, recipeWrapper.getInput());
+        }
+
+        @Override
+        public void setRecipe(IRecipeLayout iRecipeLayout, RoverRecipeWrapper recipeWrapper, IIngredients iIngredients) {
+            IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
+            stacks.init(input1, true, 7, 59);
+            // ...
+
+            stacks.set(input1, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
+            // ...
+        }
+        public static class RoverRecipeWrapper {
+            private ArrayList input;
+
+            public RoverRecipeWrapper(ArrayList input) {
+                this.input = input;
+            }
+
+
+            public ArrayList getInput() {
+                return input;
             }
         }
     }

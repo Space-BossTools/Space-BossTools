@@ -2,6 +2,7 @@
 
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.entity.AgeableEntity;
 import com.mojang.serialization.Codec;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
@@ -84,6 +85,8 @@ public class AlienVillageStructure extends Structure<NoFeatureConfig> {
 	 *       that are not your own.
 	 */
 	private static final List<MobSpawnInfo.Spawners> STRUCTURE_MONSTERS = ImmutableList.of(
+		//new MobSpawnInfo.Spawners((EntityType<? extends AgeableEntity>) net.mrscauthd.boss_tools.MobInnet.ALIEN.get(), 1000, 1, 2)
+			//new MobSpawnInfo.Spawners((EntityType<? extends AgeableEntity>) net.mrscauthd.boss_tools.MobInnet.ALIEN.get(), 100, 3, 4)
 			//new MobSpawnInfo.Spawners(EntityType.ILLUSIONER, 100, 4, 9),
 			//new MobSpawnInfo.Spawners(EntityType.VINDICATOR, 100, 4, 9)
 	);
@@ -93,6 +96,7 @@ public class AlienVillageStructure extends Structure<NoFeatureConfig> {
 	}
 
 	private static final List<MobSpawnInfo.Spawners> STRUCTURE_CREATURES = ImmutableList.of(
+			//new MobSpawnInfo.Spawners((EntityType<? extends AgeableEntity>) net.mrscauthd.boss_tools.MobInnet.ALIEN.get(), 3, 1, 2)
 			//new MobSpawnInfo.Spawners(EntityType.SHEEP, 30, 10, 15),
 			//new MobSpawnInfo.Spawners(EntityType.RABBIT, 100, 1, 2)
 	);
