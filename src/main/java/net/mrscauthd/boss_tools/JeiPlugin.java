@@ -1743,6 +1743,9 @@ public class JeiPlugin implements IModPlugin {
             if (mouseX > 102 && mouseX < 127 && mouseY > 16 && mouseY < 65) {
                 return Collections.singletonList(new TranslationTextComponent(animation + " FE / 9000.0 FE"));
             }
+            if (mouseX > 8 && mouseX < 23 && mouseY > 7 && mouseY < 56) {
+                return Collections.singletonList(new TranslationTextComponent("1000.0" + " mb / 3000.0 mb"));
+            }
             return Collections.emptyList();
         }
 
@@ -1955,6 +1958,9 @@ public class JeiPlugin implements IModPlugin {
             // animation = counter;
             if (mouseX > 102 && mouseX < 127 && mouseY > 16 && mouseY < 65) {
                 return Collections.singletonList(new TranslationTextComponent(animation + " FE / 9000.0 FE"));
+            }
+            if (mouseX > 8 && mouseX < 23 && mouseY > 7 && mouseY < 56) {
+                return Collections.singletonList(new TranslationTextComponent("3000.0" + " mb / 3000.0 mb"));
             }
             return Collections.emptyList();
         }

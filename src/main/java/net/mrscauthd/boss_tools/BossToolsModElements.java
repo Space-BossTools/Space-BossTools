@@ -46,10 +46,6 @@ public class BossToolsModElements {
 	public final List<Supplier<Enchantment>> enchantments = new ArrayList<>();
 	public static Map<ResourceLocation, net.minecraft.util.SoundEvent> sounds = new HashMap<>();
 	public BossToolsModElements() {
-		sounds.put(new ResourceLocation("boss_tools", "rockedsound"),
-				new net.minecraft.util.SoundEvent(new ResourceLocation("boss_tools", "rockedsound")));
-		sounds.put(new ResourceLocation("boss_tools", "rocket"), new net.minecraft.util.SoundEvent(new ResourceLocation("boss_tools", "rocket")));
-		sounds.put(new ResourceLocation("boss_tools", "shuttle"), new net.minecraft.util.SoundEvent(new ResourceLocation("boss_tools", "shuttle")));
 		sounds.put(new ResourceLocation("boss_tools", "rocketfly"),
 				new net.minecraft.util.SoundEvent(new ResourceLocation("boss_tools", "rocketfly")));
 		try {
