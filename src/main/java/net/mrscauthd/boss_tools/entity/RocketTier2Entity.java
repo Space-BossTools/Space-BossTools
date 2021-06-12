@@ -124,6 +124,10 @@ public class RocketTier2Entity extends BossToolsModElements.ModElement {
 		}
 
 		// Hit Box FIX
+		public boolean canBePushed() {
+     		return false;
+   		}
+   		
 		@Override
 		protected void collideWithEntity(Entity p_82167_1_) {
 		}

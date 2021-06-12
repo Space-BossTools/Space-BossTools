@@ -121,6 +121,10 @@ public class LandingGearEntity extends BossToolsModElements.ModElement {
 		}
 
 		// HitBox
+		public boolean canBePushed() {
+     		return false;
+   		}
+		
 		@Override
 		public boolean func_241845_aY() {
 			return true;
