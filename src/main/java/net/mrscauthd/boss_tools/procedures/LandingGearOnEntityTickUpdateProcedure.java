@@ -8,6 +8,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector2f;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.command.ICommandSource;
 import net.minecraft.command.CommandSource;
@@ -60,5 +61,7 @@ public class LandingGearOnEntityTickUpdateProcedure {
 				entity.getPersistentData().putDouble("Lander2", 0);
 			}
 		}
+		if (entity instanceof LivingEntity)
+			((LivingEntity) entity).setAir((int) 300);
 	}
 }

@@ -3,6 +3,7 @@ package net.mrscauthd.boss_tools.procedures;
 import net.mrscauthd.boss_tools.entity.LandingGearEntity;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
+import net.minecraft.tags.FluidTags;
 import net.minecraft.entity.Entity;
 
 import java.util.Map;
@@ -16,7 +17,8 @@ public class LanderSpaceProcedure {
 		}
 		Entity entity = (Entity) dependencies.get("entity");
 		if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
-			if ((((entity.getRidingEntity()).isOnGround()) == (false))) {
+			if (((((entity.getRidingEntity()).isOnGround()) == (false))
+					&& (((entity.getRidingEntity()).areEyesInFluid(FluidTags.WATER)) == (false)))) {
 				if ((((entity.getRidingEntity()).getMotion().getY()) <= (-0.05))) {
 					(entity.getRidingEntity()).setMotion(((entity.getRidingEntity()).getMotion().getX()),
 							(((entity.getRidingEntity()).getMotion().getY()) * 0.86), ((entity.getRidingEntity()).getMotion().getZ()));

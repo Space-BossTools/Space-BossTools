@@ -14,6 +14,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.item.ItemStack;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.command.ICommandSource;
 import net.minecraft.command.CommandSource;
@@ -288,5 +289,7 @@ public class RocketOnEntityTicktier2Procedure {
 			}
 		}
 		entity.getPersistentData().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 4));
+		if (entity instanceof LivingEntity)
+			((LivingEntity) entity).setAir((int) 300);
 	}
 }

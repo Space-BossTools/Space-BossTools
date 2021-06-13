@@ -138,6 +138,11 @@ public class LandingGearEntity extends BossToolsModElements.ModElement {
 		@Override
 		public void applyEntityCollision(Entity entityIn) {
 		}
+		//Riding water
+		@Deprecated
+		public boolean canBeRiddenInWater() {
+			return true;
+		}
 
 		@Override
 		protected void registerGoals() {

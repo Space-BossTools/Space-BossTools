@@ -8,6 +8,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 
 import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Entity;
 
 import java.util.concurrent.atomic.AtomicReference;
@@ -54,5 +55,7 @@ public class RoverOnEntityTickUpdateProcedure {
 		if (((entity.getPersistentData().getDouble("fuel")) >= 16000)) {
 			entity.getPersistentData().putDouble("fuel", 16000);
 		}
+		if (entity instanceof LivingEntity)
+			((LivingEntity) entity).setAir((int) 300);
 	}
 }

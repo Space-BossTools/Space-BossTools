@@ -65,6 +65,7 @@ import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.block.BlockState;
+import net.minecraft.tags.FluidTags;
 
 import javax.annotation.Nullable;
 import javax.annotation.Nonnull;
@@ -265,6 +266,11 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 
 		@Override
 		public void applyEntityCollision(Entity entityIn) {
+		}
+		//water Riding
+		@Deprecated
+		public boolean canBeRiddenInWater() {
+			return true;
 		}
 
 		@Override
@@ -577,10 +583,13 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 				// test
 				if (entity instanceof LivingEntity) {
 					float forward = ((LivingEntity) entity).moveForward;
+					if (this.areEyesInFluid(FluidTags.WATER) == (true)) {
+						forward = 0;
+					}
 					if (forward >= 0) {
 						// System.out.println(forward + "test1");
 						float strafe = 0;
-						if (this.getPersistentData().getDouble("fuel") >= 1) {
+						if (this.getPersistentData().getDouble("fuel") >= 1 && this.areEyesInFluid(FluidTags.WATER) == (false)) {
 							if (this.getAIMoveSpeed() >= 0.01) {
 								// wheel
 								if (speed <= 0.32) {
@@ -592,7 +601,7 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 								// System.out.println(this.getAIMoveSpeed());
 							}
 						}
-						if (forward == 0 || this.getPersistentData().getDouble("fuel") <= 1) {
+						if (forward == 0 || this.getPersistentData().getDouble("fuel") <= 1 || this.areEyesInFluid(FluidTags.WATER) == (true)) {
 							this.setAIMoveSpeed(0f);
 							// wheel
 							if (speed != 0) {
@@ -608,7 +617,7 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 						// System.out.println(forward + "test2");
 						speed = 0;
 						float strafe = 0;
-						if (this.getPersistentData().getDouble("fuel") >= 1) {
+						if (this.getPersistentData().getDouble("fuel") >= 1 && this.areEyesInFluid(FluidTags.WATER) == (false)) {
 							if (this.getAIMoveSpeed() >= 0.01) {
 						//		this.getPersistentData().putDouble("Wheel", this.getPersistentData().getDouble("Wheel") - 0.08);
 							}
@@ -620,7 +629,7 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 						if (this.getAIMoveSpeed() >= 0.08) { // FIX
 							this.setAIMoveSpeed((float) 0);
 						}
-						if (forward == 0 || this.getPersistentData().getDouble("fuel") <= 1) {
+						if (forward == 0 || this.getPersistentData().getDouble("fuel") <= 1 || this.areEyesInFluid(FluidTags.WATER) == (true)) {
 							this.setAIMoveSpeed(0f);
 							// wheel = 0;
 						}
@@ -629,13 +638,14 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 					if (this.getPersistentData().getDouble("fuel") == 2) {
 						if (entity instanceof PlayerEntity) {
 							((PlayerEntity) entity).sendStatusMessage(new StringTextComponent("\u00A7cNO FUEL!"), (true));
+							this.getPersistentData().putDouble("fuel", this.getPersistentData().getDouble("fuel") - 2);
 							}
 						}
 					if (this.getPersistentData().getDouble("fuel") >= 1) {
-						if (forward <= -0.01) {
+						if (forward <= -0.01 && this.areEyesInFluid(FluidTags.WATER) == (false)) {
 							this.getPersistentData().putDouble("fuel", this.getPersistentData().getDouble("fuel") - 2);
 						}
-						if (forward >= 0.01) {
+						if (forward >= 0.01 && this.areEyesInFluid(FluidTags.WATER) == (false)) {
 							this.getPersistentData().putDouble("fuel", this.getPersistentData().getDouble("fuel") - 2);
 						}
 					}

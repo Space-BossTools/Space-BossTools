@@ -19,6 +19,7 @@ import net.minecraft.client.Minecraft;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.tags.FluidTags;
 
 @BossToolsModElements.ModElement.Tag
 public class LanderWarningOverlay extends BossToolsModElements.ModElement {
@@ -69,7 +70,7 @@ public class LanderWarningOverlay extends BossToolsModElements.ModElement {
 					GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 			RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 			RenderSystem.disableAlphaTest();
-			if ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity && entity.getRidingEntity().isOnGround() == false) {
+			if ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
 		/*		if (check == false) {
 					counter = counter - 0.01;
 					if (counter <= 0.2) {
@@ -89,7 +90,7 @@ public class LanderWarningOverlay extends BossToolsModElements.ModElement {
 						event.getWindow().getScaledHeight(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight());
 			}
 			RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-			if ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity && entity.getRidingEntity().isOnGround() == false) {
+			if ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
 				double speed = Math.round(100.0 * (entity.getRidingEntity()).getMotion().getY()) / 100.0;
 				double speedcheck = speed;
 				Minecraft.getInstance().fontRenderer.drawString(event.getMatrixStack(), "" + speedcheck + " Speed",
