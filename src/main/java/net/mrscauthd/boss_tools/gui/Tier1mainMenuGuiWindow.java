@@ -12,6 +12,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.Minecraft;
@@ -24,6 +25,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 
 @OnlyIn(Dist.CLIENT)
 public class Tier1mainMenuGuiWindow extends ContainerScreen<Tier1mainMenuGui.GuiContainerMod> {
+	public static boolean Button1 = false;
 	private World world;
 	private int x, y, z;
 	private PlayerEntity entity;
@@ -44,15 +46,20 @@ public class Tier1mainMenuGuiWindow extends ContainerScreen<Tier1mainMenuGui.Gui
 		this.renderBackground(ms);
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
-		ArrayList<ITextComponent> list = new ArrayList<ITextComponent>();
-		list.add(new StringTextComponent("test1"));
-		list.add(new StringTextComponent("test2"));
+		//ArrayList<ITextComponent> list = new ArrayList<ITextComponent>();
+		//list.add(new StringTextComponent("test1"));
+		//list.add(new StringTextComponent("test2"));
 		// list.add("Ford");
 		// list.add(new StringTextComponent("test2"));
 		// if (mouseX > guiLeft + 65 && mouseX < guiLeft + 114 && mouseY > guiTop + 20
 		// && mouseY < guiTop + 69)
-	//	this.renderTooltip(ms, new StringTextComponent("test2"), mouseX, mouseY);
+		// this.renderTooltip(ms, new StringTextComponent("test2"), mouseX, mouseY);
 		// this.renderTooltip(ms, new StringTextComponent("test2"), mouseX,mouseY);
+		if (mouseX > guiLeft + 52 && mouseX < guiLeft + 123 && mouseY > guiTop + 222 && mouseY < guiTop + 243) {
+			Button1 = true;
+		} else {
+			Button1 = false;
+		}
 	}
 
 	@Override
@@ -70,21 +77,21 @@ public class Tier1mainMenuGuiWindow extends ContainerScreen<Tier1mainMenuGui.Gui
 		this.blit(ms, this.guiLeft + 206, this.guiTop + 209, 0, 0, 175, 101, 175, 101);
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/sun_main_menu.png"));
 		this.blit(ms, this.guiLeft + 290, this.guiTop + 255, 0, 0, 8, 8, 8, 8);
-		//RenderSystem.rotatef(10,10,10,10);
+		// RenderSystem.rotatef(10,10,10,10);
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/earth_main_menu.png"));
 		this.blit(ms, this.guiLeft + 251, this.guiTop + 244, 0, 0, 8, 8, 8, 8);
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/mars_main_menu.png"));
 		this.blit(ms, this.guiLeft + 327, this.guiTop + 225, 0, 0, 8, 8, 8, 8);
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/mercury.png"));
 		this.blit(ms, this.guiLeft + 305, this.guiTop + 264, 0, 0, 8, 8, 8, 8);
-		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/space_station_check.png"));
-		this.blit(ms, this.guiLeft + 52, this.guiTop + 222, 0, 0, 80, 22, 80, 22);
-		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/space_station_check.png"));
-		this.blit(ms, this.guiLeft + 52, this.guiTop + 246, 0, 0, 80, 22, 80, 22);
-		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/space_station_check.png"));
-		this.blit(ms, this.guiLeft + 52, this.guiTop + 270, 0, 0, 80, 22, 80, 22);
-		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/space_station_check_2.png"));
-		this.blit(ms, this.guiLeft + 52, this.guiTop + 222, 0, 0, 80, 22, 80, 22);
+		//Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/space_station_check.png"));
+		//this.blit(ms, this.guiLeft + 52, this.guiTop + 222, 0, 0, 80, 22, 80, 22);
+		//Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/space_station_check.png"));
+		//this.blit(ms, this.guiLeft + 52, this.guiTop + 246, 0, 0, 80, 22, 80, 22);
+		//Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/space_station_check.png"));
+		//this.blit(ms, this.guiLeft + 52, this.guiTop + 270, 0, 0, 80, 22, 80, 22);
+		//Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/space_station_check_2.png"));
+		//this.blit(ms, this.guiLeft + 52, this.guiTop + 222, 0, 0, 80, 22, 80, 22);
 		RenderSystem.disableBlend();
 	}
 
@@ -105,6 +112,7 @@ public class Tier1mainMenuGuiWindow extends ContainerScreen<Tier1mainMenuGui.Gui
 	@Override
 	protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
 		this.font.drawString(ms, "CATALOG", 65, 191, -1);
+		this.font.drawString(ms, "Overworld", 62, 229, -1);
 	}
 
 	@Override
@@ -117,12 +125,21 @@ public class Tier1mainMenuGuiWindow extends ContainerScreen<Tier1mainMenuGui.Gui
 	public void init(Minecraft minecraft, int width, int height) {
 		super.init(minecraft, width, height);
 		minecraft.keyboardListener.enableRepeatEvents(true);
-		this.addButton(new Button(this.guiLeft + 53, this.guiTop + 223, 70, 20, new StringTextComponent("Overworld"), e -> {
-			if (true) {
-				BossToolsMod.PACKET_HANDLER.sendToServer(new Tier1mainMenuGui.ButtonPressedMessage(0, x, y, z));
-				Tier1mainMenuGui.handleButtonAction(entity, 0, x, y, z);
-			}
-		}));
+		//Buton 1
+		if (Button1 == false) {
+			this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 223, 70, 20, 0, 0, 0, new ResourceLocation("boss_tools:textures/buttons/green_button.png"), 70, 20,
+					(p_2130901) -> {
+						BossToolsMod.PACKET_HANDLER.sendToServer(new Tier1mainMenuGui.ButtonPressedMessage(0, x, y, z));
+						Tier1mainMenuGui.handleButtonAction(entity, 0, x, y, z);
+					}));
+		} else {
+			this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 223, 70, 20, 0, 0, 0, new ResourceLocation("boss_tools:textures/buttons/green_button_2.png"), 70, 20,
+					(p_2130901) -> {
+						BossToolsMod.PACKET_HANDLER.sendToServer(new Tier1mainMenuGui.ButtonPressedMessage(0, x, y, z));
+						Tier1mainMenuGui.handleButtonAction(entity, 0, x, y, z);
+					}));
+		}
+		//Buton 1 end
 		this.addButton(new Button(this.guiLeft + 53, this.guiTop + 247, 70, 20, new StringTextComponent("Mars"), e -> {
 			if (true) {
 				BossToolsMod.PACKET_HANDLER.sendToServer(new Tier1mainMenuGui.ButtonPressedMessage(1, x, y, z));
