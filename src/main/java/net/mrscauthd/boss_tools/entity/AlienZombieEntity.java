@@ -40,18 +40,17 @@ import java.util.HashMap;
 
 @BossToolsModElements.ModElement.Tag
 public class AlienZombieEntity extends BossToolsModElements.ModElement {
-	public static EntityType entity = null;
+	public static EntityType entity = (EntityType.Builder.<CustomEntity>create(CustomEntity::new, EntityClassification.MONSTER)
+			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(CustomEntity::new)
+			.size(0.6f, 2.4f)).build("alien_zombie").setRegistryName("alien_zombie");
 	public AlienZombieEntity(BossToolsModElements instance) {
-		super(instance, 15);
+		super(instance, 16);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new AlienZombieRenderer.ModelRegisterHandler());
 		FMLJavaModLoadingContext.get().getModEventBus().register(new EntityAttributesRegisterHandler());
 	}
 
 	@Override
 	public void initElements() {
-		entity = (EntityType.Builder.<CustomEntity>create(CustomEntity::new, EntityClassification.MONSTER).setShouldReceiveVelocityUpdates(true)
-				.setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(CustomEntity::new).size(0.6f, 2.4f)).build("alien_zombie")
-						.setRegistryName("alien_zombie");
 		elements.entities.add(() -> entity);
 		elements.items.add(() -> new SpawnEggItem(entity, -14804199, -16740159, new Item.Properties().group(SpaceBosstoolsSpawnEggsItemGroup.tab))
 				.setRegistryName("alien_zombie_spawn_egg"));
@@ -96,7 +95,7 @@ public class AlienZombieEntity extends BossToolsModElements.ModElement {
 			this.goalSelector.addGoal(3, new RandomWalkingGoal(this, 0.8));
 			this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
 			this.targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, PlayerEntity.class, false, false));
-			this.targetSelector.addGoal(6, new NearestAttackableTargetGoal(this, AlienEntity.class, false, false));
+            this.targetSelector.addGoal(6, new NearestAttackableTargetGoal(this, AlienEntity.class, false, false));
 		}
 
 		@Override

@@ -174,16 +174,16 @@ public class AlienZombieRenderer {
 		}
 
 		public void setRotationAngles(Entity e, float f, float f1, float f2, float f3, float f4) {
-			this.head.rotateAngleY = f3 / (180F / (float) Math.PI);
-			this.head.rotateAngleX = f4 / (180F / (float) Math.PI);
-			this.leg0.rotateAngleX = MathHelper.cos(f * 1.0F) * -1.0F * f1;
-			this.leg1.rotateAngleX = MathHelper.cos(f * 1.0F) * 1.0F * f1;
-			this.monsterarm1.rotateAngleY = MathHelper.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;
-			this.monsterarm4.rotateAngleY = MathHelper.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;
-			this.monsterarm3.rotateAngleY = MathHelper.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;
-			this.monsterarm2.rotateAngleY = MathHelper.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;
-			this.arms.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * f1;
-			this.arm2.rotateAngleX = MathHelper.cos(f * 0.6662F) * f1;
+            this.head.rotateAngleY = f3 / (180F / (float) Math.PI);
+            this.head.rotateAngleX = f4 / (180F / (float) Math.PI);
+            this.leg0.rotateAngleX = MathHelper.cos(f * 1.0F) * -1.0F * f1;
+            this.leg1.rotateAngleX = MathHelper.cos(f * 1.0F) * 1.0F * f1;
+            this.monsterarm1.rotateAngleY = MathHelper.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;
+            this.monsterarm4.rotateAngleY = MathHelper.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;
+            this.monsterarm3.rotateAngleY = MathHelper.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;
+            this.monsterarm2.rotateAngleY = MathHelper.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;
+            this.arms.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * f1;
+            this.arm2.rotateAngleX = MathHelper.cos(f * 0.6662F) * f1;
 		}
 	}
 }

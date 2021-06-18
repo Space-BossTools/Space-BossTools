@@ -26,6 +26,8 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 @OnlyIn(Dist.CLIENT)
 public class Tier1mainMenuGuiWindow extends ContainerScreen<Tier1mainMenuGui.GuiContainerMod> {
 	public static boolean Button1 = false;
+	public static boolean Button2 = false;
+	public static boolean Button3 = false;
 	private World world;
 	private int x, y, z;
 	private PlayerEntity entity;
@@ -59,6 +61,16 @@ public class Tier1mainMenuGuiWindow extends ContainerScreen<Tier1mainMenuGui.Gui
 			Button1 = true;
 		} else {
 			Button1 = false;
+		}
+		if (mouseX > guiLeft + 52 && mouseX < guiLeft + 123 && mouseY > guiTop + 246 && mouseY < guiTop + 267) {
+			Button2 = true;
+		} else {
+			Button2 = false;
+		}
+		if (mouseX > guiLeft + 52 && mouseX < guiLeft + 123 && mouseY > guiTop + 270 && mouseY < guiTop + 291) {
+			Button3 = true;
+		} else {
+			Button3 = false;
 		}
 	}
 
@@ -113,6 +125,8 @@ public class Tier1mainMenuGuiWindow extends ContainerScreen<Tier1mainMenuGui.Gui
 	protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
 		this.font.drawString(ms, "CATALOG", 65, 191, -1);
 		this.font.drawString(ms, "Overworld", 62, 229, -1);
+		this.font.drawString(ms, "   Mars", 63, 253, -1);
+		this.font.drawString(ms, " Mercury", 63, 277, -1);
 	}
 
 	@Override
@@ -140,17 +154,35 @@ public class Tier1mainMenuGuiWindow extends ContainerScreen<Tier1mainMenuGui.Gui
 					}));
 		}
 		//Buton 1 end
-		this.addButton(new Button(this.guiLeft + 53, this.guiTop + 247, 70, 20, new StringTextComponent("Mars"), e -> {
-			if (true) {
-				BossToolsMod.PACKET_HANDLER.sendToServer(new Tier1mainMenuGui.ButtonPressedMessage(1, x, y, z));
-				Tier1mainMenuGui.handleButtonAction(entity, 1, x, y, z);
-			}
-		}));
-		this.addButton(new Button(this.guiLeft + 53, this.guiTop + 271, 70, 20, new StringTextComponent("Mercury"), e -> {
-			if (true) {
-				BossToolsMod.PACKET_HANDLER.sendToServer(new Tier1mainMenuGui.ButtonPressedMessage(2, x, y, z));
-				Tier1mainMenuGui.handleButtonAction(entity, 2, x, y, z);
-			}
-		}));
+		//Buton 2
+		if (Button2 == false) {
+			this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 247, 70, 20, 0, 0, 0, new ResourceLocation("boss_tools:textures/buttons/red_button.png"), 70, 20,
+					(p_2130901) -> {
+						BossToolsMod.PACKET_HANDLER.sendToServer(new Tier1mainMenuGui.ButtonPressedMessage(1, x, y, z));
+						Tier1mainMenuGui.handleButtonAction(entity, 1, x, y, z);
+					}));
+		} else {
+			this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 247, 70, 20, 0, 0, 0, new ResourceLocation("boss_tools:textures/buttons/red_button_2.png"), 70, 20,
+					(p_2130901) -> {
+						BossToolsMod.PACKET_HANDLER.sendToServer(new Tier1mainMenuGui.ButtonPressedMessage(1, x, y, z));
+						Tier1mainMenuGui.handleButtonAction(entity, 1, x, y, z);
+					}));
+		}
+		//Buton 2 end
+		//Buton 3
+		if (Button3 == false) {
+			this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 271, 70, 20, 0, 0, 0, new ResourceLocation("boss_tools:textures/buttons/red_button.png"), 70, 20,
+					(p_2130901) -> {
+						BossToolsMod.PACKET_HANDLER.sendToServer(new Tier1mainMenuGui.ButtonPressedMessage(2, x, y, z));
+						Tier1mainMenuGui.handleButtonAction(entity, 2, x, y, z);
+					}));
+		} else {
+			this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 271, 70, 20, 0, 0, 0, new ResourceLocation("boss_tools:textures/buttons/red_button_2.png"), 70, 20,
+					(p_2130901) -> {
+						BossToolsMod.PACKET_HANDLER.sendToServer(new Tier1mainMenuGui.ButtonPressedMessage(2, x, y, z));
+						Tier1mainMenuGui.handleButtonAction(entity, 2, x, y, z);
+					}));
+		}
+		//Buton 3 end
 	}
 }
