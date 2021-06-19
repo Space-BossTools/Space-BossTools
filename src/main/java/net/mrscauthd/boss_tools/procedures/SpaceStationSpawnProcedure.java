@@ -73,7 +73,7 @@ public class SpaceStationSpawnProcedure {
 				Template template = ((ServerWorld) world).getStructureTemplateManager()
 						.getTemplateDefaulted(new ResourceLocation("boss_tools", "space_station"));
 				if (template != null) {
-					template.func_237144_a_((ServerWorld) world, new BlockPos((int) (x - 6), (int) 100, (int) (z - 8)),
+					template.func_237144_a_((ServerWorld) world, new BlockPos((int) ((Math.floor(x)) - 5), (int) 100, (int) ((Math.floor(z)) - 8)),
 							new PlacementSettings().setRotation(Rotation.NONE).setMirror(Mirror.NONE).setChunk(null).setIgnoreEntities(false),
 							((World) world).rand);
 				}
