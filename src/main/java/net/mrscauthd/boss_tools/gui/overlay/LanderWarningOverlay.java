@@ -94,7 +94,7 @@ public class LanderWarningOverlay extends BossToolsModElements.ModElement {
 				double speed = Math.round(100.0 * (entity.getRidingEntity()).getMotion().getY()) / 100.0;
 				double speedcheck = speed;
 				Minecraft.getInstance().fontRenderer.drawString(event.getMatrixStack(), "" + speedcheck + " Speed",
-						event.getWindow().getScaledWidth() / 2 - 25, event.getWindow().getScaledHeight() / 2 - 100, -3407872);
+						event.getWindow().getScaledWidth() / 2 - 29, event.getWindow().getScaledHeight() / 2 / 2.3f, -3407872);
 			}
 			RenderSystem.depthMask(true);
 			RenderSystem.enableDepthTest();
