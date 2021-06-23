@@ -23,7 +23,7 @@ import net.minecraft.world.biome.Biome;
 public class MoonBiomBiome extends BossToolsModElements.ModElement {
 	public static Biome biome;
 	public MoonBiomBiome(BossToolsModElements instance) {
-		super(instance, 162);
+		super(instance, 163);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new BiomeRegisterHandler());
 	}
 	private static class BiomeRegisterHandler {

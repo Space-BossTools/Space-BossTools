@@ -40,7 +40,7 @@ public class NasaWorkbenchGui extends BossToolsModElements.ModElement {
 	public static HashMap guistate = new HashMap();
 	private static ContainerType<GuiContainerMod> containerType = null;
 	public NasaWorkbenchGui(BossToolsModElements instance) {
-		super(instance, 155);
+		super(instance, 156);
 		elements.addNetworkMessage(ButtonPressedMessage.class, ButtonPressedMessage::buffer, ButtonPressedMessage::new,
 				ButtonPressedMessage::handler);
 		elements.addNetworkMessage(GUISlotChangedMessage.class, GUISlotChangedMessage::buffer, GUISlotChangedMessage::new,
@@ -113,35 +113,35 @@ public class NasaWorkbenchGui extends BossToolsModElements.ModElement {
 					}
 				}
 			}
-			this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 40, 17) {
+			this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 40, 18) {
 			}));
-			this.customSlots.put(1, this.addSlot(new SlotItemHandler(internal, 1, 31, 35) {
+			this.customSlots.put(1, this.addSlot(new SlotItemHandler(internal, 1, 31, 36) {
 			}));
-			this.customSlots.put(2, this.addSlot(new SlotItemHandler(internal, 2, 49, 35) {
+			this.customSlots.put(2, this.addSlot(new SlotItemHandler(internal, 2, 49, 36) {
 			}));
-			this.customSlots.put(3, this.addSlot(new SlotItemHandler(internal, 3, 31, 53) {
+			this.customSlots.put(3, this.addSlot(new SlotItemHandler(internal, 3, 31, 54) {
 			}));
-			this.customSlots.put(4, this.addSlot(new SlotItemHandler(internal, 4, 49, 53) {
+			this.customSlots.put(4, this.addSlot(new SlotItemHandler(internal, 4, 49, 54) {
 			}));
-			this.customSlots.put(5, this.addSlot(new SlotItemHandler(internal, 5, 31, 71) {
+			this.customSlots.put(5, this.addSlot(new SlotItemHandler(internal, 5, 31, 72) {
 			}));
-			this.customSlots.put(6, this.addSlot(new SlotItemHandler(internal, 6, 49, 71) {
+			this.customSlots.put(6, this.addSlot(new SlotItemHandler(internal, 6, 49, 72) {
 			}));
-			this.customSlots.put(7, this.addSlot(new SlotItemHandler(internal, 7, 31, 89) {
+			this.customSlots.put(7, this.addSlot(new SlotItemHandler(internal, 7, 31, 90) {
 			}));
-			this.customSlots.put(8, this.addSlot(new SlotItemHandler(internal, 8, 49, 89) {
+			this.customSlots.put(8, this.addSlot(new SlotItemHandler(internal, 8, 49, 90) {
 			}));
-			this.customSlots.put(9, this.addSlot(new SlotItemHandler(internal, 9, 13, 89) {
+			this.customSlots.put(9, this.addSlot(new SlotItemHandler(internal, 9, 13, 90) {
 			}));
-			this.customSlots.put(10, this.addSlot(new SlotItemHandler(internal, 10, 67, 89) {
+			this.customSlots.put(10, this.addSlot(new SlotItemHandler(internal, 10, 67, 90) {
 			}));
-			this.customSlots.put(11, this.addSlot(new SlotItemHandler(internal, 11, 13, 107) {
+			this.customSlots.put(11, this.addSlot(new SlotItemHandler(internal, 11, 13, 108) {
 			}));
-			this.customSlots.put(12, this.addSlot(new SlotItemHandler(internal, 12, 67, 107) {
+			this.customSlots.put(12, this.addSlot(new SlotItemHandler(internal, 12, 67, 108) {
 			}));
-			this.customSlots.put(13, this.addSlot(new SlotItemHandler(internal, 13, 40, 107) {
+			this.customSlots.put(13, this.addSlot(new SlotItemHandler(internal, 13, 40, 108) {
 			}));
-			this.customSlots.put(14, this.addSlot(new SlotItemHandler(internal, 14, 133, 73) {
+			this.customSlots.put(14, this.addSlot(new SlotItemHandler(internal, 14, 133, 74) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
 					return false;
@@ -151,9 +151,9 @@ public class NasaWorkbenchGui extends BossToolsModElements.ModElement {
 			int sj;
 			for (si = 0; si < 3; ++si)
 				for (sj = 0; sj < 9; ++sj)
-					this.addSlot(new Slot(inv, sj + (si + 1) * 9, 0 + 8 + sj * 18, 57 + 84 + si * 18));
+					this.addSlot(new Slot(inv, sj + (si + 1) * 9, 0 + 8 + sj * 18, 58 + 84 + si * 18));
 			for (si = 0; si < 9; ++si)
-				this.addSlot(new Slot(inv, si, 0 + 8 + si * 18, 57 + 142));
+				this.addSlot(new Slot(inv, si, 0 + 8 + si * 18, 58 + 142));
 		}
 
 		public Map<Integer, Slot> get() {

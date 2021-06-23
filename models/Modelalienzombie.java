@@ -84,13 +84,13 @@ public static class Modelalienzombie extends EntityModel<Entity> {
 		leg1.setTextureOffset(0, 22).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.0F, true);
 
 		arm2 = new ModelRenderer(this);
-		arm2.setRotationPoint(-6.0F, 2.0F, -1.5F);
-		arm2.setTextureOffset(44, 22).addBox(10.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.0F, true);
+		arm2.setRotationPoint(4.0F, 2.0F, -1.5F);
+		arm2.setTextureOffset(44, 22).addBox(0.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.0F, true);
 
 		arms = new ModelRenderer(this);
-		arms.setRotationPoint(0.0F, 4.0F, -1.5F);
+		arms.setRotationPoint(-4.0F, 2.0F, -1.5F);
 		setRotationAngle(arms, 0.0436F, 0.0F, 0.0F);
-		arms.setTextureOffset(44, 22).addBox(-8.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.0F, true);
+		arms.setTextureOffset(44, 22).addBox(-4.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.0F, true);
 
 		monsterarm1 = new ModelRenderer(this);
 		monsterarm1.setRotationPoint(-4.0F, 0.0F, -2.0F);
@@ -160,15 +160,5 @@ public static class Modelalienzombie extends EntityModel<Entity> {
 
 	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity e) {
 		super.setRotationAngles(f, f1, f2, f3, f4, f5, e);
-		this.monsterarm1.rotateAngleZ = f2 / 20.f;
-		this.head.rotateAngleY = f3 / (180F / (float) Math.PI);
-		this.head.rotateAngleX = f4 / (180F / (float) Math.PI);
-		this.leg0.rotateAngleX = MathHelper.cos(f * 1.0F) * -1.0F * f1;
-		this.leg1.rotateAngleX = MathHelper.cos(f * 1.0F) * 1.0F * f1;
-		this.monsterarm4.rotateAngleZ = f2 / 20.f;
-		this.monsterarm3.rotateAngleZ = f2 / 20.f;
-		this.monsterarm2.rotateAngleZ = f2 / 20.f;
-		this.arms.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * f1;
-		this.arm2.rotateAngleX = MathHelper.cos(f * 0.6662F) * f1;
 	}
 }

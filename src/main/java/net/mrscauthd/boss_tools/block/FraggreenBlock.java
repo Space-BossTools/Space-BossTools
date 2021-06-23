@@ -41,7 +41,7 @@ public class FraggreenBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:flag_green")
 	public static final Block block = null;
 	public FraggreenBlock(BossToolsModElements instance) {
-		super(instance, 84);
+		super(instance, 85);
 	}
 
 	@Override

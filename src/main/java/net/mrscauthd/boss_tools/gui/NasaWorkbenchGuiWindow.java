@@ -31,7 +31,7 @@ public class NasaWorkbenchGuiWindow extends ContainerScreen<NasaWorkbenchGui.Gui
 		this.z = container.z;
 		this.entity = container.entity;
 		this.xSize = 176;
-		this.ySize = 222;
+		this.ySize = 224;
 	}
 	private static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/nasa_workbench.png");
 	@Override
@@ -51,9 +51,9 @@ public class NasaWorkbenchGuiWindow extends ContainerScreen<NasaWorkbenchGui.Gui
 		int l = (this.height - this.ySize) / 2;
 		this.blit(ms, k, l, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/nasaworkbenchoutput.png"));
-		this.blit(ms, this.guiLeft + 123, this.guiTop + 63, 0, 0, 256, 256, 256, 256);
+		this.blit(ms, this.guiLeft + 123, this.guiTop + 64, 0, 0, 256, 256, 256, 256);
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/nasapfeil.png"));
-		this.blit(ms, this.guiLeft + 104, this.guiTop + 45, 0, 0, 256, 256, 256, 256);
+		this.blit(ms, this.guiLeft + 104, this.guiTop + 46, 0, 0, 256, 256, 256, 256);
 		RenderSystem.disableBlend();
 	}
 
@@ -73,8 +73,8 @@ public class NasaWorkbenchGuiWindow extends ContainerScreen<NasaWorkbenchGui.Gui
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
-		this.font.drawString(ms, "NASA Workbench", 6, 5, -13421773);
-		this.font.drawString(ms, "Inventory", 8, 129, -13421773);
+		this.font.drawString(ms, "NASA Workbench", 6, 6, -13421773);
+		this.font.drawString(ms, "Inventory", 8, 131, -13421773);
 	}
 
 	@Override

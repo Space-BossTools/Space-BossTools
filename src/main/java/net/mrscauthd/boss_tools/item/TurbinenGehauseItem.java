@@ -16,7 +16,7 @@ public class TurbinenGehauseItem extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:engine_casing")
 	public static final Item block = null;
 	public TurbinenGehauseItem(BossToolsModElements instance) {
-		super(instance, 31);
+		super(instance, 32);
 	}
 
 	@Override

@@ -1,0 +1,94 @@
+{
+  "_fv": 21,
+  "_type": "gui",
+  "definition": {
+    "type": 1,
+    "width": 176,
+    "height": 146,
+    "inventoryOffsetX": 0,
+    "inventoryOffsetY": -10,
+    "renderBgLayer": true,
+    "doesPauseGame": false,
+    "components": [
+      {
+        "type": "label",
+        "data": {
+          "text": "Wireless Energy Router",
+          "color": {
+            "value": -13421773,
+            "falpha": 0.0
+          },
+          "name": "Wireless Energy Router",
+          "x": 158,
+          "y": 53
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "text": "Inventory",
+          "color": {
+            "value": -13421773,
+            "falpha": 0.0
+          },
+          "name": "Inventory",
+          "x": 134,
+          "y": 100
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "check1",
+          "onClick": {
+            "name": "CableCheck1"
+          },
+          "width": 20,
+          "height": 20,
+          "name": "check1",
+          "x": 249,
+          "y": 74
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "check2",
+          "onClick": {
+            "name": "CableCheck2"
+          },
+          "width": 20,
+          "height": 20,
+          "name": "check2",
+          "x": 274,
+          "y": 74
+        }
+      },
+      {
+        "type": "inputslot",
+        "data": {
+          "inputLimit": {
+            "value": ""
+          },
+          "color": {
+            "value": -16738048,
+            "falpha": 0.0
+          },
+          "id": 0,
+          "disableStackInteraction": false,
+          "dropItemsWhenNotBound": true,
+          "name": "Slot #0",
+          "x": 205,
+          "y": 75
+        }
+      }
+    ],
+    "gridSettings": {
+      "sx": 18,
+      "sy": 18,
+      "ox": 11,
+      "oy": 15,
+      "snapOnGrid": false
+    }
+  }
+}

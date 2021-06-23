@@ -2,7 +2,7 @@
   "mappings": {
     "default": {
       "map": {
-        "7": "cable_mid"
+        "0": "energy_cable_nothing"
       },
       "name": "default"
     }

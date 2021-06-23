@@ -24,7 +24,7 @@ import net.minecraft.particles.ParticleTypes;
 public class MarsBiomBiome extends BossToolsModElements.ModElement {
 	public static Biome biome;
 	public MarsBiomBiome(BossToolsModElements instance) {
-		super(instance, 163);
+		super(instance, 164);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new BiomeRegisterHandler());
 	}
 	private static class BiomeRegisterHandler {

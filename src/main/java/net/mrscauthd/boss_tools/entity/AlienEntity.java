@@ -23,8 +23,7 @@ import net.minecraft.village.GossipManager;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.server.ServerWorld;
-import net.mrscauthd.boss_tools.AlienJobs;
-import net.mrscauthd.boss_tools.BossToolsModVariables;
+import net.mrscauthd.boss_tools.*;
 //import net.mrscauthd.boss_tools.procedures.AlienOnEntityTickUpdateProcedure;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
 //import net.mrscauthd.boss_tools.BossToolsModElements;
@@ -50,8 +49,6 @@ import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.mrscauthd.boss_tools.TradeGoal;
-import net.mrscauthd.boss_tools.FollowGoal;
 import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -160,6 +157,10 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 	public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
 		spawnDataIn = super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
 
+		if (worldIn.getRandom().nextFloat() < 0.2F) {
+			this.setChild(true);
+		}
+
 		//System.out.println("spawn");
 
 		List<AlienJobs> x = new ArrayList<>();
@@ -200,10 +201,12 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 		//}
 
 		//for(int j = 0; j < i; ++j) {
+		if (this.isChild() == false) {
 		for(MerchantOffer merchantoffer : this.getOffers()) {
 			int max = 2;
 			int min = 0;
 			merchantoffer.increaseSpecialPrice((int) Math.floor((amount*new Random().nextInt((max+1)-min)+min)));
+			}
 		}
 		return super.attackEntityFrom(source,amount);
 	}
@@ -374,7 +377,7 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 
 		//populateTradeData();
 		ItemStack itemstack = sourceentity.getHeldItem(hand);
-		if(!this.hasCustomer()){
+		if (!this.hasCustomer() && (sourceentity.getHeldItemMainhand().getItem() != MobInnet.ALIEN_SPAWN_EGG.get()) && this.isChild() == false) {
 			if (hand == Hand.MAIN_HAND) {
 				if (!this.world.isRemote) {
 					//this.shakeHead();
@@ -389,8 +392,7 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 			if (!this.world.isRemote) {
 				this.displayMerchantGui(sourceentity);
 			}
-			//}
-		}
+			}
 		return ActionResultType.func_233537_a_(this.world.isRemote);
 	}
 	//@OnlyIn(Dist.CLIENT)
@@ -432,9 +434,13 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 
 	@Nullable
 	@Override
-	public AgeableEntity func_241840_a(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) {
-		return null;
+	public AgeableEntity func_241840_a(ServerWorld world, AgeableEntity mate) {
+		double d0 = this.rand.nextDouble();
+		AlienEntity villagerentity = new AlienEntity((EntityType<? extends AlienEntity>) MobInnet.ALIEN.get(), world);
+		villagerentity.onInitialSpawn(world, world.getDifficultyForLocation(villagerentity.getPosition()), SpawnReason.BREEDING, (ILivingEntityData)null, (CompoundNBT)null);
+		return villagerentity;
 	}
+	
 	public ResourceLocation getTexture() {
 		List<AlienJobs> y = new ArrayList<>();
 		y = Arrays.asList(AlienJobs.values());

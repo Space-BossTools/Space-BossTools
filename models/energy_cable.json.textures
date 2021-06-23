@@ -1,0 +1,17 @@
+{
+  "mappings": {
+    "default": {
+      "map": {
+        "0": "energy_cable_nothing",
+        "1": "cable_x",
+        "2": "cable_-x",
+        "3": "cable_y",
+        "4": "cable_-y",
+        "5": "cable_-z",
+        "6": "cable_z",
+        "missing": "cable_mid"
+      },
+      "name": "default"
+    }
+  }
+}

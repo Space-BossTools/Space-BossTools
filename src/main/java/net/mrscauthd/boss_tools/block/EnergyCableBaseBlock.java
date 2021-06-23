@@ -1,13 +1,16 @@
 
 package net.mrscauthd.boss_tools.block;
 
+import net.mrscauthd.boss_tools.procedures.CableNetworkingProcedure;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
+import net.mrscauthd.boss_tools.gui.CableGUIGui;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ObjectHolder;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -29,9 +32,12 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.LockableLootTileEntity;
@@ -39,6 +45,7 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.loot.LootContext;
@@ -48,12 +55,14 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.BlockItem;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ChestContainer;
 import net.minecraft.inventory.ItemStackHelper;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.FluidState;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.RenderType;
@@ -69,14 +78,18 @@ import java.util.stream.IntStream;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.Random;
+import java.util.Map;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Collections;
+
+import io.netty.buffer.Unpooled;
 
 @BossToolsModElements.ModElement.Tag
 public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
-	@ObjectHolder("boss_tools:energy_cable")
+	@ObjectHolder("boss_tools:wireless_energy_router")
 	public static final Block block = null;
-	@ObjectHolder("boss_tools:energy_cable")
+	@ObjectHolder("boss_tools:wireless_energy_router")
 	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
 	public EnergyCableBaseBlock(BossToolsModElements instance) {
 		super(instance, 10);
@@ -91,7 +104,7 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 	private static class TileEntityRegisterHandler {
 		@SubscribeEvent
 		public void registerTileEntity(RegistryEvent.Register<TileEntityType<?>> event) {
-			event.getRegistry().register(TileEntityType.Builder.create(CustomTileEntity::new, block).build(null).setRegistryName("energy_cable"));
+			event.getRegistry().register(TileEntityType.Builder.create(CustomTileEntity::new, block).build(null).setRegistryName("wireless_energy_router"));
 		}
 	}
 	@Override
@@ -114,7 +127,7 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 			this.setDefaultState(this.stateContainer.getBaseState().with(NORTH, Boolean.valueOf(false)).with(SOUTH, Boolean.valueOf(false))
 					.with(EAST, Boolean.valueOf(false)).with(WEST, Boolean.valueOf(false)).with(DOWN, Boolean.valueOf(false))
 					.with(UP, Boolean.valueOf(false)).with(WATERLOGGED, false));
-			setRegistryName("energy_cable");
+			setRegistryName("wireless_energy_router");
 		}
 
 		@Override
@@ -853,14 +866,48 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 			super.tick(state, world, pos, random);
 			// super.tick(state., world, pos, random);
 			{
+				Map<String, Object> $_dependencies = new HashMap<>();
+				$_dependencies.put("x", x);
+				$_dependencies.put("y", y);
+				$_dependencies.put("z", z);
+				$_dependencies.put("world", world);
+				CableNetworkingProcedure.executeProcedure($_dependencies);
+			}
+			world.getPendingBlockTicks().scheduleTick(new BlockPos(x, y, z), this, 1);
+		}
+
+		@Override
+		public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity entity, Hand hand,
+				BlockRayTraceResult hit) {
+			super.onBlockActivated(state, world, pos, entity, hand, hit);
+			int x = pos.getX();
+			int y = pos.getY();
+			int z = pos.getZ();
+			if (entity instanceof ServerPlayerEntity) {
+				NetworkHooks.openGui((ServerPlayerEntity) entity, new INamedContainerProvider() {
+					@Override
+					public ITextComponent getDisplayName() {
+						return new StringTextComponent("WirelessEnergyTouter");
+					}
+
+					@Override
+					public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+						return new CableGUIGui.GuiContainerMod(id, inventory,
+								new PacketBuffer(Unpooled.buffer()).writeBlockPos(new BlockPos(x, y, z)));
+					}
+				}, new BlockPos(x, y, z));
+			}
+			Direction direction = hit.getFace();
+			{
 				// Map<String, Object> $_dependencies = new HashMap<>();
+				// $_dependencies.put("entity", entity);
 				// $_dependencies.put("x", x);
 				// $_dependencies.put("y", y);
 				// $_dependencies.put("z", z);
 				// $_dependencies.put("world", world);
-				// EnergyCableBaseUpdateTickProcedure.executeProcedure($_dependencies);
+				// TestOnBlockRightClickedProcedure.executeProcedure($_dependencies);
 			}
-			world.getPendingBlockTicks().scheduleTick(new BlockPos(x, y, z), this, 1);
+			return ActionResultType.SUCCESS;
 		}
 
 		@Override
@@ -884,6 +931,32 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 			super.eventReceived(state, world, pos, eventID, eventParam);
 			TileEntity tileentity = world.getTileEntity(pos);
 			return tileentity == null ? false : tileentity.receiveClientEvent(eventID, eventParam);
+		}
+
+		@Override
+		public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
+			if (state.getBlock() != newState.getBlock()) {
+				TileEntity tileentity = world.getTileEntity(pos);
+				if (tileentity instanceof CustomTileEntity) {
+					InventoryHelper.dropInventoryItems(world, pos, (CustomTileEntity) tileentity);
+					world.updateComparatorOutputLevel(pos, this);
+				}
+				super.onReplaced(state, world, pos, newState, isMoving);
+			}
+		}
+
+		@Override
+		public boolean hasComparatorInputOverride(BlockState state) {
+			return true;
+		}
+
+		@Override
+		public int getComparatorInputOverride(BlockState blockState, World world, BlockPos pos) {
+			TileEntity tileentity = world.getTileEntity(pos);
+			if (tileentity instanceof CustomTileEntity)
+				return Container.calcRedstoneFromInventory((CustomTileEntity) tileentity);
+			else
+				return 0;
 		}
 	}
 
@@ -944,7 +1017,7 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public ITextComponent getDefaultName() {
-			return new StringTextComponent("energy_cable");
+			return new StringTextComponent("wireless_energy_router");
 		}
 
 		@Override
@@ -954,12 +1027,12 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public Container createMenu(int id, PlayerInventory player) {
-			return ChestContainer.createGeneric9X3(id, player, this);
+			return new CableGUIGui.GuiContainerMod(id, player, new PacketBuffer(Unpooled.buffer()).writeBlockPos(this.getPos()));
 		}
 
 		@Override
 		public ITextComponent getDisplayName() {
-			return new StringTextComponent("Energy Cable");
+			return new StringTextComponent("Wireless Energy Router");
 		}
 
 		@Override
