@@ -2,9 +2,9 @@
   "_fv": 21,
   "_type": "biome",
   "definition": {
-    "name": "Mars Biome",
+    "name": "Mars Ice Biome",
     "groundBlock": {
-      "value": "CUSTOM:Marssand"
+      "value": "Blocks.SNOW"
     },
     "undergroundBlock": {
       "value": "CUSTOM:MarsStone"
@@ -33,23 +33,23 @@
     "moodSound": {
       "value": ""
     },
-    "moodSoundDelay": 0,
+    "moodSoundDelay": 6000,
     "spawnParticles": true,
     "particleToSpawn": {
       "value": "CRIMSON_SPORE"
     },
-    "particlesProbability": 1.4,
-    "biomeCategory": "NONE",
+    "particlesProbability": 1.4000000000000001,
+    "biomeCategory": "ICY",
     "parent": {
-      "value": "CUSTOM:MarsBiom"
+      "value": "CUSTOM:MarsIceBiome"
     },
     "rainingPossibility": 0.0,
     "temperature": 1.6,
     "baseHeight": 2.0,
-    "heightVariation": 0.02,
-    "biomeType": "WARM",
+    "heightVariation": 0.12000000000000001,
+    "biomeType": "ICY",
     "spawnBiome": false,
-    "biomeWeight": 0,
+    "biomeWeight": 1024,
     "biomeDictionaryTypes": [],
     "grassPerChunk": 0,
     "seagrassPerChunk": 0,

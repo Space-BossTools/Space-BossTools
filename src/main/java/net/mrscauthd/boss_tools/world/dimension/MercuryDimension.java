@@ -26,7 +26,7 @@ import com.google.common.collect.ImmutableSet;
 @BossToolsModElements.ModElement.Tag
 public class MercuryDimension extends BossToolsModElements.ModElement {
 	public MercuryDimension(BossToolsModElements instance) {
-		super(instance, 82);
+		super(instance, 100);
 	}
 
 	@Override

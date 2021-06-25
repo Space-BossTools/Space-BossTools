@@ -26,7 +26,7 @@ import com.google.common.collect.ImmutableSet;
 @BossToolsModElements.ModElement.Tag
 public class MarsDimension extends BossToolsModElements.ModElement {
 	public MarsDimension(BossToolsModElements instance) {
-		super(instance, 80);
+		super(instance, 98);
 	}
 
 	@Override

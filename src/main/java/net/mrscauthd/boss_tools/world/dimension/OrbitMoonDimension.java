@@ -26,7 +26,7 @@ import com.google.common.collect.ImmutableSet;
 @BossToolsModElements.ModElement.Tag
 public class OrbitMoonDimension extends BossToolsModElements.ModElement {
 	public OrbitMoonDimension(BossToolsModElements instance) {
-		super(instance, 83);
+		super(instance, 101);
 	}
 
 	@Override

@@ -7,28 +7,28 @@
       "type": "minecraft:multi_noise",
       "seed": 0,
       "temperature_noise": {
-        "firstOctave": -5.11,
+        "firstOctave": -5.53,
         "amplitudes": [
           2,
           2
         ]
       },
       "humidity_noise": {
-        "firstOctave": -5.11,
+        "firstOctave": -5.53,
         "amplitudes": [
           2,
           2
         ]
       },
       "altitude_noise": {
-        "firstOctave": -5.11,
+        "firstOctave": -5.53,
         "amplitudes": [
           2,
           2
         ]
       },
       "weirdness_noise": {
-        "firstOctave": -5.11,
+        "firstOctave": -5.53,
         "amplitudes": [
           2,
           2
@@ -36,12 +36,32 @@
       },
       "biomes": [
         {
-          "biome": "boss_tools:mars_biom",
+          "biome": "boss_tools:mars_biome",
+          "parameters": {
+            "temperature": 1,
+            "humidity": -1,
+            "altitude": 0.75,
+            "weirdness": -1.5,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "boss_tools:mars_ice_biome",
           "parameters": {
             "temperature": 0,
             "humidity": 0,
-            "altitude": 0,
-            "weirdness": 0,
+            "altitude": -0.75,
+            "weirdness": 1.5,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "boss_tools:mars_hills_biome",
+          "parameters": {
+            "temperature": -1,
+            "humidity": 1,
+            "altitude": 0.75,
+            "weirdness": -1.5,
             "offset": 0
           }
         }

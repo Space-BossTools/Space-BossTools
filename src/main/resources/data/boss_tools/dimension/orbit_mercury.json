@@ -36,7 +36,7 @@
       },
       "biomes": [
         {
-          "biome": "boss_tools:orbit_mercury_biom",
+          "biome": "boss_tools:orbit_mercury_biome",
           "parameters": {
             "temperature": 0,
             "humidity": 0,

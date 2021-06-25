@@ -4,9 +4,12 @@ package net.mrscauthd.boss_tools;
 import com.mojang.serialization.Codec;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.FlatChunkGenerator;
+import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
@@ -16,6 +19,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsSpawnEggsItemGroup;
 import net.mrscauthd.boss_tools.entity.AlienEntity;
@@ -30,6 +34,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.mrscauthd.boss_tools.world.biome.MarsIceBiomeBiome;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.item.Item;
@@ -44,6 +49,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @BossToolsModElements.ModElement.Tag
+@Mod.EventBusSubscriber(modid = "boss_tools", bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MobInnet extends BossToolsModElements.ModElement {
     public static final DeferredRegister<EntityType<?>> ENTITYS = DeferredRegister.create(ForgeRegistries.ENTITIES, "boss_tools");
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, "boss_tools");
@@ -51,6 +57,22 @@ public class MobInnet extends BossToolsModElements.ModElement {
             .create(AlienEntity::new, EntityClassification.CREATURE).size(0.75f, 2.5f).build(new ResourceLocation("boss_tools", "alien").toString()));
     public static final RegistryObject<ModSpawnEggs> ALIEN_SPAWN_EGG = ITEMS.register("alien_spawn_egg",
             () -> new ModSpawnEggs(ALIEN, -13382401, -11650781, new Item.Properties().group(SpaceBosstoolsSpawnEggsItemGroup.tab)));
+    //Wrold Gen Things
+    public static ConfiguredFeature<?, ?> ICE_SPIKE;
+    public static MarsIceSpikeFeature MARS_ICE_SPIKE;
+    @SubscribeEvent
+    public static void RegistryFeature(RegistryEvent.Register<Feature<?>> feature) {
+        MARS_ICE_SPIKE = new MarsIceSpikeFeature(NoFeatureConfig.field_236558_a_);
+        MARS_ICE_SPIKE.setRegistryName("boss_tools", "mars_ice_spike");
+        feature.getRegistry().register(MARS_ICE_SPIKE);
+    }
+
+    public static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> register(String key, ConfiguredFeature<FC, ?> configuredFeature) {
+        return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, key, configuredFeature);
+    }
+
+
+
     /**
      * Do not remove this constructor
      */
@@ -86,6 +108,7 @@ public class MobInnet extends BossToolsModElements.ModElement {
         //Meteor
         STStructures.METEOR_DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
         //forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing3);
+        MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, this::biomesLoading);
     }
     public void setup2(final FMLCommonSetupEvent event)
     {
@@ -111,13 +134,13 @@ public class MobInnet extends BossToolsModElements.ModElement {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
             // event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE)
         }
-     //  if (event.getName().equals(new ResourceLocation("boss_tools:mars_biom"))) {
-     //       event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
-     //   }
-       if (event.getName().equals(new ResourceLocation("forest")) && BossToolsModVariables.MeteorStructure == true) {
+        //  if (event.getName().equals(new ResourceLocation("boss_tools:mars_biom"))) {
+        //       event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
+        //   }
+        if (event.getName().equals(new ResourceLocation("forest")) && BossToolsModVariables.MeteorStructure == true) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
         }
-       if (event.getName().equals(new ResourceLocation("desert")) && BossToolsModVariables.MeteorStructure == true) {
+        if (event.getName().equals(new ResourceLocation("desert")) && BossToolsModVariables.MeteorStructure == true) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
         }
     }
@@ -141,9 +164,9 @@ public class MobInnet extends BossToolsModElements.ModElement {
             tempMap.putIfAbsent(STStructures.RUN_DOWN_HOUSE.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.RUN_DOWN_HOUSE.get()));
             //  serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_() = tempMap;
             //meteor
-           // tempMap.putIfAbsent(STStructures.METEOR.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.METEOR.get()));
+            // tempMap.putIfAbsent(STStructures.METEOR.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.METEOR.get()));
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
-            
+
             Map<Structure<?>, StructureSeparationSettings> tempMap1 = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
             //tempMap.putIfAbsent(STStructures.RUN_DOWN_HOUSE.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.RUN_DOWN_HOUSE.get()));
             //  serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_() = tempMap;
@@ -160,7 +183,17 @@ public class MobInnet extends BossToolsModElements.ModElement {
     public void init(FMLCommonSetupEvent event) {
         DeferredWorkQueue.runLater(() -> {
             GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) ALIEN.get(), AlienEntity.setCustomAttributes().create());
+            event.enqueueWork(() -> {
+                ICE_SPIKE = register("mars_ice_spiked",
+                        MobInnet.MARS_ICE_SPIKE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(2));
+            });
+
         });
+    }
+    public void biomesLoading(final BiomeLoadingEvent event){
+        if(event.getName().getPath().equals(MarsIceBiomeBiome.biome.getRegistryName().getPath())){
+            event.getGeneration().withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ICE_SPIKE);
+        }
     }
 
     @Override

@@ -40,7 +40,7 @@ public class MercurybiomeBiome extends BossToolsModElements.ModElement {
 				biome = new Biome.Builder().precipitation(Biome.RainType.NONE).category(Biome.Category.NONE).depth(1f).scale(0.2f).temperature(1.6f)
 						.downfall(0f).setEffects(effects).withMobSpawnSettings(mobSpawnInfo.copy())
 						.withGenerationSettings(biomeGenerationSettings.build()).build();
-				event.getRegistry().register(biome.setRegistryName("boss_tools:mercurybiome"));
+				event.getRegistry().register(biome.setRegistryName("boss_tools:mercury_biome"));
 			}
 		}
 	}

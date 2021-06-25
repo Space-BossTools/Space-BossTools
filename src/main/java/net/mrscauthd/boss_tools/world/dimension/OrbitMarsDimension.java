@@ -26,7 +26,7 @@ import com.google.common.collect.ImmutableSet;
 @BossToolsModElements.ModElement.Tag
 public class OrbitMarsDimension extends BossToolsModElements.ModElement {
 	public OrbitMarsDimension(BossToolsModElements instance) {
-		super(instance, 84);
+		super(instance, 102);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class OrbitMarsDimension extends BossToolsModElements.ModElement {
 		});
 	}
 
-/*	@Override
+	/*@Override
 	@OnlyIn(Dist.CLIENT)
 	public void clientLoad(FMLClientSetupEvent event) {
 		DimensionRenderInfo customEffect = new DimensionRenderInfo(Float.NaN, true, DimensionRenderInfo.FogType.NONE, false, false) {

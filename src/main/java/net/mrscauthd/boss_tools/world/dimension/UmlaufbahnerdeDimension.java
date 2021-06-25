@@ -26,7 +26,7 @@ import com.google.common.collect.ImmutableSet;
 @BossToolsModElements.ModElement.Tag
 public class UmlaufbahnerdeDimension extends BossToolsModElements.ModElement {
 	public UmlaufbahnerdeDimension(BossToolsModElements instance) {
-		super(instance, 81);
+		super(instance, 99);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class UmlaufbahnerdeDimension extends BossToolsModElements.ModElement {
 		});
 	}
 
-	/*@Override
+/*	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void clientLoad(FMLClientSetupEvent event) {
 		DimensionRenderInfo customEffect = new DimensionRenderInfo(Float.NaN, true, DimensionRenderInfo.FogType.NONE, false, false) {

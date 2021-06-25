@@ -5,6 +5,12 @@
     "biomesInDimension": [
       {
         "value": "CUSTOM:MarsBiom"
+      },
+      {
+        "value": "CUSTOM:MarsIceBiome"
+      },
+      {
+        "value": "CUSTOM:MarsHillsBiome"
       }
     ],
     "worldGenType": "Normal world gen",

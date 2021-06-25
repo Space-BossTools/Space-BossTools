@@ -26,7 +26,7 @@ import com.google.common.collect.ImmutableSet;
 @BossToolsModElements.ModElement.Tag
 public class MoonDimension extends BossToolsModElements.ModElement {
 	public MoonDimension(BossToolsModElements instance) {
-		super(instance, 93);
+		super(instance, 97);
 	}
 
 	@Override
