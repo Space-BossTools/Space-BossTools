@@ -45,7 +45,7 @@ public class MarsDimension extends BossToolsModElements.ModElement {
 		});
 	}
 
-	/*@Override
+	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void clientLoad(FMLClientSetupEvent event) {
 		DimensionRenderInfo customEffect = new DimensionRenderInfo(Float.NaN, true, DimensionRenderInfo.FogType.NONE, false, false) {
@@ -68,5 +68,5 @@ public class MarsDimension extends BossToolsModElements.ModElement {
 				e.printStackTrace();
 			}
 		});
-	}*/
+	}
 }
