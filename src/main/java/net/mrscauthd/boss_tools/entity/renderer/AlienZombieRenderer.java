@@ -199,6 +199,8 @@ public class AlienZombieRenderer {
 			this.arms.rotateAngleY = 0.0F;
 			this.arm2.rotateAngleZ = 0.0F;
 			this.arms.rotateAngleZ = 0.0F;
+			this.arm2.rotateAngleX = 0.0F;
+			this.arms.rotateAngleX = 0.0F;
 			
             this.arm2.rotateAngleZ -= MathHelper.cos(f2 * 0.04F) * 0.04F + 0.04F;
 			this.arms.rotateAngleZ += MathHelper.cos(f2 * 0.04F) * 0.04F + 0.04F;
@@ -213,8 +215,11 @@ public class AlienZombieRenderer {
             this.monsterarm4.rotateAngleY = MathHelper.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;
             this.monsterarm3.rotateAngleY = MathHelper.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;
             this.monsterarm2.rotateAngleY = MathHelper.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;
-            this.arms.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * f1;
-            this.arm2.rotateAngleX = MathHelper.cos(f * 0.6662F) * f1;
+            this.arms.rotateAngleX = 30f;
+            this.arm2.rotateAngleX = 30f;
+            
+            this.arm2.rotateAngleX -= MathHelper.cos(f2 * 0.04F) * 0.04F + 0.04F;
+			this.arms.rotateAngleX += MathHelper.cos(f2 * 0.04F) * 0.04F + 0.04F;
 		}
 	}
 }
