@@ -93,10 +93,14 @@ public class FallGravityProcedure {
 												.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_moon"))))
 												|| (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
 														.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mars"))))
-														|| ((world instanceof World
+														|| (((world instanceof World
 																? (((World) world).getDimensionKey())
 																: World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-																		new ResourceLocation("boss_tools:orbit_mercury"))))))))))) {
+																		new ResourceLocation("boss_tools:orbit_mercury"))))
+																|| ((world instanceof World
+																		? (((World) world).getDimensionKey())
+																		: World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+																				new ResourceLocation("boss_tools:venus")))))))))))) {
 			if (((((PlayerEntity) entity).abilities.isFlying) == (false))) {
 				if (((((PlayerEntity) entity).isElytraFlying()) == (false))) {
 					if (((((PlayerEntity) entity).isSwimming()) == (false))) {

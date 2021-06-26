@@ -63,10 +63,14 @@ public class TorchOnBlockRightClickedProcedure {
 												.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_moon"))))
 												|| (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
 														.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mars"))))
-														|| ((world instanceof World
+														|| (((world instanceof World
 																? (((World) world).getDimensionKey())
 																: World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-																		new ResourceLocation("boss_tools:orbit_mercury")))))))))))) {
+																		new ResourceLocation("boss_tools:orbit_mercury"))))
+																|| ((world instanceof World
+																		? (((World) world).getDimensionKey())
+																		: World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+																				new ResourceLocation("boss_tools:venus"))))))))))))) {
 			if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
 					.getItem() == new ItemStack(Items.FLINT_AND_STEEL, (int) (1)).getItem())) {
 				world.setBlockState(new BlockPos((int) x, (int) y, (int) z), Blocks.TORCH.getDefaultState(), 3);

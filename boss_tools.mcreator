@@ -1074,7 +1074,7 @@
       "type": "procedure",
       "sortid": 147,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "remove_fire",
       "metadata": {

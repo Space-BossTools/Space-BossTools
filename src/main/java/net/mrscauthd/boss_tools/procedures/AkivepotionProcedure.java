@@ -76,10 +76,14 @@ public class AkivepotionProcedure {
 												.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_moon"))))
 												|| (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
 														.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mars"))))
-														|| ((world instanceof World
+														|| (((world instanceof World
 																? (((World) world).getDimensionKey())
 																: World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-																		new ResourceLocation("boss_tools:orbit_mercury"))))))))))) {// Config
+																		new ResourceLocation("boss_tools:orbit_mercury"))))
+																|| ((world instanceof World
+																		? (((World) world).getDimensionKey())
+																		: World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+																				new ResourceLocation("boss_tools:venus")))))))))))) {// Config
 			if ((!(entity.getPersistentData().getBoolean("Oxygen_Bullet_Generator")))) {
 				if (((BossToolsModVariables.PlayerOxygenSystem) == (true))) {
 					if (((entity.getPersistentData().getBoolean("SpaceSuitH")) == (false))) {
