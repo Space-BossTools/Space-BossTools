@@ -5738,6 +5738,35 @@
       "ids": {},
       "registry_name": "beacon_base_block_blocks",
       "path": "~/Tags"
+    },
+    {
+      "name": "InfernalSpire",
+      "type": "block",
+      "sortid": 399,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "infernal_spire",
+      "path": "~/Blocks"
+    },
+    {
+      "name": "InfernalVenusBarrens",
+      "type": "biome",
+      "sortid": 400,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "infernal_venus_barrens",
+      "path": "~/Biome"
+    },
+    {
+      "name": "VenusDeltas",
+      "type": "code",
+      "sortid": 401,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "venus_deltas"
     }
   ],
   "variable_elements": [
@@ -5928,6 +5957,7 @@
       "block.boss_tools.mars_stone": "Mars Stone",
       "entity.boss_tools.star_crawler": "Star Crawler",
       "item.boss_tools.rocket_tier_2_spawn_egg": "Rocket Spawn Egg",
+      "biome.boss_tools.infernal_venus_barrens": "Infernal Venus Barrens",
       "item.boss_tools.tier_1_rocket": "§bTier 1 Rocket",
       "entity.boss_tools.rocket": "Rocket",
       "advancements.rocket_tier_3_advancement.title": "Tier 3 Rocket",
@@ -5940,6 +5970,7 @@
       "job.boss_tools.job13": "Mason",
       "job.boss_tools.job10": "Toolsmith",
       "job.boss_tools.job11": "Butcher",
+      "block.boss_tools.infernal_spire": "Infernal Spire",
       "item.boss_tools.space_armor_chestplate": "Space Suit",
       "block.boss_tools.flag_brown": "Brown Flag",
       "key.boss_tools.rocket_start": "Rocket Start",

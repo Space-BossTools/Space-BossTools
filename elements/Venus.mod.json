@@ -5,6 +5,9 @@
     "biomesInDimension": [
       {
         "value": "CUSTOM:VenusBiome"
+      },
+      {
+        "value": "CUSTOM:InfernalVenusBarrens"
       }
     ],
     "worldGenType": "Normal world gen",

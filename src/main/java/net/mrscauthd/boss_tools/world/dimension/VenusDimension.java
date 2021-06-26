@@ -51,7 +51,7 @@ public class VenusDimension extends BossToolsModElements.ModElement {
 		DimensionRenderInfo customEffect = new DimensionRenderInfo(Float.NaN, true, DimensionRenderInfo.FogType.NONE, false, false) {
 			@Override
 			public Vector3d func_230494_a_(Vector3d color, float sunHeight) {
-				return new Vector3d(0.647058823529, 0.450980392157, 0.254901960784);
+				return new Vector3d(1, 0.270588235294, 0.278431372549);
 			}
 
 			@Override
