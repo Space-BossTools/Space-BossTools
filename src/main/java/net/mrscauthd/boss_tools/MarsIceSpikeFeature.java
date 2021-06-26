@@ -43,14 +43,14 @@ public class MarsIceSpikeFeature extends Feature<NoFeatureConfig> {
                             BlockState blockstate = reader.getBlockState(pos.add(i1, k, j1));
                             Block block = blockstate.getBlock();
                             if (blockstate.isAir(reader, pos.add(i1, k, j1)) || isDirt(block) || block == Blocks.SNOW_BLOCK || block == Blocks.ICE) {
-                                this.setBlockState(reader, pos.add(i1, k, j1), Blocks.BLUE_ICE.getDefaultState());
+                                this.setBlockState(reader, pos.add(i1, k, j1), Blocks.PACKED_ICE.getDefaultState());
                             }
                             if (k != 0 && l > 1) {
                                 blockstate = reader.getBlockState(pos.add(i1, -k, j1));
                                 block = blockstate.getBlock();
                                 if (blockstate.isAir(reader, pos.add(i1, -k, j1)) || isDirt(block) || block == Blocks.SNOW_BLOCK
                                         || block == Blocks.ICE) {
-                                    this.setBlockState(reader, pos.add(i1, -k, j1), Blocks.BLUE_ICE.getDefaultState());
+                                    this.setBlockState(reader, pos.add(i1, -k, j1), Blocks.PACKED_ICE.getDefaultState());
                                 }
                             }
                         }
@@ -74,10 +74,10 @@ public class MarsIceSpikeFeature extends Feature<NoFeatureConfig> {
                         BlockState blockstate1 = reader.getBlockState(blockpos);
                         Block block1 = blockstate1.getBlock();
                         if (!blockstate1.isAir(reader, blockpos) && !isDirt(block1) && block1 != Blocks.SNOW_BLOCK && block1 != Blocks.ICE
-                                && block1 != Blocks.BLUE_ICE) {
+                                && block1 != Blocks.PACKED_ICE) {
                             break;
                         }
-                        this.setBlockState(reader, blockpos, Blocks.BLUE_ICE.getDefaultState());
+                        this.setBlockState(reader, blockpos, Blocks.PACKED_ICE.getDefaultState());
                         blockpos = blockpos.down();
                         --j2;
                         if (j2 <= 0) {

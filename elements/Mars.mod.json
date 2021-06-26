@@ -8,9 +8,6 @@
       },
       {
         "value": "CUSTOM:MarsIceBiome"
-      },
-      {
-        "value": "CUSTOM:MarsHillsBiome"
       }
     ],
     "worldGenType": "Normal world gen",

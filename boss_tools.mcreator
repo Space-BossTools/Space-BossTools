@@ -518,7 +518,7 @@
       "type": "dimension",
       "sortid": 98,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "mars",
       "metadata": {
@@ -1450,7 +1450,7 @@
       "type": "biome",
       "sortid": 164,
       "compiles": true,
-      "locked_code": true,
+      "locked_code": false,
       "ids": {},
       "registry_name": "mars_biome",
       "path": "~/Biome"
@@ -5655,16 +5655,6 @@
       "locked_code": true,
       "ids": {},
       "registry_name": "mars_ice_spike_feature"
-    },
-    {
-      "name": "MarsHillsBiome",
-      "type": "biome",
-      "sortid": 394,
-      "compiles": true,
-      "locked_code": true,
-      "ids": {},
-      "registry_name": "mars_hills_biome",
-      "path": "~/Biome"
     }
   ],
   "variable_elements": [
@@ -5805,7 +5795,6 @@
       "entity.boss_tools.landing_gear": "Landing Gear",
       "job.boss_tools.job7": "Cleric",
       "biome.boss_tools.orbit_mercury_biome": "Orbit Biome",
-      "biome.boss_tools.mars_hills_biome": "Mars Biome",
       "block.boss_tools.flag_red": "Red Flag",
       "item.boss_tools.oxygen_gear": "Oxygen Gear",
       "block.boss_tools.sky_stone": "Sky Stone",
