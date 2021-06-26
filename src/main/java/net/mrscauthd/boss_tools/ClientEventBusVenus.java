@@ -1,6 +1,7 @@
 
 package net.mrscauthd.boss_tools;
 
+import net.minecraft.client.settings.CloudOption;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.common.Mod;
@@ -34,282 +35,465 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 
 @Mod.EventBusSubscriber(modid = "boss_tools", bus = Bus.MOD, value = Dist.CLIENT)
 public class ClientEventBusVenus {
-	private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation("boss_tools", "venus");
-	private static final ResourceLocation SUN_TEXTURES = new ResourceLocation("boss_tools", "textures/sky/sun.png");
-	private static final ResourceLocation PHOBOS = new ResourceLocation("boss_tools", "textures/sky/phobos.png");
-	private static final ResourceLocation DEIMOS = new ResourceLocation("boss_tools", "textures/sky/deimos.png");
-	private static final ResourceLocation EARTH = new ResourceLocation("boss_tools", "textures/sky/earth.png");
-	private static final ResourceLocation SKY_TEXTURE = new ResourceLocation("boss_tools", "textures/sky/sky.png");
-	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public static void clientSetup(FMLClientSetupEvent event) {
-		// public net.minecraft.client.world.DimensionRenderInfo field_239208_a_ #
-		// field_239208_a_
-		// public net.minecraft.client.renderer.Minecraft.getInstance().worldRenderer
-		// field_175012_t # skyVBO
-		// public net.minecraft.client.renderer.Minecraft.getInstance().worldRenderer
-		// field_175014_r # skyVertexFormat
-		// public net.minecraft.client.renderer.Minecraft.getInstance().worldRenderer
-		// field_175013_s # starVBO
-		// public net.minecraft.client.renderer.Minecraft.getInstance().worldRenderer
-		// field_175011_u # sky2VBO
-		DimensionRenderInfo.field_239208_a_.put(DIM_RENDER_INFO,
-				// cloudHeight, alternate sky color, fog type, render sky, diffuse lighting
-				new DimensionRenderInfo(999999999, false, FogType.NORMAL, false, false) {
-				//new DimensionRenderInfo(Float.NaN, true, FogType.NONE, false, false) {
-					/*
-					 * @Override // adjustSkyColor public Vector3d func_230494_a_(Vector3d fogColor,
-					 * float partialTicks) { return fogColor; }
-					 */
-					// Mars sky
-					@Override
-					public Vector3d func_230494_a_(Vector3d color, float sunHeight) {
-						return new Vector3d(0.647058823529, 0.450980392157, 0.254901960784);
-					}
+    private static int cloudsCheckX = Integer.MIN_VALUE;
+    private static int cloudsCheckY = Integer.MIN_VALUE;
+    private static int cloudsCheckZ = Integer.MIN_VALUE;
+    private static Vector3d cloudsCheckColor = Vector3d.ZERO;
+    private static boolean cloudsNeedUpdate = true;
+    private static VertexBuffer cloudsVBO;
+    private static CloudOption cloudOption;
+    private static final ResourceLocation CLOUDS_TEXTURES = new ResourceLocation("boss_tools", "textures/sky/clouds.png");
+    private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation("boss_tools", "venus");
+    private static final ResourceLocation SUN_TEXTURES = new ResourceLocation("boss_tools", "textures/sky/sun.png");
+    private static final ResourceLocation PHOBOS = new ResourceLocation("boss_tools", "textures/sky/phobos.png");
+    private static final ResourceLocation DEIMOS = new ResourceLocation("boss_tools", "textures/sky/deimos.png");
+    private static final ResourceLocation EARTH = new ResourceLocation("boss_tools", "textures/sky/earth.png");
+    private static final ResourceLocation SKY_TEXTURE = new ResourceLocation("boss_tools", "textures/sky/sky.png");
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void clientSetup(FMLClientSetupEvent event) {
+        // public net.minecraft.client.world.DimensionRenderInfo field_239208_a_ #
+        // field_239208_a_
+        // public net.minecraft.client.renderer.Minecraft.getInstance().worldRenderer
+        // field_175012_t # skyVBO
+        // public net.minecraft.client.renderer.Minecraft.getInstance().worldRenderer
+        // field_175014_r # skyVertexFormat
+        // public net.minecraft.client.renderer.Minecraft.getInstance().worldRenderer
+        // field_175013_s # starVBO
+        // public net.minecraft.client.renderer.Minecraft.getInstance().worldRenderer
+        // field_175011_u # sky2VBO
+        DimensionRenderInfo.field_239208_a_.put(DIM_RENDER_INFO,
+                // cloudHeight, alternate sky color, fog type, render sky, diffuse lighting
+                new DimensionRenderInfo(128, false, FogType.NORMAL, false, false) {
+                    //new DimensionRenderInfo(Float.NaN, true, FogType.NONE, false, false) {
+                    /*
+                     * @Override // adjustSkyColor public Vector3d func_230494_a_(Vector3d fogColor,
+                     * float partialTicks) { return fogColor; }
+                     */
+                    // Mars sky
+                    @Override
+                    public Vector3d func_230494_a_(Vector3d color, float sunHeight) {
+                        return new Vector3d(0.647058823529, 0.450980392157, 0.254901960784);
+                    }
 
-					@Override
-					// useThickFog
-					public boolean func_230493_a_(int posX, int posY) {
-						return false; // eneable fog
-					}
+                    @Override
+                    // useThickFog
+                    public boolean func_230493_a_(int posX, int posY) {
+                        return false; // eneable fog
+                    }
 
-					@Nullable
-					@Override
-					public ICloudRenderHandler getCloudRenderHandler() {
-						return new ICloudRenderHandler() {
-							@Override
-							public void render(int ticks, float partialTicks, MatrixStack matrixStack, ClientWorld world, Minecraft mc,
-									double viewEntityX, double viewEntityY, double viewEntityZ) {
-							}
-						};
-					}
+                    @Override
+                    public ICloudRenderHandler getCloudRenderHandler() {
+                        return new ICloudRenderHandler() {
+                            @Override
+                            public void render(int ticks, float partialTicks, MatrixStack matrixStack, ClientWorld world, Minecraft mc,
+                                               double viewEntityX, double viewEntityY, double viewEntityZ) {
+                     //           net.minecraftforge.client.ICloudRenderHandler renderHandler = world.func_239132_a_().getCloudRenderHandler();
+                      //          if (renderHandler != null) {
+                       //             renderHandler.render(ticks, partialTicks, matrixStack, world, mc, viewEntityX, viewEntityY, viewEntityZ);
+                       //             return;
+                       //         }
+                                float f = world.func_239132_a_().func_239213_a_();
+                                if (!Float.isNaN(f)) {
+                                    RenderSystem.disableCull();
+                                    RenderSystem.enableBlend();
+                                    RenderSystem.enableAlphaTest();
+                                    RenderSystem.enableDepthTest();
+                                    RenderSystem.defaultAlphaFunc();
+                                    RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+                                    RenderSystem.enableFog();
+                                    RenderSystem.depthMask(true);
+                                    float f1 = 12.0F;
+                                    float f2 = 4.0F;
+                                    double d0 = 2.0E-4D;
+                                    double d1 = (double)(((float)ticks + partialTicks) * 0.03F);
+                                    double d2 = (viewEntityX + d1) / 12.0D;
+                                    double d3 = (double)(f - (float)viewEntityY + 0.33F);
+                                    double d4 = viewEntityZ / 12.0D + (double)0.33F;
+                                    d2 = d2 - (double)(MathHelper.floor(d2 / 2048.0D) * 2048);
+                                    d4 = d4 - (double)(MathHelper.floor(d4 / 2048.0D) * 2048);
+                                    float f3 = (float)(d2 - (double)MathHelper.floor(d2));
+                                    float f4 = (float)(d3 / 4.0D - (double)MathHelper.floor(d3 / 4.0D)) * 4.0F;
+                                    float f5 = (float)(d4 - (double)MathHelper.floor(d4));
+                                    Vector3d vector3d = world.getCloudColor(partialTicks);
+                                    int i = (int)Math.floor(d2);
+                                    int j = (int)Math.floor(d3 / 4.0D);
+                                    int k = (int)Math.floor(d4);
+                                    if (i != cloudsCheckX || j != cloudsCheckY || k != cloudsCheckZ || Minecraft.getInstance().gameSettings.getCloudOption() != cloudOption || cloudsCheckColor.squareDistanceTo(vector3d) > 2.0E-4D) {
+                                        cloudsCheckX = i;
+                                        cloudsCheckY = j;
+                                        cloudsCheckZ = k;
+                                        cloudsCheckColor = vector3d;
+                                        cloudOption = Minecraft.getInstance().gameSettings.getCloudOption();
+                                        cloudsNeedUpdate = true;
+                                    }
 
-					@Override
-					public ISkyRenderHandler getSkyRenderHandler() {
-						return new ISkyRenderHandler() {
-							@SuppressWarnings({"deprecation"})
-							@Override
-							public void render(int ticks, float partialTicks, MatrixStack matrixStack, ClientWorld world, Minecraft mc) {
-								RenderSystem.disableTexture();
-								Vector3d vector3d = world.getSkyColor(mc.gameRenderer.getActiveRenderInfo().getBlockPos(), partialTicks);
-								float f = (float) vector3d.x;
-								float f1 = (float) vector3d.y;
-								float f2 = (float) vector3d.z;
-								FogRenderer.applyFog();
-								BufferBuilder bufferbuilder = Tessellator.getInstance().getBuffer();
-								RenderSystem.depthMask(false);
-								RenderSystem.enableFog();
-								RenderSystem.color3f(f, f1, f2);
-								mc.worldRenderer.skyVBO.bindBuffer();
-								mc.worldRenderer.skyVertexFormat.setupBufferState(0L);
-								mc.worldRenderer.skyVBO.draw(matrixStack.getLast().getMatrix(), 7);
-								VertexBuffer.unbindBuffer();
-								mc.worldRenderer.skyVertexFormat.clearBufferState();
-								Matrix4f matrix4f1 = matrixStack.getLast().getMatrix();
-								RenderSystem.enableAlphaTest();
-								RenderSystem.enableTexture();
-								RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE,
-										GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-								RenderSystem.color4f(1f, 1f, 1f, 1f);
-								mc.getTextureManager().bindTexture(SKY_TEXTURE);
-								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-								bufferbuilder.pos(matrix4f1, -100, 8f, -100).tex(0.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, 100, 8f, -100).tex(1.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, 100, 8f, 100).tex(1.0F, 1.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, -100, 8f, 100).tex(0.0F, 1.0F).endVertex();
-								bufferbuilder.finishDrawing();
-								WorldVertexBufferUploader.draw(bufferbuilder);
-								RenderSystem.disableTexture();
-								RenderSystem.disableFog();
-								RenderSystem.disableAlphaTest();
-								RenderSystem.enableBlend();
-								RenderSystem.defaultBlendFunc();
-								float[] afloat = world.func_239132_a_().func_230492_a_(world.func_242415_f(partialTicks), partialTicks);
-								if (afloat != null) {
-									RenderSystem.disableTexture();
-									RenderSystem.shadeModel(7425);
-									matrixStack.push();
-									matrixStack.rotate(Vector3f.XP.rotationDegrees(90.0F));
-									float f3 = MathHelper.sin(world.getCelestialAngleRadians(partialTicks)) < 0.0F ? 180.0F : 0.0F;
-									matrixStack.rotate(Vector3f.ZP.rotationDegrees(f3));// rotation richtig with ^^
-									matrixStack.rotate(Vector3f.ZP.rotationDegrees(90.0F));
-									float f4 = afloat[0];
-									float f5 = afloat[1];
-									float f6 = afloat[2];
-									Matrix4f matrix4f = matrixStack.getLast().getMatrix();
-									bufferbuilder.begin(6, DefaultVertexFormats.POSITION_COLOR);
-									bufferbuilder.pos(matrix4f, 0.0F, 100.0F, 0.0F).color(f4, f5, f6, afloat[3]).endVertex();
-									for (int j = 0; j <= 16; ++j) {
-										float f7 = (float) j * ((float) Math.PI * 2F) / 16.0F;
-										float f8 = MathHelper.sin(f7);
-										float f9 = MathHelper.cos(f7);
-										bufferbuilder.pos(matrix4f, f8 * 120.0F, f9 * 120.0F, -f9 * 40.0F * afloat[3])
-												.color(afloat[0], afloat[1], afloat[2], 0.0F).endVertex();
-									}
-									bufferbuilder.finishDrawing();
-									WorldVertexBufferUploader.draw(bufferbuilder);
-									matrixStack.pop();
-									RenderSystem.shadeModel(7424);
-								}
-								RenderSystem.enableTexture();
-								RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE,
-										GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-								matrixStack.push();
-								float f11 = 100000.0F - world.getRainStrength(partialTicks);// Rrain basiss ist es auf
-																							// 1.0F
-								RenderSystem.color4f(1.0F, 1.0F, 1.0F, f11);
-								matrixStack.rotate(Vector3f.YP.rotationDegrees(-90.0F));
-								matrixStack.rotate(Vector3f.XP.rotationDegrees(world.func_242415_f(partialTicks) * 360.0F));
-								matrix4f1 = matrixStack.getLast().getMatrix();
-								float f12 = 20.0F;
-								mc.getTextureManager().bindTexture(SUN_TEXTURES);
-								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-								bufferbuilder.pos(matrix4f1, -f12, 100.0F, -f12).tex(0.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, f12, 100.0F, -f12).tex(1.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, f12, 100.0F, f12).tex(1.0F, 1.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, -f12, 100.0F, f12).tex(0.0F, 1.0F).endVertex();
-								bufferbuilder.finishDrawing();
-								WorldVertexBufferUploader.draw(bufferbuilder);
-								f12 = 20.0F;
-								mc.getTextureManager().bindTexture(PHOBOS);
-								int k = world.getMoonPhase();
-								int l = k % 4;
-								int i1 = k / 4 % 2;
-								float f13 = (float) (l + 0) / 4.0F;
-								float f14 = (float) (i1 + 0) / 2.0F;
-								float f15 = (float) (l + 1) / 4.0F;
-								float f16 = (float) (i1 + 1) / 2.0F;
-								// moon Rotation
-								matrixStack.rotate(Vector3f.YP.rotationDegrees(-130.0F)); // Moon Rotation
-								// Moon Rotation stop
-								// moon on a other side
-								matrixStack.rotate(Vector3f.ZP.rotationDegrees(100.0F));
-								// moon on a other side stop
-								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(f15, f16).endVertex();
-								// bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(f13, f16).endVertex();
-								// bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(f13, f14).endVertex();
-								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(f15, f14).endVertex();
-								// New System
-								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(0.0F, 0.0F).endVertex();
-								// bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(1.0F, 0.0F).endVertex();
-								// bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(1.0F, 1.0F).endVertex();
-								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(0.0F,
-								// 1.0F).endVertex();
-								// New System
-								// bufferbuilder.pos(matrix4f1, -10, -100.0F, 10).tex(0.0F, 0.0F).endVertex();
-								// bufferbuilder.pos(matrix4f1, 10, -100.0F, 10).tex(1.0F, 0.0F).endVertex();
-								// bufferbuilder.pos(matrix4f1, 10, -100.0F, -10).tex(1.0F, 1.0F).endVertex();
-								// bufferbuilder.pos(matrix4f1, -10, -100.0F, -10).tex(0.0F, 1.0F).endVertex();
-								// New System
-								bufferbuilder.pos(matrix4f1, -3, -100.0F, 3).tex(0.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, 3, -100.0F, 3).tex(1.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, 3, -100.0F, -3).tex(1.0F, 1.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, -3, -100.0F, -3).tex(0.0F, 1.0F).endVertex();
-								bufferbuilder.finishDrawing();
-								WorldVertexBufferUploader.draw(bufferbuilder);
-								// New Planet EARTH
-								mc.getTextureManager().bindTexture(EARTH);
-								// moon Rotation
-								matrixStack.rotate(Vector3f.YP.rotationDegrees(-130.0F)); // Moon Rotation
-								// Moon Rotation stop
-								// moon on a other side
-								matrixStack.rotate(Vector3f.ZP.rotationDegrees(210.0F));
-								// moon on a other side stop
-								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(f15, f16).endVertex();
-								// bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(f13, f16).endVertex();
-								// bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(f13, f14).endVertex();
-								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(f15, f14).endVertex();
-								// New System
-								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(0.0F, 0.0F).endVertex();
-								// bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(1.0F, 0.0F).endVertex();
-								// bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(1.0F, 1.0F).endVertex();
-								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(0.0F,
-								// 1.0F).endVertex();
-								// New System
-								// bufferbuilder.pos(matrix4f1, -10, -100.0F, 10).tex(0.0F, 0.0F).endVertex();
-								// bufferbuilder.pos(matrix4f1, 10, -100.0F, 10).tex(1.0F, 0.0F).endVertex();
-								// bufferbuilder.pos(matrix4f1, 10, -100.0F, -10).tex(1.0F, 1.0F).endVertex();
-								// bufferbuilder.pos(matrix4f1, -10, -100.0F, -10).tex(0.0F, 1.0F).endVertex();
-								// New System
-								bufferbuilder.pos(matrix4f1, -1, -100.0F, 1).tex(0.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, 1, -100.0F, 1).tex(1.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, 1, -100.0F, -1).tex(1.0F, 1.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, -1, -100.0F, -1).tex(0.0F, 1.0F).endVertex();
-								bufferbuilder.finishDrawing();
-								WorldVertexBufferUploader.draw(bufferbuilder);
-								// New Planet DEIMOS
-								mc.getTextureManager().bindTexture(DEIMOS);
-								// moon Rotation
-								matrixStack.rotate(Vector3f.YP.rotationDegrees(-110.0F)); // Moon Rotation
-								// Moon Rotation stop
-								// moon on a other side
-								matrixStack.rotate(Vector3f.ZP.rotationDegrees(90.0F));
-								// moon on a other side stop
-								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(f15, f16).endVertex();
-								// bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(f13, f16).endVertex();
-								// bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(f13, f14).endVertex();
-								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(f15, f14).endVertex();
-								// New System
-								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(0.0F, 0.0F).endVertex();
-								// bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(1.0F, 0.0F).endVertex();
-								// bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(1.0F, 1.0F).endVertex();
-								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(0.0F,
-								// 1.0F).endVertex();
-								// New System
-								// bufferbuilder.pos(matrix4f1, -10, -100.0F, 10).tex(0.0F, 0.0F).endVertex();
-								// bufferbuilder.pos(matrix4f1, 10, -100.0F, 10).tex(1.0F, 0.0F).endVertex();
-								// bufferbuilder.pos(matrix4f1, 10, -100.0F, -10).tex(1.0F, 1.0F).endVertex();
-								// bufferbuilder.pos(matrix4f1, -10, -100.0F, -10).tex(0.0F, 1.0F).endVertex();
-								// New System
-								bufferbuilder.pos(matrix4f1, -4, -100.0F, 4).tex(0.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, 4, -100.0F, 4).tex(1.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, 4, -100.0F, -4).tex(1.0F, 1.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, -4, -100.0F, -4).tex(0.0F, 1.0F).endVertex();
-								bufferbuilder.finishDrawing();
-								WorldVertexBufferUploader.draw(bufferbuilder);
-								RenderSystem.disableTexture();
-								f11 = 1.0F;// Star Brightness
-								float f10 = 1.0F;// world.getStarBrightness(partialTicks) * f11; //1.0F is default
-								// f11
-								if (f10 > 0.0F) {
-									RenderSystem.color4f(f10, f10, f10, f10);
-									mc.worldRenderer.starVBO.bindBuffer();
-									mc.worldRenderer.skyVertexFormat.setupBufferState(0L);
-									mc.worldRenderer.starVBO.draw(matrixStack.getLast().getMatrix(), 7);
-									VertexBuffer.unbindBuffer();
-									mc.worldRenderer.skyVertexFormat.clearBufferState();
-								}
-								RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-								RenderSystem.disableBlend();
-								RenderSystem.enableAlphaTest();
-								RenderSystem.enableFog();
-								matrixStack.pop();
-								RenderSystem.disableTexture();
-								RenderSystem.color3f(0.0F, 0.0F, 0.0F);
-								double d0 = mc.player.getEyePosition(partialTicks).y - world.getWorldInfo().getVoidFogHeight();
-								if (d0 < 0.0D) {
-									matrixStack.push();
-									matrixStack.translate(0.0D, 12.0D, 0.0D);
-									mc.worldRenderer.sky2VBO.bindBuffer();
-									mc.worldRenderer.skyVertexFormat.setupBufferState(0L);
-									mc.worldRenderer.sky2VBO.draw(matrixStack.getLast().getMatrix(), 7);
-									VertexBuffer.unbindBuffer();
-									mc.worldRenderer.skyVertexFormat.clearBufferState();
-									matrixStack.pop();
-								}
-								if (world.func_239132_a_().func_239216_b_()) {
-									RenderSystem.color3f(f * 0.2F + 0.04F, f1 * 0.2F + 0.04F, f2 * 0.6F + 0.1F);
-								} else {
-									RenderSystem.color3f(f, f1, f2);
-								}
-								RenderSystem.enableTexture();
-								RenderSystem.depthMask(true);
-								RenderSystem.disableFog();
-							}
-						};
-					}
-				});
-	}
+                                    if (cloudsNeedUpdate) {
+                                        cloudsNeedUpdate = false;
+                                        BufferBuilder bufferbuilder = Tessellator.getInstance().getBuffer();
+                                        if (cloudsVBO != null) {
+                                            cloudsVBO.close();
+                                        }
+
+                                        cloudsVBO = new VertexBuffer(DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
+                                        this.drawClouds(bufferbuilder, d2, d3, d4, vector3d);
+                                        bufferbuilder.finishDrawing();
+                                        cloudsVBO.upload(bufferbuilder);
+                                    }
+
+                                    mc.getTextureManager().bindTexture(CLOUDS_TEXTURES);
+                                    matrixStack.push();
+                                    matrixStack.scale(12.0F, 1.0F, 12.0F);
+                                    matrixStack.translate((double)(-f3), (double)f4, (double)(-f5));
+                                    if (cloudsVBO != null) {
+                                        cloudsVBO.bindBuffer();
+                                        DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL.setupBufferState(0L);
+                                        int i1 = cloudOption == CloudOption.FANCY ? 0 : 1;
+
+                                        for(int l = i1; l < 2; ++l) {
+                                            if (l == 0) {
+                                                RenderSystem.colorMask(false, false, false, false);
+                                            } else {
+                                                RenderSystem.colorMask(true, true, true, true);
+                                            }
+
+                                            cloudsVBO.draw(matrixStack.getLast().getMatrix(), 7);
+                                        }
+
+                                        VertexBuffer.unbindBuffer();
+                                        DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL.clearBufferState();
+                                    }
+
+                                    matrixStack.pop();
+                                    RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+                                    RenderSystem.disableAlphaTest();
+                                    RenderSystem.enableCull();
+                                    RenderSystem.disableBlend();
+                                    RenderSystem.disableFog();
+                                }
+                            }
+                            private void drawClouds(BufferBuilder bufferIn, double cloudsX, double cloudsY, double cloudsZ, Vector3d cloudsColor) {
+                                float f = 4.0F;
+                                float f1 = 0.00390625F;
+                                int i = 8;
+                                int j = 4;
+                                float f2 = 9.765625E-4F;
+                                float f3 = (float)MathHelper.floor(cloudsX) * 0.00390625F;
+                                float f4 = (float)MathHelper.floor(cloudsZ) * 0.00390625F;
+                                float f5 = (float)cloudsColor.x;
+                                float f6 = (float)cloudsColor.y;
+                                float f7 = (float)cloudsColor.z;
+                                float f8 = f5 * 0.9F;
+                                float f9 = f6 * 0.9F;
+                                float f10 = f7 * 0.9F;
+                                float f11 = f5 * 0.7F;
+                                float f12 = f6 * 0.7F;
+                                float f13 = f7 * 0.7F;
+                                float f14 = f5 * 0.8F;
+                                float f15 = f6 * 0.8F;
+                                float f16 = f7 * 0.8F;
+                                bufferIn.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
+                                float f17 = (float)Math.floor(cloudsY / 4.0D) * 4.0F;
+                                if (cloudOption == CloudOption.FANCY) {
+                                    for(int k = -3; k <= 4; ++k) {
+                                        for(int l = -3; l <= 4; ++l) {
+                                            float f18 = (float)(k * 8);
+                                            float f19 = (float)(l * 8);
+                                            if (f17 > -5.0F) {
+                                                bufferIn.pos((double)(f18 + 0.0F), (double)(f17 + 0.0F), (double)(f19 + 8.0F)).tex((f18 + 0.0F) * 0.00390625F + f3, (f19 + 8.0F) * 0.00390625F + f4).color(f11, f12, f13, 0.8F).normal(0.0F, -1.0F, 0.0F).endVertex();
+                                                bufferIn.pos((double)(f18 + 8.0F), (double)(f17 + 0.0F), (double)(f19 + 8.0F)).tex((f18 + 8.0F) * 0.00390625F + f3, (f19 + 8.0F) * 0.00390625F + f4).color(f11, f12, f13, 0.8F).normal(0.0F, -1.0F, 0.0F).endVertex();
+                                                bufferIn.pos((double)(f18 + 8.0F), (double)(f17 + 0.0F), (double)(f19 + 0.0F)).tex((f18 + 8.0F) * 0.00390625F + f3, (f19 + 0.0F) * 0.00390625F + f4).color(f11, f12, f13, 0.8F).normal(0.0F, -1.0F, 0.0F).endVertex();
+                                                bufferIn.pos((double)(f18 + 0.0F), (double)(f17 + 0.0F), (double)(f19 + 0.0F)).tex((f18 + 0.0F) * 0.00390625F + f3, (f19 + 0.0F) * 0.00390625F + f4).color(f11, f12, f13, 0.8F).normal(0.0F, -1.0F, 0.0F).endVertex();
+                                            }
+
+                                            if (f17 <= 5.0F) {
+                                                bufferIn.pos((double)(f18 + 0.0F), (double)(f17 + 4.0F - 9.765625E-4F), (double)(f19 + 8.0F)).tex((f18 + 0.0F) * 0.00390625F + f3, (f19 + 8.0F) * 0.00390625F + f4).color(f5, f6, f7, 0.8F).normal(0.0F, 1.0F, 0.0F).endVertex();
+                                                bufferIn.pos((double)(f18 + 8.0F), (double)(f17 + 4.0F - 9.765625E-4F), (double)(f19 + 8.0F)).tex((f18 + 8.0F) * 0.00390625F + f3, (f19 + 8.0F) * 0.00390625F + f4).color(f5, f6, f7, 0.8F).normal(0.0F, 1.0F, 0.0F).endVertex();
+                                                bufferIn.pos((double)(f18 + 8.0F), (double)(f17 + 4.0F - 9.765625E-4F), (double)(f19 + 0.0F)).tex((f18 + 8.0F) * 0.00390625F + f3, (f19 + 0.0F) * 0.00390625F + f4).color(f5, f6, f7, 0.8F).normal(0.0F, 1.0F, 0.0F).endVertex();
+                                                bufferIn.pos((double)(f18 + 0.0F), (double)(f17 + 4.0F - 9.765625E-4F), (double)(f19 + 0.0F)).tex((f18 + 0.0F) * 0.00390625F + f3, (f19 + 0.0F) * 0.00390625F + f4).color(f5, f6, f7, 0.8F).normal(0.0F, 1.0F, 0.0F).endVertex();
+                                            }
+
+                                            if (k > -1) {
+                                                for(int i1 = 0; i1 < 8; ++i1) {
+                                                    bufferIn.pos((double)(f18 + (float)i1 + 0.0F), (double)(f17 + 0.0F), (double)(f19 + 8.0F)).tex((f18 + (float)i1 + 0.5F) * 0.00390625F + f3, (f19 + 8.0F) * 0.00390625F + f4).color(f8, f9, f10, 0.8F).normal(-1.0F, 0.0F, 0.0F).endVertex();
+                                                    bufferIn.pos((double)(f18 + (float)i1 + 0.0F), (double)(f17 + 4.0F), (double)(f19 + 8.0F)).tex((f18 + (float)i1 + 0.5F) * 0.00390625F + f3, (f19 + 8.0F) * 0.00390625F + f4).color(f8, f9, f10, 0.8F).normal(-1.0F, 0.0F, 0.0F).endVertex();
+                                                    bufferIn.pos((double)(f18 + (float)i1 + 0.0F), (double)(f17 + 4.0F), (double)(f19 + 0.0F)).tex((f18 + (float)i1 + 0.5F) * 0.00390625F + f3, (f19 + 0.0F) * 0.00390625F + f4).color(f8, f9, f10, 0.8F).normal(-1.0F, 0.0F, 0.0F).endVertex();
+                                                    bufferIn.pos((double)(f18 + (float)i1 + 0.0F), (double)(f17 + 0.0F), (double)(f19 + 0.0F)).tex((f18 + (float)i1 + 0.5F) * 0.00390625F + f3, (f19 + 0.0F) * 0.00390625F + f4).color(f8, f9, f10, 0.8F).normal(-1.0F, 0.0F, 0.0F).endVertex();
+                                                }
+                                            }
+
+                                            if (k <= 1) {
+                                                for(int j2 = 0; j2 < 8; ++j2) {
+                                                    bufferIn.pos((double)(f18 + (float)j2 + 1.0F - 9.765625E-4F), (double)(f17 + 0.0F), (double)(f19 + 8.0F)).tex((f18 + (float)j2 + 0.5F) * 0.00390625F + f3, (f19 + 8.0F) * 0.00390625F + f4).color(f8, f9, f10, 0.8F).normal(1.0F, 0.0F, 0.0F).endVertex();
+                                                    bufferIn.pos((double)(f18 + (float)j2 + 1.0F - 9.765625E-4F), (double)(f17 + 4.0F), (double)(f19 + 8.0F)).tex((f18 + (float)j2 + 0.5F) * 0.00390625F + f3, (f19 + 8.0F) * 0.00390625F + f4).color(f8, f9, f10, 0.8F).normal(1.0F, 0.0F, 0.0F).endVertex();
+                                                    bufferIn.pos((double)(f18 + (float)j2 + 1.0F - 9.765625E-4F), (double)(f17 + 4.0F), (double)(f19 + 0.0F)).tex((f18 + (float)j2 + 0.5F) * 0.00390625F + f3, (f19 + 0.0F) * 0.00390625F + f4).color(f8, f9, f10, 0.8F).normal(1.0F, 0.0F, 0.0F).endVertex();
+                                                    bufferIn.pos((double)(f18 + (float)j2 + 1.0F - 9.765625E-4F), (double)(f17 + 0.0F), (double)(f19 + 0.0F)).tex((f18 + (float)j2 + 0.5F) * 0.00390625F + f3, (f19 + 0.0F) * 0.00390625F + f4).color(f8, f9, f10, 0.8F).normal(1.0F, 0.0F, 0.0F).endVertex();
+                                                }
+                                            }
+
+                                            if (l > -1) {
+                                                for(int k2 = 0; k2 < 8; ++k2) {
+                                                    bufferIn.pos((double)(f18 + 0.0F), (double)(f17 + 4.0F), (double)(f19 + (float)k2 + 0.0F)).tex((f18 + 0.0F) * 0.00390625F + f3, (f19 + (float)k2 + 0.5F) * 0.00390625F + f4).color(f14, f15, f16, 0.8F).normal(0.0F, 0.0F, -1.0F).endVertex();
+                                                    bufferIn.pos((double)(f18 + 8.0F), (double)(f17 + 4.0F), (double)(f19 + (float)k2 + 0.0F)).tex((f18 + 8.0F) * 0.00390625F + f3, (f19 + (float)k2 + 0.5F) * 0.00390625F + f4).color(f14, f15, f16, 0.8F).normal(0.0F, 0.0F, -1.0F).endVertex();
+                                                    bufferIn.pos((double)(f18 + 8.0F), (double)(f17 + 0.0F), (double)(f19 + (float)k2 + 0.0F)).tex((f18 + 8.0F) * 0.00390625F + f3, (f19 + (float)k2 + 0.5F) * 0.00390625F + f4).color(f14, f15, f16, 0.8F).normal(0.0F, 0.0F, -1.0F).endVertex();
+                                                    bufferIn.pos((double)(f18 + 0.0F), (double)(f17 + 0.0F), (double)(f19 + (float)k2 + 0.0F)).tex((f18 + 0.0F) * 0.00390625F + f3, (f19 + (float)k2 + 0.5F) * 0.00390625F + f4).color(f14, f15, f16, 0.8F).normal(0.0F, 0.0F, -1.0F).endVertex();
+                                                }
+                                            }
+
+                                            if (l <= 1) {
+                                                for(int l2 = 0; l2 < 8; ++l2) {
+                                                    bufferIn.pos((double)(f18 + 0.0F), (double)(f17 + 4.0F), (double)(f19 + (float)l2 + 1.0F - 9.765625E-4F)).tex((f18 + 0.0F) * 0.00390625F + f3, (f19 + (float)l2 + 0.5F) * 0.00390625F + f4).color(f14, f15, f16, 0.8F).normal(0.0F, 0.0F, 1.0F).endVertex();
+                                                    bufferIn.pos((double)(f18 + 8.0F), (double)(f17 + 4.0F), (double)(f19 + (float)l2 + 1.0F - 9.765625E-4F)).tex((f18 + 8.0F) * 0.00390625F + f3, (f19 + (float)l2 + 0.5F) * 0.00390625F + f4).color(f14, f15, f16, 0.8F).normal(0.0F, 0.0F, 1.0F).endVertex();
+                                                    bufferIn.pos((double)(f18 + 8.0F), (double)(f17 + 0.0F), (double)(f19 + (float)l2 + 1.0F - 9.765625E-4F)).tex((f18 + 8.0F) * 0.00390625F + f3, (f19 + (float)l2 + 0.5F) * 0.00390625F + f4).color(f14, f15, f16, 0.8F).normal(0.0F, 0.0F, 1.0F).endVertex();
+                                                    bufferIn.pos((double)(f18 + 0.0F), (double)(f17 + 0.0F), (double)(f19 + (float)l2 + 1.0F - 9.765625E-4F)).tex((f18 + 0.0F) * 0.00390625F + f3, (f19 + (float)l2 + 0.5F) * 0.00390625F + f4).color(f14, f15, f16, 0.8F).normal(0.0F, 0.0F, 1.0F).endVertex();
+                                                }
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    int j1 = 1;
+                                    int k1 = 32;
+
+                                    for(int l1 = -32; l1 < 32; l1 += 32) {
+                                        for(int i2 = -32; i2 < 32; i2 += 32) {
+                                            bufferIn.pos((double)(l1 + 0), (double)f17, (double)(i2 + 32)).tex((float)(l1 + 0) * 0.00390625F + f3, (float)(i2 + 32) * 0.00390625F + f4).color(f5, f6, f7, 0.8F).normal(0.0F, -1.0F, 0.0F).endVertex();
+                                            bufferIn.pos((double)(l1 + 32), (double)f17, (double)(i2 + 32)).tex((float)(l1 + 32) * 0.00390625F + f3, (float)(i2 + 32) * 0.00390625F + f4).color(f5, f6, f7, 0.8F).normal(0.0F, -1.0F, 0.0F).endVertex();
+                                            bufferIn.pos((double)(l1 + 32), (double)f17, (double)(i2 + 0)).tex((float)(l1 + 32) * 0.00390625F + f3, (float)(i2 + 0) * 0.00390625F + f4).color(f5, f6, f7, 0.8F).normal(0.0F, -1.0F, 0.0F).endVertex();
+                                            bufferIn.pos((double)(l1 + 0), (double)f17, (double)(i2 + 0)).tex((float)(l1 + 0) * 0.00390625F + f3, (float)(i2 + 0) * 0.00390625F + f4).color(f5, f6, f7, 0.8F).normal(0.0F, -1.0F, 0.0F).endVertex();
+                                        }
+                                    }
+                                }
+
+                            }
+                        };
+                    }
+
+                    @Override
+                    public ISkyRenderHandler getSkyRenderHandler() {
+                        return new ISkyRenderHandler() {
+                            @SuppressWarnings({"deprecation"})
+                            @Override
+                            public void render(int ticks, float partialTicks, MatrixStack matrixStack, ClientWorld world, Minecraft mc) {
+                                RenderSystem.disableTexture();
+                                Vector3d vector3d = world.getSkyColor(mc.gameRenderer.getActiveRenderInfo().getBlockPos(), partialTicks);
+                                float f = (float) vector3d.x;
+                                float f1 = (float) vector3d.y;
+                                float f2 = (float) vector3d.z;
+                                FogRenderer.applyFog();
+                                BufferBuilder bufferbuilder = Tessellator.getInstance().getBuffer();
+                                RenderSystem.depthMask(false);
+                                RenderSystem.enableFog();
+                                RenderSystem.color3f(f, f1, f2);
+                                mc.worldRenderer.skyVBO.bindBuffer();
+                                mc.worldRenderer.skyVertexFormat.setupBufferState(0L);
+                                mc.worldRenderer.skyVBO.draw(matrixStack.getLast().getMatrix(), 7);
+                                VertexBuffer.unbindBuffer();
+                                mc.worldRenderer.skyVertexFormat.clearBufferState();
+                                Matrix4f matrix4f1 = matrixStack.getLast().getMatrix();
+                                RenderSystem.enableAlphaTest();
+                                RenderSystem.enableTexture();
+                                RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE,
+                                        GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+                                RenderSystem.color4f(1f, 1f, 1f, 1f);
+                                mc.getTextureManager().bindTexture(SKY_TEXTURE);
+                                bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+                                bufferbuilder.pos(matrix4f1, -100, 8f, -100).tex(0.0F, 0.0F).endVertex();
+                                bufferbuilder.pos(matrix4f1, 100, 8f, -100).tex(1.0F, 0.0F).endVertex();
+                                bufferbuilder.pos(matrix4f1, 100, 8f, 100).tex(1.0F, 1.0F).endVertex();
+                                bufferbuilder.pos(matrix4f1, -100, 8f, 100).tex(0.0F, 1.0F).endVertex();
+                                bufferbuilder.finishDrawing();
+                                WorldVertexBufferUploader.draw(bufferbuilder);
+                                RenderSystem.disableTexture();
+                                RenderSystem.disableFog();
+                                RenderSystem.disableAlphaTest();
+                                RenderSystem.enableBlend();
+                                RenderSystem.defaultBlendFunc();
+                                float[] afloat = world.func_239132_a_().func_230492_a_(world.func_242415_f(partialTicks), partialTicks);
+                                if (afloat != null) {
+                                    RenderSystem.disableTexture();
+                                    RenderSystem.shadeModel(7425);
+                                    matrixStack.push();
+                                    matrixStack.rotate(Vector3f.XP.rotationDegrees(90.0F));
+                                    float f3 = MathHelper.sin(world.getCelestialAngleRadians(partialTicks)) < 0.0F ? 180.0F : 0.0F;
+                                    matrixStack.rotate(Vector3f.ZP.rotationDegrees(f3));// rotation richtig with ^^
+                                    matrixStack.rotate(Vector3f.ZP.rotationDegrees(90.0F));
+                                    float f4 = afloat[0];
+                                    float f5 = afloat[1];
+                                    float f6 = afloat[2];
+                                    Matrix4f matrix4f = matrixStack.getLast().getMatrix();
+                                    bufferbuilder.begin(6, DefaultVertexFormats.POSITION_COLOR);
+                                    bufferbuilder.pos(matrix4f, 0.0F, 100.0F, 0.0F).color(f4, f5, f6, afloat[3]).endVertex();
+                                    for (int j = 0; j <= 16; ++j) {
+                                        float f7 = (float) j * ((float) Math.PI * 2F) / 16.0F;
+                                        float f8 = MathHelper.sin(f7);
+                                        float f9 = MathHelper.cos(f7);
+                                        bufferbuilder.pos(matrix4f, f8 * 120.0F, f9 * 120.0F, -f9 * 40.0F * afloat[3])
+                                                .color(afloat[0], afloat[1], afloat[2], 0.0F).endVertex();
+                                    }
+                                    bufferbuilder.finishDrawing();
+                                    WorldVertexBufferUploader.draw(bufferbuilder);
+                                    matrixStack.pop();
+                                    RenderSystem.shadeModel(7424);
+                                }
+                                RenderSystem.enableTexture();
+                                RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE,
+                                        GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+                                matrixStack.push();
+                                float f11 = 100000.0F - world.getRainStrength(partialTicks);// Rrain basiss ist es auf
+                                // 1.0F
+                                RenderSystem.color4f(1.0F, 1.0F, 1.0F, f11);
+                                matrixStack.rotate(Vector3f.YP.rotationDegrees(-90.0F));
+                                matrixStack.rotate(Vector3f.XP.rotationDegrees(world.func_242415_f(partialTicks) * 360.0F));
+                                matrix4f1 = matrixStack.getLast().getMatrix();
+                                float f12 = 20.0F;
+                                mc.getTextureManager().bindTexture(SUN_TEXTURES);
+                                bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+                                bufferbuilder.pos(matrix4f1, -f12, 100.0F, -f12).tex(0.0F, 0.0F).endVertex();
+                                bufferbuilder.pos(matrix4f1, f12, 100.0F, -f12).tex(1.0F, 0.0F).endVertex();
+                                bufferbuilder.pos(matrix4f1, f12, 100.0F, f12).tex(1.0F, 1.0F).endVertex();
+                                bufferbuilder.pos(matrix4f1, -f12, 100.0F, f12).tex(0.0F, 1.0F).endVertex();
+                                bufferbuilder.finishDrawing();
+                                WorldVertexBufferUploader.draw(bufferbuilder);
+                                f12 = 20.0F;
+                                mc.getTextureManager().bindTexture(PHOBOS);
+                                int k = world.getMoonPhase();
+                                int l = k % 4;
+                                int i1 = k / 4 % 2;
+                                float f13 = (float) (l + 0) / 4.0F;
+                                float f14 = (float) (i1 + 0) / 2.0F;
+                                float f15 = (float) (l + 1) / 4.0F;
+                                float f16 = (float) (i1 + 1) / 2.0F;
+                                // moon Rotation
+                                matrixStack.rotate(Vector3f.YP.rotationDegrees(-130.0F)); // Moon Rotation
+                                // Moon Rotation stop
+                                // moon on a other side
+                                matrixStack.rotate(Vector3f.ZP.rotationDegrees(100.0F));
+                                // moon on a other side stop
+                                bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+                                // bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(f15, f16).endVertex();
+                                // bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(f13, f16).endVertex();
+                                // bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(f13, f14).endVertex();
+                                // bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(f15, f14).endVertex();
+                                // New System
+                                // bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(0.0F, 0.0F).endVertex();
+                                // bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(1.0F, 0.0F).endVertex();
+                                // bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(1.0F, 1.0F).endVertex();
+                                // bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(0.0F,
+                                // 1.0F).endVertex();
+                                // New System
+                                // bufferbuilder.pos(matrix4f1, -10, -100.0F, 10).tex(0.0F, 0.0F).endVertex();
+                                // bufferbuilder.pos(matrix4f1, 10, -100.0F, 10).tex(1.0F, 0.0F).endVertex();
+                                // bufferbuilder.pos(matrix4f1, 10, -100.0F, -10).tex(1.0F, 1.0F).endVertex();
+                                // bufferbuilder.pos(matrix4f1, -10, -100.0F, -10).tex(0.0F, 1.0F).endVertex();
+                                // New System
+                                bufferbuilder.pos(matrix4f1, -3, -100.0F, 3).tex(0.0F, 0.0F).endVertex();
+                                bufferbuilder.pos(matrix4f1, 3, -100.0F, 3).tex(1.0F, 0.0F).endVertex();
+                                bufferbuilder.pos(matrix4f1, 3, -100.0F, -3).tex(1.0F, 1.0F).endVertex();
+                                bufferbuilder.pos(matrix4f1, -3, -100.0F, -3).tex(0.0F, 1.0F).endVertex();
+                                bufferbuilder.finishDrawing();
+                                WorldVertexBufferUploader.draw(bufferbuilder);
+                                // New Planet EARTH
+                                mc.getTextureManager().bindTexture(EARTH);
+                                // moon Rotation
+                                matrixStack.rotate(Vector3f.YP.rotationDegrees(-130.0F)); // Moon Rotation
+                                // Moon Rotation stop
+                                // moon on a other side
+                                matrixStack.rotate(Vector3f.ZP.rotationDegrees(210.0F));
+                                // moon on a other side stop
+                                bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+                                // bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(f15, f16).endVertex();
+                                // bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(f13, f16).endVertex();
+                                // bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(f13, f14).endVertex();
+                                // bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(f15, f14).endVertex();
+                                // New System
+                                // bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(0.0F, 0.0F).endVertex();
+                                // bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(1.0F, 0.0F).endVertex();
+                                // bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(1.0F, 1.0F).endVertex();
+                                // bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(0.0F,
+                                // 1.0F).endVertex();
+                                // New System
+                                // bufferbuilder.pos(matrix4f1, -10, -100.0F, 10).tex(0.0F, 0.0F).endVertex();
+                                // bufferbuilder.pos(matrix4f1, 10, -100.0F, 10).tex(1.0F, 0.0F).endVertex();
+                                // bufferbuilder.pos(matrix4f1, 10, -100.0F, -10).tex(1.0F, 1.0F).endVertex();
+                                // bufferbuilder.pos(matrix4f1, -10, -100.0F, -10).tex(0.0F, 1.0F).endVertex();
+                                // New System
+                                bufferbuilder.pos(matrix4f1, -1, -100.0F, 1).tex(0.0F, 0.0F).endVertex();
+                                bufferbuilder.pos(matrix4f1, 1, -100.0F, 1).tex(1.0F, 0.0F).endVertex();
+                                bufferbuilder.pos(matrix4f1, 1, -100.0F, -1).tex(1.0F, 1.0F).endVertex();
+                                bufferbuilder.pos(matrix4f1, -1, -100.0F, -1).tex(0.0F, 1.0F).endVertex();
+                                bufferbuilder.finishDrawing();
+                                WorldVertexBufferUploader.draw(bufferbuilder);
+                                // New Planet DEIMOS
+                                mc.getTextureManager().bindTexture(DEIMOS);
+                                // moon Rotation
+                                matrixStack.rotate(Vector3f.YP.rotationDegrees(-110.0F)); // Moon Rotation
+                                // Moon Rotation stop
+                                // moon on a other side
+                                matrixStack.rotate(Vector3f.ZP.rotationDegrees(90.0F));
+                                // moon on a other side stop
+                                bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+                                // bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(f15, f16).endVertex();
+                                // bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(f13, f16).endVertex();
+                                // bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(f13, f14).endVertex();
+                                // bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(f15, f14).endVertex();
+                                // New System
+                                // bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(0.0F, 0.0F).endVertex();
+                                // bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(1.0F, 0.0F).endVertex();
+                                // bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(1.0F, 1.0F).endVertex();
+                                // bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(0.0F,
+                                // 1.0F).endVertex();
+                                // New System
+                                // bufferbuilder.pos(matrix4f1, -10, -100.0F, 10).tex(0.0F, 0.0F).endVertex();
+                                // bufferbuilder.pos(matrix4f1, 10, -100.0F, 10).tex(1.0F, 0.0F).endVertex();
+                                // bufferbuilder.pos(matrix4f1, 10, -100.0F, -10).tex(1.0F, 1.0F).endVertex();
+                                // bufferbuilder.pos(matrix4f1, -10, -100.0F, -10).tex(0.0F, 1.0F).endVertex();
+                                // New System
+                                bufferbuilder.pos(matrix4f1, -4, -100.0F, 4).tex(0.0F, 0.0F).endVertex();
+                                bufferbuilder.pos(matrix4f1, 4, -100.0F, 4).tex(1.0F, 0.0F).endVertex();
+                                bufferbuilder.pos(matrix4f1, 4, -100.0F, -4).tex(1.0F, 1.0F).endVertex();
+                                bufferbuilder.pos(matrix4f1, -4, -100.0F, -4).tex(0.0F, 1.0F).endVertex();
+                                bufferbuilder.finishDrawing();
+                                WorldVertexBufferUploader.draw(bufferbuilder);
+                                RenderSystem.disableTexture();
+                                f11 = 1.0F;// Star Brightness
+                                float f10 = 1.0F;// world.getStarBrightness(partialTicks) * f11; //1.0F is default
+                                // f11
+                                if (f10 > 0.0F) {
+                                    RenderSystem.color4f(f10, f10, f10, f10);
+                                    mc.worldRenderer.starVBO.bindBuffer();
+                                    mc.worldRenderer.skyVertexFormat.setupBufferState(0L);
+                                    mc.worldRenderer.starVBO.draw(matrixStack.getLast().getMatrix(), 7);
+                                    VertexBuffer.unbindBuffer();
+                                    mc.worldRenderer.skyVertexFormat.clearBufferState();
+                                }
+                                RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+                                RenderSystem.disableBlend();
+                                RenderSystem.enableAlphaTest();
+                                RenderSystem.enableFog();
+                                matrixStack.pop();
+                                RenderSystem.disableTexture();
+                                RenderSystem.color3f(0.0F, 0.0F, 0.0F);
+                                double d0 = mc.player.getEyePosition(partialTicks).y - world.getWorldInfo().getVoidFogHeight();
+                                if (d0 < 0.0D) {
+                                    matrixStack.push();
+                                    matrixStack.translate(0.0D, 12.0D, 0.0D);
+                                    mc.worldRenderer.sky2VBO.bindBuffer();
+                                    mc.worldRenderer.skyVertexFormat.setupBufferState(0L);
+                                    mc.worldRenderer.sky2VBO.draw(matrixStack.getLast().getMatrix(), 7);
+                                    VertexBuffer.unbindBuffer();
+                                    mc.worldRenderer.skyVertexFormat.clearBufferState();
+                                    matrixStack.pop();
+                                }
+                                if (world.func_239132_a_().func_239216_b_()) {
+                                    RenderSystem.color3f(f * 0.2F + 0.04F, f1 * 0.2F + 0.04F, f2 * 0.6F + 0.1F);
+                                } else {
+                                    RenderSystem.color3f(f, f1, f2);
+                                }
+                                RenderSystem.enableTexture();
+                                RenderSystem.depthMask(true);
+                                RenderSystem.disableFog();
+                            }
+                        };
+                    }
+                });
+    }
 }
