@@ -35,7 +35,7 @@
     "name": "Mars Sand",
     "specialInfo": [],
     "hardness": 0.5,
-    "resistance": 10.0,
+    "resistance": 0.5,
     "hasGravity": true,
     "isWaterloggable": false,
     "creativeTab": {

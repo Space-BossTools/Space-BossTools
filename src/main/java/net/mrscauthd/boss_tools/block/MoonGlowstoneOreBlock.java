@@ -55,8 +55,8 @@ public class MoonGlowstoneOreBlock extends BossToolsModElements.ModElement {
 	}
 	public static class CustomBlock extends Block {
 		public CustomBlock() {
-			super(Block.Properties.create(Material.ROCK).sound(SoundType.GLASS).hardnessAndResistance(1.5f, 10f).setLightLevel(s -> 15)
-					.harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool());
+			super(Block.Properties.create(Material.ROCK).sound(SoundType.GLASS).hardnessAndResistance(1.5f, 1f).setLightLevel(s -> 15).harvestLevel(1)
+					.harvestTool(ToolType.PICKAXE).setRequiresTool());
 			setRegistryName("moon_glowstone_ore");
 		}
 

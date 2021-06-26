@@ -37,8 +37,8 @@ public class MoonsandBlock extends BossToolsModElements.ModElement {
 	}
 	public static class CustomBlock extends FallingBlock {
 		public CustomBlock() {
-			super(Block.Properties.create(Material.SAND).sound(SoundType.SAND).hardnessAndResistance(0.5f, 10f).setLightLevel(s -> 0).harvestLevel(0)
-					.harvestTool(ToolType.SHOVEL).setRequiresTool());
+			super(Block.Properties.create(Material.SAND).sound(SoundType.SAND).hardnessAndResistance(0.5f, 0.5f).setLightLevel(s -> 0).harvestLevel(0)
+					.harvestTool(ToolType.SHOVEL));
 			setRegistryName("moon_sand");
 		}
 

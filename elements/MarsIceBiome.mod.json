@@ -41,11 +41,11 @@
     "particlesProbability": 1.4000000000000001,
     "biomeCategory": "ICY",
     "parent": {
-      "value": "mutated_ice_flats"
+      "value": "CUSTOM:MarsIceBiome"
     },
     "rainingPossibility": 0.0,
     "temperature": 1.6,
-    "baseHeight": 2.0,
+    "baseHeight": 0.1,
     "heightVariation": 0.12000000000000001,
     "biomeType": "ICY",
     "spawnBiome": false,

@@ -1,0 +1,17 @@
+{
+  "_fv": 21,
+  "_type": "tag",
+  "definition": {
+    "type": "Blocks",
+    "items": [],
+    "blocks": [
+      {
+        "value": "CUSTOM:BlockOfSteel"
+      }
+    ],
+    "functions": [],
+    "entities": [],
+    "name": "beacon_base_blocks",
+    "namespace": "minecraft"
+  }
+}

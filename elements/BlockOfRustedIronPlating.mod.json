@@ -35,7 +35,7 @@
     "name": "Block of Rusted Iron Plating",
     "specialInfo": [],
     "hardness": 5.0,
-    "resistance": 10.0,
+    "resistance": 2.5,
     "hasGravity": false,
     "isWaterloggable": false,
     "creativeTab": {

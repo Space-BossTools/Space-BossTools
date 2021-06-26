@@ -61,7 +61,7 @@ public class TorchBlock extends BossToolsModElements.ModElement {
 	}
 	public static class CustomBlock extends Block {
 		public CustomBlock() {
-			super(Block.Properties.create(Material.CARPET).sound(SoundType.WOOD).hardnessAndResistance(0.01f, 10f).setLightLevel(s -> 0)
+			super(Block.Properties.create(Material.CARPET).sound(SoundType.WOOD).hardnessAndResistance(0.01f, 0.5f).setLightLevel(s -> 0)
 					.doesNotBlockMovement().notSolid().setOpaque((bs, br, bp) -> false));
 			setRegistryName("coal_torch");
 		}

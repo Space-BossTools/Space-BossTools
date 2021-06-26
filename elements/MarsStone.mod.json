@@ -35,7 +35,7 @@
     "name": "Mars Stone",
     "specialInfo": [],
     "hardness": 1.5,
-    "resistance": 10.0,
+    "resistance": 1.0,
     "hasGravity": false,
     "isWaterloggable": false,
     "creativeTab": {
