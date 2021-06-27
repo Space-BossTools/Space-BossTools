@@ -40,7 +40,9 @@ public class ConfigProcedure {
 				Config.addProperty("Alien Zombie Spawn", (true));
 				Config.addProperty("Alien Village Structure", (true));
 				Config.addProperty("Meteor Structure", (true));
+				Config.addProperty("Venus Bullet Structure", (true));
 				Config.addProperty("Player Oxygen System", (true));
+				Config.addProperty("Entity Oxygen System", (true));
 				try {
 					FileWriter boss_toolsfw = new FileWriter(boss_tools);
 					boss_toolsfw.write(gson.toJson(Config));
@@ -70,6 +72,7 @@ public class ConfigProcedure {
 					Config.addProperty("Alien Zombie Spawn", (true));
 					Config.addProperty("Alien Village Structure", (true));
 					Config.addProperty("Meteor Structure", (true));
+					Config.addProperty("Venus Bullet Structure", (true));
 					Config.addProperty("Player Oxygen System", (true));
 					Config.addProperty("Entity Oxygen System", (true));
 					try {
@@ -83,7 +86,7 @@ public class ConfigProcedure {
 				// in category check
 				if (Config.get("Alien Spawn") == null || Config.get("Star Crawler Spawn") == null || Config.get("Alien Zombie Spawn") == null
 						|| Config.get("Alien Village Structure") == null || Config.get("Meteor Structure") == null
-						|| Config.get("Player Oxygen System") == null || Config.get("Entity Oxygen System") == null) {
+						|| Config.get("Player Oxygen System") == null || Config.get("Entity Oxygen System") == null || Config.get("Venus Bullet Structure") == null) {
 					Gson gson = new GsonBuilder().setPrettyPrinting().create();
 					Config = new JsonObject();
 					Config.addProperty("Alien Spawn", (true));
@@ -91,6 +94,7 @@ public class ConfigProcedure {
 					Config.addProperty("Alien Zombie Spawn", (true));
 					Config.addProperty("Alien Village Structure", (true));
 					Config.addProperty("Meteor Structure", (true));
+					Config.addProperty("Venus Bullet Structure", (true));
 					Config.addProperty("Player Oxygen System", (true));
 					Config.addProperty("Entity Oxygen System", (true));
 					try {
@@ -110,6 +114,7 @@ public class ConfigProcedure {
 				// Category structures
 				BossToolsModVariables.AlienVillageStructure = (boolean) Config.get("Alien Village Structure").getAsBoolean();
 				BossToolsModVariables.MeteorStructure = (boolean) Config.get("Meteor Structure").getAsBoolean();
+				BossToolsModVariables.VenusBulletStructure = (boolean) Config.get("Venus Bullet Structure").getAsBoolean();
 				// Oxygen System
 				BossToolsModVariables.PlayerOxygenSystem = (boolean) Config.get("Player Oxygen System").getAsBoolean();
 				BossToolsModVariables.EntityOxygenSystem = (boolean) Config.get("Entity Oxygen System").getAsBoolean();

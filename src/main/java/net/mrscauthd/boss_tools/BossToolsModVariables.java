@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools;
 
+import net.mrscauthd.boss_tools.world.structure.VenusBulletStructure;
 import net.mrscauthd.boss_tools.world.structure.MeteorStructure;
 import net.mrscauthd.boss_tools.world.structure.AlienVillageStructure;
 
@@ -46,6 +47,7 @@ public class BossToolsModVariables {
 	public static boolean StarCrawlerSpawn = true;
 	public static boolean AlienZombieSpawn = true;
 	public static boolean EntityOxygenSystem = true;
+	public static boolean VenusBulletStructure = true;
 	@CapabilityInject(PlayerVariables.class)
 	public static Capability<PlayerVariables> PLAYER_VARIABLES_CAPABILITY = null;
 	@SubscribeEvent

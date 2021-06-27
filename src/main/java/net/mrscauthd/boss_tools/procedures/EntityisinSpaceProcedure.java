@@ -87,9 +87,11 @@ public class EntityisinSpaceProcedure {
 														new ResourceLocation("boss_tools:orbit_moon"))))
 														|| (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
 																new ResourceLocation("boss_tools:orbit_mars"))))
-																|| ((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(
-																		Registry.WORLD_KEY,
-																		new ResourceLocation("boss_tools:orbit_mercury"))))))))))) {
+																|| (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(
+																		Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mercury"))))
+																		|| ((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(
+																				Registry.WORLD_KEY,
+																				new ResourceLocation("boss_tools:venus")))))))))))) {
 					entity.getPersistentData().putDouble("tick", ((entity.getPersistentData().getDouble("tick")) + 1));
 					if (((entity.getPersistentData().getDouble("tick")) >= 15)) {
 						world.addParticle(ParticleTypes.SMOKE, x, (y + 1), z, 0, 0, 0);

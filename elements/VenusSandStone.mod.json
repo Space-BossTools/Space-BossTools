@@ -2,12 +2,12 @@
   "_fv": 21,
   "_type": "block",
   "definition": {
-    "texture": "venus_sand_stone",
-    "textureTop": "venus_sand_stone",
-    "textureLeft": "venus_sand_stone",
-    "textureFront": "venus_sand_stone",
-    "textureRight": "venus_sand_stone",
-    "textureBack": "venus_sand_stone",
+    "texture": "venus_stone",
+    "textureTop": "venus_stone",
+    "textureLeft": "venus_stone",
+    "textureFront": "venus_stone",
+    "textureRight": "venus_stone",
+    "textureBack": "venus_stone",
     "renderType": 10,
     "customModelName": "Normal",
     "rotationMode": 0,
@@ -32,7 +32,7 @@
         "subtract": false
       }
     ],
-    "name": "Venus Stone",
+    "name": "Venus Sandstone",
     "specialInfo": [],
     "hardness": 1.5,
     "resistance": 1.0,

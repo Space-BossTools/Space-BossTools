@@ -156,7 +156,7 @@ public class MobInnet extends BossToolsModElements.ModElement {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
         }
         //venus bullet
-        if (event.getName().equals(new ResourceLocation("boss_tools:venus_biome")) && BossToolsModVariables.AlienVillageStructure == true) {
+        if (event.getName().equals(new ResourceLocation("boss_tools:venus_biome")) && BossToolsModVariables.VenusBulletStructure == true) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.VENUS_BULLET_CONFIGURED_RUN_DOWN_HOUSE);
         }
     }

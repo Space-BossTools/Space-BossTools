@@ -8,6 +8,9 @@
       },
       {
         "value": "CUSTOM:InfernalVenusBarrens"
+      },
+      {
+        "value": "CUSTOM:VenusHillsBiome"
       }
     ],
     "worldGenType": "Normal world gen",

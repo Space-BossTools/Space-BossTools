@@ -1,7 +1,7 @@
 
 package net.mrscauthd.boss_tools.world.biome;
 
-import net.mrscauthd.boss_tools.block.VenusStoneBlock;
+import net.mrscauthd.boss_tools.block.VenusSandStoneBlock;
 import net.mrscauthd.boss_tools.block.VenusSandBlock;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
@@ -36,7 +36,7 @@ public class VenusBiomeBiome extends BossToolsModElements.ModElement {
 						.setParticle(new ParticleEffectAmbience(ParticleTypes.CRIMSON_SPORE, 0.02f)).build();
 				BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder()
 						.withSurfaceBuilder(SurfaceBuilder.DEFAULT.func_242929_a(new SurfaceBuilderConfig(VenusSandBlock.block.getDefaultState(),
-								VenusStoneBlock.block.getDefaultState(), VenusStoneBlock.block.getDefaultState())));
+								VenusSandStoneBlock.block.getDefaultState(), VenusSandStoneBlock.block.getDefaultState())));
 				DefaultBiomeFeatures.withCavesAndCanyons(biomeGenerationSettings);
 				MobSpawnInfo.Builder mobSpawnInfo = new MobSpawnInfo.Builder().isValidSpawnBiomeForPlayer();
 				biome = new Biome.Builder().precipitation(Biome.RainType.RAIN).category(Biome.Category.NONE).depth(0.2f).scale(0.02f)
