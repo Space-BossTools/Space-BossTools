@@ -117,6 +117,7 @@ public class MobInnet extends BossToolsModElements.ModElement {
         forgeBus.addListener(EventPriority.HIGH, this::biomeModification);
         //Meteor
         STStructures.METEOR_DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
+        STStructures2.VENUS_BULLET_DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
         //forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing3);
         MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, this::biomesLoading);
     }
@@ -124,6 +125,7 @@ public class MobInnet extends BossToolsModElements.ModElement {
     {
         event.enqueueWork(() -> {
             STStructures.setupStructures();
+            STStructures2.setupStructures();
             STConfiguredStructures.registerConfiguredStructures();
             //Meteor
             //STStructures.setupStructures();
@@ -133,7 +135,7 @@ public class MobInnet extends BossToolsModElements.ModElement {
 
     public void biomeModification(final BiomeLoadingEvent event) {
         RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
-        if (event.getName().equals(new ResourceLocation("boss_tools:moon_biom")) && BossToolsModVariables.AlienVillageStructure == true) {
+        if (event.getName().equals(new ResourceLocation("boss_tools:moon_biome")) && BossToolsModVariables.AlienVillageStructure == true) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE);
         }
         if (event.getName().equals(new ResourceLocation("plains")) && BossToolsModVariables.MeteorStructure == true) {
@@ -152,6 +154,10 @@ public class MobInnet extends BossToolsModElements.ModElement {
         }
         if (event.getName().equals(new ResourceLocation("desert")) && BossToolsModVariables.MeteorStructure == true) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
+        }
+        //venus bullet
+        if (event.getName().equals(new ResourceLocation("boss_tools:venus_biome")) && BossToolsModVariables.AlienVillageStructure == true) {
+            event.getGeneration().getStructures().add(() -> STConfiguredStructures.VENUS_BULLET_CONFIGURED_RUN_DOWN_HOUSE);
         }
     }
     private static Method GETCODEC_METHOD;
@@ -183,7 +189,13 @@ public class MobInnet extends BossToolsModElements.ModElement {
             //meteor
             tempMap1.putIfAbsent(STStructures.METEOR.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.METEOR.get()));
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap1;
-
+			//venus bullet
+			Map<Structure<?>, StructureSeparationSettings> tempMap2 = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
+            //tempMap.putIfAbsent(STStructures.RUN_DOWN_HOUSE.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.RUN_DOWN_HOUSE.get()));
+            //  serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_() = tempMap;
+            //meteor
+            tempMap2.putIfAbsent(STStructures2.VENUS_BULLET.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures2.VENUS_BULLET.get()));
+            serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap2;
         }
     }
 // Meteor

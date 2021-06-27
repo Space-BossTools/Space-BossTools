@@ -5811,6 +5811,25 @@
       "ids": {},
       "registry_name": "venus_rain",
       "path": "~/Particles"
+    },
+    {
+      "name": "VenusBullet",
+      "type": "structure",
+      "sortid": 404,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "venus_bullet",
+      "path": "~/Stuctures"
+    },
+    {
+      "name": "STStructures2",
+      "type": "code",
+      "sortid": 405,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "st_structures_2"
     }
   ],
   "variable_elements": [
@@ -6168,7 +6187,7 @@
   "workspaceSettings": {
     "modid": "boss_tools",
     "modName": "Space-Bosstools",
-    "version": "5.3",
+    "version": "5.4",
     "description": "Fly to Other Planets!",
     "author": "MrScautHD,PixKnight (Textures),Galacticraft (Mod idea)",
     "websiteURL": "https://www.curseforge.com/minecraft/mc-mods/space-bosstools",

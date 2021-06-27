@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class STStructures {
+public class STStructures2 {
 
     /**
      * We are using the Deferred Registry system to register our structure as this is the preferred way on Forge.
@@ -30,9 +30,8 @@ public class STStructures {
      * configured structures and configured features need to be registered directly to WorldGenRegistries as there
      * is no Deferred Registry system for them.
      */
-    public static final DeferredRegister<Structure<?>> DEFERRED_REGISTRY_STRUCTURE = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, "boss_tools");
-    //MEteor
-    public static final DeferredRegister<Structure<?>> METEOR_DEFERRED_REGISTRY_STRUCTURE = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, "boss_tools");
+    //Venus bullet
+    public static final DeferredRegister<Structure<?>> VENUS_BULLET_DEFERRED_REGISTRY_STRUCTURE = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, "boss_tools");
     /**
      * Registers the structure itself and sets what its path is. In this case, the
      * structure will have the resourcelocation of structure_tutorial:run_down_house.
@@ -48,29 +47,18 @@ public class STStructures {
      * However, users might not know that and think you are to blame for issues that doesn't exist.
      * So it is best to keep your structure names the same as long as you can instead of changing them frequently.
      */
-    public static final RegistryObject<Structure<NoFeatureConfig>> RUN_DOWN_HOUSE = DEFERRED_REGISTRY_STRUCTURE.register("alien_structure", () -> (new AlienVillageStructure(NoFeatureConfig.field_236558_a_)));
-    //meteor
-    public static final RegistryObject<Structure<NoFeatureConfig>> METEOR = METEOR_DEFERRED_REGISTRY_STRUCTURE.register("meteor_structure", () -> (new MeteorStructure(NoFeatureConfig.field_236558_a_)));
-   
+    //Venus Bullet
+    public static final RegistryObject<Structure<NoFeatureConfig>> VENUS_BULLET = VENUS_BULLET_DEFERRED_REGISTRY_STRUCTURE.register("venus_bullet", () -> (new VenusBulletStructure(NoFeatureConfig.field_236558_a_)));
     /**
      * This is where we set the rarity of your structures and determine if land conforms to it.
      * See the comments in below for more details.
      */
     public static void setupStructures() {
+                //venus Bullet
         setupMapSpacingAndLand(
-                RUN_DOWN_HOUSE.get(), /* The instance of the structure */
-                new StructureSeparationSettings(24 /* average distance apart in chunks between spawn attempts */,
-                        9 /* minimum distance apart in chunks between spawn attempts */,
-                        1234567890 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
-                true);
-
-
-        // Add more structures here and so on
-        //meteor
-        setupMapSpacingAndLand(
-                METEOR.get(), /* The instance of the structure */
-                new StructureSeparationSettings(22 /* average distance apart in chunks between spawn attempts */,
-                        5 /* minimum distance apart in chunks between spawn attempts */,
+                VENUS_BULLET.get(), /* The instance of the structure */
+                new StructureSeparationSettings(29 /* average distance apart in chunks between spawn attempts */,
+                        19 /* minimum distance apart in chunks between spawn attempts */,
                         1234567890 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
                 true);
     }
@@ -107,11 +95,11 @@ public class STStructures {
          */
         if (transformSurroundingLand) {
           //This Code Add Automatic world generation change for structure
-       /*     Structure.field_236384_t_ =
+            Structure.field_236384_t_ =
                     ImmutableList.<Structure<?>>builder()
                             .addAll(Structure.field_236384_t_)
                             .add(structure)
-                            .build();*/
+                            .build();
 
             /*
              * This is the map that holds the default spacing of all structures.
