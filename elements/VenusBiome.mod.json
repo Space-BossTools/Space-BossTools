@@ -44,7 +44,7 @@
       "value": "CUSTOM:VenusBiome"
     },
     "rainingPossibility": 1.0,
-    "temperature": 1.3,
+    "temperature": 1.5,
     "baseHeight": 0.2,
     "heightVariation": 0.02,
     "biomeType": "WARM",

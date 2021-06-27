@@ -182,7 +182,7 @@ public class ClientEventBusVenus {
                                                     Random random = new Random((long)(k1 * k1 * 3121 + k1 * 45238971 ^ j1 * j1 * 418711 + j1 * 13761));
                                                     blockpos$mutable.setPos(k1, j2, j1);
                                                     float f2 = biome.getTemperature(blockpos$mutable);
-                                                    if (f2 >= 0.15F) {
+                                                    if (true) { //(f2 >= 0.15F)
                                                         if (i1 != 0) {
                                                             if (i1 >= 0) {
                                                                 tessellator.draw();
