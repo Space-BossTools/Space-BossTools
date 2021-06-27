@@ -5767,6 +5767,50 @@
       "locked_code": true,
       "ids": {},
       "registry_name": "venus_deltas"
+    },
+    {
+      "name": "VenusRainDamage",
+      "type": "procedure",
+      "sortid": 402,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "venus_rain_damage",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      },
+      "path": "~/Procedures"
+    },
+    {
+      "name": "VenusRain",
+      "type": "particle",
+      "sortid": 403,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "venus_rain",
+      "path": "~/Particles"
     }
   ],
   "variable_elements": [
@@ -5928,6 +5972,7 @@
       "item.boss_tools.diamond_tank": "Diamond Tank",
       "block.boss_tools.cracked_moon_brick_slab": "Cracked Moon Brick Slab",
       "item.boss_tools.tier_2_rocket": "§bTier 2 Rocket",
+      "death.attack.venus.acid": "%1$s plenty of acid to sacrifice",
       "item.boss_tools.golden_engine": "Golden Engine",
       "key.categories.spacebosstools": "Space-Bosstools",
       "advancements.rocket_tier_3_advancement.descr": "§bHas crafted a Tier 3 Rocket",
@@ -6112,6 +6157,10 @@
       },
       {
         "name": "LootTable",
+        "children": []
+      },
+      {
+        "name": "Particles",
         "children": []
       }
     ]

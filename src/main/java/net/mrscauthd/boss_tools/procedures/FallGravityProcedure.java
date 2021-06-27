@@ -105,13 +105,15 @@ public class FallGravityProcedure {
 				if (((((PlayerEntity) entity).isElytraFlying()) == (false))) {
 					if (((((PlayerEntity) entity).isSwimming()) == (false))) {
 						if (((entity.isInWater()) == (false))) {
-							if (((entity.getMotion().getY()) <= (-0.01))) {
-								entity.setMotion((entity.getMotion().getX()), ((entity.getMotion().getY()) + 0.05), (entity.getMotion().getZ()));
-								entity.fallDistance = (float) (0.2);
-							}
-							if (((entity.getMotion().getY()) >= 0.08)) {
-								entity.setMotion((entity.getMotion().getX()), ((entity.getMotion().getY()) + 0.05), (entity.getMotion().getZ()));
-								entity.fallDistance = (float) (0.2);
+							if (((entity.isInLava()) == (false))) {
+								if (((entity.getMotion().getY()) <= (-0.01))) {
+									entity.setMotion((entity.getMotion().getX()), ((entity.getMotion().getY()) + 0.05), (entity.getMotion().getZ()));
+									entity.fallDistance = (float) (0.2);
+								}
+								if (((entity.getMotion().getY()) >= 0.08)) {
+									entity.setMotion((entity.getMotion().getX()), ((entity.getMotion().getY()) + 0.05), (entity.getMotion().getZ()));
+									entity.fallDistance = (float) (0.2);
+								}
 							}
 						}
 					}
