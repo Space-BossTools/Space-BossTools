@@ -55,7 +55,7 @@ public class InfernalVenusBarrensBiome extends BossToolsModElements.ModElement {
 				biome = new Biome.Builder().precipitation(Biome.RainType.RAIN).category(Biome.Category.NONE).depth(0.2f).scale(0.12f)
 						.temperature(1.5f).downfall(1f).setEffects(effects).withMobSpawnSettings(mobSpawnInfo.copy())
 						.withGenerationSettings(biomeGenerationSettings.build()).build();
-				event.getRegistry().register(biome.setRegistryName("boss_tools:infernal_venus_barrens"));
+				event.getRegistry().register(biome.setRegistryName("boss_tools:infernal_venus_barrens_biome"));
 			}
 		}
 	}

@@ -63,7 +63,7 @@
     "treesPerChunk": 0,
     "vanillaTreeType": "Default",
     "treeType": 1,
-    "minHeight": 1,
+    "minHeight": 0,
     "maxWaterDepth": 0,
     "treeStem": {
       "value": "Blocks.AIR"

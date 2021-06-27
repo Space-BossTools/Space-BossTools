@@ -879,6 +879,177 @@ public class LandingGearfalltoworldProcedure {
 					}
 				}
 			}
+			if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+					new ResourceLocation("boss_tools:orbit_venus"))))) {
+				if ((((entity.getRidingEntity()).getPosY()) <= 1)) {
+					if (!(entity.getRidingEntity()).world.isRemote())
+						(entity.getRidingEntity()).remove();
+					if ((!((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
+							.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus")))))) {
+						{
+							Entity _ent = entity;
+							if (!_ent.world.isRemote && _ent instanceof ServerPlayerEntity) {
+								RegistryKey<World> destinationType = RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+										new ResourceLocation("boss_tools:venus"));
+								ServerWorld nextWorld = _ent.getServer().getWorld(destinationType);
+								if (nextWorld != null) {
+									((ServerPlayerEntity) _ent).connection
+											.sendPacket(new SChangeGameStatePacket(SChangeGameStatePacket.field_241768_e_, 0));
+									((ServerPlayerEntity) _ent).teleport(nextWorld, entity.getPosX(), 700, entity.getPosZ(), _ent.rotationYaw,
+											_ent.rotationPitch);
+									((ServerPlayerEntity) _ent).connection
+											.sendPacket(new SPlayerAbilitiesPacket(((ServerPlayerEntity) _ent).abilities));
+									for (EffectInstance effectinstance : ((ServerPlayerEntity) _ent).getActivePotionEffects()) {
+										((ServerPlayerEntity) _ent).connection
+												.sendPacket(new SPlayEntityEffectPacket(_ent.getEntityId(), effectinstance));
+									}
+								}
+							}
+						}
+					}
+					if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
+							.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))))) {
+						{
+							Entity _ent = entity;
+							_ent.setPositionAndUpdate((entity.getPosX()), 700, (entity.getPosZ()));
+							if (_ent instanceof ServerPlayerEntity) {
+								((ServerPlayerEntity) _ent).connection.setPlayerLocation((entity.getPosX()), 700, (entity.getPosZ()),
+										_ent.rotationYaw, _ent.rotationPitch, Collections.emptySet());
+							}
+						}
+					}
+					if (((world.isRemote()) == (false))) {
+						Entity entity2 = new LandingGearEntity.CustomEntity(LandingGearEntity.entity, entity.world);
+						entity2.setPositionAndUpdate(entity.getPosX(), entity.getPosY(), entity.getPosZ());
+						entity2.rotationYaw = (float) (0);
+						if (entity2 instanceof MobEntity)
+							entity2.setRenderYawOffset(entity2.rotationYaw);
+						entity2.prevRotationYaw = entity2.rotationYaw;
+						((MobEntity) entity2).prevRotationYawHead = entity2.rotationYaw;
+						entity.world.addEntity(entity2);
+						entity.startRiding(entity2);
+						Entity entityiterator = entity2;
+						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+							if (((entity.getPersistentData().getDouble("RocketTier")) == 1)) {
+								{
+									final ItemStack _setstack = new ItemStack(Tier1RocketItemItem.block, (int) (1));
+									final int _sltid = (int) (0);
+									_setstack.setCount((int) 1);
+									(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
+											.ifPresent(capability -> {
+												if (capability instanceof IItemHandlerModifiable) {
+													((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
+												}
+											});
+								}
+								entity.getPersistentData().putDouble("RocketTier", 0);
+							}
+						}
+						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+							if (((entity.getPersistentData().getDouble("RocketTier")) == 2)) {
+								{
+									final ItemStack _setstack = new ItemStack(Tier2RocketItemItem.block, (int) (1));
+									final int _sltid = (int) (0);
+									_setstack.setCount((int) 1);
+									(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
+											.ifPresent(capability -> {
+												if (capability instanceof IItemHandlerModifiable) {
+													((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
+												}
+											});
+								}
+								entity.getPersistentData().putDouble("RocketTier", 0);
+							}
+						}
+						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+							if (((entity.getPersistentData().getDouble("RocketTier")) == 3)) {
+								{
+									final ItemStack _setstack = new ItemStack(Tier3RocketItemItem.block, (int) (1));
+									final int _sltid = (int) (0);
+									_setstack.setCount((int) 1);
+									(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
+											.ifPresent(capability -> {
+												if (capability instanceof IItemHandlerModifiable) {
+													((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
+												}
+											});
+								}
+								entity.getPersistentData().putDouble("RocketTier", 0);
+							}
+						}
+						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+							if (((entity.getPersistentData().getDouble("Bucket")) == 1)) {
+								{
+									final ItemStack _setstack = new ItemStack(Items.BUCKET, (int) (1));
+									final int _sltid = (int) (1);
+									_setstack.setCount((int) 1);
+									(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
+											.ifPresent(capability -> {
+												if (capability instanceof IItemHandlerModifiable) {
+													((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
+												}
+											});
+								}
+								entity.getPersistentData().putDouble("Bucket", 0);
+							}
+						}
+						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+							if (((entity.getPersistentData().getDouble("Bucket")) == 2)) {
+								{
+									final ItemStack _setstack = new ItemStack(FuelBlock.bucket, (int) (1));
+									final int _sltid = (int) (1);
+									_setstack.setCount((int) 1);
+									(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
+											.ifPresent(capability -> {
+												if (capability instanceof IItemHandlerModifiable) {
+													((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
+												}
+											});
+								}
+								entity.getPersistentData().putDouble("Bucket", 0);
+							}
+						}
+						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+							if (((entity.getPersistentData().getDouble("Bucket")) == 3)) {
+								{
+									final ItemStack _setstack = new ItemStack(BucketBigItem.block, (int) (1));
+									final int _sltid = (int) (1);
+									_setstack.setCount((int) 1);
+									(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
+											.ifPresent(capability -> {
+												if (capability instanceof IItemHandlerModifiable) {
+													((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
+												}
+											});
+								}
+								entity.getPersistentData().putDouble("Bucket", 0);
+							}
+						}
+						if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+							if (((entity.getPersistentData().getDouble("Bucket")) == 4)) {
+								{
+									final ItemStack _setstack = new ItemStack(FuelBucketBigItem.block, (int) (1));
+									final int _sltid = (int) (1);
+									_setstack.setCount((int) 1);
+									(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
+											.ifPresent(capability -> {
+												if (capability instanceof IItemHandlerModifiable) {
+													((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
+												}
+											});
+								}
+								entity.getPersistentData().putDouble("Bucket", 0);
+							}
+						}
+						if (((entity.getPersistentData().getDouble("Landerfly")) == 1)) {
+							if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+								(entity.getRidingEntity()).getPersistentData().putDouble("Lander1", 1);
+								entity.getPersistentData().putDouble("Landerfly", 0);
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }

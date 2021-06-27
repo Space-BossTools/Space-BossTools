@@ -161,5 +161,31 @@ public class UmlaufbahneffectsProcedure {
 				}
 			}
 		}
+		if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+				new ResourceLocation("boss_tools:orbit_venus"))))) {
+			if ((!((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity))) {
+				if (((entity.getPosY()) <= 1)) {
+					{
+						Entity _ent = entity;
+						if (!_ent.world.isRemote && _ent instanceof ServerPlayerEntity) {
+							RegistryKey<World> destinationType = RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+									new ResourceLocation("boss_tools:venus"));
+							ServerWorld nextWorld = _ent.getServer().getWorld(destinationType);
+							if (nextWorld != null) {
+								((ServerPlayerEntity) _ent).connection
+										.sendPacket(new SChangeGameStatePacket(SChangeGameStatePacket.field_241768_e_, 0));
+								((ServerPlayerEntity) _ent).teleport(nextWorld, entity.getPosX(), 450, entity.getPosZ(), _ent.rotationYaw,
+										_ent.rotationPitch);
+								((ServerPlayerEntity) _ent).connection.sendPacket(new SPlayerAbilitiesPacket(((ServerPlayerEntity) _ent).abilities));
+								for (EffectInstance effectinstance : ((ServerPlayerEntity) _ent).getActivePotionEffects()) {
+									((ServerPlayerEntity) _ent).connection
+											.sendPacket(new SPlayEntityEffectPacket(_ent.getEntityId(), effectinstance));
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }

@@ -46,7 +46,7 @@
           }
         },
         {
-          "biome": "boss_tools:infernal_venus_barrens",
+          "biome": "boss_tools:infernal_venus_barrens_biome",
           "parameters": {
             "temperature": 0,
             "humidity": 0,

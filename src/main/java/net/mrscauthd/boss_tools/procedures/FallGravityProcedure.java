@@ -86,21 +86,9 @@ public class FallGravityProcedure {
 				|| (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
 						.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars"))))
 						|| (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
-								.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_overworld"))))
-								|| (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
-										.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury"))))
-										|| (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
-												.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_moon"))))
-												|| (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
-														.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mars"))))
-														|| (((world instanceof World
-																? (((World) world).getDimensionKey())
-																: World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-																		new ResourceLocation("boss_tools:orbit_mercury"))))
-																|| ((world instanceof World
-																		? (((World) world).getDimensionKey())
-																		: World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-																				new ResourceLocation("boss_tools:venus")))))))))))) {
+								.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury"))))
+								|| ((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
+										.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus")))))))) {
 			if (((((PlayerEntity) entity).abilities.isFlying) == (false))) {
 				if (((((PlayerEntity) entity).isElytraFlying()) == (false))) {
 					if (((((PlayerEntity) entity).isSwimming()) == (false))) {
@@ -114,6 +102,82 @@ public class FallGravityProcedure {
 									entity.setMotion((entity.getMotion().getX()), ((entity.getMotion().getY()) + 0.05), (entity.getMotion().getZ()));
 									entity.fallDistance = (float) (0.2);
 								}
+							}
+						}
+					}
+				}
+			}
+			{
+				List<Entity> _entfound = world.getEntitiesWithinAABB(Entity.class,
+						new AxisAlignedBB(x - (192 / 2d), y - (192 / 2d), z - (192 / 2d), x + (192 / 2d), y + (192 / 2d), z + (192 / 2d)), null)
+						.stream().sorted(new Object() {
+							Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
+								return Comparator.comparing((Function<Entity, Double>) (_entcnd -> _entcnd.getDistanceSq(_x, _y, _z)));
+							}
+						}.compareDistOf(x, y, z)).collect(Collectors.toList());
+				for (Entity entityiterator : _entfound) {
+					if ((entityiterator instanceof ItemEntity)) {
+						if (((entityiterator.getMotion().getY()) <= (-0.1))) {
+							if (((entityiterator.getPersistentData().getDouble("ItemGravity")) <= 1)) {
+								entityiterator.getPersistentData().putDouble("ItemGravity", 2);
+								entityiterator.setMotion((entityiterator.getMotion().getX()), ((entityiterator.getMotion().getY()) + 0.04),
+										(entityiterator.getMotion().getZ()));
+								entityiterator.getPersistentData().putDouble("ItemGravity", 0);
+							}
+						}
+					}
+				}
+			}
+			{
+				List<Entity> _entfound = world.getEntitiesWithinAABB(Entity.class,
+						new AxisAlignedBB(x - (192 / 2d), y - (192 / 2d), z - (192 / 2d), x + (192 / 2d), y + (192 / 2d), z + (192 / 2d)), null)
+						.stream().sorted(new Object() {
+							Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
+								return Comparator.comparing((Function<Entity, Double>) (_entcnd -> _entcnd.getDistanceSq(_x, _y, _z)));
+							}
+						}.compareDistOf(x, y, z)).collect(Collectors.toList());
+				for (Entity entityiterator : _entfound) {
+					if ((!(entityiterator instanceof PlayerEntity))) {
+						if ((!(entityiterator instanceof LandingGearEntity.CustomEntity))) {
+							if ((!(entityiterator instanceof RocketEntity.CustomEntity))) {
+								if ((!(entityiterator instanceof RocketTier2Entity.CustomEntity))) {
+									if ((!(entityiterator instanceof RocketTier3Entity.CustomEntity))) {
+										if ((!(entityiterator instanceof RoverEntity.CustomEntity))) {
+											if (((entityiterator.getMotion().getY()) <= (-0.1))) {
+												if (((entityiterator.getPersistentData().getDouble("EntityGravity")) <= 1)) {
+													entityiterator.getPersistentData().putDouble("EntityGravity", 2);
+													entityiterator.setMotion((entityiterator.getMotion().getX()),
+															((entityiterator.getMotion().getY()) + 0.05), (entityiterator.getMotion().getZ()));
+													entityiterator.fallDistance = (float) (0.2);
+													entityiterator.getPersistentData().putDouble("EntityGravity", 0);
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		} // Orbit Gravity
+		if ((((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+				new ResourceLocation("boss_tools:orbit_overworld"))))
+				|| (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
+						.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_moon"))))
+						|| (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
+								.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mars"))))
+								|| (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
+										.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mercury"))))
+										|| ((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
+												.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_venus"))))))))) {
+			if (((((PlayerEntity) entity).abilities.isFlying) == (false))) {
+				if (((((PlayerEntity) entity).isElytraFlying()) == (false))) {
+					if (((((PlayerEntity) entity).isSwimming()) == (false))) {
+						if (((entity.isInWater()) == (false))) {
+							if (((entity.isInLava()) == (false))) {
+								entity.setMotion((entity.getMotion().getX()), (((((entity.getMotion().getY()) / 0.98) + 0.08) - 0.02) * 1),
+										(entity.getMotion().getZ()));
 							}
 						}
 					}

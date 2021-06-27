@@ -75,7 +75,7 @@ public class VenusRainDamageProcedure {
 		if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
 				new ResourceLocation("boss_tools:venus"))))) {
 			if (((world.getWorldInfo().isRaining() == (true)) && ((world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (int) (Math.floor(x)),
-					(int) (Math.floor(z)))) <= (Math.floor(y))))) {
+					(int) (Math.floor(z)))) <= ((Math.floor(y)) + 1)))) {
 				if (entity instanceof LivingEntity) {
 					((LivingEntity) entity).attackEntityFrom(new DamageSource("venus.acid").setDamageBypassesArmor(), (float) 1);
 				}

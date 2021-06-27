@@ -76,7 +76,12 @@ public class SpaceArmorBodyTickEventProcedure {
 																				? (((World) world).getDimensionKey())
 																				: World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
 																						new ResourceLocation("boss_tools:venus"))))
-																				|| (entity.areEyesInFluid(FluidTags.WATER))))))))))) {
+																				|| (((world instanceof World
+																						? (((World) world).getDimensionKey())
+																						: World.OVERWORLD) == (RegistryKey.getOrCreateKey(
+																								Registry.WORLD_KEY,
+																								new ResourceLocation("boss_tools:orbit_venus"))))
+																						|| (entity.areEyesInFluid(FluidTags.WATER)))))))))))) {
 					if ((((itemstack).getOrCreateTag().getDouble("Energy")) >= 1)) {
 						(itemstack).getOrCreateTag().putDouble("Energytick", (((itemstack).getOrCreateTag().getDouble("Energytick")) + 1));
 						if ((((itemstack).getOrCreateTag().getDouble("Energytick")) >= 2)) {

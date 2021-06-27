@@ -5756,7 +5756,7 @@
       "compiles": true,
       "locked_code": true,
       "ids": {},
-      "registry_name": "infernal_venus_barrens",
+      "registry_name": "infernal_venus_barrens_biome",
       "path": "~/Biome"
     },
     {
@@ -5850,6 +5850,39 @@
       "ids": {},
       "registry_name": "venus_sandstone",
       "path": "~/Blocks"
+    },
+    {
+      "name": "OrbitVenusBiome",
+      "type": "biome",
+      "sortid": 408,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "orbit_venus_biome",
+      "path": "~/Biome"
+    },
+    {
+      "name": "OrbitVenus",
+      "type": "dimension",
+      "sortid": 409,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "orbit_venus",
+      "metadata": {
+        "ep": false
+      },
+      "path": "~/Dimensions"
+    },
+    {
+      "name": "ClientEventBusVenusOrbit",
+      "type": "code",
+      "sortid": 410,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "client_event_bus_venus_orbit",
+      "path": "~/sky"
     }
   ],
   "variable_elements": [
@@ -5980,6 +6013,7 @@
       "block.boss_tools.moon_sand": "Moon Sand",
       "job.boss_tools.job2": "Fisherman",
       "job.boss_tools.job1": "Farmer",
+      "biome.boss_tools.infernal_venus_barrens_biome": "Infernal Venus Barrens",
       "item.boss_tools.iron_stick": "Iron Stick",
       "job.boss_tools.job4": "Fletcher",
       "itemGroup.tabboss_tools": "Space-BossTools",
@@ -6049,7 +6083,6 @@
       "block.boss_tools.mars_stone": "Mars Stone",
       "entity.boss_tools.star_crawler": "Star Crawler",
       "item.boss_tools.rocket_tier_2_spawn_egg": "Rocket Spawn Egg",
-      "biome.boss_tools.infernal_venus_barrens": "Infernal Venus Barrens",
       "item.boss_tools.tier_1_rocket": "§bTier 1 Rocket",
       "entity.boss_tools.rocket": "Rocket",
       "advancements.rocket_tier_3_advancement.title": "Tier 3 Rocket",
@@ -6088,6 +6121,7 @@
       "itemGroup.tabspace_bosstools_spawn_eggs": "Space-Bosstools: Spawn Eggs",
       "block.boss_tools.flag": "Flag",
       "item.boss_tools.landing_gear": "Landing Gear Spawn Egg",
+      "item.boss_tools.orbit_venus": "Orbit Venus Portal Igniter",
       "entity.boss_tools.rocket_tier_3": "Rocket",
       "itemGroup.tabspace_bosstools_materials": "Space-Bosstools: Materials",
       "entity.boss_tools.rocket_tier_2": "Rocket",
@@ -6097,6 +6131,7 @@
       "biome.boss_tools.mars_ice_biome": "Mars Ice Biome",
       "item.boss_tools.rover_spawn_egg": "Rover Spawn Egg",
       "subtitles.rocketfly": "",
+      "biome.boss_tools.orbit_venus_biome": "Orbit Biome",
       "item.boss_tools.desh_ingot": "Desh Ingot",
       "biome.boss_tools.orbit_overworld_biome": "Orbit Biome",
       "item.boss_tools.space_armorhelmet": "Oxygen Mask",

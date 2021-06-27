@@ -41,15 +41,15 @@
     "particlesProbability": 0.0,
     "biomeCategory": "NONE",
     "parent": {
-      "value": "void"
+      "value": "No parent"
     },
     "rainingPossibility": 0.0,
     "temperature": 1.6,
-    "baseHeight": -10.0,
-    "heightVariation": 0.0,
-    "biomeType": "ICY",
+    "baseHeight": 0.1,
+    "heightVariation": 0.2,
+    "biomeType": "WARM",
     "spawnBiome": false,
-    "biomeWeight": 0,
+    "biomeWeight": 10,
     "biomeDictionaryTypes": [],
     "grassPerChunk": 0,
     "seagrassPerChunk": 0,
@@ -88,9 +88,7 @@
     "spawnOceanMonument": false,
     "spawnShipwreck": false,
     "oceanRuinType": "NONE",
-    "defaultFeatures": [
-      "FrozenTopLayer"
-    ],
+    "defaultFeatures": [],
     "spawnEntries": []
   }
 }
