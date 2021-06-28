@@ -19,6 +19,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Entity;
 
 import java.util.stream.Collectors;
@@ -84,28 +85,15 @@ public class FallGravityProcedure {
 		if ((((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
 				new ResourceLocation("boss_tools:moon"))))
 				|| (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
-						.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars"))))
-						|| (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
-								.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury"))))
-								|| ((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
-										.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus")))))))) {
-			if (((((PlayerEntity) entity).abilities.isFlying) == (false))) {
-				if (((((PlayerEntity) entity).isElytraFlying()) == (false))) {
-					if (((((PlayerEntity) entity).isSwimming()) == (false))) {
-						if (((entity.isInWater()) == (false))) {
-							if (((entity.isInLava()) == (false))) {
-								if (((entity.getMotion().getY()) <= (-0.01))) {
-									entity.setMotion((entity.getMotion().getX()), ((entity.getMotion().getY()) + 0.05), (entity.getMotion().getZ()));
-									entity.fallDistance = (float) (0.2);
-								}
-								if (((entity.getMotion().getY()) >= 0.08)) {
-									entity.setMotion((entity.getMotion().getX()), ((entity.getMotion().getY()) + 0.05), (entity.getMotion().getZ()));
-									entity.fallDistance = (float) (0.2);
-								}
-							}
-						}
-					}
-				}
+						.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury"))))
+						|| ((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
+								.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))))))) {
+			if ((((((PlayerEntity) entity).abilities.isFlying) == (false)) && (((((PlayerEntity) entity).isElytraFlying()) == (false))
+					&& (((entity.isInWater()) == (false)) && (((entity.isInLava()) == (false))
+							&& (((entity instanceof LivingEntity) ? (entity.hasNoGravity()) : false) == (false))))))) {
+				entity.setMotion((entity.getMotion().getX()), (((((entity.getMotion().getY()) / 0.98) + 0.08) - 0.03) * 1),
+						(entity.getMotion().getZ()));
+				entity.fallDistance = (float) ((-0.02));
 			}
 			{
 				List<Entity> _entfound = world.getEntitiesWithinAABB(Entity.class,
@@ -117,12 +105,14 @@ public class FallGravityProcedure {
 						}.compareDistOf(x, y, z)).collect(Collectors.toList());
 				for (Entity entityiterator : _entfound) {
 					if ((entityiterator instanceof ItemEntity)) {
-						if (((entityiterator.getMotion().getY()) <= (-0.1))) {
-							if (((entityiterator.getPersistentData().getDouble("ItemGravity")) <= 1)) {
-								entityiterator.getPersistentData().putDouble("ItemGravity", 2);
-								entityiterator.setMotion((entityiterator.getMotion().getX()), ((entityiterator.getMotion().getY()) + 0.04),
-										(entityiterator.getMotion().getZ()));
-								entityiterator.getPersistentData().putDouble("ItemGravity", 0);
+						if ((((entityiterator instanceof LivingEntity) ? (entityiterator.hasNoGravity()) : false) == (false))) {
+							if (((entityiterator.getMotion().getY()) <= (-0.1))) {
+								if (((entityiterator.getPersistentData().getDouble("ItemGravity")) <= 1)) {
+									entityiterator.getPersistentData().putDouble("ItemGravity", 2);
+									entityiterator.setMotion((entityiterator.getMotion().getX()), ((entityiterator.getMotion().getY()) + 0.04),
+											(entityiterator.getMotion().getZ()));
+									entityiterator.getPersistentData().putDouble("ItemGravity", 0);
+								}
 							}
 						}
 					}
@@ -143,13 +133,15 @@ public class FallGravityProcedure {
 								if ((!(entityiterator instanceof RocketTier2Entity.CustomEntity))) {
 									if ((!(entityiterator instanceof RocketTier3Entity.CustomEntity))) {
 										if ((!(entityiterator instanceof RoverEntity.CustomEntity))) {
-											if (((entityiterator.getMotion().getY()) <= (-0.1))) {
-												if (((entityiterator.getPersistentData().getDouble("EntityGravity")) <= 1)) {
-													entityiterator.getPersistentData().putDouble("EntityGravity", 2);
-													entityiterator.setMotion((entityiterator.getMotion().getX()),
-															((entityiterator.getMotion().getY()) + 0.05), (entityiterator.getMotion().getZ()));
-													entityiterator.fallDistance = (float) (0.2);
-													entityiterator.getPersistentData().putDouble("EntityGravity", 0);
+											if ((((entityiterator instanceof LivingEntity) ? (entityiterator.hasNoGravity()) : false) == (false))) {
+												if (((entityiterator.getMotion().getY()) <= (-0.1))) {
+													if (((entityiterator.getPersistentData().getDouble("EntityGravity")) <= 1)) {
+														entityiterator.getPersistentData().putDouble("EntityGravity", 2);
+														entityiterator.setMotion((entityiterator.getMotion().getX()),
+																((entityiterator.getMotion().getY()) + 0.05), (entityiterator.getMotion().getZ()));
+														entityiterator.fallDistance = (float) (0.2);
+														entityiterator.getPersistentData().putDouble("EntityGravity", 0);
+													}
 												}
 											}
 										}
@@ -171,17 +163,12 @@ public class FallGravityProcedure {
 										.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mercury"))))
 										|| ((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
 												.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_venus"))))))))) {
-			if (((((PlayerEntity) entity).abilities.isFlying) == (false))) {
-				if (((((PlayerEntity) entity).isElytraFlying()) == (false))) {
-					if (((((PlayerEntity) entity).isSwimming()) == (false))) {
-						if (((entity.isInWater()) == (false))) {
-							if (((entity.isInLava()) == (false))) {
-								entity.setMotion((entity.getMotion().getX()), (((((entity.getMotion().getY()) / 0.98) + 0.08) - 0.02) * 1),
-										(entity.getMotion().getZ()));
-							}
-						}
-					}
-				}
+			if ((((((PlayerEntity) entity).abilities.isFlying) == (false)) && (((((PlayerEntity) entity).isElytraFlying()) == (false))
+					&& (((entity.isInWater()) == (false)) && (((entity.isInLava()) == (false))
+							&& (((entity instanceof LivingEntity) ? (entity.hasNoGravity()) : false) == (false))))))) {
+				entity.setMotion((entity.getMotion().getX()), (((((entity.getMotion().getY()) / 0.98) + 0.08) - 0.02) * 1),
+						(entity.getMotion().getZ()));
+				entity.fallDistance = (float) ((-0.02));
 			}
 			{
 				List<Entity> _entfound = world.getEntitiesWithinAABB(Entity.class,
@@ -193,12 +180,14 @@ public class FallGravityProcedure {
 						}.compareDistOf(x, y, z)).collect(Collectors.toList());
 				for (Entity entityiterator : _entfound) {
 					if ((entityiterator instanceof ItemEntity)) {
-						if (((entityiterator.getMotion().getY()) <= (-0.1))) {
-							if (((entityiterator.getPersistentData().getDouble("ItemGravity")) <= 1)) {
-								entityiterator.getPersistentData().putDouble("ItemGravity", 2);
-								entityiterator.setMotion((entityiterator.getMotion().getX()), ((entityiterator.getMotion().getY()) + 0.04),
-										(entityiterator.getMotion().getZ()));
-								entityiterator.getPersistentData().putDouble("ItemGravity", 0);
+						if ((((entityiterator instanceof LivingEntity) ? (entityiterator.hasNoGravity()) : false) == (false))) {
+							if (((entityiterator.getMotion().getY()) <= (-0.1))) {
+								if (((entityiterator.getPersistentData().getDouble("ItemGravity")) <= 1)) {
+									entityiterator.getPersistentData().putDouble("ItemGravity", 2);
+									entityiterator.setMotion((entityiterator.getMotion().getX()), ((entityiterator.getMotion().getY()) + 0.04),
+											(entityiterator.getMotion().getZ()));
+									entityiterator.getPersistentData().putDouble("ItemGravity", 0);
+								}
 							}
 						}
 					}
@@ -219,13 +208,82 @@ public class FallGravityProcedure {
 								if ((!(entityiterator instanceof RocketTier2Entity.CustomEntity))) {
 									if ((!(entityiterator instanceof RocketTier3Entity.CustomEntity))) {
 										if ((!(entityiterator instanceof RoverEntity.CustomEntity))) {
-											if (((entityiterator.getMotion().getY()) <= (-0.1))) {
-												if (((entityiterator.getPersistentData().getDouble("EntityGravity")) <= 1)) {
-													entityiterator.getPersistentData().putDouble("EntityGravity", 2);
-													entityiterator.setMotion((entityiterator.getMotion().getX()),
-															((entityiterator.getMotion().getY()) + 0.05), (entityiterator.getMotion().getZ()));
-													entityiterator.fallDistance = (float) (0.2);
-													entityiterator.getPersistentData().putDouble("EntityGravity", 0);
+											if ((((entityiterator instanceof LivingEntity) ? (entityiterator.hasNoGravity()) : false) == (false))) {
+												if (((entityiterator.getMotion().getY()) <= (-0.1))) {
+													if (((entityiterator.getPersistentData().getDouble("EntityGravity")) <= 1)) {
+														entityiterator.getPersistentData().putDouble("EntityGravity", 2);
+														entityiterator.setMotion((entityiterator.getMotion().getX()),
+																((entityiterator.getMotion().getY()) + 0.05), (entityiterator.getMotion().getZ()));
+														entityiterator.fallDistance = (float) (0.2);
+														entityiterator.getPersistentData().putDouble("EntityGravity", 0);
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+				new ResourceLocation("boss_tools:mars"))))) {
+			if ((((((PlayerEntity) entity).abilities.isFlying) == (false)) && (((((PlayerEntity) entity).isElytraFlying()) == (false))
+					&& (((entity.isInWater()) == (false)) && (((entity.isInLava()) == (false))
+							&& (((entity instanceof LivingEntity) ? (entity.hasNoGravity()) : false) == (false))))))) {
+				entity.setMotion((entity.getMotion().getX()), (((((entity.getMotion().getY()) / 0.98) + 0.08) - 0.04) * 1),
+						(entity.getMotion().getZ()));
+				entity.fallDistance = (float) ((-0.02));
+			}
+			{
+				List<Entity> _entfound = world.getEntitiesWithinAABB(Entity.class,
+						new AxisAlignedBB(x - (192 / 2d), y - (192 / 2d), z - (192 / 2d), x + (192 / 2d), y + (192 / 2d), z + (192 / 2d)), null)
+						.stream().sorted(new Object() {
+							Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
+								return Comparator.comparing((Function<Entity, Double>) (_entcnd -> _entcnd.getDistanceSq(_x, _y, _z)));
+							}
+						}.compareDistOf(x, y, z)).collect(Collectors.toList());
+				for (Entity entityiterator : _entfound) {
+					if ((entityiterator instanceof ItemEntity)) {
+						if ((((entityiterator instanceof LivingEntity) ? (entityiterator.hasNoGravity()) : false) == (false))) {
+							if (((entityiterator.getMotion().getY()) <= (-0.1))) {
+								if (((entityiterator.getPersistentData().getDouble("ItemGravity")) <= 1)) {
+									entityiterator.getPersistentData().putDouble("ItemGravity", 2);
+									entityiterator.setMotion((entityiterator.getMotion().getX()), ((entityiterator.getMotion().getY()) + 0.04),
+											(entityiterator.getMotion().getZ()));
+									entityiterator.getPersistentData().putDouble("ItemGravity", 0);
+								}
+							}
+						}
+					}
+				}
+			}
+			{
+				List<Entity> _entfound = world.getEntitiesWithinAABB(Entity.class,
+						new AxisAlignedBB(x - (192 / 2d), y - (192 / 2d), z - (192 / 2d), x + (192 / 2d), y + (192 / 2d), z + (192 / 2d)), null)
+						.stream().sorted(new Object() {
+							Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
+								return Comparator.comparing((Function<Entity, Double>) (_entcnd -> _entcnd.getDistanceSq(_x, _y, _z)));
+							}
+						}.compareDistOf(x, y, z)).collect(Collectors.toList());
+				for (Entity entityiterator : _entfound) {
+					if ((!(entityiterator instanceof PlayerEntity))) {
+						if ((!(entityiterator instanceof LandingGearEntity.CustomEntity))) {
+							if ((!(entityiterator instanceof RocketEntity.CustomEntity))) {
+								if ((!(entityiterator instanceof RocketTier2Entity.CustomEntity))) {
+									if ((!(entityiterator instanceof RocketTier3Entity.CustomEntity))) {
+										if ((!(entityiterator instanceof RoverEntity.CustomEntity))) {
+											if ((((entityiterator instanceof LivingEntity) ? (entityiterator.hasNoGravity()) : false) == (false))) {
+												if (((entityiterator.getMotion().getY()) <= (-0.1))) {
+													if (((entityiterator.getPersistentData().getDouble("EntityGravity")) <= 1)) {
+														entityiterator.getPersistentData().putDouble("EntityGravity", 2);
+														entityiterator.setMotion((entityiterator.getMotion().getX()),
+																((entityiterator.getMotion().getY()) + 0.05), (entityiterator.getMotion().getZ()));
+														entityiterator.fallDistance = (float) (0.2);
+														entityiterator.getPersistentData().putDouble("EntityGravity", 0);
+													}
 												}
 											}
 										}

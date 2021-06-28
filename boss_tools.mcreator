@@ -5850,6 +5850,23 @@
       "ids": {},
       "registry_name": "moon_sand",
       "path": "~/Blocks"
+    },
+    {
+      "name": "Test",
+      "type": "procedure",
+      "sortid": 410,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "test",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      }
     }
   ],
   "variable_elements": [
