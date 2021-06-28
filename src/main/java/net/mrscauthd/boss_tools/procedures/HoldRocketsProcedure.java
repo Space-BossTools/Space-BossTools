@@ -4,6 +4,9 @@ import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.item.RoverItemItem;
+import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
+import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
+import net.mrscauthd.boss_tools.entity.RocketEntity;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.fml.common.Mod;
@@ -49,46 +52,52 @@ public class HoldRocketsProcedure {
 		}
 		Entity entity = (Entity) dependencies.get("entity");
 		PlayerModel playerModel = (PlayerModel) dependencies.get("playerModel");
-		// Rocket Tier 1
-		if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
-				.getItem() == new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem())) {
-			playerModel.bipedRightArm.rotateAngleX = (float) 10;
-			playerModel.bipedLeftArm.rotateAngleX = (float) 10;
-		}
-		if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
-				.getItem() == new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem())) {
-			playerModel.bipedRightArm.rotateAngleX = (float) 10;
-			playerModel.bipedLeftArm.rotateAngleX = (float) 10;
-		} // Rocket Tier 2
-		if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
-				.getItem() == new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem())) {
-			playerModel.bipedRightArm.rotateAngleX = (float) 10;
-			playerModel.bipedLeftArm.rotateAngleX = (float) 10;
-		}
-		if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
-				.getItem() == new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem())) {
-			playerModel.bipedRightArm.rotateAngleX = (float) 10;
-			playerModel.bipedLeftArm.rotateAngleX = (float) 10;
-		} // Rocket Tier 3
-		if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
-				.getItem() == new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem())) {
-			playerModel.bipedRightArm.rotateAngleX = (float) 10;
-			playerModel.bipedLeftArm.rotateAngleX = (float) 10;
-		}
-		if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
-				.getItem() == new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem())) {
-			playerModel.bipedRightArm.rotateAngleX = (float) 10;
-			playerModel.bipedLeftArm.rotateAngleX = (float) 10;
-		} // Rover
-		if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
-				.getItem() == new ItemStack(RoverItemItem.block, (int) (1)).getItem())) {
-			playerModel.bipedRightArm.rotateAngleX = (float) 10;
-			playerModel.bipedLeftArm.rotateAngleX = (float) 10;
-		}
-		if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
-				.getItem() == new ItemStack(RoverItemItem.block, (int) (1)).getItem())) {
-			playerModel.bipedRightArm.rotateAngleX = (float) 10;
-			playerModel.bipedLeftArm.rotateAngleX = (float) 10;
+		if (((!((entity.getRidingEntity()) instanceof RocketEntity.CustomEntity)) && ((!((entity
+				.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity))
+				&& (!((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity))))) {// Rocket Tier
+																																																															// 1
+			if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
+					.getItem() == new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem())) {
+				playerModel.bipedRightArm.rotateAngleX = (float) 10;
+				playerModel.bipedLeftArm.rotateAngleX = (float) 10;
+			}
+			if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
+					.getItem() == new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem())) {
+				playerModel.bipedRightArm.rotateAngleX = (float) 10;
+				playerModel.bipedLeftArm.rotateAngleX = (float) 10;
+			} // Rocket Tier 2
+			if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
+					.getItem() == new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem())) {
+				playerModel.bipedRightArm.rotateAngleX = (float) 10;
+				playerModel.bipedLeftArm.rotateAngleX = (float) 10;
+			}
+			if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
+					.getItem() == new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem())) {
+				playerModel.bipedRightArm.rotateAngleX = (float) 10;
+				playerModel.bipedLeftArm.rotateAngleX = (float) 10;
+			} // Rocket Tier 3
+			if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
+					.getItem() == new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem())) {
+				playerModel.bipedRightArm.rotateAngleX = (float) 10;
+				playerModel.bipedLeftArm.rotateAngleX = (float) 10;
+			}
+			if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
+					.getItem() == new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem())) {
+				playerModel.bipedRightArm.rotateAngleX = (float) 10;
+				playerModel.bipedLeftArm.rotateAngleX = (float) 10;
+			} // Rover
+			if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
+					.getItem() == new ItemStack(RoverItemItem.block, (int) (1)).getItem())) {
+				playerModel.bipedRightArm.rotateAngleX = (float) 10;
+				playerModel.bipedLeftArm.rotateAngleX = (float) 10;
+			}
+			if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
+					.getItem() == new ItemStack(RoverItemItem.block, (int) (1)).getItem())) {
+				playerModel.bipedRightArm.rotateAngleX = (float) 10;
+				playerModel.bipedLeftArm.rotateAngleX = (float) 10;
+			}
+			playerModel.bipedLeftArm.rotateAngleZ = (float) 0;
+			playerModel.bipedRightArm.rotateAngleZ = (float) 0;
 		}
 	}
 }

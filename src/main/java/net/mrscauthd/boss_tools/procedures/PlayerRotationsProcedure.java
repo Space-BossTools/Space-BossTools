@@ -4,29 +4,18 @@ import net.mrscauthd.boss_tools.entity.RocketEntity;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
-import net.minecraft.world.World;
+import net.minecraft.util.Rotation;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
-import net.minecraft.client.renderer.entity.model.PlayerModel;
-import com.mrcrayfish.obfuscate.client.event.PlayerModelEvent;
-import com.mrcrayfish.obfuscate.client.event.RenderItemEvent;
-import com.mrcrayfish.obfuscate.common.data.SyncedPlayerData;
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.client.renderer.entity.model.PlayerModel;
-
-
-import com.mrcrayfish.obfuscate.client.event.PlayerModelEvent;
 
 import java.util.Map;
-import java.util.HashMap;
 
+import com.mrcrayfish.obfuscate.client.event.RenderItemEvent;
 import com.mrcrayfish.obfuscate.client.event.PlayerModelEvent;
 
 @BossToolsModElements.ModElement.Tag
@@ -56,10 +45,12 @@ public class PlayerRotationsProcedure extends BossToolsModElements.ModElement {
 				model.bipedLeftLeg.rotateAngleY = (float) Math.toRadians(3F);
 				model.bipedRightLeg.rotateAngleY = (float) Math.toRadians(3F);
 				// Arms
-				model.bipedRightArm.rotationPointX = (float) Math.toRadians(-250F);//-200
+				model.bipedRightArm.rotationPointX = (float) Math.toRadians(-250F);// -200
 				model.bipedLeftArm.rotationPointX = (float) Math.toRadians(250F);
-				//model.bipedRightArm.rotateAngleX = (float) Math.toRadians(0);
-				//model.bipedLeftArm.rotateAngleX = (float) Math.toRadians(0);
+				model.bipedLeftArm.rotateAngleX = (float) -0.07;
+				model.bipedRightArm.rotateAngleX = (float) -0.07;
+				// model.bipedRightArm.rotateAngleX = (float) Math.toRadians(0);
+				// model.bipedLeftArm.rotateAngleX = (float) Math.toRadians(0);
 				// model.bipedRightArm.rotateAngleX = (float) Math.toRadians(0F); //bugy
 				// model.bipedLeftArm.rotateAngleX = (float) Math.toRadians(0F); //bugy
 				// model.bipedHead.rotationPointX = 0.0F;
@@ -70,21 +61,10 @@ public class PlayerRotationsProcedure extends BossToolsModElements.ModElement {
 	}
 
 	@SubscribeEvent
-	public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-		if (event.phase == TickEvent.Phase.END) {
-			Entity entity = event.player;
-			World world = entity.world;
-			double i = entity.getPosX();
-			double j = entity.getPosY();
-			double k = entity.getPosZ();
-			Map<String, Object> dependencies = new HashMap<>();
-			dependencies.put("x", i);
-			dependencies.put("y", j);
-			dependencies.put("z", k);
-			dependencies.put("world", world);
-			dependencies.put("entity", entity);
-			dependencies.put("event", event);
-			this.executeProcedure(dependencies);
+	public void Rotation(RenderItemEvent.Held event) {
+		Entity player = event.getEntity();
+		if (((player.getRidingEntity()) instanceof RocketEntity.CustomEntity)) {
+			event.getMatrixStack().scale(0, 0, 0);
 		}
 	}
 }

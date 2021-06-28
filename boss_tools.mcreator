@@ -2625,19 +2625,6 @@
       "path": "~/Blocks"
     },
     {
-      "name": "PlayerRotationsLander",
-      "type": "procedure",
-      "sortid": 216,
-      "compiles": true,
-      "locked_code": true,
-      "ids": {},
-      "registry_name": "player_rotations_lander",
-      "metadata": {
-        "dependencies": []
-      },
-      "path": "~/Procedures"
-    },
-    {
       "name": "SpaceStationSpawn",
       "type": "procedure",
       "sortid": 217,
