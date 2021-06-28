@@ -468,7 +468,7 @@
       "type": "block",
       "sortid": 48,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "mars_sand",
       "path": "~/Blocks"
@@ -5618,7 +5618,7 @@
       "type": "block",
       "sortid": 50,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "venus_sand",
       "metadata": {
@@ -5846,7 +5846,7 @@
       "type": "block",
       "sortid": 46,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "moon_sand",
       "path": "~/Blocks"
@@ -5977,7 +5977,7 @@
       "block.boss_tools.cracked_moon_brick_stairs": "Cracked Moon Brick Stairs",
       "block.boss_tools.flag_cyan": "Cyan Flag",
       "block.boss_tools.flag_light_blue": "Light Blue Flag",
-      "block.boss_tools.moon_sand": "Moonsand",
+      "block.boss_tools.moon_sand": "Moon Sand",
       "job.boss_tools.job2": "Fisherman",
       "job.boss_tools.job1": "Farmer",
       "biome.boss_tools.infernal_venus_barrens_biome": "Infernal Venus Barrens",

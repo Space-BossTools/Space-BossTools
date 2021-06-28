@@ -14,6 +14,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.FallingBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Block;
 
@@ -34,10 +35,10 @@ public class MoonsandBlock extends BossToolsModElements.ModElement {
 		elements.items.add(
 				() -> new BlockItem(block, new Item.Properties().group(SpaceBosstoolsBlocksItemGroup.tab)).setRegistryName(block.getRegistryName()));
 	}
-	public static class CustomBlock extends Block {
+	public static class CustomBlock extends FallingBlock {
 		public CustomBlock() {
 			super(Block.Properties.create(Material.SAND).sound(SoundType.SAND).hardnessAndResistance(0.5f, 0.5f).setLightLevel(s -> 0).harvestLevel(1)
-					.harvestTool(ToolType.SHOVEL).setRequiresTool());
+					.harvestTool(ToolType.SHOVEL));
 			setRegistryName("moon_sand");
 		}
 

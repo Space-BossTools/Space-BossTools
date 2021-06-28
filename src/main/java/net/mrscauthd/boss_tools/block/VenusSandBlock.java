@@ -38,7 +38,7 @@ public class VenusSandBlock extends BossToolsModElements.ModElement {
 	public static class CustomBlock extends FallingBlock {
 		public CustomBlock() {
 			super(Block.Properties.create(Material.SAND).sound(SoundType.SAND).hardnessAndResistance(0.5f, 0.5f).setLightLevel(s -> 0).harvestLevel(0)
-					.harvestTool(ToolType.SHOVEL).setRequiresTool());
+					.harvestTool(ToolType.SHOVEL));
 			setRegistryName("venus_sand");
 		}
 
