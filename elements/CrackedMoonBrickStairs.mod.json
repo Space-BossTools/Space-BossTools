@@ -50,7 +50,7 @@
     "useLootTableForDrops": false,
     "enchantPowerBonus": 0.0,
     "plantsGrowOn": false,
-    "canProvidePower": false,
+    "canRedstoneConnect": false,
     "lightOpacity": 255,
     "material": {
       "value": "ROCK"
@@ -58,6 +58,7 @@
     "tickRate": 10,
     "tickRandomly": false,
     "isReplaceable": false,
+    "canProvidePower": false,
     "colorOnMap": "GRAY",
     "creativePickItem": {
       "value": ""
@@ -72,6 +73,7 @@
     "jumpFactor": 1.0,
     "reactionToPushing": "NORMAL",
     "isNotColidable": false,
+    "isCustomSoundType": false,
     "soundOnStep": {
       "value": "STONE"
     },

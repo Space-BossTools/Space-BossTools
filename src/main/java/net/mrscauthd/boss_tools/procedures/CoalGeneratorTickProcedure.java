@@ -260,7 +260,7 @@ public class CoalGeneratorTickProcedure {
 					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 			}
 		}
-		if (((previousRecepie) != (new Object() {
+		if ((previousRecepie != (new Object() {
 			public double getValue(IWorld world, BlockPos pos, String tag) {
 				TileEntity tileEntity = world.getTileEntity(pos);
 				if (tileEntity != null)
@@ -758,16 +758,16 @@ public class CoalGeneratorTickProcedure {
 								.ifPresent(capability -> _retval.set(capability.receiveEnergy(_amount, true)));
 					return _retval.get();
 				}
-			}.receiveEnergySimulate(world, new BlockPos((int) x, (int) (y + 1), (int) z), (int) (Energy)));
+			}.receiveEnergySimulate(world, new BlockPos((int) x, (int) (y + 1), (int) z), (int) Energy));
 			{
 				TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-				int _amount = (int) (Energy);
+				int _amount = (int) Energy;
 				if (_ent != null)
 					_ent.getCapability(CapabilityEnergy.ENERGY, null).ifPresent(capability -> capability.extractEnergy(_amount, false));
 			}
 			{
 				TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) (y + 1), (int) z));
-				int _amount = (int) (Energy);
+				int _amount = (int) Energy;
 				if (_ent != null)
 					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.UP).ifPresent(capability -> capability.receiveEnergy(_amount, false));
 			}
@@ -800,16 +800,16 @@ public class CoalGeneratorTickProcedure {
 								.ifPresent(capability -> _retval.set(capability.receiveEnergy(_amount, true)));
 					return _retval.get();
 				}
-			}.receiveEnergySimulate(world, new BlockPos((int) x, (int) (y - 1), (int) z), (int) (Energy2)));
+			}.receiveEnergySimulate(world, new BlockPos((int) x, (int) (y - 1), (int) z), (int) Energy2));
 			{
 				TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-				int _amount = (int) (Energy2);
+				int _amount = (int) Energy2;
 				if (_ent != null)
 					_ent.getCapability(CapabilityEnergy.ENERGY, null).ifPresent(capability -> capability.extractEnergy(_amount, false));
 			}
 			{
 				TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) (y - 1), (int) z));
-				int _amount = (int) (Energy2);
+				int _amount = (int) Energy2;
 				if (_ent != null)
 					_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> capability.receiveEnergy(_amount, false));
 			}

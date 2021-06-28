@@ -124,7 +124,7 @@ public class OxygenGeneratortickProcedure {
 					((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 			}
 		}
-		if (((previousRecepie) != (new Object() {
+		if ((previousRecepie != (new Object() {
 			public double getValue(IWorld world, BlockPos pos, String tag) {
 				TileEntity tileEntity = world.getTileEntity(pos);
 				if (tileEntity != null)

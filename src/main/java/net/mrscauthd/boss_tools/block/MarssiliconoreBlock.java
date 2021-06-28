@@ -52,7 +52,7 @@ public class MarssiliconoreBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:mars_silicon_ore")
 	public static final Block block = null;
 	public MarssiliconoreBlock(BossToolsModElements instance) {
-		super(instance, 56);
+		super(instance, 60);
 		MinecraftForge.EVENT_BUS.register(this);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new FeatureRegisterHandler());
 	}

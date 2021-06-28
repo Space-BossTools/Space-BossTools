@@ -92,7 +92,7 @@ public class AlienZombieOnEntityTickUpdateProcedure {
 				}
 			}
 		} // Config
-		if (((BossToolsModVariables.AlienZombieSpawn) == (false))) {
+		if ((BossToolsModVariables.AlienZombieSpawn == (false))) {
 			if (!entity.world.isRemote())
 				entity.remove();
 		}

@@ -93,16 +93,16 @@ public class SolarPanelUpdateTickProcedure {
 									.ifPresent(capability -> _retval.set(capability.receiveEnergy(_amount, true)));
 						return _retval.get();
 					}
-				}.receiveEnergySimulate(world, new BlockPos((int) x, (int) (y - 1), (int) z), (int) (Energy2)));
+				}.receiveEnergySimulate(world, new BlockPos((int) x, (int) (y - 1), (int) z), (int) Energy2));
 				{
 					TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-					int _amount = (int) (Energy2);
+					int _amount = (int) Energy2;
 					if (_ent != null)
 						_ent.getCapability(CapabilityEnergy.ENERGY, null).ifPresent(capability -> capability.extractEnergy(_amount, false));
 				}
 				{
 					TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) (y - 1), (int) z));
-					int _amount = (int) (Energy2);
+					int _amount = (int) Energy2;
 					if (_ent != null)
 						_ent.getCapability(CapabilityEnergy.ENERGY, Direction.DOWN).ifPresent(capability -> capability.receiveEnergy(_amount, false));
 				}
@@ -135,16 +135,16 @@ public class SolarPanelUpdateTickProcedure {
 									.ifPresent(capability -> _retval.set(capability.receiveEnergy(_amount, true)));
 						return _retval.get();
 					}
-				}.receiveEnergySimulate(world, new BlockPos((int) (x + 1), (int) y, (int) z), (int) (Energy3)));
+				}.receiveEnergySimulate(world, new BlockPos((int) (x + 1), (int) y, (int) z), (int) Energy3));
 				{
 					TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-					int _amount = (int) (Energy3);
+					int _amount = (int) Energy3;
 					if (_ent != null)
 						_ent.getCapability(CapabilityEnergy.ENERGY, null).ifPresent(capability -> capability.extractEnergy(_amount, false));
 				}
 				{
 					TileEntity _ent = world.getTileEntity(new BlockPos((int) (x + 1), (int) y, (int) z));
-					int _amount = (int) (Energy3);
+					int _amount = (int) Energy3;
 					if (_ent != null)
 						_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH)
 								.ifPresent(capability -> capability.receiveEnergy(_amount, false));
@@ -178,16 +178,16 @@ public class SolarPanelUpdateTickProcedure {
 									.ifPresent(capability -> _retval.set(capability.receiveEnergy(_amount, true)));
 						return _retval.get();
 					}
-				}.receiveEnergySimulate(world, new BlockPos((int) (x - 1), (int) y, (int) z), (int) (Energy4)));
+				}.receiveEnergySimulate(world, new BlockPos((int) (x - 1), (int) y, (int) z), (int) Energy4));
 				{
 					TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-					int _amount = (int) (Energy4);
+					int _amount = (int) Energy4;
 					if (_ent != null)
 						_ent.getCapability(CapabilityEnergy.ENERGY, null).ifPresent(capability -> capability.extractEnergy(_amount, false));
 				}
 				{
 					TileEntity _ent = world.getTileEntity(new BlockPos((int) (x - 1), (int) y, (int) z));
-					int _amount = (int) (Energy4);
+					int _amount = (int) Energy4;
 					if (_ent != null)
 						_ent.getCapability(CapabilityEnergy.ENERGY, Direction.SOUTH)
 								.ifPresent(capability -> capability.receiveEnergy(_amount, false));
@@ -221,16 +221,16 @@ public class SolarPanelUpdateTickProcedure {
 									.ifPresent(capability -> _retval.set(capability.receiveEnergy(_amount, true)));
 						return _retval.get();
 					}
-				}.receiveEnergySimulate(world, new BlockPos((int) x, (int) y, (int) (z + 1)), (int) (Energy5)));
+				}.receiveEnergySimulate(world, new BlockPos((int) x, (int) y, (int) (z + 1)), (int) Energy5));
 				{
 					TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-					int _amount = (int) (Energy5);
+					int _amount = (int) Energy5;
 					if (_ent != null)
 						_ent.getCapability(CapabilityEnergy.ENERGY, null).ifPresent(capability -> capability.extractEnergy(_amount, false));
 				}
 				{
 					TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) (z + 1)));
-					int _amount = (int) (Energy5);
+					int _amount = (int) Energy5;
 					if (_ent != null)
 						_ent.getCapability(CapabilityEnergy.ENERGY, Direction.NORTH)
 								.ifPresent(capability -> capability.receiveEnergy(_amount, false));
@@ -264,16 +264,16 @@ public class SolarPanelUpdateTickProcedure {
 									.ifPresent(capability -> _retval.set(capability.receiveEnergy(_amount, true)));
 						return _retval.get();
 					}
-				}.receiveEnergySimulate(world, new BlockPos((int) x, (int) y, (int) (z - 1)), (int) (Energy6)));
+				}.receiveEnergySimulate(world, new BlockPos((int) x, (int) y, (int) (z - 1)), (int) Energy6));
 				{
 					TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-					int _amount = (int) (Energy6);
+					int _amount = (int) Energy6;
 					if (_ent != null)
 						_ent.getCapability(CapabilityEnergy.ENERGY, null).ifPresent(capability -> capability.extractEnergy(_amount, false));
 				}
 				{
 					TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) (z - 1)));
-					int _amount = (int) (Energy6);
+					int _amount = (int) Energy6;
 					if (_ent != null)
 						_ent.getCapability(CapabilityEnergy.ENERGY, Direction.NORTH)
 								.ifPresent(capability -> capability.receiveEnergy(_amount, false));

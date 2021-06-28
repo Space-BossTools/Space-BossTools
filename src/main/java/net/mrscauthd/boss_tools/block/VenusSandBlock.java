@@ -26,7 +26,7 @@ public class VenusSandBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:venus_sand")
 	public static final Block block = null;
 	public VenusSandBlock(BossToolsModElements instance) {
-		super(instance, 394);
+		super(instance, 50);
 	}
 
 	@Override
@@ -38,13 +38,13 @@ public class VenusSandBlock extends BossToolsModElements.ModElement {
 	public static class CustomBlock extends FallingBlock {
 		public CustomBlock() {
 			super(Block.Properties.create(Material.SAND).sound(SoundType.SAND).hardnessAndResistance(0.5f, 0.5f).setLightLevel(s -> 0).harvestLevel(0)
-					.harvestTool(ToolType.SHOVEL));
+					.harvestTool(ToolType.SHOVEL).setRequiresTool());
 			setRegistryName("venus_sand");
 		}
 
 		@Override
 		public MaterialColor getMaterialColor() {
-			return MaterialColor.STONE;
+			return MaterialColor.SAND;
 		}
 
 		@Override

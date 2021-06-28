@@ -89,7 +89,7 @@ public class AkivepotionProcedure {
 																				: World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
 																						new ResourceLocation("boss_tools:orbit_venus"))))))))))))) {// Config
 			if ((!(entity.getPersistentData().getBoolean("Oxygen_Bullet_Generator")))) {
-				if (((BossToolsModVariables.PlayerOxygenSystem) == (true))) {
+				if ((BossToolsModVariables.PlayerOxygenSystem == (true))) {
 					if (((entity.getPersistentData().getBoolean("SpaceSuitH")) == (false))) {
 						if (entity instanceof LivingEntity) {
 							((LivingEntity) entity).attackEntityFrom(new DamageSource("oxygen").setDamageBypassesArmor(), (float) 1);

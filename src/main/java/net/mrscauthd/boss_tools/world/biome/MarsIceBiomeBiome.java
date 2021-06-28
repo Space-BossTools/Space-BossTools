@@ -24,7 +24,7 @@ import net.minecraft.block.Blocks;
 public class MarsIceBiomeBiome extends BossToolsModElements.ModElement {
 	public static Biome biome;
 	public MarsIceBiomeBiome(BossToolsModElements instance) {
-		super(instance, 392);
+		super(instance, 396);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new BiomeRegisterHandler());
 	}
 	private static class BiomeRegisterHandler {

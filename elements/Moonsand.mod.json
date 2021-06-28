@@ -32,11 +32,11 @@
         "subtract": false
       }
     ],
-    "name": "Moon Sand",
+    "name": "Moonsand",
     "specialInfo": [],
     "hardness": 0.5,
     "resistance": 0.5,
-    "hasGravity": true,
+    "hasGravity": false,
     "isWaterloggable": false,
     "creativeTab": {
       "value": "CUSTOM:SpaceBosstoolsBlocks"
@@ -49,7 +49,7 @@
     "useLootTableForDrops": false,
     "enchantPowerBonus": 0.0,
     "plantsGrowOn": false,
-    "canProvidePower": false,
+    "canRedstoneConnect": false,
     "lightOpacity": 255,
     "material": {
       "value": "SAND"
@@ -57,6 +57,7 @@
     "tickRate": 10,
     "tickRandomly": false,
     "isReplaceable": false,
+    "canProvidePower": false,
     "colorOnMap": "STONE",
     "creativePickItem": {
       "value": ""
@@ -71,15 +72,16 @@
     "jumpFactor": 1.0,
     "reactionToPushing": "NORMAL",
     "isNotColidable": false,
+    "isCustomSoundType": false,
     "soundOnStep": {
       "value": "SAND"
     },
     "luminance": 0,
     "unbreakable": false,
-    "breakHarvestLevel": 0,
+    "breakHarvestLevel": 1,
     "spawnParticles": false,
     "particleToSpawn": {
-      "value": "EXPLOSION_NORMAL"
+      "value": "CUSTOM:VenusRain"
     },
     "particleSpawningShape": "Spread",
     "particleSpawningRadious": 0.5,
