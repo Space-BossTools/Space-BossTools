@@ -244,7 +244,6 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 		private final ModelRenderer arml;
 		private final ModelRenderer Left_Foot;
 		private final ModelRenderer Right_Foot;
-		private static final HashMap<String, ResourceLocation> TEXTURES = Maps.newHashMap();
 		/**
 		 * Entity currently being rendered in this model (since entity isn't passed into
 		 * render() anymore...)
