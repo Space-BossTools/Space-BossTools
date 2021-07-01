@@ -384,7 +384,7 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-			return true;
+			return false; //FIX
 		}
 		private final LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.values());
 		private final EnergyStorage energyStorage = new EnergyStorage(9000, 200, 200, 0) {

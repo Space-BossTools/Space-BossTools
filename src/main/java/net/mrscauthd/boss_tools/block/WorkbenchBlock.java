@@ -390,7 +390,7 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-			return true;
+			return false;
 		}
 		private final LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.values());
 		@Override

@@ -370,11 +370,47 @@ public class FuelMakerBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public boolean canInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
-			return this.isItemValidForSlot(index, stack);
+			if (index == 1)
+				return false;
+			if (index == 2)
+				return false;
+			if (index == 3)
+				return false;
+			if (index == 4)
+				return false;
+			if (index == 5)
+				return false;
+			if (index == 6)
+				return false;
+			if (index == 7)
+				return false;
+			if (index == 8)
+				return false;
+			if (index == 9)
+				return false;
+			return true;
 		}
 
 		@Override
 		public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
+			if (index == 0)
+				return false;
+			if (index == 2)
+				return false;
+			if (index == 3)
+				return false;
+			if (index == 4)
+				return false;
+			if (index == 5)
+				return false;
+			if (index == 6)
+				return false;
+			if (index == 7)
+				return false;
+			if (index == 8)
+				return false;
+			if (index == 9)
+				return false;
 			return true;
 		}
 		private final LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.values());

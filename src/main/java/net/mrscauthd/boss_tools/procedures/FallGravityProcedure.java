@@ -93,7 +93,10 @@ public class FallGravityProcedure {
 							&& (((entity instanceof LivingEntity) ? (entity.hasNoGravity()) : false) == (false))))))) {
 				entity.setMotion((entity.getMotion().getX()), (((((entity.getMotion().getY()) / 0.98) + 0.08) - 0.03) * 1),
 						(entity.getMotion().getZ()));
-				entity.fallDistance = (float) ((-0.02));
+				if (entity.getMotion().getY() < -0.1) {
+					entity.getPersistentData().putFloat("FallDistance", (float) ((float) entity.getMotion().getY() * -2.5));
+					entity.fallDistance = (float) ((float) entity.getMotion().getY() * -2.5);
+				}
 			}
 			{
 				List<Entity> _entfound = world.getEntitiesWithinAABB(Entity.class,

@@ -339,7 +339,7 @@ public class OxygenMachineBlock extends BossToolsModElements.ModElement {
 		}
 
 		@Override
-		public boolean isItemValidForSlot(int index, ItemStack stack) {
+		public boolean isItemValidForSlot(int index, ItemStack stack) { //FIX Inport
 			if (index == 2)
 				return false;
 			if (index == 3)
@@ -366,12 +366,30 @@ public class OxygenMachineBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public boolean canInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
-			return this.isItemValidForSlot(index, stack);
+			if (index == 0)
+				return false;
+			if (index == 2)
+				return false;
+			if (index == 3)
+				return false;
+			if (index == 4)
+				return false;
+			if (index == 5)
+				return false;
+			if (index == 6)
+				return false;
+			if (index == 7)
+				return false;
+			if (index == 8)
+				return false;
+			if (index == 9)
+				return false;
+			return true;
 		}
 
 		@Override
 		public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-			return true;
+			return false; //Disable Extracting
 		}
 		private final LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.values());
 		private final EnergyStorage energyStorage = new EnergyStorage(9000, 200, 200, 0) {

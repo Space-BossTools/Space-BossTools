@@ -1,6 +1,12 @@
 
 package net.mrscauthd.boss_tools.item;
 
+import com.google.common.collect.Maps;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.nbt.ListNBT;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorLeggingsTickEventProcedure;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorHelmetTickEventProcedure;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorBootsTickEventProcedure;
@@ -238,6 +244,12 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 		private final ModelRenderer arml;
 		private final ModelRenderer Left_Foot;
 		private final ModelRenderer Right_Foot;
+		private static final HashMap<String, ResourceLocation> TEXTURES = Maps.newHashMap();
+		/**
+		 * Entity currently being rendered in this model (since entity isn't passed into
+		 * render() anymore...)
+		 */
+		//public LivingEntity entity;
 		public Modelspacesuit() {
 			textureWidth = 64;
 			textureHeight = 64;
@@ -272,14 +284,13 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 
 		@Override
 		public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue,
-				float alpha) {
-			kopf.render(matrixStack, buffer, packedLight, packedOverlay);
-			Body.render(matrixStack, buffer, packedLight, packedOverlay);
-			armr.render(matrixStack, buffer, packedLight, packedOverlay);
-			arml.render(matrixStack, buffer, packedLight, packedOverlay);
-			Left_Foot.render(matrixStack, buffer, packedLight, packedOverlay);
-			Right_Foot.render(matrixStack, buffer, packedLight, packedOverlay);
-			//matrixStack.pop();
+						   float alpha) {
+				kopf.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
+				Body.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
+				armr.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
+				arml.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
+				Left_Foot.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
+				Right_Foot.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
 		}
 
 		public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
@@ -311,7 +322,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 
 		@Override
 		public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue,
-				float alpha) {
+						   float alpha) {
 			RightLeg.render(matrixStack, buffer, packedLight, packedOverlay);
 			LeftLeg.render(matrixStack, buffer, packedLight, packedOverlay);
 		}

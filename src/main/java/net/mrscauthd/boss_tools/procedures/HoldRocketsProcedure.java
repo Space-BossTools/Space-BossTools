@@ -60,44 +60,74 @@ public class HoldRocketsProcedure {
 					.getItem() == new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem())) {
 				playerModel.bipedRightArm.rotateAngleX = (float) 10;
 				playerModel.bipedLeftArm.rotateAngleX = (float) 10;
+				playerModel.bipedLeftArm.rotateAngleZ = (float) 0;
+				playerModel.bipedRightArm.rotateAngleZ = (float) 0;
+				playerModel.bipedRightArm.rotateAngleY = (float) 0;
+				playerModel.bipedLeftArm.rotateAngleY = (float) 0;
 			}
 			if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
 					.getItem() == new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem())) {
 				playerModel.bipedRightArm.rotateAngleX = (float) 10;
 				playerModel.bipedLeftArm.rotateAngleX = (float) 10;
+				playerModel.bipedLeftArm.rotateAngleZ = (float) 0;
+				playerModel.bipedRightArm.rotateAngleZ = (float) 0;
+				playerModel.bipedRightArm.rotateAngleY = (float) 0;
+				playerModel.bipedLeftArm.rotateAngleY = (float) 0;
 			} // Rocket Tier 2
 			if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
 					.getItem() == new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem())) {
 				playerModel.bipedRightArm.rotateAngleX = (float) 10;
 				playerModel.bipedLeftArm.rotateAngleX = (float) 10;
+				playerModel.bipedLeftArm.rotateAngleZ = (float) 0;
+				playerModel.bipedRightArm.rotateAngleZ = (float) 0;
+				playerModel.bipedRightArm.rotateAngleY = (float) 0;
+				playerModel.bipedLeftArm.rotateAngleY = (float) 0;
 			}
 			if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
 					.getItem() == new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem())) {
 				playerModel.bipedRightArm.rotateAngleX = (float) 10;
 				playerModel.bipedLeftArm.rotateAngleX = (float) 10;
+				playerModel.bipedLeftArm.rotateAngleZ = (float) 0;
+				playerModel.bipedRightArm.rotateAngleZ = (float) 0;
+				playerModel.bipedRightArm.rotateAngleY = (float) 0;
+				playerModel.bipedLeftArm.rotateAngleY = (float) 0;
 			} // Rocket Tier 3
 			if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
 					.getItem() == new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem())) {
 				playerModel.bipedRightArm.rotateAngleX = (float) 10;
 				playerModel.bipedLeftArm.rotateAngleX = (float) 10;
+				playerModel.bipedLeftArm.rotateAngleZ = (float) 0;
+				playerModel.bipedRightArm.rotateAngleZ = (float) 0;
+				playerModel.bipedRightArm.rotateAngleY = (float) 0;
+				playerModel.bipedLeftArm.rotateAngleY = (float) 0;
 			}
 			if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
 					.getItem() == new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem())) {
 				playerModel.bipedRightArm.rotateAngleX = (float) 10;
 				playerModel.bipedLeftArm.rotateAngleX = (float) 10;
+				playerModel.bipedLeftArm.rotateAngleZ = (float) 0;
+				playerModel.bipedRightArm.rotateAngleZ = (float) 0;
+				playerModel.bipedRightArm.rotateAngleY = (float) 0;
+				playerModel.bipedLeftArm.rotateAngleY = (float) 0;
 			} // Rover
 			if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
 					.getItem() == new ItemStack(RoverItemItem.block, (int) (1)).getItem())) {
 				playerModel.bipedRightArm.rotateAngleX = (float) 10;
 				playerModel.bipedLeftArm.rotateAngleX = (float) 10;
+				playerModel.bipedLeftArm.rotateAngleZ = (float) 0;
+				playerModel.bipedRightArm.rotateAngleZ = (float) 0;
+				playerModel.bipedRightArm.rotateAngleY = (float) 0;
+				playerModel.bipedLeftArm.rotateAngleY = (float) 0;
 			}
 			if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
 					.getItem() == new ItemStack(RoverItemItem.block, (int) (1)).getItem())) {
 				playerModel.bipedRightArm.rotateAngleX = (float) 10;
 				playerModel.bipedLeftArm.rotateAngleX = (float) 10;
+				playerModel.bipedLeftArm.rotateAngleZ = (float) 0;
+				playerModel.bipedRightArm.rotateAngleZ = (float) 0;
+				playerModel.bipedRightArm.rotateAngleY = (float) 0;
+				playerModel.bipedLeftArm.rotateAngleY = (float) 0;
 			}
-			playerModel.bipedLeftArm.rotateAngleZ = (float) 0;
-			playerModel.bipedRightArm.rotateAngleZ = (float) 0;
 		}
 	}
 }

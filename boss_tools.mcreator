@@ -2701,7 +2701,7 @@
       "type": "procedure",
       "sortid": 227,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "fall_gravity",
       "metadata": {
