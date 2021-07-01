@@ -92,7 +92,7 @@ public class ClientEventBusOverworldOrbit {
 								BufferBuilder bufferbuilder = Tessellator.getInstance().getBuffer();
 								RenderSystem.depthMask(false);
 								RenderSystem.enableFog();
-								RenderSystem.color3f(f, f1, f2);
+								RenderSystem.color3f(f, f1, f2); //RenderSystem.color3f(0, 0, 0); sky himmel
 								mc.worldRenderer.skyVBO.bindBuffer();
 								mc.worldRenderer.skyVertexFormat.setupBufferState(0L);
 								mc.worldRenderer.skyVBO.draw(matrixStack.getLast().getMatrix(), 7);

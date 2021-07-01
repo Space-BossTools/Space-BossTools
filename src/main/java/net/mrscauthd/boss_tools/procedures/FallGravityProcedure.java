@@ -93,9 +93,8 @@ public class FallGravityProcedure {
 							&& (((entity instanceof LivingEntity) ? (entity.hasNoGravity()) : false) == (false))))))) {
 				entity.setMotion((entity.getMotion().getX()), (((((entity.getMotion().getY()) / 0.98) + 0.08) - 0.03) * 1),
 						(entity.getMotion().getZ()));
-				if (entity.getMotion().getY() < -0.1) {
-					entity.getPersistentData().putFloat("FallDistance", (float) ((float) entity.getMotion().getY() * -2.5));
-					entity.fallDistance = (float) ((float) entity.getMotion().getY() * -2.5);
+				if (((entity.getMotion().getY()) <= (-0.1))) {
+					entity.fallDistance = (float) (((entity.getMotion().getY()) * (-2.5)));
 				}
 			}
 			{
@@ -142,7 +141,7 @@ public class FallGravityProcedure {
 														entityiterator.getPersistentData().putDouble("EntityGravity", 2);
 														entityiterator.setMotion((entityiterator.getMotion().getX()),
 																((entityiterator.getMotion().getY()) + 0.05), (entityiterator.getMotion().getZ()));
-														entityiterator.fallDistance = (float) (0.2);
+														entityiterator.fallDistance = (float) ((-0.2));
 														entityiterator.getPersistentData().putDouble("EntityGravity", 0);
 													}
 												}
@@ -171,7 +170,9 @@ public class FallGravityProcedure {
 							&& (((entity instanceof LivingEntity) ? (entity.hasNoGravity()) : false) == (false))))))) {
 				entity.setMotion((entity.getMotion().getX()), (((((entity.getMotion().getY()) / 0.98) + 0.08) - 0.02) * 1),
 						(entity.getMotion().getZ()));
-				entity.fallDistance = (float) ((-0.02));
+				if (((entity.getMotion().getY()) <= (-0.1))) {
+					entity.fallDistance = (float) (((entity.getMotion().getY()) * (-2.5)));
+				}
 			}
 			{
 				List<Entity> _entfound = world.getEntitiesWithinAABB(Entity.class,
@@ -217,7 +218,7 @@ public class FallGravityProcedure {
 														entityiterator.getPersistentData().putDouble("EntityGravity", 2);
 														entityiterator.setMotion((entityiterator.getMotion().getX()),
 																((entityiterator.getMotion().getY()) + 0.05), (entityiterator.getMotion().getZ()));
-														entityiterator.fallDistance = (float) (0.2);
+														entityiterator.fallDistance = (float) ((-0.2));
 														entityiterator.getPersistentData().putDouble("EntityGravity", 0);
 													}
 												}
@@ -238,7 +239,9 @@ public class FallGravityProcedure {
 							&& (((entity instanceof LivingEntity) ? (entity.hasNoGravity()) : false) == (false))))))) {
 				entity.setMotion((entity.getMotion().getX()), (((((entity.getMotion().getY()) / 0.98) + 0.08) - 0.04) * 1),
 						(entity.getMotion().getZ()));
-				entity.fallDistance = (float) ((-0.02));
+				if (((entity.getMotion().getY()) <= (-0.1))) {
+					entity.fallDistance = (float) (((entity.getMotion().getY()) * (-2)));
+				}
 			}
 			{
 				List<Entity> _entfound = world.getEntitiesWithinAABB(Entity.class,
@@ -284,7 +287,7 @@ public class FallGravityProcedure {
 														entityiterator.getPersistentData().putDouble("EntityGravity", 2);
 														entityiterator.setMotion((entityiterator.getMotion().getX()),
 																((entityiterator.getMotion().getY()) + 0.05), (entityiterator.getMotion().getZ()));
-														entityiterator.fallDistance = (float) (0.2);
+														entityiterator.fallDistance = (float) ((-0.2));
 														entityiterator.getPersistentData().putDouble("EntityGravity", 0);
 													}
 												}

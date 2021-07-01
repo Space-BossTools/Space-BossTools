@@ -510,7 +510,13 @@ public class ClientEventBusVenus {
                                 BufferBuilder bufferbuilder = Tessellator.getInstance().getBuffer();
                                 RenderSystem.depthMask(false);
                                 RenderSystem.enableFog();
-                                RenderSystem.color3f(f, f1, f2);
+                             //   RenderSystem.color3f(f, f1, f2);
+                           	//	RenderSystem.color3f(0.81960785f, 0.54509807f, 0.32156864f);
+                           		//if (world.isRaining() == true) {
+								//RenderSystem.color3f(f, f1, f2);
+								//} else {
+									RenderSystem.color3f(0.81960785f, 0.54509807f, 0.32156864f);
+								//}
                                 mc.worldRenderer.skyVBO.bindBuffer();
                                 mc.worldRenderer.skyVertexFormat.setupBufferState(0L);
                                 mc.worldRenderer.skyVBO.draw(matrixStack.getLast().getMatrix(), 7);

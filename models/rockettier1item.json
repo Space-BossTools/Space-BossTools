@@ -2012,7 +2012,7 @@
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [-79, 1, 90.25],
-			"translation": [-12.75, -0.25, -4.5],
+			"translation": [-12.75, -0.25, -5.5],
 			"scale": [1.2, 1.2, 1.2]
 		},
 		"thirdperson_lefthand": {
