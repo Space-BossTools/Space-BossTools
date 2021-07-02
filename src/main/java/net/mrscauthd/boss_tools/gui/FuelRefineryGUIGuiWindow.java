@@ -20,6 +20,8 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.Minecraft;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.List;
+import java.util.ArrayList;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
@@ -45,15 +47,25 @@ public class FuelRefineryGUIGuiWindow extends ContainerScreen<FuelRefineryGUIGui
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 		// Tooltip
-		if (mouseX > guiLeft + 8 && mouseX < guiLeft + 23 && mouseY > guiTop + 10 && mouseY < guiTop + 59)
-			this.renderTooltip(ms, new StringTextComponent(((new Object() {
-				public double getValue(IWorld world, BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "lava_gui"))) + " mb / 3000.0 mb"), mouseX, mouseY);
+		double fuel = (((new Object() {
+			public double getValue(IWorld world, BlockPos pos, String tag) {
+				TileEntity tileEntity = world.getTileEntity(pos);
+				if (tileEntity != null)
+					return tileEntity.getTileData().getDouble(tag);
+				return -1;
+			}
+		}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "lava_gui"))));
+		
+		if (mouseX > guiLeft + 8 && mouseX < guiLeft + 23 && mouseY > guiTop + 10 && mouseY < guiTop + 59) {
+			List<ITextComponent> lava = new ArrayList<ITextComponent>();
+			if (fuel >= 1) {
+				lava.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Fuel"));
+			} else {
+				lava.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Empty"));
+			}
+			lava.add(ITextComponent.getTextComponentOrEmpty(String.valueOf(fuel) + " mb / 3000.0 mb"));
+			this.func_243308_b(ms, lava, mouseX, mouseY);
+		}
 		// }
 		// ToolTip Ende
 		// toolTipStart Energy

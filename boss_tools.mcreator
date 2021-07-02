@@ -4766,15 +4766,6 @@
       "registry_name": "alien_jobs"
     },
     {
-      "name": "TextureSync",
-      "type": "code",
-      "sortid": 351,
-      "compiles": true,
-      "locked_code": true,
-      "ids": {},
-      "registry_name": "texture_sync"
-    },
-    {
       "name": "FollowGoal",
       "type": "code",
       "sortid": 352,
