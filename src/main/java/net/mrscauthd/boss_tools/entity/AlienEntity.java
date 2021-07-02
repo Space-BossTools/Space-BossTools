@@ -92,6 +92,15 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 				.createMutableAttribute(Attributes.MOVEMENT_SPEED,0.25D);
 	}
 
+	public int getAlienType() {
+		//System.out.println(this.dataManager.get(ALIEN_TYPE));
+		return this.dataManager.get(ALIEN_TYPE);
+	}
+
+	public void setAlienType(int type) {
+		this.dataManager.set(ALIEN_TYPE, type);
+	}
+
 	@Override
 	protected void registerGoals() {
 		super.registerGoals();
@@ -157,19 +166,22 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 	public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
 		spawnDataIn = super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
 
-		if (worldIn.getRandom().nextFloat() < 0.2F) {
-			this.setChild(true);
-		}
+	//	if (worldIn.getRandom().nextFloat() < 0.2F) {
+	//		this.setChild(true);
+	//	}
+
+		this.setAlienType(this.rand.nextInt(AlienJobs.values().length));
+		this.getOffers();
 
 		//System.out.println("spawn");
 
-		List<AlienJobs> x = new ArrayList<>();
-		x = Arrays.asList(AlienJobs.values());
+//		List<AlienJobs> x = new ArrayList<>();
+//		x = Arrays.asList(AlienJobs.values());
 
-		int max = x.size()-1;
-		int min = 0;
+//		int max = x.size()-1;
+//		int min = 0;
 
-		this.job = x.get(new Random().nextInt((max+1)-min)+min);
+//		this.job = x.get(new Random().nextInt((max+1)-min)+min);
 		//System.out.println(job.id);
 
 		//this.id = job.id;
@@ -178,9 +190,9 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 
 		//System.out.println("Alien: "+(job != null));
 
-		this.dataManager.set(ALIEN_TYPE, job.id);
+	//	this.dataManager.set(ALIEN_TYPE, job.id);
 
-		this.getPersistentData().putDouble("texture", job.id);
+		//this.getPersistentData().putDouble("texture", job.id);
 
 		return spawnDataIn;
 	}
@@ -202,10 +214,10 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 
 		//for(int j = 0; j < i; ++j) {
 		if (this.isChild() == false) {
-		for(MerchantOffer merchantoffer : this.getOffers()) {
-			int max = 2;
-			int min = 0;
-			merchantoffer.increaseSpecialPrice((int) Math.floor((amount*new Random().nextInt((max+1)-min)+min)));
+			for(MerchantOffer merchantoffer : this.getOffers()) {
+				int max = 2;
+				int min = 0;
+				merchantoffer.increaseSpecialPrice((int) Math.floor((amount*new Random().nextInt((max+1)-min)+min)));
 			}
 		}
 		return super.attackEntityFrom(source,amount);
@@ -285,47 +297,37 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 	@Override
 	public void tick() {
 		super.tick();
-		if(job == null){
-			List<AlienJobs> x = new ArrayList<>();
-			x = Arrays.asList(AlienJobs.values());
-
-			int max = x.size()-1;
-			int min = 0;
-
-			this.job = x.get(new Random().nextInt((max+1)-min)+min);
-
-			this.dataManager.set(ALIEN_TYPE, job.id);
-
-			this.getPersistentData().putDouble("texture", job.id);
-		}
 	}
 
 	public void readAdditional(CompoundNBT compound) {
 		super.readAdditional(compound);
+		this.setAlienType(compound.getInt("JobId"));
 		if (compound.contains("Offers", 10)) {
 			this.offers = new MerchantOffers(compound.getCompound("Offers"));
 		}
-		if (compound.contains("JobId")) {
-			int x = (compound.getInt("JobId"));
+	//	if (compound.contains("JobId")) {
+	//		int x = (compound.getInt("JobId"));
 
 
 			//	System.out.println("load job " + x);
 
 			//this.id = x;
 
-			List<AlienJobs> y = new ArrayList<>();
-			y = Arrays.asList(AlienJobs.values());
-			this.job = y.get(x);
+		//	List<AlienJobs> y = new ArrayList<>();
+		//	y = Arrays.asList(AlienJobs.values());
+		//	this.job = y.get(x);
+		//	this.setAlienType(this.rand.nextInt(AlienJobs.values().length-1));
 
-			this.getPersistentData().putDouble("texture", job.id);
-		}
+			//this.getPersistentData().putDouble("texture", job.id);
+
+		//}
 	}
 
 	public void writeAdditional(CompoundNBT compound) {
 		super.writeAdditional(compound);
 		MerchantOffers merchantoffers = this.getOffers();
 		compound.put("Offers", merchantoffers.write());
-		compound.putInt("JobId", (int)this.getPersistentData().getDouble("texture"));
+		compound.putInt("JobId", this.getAlienType());
 	}
 
 	protected void addTrades(MerchantOffers givenMerchantOffers, VillagerTrades.ITrade[] newTrades, int maxNumbers) {
@@ -352,7 +354,7 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 
 	protected void populateTradeData(int i)
 	{
-		Int2ObjectMap<VillagerTrades.ITrade[]> int2objectmap = AlienTrade.TRADES.get(job);
+		Int2ObjectMap<VillagerTrades.ITrade[]> int2objectmap = net.mrscauthd.boss_tools.entity.AlienTrade.TRADES.get(AlienJobs.values()[this.getAlienType()]);
 		//VillagerData villagerdata = this.getVillagerData();
 		//Int2ObjectMap<VillagerTrades.ITrade[]> int2objectmap = AlienTrade.TRADES.get(VillagerProfession.WEAPONSMITH);
 		if (int2objectmap != null && !int2objectmap.isEmpty()) {
@@ -392,7 +394,7 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 			if (!this.world.isRemote) {
 				this.displayMerchantGui(sourceentity);
 			}
-			}
+		}
 		return ActionResultType.func_233537_a_(this.world.isRemote);
 	}
 	//@OnlyIn(Dist.CLIENT)
@@ -401,8 +403,8 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 		this.setCustomer(player);
 		//this.openMerchantContainer(player, ITextComponent.getTextComponentOrEmpty(this.getDisplayName().getString()+" - "+this.job.getJobDisplayname().getString()), 1);
 		//this.openMerchantContainer(player, ITextComponent.getTextComponentOrEmpty(this.getDisplayName().getUnformattedComponentText() + " - " + this.job.getJobDisplayname().getUnformattedComponentText()), 1);
-		this.openMerchantContainer(player, new TranslationTextComponent(this.getDisplayName().getString() + " - " +  this.job.getJobDisplayname().getString()),1);
-
+		AlienJobs j = AlienJobs.values()[getAlienType()];
+		this.openMerchantContainer(player, new TranslationTextComponent(this.getDisplayName().getString() + " - " +  j.getJobDisplayname().getString()),1);
 	}
 
 	private void recalculateSpecialPricesFor(PlayerEntity playerIn) {
@@ -437,14 +439,12 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 	public AgeableEntity func_241840_a(ServerWorld world, AgeableEntity mate) {
 		double d0 = this.rand.nextDouble();
 		AlienEntity villagerentity = new AlienEntity((EntityType<? extends AlienEntity>) MobInnet.ALIEN.get(), world);
-		villagerentity.onInitialSpawn(world, world.getDifficultyForLocation(villagerentity.getPosition()), SpawnReason.BREEDING, (ILivingEntityData)null, (CompoundNBT)null);
+		villagerentity.setAlienType(villagerentity.rand.nextInt(AlienJobs.values().length));
 		return villagerentity;
 	}
-	
+
 	public ResourceLocation getTexture() {
-		List<AlienJobs> y = new ArrayList<>();
-		y = Arrays.asList(AlienJobs.values());
-		return y.get((int)this.getPersistentData().getDouble("texture")).TEXTURE;
+		return AlienJobs.values()[this.getAlienType()].TEXTURE;
 	}
 	@Override
 	public void baseTick() {
