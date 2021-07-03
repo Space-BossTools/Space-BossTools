@@ -15,6 +15,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.Minecraft;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 @OnlyIn(Dist.CLIENT)
@@ -39,8 +42,16 @@ public class RocketTier1GUIFuelGuiWindow extends ContainerScreen<RocketTier1GUIF
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 		int fuel = (int) (entity.getPersistentData().getDouble("fuelgui"));
-		if (mouseX > guiLeft + 65 && mouseX < guiLeft + 114 && mouseY > guiTop + 20 && mouseY < guiTop + 69)
-			this.renderTooltip(ms, new StringTextComponent(/* (entity.getPersistentData().getDouble("fuel")) */ fuel + "%"), mouseX, mouseY);
+		List<ITextComponent> fuel2 = new ArrayList<ITextComponent>();
+		if (mouseX > guiLeft + 65 && mouseX < guiLeft + 114 && mouseY > guiTop + 20 && mouseY < guiTop + 69) {
+			if (fuel >= 1) {
+				fuel2.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Fuel"));
+			} else {
+				fuel2.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Empty"));
+			}
+			fuel2.add(ITextComponent.getTextComponentOrEmpty(String.valueOf(fuel) + "%"));
+			this.func_243308_b(ms, fuel2, mouseX, mouseY);
+		}
 	}
 
 	@Override

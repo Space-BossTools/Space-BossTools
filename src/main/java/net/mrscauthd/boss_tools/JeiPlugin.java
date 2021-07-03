@@ -1241,13 +1241,16 @@ public class JeiPlugin implements IModPlugin {
         }
         @Override
         public List<ITextComponent> getTooltipStrings(Tier1RocketItemItemRecipeWrapper recipe, double mouseX, double mouseY) {
+            List<ITextComponent> fuel = new ArrayList<ITextComponent>();
+            fuel.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Fuel"));
+            fuel.add(ITextComponent.getTextComponentOrEmpty("100" + "%"));
             //   counter = counter - 1;
             //    if (counter <= 0){
             //        counter = 9000;
             // }
             // animation = counter;
             if (mouseX > 64 && mouseX < 113 && mouseY > 10 && mouseY < 59) {
-                return Collections.singletonList(new TranslationTextComponent("100%"));
+                return Collections.synchronizedList(fuel);
             }
             return Collections.emptyList();
         }
@@ -1317,13 +1320,16 @@ public class JeiPlugin implements IModPlugin {
         }
         @Override
         public List<ITextComponent> getTooltipStrings(Tier2RocketItemItemJeiCategory.Tier2RocketItemItemRecipeWrapper recipe, double mouseX, double mouseY) {
+            List<ITextComponent> fuel = new ArrayList<ITextComponent>();
+            fuel.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Fuel"));
+            fuel.add(ITextComponent.getTextComponentOrEmpty("100" + "%"));
             //   counter = counter - 1;
             //    if (counter <= 0){
             //        counter = 9000;
             // }
             // animation = counter;
             if (mouseX > 64 && mouseX < 113 && mouseY > 10 && mouseY < 59) {
-                return Collections.singletonList(new TranslationTextComponent("100%"));
+                return Collections.synchronizedList(fuel);
             }
             return Collections.emptyList();
         }
@@ -1607,13 +1613,16 @@ public class JeiPlugin implements IModPlugin {
         }
         @Override
         public List<ITextComponent> getTooltipStrings(Tier3RocketItemItemJeiCategory.Tier3RocketItemItemRecipeWrapper recipe, double mouseX, double mouseY) {
+            List<ITextComponent> fuel = new ArrayList<ITextComponent>();
+            fuel.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Fuel"));
+            fuel.add(ITextComponent.getTextComponentOrEmpty("100" + "%"));
             //   counter = counter - 1;
             //    if (counter <= 0){
             //        counter = 9000;
             // }
             // animation = counter;
             if (mouseX > 64 && mouseX < 113 && mouseY > 10 && mouseY < 59) {
-                return Collections.singletonList(new TranslationTextComponent("100%"));
+                return Collections.synchronizedList(fuel);
             }
             return Collections.emptyList();
         }
@@ -1735,6 +1744,9 @@ public class JeiPlugin implements IModPlugin {
         }
         @Override
         public List<ITextComponent> getTooltipStrings(FuelMakerRecipeWrapper recipe, double mouseX, double mouseY) {
+            List<ITextComponent> fuel = new ArrayList<ITextComponent>();
+            fuel.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Fuel"));
+            fuel.add(ITextComponent.getTextComponentOrEmpty("1000.0" + " mb / 3000.0 mb"));
             //   counter = counter - 1;
             //    if (counter <= 0){
             //        counter = 9000;
@@ -1744,7 +1756,7 @@ public class JeiPlugin implements IModPlugin {
                 return Collections.singletonList(new TranslationTextComponent(animation + " FE / 9000.0 FE"));
             }
             if (mouseX > 8 && mouseX < 23 && mouseY > 7 && mouseY < 56) {
-                return Collections.singletonList(new TranslationTextComponent("1000.0" + " mb / 3000.0 mb"));
+                return Collections.synchronizedList(fuel);
             }
             return Collections.emptyList();
         }
@@ -1951,6 +1963,9 @@ public class JeiPlugin implements IModPlugin {
         }
         @Override
         public List<ITextComponent> getTooltipStrings(FuelMaker2JeiCategory.FuelMakerRecipeWrapper recipe, double mouseX, double mouseY) {
+            List<ITextComponent> fuel = new ArrayList<ITextComponent>();
+            fuel.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Fuel"));
+            fuel.add(ITextComponent.getTextComponentOrEmpty("3000.0" + " mb / 3000.0 mb"));
             //   counter = counter - 1;
             //    if (counter <= 0){
             //        counter = 9000;
@@ -1960,7 +1975,7 @@ public class JeiPlugin implements IModPlugin {
                 return Collections.singletonList(new TranslationTextComponent(animation + " FE / 9000.0 FE"));
             }
             if (mouseX > 8 && mouseX < 23 && mouseY > 7 && mouseY < 56) {
-                return Collections.singletonList(new TranslationTextComponent("3000.0" + " mb / 3000.0 mb"));
+                return Collections.synchronizedList(fuel);
             }
             return Collections.emptyList();
         }
@@ -2115,13 +2130,16 @@ public class JeiPlugin implements IModPlugin {
         }
         @Override
         public List<ITextComponent> getTooltipStrings(RoverRecipeWrapper recipe, double mouseX, double mouseY) {
+            List<ITextComponent> fuel = new ArrayList<ITextComponent>();
+            fuel.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Fuel"));
+            fuel.add(ITextComponent.getTextComponentOrEmpty("100" + "%"));
             //   counter = counter - 1;
             //    if (counter <= 0){
             //        counter = 9000;
             // }
             // animation = counter;
             if (mouseX > 8 && mouseX < 23 && mouseY > 7 && mouseY < 56) {
-                return Collections.singletonList(new TranslationTextComponent("16000.0" + " mb / 16000.0 mb"));
+                return Collections.synchronizedList(fuel);
             }
             return Collections.emptyList();
         }

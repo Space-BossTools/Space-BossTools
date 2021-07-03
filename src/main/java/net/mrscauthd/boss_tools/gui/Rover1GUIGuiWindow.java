@@ -5,7 +5,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.World;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.player.PlayerInventory;
@@ -13,7 +12,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.Minecraft;
 
+import java.util.List;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -41,8 +42,18 @@ public class Rover1GUIGuiWindow extends ContainerScreen<Rover1GUIGui.GuiContaine
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 		// Tooltip
-		if (mouseX > guiLeft + 8 && mouseX < guiLeft + 23 && mouseY > guiTop + 10 && mouseY < guiTop + 59)
-			this.renderTooltip(ms, new StringTextComponent(entity.getPersistentData().getDouble("fuel") + " mb / 16000.0 mb"), mouseX, mouseY);
+		int fuel = (int) entity.getPersistentData().getDouble("fuel") / 160;
+		List<ITextComponent> fuel2 = new ArrayList<ITextComponent>();
+		if (mouseX > guiLeft + 8 && mouseX < guiLeft + 23 && mouseY > guiTop + 10 && mouseY < guiTop + 59) {
+			if (fuel >= 1) {
+				fuel2.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Fuel"));
+			} else {
+				fuel2.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Empty"));
+			}
+			fuel2.add(ITextComponent.getTextComponentOrEmpty(String.valueOf(fuel) + "%"));
+			this.func_243308_b(ms, fuel2, mouseX, mouseY);
+			//this.renderTooltip(ms, new StringTextComponent(fuel + "%"), mouseX, mouseY);
+		}
 	}
 
 	@Override
@@ -54,9 +65,9 @@ public class Rover1GUIGuiWindow extends ContainerScreen<Rover1GUIGui.GuiContaine
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
 		this.blit(ms, k, l, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
-		//nbt
+		// nbt
 		double lavaanimation = entity.getPersistentData().getDouble("fuel");
-		//lava 0
+		// lava 0
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fuel_refinery_fuel_new.png"));
 		this.blit(ms, this.guiLeft + 9, this.guiTop + 11, 0, 0, 14, 48, 14, 48);
 		// lava animation

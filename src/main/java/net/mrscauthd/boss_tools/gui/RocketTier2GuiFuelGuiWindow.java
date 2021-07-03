@@ -7,13 +7,15 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.World;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.Minecraft;
+
+import java.util.List;
+import java.util.ArrayList;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
@@ -39,8 +41,16 @@ public class RocketTier2GuiFuelGuiWindow extends ContainerScreen<RocketTier2GuiF
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 		int fuel = (int) (entity.getPersistentData().getDouble("fuelgui"));
-		if (mouseX > guiLeft + 65 && mouseX < guiLeft + 114 && mouseY > guiTop + 20 && mouseY < guiTop + 69)
-			this.renderTooltip(ms, new StringTextComponent(/* (entity.getPersistentData().getDouble("fuel")) */ fuel + "%"), mouseX, mouseY);
+		List<ITextComponent> fuel2 = new ArrayList<ITextComponent>();
+		if (mouseX > guiLeft + 65 && mouseX < guiLeft + 114 && mouseY > guiTop + 20 && mouseY < guiTop + 69) {
+			if (fuel >= 1) {
+				fuel2.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Fuel"));
+			} else {
+				fuel2.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Empty"));
+			}
+			fuel2.add(ITextComponent.getTextComponentOrEmpty(String.valueOf(fuel) + "%"));
+			this.func_243308_b(ms, fuel2, mouseX, mouseY);
+		}
 	}
 
 	@Override
