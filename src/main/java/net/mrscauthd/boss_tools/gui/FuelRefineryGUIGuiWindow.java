@@ -402,7 +402,7 @@ public class FuelRefineryGUIGuiWindow extends ContainerScreen<FuelRefineryGUIGui
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
-		this.font.drawString(ms, "Fuel Refinery", 50, 7, -13421773);
+		this.font.drawString(ms, "Fuel Refinery", 54, 7, -13421773);
 		this.font.drawString(ms, "Inventory", 7, 79, -13421773);
 	}
 
