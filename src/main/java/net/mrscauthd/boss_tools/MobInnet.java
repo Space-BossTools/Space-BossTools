@@ -119,7 +119,7 @@ public class MobInnet extends BossToolsModElements.ModElement {
         STStructures.METEOR_DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
         STStructures2.VENUS_BULLET_DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
         //forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing3);
-        MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, this::biomesLoading);
+        forgeBus.addListener(EventPriority.HIGH, this::biomesLoading);
     }
     public void setup2(final FMLCommonSetupEvent event)
     {
@@ -202,22 +202,22 @@ public class MobInnet extends BossToolsModElements.ModElement {
 
 
     @Override
-    public void init(FMLCommonSetupEvent event) {
+    public void init(final FMLCommonSetupEvent event) {
         DeferredWorkQueue.runLater(() -> {
             GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) ALIEN.get(), AlienEntity.setCustomAttributes().create());
+            });
             event.enqueueWork(() -> {
-                ICE_SPIKE = register("ice_spike",
+                ICE_SPIKE = register("ice_spike1",
                         MobInnet.MARS_ICE_SPIKE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(2));
                 //Venus Deltas
-                DELTAS = register("deltas",
+                DELTAS = register("deltas1",
                         MobInnet.VENUS_DELTAS.withConfiguration(new ColumnConfig(FeatureSpread.func_242252_a(1), FeatureSpread.func_242253_a(1, 8)))
                         .withPlacement(Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(4))));
                //Venus Deltas2
-                DELTAS2 = register("deltas",
+                DELTAS2 = register("deltas2",
                         MobInnet.VENUS_DELTAS.withConfiguration(new ColumnConfig(FeatureSpread.func_242253_a(2, 1), FeatureSpread.func_242253_a(5, 6)))
 							.withPlacement(Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(1))));
             });
-        });
     }
     public void biomesLoading(final BiomeLoadingEvent event){
         if(event.getName().getPath().equals(MarsIceBiomeBiome.biome.getRegistryName().getPath())){

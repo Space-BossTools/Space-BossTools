@@ -35,7 +35,7 @@
     "name": "Gray Flag",
     "specialInfo": [],
     "hardness": 1.0,
-    "resistance": 10.0,
+    "resistance": 1.0,
     "hasGravity": false,
     "isWaterloggable": false,
     "creativeTab": {
@@ -52,12 +52,15 @@
     "canRedstoneConnect": false,
     "lightOpacity": 0,
     "material": {
-      "value": "CARPET"
+      "value": "WOOD"
     },
     "tickRate": 10,
     "tickRandomly": false,
     "isReplaceable": false,
     "canProvidePower": false,
+    "emittedRedstonePower": {
+      "fixedValue": 15.0
+    },
     "colorOnMap": "DEFAULT",
     "creativePickItem": {
       "value": ""
@@ -75,6 +78,21 @@
     "isCustomSoundType": false,
     "soundOnStep": {
       "value": "STONE"
+    },
+    "breakSound": {
+      "value": ""
+    },
+    "stepSound": {
+      "value": ""
+    },
+    "placeSound": {
+      "value": ""
+    },
+    "hitSound": {
+      "value": ""
+    },
+    "fallSound": {
+      "value": ""
     },
     "luminance": 1,
     "unbreakable": false,

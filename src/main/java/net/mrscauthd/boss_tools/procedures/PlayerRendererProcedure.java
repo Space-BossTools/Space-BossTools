@@ -70,25 +70,4 @@ public class PlayerRendererProcedure extends BossToolsModElements.ModElement {
 				event.setNewEyeHeight(1.f);
 			}
 		}*/
-	@SubscribeEvent
-	public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-		if (event.phase == TickEvent.Phase.END) {
-			Entity entity = event.player;
-			// event.player.getStandingEyeHeight(Pose.valueOf("adfaafafafdafa"),
-			// EntitySize.flexible(2f, 2f));
-			World world = entity.world;
-			entity.getEyePosition(0);
-			double i = entity.getPosX();
-			double j = entity.getPosY();
-			double k = entity.getPosZ();
-			Map<String, Object> dependencies = new HashMap<>();
-			dependencies.put("x", i);
-			dependencies.put("y", j);
-			dependencies.put("z", k);
-			dependencies.put("world", world);
-			dependencies.put("entity", entity);
-			dependencies.put("event", event);
-			this.executeProcedure(dependencies);
-		}
-	}
 }

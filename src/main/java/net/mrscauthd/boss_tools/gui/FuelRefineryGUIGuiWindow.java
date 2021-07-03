@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.IWorld;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
@@ -55,7 +56,6 @@ public class FuelRefineryGUIGuiWindow extends ContainerScreen<FuelRefineryGUIGui
 				return -1;
 			}
 		}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "lava_gui"))));
-		
 		if (mouseX > guiLeft + 8 && mouseX < guiLeft + 23 && mouseY > guiTop + 10 && mouseY < guiTop + 59) {
 			List<ITextComponent> lava = new ArrayList<ITextComponent>();
 			if (fuel >= 1) {

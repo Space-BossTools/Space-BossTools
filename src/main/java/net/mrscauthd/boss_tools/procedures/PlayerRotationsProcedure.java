@@ -59,7 +59,7 @@ public class PlayerRotationsProcedure extends BossToolsModElements.ModElement {
 			}
 		}
 	}
-
+	@OnlyIn(Dist.CLIENT)
 	@SubscribeEvent
 	public void Rotation(RenderItemEvent.Held event) {
 		Entity player = event.getEntity();
