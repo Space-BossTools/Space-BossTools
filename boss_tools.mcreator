@@ -326,6 +326,10 @@
             "type": "entity"
           },
           {
+            "name": "sourceentity",
+            "type": "entity"
+          },
+          {
             "name": "x",
             "type": "number"
           },
@@ -441,6 +445,10 @@
         "dependencies": [
           {
             "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "sourceentity",
             "type": "entity"
           },
           {
@@ -1923,6 +1931,10 @@
             "type": "entity"
           },
           {
+            "name": "sourceentity",
+            "type": "entity"
+          },
+          {
             "name": "x",
             "type": "number"
           },
@@ -2889,15 +2901,6 @@
       "ids": {},
       "registry_name": "moon_iron_smelt",
       "path": "~/Recpies"
-    },
-    {
-      "name": "PlayerCameraRocket",
-      "type": "code",
-      "sortid": 234,
-      "compiles": true,
-      "locked_code": true,
-      "ids": {},
-      "registry_name": "player_camera_rocket"
     },
     {
       "name": "StarCrawler",
@@ -5841,6 +5844,18 @@
       "ids": {},
       "registry_name": "moon_sand",
       "path": "~/Blocks"
+    },
+    {
+      "name": "PlayerCamera",
+      "type": "procedure",
+      "sortid": 410,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "player_camera",
+      "metadata": {
+        "dependencies": []
+      }
     }
   ],
   "variable_elements": [

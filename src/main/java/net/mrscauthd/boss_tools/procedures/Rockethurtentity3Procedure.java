@@ -31,6 +31,11 @@ public class Rockethurtentity3Procedure {
 				BossToolsMod.LOGGER.warn("Failed to load dependency entity for procedure Rockethurtentity3!");
 			return;
 		}
+		if (dependencies.get("sourceentity") == null) {
+			if (!dependencies.containsKey("sourceentity"))
+				BossToolsMod.LOGGER.warn("Failed to load dependency sourceentity for procedure Rockethurtentity3!");
+			return;
+		}
 		if (dependencies.get("x") == null) {
 			if (!dependencies.containsKey("x"))
 				BossToolsMod.LOGGER.warn("Failed to load dependency x for procedure Rockethurtentity3!");
@@ -52,88 +57,91 @@ public class Rockethurtentity3Procedure {
 			return;
 		}
 		Entity entity = (Entity) dependencies.get("entity");
+		Entity sourceentity = (Entity) dependencies.get("sourceentity");
 		double x = dependencies.get("x") instanceof Integer ? (int) dependencies.get("x") : (double) dependencies.get("x");
 		double y = dependencies.get("y") instanceof Integer ? (int) dependencies.get("y") : (double) dependencies.get("y");
 		double z = dependencies.get("z") instanceof Integer ? (int) dependencies.get("z") : (double) dependencies.get("z");
 		IWorld world = (IWorld) dependencies.get("world");
 		ItemStack itemfuel = ItemStack.EMPTY;
-		if ((!(entity.isBeingRidden()))) {
-			if (((new Object() {
-				public ItemStack getItemStack(int sltid, Entity entity) {
-					AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
-					entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-						_retval.set(capability.getStackInSlot(sltid).copy());
-					});
-					return _retval.get();
+		if ((sourceentity.isSneaking())) {
+			if ((!(entity.isBeingRidden()))) {
+				if (((new Object() {
+					public ItemStack getItemStack(int sltid, Entity entity) {
+						AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
+						entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+							_retval.set(capability.getStackInSlot(sltid).copy());
+						});
+						return _retval.get();
+					}
+				}.getItemStack((int) (0), entity)).getItem() == new ItemStack(FuelBucketBigItem.block, (int) (1)).getItem())) {
+					{
+						final ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
+						final int _sltid = (int) (0);
+						_setstack.setCount((int) 1);
+						entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+							if (capability instanceof IItemHandlerModifiable) {
+								((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
+							}
+						});
+					}
+					if (world instanceof World && !world.isRemote()) {
+						ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(FuelBucketBigItem.block, (int) (1)));
+						entityToSpawn.setPickupDelay((int) 10);
+						world.addEntity(entityToSpawn);
+					}
 				}
-			}.getItemStack((int) (0), entity)).getItem() == new ItemStack(FuelBucketBigItem.block, (int) (1)).getItem())) {
-				{
-					final ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
-					final int _sltid = (int) (0);
-					_setstack.setCount((int) 1);
-					entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-						if (capability instanceof IItemHandlerModifiable) {
-							((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-						}
-					});
+				if (((new Object() {
+					public ItemStack getItemStack(int sltid, Entity entity) {
+						AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
+						entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+							_retval.set(capability.getStackInSlot(sltid).copy());
+						});
+						return _retval.get();
+					}
+				}.getItemStack((int) (0), entity)).getItem() == new ItemStack(BucketBigItem.block, (int) (1)).getItem())) {
+					{
+						final ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
+						final int _sltid = (int) (0);
+						_setstack.setCount((int) 1);
+						entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+							if (capability instanceof IItemHandlerModifiable) {
+								((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
+							}
+						});
+					}
+					if (world instanceof World && !world.isRemote()) {
+						ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(BucketBigItem.block, (int) (1)));
+						entityToSpawn.setPickupDelay((int) 10);
+						world.addEntity(entityToSpawn);
+					}
 				}
-				if (world instanceof World && !world.isRemote()) {
-					ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(FuelBucketBigItem.block, (int) (1)));
-					entityToSpawn.setPickupDelay((int) 10);
-					world.addEntity(entityToSpawn);
+				if (((entity.getPersistentData().getDouble("Rocketfuel")) == 0)) {
+					if (world instanceof World && !world.isRemote()) {
+						ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(Tier3RocketItemItem.block, (int) (1)));
+						entityToSpawn.setPickupDelay((int) 10);
+						world.addEntity(entityToSpawn);
+					}
 				}
+				if (((entity.getPersistentData().getDouble("Rocketfuel")) == 1)) {
+					itemfuel = new ItemStack(Tier3RocketItemItem.block, (int) (1));
+					(itemfuel).getOrCreateTag().putDouble("Rocketfuel", 1);
+					(itemfuel).getOrCreateTag().putDouble("fuel", (entity.getPersistentData().getDouble("fuel")));
+					(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 4));
+					if (world instanceof World && !world.isRemote()) {
+						ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
+						entityToSpawn.setPickupDelay((int) 10);
+						world.addEntity(entityToSpawn);
+					}
+				}
+				if (world instanceof ServerWorld) {
+					((World) world).getServer().getCommandManager().handleCommand(
+							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
+									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
+							"/stopsound @p neutral boss_tools:rocketfly");
+				}
+				if (!entity.world.isRemote())
+					entity.remove();
 			}
-			if (((new Object() {
-				public ItemStack getItemStack(int sltid, Entity entity) {
-					AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
-					entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-						_retval.set(capability.getStackInSlot(sltid).copy());
-					});
-					return _retval.get();
-				}
-			}.getItemStack((int) (0), entity)).getItem() == new ItemStack(BucketBigItem.block, (int) (1)).getItem())) {
-				{
-					final ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
-					final int _sltid = (int) (0);
-					_setstack.setCount((int) 1);
-					entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-						if (capability instanceof IItemHandlerModifiable) {
-							((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-						}
-					});
-				}
-				if (world instanceof World && !world.isRemote()) {
-					ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(BucketBigItem.block, (int) (1)));
-					entityToSpawn.setPickupDelay((int) 10);
-					world.addEntity(entityToSpawn);
-				}
-			}
-			if (((entity.getPersistentData().getDouble("Rocketfuel")) == 0)) {
-				if (world instanceof World && !world.isRemote()) {
-					ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(Tier3RocketItemItem.block, (int) (1)));
-					entityToSpawn.setPickupDelay((int) 10);
-					world.addEntity(entityToSpawn);
-				}
-			}
-			if (((entity.getPersistentData().getDouble("Rocketfuel")) == 1)) {
-				itemfuel = new ItemStack(Tier3RocketItemItem.block, (int) (1));
-				(itemfuel).getOrCreateTag().putDouble("Rocketfuel", 1);
-				(itemfuel).getOrCreateTag().putDouble("fuel", (entity.getPersistentData().getDouble("fuel")));
-				(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 4));
-				if (world instanceof World && !world.isRemote()) {
-					ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
-					entityToSpawn.setPickupDelay((int) 10);
-					world.addEntity(entityToSpawn);
-				}
-			}
-			if (world instanceof ServerWorld) {
-				((World) world).getServer().getCommandManager().handleCommand(
-						new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-								new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-						"/stopsound @p neutral boss_tools:rocketfly");
-			}
-			if (!entity.world.isRemote())
-				entity.remove();
 		}
 	}
 }
