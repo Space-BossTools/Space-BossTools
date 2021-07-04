@@ -40,6 +40,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Direction;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.IPacket;
 import net.minecraft.nbt.INBT;
@@ -65,7 +66,6 @@ import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.block.BlockState;
-import net.minecraft.tags.FluidTags;
 
 import javax.annotation.Nullable;
 import javax.annotation.Nonnull;
@@ -257,9 +257,9 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 		// }
 		// Hit Box FIX
 		public boolean canBePushed() {
-     		return false;
-   		}
-   		
+			return false;
+		}
+
 		@Override
 		protected void collideWithEntity(Entity p_82167_1_) {
 		}
@@ -267,10 +267,20 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 		@Override
 		public void applyEntityCollision(Entity entityIn) {
 		}
-		//water Riding
+
+		// water Riding
 		@Deprecated
 		public boolean canBeRiddenInWater() {
 			return true;
+		}
+
+		public boolean canBeHitWithPotion() {
+			return false;
+		}
+
+		@Override
+		protected boolean canTriggerWalking() {
+			return false;
 		}
 
 		@Override
@@ -278,7 +288,7 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 			if (passenger.isSneaking() && !passenger.world.isRemote) {
 				if (passenger instanceof ServerPlayerEntity) {
 					ServerPlayerEntity playerEntity = (ServerPlayerEntity) passenger;
-					//wheel = 0;
+					// wheel = 0;
 					this.setAIMoveSpeed(0f);
 				}
 			}
@@ -489,63 +499,37 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 			double z = this.getPosZ();
 			Entity entity = this;
 			Entity entity2 = this.getPassengers().isEmpty() ? null : (Entity) this.getPassengers().get(0);
-/*			//movement
-			float forward = 0;
-			if (this.isBeingRidden()) {
-				forward = ((LivingEntity) entity2).moveForward;
-			}
-			if (this.getPersistentData().getDouble("fuel") != 0) {
-				if (this.getPersistentData().getDouble("fuel") >= 1) {
-					if (forward >= 0.01) {
-						if (speed <= 0.26) {
-							speed = speed + 0.015;
-							System.out.println("1");
-							this.setAIMoveSpeed((float) speed);
-							this.getPersistentData().putDouble("Wheel",  speed);
-						}
-					}
-					if (forward <= -0.01) {
-						if (speed >= -0.08) {
-							speed = speed - 0.015;
-							System.out.println("2");
-							this.setAIMoveSpeed((float) - speed); //-
-							this.getPersistentData().putDouble("Wheel",  speed);
-						}
-					}
-				}
-			}
-			if (forward == 0) {
-				if (speed != 0) {
-					if (speed >= 0.008) {
-						speed = speed - 0.015;
-						System.out.println("3");
-						this.setAIMoveSpeed((float) - speed); //-
-						this.getPersistentData().putDouble("Wheel",  speed);
-					}
-					if (speed <= -0.008) {
-						speed = speed + 0.015;
-						System.out.println("4");
-						this.setAIMoveSpeed((float) speed);
-						this.getPersistentData().putDouble("Wheel",  speed);
-					}
-					System.out.println(speed);
-				}
-			}
-			//}
-		*/	// movement end
-			//test 2
+			/*
+			 * //movement float forward = 0; if (this.isBeingRidden()) { forward =
+			 * ((LivingEntity) entity2).moveForward; } if
+			 * (this.getPersistentData().getDouble("fuel") != 0) { if
+			 * (this.getPersistentData().getDouble("fuel") >= 1) { if (forward >= 0.01) { if
+			 * (speed <= 0.26) { speed = speed + 0.015; System.out.println("1");
+			 * this.setAIMoveSpeed((float) speed);
+			 * this.getPersistentData().putDouble("Wheel", speed); } } if (forward <= -0.01)
+			 * { if (speed >= -0.08) { speed = speed - 0.015; System.out.println("2");
+			 * this.setAIMoveSpeed((float) - speed); //-
+			 * this.getPersistentData().putDouble("Wheel", speed); } } } } if (forward == 0)
+			 * { if (speed != 0) { if (speed >= 0.008) { speed = speed - 0.015;
+			 * System.out.println("3"); this.setAIMoveSpeed((float) - speed); //-
+			 * this.getPersistentData().putDouble("Wheel", speed); } if (speed <= -0.008) {
+			 * speed = speed + 0.015; System.out.println("4"); this.setAIMoveSpeed((float)
+			 * speed); this.getPersistentData().putDouble("Wheel", speed); }
+			 * System.out.println(speed); } } //}
+			 */ // movement end
+					// test 2
 			if (entity2 instanceof LivingEntity) {
 				forward = ((LivingEntity) entity2).moveForward;
 			}
 			if (forward >= 0.01) {
-				//fw = true;
+				// fw = true;
 				this.getPersistentData().putDouble("Wheel", 1);
 			}
 			if (forward <= -0.01) {
-				//fw = false;
+				// fw = false;
 				this.getPersistentData().putDouble("Wheel", 0);
 			}
-			//test2
+			// test2
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("entity", entity);
@@ -610,7 +594,8 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 								}
 							}
 						}
-						//this.getPersistentData().putDouble("Wheel", this.getPersistentData().getDouble("Wheel") + speed);// 0.35
+						// this.getPersistentData().putDouble("Wheel",
+						// this.getPersistentData().getDouble("Wheel") + speed);// 0.35
 						super.travel(new Vector3d(strafe, 0, forward));
 					}
 					if (forward <= -0.01) {
@@ -619,7 +604,8 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 						float strafe = 0;
 						if (this.getPersistentData().getDouble("fuel") >= 1 && this.areEyesInFluid(FluidTags.WATER) == (false)) {
 							if (this.getAIMoveSpeed() >= 0.01) {
-						//		this.getPersistentData().putDouble("Wheel", this.getPersistentData().getDouble("Wheel") - 0.08);
+								// this.getPersistentData().putDouble("Wheel",
+								// this.getPersistentData().getDouble("Wheel") - 0.08);
 							}
 							if (this.getAIMoveSpeed() <= 0.04) { // weil es ja erst gemacht werden muss das ist nur der
 								// block
@@ -639,8 +625,8 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 						if (entity instanceof PlayerEntity) {
 							((PlayerEntity) entity).sendStatusMessage(new StringTextComponent("\u00A7cNO FUEL!"), (true));
 							this.getPersistentData().putDouble("fuel", this.getPersistentData().getDouble("fuel") - 2);
-							}
 						}
+					}
 					if (this.getPersistentData().getDouble("fuel") >= 1) {
 						if (forward <= -0.01 && this.areEyesInFluid(FluidTags.WATER) == (false)) {
 							this.getPersistentData().putDouble("fuel", this.getPersistentData().getDouble("fuel") - 2);
@@ -651,24 +637,24 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 					}
 				}
 				if (this.getPersistentData().getDouble("Wheel") == 1) {
-				this.prevLimbSwingAmount = this.limbSwingAmount;
-				double d1 = this.getPosX() - this.prevPosX;
-				double d0 = this.getPosZ() - this.prevPosZ;
-				float f1 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
-				if (f1 > 1.0F)
-					f1 = 1.0F;
-				this.limbSwingAmount += (f1 - this.limbSwingAmount) * 0.4F;
-				this.limbSwing += this.limbSwingAmount;
+					this.prevLimbSwingAmount = this.limbSwingAmount;
+					double d1 = this.getPosX() - this.prevPosX;
+					double d0 = this.getPosZ() - this.prevPosZ;
+					float f1 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
+					if (f1 > 1.0F)
+						f1 = 1.0F;
+					this.limbSwingAmount += (f1 - this.limbSwingAmount) * 0.4F;
+					this.limbSwing += this.limbSwingAmount;
 				}
 				if (this.getPersistentData().getDouble("Wheel") == 0) {
-				this.prevLimbSwingAmount = this.limbSwingAmount;
-				double d1 = this.getPosX() - this.prevPosX;
-				double d0 = this.getPosZ() - this.prevPosZ;
-				float f1 = - MathHelper.sqrt(d1 * d1 + d0 * d0) * 8.0F;
-				if (f1 > 1.0F)
-					f1 = 1.0F;
-				this.limbSwingAmount += (f1 - this.limbSwingAmount) * 0.8F;
-				this.limbSwing += this.limbSwingAmount;
+					this.prevLimbSwingAmount = this.limbSwingAmount;
+					double d1 = this.getPosX() - this.prevPosX;
+					double d0 = this.getPosZ() - this.prevPosZ;
+					float f1 = -MathHelper.sqrt(d1 * d1 + d0 * d0) * 8.0F;
+					if (f1 > 1.0F)
+						f1 = 1.0F;
+					this.limbSwingAmount += (f1 - this.limbSwingAmount) * 0.8F;
+					this.limbSwing += this.limbSwingAmount;
 				}
 				return;
 			} else {

@@ -125,15 +125,24 @@ public class RocketEntity extends BossToolsModElements.ModElement {
 
 		// Hit Box FIX
 		public boolean canBePushed() {
-     		return false;
-   		}
-   		
+			return false;
+		}
+
 		@Override
 		protected void collideWithEntity(Entity p_82167_1_) {
 		}
 
 		@Override
 		public void applyEntityCollision(Entity entityIn) {
+		}
+
+		public boolean canBeHitWithPotion() {
+			return false;
+		}
+
+		@Override
+		protected boolean canTriggerWalking() {
+			return false;
 		}
 
 		@Override

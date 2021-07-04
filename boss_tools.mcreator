@@ -5126,7 +5126,7 @@
       "compiles": true,
       "locked_code": true,
       "ids": {},
-      "registry_name": "alienspitentity",
+      "registry_name": "alien_spit_entity",
       "path": "~/Entitys"
     },
     {
@@ -6020,12 +6020,12 @@
       "block.boss_tools.rocket_launch_pad": "Rocket Launch Pad",
       "item.boss_tools.hammer": "Hammer",
       "item.boss_tools.alien": "Alien Spawn Egg",
-      "item.boss_tools.alienspitentity": "Alienspitentitytest",
       "block.boss_tools.coal_generator": "Coal Generator",
       "item.boss_tools.orbit_overworld": "Admin Feuerzeug",
       "biome.boss_tools.venus_biome": "Venus Biome",
       "item.boss_tools.engine_fan": "Engine Fan",
       "fluid.fuel": "Fuel",
+      "item.boss_tools.alien_spit_entity": "Alienspitentitytest",
       "block.boss_tools.flag_pink": "Pink Flag",
       "block.boss_tools.flag_purple": "Purple Flag",
       "block.boss_tools.wireless_energy_router": "Wireless Energy Router",

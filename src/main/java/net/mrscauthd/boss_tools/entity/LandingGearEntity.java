@@ -122,9 +122,9 @@ public class LandingGearEntity extends BossToolsModElements.ModElement {
 
 		// HitBox
 		public boolean canBePushed() {
-     		return false;
-   		}
-		
+			return false;
+		}
+
 		@Override
 		public boolean func_241845_aY() {
 			return true;
@@ -138,10 +138,20 @@ public class LandingGearEntity extends BossToolsModElements.ModElement {
 		@Override
 		public void applyEntityCollision(Entity entityIn) {
 		}
-		//Riding water
+
+		// Riding water
 		@Deprecated
 		public boolean canBeRiddenInWater() {
 			return true;
+		}
+
+		public boolean canBeHitWithPotion() {
+			return false;
+		}
+
+		@Override
+		protected boolean canTriggerWalking() {
+			return false;
 		}
 
 		@Override

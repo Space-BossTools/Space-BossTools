@@ -166,9 +166,9 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 	public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
 		spawnDataIn = super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
 
-	//	if (worldIn.getRandom().nextFloat() < 0.2F) {
-	//		this.setChild(true);
-	//	}
+		if (worldIn.getRandom().nextFloat() < 0.2F) {
+			this.setChild(true);
+		}
 
 		this.setAlienType(this.rand.nextInt(AlienJobs.values().length));
 		this.getOffers();

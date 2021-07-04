@@ -48,6 +48,8 @@ public class CableGUIGuiWindow extends ContainerScreen<CableGUIGui.GuiContainerM
 		this.ySize = 146;
 	}
 	private static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/cable_gui.png");
+	private static ResourceLocation Button1T = new ResourceLocation("boss_tools:textures/buttons/button_off.png");
+	private static ResourceLocation Button2T = new ResourceLocation("boss_tools:textures/buttons/button_off.png");
 	@Override
 	public void render(MatrixStack ms, int mouseX, int mouseY, float partialTicks) {
 		this.renderBackground(ms);
@@ -106,83 +108,45 @@ public class CableGUIGuiWindow extends ContainerScreen<CableGUIGui.GuiContainerM
 		//Buton 1
 		//OFF
 		if (Button1 == true && Button1ON == false) {
-			//	Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/buttons/button_off2.png"));
-			//	this.blit(ms, this.guiLeft + 123, this.guiTop + 29, 0, 0, 20, 20, 20, 20);
-			this.addButton(new ImageButton(this.guiLeft + 123, this.guiTop + 27, 20, 20, 0, 0, 0, new ResourceLocation("boss_tools:textures/buttons/button_off2.png"), 20, 20,
-					(p_2130901) -> {
-						BossToolsMod.PACKET_HANDLER.sendToServer(new CableGUIGui.ButtonPressedMessage(0, x, y, z));
-						CableGUIGui.handleButtonAction(entity, 0, x, y, z);
-					}));
+			Button1T = new ResourceLocation("boss_tools:textures/buttons/button_off2.png");
 		}
 		if (Button1 == false && Button1ON == false) {
-			//	Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/buttons/button_off.png"));
-			//	this.blit(ms, this.guiLeft + 123, this.guiTop + 29, 0, 0, 20, 20, 20, 20);
-			this.addButton(new ImageButton(this.guiLeft + 123, this.guiTop + 27, 20, 20, 0, 0, 0, new ResourceLocation("boss_tools:textures/buttons/button_off.png"), 20, 20,
-					(p_2130901) -> {
-						BossToolsMod.PACKET_HANDLER.sendToServer(new CableGUIGui.ButtonPressedMessage(0, x, y, z));
-						CableGUIGui.handleButtonAction(entity, 0, x, y, z);
-					}));
+			Button1T = new ResourceLocation("boss_tools:textures/buttons/button_off.png");
 		}
 		//ON
 		if (Button1 == true && Button1ON == true) {
-			//	Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/buttons/button_on2.png"));
-			//	this.blit(ms, this.guiLeft + 123, this.guiTop + 29, 0, 0, 20, 20, 20, 20);
-			this.addButton(new ImageButton(this.guiLeft + 123, this.guiTop + 27, 20, 20, 0, 0, 0, new ResourceLocation("boss_tools:textures/buttons/button_on2.png"), 20, 20,
-					(p_2130901) -> {
-						BossToolsMod.PACKET_HANDLER.sendToServer(new CableGUIGui.ButtonPressedMessage(0, x, y, z));
-						CableGUIGui.handleButtonAction(entity, 0, x, y, z);
-					}));
+			Button1T = new ResourceLocation("boss_tools:textures/buttons/button_on2.png");
 		}
 		if (Button1 == false && Button1ON == true) {
-			//	Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/buttons/button_on.png"));
-			//	this.blit(ms, this.guiLeft + 123, this.guiTop + 29, 0, 0, 20, 20, 20, 20);
-			this.addButton(new ImageButton(this.guiLeft + 123, this.guiTop + 27, 20, 20, 0, 0, 0, new ResourceLocation("boss_tools:textures/buttons/button_on.png"), 20, 20,
-					(p_2130901) -> {
-						BossToolsMod.PACKET_HANDLER.sendToServer(new CableGUIGui.ButtonPressedMessage(0, x, y, z));
-						CableGUIGui.handleButtonAction(entity, 0, x, y, z);
-					}));
+			Button1T = new ResourceLocation("boss_tools:textures/buttons/button_on.png");
 		}
-		//Button 1 end
 		//Buton 2
 		//OFF
 		if (Button2 == true && Button2ON == false) {
-			//	Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/buttons/button_off2.png"));
-			//	this.blit(ms, this.guiLeft + 123, this.guiTop + 29, 0, 0, 20, 20, 20, 20);
-			this.addButton(new ImageButton(this.guiLeft + 148, this.guiTop + 27, 20, 20, 0, 0, 0, new ResourceLocation("boss_tools:textures/buttons/button_off2.png"), 20, 20,
-					(p_2130901) -> {
-						BossToolsMod.PACKET_HANDLER.sendToServer(new CableGUIGui.ButtonPressedMessage(1, x, y, z));
-						CableGUIGui.handleButtonAction(entity, 1, x, y, z);
-					}));
+			Button2T = new ResourceLocation("boss_tools:textures/buttons/button_off2.png");
 		}
 		if (Button2 == false && Button2ON == false) {
-			//	Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/buttons/button_off.png"));
-			//	this.blit(ms, this.guiLeft + 123, this.guiTop + 29, 0, 0, 20, 20, 20, 20);
-			this.addButton(new ImageButton(this.guiLeft + 148, this.guiTop + 27, 20, 20, 0, 0, 0, new ResourceLocation("boss_tools:textures/buttons/button_off.png"), 20, 20,
-					(p_2130901) -> {
-						BossToolsMod.PACKET_HANDLER.sendToServer(new CableGUIGui.ButtonPressedMessage(1, x, y, z));
-						CableGUIGui.handleButtonAction(entity, 1, x, y, z);
-					}));
+			Button2T = new ResourceLocation("boss_tools:textures/buttons/button_off.png");
 		}
 		//ON
 		if (Button2 == true && Button2ON == true) {
-			//	Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/buttons/button_on2.png"));
-			//	this.blit(ms, this.guiLeft + 123, this.guiTop + 29, 0, 0, 20, 20, 20, 20);
-			this.addButton(new ImageButton(this.guiLeft + 148, this.guiTop + 27, 20, 20, 0, 0, 0, new ResourceLocation("boss_tools:textures/buttons/button_on2.png"), 20, 20,
-					(p_2130901) -> {
-						BossToolsMod.PACKET_HANDLER.sendToServer(new CableGUIGui.ButtonPressedMessage(1, x, y, z));
-						CableGUIGui.handleButtonAction(entity, 1, x, y, z);
-					}));
+			Button2T = new ResourceLocation("boss_tools:textures/buttons/button_on2.png");
 		}
 		if (Button2 == false && Button2ON == true) {
-			//	Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/buttons/button_on.png"));
-			//	this.blit(ms, this.guiLeft + 123, this.guiTop + 29, 0, 0, 20, 20, 20, 20);
-			this.addButton(new ImageButton(this.guiLeft + 148, this.guiTop + 27, 20, 20, 0, 0, 0, new ResourceLocation("boss_tools:textures/buttons/button_on.png"), 20, 20,
-					(p_2130901) -> {
-						BossToolsMod.PACKET_HANDLER.sendToServer(new CableGUIGui.ButtonPressedMessage(1, x, y, z));
-						CableGUIGui.handleButtonAction(entity, 1, x, y, z);
-					}));
+			Button2T = new ResourceLocation("boss_tools:textures/buttons/button_on.png");
 		}
-		//Button 2 end
+		//Button 1
+		this.addButton(new ImageButton(this.guiLeft + 123, this.guiTop + 27, 20, 20, 0, 0, 0, Button1T, 20, 20,
+				(p_2130901) -> {
+					BossToolsMod.PACKET_HANDLER.sendToServer(new CableGUIGui.ButtonPressedMessage(0, x, y, z));
+					CableGUIGui.handleButtonAction(entity, 0, x, y, z);
+				}));
+		//Button 2
+		this.addButton(new ImageButton(this.guiLeft + 148, this.guiTop + 27, 20, 20, 0, 0, 0, Button2T, 20, 20,
+				(p_2130901) -> {
+					BossToolsMod.PACKET_HANDLER.sendToServer(new CableGUIGui.ButtonPressedMessage(1, x, y, z));
+					CableGUIGui.handleButtonAction(entity, 1, x, y, z);
+				}));
 		RenderSystem.disableBlend();
 	}
 

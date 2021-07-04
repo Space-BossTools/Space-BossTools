@@ -3,6 +3,7 @@ package net.mrscauthd.boss_tools.gui;
 
 import net.mrscauthd.boss_tools.procedures.CableCheck2Procedure;
 import net.mrscauthd.boss_tools.procedures.CableCheck1Procedure;
+import net.mrscauthd.boss_tools.item.NetworkLinkerItem;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
@@ -42,7 +43,7 @@ public class CableGUIGui extends BossToolsModElements.ModElement {
 	public static HashMap guistate = new HashMap();
 	private static ContainerType<GuiContainerMod> containerType = null;
 	public CableGUIGui(BossToolsModElements instance) {
-		super(instance, 388);
+		super(instance, 392);
 		elements.addNetworkMessage(ButtonPressedMessage.class, ButtonPressedMessage::buffer, ButtonPressedMessage::new,
 				ButtonPressedMessage::handler);
 		elements.addNetworkMessage(GUISlotChangedMessage.class, GUISlotChangedMessage::buffer, GUISlotChangedMessage::new,
@@ -116,6 +117,10 @@ public class CableGUIGui extends BossToolsModElements.ModElement {
 				}
 			}
 			this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 80, 29) {
+				@Override
+				public boolean isItemValid(ItemStack stack) {
+					return (new ItemStack(NetworkLinkerItem.block, (int) (1)).getItem() == stack.getItem());
+				}
 			}));
 			int si;
 			int sj;
@@ -367,7 +372,6 @@ public class CableGUIGui extends BossToolsModElements.ModElement {
 		if (buttonID == 0) {
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
-				//$_dependencies.put("entity", entity);
 				$_dependencies.put("x", x);
 				$_dependencies.put("y", y);
 				$_dependencies.put("z", z);
@@ -378,7 +382,6 @@ public class CableGUIGui extends BossToolsModElements.ModElement {
 		if (buttonID == 1) {
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("entity", entity);
 				$_dependencies.put("x", x);
 				$_dependencies.put("y", y);
 				$_dependencies.put("z", z);

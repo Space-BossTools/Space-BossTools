@@ -25,6 +25,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.Minecraft;
+import java.util.Random;
 
 import javax.annotation.Nullable;
 

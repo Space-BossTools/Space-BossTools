@@ -68,7 +68,7 @@
         "type": "inputslot",
         "data": {
           "inputLimit": {
-            "value": ""
+            "value": "CUSTOM:NetworkLinker"
           },
           "color": {
             "value": -16738048,
