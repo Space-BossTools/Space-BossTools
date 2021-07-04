@@ -5860,6 +5860,15 @@
       "metadata": {
         "dependencies": []
       }
+    },
+    {
+      "name": "DisableVehicleHealth",
+      "type": "overlay",
+      "sortid": 411,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "disable_vehicle_health"
     }
   ],
   "variable_elements": [
