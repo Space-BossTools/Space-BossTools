@@ -1,6 +1,7 @@
 
 package net.mrscauthd.boss_tools.gui.overlay;
 
+import net.mrscauthd.boss_tools.entity.RoverEntity;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketEntity;
