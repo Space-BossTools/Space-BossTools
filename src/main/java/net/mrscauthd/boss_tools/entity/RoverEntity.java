@@ -377,6 +377,32 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 			this.playSound((net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("")), 0.0f, 0);
 		}
 
+		@Override
+		public void onKillCommand() {
+			Entity entity = this;
+			double x = this.getPosX();
+			double y = this.getPosY();
+			double z = this.getPosZ();
+			for (int i = 0; i < inventory.getSlots(); ++i) {
+				ItemStack itemstack = inventory.getStackInSlot(i);
+				if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
+					this.entityDropItem(itemstack);
+				}
+			}
+			ItemStack itemfuel = ItemStack.EMPTY;
+			itemfuel = new ItemStack(RoverItemItem.block, (int) (1));
+			(itemfuel).getOrCreateTag().putDouble("Rocketfuel", (entity.getPersistentData().getDouble("Rocketfuel")));
+			(itemfuel).getOrCreateTag().putDouble("fuel", (entity.getPersistentData().getDouble("fuel")));
+			(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 160));
+			if (world instanceof World && !world.isRemote()) {
+				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
+				entityToSpawn.setPickupDelay((int) 10);
+				world.addEntity(entityToSpawn);
+			}
+			this.remove();
+			super.onKillCommand();
+		}
+
 		// end
 		@Override
 		public boolean attackEntityFrom(DamageSource source, float amount) {
@@ -402,25 +428,24 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 					RoverEntityIsHurtProcedure.executeProcedure($_dependencies);
 				}
 			}
-			if (sourceentity == null && entity.isBeingRidden() == false) {
-				for (int i = 0; i < inventory.getSlots(); ++i) {
-					ItemStack itemstack = inventory.getStackInSlot(i);
-					if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
-						this.entityDropItem(itemstack);
-					}
-				}
-				ItemStack itemfuel = ItemStack.EMPTY;
-				itemfuel = new ItemStack(RoverItemItem.block, (int) (1));
-				(itemfuel).getOrCreateTag().putDouble("Rocketfuel", (entity.getPersistentData().getDouble("Rocketfuel")));
-				(itemfuel).getOrCreateTag().putDouble("fuel", (entity.getPersistentData().getDouble("fuel")));
-				(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 160));
-				if (world instanceof World && !world.isRemote()) {
-					ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
-					entityToSpawn.setPickupDelay((int) 10);
-					world.addEntity(entityToSpawn);
-				}
-				this.remove();
-			}
+			/*
+			 * if (sourceentity == null && entity.isBeingRidden() == false) { for (int i =
+			 * 0; i < inventory.getSlots(); ++i) { ItemStack itemstack =
+			 * inventory.getStackInSlot(i); if (!itemstack.isEmpty() &&
+			 * !EnchantmentHelper.hasVanishingCurse(itemstack)) {
+			 * this.entityDropItem(itemstack); } } ItemStack itemfuel = ItemStack.EMPTY;
+			 * itemfuel = new ItemStack(RoverItemItem.block, (int) (1));
+			 * (itemfuel).getOrCreateTag().putDouble("Rocketfuel",
+			 * (entity.getPersistentData().getDouble("Rocketfuel")));
+			 * (itemfuel).getOrCreateTag().putDouble("fuel",
+			 * (entity.getPersistentData().getDouble("fuel")));
+			 * (itemfuel).getOrCreateTag().putDouble("fuelgui",
+			 * ((entity.getPersistentData().getDouble("fuel")) / 160)); if (world instanceof
+			 * World && !world.isRemote()) { ItemEntity entityToSpawn = new
+			 * ItemEntity((World) world, x, y, z, (itemfuel));
+			 * entityToSpawn.setPickupDelay((int) 10); world.addEntity(entityToSpawn); }
+			 * this.remove(); }
+			 */
 			if (source == DamageSource.FALLING_BLOCK)
 				return false;
 			if (source.getImmediateSource() instanceof ArrowEntity)
@@ -449,7 +474,8 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 				return false;
 			if (source.getDamageType().equals("witherSkull"))
 				return false;
-			return super.attackEntityFrom(source, amount);
+	//		return super.attackEntityFrom(source, amount);
+			return false;
 		}
 
 		// inv open

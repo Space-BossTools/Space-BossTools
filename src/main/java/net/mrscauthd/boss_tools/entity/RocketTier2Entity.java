@@ -3,6 +3,7 @@ package net.mrscauthd.boss_tools.entity;
 
 import net.mrscauthd.boss_tools.procedures.Rockethurtentity2Procedure;
 import net.mrscauthd.boss_tools.procedures.RocketOnEntityTicktier2Procedure;
+import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
 import net.mrscauthd.boss_tools.gui.RocketTier2GuiFuelGui;
 import net.mrscauthd.boss_tools.entity.renderer.RocketTier2Renderer;
 import net.mrscauthd.boss_tools.BossToolsModElements;
@@ -47,6 +48,7 @@ import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.MobEntity;
@@ -56,6 +58,7 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.CreatureAttribute;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.client.Minecraft;
 
 import javax.annotation.Nullable;
@@ -187,6 +190,32 @@ public class RocketTier2Entity extends BossToolsModElements.ModElement {
 		}
 
 		@Override
+		public void onKillCommand() {
+			Entity entity = this;
+			double x = this.getPosX();
+			double y = this.getPosY();
+			double z = this.getPosZ();
+			for (int i = 0; i < inventory.getSlots(); ++i) {
+				ItemStack itemstack = inventory.getStackInSlot(i);
+				if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
+					this.entityDropItem(itemstack);
+				}
+			}
+			ItemStack itemfuel = ItemStack.EMPTY;
+			itemfuel = new ItemStack(Tier2RocketItemItem.block, (int) (1));
+			(itemfuel).getOrCreateTag().putDouble("Rocketfuel", (entity.getPersistentData().getDouble("Rocketfuel")));
+			(itemfuel).getOrCreateTag().putDouble("fuel", (entity.getPersistentData().getDouble("fuel")));
+			(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 4));
+			if (world instanceof World && !world.isRemote()) {
+				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
+				entityToSpawn.setPickupDelay((int) 10);
+				world.addEntity(entityToSpawn);
+			}
+			this.remove();
+			super.onKillCommand();
+		}
+
+		@Override
 		public boolean attackEntityFrom(DamageSource source, float amount) {
 			double x = this.getPosX();
 			double y = this.getPosY();
@@ -229,7 +258,9 @@ public class RocketTier2Entity extends BossToolsModElements.ModElement {
 				return false;
 			if (source.getDamageType().equals("witherSkull"))
 				return false;
-			return super.attackEntityFrom(source, amount);
+			// super.attackEntityFrom(source, amount);
+			// return super.attackEntityFrom(source, amount);
+			return false;
 		}
 		private final ItemStackHandler inventory = new ItemStackHandler(9) {
 			@Override

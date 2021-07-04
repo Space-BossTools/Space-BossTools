@@ -104,7 +104,7 @@ public class RocketLaunchPadBlock extends BossToolsModElements.ModElement {
 		public static final BooleanProperty STAGE = BlockStateProperties.LIT;
 		boolean stage = false;
 		public CustomBlock() {
-			super(Block.Properties.create(Material.ROCK).sound(SoundType.METAL).hardnessAndResistance(5f, 10f).setLightLevel(s -> 0).harvestLevel(1)
+			super(Block.Properties.create(Material.ROCK).sound(SoundType.METAL).hardnessAndResistance(5f, 1f).setLightLevel(s -> 0).harvestLevel(1)
 					.harvestTool(ToolType.PICKAXE).setRequiresTool().notSolid().setOpaque((bs, br, bp) -> false));
 			this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, false).with(STAGE, Boolean.valueOf(false)));
 			setRegistryName("rocket_launch_pad");

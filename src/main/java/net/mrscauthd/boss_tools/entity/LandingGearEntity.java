@@ -189,6 +189,22 @@ public class LandingGearEntity extends BossToolsModElements.ModElement {
 		}
 
 		@Override
+		public void onKillCommand() {
+			Entity entity = this;
+			double x = this.getPosX();
+			double y = this.getPosY();
+			double z = this.getPosZ();
+			for (int i = 0; i < inventory.getSlots(); ++i) {
+				ItemStack itemstack = inventory.getStackInSlot(i);
+				if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
+					this.entityDropItem(itemstack);
+				}
+			}
+			this.remove();
+			super.onKillCommand();
+		}
+
+		@Override
 		public boolean attackEntityFrom(DamageSource source, float amount) {
 			double x = this.getPosX();
 			double y = this.getPosY();
@@ -198,6 +214,7 @@ public class LandingGearEntity extends BossToolsModElements.ModElement {
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("entity", entity);
+				$_dependencies.put("sourceentity", sourceentity);
 				$_dependencies.put("x", x);
 				$_dependencies.put("y", y);
 				$_dependencies.put("z", z);
@@ -228,7 +245,11 @@ public class LandingGearEntity extends BossToolsModElements.ModElement {
 				return false;
 			if (source.getDamageType().equals("witherSkull"))
 				return false;
-			return super.attackEntityFrom(source, amount);
+			if (source.getDamageType().equals("fall")) {
+				super.attackEntityFrom(source, amount);
+				return true;
+			}
+			return false;
 		}
 
 		@Override

@@ -19,12 +19,10 @@ public class PlayerCameraProcedure {
 		public static void CameraPos(EntityViewRenderEvent.CameraSetup event) {
 			if (event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketEntity.CustomEntity) {
 				if (Minecraft.getInstance().gameSettings.getPointOfView().equals(PointOfView.THIRD_PERSON_FRONT)) {
-					event.getInfo().movePosition(-8d, 0d, 0);
-					event.getInfo().calcCameraDistance(-8D);
+					event.getInfo().movePosition(event.getInfo().calcCameraDistance(-8d), 0d, 0);
 				}
 				if (Minecraft.getInstance().gameSettings.getPointOfView().equals(PointOfView.THIRD_PERSON_BACK)) {
-					event.getInfo().movePosition(-8d, 0d, 0);
-					event.getInfo().calcCameraDistance(-8D);
+					event.getInfo().movePosition(event.getInfo().calcCameraDistance(-8d), 0d, 0);
 				}
 			}
 		}
