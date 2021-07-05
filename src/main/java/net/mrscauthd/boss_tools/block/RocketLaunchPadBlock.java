@@ -2,7 +2,6 @@
 package net.mrscauthd.boss_tools.block;
 
 import net.minecraft.state.IntegerProperty;
-import net.mrscauthd.boss_tools.procedures.RocketBaseOnBlockRightClickedProcedure;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
@@ -225,7 +224,7 @@ public class RocketLaunchPadBlock extends BossToolsModElements.ModElement {
 			if(canEdit){
 				((World)world).setBlockState(pos, state.with(STAGE, Boolean.valueOf(true)), 2);
 				((World)world).updateComparatorOutputLevel(pos, this);
-			}else if(state.get(STAGE) == false){
+			}else if(state.get(STAGE) == true){
 				((World)world).setBlockState(pos, state.with(STAGE, Boolean.valueOf(false)), 2);
 				((World)world).updateComparatorOutputLevel(pos, this);
 			}
