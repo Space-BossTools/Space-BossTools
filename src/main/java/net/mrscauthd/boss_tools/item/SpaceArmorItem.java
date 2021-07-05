@@ -46,13 +46,13 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 
 @BossToolsModElements.ModElement.Tag
 public class SpaceArmorItem extends BossToolsModElements.ModElement {
-	@ObjectHolder("boss_tools:space_armor_helmet")
+	@ObjectHolder("boss_tools:oxygen_mask")
 	public static final Item helmet = null;
-	@ObjectHolder("boss_tools:space_armor_chestplate")
+	@ObjectHolder("boss_tools:space_suit")
 	public static final Item body = null;
-	@ObjectHolder("boss_tools:space_armor_leggings")
+	@ObjectHolder("boss_tools:space_pants")
 	public static final Item legs = null;
-	@ObjectHolder("boss_tools:space_armor_boots")
+	@ObjectHolder("boss_tools:space_boots")
 	public static final Item boots = null;
 	public SpaceArmorItem(BossToolsModElements instance) {
 		super(instance, 12);
@@ -132,7 +132,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 					SpaceArmorHelmetTickEventProcedure.executeProcedure($_dependencies);
 				}
 			}
-		}.setRegistryName("space_armor_helmet"));
+		}.setRegistryName("oxygen_mask"));
 		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.CHEST, new Item.Properties().group(BossToolsItemGroup.tab)) {
 			@Override
 			@OnlyIn(Dist.CLIENT)
@@ -172,7 +172,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 					SpaceArmorBodyTickEventProcedure.executeProcedure($_dependencies);
 				}
 			}
-		}.setRegistryName("space_armor_chestplate"));
+		}.setRegistryName("space_suit"));
 		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.LEGS, new Item.Properties().group(BossToolsItemGroup.tab)) {
 			@Override
 			@OnlyIn(Dist.CLIENT)
@@ -202,7 +202,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 					SpaceArmorLeggingsTickEventProcedure.executeProcedure($_dependencies);
 				}
 			}
-		}.setRegistryName("space_armor_leggings"));
+		}.setRegistryName("space_pants"));
 		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.FEET, new Item.Properties().group(BossToolsItemGroup.tab)) {
 			@Override
 			@OnlyIn(Dist.CLIENT)
@@ -232,7 +232,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 					SpaceArmorBootsTickEventProcedure.executeProcedure($_dependencies);
 				}
 			}
-		}.setRegistryName("space_armor_boots"));
+		}.setRegistryName("space_boots"));
 	}
 	// Made with Blockbench 3.8.4
 	// Exported for Minecraft version 1.15 - 1.16

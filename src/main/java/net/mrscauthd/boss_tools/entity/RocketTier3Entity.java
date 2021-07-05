@@ -222,7 +222,7 @@ public class RocketTier3Entity extends BossToolsModElements.ModElement {
 			double z = this.getPosZ();
 			Entity entity = this;
 			Entity sourceentity = source.getTrueSource();
-			{
+			if (!source.isProjectile()) {
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("entity", entity);
 				$_dependencies.put("sourceentity", sourceentity);

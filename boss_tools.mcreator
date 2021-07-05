@@ -5839,6 +5839,39 @@
       "locked_code": true,
       "ids": {},
       "registry_name": "disable_vehicle_health"
+    },
+    {
+      "name": "Test",
+      "type": "procedure",
+      "sortid": 412,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "test",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "sourceentity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
     }
   ],
   "variable_elements": [
@@ -5951,7 +5984,6 @@
       "block.boss_tools.fuel": "Fuel",
       "block.boss_tools.block_of_rusted_iron_pillar": "Block of Rusted Iron Pillar",
       "item.boss_tools.rocket": "Rocket Spawn Egg",
-      "item.boss_tools.space_armor_boots": "Space Boots",
       "itemGroup.tabspace_bosstools_blocks": "Space-Bosstools: Blocks",
       "item.boss_tools.nose_cone": "Nose Cone",
       "item.boss_tools.compressed_steel": "Compressed Steel",
@@ -5976,7 +6008,6 @@
       "block.boss_tools.mercury_cobblestone": "Mercury Cobblestone",
       "block.boss_tools.mars_ice_shard_ore": "Mars Ice Shard Ore",
       "job.boss_tools.job3": "Shepheard",
-      "item.boss_tools.space_armorboots": "Space Boots",
       "job.boss_tools.job6": "Cartographer",
       "biome.boss_tools.orbit_moon_biome": "Orbit Biome",
       "item.boss_tools.orbit_moon": "Admin Feuerzeug",
@@ -6032,10 +6063,9 @@
       "itemGroup.tabspace_bosstools_machines": "Space-Bosstools: Machines",
       "block.boss_tools.coal_torch": "Coal Torch",
       "block.boss_tools.nasa_workbench": "§dNASA Workbench",
-      "item.boss_tools.space_armor_helmet": "Oxygen Mask",
-      "item.boss_tools.space_armor_leggings": "Space Pants",
       "block.boss_tools.mercury_stone": "Mercury Stone",
       "advancements.moon_advancement.title": "Moon",
+      "item.boss_tools.space_pants": "Space Pants",
       "block.boss_tools.mars_stone": "Mars Stone",
       "entity.boss_tools.star_crawler": "Star Crawler",
       "item.boss_tools.rocket_tier_2_spawn_egg": "Rocket Spawn Egg",
@@ -6052,14 +6082,12 @@
       "job.boss_tools.job10": "Toolsmith",
       "job.boss_tools.job11": "Butcher",
       "block.boss_tools.infernal_spire": "Infernal Spire",
-      "item.boss_tools.space_armor_chestplate": "Space Suit",
       "block.boss_tools.flag_brown": "Brown Flag",
       "key.boss_tools.rocket_start": "Rocket Start",
-      "item.boss_tools.space_armorbody": "Space Suit",
       "block.boss_tools.compressor": "Compressor",
       "block.boss_tools.mars_sand": "Mars Sand",
       "block.boss_tools.moon_iron_ore": "Moon Iron Ore",
-      "item.boss_tools.space_armorlegs": "Space Pants",
+      "item.boss_tools.space_boots": "Space Boots",
       "item.boss_tools.rocket_fin": "Rocket Fin",
       "block.boss_tools.flag_orange": "Orange Flag",
       "block.boss_tools.block_of_steel": "Block of Steel",
@@ -6069,6 +6097,7 @@
       "block.boss_tools.blast_furnace": "Blast Furnace",
       "advancements.rocket_tier_2_advancement.descr": "§bHas crafted a Tier 2 Rocket",
       "block.boss_tools.moon_brick_stairs": "Moon Brick Stairs",
+      "item.boss_tools.space_suit": "Space Suit",
       "block.boss_tools.flag_green": "Green Flag",
       "block.boss_tools.flag_yellow": "Yellow Flag",
       "item.boss_tools.chesse": "Chesse",
@@ -6090,8 +6119,8 @@
       "biome.boss_tools.orbit_venus_biome": "Orbit Biome",
       "item.boss_tools.desh_ingot": "Desh Ingot",
       "biome.boss_tools.orbit_overworld_biome": "Orbit Biome",
-      "item.boss_tools.space_armorhelmet": "Oxygen Mask",
       "item.boss_tools.barrel_of_fuel": "Barrel of Fuel",
+      "item.boss_tools.oxygen_mask": "Oxygen Mask",
       "item.boss_tools.compressed_desh": "Compressed Desh",
       "block.boss_tools.flag_lime": "Lime Flag",
       "block.boss_tools.moon_glowstone_ore": "Moon Glowstone Ore",
