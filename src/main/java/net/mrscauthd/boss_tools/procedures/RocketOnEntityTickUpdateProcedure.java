@@ -1,5 +1,7 @@
 package net.mrscauthd.boss_tools.procedures;
 
+import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
+import net.mrscauthd.boss_tools.block.RocketLaunchPadBlock;
 import net.mrscauthd.boss_tools.block.FuelBlock;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
@@ -12,12 +14,16 @@ import net.minecraft.world.IWorld;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector2f;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.command.ICommandSource;
 import net.minecraft.command.CommandSource;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.BlockState;
 
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.Map;
@@ -292,5 +298,88 @@ public class RocketOnEntityTickUpdateProcedure {
 		entity.getPersistentData().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 4));
 		if (entity instanceof LivingEntity)
 			((LivingEntity) entity).setAir((int) 300);
+		if ((entity.isOnGround())) {
+			BlockState state = world.getBlockState(new BlockPos(Math.floor(x), y - 0.1, Math.floor(z)));
+			if (((state.getBlock() instanceof RocketLaunchPadBlock.CustomBlock && state.get(RocketLaunchPadBlock.CustomBlock.STAGE) == false)
+					|| ((world.getBlockState(new BlockPos((int) (Math.floor(x)), (int) (Math.floor(y)), (int) (Math.floor(z)))))
+							.getBlock() != RocketLaunchPadBlock.block.getDefaultState().getBlock()))) {
+				if (((new Object() {
+					public ItemStack getItemStack(int sltid, Entity entity) {
+						AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
+						entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+							_retval.set(capability.getStackInSlot(sltid).copy());
+						});
+						return _retval.get();
+					}
+				}.getItemStack((int) (0), entity)).getItem() == new ItemStack(FuelBlock.bucket, (int) (1)).getItem())) {
+					{
+						final ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
+						final int _sltid = (int) (0);
+						_setstack.setCount((int) 1);
+						entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+							if (capability instanceof IItemHandlerModifiable) {
+								((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
+							}
+						});
+					}
+					if (world instanceof World && !world.isRemote()) {
+						ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(FuelBlock.bucket, (int) (1)));
+						entityToSpawn.setPickupDelay((int) 10);
+						world.addEntity(entityToSpawn);
+					}
+				}
+				if (((new Object() {
+					public ItemStack getItemStack(int sltid, Entity entity) {
+						AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
+						entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+							_retval.set(capability.getStackInSlot(sltid).copy());
+						});
+						return _retval.get();
+					}
+				}.getItemStack((int) (0), entity)).getItem() == new ItemStack(Items.BUCKET, (int) (1)).getItem())) {
+					{
+						final ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
+						final int _sltid = (int) (0);
+						_setstack.setCount((int) 1);
+						entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+							if (capability instanceof IItemHandlerModifiable) {
+								((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
+							}
+						});
+					}
+					if (world instanceof World && !world.isRemote()) {
+						ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(Items.BUCKET, (int) (1)));
+						entityToSpawn.setPickupDelay((int) 10);
+						world.addEntity(entityToSpawn);
+					}
+				}
+				if (((entity.getPersistentData().getDouble("Rocketfuel")) == 0)) {
+					if (world instanceof World && !world.isRemote()) {
+						ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(Tier1RocketItemItem.block, (int) (1)));
+						entityToSpawn.setPickupDelay((int) 10);
+						world.addEntity(entityToSpawn);
+					}
+				}
+				if (((entity.getPersistentData().getDouble("Rocketfuel")) == 1)) {
+					itemfuel = new ItemStack(Tier1RocketItemItem.block, (int) (1));
+					(itemfuel).getOrCreateTag().putDouble("Rocketfuel", 1);
+					(itemfuel).getOrCreateTag().putDouble("fuel", (entity.getPersistentData().getDouble("fuel")));
+					(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 4));
+					if (world instanceof World && !world.isRemote()) {
+						ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
+						entityToSpawn.setPickupDelay((int) 10);
+						world.addEntity(entityToSpawn);
+					}
+				}
+				if (world instanceof ServerWorld) {
+					((World) world).getServer().getCommandManager().handleCommand(
+							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
+									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
+							"/stopsound @p neutral boss_tools:rocketfly");
+				}
+				if (!entity.world.isRemote())
+					entity.remove();
+			}
+		}
 	}
 }
