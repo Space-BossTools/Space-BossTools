@@ -15,7 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Hand;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.item.ItemStack;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -25,6 +24,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.Entity;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.BlockState;
 
 import java.util.Map;
 
@@ -65,16 +65,9 @@ public class Tier1RocketItemPlacedProcedure extends BossToolsModElements.ModElem
 		double y = dependencies.get("y") instanceof Integer ? (int) dependencies.get("y") : (double) dependencies.get("y");
 		double z = dependencies.get("z") instanceof Integer ? (int) dependencies.get("z") : (double) dependencies.get("z");
 		IWorld world = (IWorld) dependencies.get("world");
-		boolean stage = ((new Object() {
-			public boolean getValue(IWorld world, BlockPos pos, String tag) {
-				TileEntity tileEntity = world.getTileEntity(pos);
-				if (tileEntity != null)
-					return tileEntity.getTileData().getBoolean(tag);
-				return false;
-			}
-		}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "stage")));
+		BlockState state = world.getBlockState(new BlockPos((int) x, (int) y, (int) z));
 		if (((world.getBlockState(new BlockPos((int) x, (int) y, (int) z))).getBlock() == RocketLaunchPadBlock.block.getDefaultState().getBlock())) {
-			if (stage == true) {
+			if (state.getBlock() instanceof RocketLaunchPadBlock.CustomBlock && state.get(RocketLaunchPadBlock.CustomBlock.STAGE) == true) {
 				if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
 						.getItem() == new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem())) {
 					if (((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY).getOrCreateTag()
