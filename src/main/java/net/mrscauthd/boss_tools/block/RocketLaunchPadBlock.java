@@ -1,6 +1,7 @@
 
 package net.mrscauthd.boss_tools.block;
 
+import net.minecraft.state.IntegerProperty;
 import net.mrscauthd.boss_tools.procedures.RocketBaseOnBlockRightClickedProcedure;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
 import net.mrscauthd.boss_tools.BossToolsModElements;
@@ -64,12 +65,8 @@ import net.minecraft.block.Block;
 
 import javax.annotation.Nullable;
 
+import java.util.*;
 import java.util.stream.IntStream;
-import java.util.Random;
-import java.util.Map;
-import java.util.List;
-import java.util.HashMap;
-import java.util.Collections;
 
 @BossToolsModElements.ModElement.Tag
 public class RocketLaunchPadBlock extends BossToolsModElements.ModElement {
@@ -102,6 +99,8 @@ public class RocketLaunchPadBlock extends BossToolsModElements.ModElement {
 	public static class CustomBlock extends Block implements IWaterLoggable {
 		public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 		public static final BooleanProperty STAGE = BlockStateProperties.LIT;
+		//public static final IntegerProperty STAGE = IntegerProperty.create("state", 0, 1);
+
 		boolean stage = false;
 		public CustomBlock() {
 			super(Block.Properties.create(Material.ROCK).sound(SoundType.METAL).hardnessAndResistance(5f, 1f).setLightLevel(s -> 0).harvestLevel(1)
@@ -154,7 +153,7 @@ public class RocketLaunchPadBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos,
-				BlockPos facingPos) {
+											  BlockPos facingPos) {
 			if (state.get(WATERLOGGED)) {
 				world.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(world));
 			}
@@ -180,34 +179,58 @@ public class RocketLaunchPadBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public void tick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-			super.tick(state, world, pos, random);
-			int x = pos.getX();
-			int y = pos.getY();
-			int z = pos.getZ();
-			stage = ((new Object() {
-				public boolean getValue(IWorld world, BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getBoolean(tag);
-					return false;
+			List<Integer[]> x = new ArrayList<Integer[]>();
+			x.add(new Integer[]{0,1});
+			x.add(new Integer[]{1,1});
+			x.add(new Integer[]{1,0});
+			x.add(new Integer[]{-1,0});
+			x.add(new Integer[]{-1,-1});
+			x.add(new Integer[]{0,-1});
+			x.add(new Integer[]{1,-1});
+			x.add(new Integer[]{-1,1});
+
+			List<Integer[]> y = new ArrayList<Integer[]>();
+			y.add(new Integer[]{0,2});
+			y.add(new Integer[]{0,-2});
+			y.add(new Integer[]{2,0});
+			y.add(new Integer[]{-2,0});
+			y.add(new Integer[]{-2,1});
+			y.add(new Integer[]{-2,-1});
+			y.add(new Integer[]{2,1});
+			y.add(new Integer[]{1,-2});
+			y.add(new Integer[]{2,-2});
+			y.add(new Integer[]{-2,-2});
+			y.add(new Integer[]{-1,-1});
+			y.add(new Integer[]{3,1});
+			y.add(new Integer[]{1,2});
+			y.add(new Integer[]{2,2});
+
+			boolean canEdit = true;
+
+			for (Integer[] value : x) {
+				BlockPos bp = new BlockPos(pos.getX()+value[0],pos.getY(),pos.getZ()+value[1]);
+
+				if(!(world.getBlockState(bp).getBlock() instanceof RocketLaunchPadBlock.CustomBlock && world.getBlockState(bp).get(STAGE) == false)){
+					canEdit = false;
 				}
-			}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "stage")));
-			// set Stage
-			// stage = true;
-			if (stage == true) {
-				world.setBlockState(pos, state.with(STAGE, Boolean.valueOf(true)), 3);
-			} else {
-				world.setBlockState(pos, state.with(STAGE, Boolean.valueOf(false)), 3);
 			}
-			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
-				$_dependencies.put("world", world);
-				RocketBaseOnBlockRightClickedProcedure.executeProcedure($_dependencies);
+
+			for (Integer[] val : y) {
+				BlockPos bp = new BlockPos(pos.getX()+val[0],pos.getY(),pos.getZ()+val[1]);
+				if(!((!(world.getBlockState(bp).getBlock() instanceof RocketLaunchPadBlock.CustomBlock))  || (world.getBlockState(bp).getBlock() instanceof RocketLaunchPadBlock.CustomBlock && world.getBlockState(bp).get(STAGE) == false))){
+					canEdit = false;
+				}
 			}
-			world.getPendingBlockTicks().scheduleTick(new BlockPos(x, y, z), this, 1);
+
+			if(canEdit){
+				((World)world).setBlockState(pos, state.with(STAGE, Boolean.valueOf(true)), 2);
+				((World)world).updateComparatorOutputLevel(pos, this);
+			}else if(state.get(STAGE) == false){
+				((World)world).setBlockState(pos, state.with(STAGE, Boolean.valueOf(false)), 2);
+				((World)world).updateComparatorOutputLevel(pos, this);
+			}
+
+			world.getPendingBlockTicks().scheduleTick(new BlockPos(pos.getX(), pos.getY(), pos.getZ()), this, 1);
 		}
 
 		@Override

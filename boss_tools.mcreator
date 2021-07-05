@@ -2825,36 +2825,6 @@
       "path": "~/flags"
     },
     {
-      "name": "RocketBaseOnBlockRightClicked",
-      "type": "procedure",
-      "sortid": 231,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "rocket_base_on_block_right_clicked",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      },
-      "path": "~/Procedures"
-    },
-    {
       "name": "Moonoreiron",
       "type": "block",
       "sortid": 57,
