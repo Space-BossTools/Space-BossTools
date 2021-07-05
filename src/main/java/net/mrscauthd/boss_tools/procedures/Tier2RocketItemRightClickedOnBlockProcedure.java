@@ -11,6 +11,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.IWorld;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.ResourceLocation;
@@ -27,6 +28,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.BlockState;
 
 import java.util.Map;
+
 
 @BossToolsModElements.ModElement.Tag
 public class Tier2RocketItemRightClickedOnBlockProcedure extends BossToolsModElements.ModElement {
@@ -73,11 +75,14 @@ public class Tier2RocketItemRightClickedOnBlockProcedure extends BossToolsModEle
 					if (((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY).getOrCreateTag()
 							.getDouble("Rocketfuel")) == 0)) {
 						if (world instanceof ServerWorld) {
+							//float f = (float) MathHelper.floor((MathHelper.wrapDegrees(entity.rotationYaw - 180.0F) + 22.5F) / 90.0F) * 90.0F;
+							float f = 0;
 							Entity entityToSpawn = new RocketTier2Entity.CustomEntity(RocketTier2Entity.entity, (World) world);
-							entityToSpawn.setLocationAndAngles((x + 0.5), (y + 1), (z + 0.5), (float) 0, (float) 0);
-							entityToSpawn.setRenderYawOffset((float) 0);
+							entityToSpawn.setLocationAndAngles((x + 0.5), (y + 1), (z + 0.5), (float) f, (float) 0);
+							entityToSpawn.setPositionAndRotationDirect((x + 0.5), (y + 1), (z + 0.5), (float) f, (float) 0, 0, true);
+							entityToSpawn.setRenderYawOffset((float) f);
 							entityToSpawn.setMotion(0, 0, 0);
-							entityToSpawn.rotationYaw = (float) (0);
+							entityToSpawn.rotationYaw = (float) (f);
 							entityToSpawn.setRenderYawOffset(entityToSpawn.rotationYaw);
 							entityToSpawn.prevRotationYaw = entityToSpawn.rotationYaw;
 							if (entityToSpawn instanceof MobEntity)
@@ -111,10 +116,13 @@ public class Tier2RocketItemRightClickedOnBlockProcedure extends BossToolsModEle
 							.getDouble("Rocketfuel")) == 1)) {
 						if (world instanceof ServerWorld) {
 							Entity entityToSpawn = new RocketTier2Entity.CustomEntity(RocketTier2Entity.entity, (World) world);
-							entityToSpawn.setLocationAndAngles((x + 0.5), (y + 1), (z + 0.5), (float) 0, (float) 0);
-							entityToSpawn.setRenderYawOffset((float) 0);
+						//	float f = (float) MathHelper.floor((MathHelper.wrapDegrees(entity.rotationYaw - 180.0F) + 22.5F) / 90.0F) * 90.0F;
+							float f = 0;
+							entityToSpawn.setLocationAndAngles((x + 0.5), (y + 1), (z + 0.5), (float) f, (float) 0);
+							entityToSpawn.setPositionAndRotationDirect((x + 0.5), (y + 1), (z + 0.5), (float) f, (float) 0, 0, true);
+							entityToSpawn.setRenderYawOffset((float) f);
 							entityToSpawn.setMotion(0, 0, 0);
-							entityToSpawn.rotationYaw = (float) (0);
+							entityToSpawn.rotationYaw = (float) (f);
 							entityToSpawn.setRenderYawOffset(entityToSpawn.rotationYaw);
 							entityToSpawn.prevRotationYaw = entityToSpawn.rotationYaw;
 							if (entityToSpawn instanceof MobEntity)
@@ -152,3 +160,4 @@ public class Tier2RocketItemRightClickedOnBlockProcedure extends BossToolsModEle
 		}
 	}
 }
+
