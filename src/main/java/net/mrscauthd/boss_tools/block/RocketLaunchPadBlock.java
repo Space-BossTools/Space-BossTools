@@ -2,6 +2,7 @@
 package net.mrscauthd.boss_tools.block;
 
 import net.minecraft.state.IntegerProperty;
+import net.minecraft.world.IWorldReader;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
@@ -114,16 +115,24 @@ public class RocketLaunchPadBlock extends BossToolsModElements.ModElement {
 		}
 
 		@Override
+		public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+			if (worldIn instanceof IWorld) {
+				IWorld world = (IWorld) worldIn;
+				int x = pos.getX();
+				int y = pos.getY();
+				int z = pos.getZ();
+				if ((!((world.getBlockState(new BlockPos((int) x, (int) (y - 1), (int) z))).getBlock() == RocketLaunchPadBlock.block.getDefaultState().getBlock()))) {
+					return (true);
+				}
+				return (false);
+			}
+			return super.isValidPosition(state, worldIn, pos);
+		}
+
+		@Override
 		public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
 			Vector3d offset = state.getOffset(world, pos);
-			if (((new Object() {
-				public boolean getValue(IBlockReader world, BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getBoolean(tag);
-					return false;
-				}
-			}.getValue(world, pos, "stage"))) == true) {
+			if (state.get(STAGE) == true) {
 				// System.out.println(stage + "1");
 				return VoxelShapes.or(makeCuboidShape(0, 0, 0, 16, 3.04, 16)).withOffset(offset.x, offset.y, offset.z);
 			} else {
