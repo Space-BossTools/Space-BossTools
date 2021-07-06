@@ -2484,40 +2484,6 @@
       "path": "~/Items"
     },
     {
-      "name": "Tier2RocketItemRightClickedOnBlock",
-      "type": "procedure",
-      "sortid": 217,
-      "compiles": true,
-      "locked_code": true,
-      "ids": {},
-      "registry_name": "tier_2_rocket_item_right_clicked_on_block",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      },
-      "path": "~/Procedures"
-    },
-    {
       "name": "Tier3RocketItem",
       "type": "item",
       "sortid": 3,
@@ -2526,40 +2492,6 @@
       "ids": {},
       "registry_name": "tier_3_rocket",
       "path": "~/Items"
-    },
-    {
-      "name": "Tier3RocketItemRightClickedOnBlock",
-      "type": "procedure",
-      "sortid": 218,
-      "compiles": true,
-      "locked_code": true,
-      "ids": {},
-      "registry_name": "tier_3_rocket_item_right_clicked_on_block",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      },
-      "path": "~/Procedures"
     },
     {
       "name": "PlayerRotations",
@@ -3938,40 +3870,6 @@
         ]
       },
       "path": "~/RocketMainGuis"
-    },
-    {
-      "name": "Tier1RocketItemPlaced",
-      "type": "procedure",
-      "sortid": 305,
-      "compiles": true,
-      "locked_code": true,
-      "ids": {},
-      "registry_name": "tier_1_rocket_item_placed",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      },
-      "path": "~/Procedures"
     },
     {
       "name": "Tier2mainMenu",
@@ -5390,40 +5288,6 @@
       "path": "~/Items"
     },
     {
-      "name": "RoverItemRightClickedOnBlock",
-      "type": "procedure",
-      "sortid": 389,
-      "compiles": true,
-      "locked_code": true,
-      "ids": {},
-      "registry_name": "rover_item_right_clicked_on_block",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      },
-      "path": "~/Procedures"
-    },
-    {
       "name": "RoverRecpie",
       "type": "recipe",
       "sortid": 390,
@@ -5839,39 +5703,6 @@
       "locked_code": true,
       "ids": {},
       "registry_name": "disable_vehicle_health"
-    },
-    {
-      "name": "Test",
-      "type": "procedure",
-      "sortid": 412,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "test",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "sourceentity",
-            "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
     }
   ],
   "variable_elements": [
