@@ -88,7 +88,7 @@
       "type": "recipe",
       "sortid": 111,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "space_armor_helmet_recipe",
       "path": "~/Recpies"
@@ -98,7 +98,7 @@
       "type": "recipe",
       "sortid": 112,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "space_armor_body_recipe",
       "path": "~/Recpies"
@@ -108,7 +108,7 @@
       "type": "recipe",
       "sortid": 113,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "space_armor_leggings_recipe",
       "path": "~/Recpies"
@@ -118,7 +118,7 @@
       "type": "recipe",
       "sortid": 114,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "space_armor_boots_recipe",
       "path": "~/Recpies"
@@ -199,26 +199,6 @@
       "locked_code": false,
       "ids": {},
       "registry_name": "hammerrezept",
-      "path": "~/Recpies"
-    },
-    {
-      "name": "Battery",
-      "type": "item",
-      "sortid": 29,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "battery",
-      "path": "~/Items"
-    },
-    {
-      "name": "Batteryrezept",
-      "type": "recipe",
-      "sortid": 118,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "batteryrezept",
       "path": "~/Recpies"
     },
     {
@@ -5932,7 +5912,6 @@
       "block.boss_tools.flag_green": "Green Flag",
       "block.boss_tools.flag_yellow": "Yellow Flag",
       "item.boss_tools.chesse": "Chesse",
-      "item.boss_tools.battery": "Battery",
       "block.boss_tools.flag_magenta": "Magenta Flag",
       "itemGroup.tabspace_bosstools_spawn_eggs": "Space-Bosstools: Spawn Eggs",
       "block.boss_tools.flag": "Flag",

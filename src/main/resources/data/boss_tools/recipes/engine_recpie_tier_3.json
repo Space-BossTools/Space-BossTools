@@ -11,7 +11,7 @@
       "tag": "forge:ingots/silicon"
     },
     "1": {
-      "item": "boss_tools:battery"
+      "item": "minecraft:redstone"
     },
     "2": {
       "tag": "forge:ingots/steel"
@@ -29,7 +29,7 @@
       "tag": "forge:ingots/silicon"
     },
     "7": {
-      "item": "boss_tools:battery"
+      "item": "minecraft:redstone"
     },
     "8": {
       "tag": "forge:plates/desh"

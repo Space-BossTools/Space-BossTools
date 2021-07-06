@@ -13,7 +13,7 @@
         "value": "TAG:forge:ingots/silicon"
       },
       {
-        "value": "CUSTOM:Battery"
+        "value": "Items.REDSTONE"
       },
       {
         "value": "TAG:forge:ingots/steel"
@@ -31,7 +31,7 @@
         "value": "TAG:forge:ingots/silicon"
       },
       {
-        "value": "CUSTOM:Battery"
+        "value": "Items.REDSTONE"
       },
       {
         "value": "TAG:forge:plates/desh"
