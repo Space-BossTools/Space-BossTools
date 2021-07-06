@@ -99,8 +99,7 @@ public class Tier1RocketItemItem extends BossToolsModElements.ModElement {
 			ItemStack itemstack = context.getItem();
 			{
 				BlockState state = world.getBlockState(new BlockPos((int) x, (int) y, (int) z));
-				if (((world.getBlockState(new BlockPos((int) x, (int) y, (int) z))).getBlock() == RocketLaunchPadBlock.block.getDefaultState()
-						.getBlock())) {
+				if (world.isAirBlock(new BlockPos((int) x, (int) y + 1, (int) z)) && world.isAirBlock(new BlockPos((int) x, (int) y + 2, (int) z))&& world.isAirBlock(new BlockPos((int) x, (int) y + 3, (int) z))) {
 					if (state.getBlock() instanceof RocketLaunchPadBlock.CustomBlock && state.get(RocketLaunchPadBlock.CustomBlock.STAGE) == true) {
 						// check if entity on this pos
 						Boolean entityblock = false;
@@ -109,10 +108,10 @@ public class Tier1RocketItemItem extends BossToolsModElements.ModElement {
 									new AxisAlignedBB((x + 0.5) - (1 / 2d), (Math.floor(y)) - (0.4 / 2d), (z + 0.5) - (1 / 2d),
 											(x + 0.5) + (1 / 2d), (Math.floor(y)) + (0.4 / 2d), (z + 0.5) + (1 / 2d)),
 									null).stream().sorted(new Object() {
-										Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-											return Comparator.comparing((Function<Entity, Double>) (_entcnd -> _entcnd.getDistanceSq(_x, _y, _z)));
-										}
-									}.compareDistOf((Math.floor(x)), (Math.floor(y)), (Math.floor(z)))).collect(Collectors.toList());
+								Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
+									return Comparator.comparing((Function<Entity, Double>) (_entcnd -> _entcnd.getDistanceSq(_x, _y, _z)));
+								}
+							}.compareDistOf((Math.floor(x)), (Math.floor(y)), (Math.floor(z)))).collect(Collectors.toList());
 							for (Entity entityiterator : _entfound) {
 								if (entityiterator instanceof RocketEntity.CustomEntity || entityiterator instanceof RocketTier2Entity.CustomEntity
 										|| entityiterator instanceof RocketTier3Entity.CustomEntity

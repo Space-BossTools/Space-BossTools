@@ -98,8 +98,7 @@ public class Tier2RocketItemItem extends BossToolsModElements.ModElement {
 			int z = pos.getZ();
 			ItemStack itemstack = context.getItem();
 			BlockState state = world.getBlockState(new BlockPos((int) x, (int) y, (int) z));
-			if (((world.getBlockState(new BlockPos((int) x, (int) y, (int) z))).getBlock() == RocketLaunchPadBlock.block.getDefaultState()
-					.getBlock())) {
+				if (world.isAirBlock(new BlockPos((int) x, (int) y + 1, (int) z)) && world.isAirBlock(new BlockPos((int) x, (int) y + 2, (int) z))&& world.isAirBlock(new BlockPos((int) x, (int) y + 3, (int) z))&& world.isAirBlock(new BlockPos((int) x, (int) y + 4, (int) z))) {
 				if (state.getBlock() instanceof RocketLaunchPadBlock.CustomBlock && state.get(RocketLaunchPadBlock.CustomBlock.STAGE) == true) {
 					// check if entity on this pos
 					Boolean entityblock = false;
