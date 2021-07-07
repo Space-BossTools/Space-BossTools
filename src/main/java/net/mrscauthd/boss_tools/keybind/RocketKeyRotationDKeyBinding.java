@@ -19,13 +19,13 @@ import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.World;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.Minecraft;
-import net.minecraft.tags.FluidTags;
 
 import java.util.function.Supplier;
 
@@ -106,15 +106,28 @@ public class RocketKeyRotationDKeyBinding extends BossToolsModElements.ModElemen
 			}
 			// Rover
 			if ((entity.getRidingEntity()) instanceof RoverEntity.CustomEntity) {
-			float forward = ((LivingEntity) entity).moveForward;
-				if (entity.getRidingEntity().getPersistentData().getDouble("fuel") >= 1 && entity.getRidingEntity().areEyesInFluid(FluidTags.WATER) == (false)) {
+				float forward = ((LivingEntity) entity).moveForward;
+				if (entity.getRidingEntity().getPersistentData().getDouble("fuel") >= 1
+						&& entity.getRidingEntity().areEyesInFluid(FluidTags.WATER) == (false)) {
 					if (forward >= 0.01) {
-						entity.getRidingEntity().getPersistentData().putDouble("Rotation",
-								entity.getRidingEntity().getPersistentData().getDouble("Rotation") + 1);
+						// entity.getRidingEntity().getPersistentData().putDouble("Rotation",
+						// entity.getRidingEntity().getPersistentData().getDouble("Rotation") + 1);
+						(entity.getRidingEntity()).rotationYaw = (float) ((((entity.getRidingEntity()).rotationYaw) + 1));
+						(entity.getRidingEntity()).setRenderYawOffset((entity.getRidingEntity()).rotationYaw);
+						(entity.getRidingEntity()).prevRotationYaw = (entity.getRidingEntity()).rotationYaw;
+						if ((entity.getRidingEntity()) instanceof LivingEntity) {
+							((LivingEntity) (entity.getRidingEntity())).prevRenderYawOffset = (entity.getRidingEntity()).rotationYaw;
+						}
 					}
 					if (forward <= -0.01) {
-						entity.getRidingEntity().getPersistentData().putDouble("Rotation",
-								entity.getRidingEntity().getPersistentData().getDouble("Rotation") - 1);
+						// entity.getRidingEntity().getPersistentData().putDouble("Rotation",
+						// entity.getRidingEntity().getPersistentData().getDouble("Rotation") - 1);
+						(entity.getRidingEntity()).rotationYaw = (float) ((((entity.getRidingEntity()).rotationYaw) - 1));
+						(entity.getRidingEntity()).setRenderYawOffset((entity.getRidingEntity()).rotationYaw);
+						(entity.getRidingEntity()).prevRotationYaw = (entity.getRidingEntity()).rotationYaw;
+						if ((entity.getRidingEntity()) instanceof LivingEntity) {
+							((LivingEntity) (entity.getRidingEntity())).prevRenderYawOffset = (entity.getRidingEntity()).rotationYaw;
+						}
 					}
 				}
 			}

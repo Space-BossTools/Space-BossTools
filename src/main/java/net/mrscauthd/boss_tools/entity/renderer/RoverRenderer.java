@@ -55,6 +55,7 @@ public class RoverRenderer {
 		public Modelrover() {
 			textureWidth = 128;
 			textureHeight = 128;
+
 			Frame = new ModelRenderer(this);
 			Frame.setRotationPoint(0.0F, 24.0F, 0.0F);
 			Frame.setTextureOffset(0, 0).addBox(-7.0F, -4.0F, -21.0F, 14.0F, 1.0F, 29.0F, 0.0F, false);
@@ -81,40 +82,56 @@ public class RoverRenderer {
 			Frame.setTextureOffset(0, 0).addBox(-9.0F, -6.25F, -14.75F, 2.0F, 5.0F, 0.0F, 0.0F, false);
 			Frame.setTextureOffset(0, 30).addBox(7.0F, -6.25F, 9.25F, 2.0F, 5.0F, 0.0F, 0.0F, false);
 			Frame.setTextureOffset(0, 20).addBox(-9.0F, -6.25F, 9.25F, 2.0F, 5.0F, 0.0F, 0.0F, false);
+
 			cube_r1 = new ModelRenderer(this);
 			cube_r1.setRotationPoint(0.0F, -4.8695F, 4.9914F);
 			Frame.addChild(cube_r1);
 			setRotationAngle(cube_r1, -0.1309F, 0.0F, 0.0F);
 			cube_r1.setTextureOffset(0, 9).addBox(-6.0F, -9.0F, -1.0F, 12.0F, 10.0F, 1.0F, 0.0F, false);
+
 			cube_r2 = new ModelRenderer(this);
 			cube_r2.setRotationPoint(0.0F, -4.0F, -21.0F);
 			Frame.addChild(cube_r2);
 			setRotationAngle(cube_r2, -0.2182F, 0.0F, 0.0F);
 			cube_r2.setTextureOffset(4, 51).addBox(-1.0F, -6.0F, 0.0F, 6.0F, 6.0F, 0.0F, 0.0F, false);
+
 			cube_r3 = new ModelRenderer(this);
 			cube_r3.setRotationPoint(0.0F, -4.9992F, -22.9995F);
 			Frame.addChild(cube_r3);
 			setRotationAngle(cube_r3, 0.5672F, 0.0F, 0.0F);
 			cube_r3.setTextureOffset(31, 34).addBox(-3.0F, 0.0F, -2.0F, 6.0F, 0.0F, 2.0F, 0.0F, false);
+
 			Wheel1 = new ModelRenderer(this);
-			Wheel1.setRotationPoint(7.0F, 21.5F, -18.5F);
+			Wheel1.setRotationPoint(7.0F, -2.5F, -18.5F);
+			Frame.addChild(Wheel1);
 			Wheel1.setTextureOffset(46, 44).addBox(0.0F, -2.5F, -2.5F, 2.0F, 5.0F, 5.0F, 0.0F, false);
+
 			Wheel2 = new ModelRenderer(this);
-			Wheel2.setRotationPoint(8.0F, 21.5F, 5.5F);
+			Wheel2.setRotationPoint(8.0F, -2.5F, 5.5F);
+			Frame.addChild(Wheel2);
 			Wheel2.setTextureOffset(46, 34).addBox(-1.0F, -2.5F, -2.5F, 2.0F, 5.0F, 5.0F, 0.0F, false);
+
 			Wheel3 = new ModelRenderer(this);
-			Wheel3.setRotationPoint(-8.0F, 21.5F, -18.5F);
+			Wheel3.setRotationPoint(-8.0F, -2.5F, -18.5F);
+			Frame.addChild(Wheel3);
 			Wheel3.setTextureOffset(37, 39).addBox(-1.0F, -2.5F, -2.5F, 2.0F, 5.0F, 5.0F, 0.0F, false);
+
 			Wheel4 = new ModelRenderer(this);
-			Wheel4.setRotationPoint(-8.0F, 21.5F, 5.5F);
+			Wheel4.setRotationPoint(-8.0F, -2.5F, 5.5F);
+			Frame.addChild(Wheel4);
 			Wheel4.setTextureOffset(22, 44).addBox(-1.0F, -2.5F, -2.5F, 2.0F, 5.0F, 5.0F, 0.0F, false);
+
 			sat = new ModelRenderer(this);
-			sat.setRotationPoint(3.458F, 4.2756F, -21.5F);
+			sat.setRotationPoint(3.458F, -19.7244F, -21.5F);
+			Frame.addChild(sat);
+
+
 			cube_r4 = new ModelRenderer(this);
 			cube_r4.setRotationPoint(0.042F, -0.2756F, 0.0F);
 			sat.addChild(cube_r4);
 			setRotationAngle(cube_r4, 0.2618F, 0.0F, 0.0F);
 			cube_r4.setTextureOffset(0, 0).addBox(-4.5F, 0.15F, -4.5F, 9.0F, 0.0F, 9.0F, 0.0F, false);
+
 			cube_r5 = new ModelRenderer(this);
 			cube_r5.setRotationPoint(-0.042F, -1.7244F, -0.379F);
 			sat.addChild(cube_r5);
@@ -128,11 +145,11 @@ public class RoverRenderer {
 			matrixStack.scale(2.0f, 2.0f, 2.0f);
 			matrixStack.translate(0.0D, -0.75D, 0.0D);
 			Frame.render(matrixStack, buffer, packedLight, packedOverlay);
-			Wheel1.render(matrixStack, buffer, packedLight, packedOverlay);
-			Wheel2.render(matrixStack, buffer, packedLight, packedOverlay);
-			Wheel3.render(matrixStack, buffer, packedLight, packedOverlay);
-			Wheel4.render(matrixStack, buffer, packedLight, packedOverlay);
-			sat.render(matrixStack, buffer, packedLight, packedOverlay);
+		//	Wheel1.render(matrixStack, buffer, packedLight, packedOverlay);
+		//	Wheel2.render(matrixStack, buffer, packedLight, packedOverlay);
+		//	Wheel3.render(matrixStack, buffer, packedLight, packedOverlay);
+		//	Wheel4.render(matrixStack, buffer, packedLight, packedOverlay);
+		//	sat.render(matrixStack, buffer, packedLight, packedOverlay);
 		}
 
 		public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
@@ -142,6 +159,13 @@ public class RoverRenderer {
 		}
 
 		public void setRotationAngles(Entity e, float f, float f1, float f2, float f3, float f4) {
+			//FIX Rotation Bug
+			this.Frame.rotateAngleY = f3 / (180F / (float) Math.PI);
+			//	this.Wheel1.rotateAngleY = f3 / (180F / (float) Math.PI);
+			//	this.Wheel2.rotateAngleY = f3 / (180F / (float) Math.PI);
+			//	this.Wheel3.rotateAngleY = f3 / (180F / (float) Math.PI);
+			//	this.Wheel4.rotateAngleY = f3 / (180F / (float) Math.PI);
+			//	this.sat.rotateAngleY = f3 / (180F / (float) Math.PI);
 			// Animation1
 			this.Wheel1.rotateAngleX = f2 / (180F / (float) Math.PI);
 			this.Wheel2.rotateAngleX = f2 / (180F / (float) Math.PI);

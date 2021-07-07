@@ -121,8 +121,8 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 
 		public static void registerMessages() {
 			INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation("boss_tools", "rover_link"), () -> "100.0", s -> true, s -> true);
-			INSTANCE.registerMessage(nextID(), RotationSpinPacket.class, RotationSpinPacket::encode, RotationSpinPacket::decode,
-					RotationSpinPacket::handle);
+	//		INSTANCE.registerMessage(nextID(), RotationSpinPacket.class, RotationSpinPacket::encode, RotationSpinPacket::decode,
+	//				RotationSpinPacket::handle);
 			// new animationpitch
 			INSTANCE.registerMessage(nextID(), WheelSpinPacket.class, WheelSpinPacket::encode, WheelSpinPacket::decode, WheelSpinPacket::handle);
 			// fuel
@@ -131,7 +131,7 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 	}
 
 	// First Animation
-	private static class RotationSpinPacket {
+/*	private static class RotationSpinPacket {
 		private double rotation;
 		private int entityId;
 		public RotationSpinPacket(int entityId, double rotation) {
@@ -157,7 +157,7 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 			});
 			ctx.get().setPacketHandled(true);
 		}
-	}
+	}*/
 
 	// Wheel Animation
 	private static class WheelSpinPacket {
@@ -474,7 +474,7 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 				return false;
 			if (source.getDamageType().equals("witherSkull"))
 				return false;
-	//		return super.attackEntityFrom(source, amount);
+			//		return super.attackEntityFrom(source, amount);
 			return false;
 		}
 
@@ -543,7 +543,7 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 			 * speed); this.getPersistentData().putDouble("Wheel", speed); }
 			 * System.out.println(speed); } } //}
 			 */ // movement end
-					// test 2
+			// test 2
 			if (entity2 instanceof LivingEntity) {
 				forward = ((LivingEntity) entity2).moveForward;
 			}
@@ -564,9 +564,9 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 			// fall damage
 			// entity.getAlwaysRenderNameTagForRender();
 			this.fallDistance = (float) (0);
-			if (!this.world.isRemote)
-				NetworkLoader.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> this),
-						new RotationSpinPacket(this.getEntityId(), this.getPersistentData().getDouble("Rotation")));
+		//	if (!this.world.isRemote)
+		//		NetworkLoader.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> this),
+		//				new RotationSpinPacket(this.getEntityId(), this.getPersistentData().getDouble("Rotation")));
 			// new Nbt
 			if (!this.world.isRemote)
 				NetworkLoader.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> this),
@@ -582,13 +582,13 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 			Entity entity = this.getPassengers().isEmpty() ? null : (Entity) this.getPassengers().get(0);
 			if (this.isBeingRidden()) {
 				// entity.fallDistance = (float) (0);
-				this.rotationYaw = this.rotationYaw = (float) this.getPersistentData().getDouble("Rotation"); // change
-				this.prevRotationYaw = this.rotationYaw;
-				this.rotationPitch = entity.rotationPitch * 0.5F;
-				this.setRotation(this.rotationYaw, this.rotationPitch);
+				//		this.rotationYaw = this.rotationYaw = (float) this.getPersistentData().getDouble("Rotation"); // change
+				//		this.prevRotationYaw = this.rotationYaw;
+				//		this.rotationPitch = entity.rotationPitch * 0.5F;
+				//		this.setRotation(this.rotationYaw, this.rotationPitch);
 				this.jumpMovementFactor = this.getAIMoveSpeed() * 0.15F;
-				this.renderYawOffset = this.rotationYaw; // change
-				this.rotationYawHead = this.rotationYaw; // change
+				//			this.renderYawOffset = this.rotationYaw; // change
+				//			this.rotationYawHead = this.rotationYaw; // change
 				this.stepHeight = 1.0F;
 				// test
 				if (entity instanceof LivingEntity) {
