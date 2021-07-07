@@ -47,7 +47,7 @@ public class FraggrayBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:flag_gray")
 	public static final Block block = null;
 	public FraggrayBlock(BossToolsModElements instance) {
-		super(instance, 88);
+		super(instance, 90);
 	}
 
 	@Override

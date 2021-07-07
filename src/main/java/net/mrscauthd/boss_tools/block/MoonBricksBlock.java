@@ -25,7 +25,7 @@ public class MoonBricksBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:moon_bricks")
 	public static final Block block = null;
 	public MoonBricksBlock(BossToolsModElements instance) {
-		super(instance, 70);
+		super(instance, 72);
 	}
 
 	@Override

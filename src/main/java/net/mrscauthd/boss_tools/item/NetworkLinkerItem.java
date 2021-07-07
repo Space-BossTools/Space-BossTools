@@ -16,7 +16,7 @@ public class NetworkLinkerItem extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:network_linker")
 	public static final Item block = null;
 	public NetworkLinkerItem(BossToolsModElements instance) {
-		super(instance, 30);
+		super(instance, 29);
 	}
 
 	@Override

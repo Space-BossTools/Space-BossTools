@@ -16,7 +16,7 @@ public class WheelItem extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:wheel")
 	public static final Item block = null;
 	public WheelItem(BossToolsModElements instance) {
-		super(instance, 31);
+		super(instance, 30);
 	}
 
 	@Override

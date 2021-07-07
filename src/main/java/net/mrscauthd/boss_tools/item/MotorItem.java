@@ -16,7 +16,7 @@ public class MotorItem extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:iron_tank")
 	public static final Item block = null;
 	public MotorItem(BossToolsModElements instance) {
-		super(instance, 38);
+		super(instance, 37);
 	}
 
 	@Override
