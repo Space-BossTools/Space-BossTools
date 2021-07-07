@@ -88,6 +88,7 @@ public class Tier2RocketItemItem extends BossToolsModElements.ModElement {
 
 		@Override
 		public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
+			super.onItemUseFirst(stack, context);
 			ActionResultType retval = super.onItemUseFirst(stack, context);
 			World world = context.getWorld();
 			BlockPos pos = context.getPos();
@@ -98,7 +99,9 @@ public class Tier2RocketItemItem extends BossToolsModElements.ModElement {
 			int z = pos.getZ();
 			ItemStack itemstack = context.getItem();
 			BlockState state = world.getBlockState(new BlockPos((int) x, (int) y, (int) z));
-				if (world.isAirBlock(new BlockPos((int) x, (int) y + 1, (int) z)) && world.isAirBlock(new BlockPos((int) x, (int) y + 2, (int) z))&& world.isAirBlock(new BlockPos((int) x, (int) y + 3, (int) z))&& world.isAirBlock(new BlockPos((int) x, (int) y + 4, (int) z))) {
+			if (world.isAirBlock(new BlockPos((int) x, (int) y + 1, (int) z)) && world.isAirBlock(new BlockPos((int) x, (int) y + 2, (int) z))
+					&& world.isAirBlock(new BlockPos((int) x, (int) y + 3, (int) z))
+					&& world.isAirBlock(new BlockPos((int) x, (int) y + 4, (int) z))) {
 				if (state.getBlock() instanceof RocketLaunchPadBlock.CustomBlock && state.get(RocketLaunchPadBlock.CustomBlock.STAGE) == true) {
 					// check if entity on this pos
 					Boolean entityblock = false;
@@ -124,8 +127,7 @@ public class Tier2RocketItemItem extends BossToolsModElements.ModElement {
 						}
 					}
 					if (entityblock == false) {
-						if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
-								.getItem() == new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem())) {
+						if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY).getItem() == new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem() && ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY).getItem() != new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem() && ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY).getItem() != new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem() && ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY).getItem() != new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem() && ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY).getItem() != new ItemStack(RoverItemItem.block, (int) (1)).getItem())) {
 							if (((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
 									.getOrCreateTag().getDouble("Rocketfuel")) == 0)) {
 								if (world instanceof ServerWorld) {
@@ -171,6 +173,8 @@ public class Tier2RocketItemItem extends BossToolsModElements.ModElement {
 									if (entity instanceof ServerPlayerEntity)
 										((ServerPlayerEntity) entity).inventory.markDirty();
 								}
+								//f
+								//entityblock = true;
 							}
 							if (((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
 									.getOrCreateTag().getDouble("Rocketfuel")) == 1)) {
@@ -220,12 +224,120 @@ public class Tier2RocketItemItem extends BossToolsModElements.ModElement {
 									if (entity instanceof ServerPlayerEntity)
 										((ServerPlayerEntity) entity).inventory.markDirty();
 								}
+								//f
+								//entityblock = true;
 							}
+						//		return super.onItemUseFirst(stack, context);
 						}
 					}
+					//second check for FIX Duble placing
+
+					// Off Hand
+					if (entityblock == false) {
+						if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY).getItem() == new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem() && ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY).getItem() != new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem() && ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY).getItem() != new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem() && ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY).getItem() != new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem() && ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY).getItem() != new ItemStack(RoverItemItem.block, (int) (1)).getItem())) {
+							if (((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
+									.getOrCreateTag().getDouble("Rocketfuel")) == 0)) {
+								if (world instanceof ServerWorld) {
+									// float f = (float) MathHelper.floor((MathHelper.wrapDegrees(entity.rotationYaw
+									// - 180.0F) + 22.5F) / 90.0F) * 90.0F;
+									float f = 0;
+									Entity entityToSpawn = new RocketTier2Entity.CustomEntity(RocketTier2Entity.entity, (World) world);
+									ServerWorld serverworld = (ServerWorld) world;
+									ArmorStandEntity rentity = EntityType.ARMOR_STAND.create(serverworld, itemstack.getTag(), (ITextComponent) null,
+											context.getPlayer(), pos, SpawnReason.SPAWN_EGG, true, true);
+									entityToSpawn.setLocationAndAngles((x + 0.5), (rentity.getPosY()), (z + 0.5), (float) 0, (float) 0);
+									// entityToSpawn.setPositionAndRotationDirect((x + 0.5), (y + 1), (z + 0.5),
+									// (float) f, (float) 0, 0, true);
+									entityToSpawn.setRenderYawOffset((float) f);
+									entityToSpawn.rotationYaw = (float) (f);
+									entityToSpawn.setRenderYawOffset(entityToSpawn.rotationYaw);
+									entityToSpawn.prevRotationYaw = entityToSpawn.rotationYaw;
+									if (entityToSpawn instanceof MobEntity)
+										((MobEntity) entityToSpawn).prevRenderYawOffset = entityToSpawn.rotationYaw;
+									((MobEntity) entityToSpawn).rotationYawHead = entityToSpawn.rotationYaw;
+									((MobEntity) entityToSpawn).prevRotationYawHead = entityToSpawn.rotationYaw;
+									((MobEntity) entityToSpawn).onInitialSpawn((ServerWorld) world,
+											world.getDifficultyForLocation(entityToSpawn.getPosition()), SpawnReason.MOB_SUMMONED,
+											(ILivingEntityData) null, (CompoundNBT) null);
+									entityToSpawn.getPersistentData().putDouble("Rocketfuel", 0);
+									world.addEntity(entityToSpawn);
+								}
+								if (world instanceof World && !world.isRemote()) {
+									((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
+											(net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS
+													.getValue(new ResourceLocation("block.stone.break")),
+											SoundCategory.NEUTRAL, (float) 1, (float) 1);
+								} else {
+									((World) world).playSound(x, y, z,
+											(net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS
+													.getValue(new ResourceLocation("block.stone.break")),
+											SoundCategory.NEUTRAL, (float) 1, (float) 1, false);
+								}
+								if (entity instanceof LivingEntity) {
+									ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
+									_setstack.setCount((int) 1);
+									((LivingEntity) entity).setHeldItem(Hand.OFF_HAND, _setstack);
+									if (entity instanceof ServerPlayerEntity)
+										((ServerPlayerEntity) entity).inventory.markDirty();
+								}
+							}
+							if (((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
+									.getOrCreateTag().getDouble("Rocketfuel")) == 1)) {
+								if (world instanceof ServerWorld) {
+									Entity entityToSpawn = new RocketTier2Entity.CustomEntity(RocketTier2Entity.entity, (World) world);
+									// float f = (float) MathHelper.floor((MathHelper.wrapDegrees(entity.rotationYaw
+									// - 180.0F) + 22.5F) / 90.0F) * 90.0F;
+									float f = 0;
+									// entityToSpawn.setLocationAndAngles((x + 0.5), (y + 1), (z + 0.5), (float) f,
+									// (float) 0);
+									ServerWorld serverworld = (ServerWorld) world;
+									ArmorStandEntity rentity = EntityType.ARMOR_STAND.create(serverworld, itemstack.getTag(), (ITextComponent) null,
+											context.getPlayer(), pos, SpawnReason.SPAWN_EGG, true, true);
+									entityToSpawn.setLocationAndAngles((x + 0.5), (rentity.getPosY()), (z + 0.5), (float) 0, (float) 0);
+									entityToSpawn.setRenderYawOffset((float) f);
+									entityToSpawn.rotationYaw = (float) (f);
+									entityToSpawn.setRenderYawOffset(entityToSpawn.rotationYaw);
+									entityToSpawn.prevRotationYaw = entityToSpawn.rotationYaw;
+									if (entityToSpawn instanceof MobEntity)
+										((MobEntity) entityToSpawn).prevRenderYawOffset = entityToSpawn.rotationYaw;
+									((MobEntity) entityToSpawn).rotationYawHead = entityToSpawn.rotationYaw;
+									((MobEntity) entityToSpawn).prevRotationYawHead = entityToSpawn.rotationYaw;
+									((MobEntity) entityToSpawn).onInitialSpawn((ServerWorld) world,
+											world.getDifficultyForLocation(entityToSpawn.getPosition()), SpawnReason.MOB_SUMMONED,
+											(ILivingEntityData) null, (CompoundNBT) null);
+									entityToSpawn.getPersistentData().putDouble("Rocketfuel", 1);
+									entityToSpawn.getPersistentData().putDouble("fuel",
+											(((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
+													.getOrCreateTag().getDouble("fuel")));
+									world.addEntity(entityToSpawn);
+								}
+								if (world instanceof World && !world.isRemote()) {
+									((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
+											(net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS
+													.getValue(new ResourceLocation("block.stone.break")),
+											SoundCategory.NEUTRAL, (float) 1, (float) 1);
+								} else {
+									((World) world).playSound(x, y, z,
+											(net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS
+													.getValue(new ResourceLocation("block.stone.break")),
+											SoundCategory.NEUTRAL, (float) 1, (float) 1, false);
+								}
+								if (entity instanceof LivingEntity) {
+									ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
+									_setstack.setCount((int) 1);
+									((LivingEntity) entity).setHeldItem(Hand.OFF_HAND, _setstack);
+									if (entity instanceof ServerPlayerEntity)
+										((ServerPlayerEntity) entity).inventory.markDirty();
+								}
+							}
+							//	return retval;
+						}
+					}
+					// Off Hand end
 				}
 			}
-			return retval;
+			//	entityblock = false;
+			return super.onItemUseFirst(stack, context);
 		}
 	}
 }

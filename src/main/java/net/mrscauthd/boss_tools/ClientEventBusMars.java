@@ -69,7 +69,7 @@ public class ClientEventBusMars {
 					@Override
 					// useThickFog
 					public boolean func_230493_a_(int posX, int posY) {
-						return false; // eneable fog
+						return true; // eneable fog
 					}
 
 					@Nullable

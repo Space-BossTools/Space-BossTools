@@ -54,28 +54,33 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 					GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 			RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 			RenderSystem.disableAlphaTest();
+			if ((!((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+					new ResourceLocation("boss_tools:moon")))))) {
 				if ((!((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-						new ResourceLocation("boss_tools:moon")))))) {
-					if ((!((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-							new ResourceLocation("boss_tools:mars")))))) {
+						new ResourceLocation("boss_tools:mars")))))) {
+					if ((!((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
+							.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_overworld")))))) {
 						if ((!((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
-								.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_overworld")))))) {
+								.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury")))))) {
 							if ((!((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
-									.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury")))))) {
+									.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_moon")))))) {
 								if ((!((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
-										.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_moon")))))) {
+										.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mars")))))) {
 									if ((!((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
-											.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mars")))))) {
+											.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mercury")))))) {
 										if ((!((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
-												.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mercury")))))) {
-											if ((((entity.getRidingEntity()) instanceof RocketEntity.CustomEntity)
-													|| (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)
-													|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
-													|| ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)))) {
-												//Rocket Y
-												Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_y_main_1.png"));
-												Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(),
-														event.getWindow().getScaledHeight(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight());
+												.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus")))))) {
+											if ((!((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
+													.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_venus")))))) {
+												if ((((entity.getRidingEntity()) instanceof RocketEntity.CustomEntity)
+														|| (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)
+														|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
+														|| ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)))) {
+													//Rocket Y
+													Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_y_main_1.png"));
+													Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(),
+															event.getWindow().getScaledHeight(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight());
+												}
 											}
 										}
 									}
@@ -84,6 +89,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 						}
 					}
 				}
+			}
 			if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
 					new ResourceLocation("boss_tools:moon"))))) {
 				if ((((entity.getRidingEntity()) instanceof RocketEntity.CustomEntity)
@@ -120,6 +126,18 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 							event.getWindow().getScaledHeight(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight());
 				}
 			}
+			if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+					new ResourceLocation("boss_tools:venus"))))) {
+				if ((((entity.getRidingEntity()) instanceof RocketEntity.CustomEntity)
+						|| (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)
+						|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
+						|| ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)))) {
+					//Rocket Y
+					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_y_main_venus.png"));
+					Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(),
+							event.getWindow().getScaledHeight(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight());
+				}
+			}
 			if ((((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
 					new ResourceLocation("boss_tools:orbit_overworld"))))
 					|| (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
@@ -127,7 +145,9 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 					|| (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
 					.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mars"))))
 					|| ((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
-					.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mercury")))))))) {
+					.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mercury")))) ||
+					((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
+					.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_venus")))))))) {
 				if ((((entity.getRidingEntity()) instanceof RocketEntity.CustomEntity)
 						|| (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)
 						|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
@@ -143,7 +163,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 					|| (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)
 					|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
 					|| ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)))) {
-			//Check
+				//Check
 				if ((((entity.getPosY()) >= 0) && (!((entity.getPosY()) >= 10)))) {
 					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_y_1.png"));
 					Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(),
@@ -436,9 +456,9 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 				}
 			}
 		}
-			RenderSystem.depthMask(true);
-			RenderSystem.enableDepthTest();
-			RenderSystem.enableAlphaTest();
-			RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.depthMask(true);
+		RenderSystem.enableDepthTest();
+		RenderSystem.enableAlphaTest();
+		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 	}
 }

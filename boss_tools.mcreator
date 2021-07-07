@@ -1595,36 +1595,6 @@
       "path": "~/GUIS"
     },
     {
-      "name": "LandingGearEntityDies",
-      "type": "procedure",
-      "sortid": 179,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "landing_gear_entity_dies",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      },
-      "path": "~/Procedures"
-    },
-    {
       "name": "BlastFurnaceRecpie",
       "type": "recipe",
       "sortid": 180,

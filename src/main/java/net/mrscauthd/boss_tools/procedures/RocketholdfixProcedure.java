@@ -94,7 +94,7 @@ public class RocketholdfixProcedure {
 			(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 160));
 			if (world instanceof World && !world.isRemote()) {
 				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
-				entityToSpawn.setPickupDelay((int) 10);
+				entityToSpawn.setPickupDelay((int) 0);
 				world.addEntity(entityToSpawn);
 			}
 		}
@@ -115,7 +115,7 @@ public class RocketholdfixProcedure {
 			(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 160));
 			if (world instanceof World && !world.isRemote()) {
 				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
-				entityToSpawn.setPickupDelay((int) 10);
+				entityToSpawn.setPickupDelay((int) 0);
 				world.addEntity(entityToSpawn);
 			}
 		}
@@ -136,7 +136,7 @@ public class RocketholdfixProcedure {
 			(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 160));
 			if (world instanceof World && !world.isRemote()) {
 				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
-				entityToSpawn.setPickupDelay((int) 10);
+				entityToSpawn.setPickupDelay((int) 0);
 				world.addEntity(entityToSpawn);
 			}
 		}
@@ -157,7 +157,7 @@ public class RocketholdfixProcedure {
 			(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 160));
 			if (world instanceof World && !world.isRemote()) {
 				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
-				entityToSpawn.setPickupDelay((int) 10);
+				entityToSpawn.setPickupDelay((int) 0);
 				world.addEntity(entityToSpawn);
 			}
 		} // Tier 2
@@ -178,7 +178,7 @@ public class RocketholdfixProcedure {
 			(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 160));
 			if (world instanceof World && !world.isRemote()) {
 				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
-				entityToSpawn.setPickupDelay((int) 10);
+				entityToSpawn.setPickupDelay((int) 0);
 				world.addEntity(entityToSpawn);
 			}
 		}
@@ -199,7 +199,7 @@ public class RocketholdfixProcedure {
 			(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 160));
 			if (world instanceof World && !world.isRemote()) {
 				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
-				entityToSpawn.setPickupDelay((int) 10);
+				entityToSpawn.setPickupDelay((int) 0);
 				world.addEntity(entityToSpawn);
 			}
 		}
@@ -220,7 +220,7 @@ public class RocketholdfixProcedure {
 			(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 160));
 			if (world instanceof World && !world.isRemote()) {
 				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
-				entityToSpawn.setPickupDelay((int) 10);
+				entityToSpawn.setPickupDelay((int) 0);
 				world.addEntity(entityToSpawn);
 			}
 		}
@@ -241,7 +241,7 @@ public class RocketholdfixProcedure {
 			(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 160));
 			if (world instanceof World && !world.isRemote()) {
 				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
-				entityToSpawn.setPickupDelay((int) 10);
+				entityToSpawn.setPickupDelay((int) 0);
 				world.addEntity(entityToSpawn);
 			}
 		} // Tier 3
@@ -262,7 +262,7 @@ public class RocketholdfixProcedure {
 			(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 160));
 			if (world instanceof World && !world.isRemote()) {
 				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
-				entityToSpawn.setPickupDelay((int) 10);
+				entityToSpawn.setPickupDelay((int) 0);
 				world.addEntity(entityToSpawn);
 			}
 		}
@@ -283,7 +283,7 @@ public class RocketholdfixProcedure {
 			(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 160));
 			if (world instanceof World && !world.isRemote()) {
 				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
-				entityToSpawn.setPickupDelay((int) 10);
+				entityToSpawn.setPickupDelay((int) 0);
 				world.addEntity(entityToSpawn);
 			}
 		}
@@ -304,7 +304,7 @@ public class RocketholdfixProcedure {
 			(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 160));
 			if (world instanceof World && !world.isRemote()) {
 				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
-				entityToSpawn.setPickupDelay((int) 10);
+				entityToSpawn.setPickupDelay((int) 0);
 				world.addEntity(entityToSpawn);
 			}
 		}
@@ -325,7 +325,7 @@ public class RocketholdfixProcedure {
 			(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 160));
 			if (world instanceof World && !world.isRemote()) {
 				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
-				entityToSpawn.setPickupDelay((int) 10);
+				entityToSpawn.setPickupDelay((int) 0);
 				world.addEntity(entityToSpawn);
 			}
 		} // Rover
@@ -346,7 +346,7 @@ public class RocketholdfixProcedure {
 			(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 160));
 			if (world instanceof World && !world.isRemote()) {
 				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
-				entityToSpawn.setPickupDelay((int) 10);
+				entityToSpawn.setPickupDelay((int) 0);
 				world.addEntity(entityToSpawn);
 			}
 		}
@@ -367,7 +367,7 @@ public class RocketholdfixProcedure {
 			(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 160));
 			if (world instanceof World && !world.isRemote()) {
 				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
-				entityToSpawn.setPickupDelay((int) 10);
+				entityToSpawn.setPickupDelay((int) 0);
 				world.addEntity(entityToSpawn);
 			}
 		}
@@ -388,7 +388,7 @@ public class RocketholdfixProcedure {
 			(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 160));
 			if (world instanceof World && !world.isRemote()) {
 				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
-				entityToSpawn.setPickupDelay((int) 10);
+				entityToSpawn.setPickupDelay((int) 0);
 				world.addEntity(entityToSpawn);
 			}
 		}
@@ -409,7 +409,7 @@ public class RocketholdfixProcedure {
 			(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 160));
 			if (world instanceof World && !world.isRemote()) {
 				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
-				entityToSpawn.setPickupDelay((int) 10);
+				entityToSpawn.setPickupDelay((int) 0);
 				world.addEntity(entityToSpawn);
 			}
 		}

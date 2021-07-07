@@ -3,7 +3,6 @@ package net.mrscauthd.boss_tools.entity;
 
 import net.mrscauthd.boss_tools.procedures.LandingGearOnEntityTickUpdateProcedure;
 import net.mrscauthd.boss_tools.procedures.LandingGearEntityIsHurtProcedure;
-import net.mrscauthd.boss_tools.procedures.LandingGearEntityDiesProcedure;
 import net.mrscauthd.boss_tools.gui.LandinggearGuiGui;
 import net.mrscauthd.boss_tools.entity.renderer.LandingGearRenderer;
 import net.mrscauthd.boss_tools.BossToolsModElements;
@@ -26,6 +25,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.World;
+import net.minecraft.world.Explosion;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.math.BlockPos;
@@ -245,7 +245,7 @@ public class LandingGearEntity extends BossToolsModElements.ModElement {
 				return false;
 			if (source.getDamageType().equals("witherSkull"))
 				return false;
-			if (source.getDamageType().equals("fall")) {
+			if (source.getDamageType().equals("fall")) {
 				super.attackEntityFrom(source, amount);
 				return true;
 			}
@@ -261,12 +261,12 @@ public class LandingGearEntity extends BossToolsModElements.ModElement {
 			Entity sourceentity = source.getTrueSource();
 			Entity entity = this;
 			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
-				$_dependencies.put("world", world);
-				LandingGearEntityDiesProcedure.executeProcedure($_dependencies);
+				if (world instanceof World && !((World) world).isRemote) {
+					((World) world).createExplosion(null, (int) x, (int) y, (int) z, (float) 10, Explosion.Mode.BREAK);
+				}
+				if (!entity.world.isRemote()) {
+					entity.remove();
+				}
 			}
 		}
 		private final ItemStackHandler inventory = new ItemStackHandler(9) {
