@@ -81,9 +81,6 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 	public static EntityType entity = (EntityType.Builder.<CustomEntity>create(CustomEntity::new, EntityClassification.MONSTER)
 			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(CustomEntity::new).immuneToFire()
 			.size(2.5f, 1.0f)).build("rover").setRegistryName("rover");
-	public static double speed = 0;
-	public static boolean fw = false;
-	public static float forward = 0;
 	public RoverEntity(BossToolsModElements instance) {
 		super(instance, 394);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new RoverRenderer.ModelRegisterHandler());
@@ -121,8 +118,8 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 
 		public static void registerMessages() {
 			INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation("boss_tools", "rover_link"), () -> "100.0", s -> true, s -> true);
-	//		INSTANCE.registerMessage(nextID(), RotationSpinPacket.class, RotationSpinPacket::encode, RotationSpinPacket::decode,
-	//				RotationSpinPacket::handle);
+			//		INSTANCE.registerMessage(nextID(), RotationSpinPacket.class, RotationSpinPacket::encode, RotationSpinPacket::decode,
+			//				RotationSpinPacket::handle);
 			// new animationpitch
 			INSTANCE.registerMessage(nextID(), WheelSpinPacket.class, WheelSpinPacket::encode, WheelSpinPacket::decode, WheelSpinPacket::handle);
 			// fuel
@@ -218,6 +215,8 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 	}
 
 	public static class CustomEntity extends CreatureEntity {
+		public double speed = 0;
+		public float forward = 0;
 		public CustomEntity(FMLPlayMessages.SpawnEntity packet, World world) {
 			this(entity, world);
 		}
@@ -564,9 +563,9 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 			// fall damage
 			// entity.getAlwaysRenderNameTagForRender();
 			this.fallDistance = (float) (0);
-		//	if (!this.world.isRemote)
-		//		NetworkLoader.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> this),
-		//				new RotationSpinPacket(this.getEntityId(), this.getPersistentData().getDouble("Rotation")));
+			//	if (!this.world.isRemote)
+			//		NetworkLoader.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> this),
+			//				new RotationSpinPacket(this.getEntityId(), this.getPersistentData().getDouble("Rotation")));
 			// new Nbt
 			if (!this.world.isRemote)
 				NetworkLoader.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> this),
