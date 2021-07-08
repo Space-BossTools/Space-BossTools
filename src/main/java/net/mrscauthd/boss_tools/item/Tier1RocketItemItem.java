@@ -1,6 +1,8 @@
 
 package net.mrscauthd.boss_tools.item;
 
+import net.minecraft.item.*;
+import net.minecraftforge.fml.RegistryObject;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
@@ -11,6 +13,7 @@ import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ObjectHolder;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
@@ -24,10 +27,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.item.Rarity;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Item;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
@@ -41,10 +40,14 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.BlockState;
 
+import javax.annotation.Nullable;
+
 import java.util.stream.Collectors;
 import java.util.function.Function;
+import java.util.Map;
 import java.util.List;
 import java.util.Comparator;
+import java.util.ArrayList;
 
 @BossToolsModElements.ModElement.Tag
 public class Tier1RocketItemItem extends BossToolsModElements.ModElement {
@@ -58,6 +61,7 @@ public class Tier1RocketItemItem extends BossToolsModElements.ModElement {
 	public void initElements() {
 		elements.items.add(() -> new ItemCustom());
 	}
+
 	public static class ItemCustom extends Item {
 		public ItemCustom() {
 			super(new Item.Properties().group(BossToolsItemGroup.tab).maxStackSize(1).rarity(Rarity.COMMON));
@@ -99,19 +103,22 @@ public class Tier1RocketItemItem extends BossToolsModElements.ModElement {
 			ItemStack itemstack = context.getItem();
 			{
 				BlockState state = world.getBlockState(new BlockPos((int) x, (int) y, (int) z));
-				if (world.isAirBlock(new BlockPos((int) x, (int) y + 1, (int) z)) && world.isAirBlock(new BlockPos((int) x, (int) y + 2, (int) z))&& world.isAirBlock(new BlockPos((int) x, (int) y + 3, (int) z))) {
+				if (world.isAirBlock(new BlockPos((int) x, (int) y + 1, (int) z)) && world.isAirBlock(new BlockPos((int) x, (int) y + 2, (int) z))
+						&& world.isAirBlock(new BlockPos((int) x, (int) y + 3, (int) z))) {
 					if (state.getBlock() instanceof RocketLaunchPadBlock.CustomBlock && state.get(RocketLaunchPadBlock.CustomBlock.STAGE) == true) {
 						// check if entity on this pos
 						Boolean entityblock = false;
 						{
-							List<Entity> _entfound = world.getEntitiesWithinAABB(Entity.class,
-									new AxisAlignedBB((x + 0.5) - (1 / 2d), (Math.floor(y)) - (0.4 / 2d), (z + 0.5) - (1 / 2d),
-											(x + 0.5) + (1 / 2d), (Math.floor(y)) + (0.4 / 2d), (z + 0.5) + (1 / 2d)),
-									null).stream().sorted(new Object() {
-								Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-									return Comparator.comparing((Function<Entity, Double>) (_entcnd -> _entcnd.getDistanceSq(_x, _y, _z)));
-								}
-							}.compareDistOf((Math.floor(x)), (Math.floor(y)), (Math.floor(z)))).collect(Collectors.toList());
+							List<Entity> _entfound = world
+									.getEntitiesWithinAABB(Entity.class,
+											new AxisAlignedBB((x + 0.5) - (1 / 2d), (Math.floor(y)) - (0.4 / 2d), (z + 0.5) - (1 / 2d),
+													(x + 0.5) + (1 / 2d), (Math.floor(y)) + (0.4 / 2d), (z + 0.5) + (1 / 2d)),
+											null)
+									.stream().sorted(new Object() {
+										Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
+											return Comparator.comparing((Function<Entity, Double>) (_entcnd -> _entcnd.getDistanceSq(_x, _y, _z)));
+										}
+									}.compareDistOf((Math.floor(x)), (Math.floor(y)), (Math.floor(z)))).collect(Collectors.toList());
 							for (Entity entityiterator : _entfound) {
 								if (entityiterator instanceof RocketEntity.CustomEntity || entityiterator instanceof RocketTier2Entity.CustomEntity
 										|| entityiterator instanceof RocketTier3Entity.CustomEntity
@@ -123,7 +130,16 @@ public class Tier1RocketItemItem extends BossToolsModElements.ModElement {
 							}
 						}
 						if (entityblock == false) {
-						if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY).getItem() == new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem() && ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY).getItem() != new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem() && ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY).getItem() != new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem() && ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY).getItem() != new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem() && ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY).getItem() != new ItemStack(RoverItemItem.block, (int) (1)).getItem())) {
+							if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
+									.getItem() == new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem()
+									&& ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
+									.getItem() != new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem()
+									&& ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
+									.getItem() != new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem()
+									&& ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
+									.getItem() != new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem()
+									&& ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
+									.getItem() != new ItemStack(RoverItemItem.block, (int) (1)).getItem())) {
 								if (((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
 										.getOrCreateTag().getDouble("Rocketfuel")) == 0)) {
 									if (world instanceof ServerWorld) {
@@ -209,13 +225,22 @@ public class Tier1RocketItemItem extends BossToolsModElements.ModElement {
 											((ServerPlayerEntity) entity).inventory.markDirty();
 									}
 								}
-								//return
-							//	return retval;
+								// return
+								// return retval;
 							}
 						}
-							//Rocket Place Off Hand
+						// Rocket Place Off Hand
 						if (entityblock == false) {
-							if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY).getItem() == new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem() && ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY).getItem() != new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem() && ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY).getItem() != new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem() && ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY).getItem() != new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem() && ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY).getItem() != new ItemStack(RoverItemItem.block, (int) (1)).getItem())) {
+							if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
+									.getItem() == new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem()
+									&& ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
+									.getItem() != new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem()
+									&& ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
+									.getItem() != new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem()
+									&& ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
+									.getItem() != new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem()
+									&& ((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
+									.getItem() != new ItemStack(RoverItemItem.block, (int) (1)).getItem())) {
 								if (((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
 										.getOrCreateTag().getDouble("Rocketfuel")) == 0)) {
 									if (world instanceof ServerWorld) {
@@ -301,10 +326,10 @@ public class Tier1RocketItemItem extends BossToolsModElements.ModElement {
 											((ServerPlayerEntity) entity).inventory.markDirty();
 									}
 								}
-								//return
-								//return retval;
+								// return
+								// return retval;
 							}
-							//Rocket Place Off Hand End
+							// Rocket Place Off Hand End
 						}
 					}
 				}

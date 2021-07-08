@@ -1,6 +1,10 @@
 
 package net.mrscauthd.boss_tools.entity;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.*;
+import net.minecraftforge.fml.network.*;
+import net.minecraftforge.fml.network.simple.SimpleChannel;
 import net.mrscauthd.boss_tools.procedures.RocketOnEntityTickUpdateProcedure;
 import net.mrscauthd.boss_tools.procedures.RocketEntityIsHurt1Procedure;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
@@ -14,12 +18,6 @@ import net.minecraftforge.items.wrapper.EntityArmorInvWrapper;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
-import net.minecraftforge.fml.network.PacketDistributor;
-import net.minecraftforge.fml.network.NetworkRegistry;
-import net.minecraftforge.fml.network.NetworkHooks;
-import net.minecraftforge.fml.network.NetworkEvent;
-import net.minecraftforge.fml.network.FMLPlayMessages;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -51,22 +49,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.client.Minecraft;
 
 import javax.annotation.Nullable;
 import javax.annotation.Nonnull;
 
-import java.util.function.Supplier;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.function.Supplier;
 
 import io.netty.buffer.Unpooled;
 
@@ -84,7 +74,7 @@ public class RocketEntity extends BossToolsModElements.ModElement {
 	public void initElements() {
 		entity = (EntityType.Builder.<CustomEntity>create(CustomEntity::new, EntityClassification.MONSTER).setShouldReceiveVelocityUpdates(true)
 				.setTrackingRange(100).setUpdateInterval(3).setCustomClientFactory(CustomEntity::new).immuneToFire().size(1f, 3f)).build("rocket")
-						.setRegistryName("rocket");
+				.setRegistryName("rocket");
 		elements.entities.add(() -> entity);
 	}
 
@@ -104,6 +94,9 @@ public class RocketEntity extends BossToolsModElements.ModElement {
 	}
 
 	public static class CustomEntity extends CreatureEntity {
+		public double ar = 0;
+		public double ay = 0;
+		public double ap = 0;
 		public CustomEntity(FMLPlayMessages.SpawnEntity packet, World world) {
 			this(entity, world);
 		}
@@ -330,6 +323,20 @@ public class RocketEntity extends BossToolsModElements.ModElement {
 			double y = this.getPosY();
 			double z = this.getPosZ();
 			Entity entity = this;
+			//Animation Tick
+			if (entity.getPersistentData().getDouble("Powup") == 1) {
+				ar = ar + 1;
+				if (ar == 1) {
+					ay = ay + 0.006;
+					ap = ap + 0.006;
+				}
+				if (ar == 2) {
+					ar = 0;
+					ay = 0;
+					ap = 0;
+				}
+			}
+			//Animation End
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("entity", entity);
@@ -341,14 +348,10 @@ public class RocketEntity extends BossToolsModElements.ModElement {
 			}
 			if (!this.world.isRemote)
 				NetworkLoader.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> this),
-						new RocketSpinPacket(this.getEntityId(), this.getPersistentData().getDouble("Animation")));
-			// new Nbt
-			if (!this.world.isRemote)
-				NetworkLoader.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> this),
-						new RocketSpin2Packet(this.getEntityId(), this.getPersistentData().getDouble("AnimationPitch")));
+						new RocketSpinPacket(this.getEntityId(), this.getPersistentData().getDouble("Powup")));
+
 		}
 	}
-
 	// packages System
 	private static class NetworkLoader {
 		public static SimpleChannel INSTANCE;
@@ -358,15 +361,12 @@ public class RocketEntity extends BossToolsModElements.ModElement {
 		}
 
 		public static void registerMessages() {
-			INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation("boss_tools", "rocket_link"), () -> "1.0", s -> true, s -> true);
+			INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation("boss_tools", "rocket1_link2"), () -> "1.0", s -> true, s -> true);
 			INSTANCE.registerMessage(nextID(), RocketSpinPacket.class, RocketSpinPacket::encode, RocketSpinPacket::decode, RocketSpinPacket::handle);
-			// new animationpitch
-			INSTANCE.registerMessage(nextID(), RocketSpin2Packet.class, RocketSpin2Packet::encode, RocketSpin2Packet::decode,
-					RocketSpin2Packet::handle);
 		}
 	}
 
-	// First Animation
+	// First Animation (take off)
 	private static class RocketSpinPacket {
 		private double animation;
 		private int entityId;
@@ -388,36 +388,7 @@ public class RocketEntity extends BossToolsModElements.ModElement {
 			ctx.get().enqueueWork(() -> {
 				Entity entity = Minecraft.getInstance().world.getEntityByID(msg.entityId);
 				if (entity instanceof LivingEntity) {
-					((LivingEntity) entity).getPersistentData().putDouble("Animation", msg.animation);
-				}
-			});
-			ctx.get().setPacketHandled(true);
-		}
-	}
-
-	// new animationpitch
-	private static class RocketSpin2Packet {
-		private double animationpitch;
-		private int entityId;
-		public RocketSpin2Packet(int entityId, double animationpitch) {
-			this.animationpitch = animationpitch;
-			this.entityId = entityId;
-		}
-
-		public static void encode(RocketSpin2Packet msg, PacketBuffer buf) {
-			buf.writeInt(msg.entityId);
-			buf.writeDouble(msg.animationpitch);
-		}
-
-		public static RocketSpin2Packet decode(PacketBuffer buf) {
-			return new RocketSpin2Packet(buf.readInt(), buf.readDouble());
-		}
-
-		public static void handle(RocketSpin2Packet msg, Supplier<NetworkEvent.Context> ctx) {
-			ctx.get().enqueueWork(() -> {
-				Entity entity = Minecraft.getInstance().world.getEntityByID(msg.entityId);
-				if (entity instanceof LivingEntity) {
-					((LivingEntity) entity).getPersistentData().putDouble("AnimationPitch", msg.animationpitch);
+					((LivingEntity) entity).getPersistentData().putDouble("Powup", msg.animation);
 				}
 			});
 			ctx.get().setPacketHandled(true);

@@ -30,23 +30,23 @@ public class ModSpawnEggs extends SpawnEggItem {
     }
 
     public static void initSpawnEggs(){
-   /*     final Map<EntityType<?>, SpawnEggItem> EGGS = ObfuscationReflectionHelper.getPrivateValue(SpawnEggItem.class,null, "field_195987_b");
+        final Map<EntityType<?>, SpawnEggItem> EGGS = ObfuscationReflectionHelper.getPrivateValue(SpawnEggItem.class,null, "field_195987_b");
         DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior(){
-            @Override
+       /*     @Override
             protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 Direction direction = source.getBlockState().get(DispenserBlock.FACING);
                 EntityType<?> type = ((SpawnEggItem) stack.getItem()).getType(stack.getTag());
                 type.spawn(source.getWorld(),stack,null,source.getBlockPos(), SpawnReason.SPAWN_EGG,direction != Direction.UP,false);
                 stack.shrink(1);
                 return stack;
-            }
+            }*/
         };
 
         for (final SpawnEggItem spawnEggItem : UNADDED_EGGS){
             EGGS.put(spawnEggItem.getType(null),spawnEggItem);
             DispenserBlock.registerDispenseBehavior(spawnEggItem,defaultDispenseItemBehavior);
         }
-        UNADDED_EGGS.clear();*/
+        UNADDED_EGGS.clear();
     }
 
     @Override

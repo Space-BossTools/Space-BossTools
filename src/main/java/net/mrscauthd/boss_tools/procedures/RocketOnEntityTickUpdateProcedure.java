@@ -283,18 +283,6 @@ public class RocketOnEntityTickUpdateProcedure {
 				}
 			}
 		}
-		if (((entity.getPersistentData().getDouble("Powup")) == 1)) {
-			entity.getPersistentData().putDouble("AnimationRotation", ((entity.getPersistentData().getDouble("AnimationRotation")) + 1));
-			if (((entity.getPersistentData().getDouble("AnimationRotation")) == 1)) {
-				entity.getPersistentData().putDouble("Animation", ((entity.getPersistentData().getDouble("Animation")) + 0.006));
-				entity.getPersistentData().putDouble("AnimationPitch", ((entity.getPersistentData().getDouble("AnimationPitch")) + 0.006));
-			}
-			if (((entity.getPersistentData().getDouble("AnimationRotation")) == 2)) {
-				entity.getPersistentData().putDouble("Animation", 0);
-				entity.getPersistentData().putDouble("AnimationPitch", 0);
-				entity.getPersistentData().putDouble("AnimationRotation", 0);
-			}
-		}
 		entity.getPersistentData().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 4));
 		if (entity instanceof LivingEntity)
 			((LivingEntity) entity).setAir((int) 300);
