@@ -30,7 +30,7 @@ public class ModSpawnEggs extends SpawnEggItem {
     }
 
     public static void initSpawnEggs(){
-        final Map<EntityType<?>, SpawnEggItem> EGGS = ObfuscationReflectionHelper.getPrivateValue(SpawnEggItem.class,null, "field_195987_b");
+   /*     final Map<EntityType<?>, SpawnEggItem> EGGS = ObfuscationReflectionHelper.getPrivateValue(SpawnEggItem.class,null, "field_195987_b");
         DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior(){
             @Override
             protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
@@ -46,7 +46,7 @@ public class ModSpawnEggs extends SpawnEggItem {
             EGGS.put(spawnEggItem.getType(null),spawnEggItem);
             DispenserBlock.registerDispenseBehavior(spawnEggItem,defaultDispenseItemBehavior);
         }
-        UNADDED_EGGS.clear();
+        UNADDED_EGGS.clear();*/
     }
 
     @Override
