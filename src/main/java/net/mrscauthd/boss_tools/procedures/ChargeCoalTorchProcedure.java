@@ -62,73 +62,75 @@ public class ChargeCoalTorchProcedure {
 						.getItem() == new ItemStack(Items.FLINT_AND_STEEL, (int) (1)).getItem())
 						|| (((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY)
 						.getItem() == new ItemStack(Items.FLINT_AND_STEEL, (int) (1)).getItem()))) {
+					if (entity.isSneaking() == false) {
 
-					//Block check (wall torch)
-					if ((world.getBlockState(new BlockPos((int) (Math.floor(x)), (int) (Math.floor(y)), (int) (Math.floor(z)))))
-							.getBlock() == MobInnet.WALLCOALTORCHBLOCK.get().getDefaultState().getBlock()) {
+						//Block check (wall torch)
+						if ((world.getBlockState(new BlockPos((int) (Math.floor(x)), (int) (Math.floor(y)), (int) (Math.floor(z)))))
+								.getBlock() == MobInnet.WALLCOALTORCHBLOCK.get().getDefaultState().getBlock()) {
 
-						//Check Direction
-						Direction TD = Direction.NORTH;
-						TD = (Direction) (new Object() {
-							public Direction getDirection(BlockPos pos) {
-								try {
-									BlockState _bs = world.getBlockState(pos);
-									DirectionProperty property = (DirectionProperty) _bs.getBlock().getStateContainer().getProperty("facing");
-									if (property != null)
-										return _bs.get(property);
-									return Direction.getFacingFromAxisDirection(
-											_bs.get((EnumProperty<Direction.Axis>) _bs.getBlock().getStateContainer().getProperty("axis")),
-											Direction.AxisDirection.POSITIVE);
-								} catch (Exception e) {
-									return Direction.NORTH;
+							//Check Direction
+							Direction TD = Direction.NORTH;
+							TD = (Direction) (new Object() {
+								public Direction getDirection(BlockPos pos) {
+									try {
+										BlockState _bs = world.getBlockState(pos);
+										DirectionProperty property = (DirectionProperty) _bs.getBlock().getStateContainer().getProperty("facing");
+										if (property != null)
+											return _bs.get(property);
+										return Direction.getFacingFromAxisDirection(
+												_bs.get((EnumProperty<Direction.Axis>) _bs.getBlock().getStateContainer().getProperty("axis")),
+												Direction.AxisDirection.POSITIVE);
+									} catch (Exception e) {
+										return Direction.NORTH;
+									}
 								}
+							}.getDirection(new BlockPos((int) x, (int) y, (int) z)));
+
+							//Set Block
+							world.setBlockState(new BlockPos((int) x, (int) y, (int) z), Blocks.WALL_TORCH.getDefaultState(), 3);
+
+							//Set Rotation
+							try {
+								BlockState _bs = world.getBlockState(new BlockPos((int) x, (int) y, (int) z));
+								DirectionProperty _property = (DirectionProperty) _bs.getBlock().getStateContainer().getProperty("facing");
+								if (_property != null) {
+									world.setBlockState(new BlockPos((int) x, (int) y, (int) z), _bs.with(_property, TD), 3);
+								} else {
+									world.setBlockState(new BlockPos((int) x, (int) y, (int) z),
+											_bs.with((EnumProperty<Direction.Axis>) _bs.getBlock().getStateContainer().getProperty("axis"), TD.getAxis()), 3);
+								}
+							} catch (Exception e) {
 							}
-						}.getDirection(new BlockPos((int) x, (int) y, (int) z)));
 
-						//Set Block
-						world.setBlockState(new BlockPos((int) x, (int) y, (int) z), Blocks.WALL_TORCH.getDefaultState(), 3);
-
-						//Set Rotation
-						try {
-							BlockState _bs = world.getBlockState(new BlockPos((int) x, (int) y, (int) z));
-							DirectionProperty _property = (DirectionProperty) _bs.getBlock().getStateContainer().getProperty("facing");
-							if (_property != null) {
-								world.setBlockState(new BlockPos((int) x, (int) y, (int) z), _bs.with(_property, TD), 3);
+							//Sounds
+							if (world instanceof World && !world.isRemote()) {
+								((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
+										(net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("item.flintandsteel.use")),
+										SoundCategory.NEUTRAL, (float) 1, (float) 1);
 							} else {
-								world.setBlockState(new BlockPos((int) x, (int) y, (int) z),
-										_bs.with((EnumProperty<Direction.Axis>) _bs.getBlock().getStateContainer().getProperty("axis"), TD.getAxis()), 3);
+								((World) world).playSound(x, y, z,
+										(net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("item.flintandsteel.use")),
+										SoundCategory.NEUTRAL, (float) 1, (float) 1, false);
 							}
-						} catch (Exception e) {
 						}
 
-						//Sounds
-						if (world instanceof World && !world.isRemote()) {
-							((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
-									(net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("item.flintandsteel.use")),
-									SoundCategory.NEUTRAL, (float) 1, (float) 1);
-						} else {
-							((World) world).playSound(x, y, z,
-									(net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("item.flintandsteel.use")),
-									SoundCategory.NEUTRAL, (float) 1, (float) 1, false);
-						}
-					}
+						//Block check (stand Torch)
+						if ((world.getBlockState(new BlockPos((int) (Math.floor(x)), (int) (Math.floor(y)), (int) (Math.floor(z)))))
+								.getBlock() == MobInnet.COALTORCHBLOCK.get().getDefaultState().getBlock()) {
 
-					//Block check (stand Torch)
-					if ((world.getBlockState(new BlockPos((int) (Math.floor(x)), (int) (Math.floor(y)), (int) (Math.floor(z)))))
-							.getBlock() == MobInnet.COALTORCHBLOCK.get().getDefaultState().getBlock()) {
+							//Set Block
+							world.setBlockState(new BlockPos((int) x, (int) y, (int) z), Blocks.TORCH.getDefaultState(), 3);
 
-						//Set Block
-						world.setBlockState(new BlockPos((int) x, (int) y, (int) z), Blocks.TORCH.getDefaultState(), 3);
-
-						//Sounds
-						if (world instanceof World && !world.isRemote()) {
-							((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
-									(net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("item.flintandsteel.use")),
-									SoundCategory.NEUTRAL, (float) 1, (float) 1);
-						} else {
-							((World) world).playSound(x, y, z,
-									(net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("item.flintandsteel.use")),
-									SoundCategory.NEUTRAL, (float) 1, (float) 1, false);
+							//Sounds
+							if (world instanceof World && !world.isRemote()) {
+								((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z),
+										(net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("item.flintandsteel.use")),
+										SoundCategory.NEUTRAL, (float) 1, (float) 1);
+							} else {
+								((World) world).playSound(x, y, z,
+										(net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("item.flintandsteel.use")),
+										SoundCategory.NEUTRAL, (float) 1, (float) 1, false);
+							}
 						}
 					}
 				}
