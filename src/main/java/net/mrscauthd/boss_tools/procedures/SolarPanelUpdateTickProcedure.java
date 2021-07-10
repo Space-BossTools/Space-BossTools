@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.procedures;
 
+import net.minecraft.block.BlockState;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -15,26 +16,26 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.Map;
 
 public class SolarPanelUpdateTickProcedure {
-	public static void executeProcedure(Map<String, Object> dependencies) {
+	public static boolean executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("x") == null) {
 			if (!dependencies.containsKey("x"))
 				BossToolsMod.LOGGER.warn("Failed to load dependency x for procedure SolarPanelUpdateTick!");
-			return;
+			return false;
 		}
 		if (dependencies.get("y") == null) {
 			if (!dependencies.containsKey("y"))
 				BossToolsMod.LOGGER.warn("Failed to load dependency y for procedure SolarPanelUpdateTick!");
-			return;
+			return false;
 		}
 		if (dependencies.get("z") == null) {
 			if (!dependencies.containsKey("z"))
 				BossToolsMod.LOGGER.warn("Failed to load dependency z for procedure SolarPanelUpdateTick!");
-			return;
+			return false;
 		}
 		if (dependencies.get("world") == null) {
 			if (!dependencies.containsKey("world"))
 				BossToolsMod.LOGGER.warn("Failed to load dependency world for procedure SolarPanelUpdateTick!");
-			return;
+			return false;
 		}
 		double x = dependencies.get("x") instanceof Integer ? (int) dependencies.get("x") : (double) dependencies.get("x");
 		double y = dependencies.get("y") instanceof Integer ? (int) dependencies.get("y") : (double) dependencies.get("y");
@@ -47,13 +48,30 @@ public class SolarPanelUpdateTickProcedure {
 		double Energy2 = 0;
 		double energy = 0;
 		double skysee = 0;
-		if ((((world.canBlockSeeSky(new BlockPos((int) x, (int) (y + 1), (int) z))) == (true))
-				&& (((world instanceof World) ? ((World) world).isDaytime() : false) == (true)))) {
-			{
-				TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-				int _amount = (int) 4;
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, null).ifPresent(capability -> capability.receiveEnergy(_amount, false));
+		if ((/*((world.canBlockSeeSky(new BlockPos((int) x, (int) (y + 1), (int) z))) == (true))
+				&&*/ (((world instanceof World) ? ((World) world).isDaytime() : false) == (true)))) {
+
+			//block Pos
+			BlockPos pos = new BlockPos((int) x, (int) (y), (int) z);
+
+			//Check Sea Level
+			if (pos.getY() >= world.getSeaLevel()) {
+				//return true
+			} else {
+				BlockPos blockpos = new BlockPos(pos.getX(), world.getSeaLevel(), pos.getZ());
+				for (BlockPos blockpos1 = blockpos.down(); blockpos1.getY() > pos.getY(); blockpos1 = blockpos1.down()) {
+					BlockState blockstate = world.getBlockState(blockpos1);
+					if (blockstate.getOpacity(world, blockpos1) > 0 && !blockstate.getMaterial().isLiquid()) {
+						return false;
+					}
+				}
+				//return true;
+				{
+					TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
+					int _amount = (int) 4;
+					if (_ent != null)
+						_ent.getCapability(CapabilityEnergy.ENERGY, null).ifPresent(capability -> capability.receiveEnergy(_amount, false));
+				}
 			}
 		} // down and up
 		if (((new Object() {
@@ -280,5 +298,6 @@ public class SolarPanelUpdateTickProcedure {
 				}
 			}
 		}
+		return false;
 	}
 }

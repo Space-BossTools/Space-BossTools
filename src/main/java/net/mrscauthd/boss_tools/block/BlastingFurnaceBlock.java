@@ -17,8 +17,6 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
@@ -177,6 +175,20 @@ public class BlastingFurnaceBlock extends BossToolsModElements.ModElement {
 				BlastFurnaceTickProcedure.executeProcedure($_dependencies);
 			}
 			world.getPendingBlockTicks().scheduleTick(new BlockPos(x, y, z), this, 1);
+		}
+
+		@Override
+		public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos) {
+			if (state.get(ACTIAVATED) == true)
+				return 12;
+			return 0;
+		}
+
+		@Override
+		public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
+			if (state.get(ACTIAVATED) == true)
+				return 12;
+			return 0;
 		}
 
 		@Override

@@ -3094,7 +3094,7 @@
       "type": "procedure",
       "sortid": 252,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "solar_panel_update_tick",
       "metadata": {
@@ -5700,7 +5700,8 @@
       "registry_name": "charge_coal_torch",
       "metadata": {
         "dependencies": []
-      }
+      },
+      "path": "~/Procedures"
     },
     {
       "name": "CoalTorch2",

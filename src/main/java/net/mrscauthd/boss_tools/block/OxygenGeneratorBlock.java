@@ -191,6 +191,20 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 		}
 
 		@Override
+		public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos) {
+			if (state.get(ACTIAVATED) == true)
+				return 12;
+			return 0;
+		}
+
+		@Override
+		public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
+			if (state.get(ACTIAVATED) == true)
+				return 12;
+			return 0;
+		}
+
+		@Override
 		public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity entity, Hand hand,
 				BlockRayTraceResult hit) {
 			super.onBlockActivated(state, world, pos, entity, hand, hit);
@@ -384,7 +398,8 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-			return false; //FIX
+			return false;
+			// FIX
 		}
 		private final LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.values());
 		private final EnergyStorage energyStorage = new EnergyStorage(9000, 200, 200, 0) {
