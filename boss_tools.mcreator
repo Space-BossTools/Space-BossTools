@@ -5721,6 +5721,16 @@
       "ids": {},
       "registry_name": "coal_torch",
       "path": "~/Blocks"
+    },
+    {
+      "name": "CoalTorchRecpie",
+      "type": "recipe",
+      "sortid": 414,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "coal_torch_recpie",
+      "path": "~/Recpies"
     }
   ],
   "variable_elements": [
