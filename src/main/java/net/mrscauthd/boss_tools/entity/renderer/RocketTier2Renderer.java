@@ -247,7 +247,7 @@ public class RocketTier2Renderer {
 
 		@Override
 		public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue,
-				float alpha) {
+						   float alpha) {
 			Rocket.render(matrixStack, buffer, packedLight, packedOverlay);
 		}
 
@@ -257,18 +257,19 @@ public class RocketTier2Renderer {
 			modelRenderer.rotateAngleZ = z;
 		}
 
-		public void setRotationAngles(Entity e, float f, float f1, float f2, float f3, float f4) {
+		public void setRotationAngles(Entity en, float f, float f1, float f2, float f3, float f4) {
+			RocketTier2Entity.CustomEntity e = (RocketTier2Entity.CustomEntity) en;
 			this.Rocket.rotateAngleY = f3 / (180F / (float) Math.PI);
 			// this.Rocket.rotateAngleX = f4 / (180F / (float) Math.PI);
 			// Animation1
 			this.Rocket.rotateAngleZ = f2 / (180F / (float) Math.PI);
 			if (e instanceof LivingEntity) {
-				this.Rocket.rotateAngleZ = (float) ((LivingEntity) e).getPersistentData().getDouble("Animation");
+				this.Rocket.rotateAngleZ = (float) e.ay;
 			}
 			// Animation2
 			this.Rocket.rotateAngleX = f2 / (180F / (float) Math.PI);
 			if (e instanceof LivingEntity) {
-				this.Rocket.rotateAngleX = (float) ((LivingEntity) e).getPersistentData().getDouble("AnimationPitch");
+				this.Rocket.rotateAngleX = (float) e.ap;
 			}
 		}
 	}

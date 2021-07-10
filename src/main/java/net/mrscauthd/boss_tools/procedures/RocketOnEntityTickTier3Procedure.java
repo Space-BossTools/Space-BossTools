@@ -283,102 +283,92 @@ public class RocketOnEntityTickTier3Procedure {
 				}
 			}
 		}
-		if (((entity.getPersistentData().getDouble("Powup")) == 1)) {
-			entity.getPersistentData().putDouble("AnimationRotation", ((entity.getPersistentData().getDouble("AnimationRotation")) + 1));
-			if (((entity.getPersistentData().getDouble("AnimationRotation")) == 1)) {
-				entity.getPersistentData().putDouble("Animation", ((entity.getPersistentData().getDouble("Animation")) + 0.005));
-				entity.getPersistentData().putDouble("AnimationPitch", ((entity.getPersistentData().getDouble("AnimationPitch")) + 0.005));
-			}
-			if (((entity.getPersistentData().getDouble("AnimationRotation")) == 2)) {
-				entity.getPersistentData().putDouble("Animation", 0);
-				entity.getPersistentData().putDouble("AnimationPitch", 0);
-				entity.getPersistentData().putDouble("AnimationRotation", 0);
-			}
-		}
 		entity.getPersistentData().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 4));
 		if (entity instanceof LivingEntity)
 			((LivingEntity) entity).setAir((int) 300);
 		if ((entity.isOnGround())) {
-			BlockState state = world.getBlockState(new BlockPos(Math.floor(x), y - 0.1, Math.floor(z)));
-			if (((state.getBlock() instanceof RocketLaunchPadBlock.CustomBlock && state.get(RocketLaunchPadBlock.CustomBlock.STAGE) == false)
-					|| ((world.getBlockState(new BlockPos((int) (Math.floor(x)), (int) (Math.floor(y)), (int) (Math.floor(z)))))
-							.getBlock() != RocketLaunchPadBlock.block.getDefaultState().getBlock()))) {
-				if (((new Object() {
-					public ItemStack getItemStack(int sltid, Entity entity) {
-						AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
-						entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-							_retval.set(capability.getStackInSlot(sltid).copy());
-						});
-						return _retval.get();
+			if ((!world.isAirBlock(new BlockPos((int) Math.floor(x), y - 0.01, (int) Math.floor(z))))) {
+				BlockState state = world.getBlockState(new BlockPos(Math.floor(x), y - 0.1, Math.floor(z)));
+				if (((state.getBlock() instanceof RocketLaunchPadBlock.CustomBlock && state.get(RocketLaunchPadBlock.CustomBlock.STAGE) == false)
+						|| ((world.getBlockState(new BlockPos((int) (Math.floor(x)), (int) (Math.floor(y)), (int) (Math.floor(z)))))
+								.getBlock() != RocketLaunchPadBlock.block.getDefaultState().getBlock()))) {
+					if (((new Object() {
+						public ItemStack getItemStack(int sltid, Entity entity) {
+							AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
+							entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+								_retval.set(capability.getStackInSlot(sltid).copy());
+							});
+							return _retval.get();
+						}
+					}.getItemStack((int) (0), entity)).getItem() == new ItemStack(FuelBucketBigItem.block, (int) (1)).getItem())) {
+						{
+							final ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
+							final int _sltid = (int) (0);
+							_setstack.setCount((int) 1);
+							entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+								if (capability instanceof IItemHandlerModifiable) {
+									((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
+								}
+							});
+						}
+						if (world instanceof World && !world.isRemote()) {
+							ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(FuelBucketBigItem.block, (int) (1)));
+							entityToSpawn.setPickupDelay((int) 10);
+							world.addEntity(entityToSpawn);
+						}
 					}
-				}.getItemStack((int) (0), entity)).getItem() == new ItemStack(FuelBucketBigItem.block, (int) (1)).getItem())) {
-					{
-						final ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
-						final int _sltid = (int) (0);
-						_setstack.setCount((int) 1);
-						entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-							if (capability instanceof IItemHandlerModifiable) {
-								((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-							}
-						});
+					if (((new Object() {
+						public ItemStack getItemStack(int sltid, Entity entity) {
+							AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
+							entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+								_retval.set(capability.getStackInSlot(sltid).copy());
+							});
+							return _retval.get();
+						}
+					}.getItemStack((int) (0), entity)).getItem() == new ItemStack(BucketBigItem.block, (int) (1)).getItem())) {
+						{
+							final ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
+							final int _sltid = (int) (0);
+							_setstack.setCount((int) 1);
+							entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+								if (capability instanceof IItemHandlerModifiable) {
+									((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
+								}
+							});
+						}
+						if (world instanceof World && !world.isRemote()) {
+							ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(BucketBigItem.block, (int) (1)));
+							entityToSpawn.setPickupDelay((int) 10);
+							world.addEntity(entityToSpawn);
+						}
 					}
-					if (world instanceof World && !world.isRemote()) {
-						ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(FuelBucketBigItem.block, (int) (1)));
-						entityToSpawn.setPickupDelay((int) 10);
-						world.addEntity(entityToSpawn);
+					if (((entity.getPersistentData().getDouble("Rocketfuel")) == 0)) {
+						if (world instanceof World && !world.isRemote()) {
+							ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(Tier3RocketItemItem.block, (int) (1)));
+							entityToSpawn.setPickupDelay((int) 10);
+							world.addEntity(entityToSpawn);
+						}
 					}
+					if (((entity.getPersistentData().getDouble("Rocketfuel")) == 1)) {
+						itemfuel = new ItemStack(Tier3RocketItemItem.block, (int) (1));
+						(itemfuel).getOrCreateTag().putDouble("Rocketfuel", 1);
+						(itemfuel).getOrCreateTag().putDouble("fuel", (entity.getPersistentData().getDouble("fuel")));
+						(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 4));
+						if (world instanceof World && !world.isRemote()) {
+							ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
+							entityToSpawn.setPickupDelay((int) 10);
+							world.addEntity(entityToSpawn);
+						}
+					}
+					if (world instanceof ServerWorld) {
+						((World) world).getServer().getCommandManager().handleCommand(
+								new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
+										new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
+								"/stopsound @p neutral boss_tools:rocketfly");
+					}
+					if (!entity.world.isRemote())
+						entity.remove();
 				}
-				if (((new Object() {
-					public ItemStack getItemStack(int sltid, Entity entity) {
-						AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
-						entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-							_retval.set(capability.getStackInSlot(sltid).copy());
-						});
-						return _retval.get();
-					}
-				}.getItemStack((int) (0), entity)).getItem() == new ItemStack(BucketBigItem.block, (int) (1)).getItem())) {
-					{
-						final ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
-						final int _sltid = (int) (0);
-						_setstack.setCount((int) 1);
-						entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-							if (capability instanceof IItemHandlerModifiable) {
-								((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-							}
-						});
-					}
-					if (world instanceof World && !world.isRemote()) {
-						ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(BucketBigItem.block, (int) (1)));
-						entityToSpawn.setPickupDelay((int) 10);
-						world.addEntity(entityToSpawn);
-					}
-				}
-				if (((entity.getPersistentData().getDouble("Rocketfuel")) == 0)) {
-					if (world instanceof World && !world.isRemote()) {
-						ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(Tier3RocketItemItem.block, (int) (1)));
-						entityToSpawn.setPickupDelay((int) 10);
-						world.addEntity(entityToSpawn);
-					}
-				}
-				if (((entity.getPersistentData().getDouble("Rocketfuel")) == 1)) {
-					itemfuel = new ItemStack(Tier3RocketItemItem.block, (int) (1));
-					(itemfuel).getOrCreateTag().putDouble("Rocketfuel", 1);
-					(itemfuel).getOrCreateTag().putDouble("fuel", (entity.getPersistentData().getDouble("fuel")));
-					(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 4));
-					if (world instanceof World && !world.isRemote()) {
-						ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
-						entityToSpawn.setPickupDelay((int) 10);
-						world.addEntity(entityToSpawn);
-					}
-				}
-				if (world instanceof ServerWorld) {
-					((World) world).getServer().getCommandManager().handleCommand(
-							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/stopsound @p neutral boss_tools:rocketfly");
-				}
-				if (!entity.world.isRemote())
-					entity.remove();
 			}
 		}
 	}

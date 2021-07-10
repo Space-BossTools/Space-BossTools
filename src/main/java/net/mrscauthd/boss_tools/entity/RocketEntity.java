@@ -1,10 +1,6 @@
 
 package net.mrscauthd.boss_tools.entity;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.*;
-import net.minecraftforge.fml.network.*;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
 import net.mrscauthd.boss_tools.procedures.RocketOnEntityTickUpdateProcedure;
 import net.mrscauthd.boss_tools.procedures.RocketEntityIsHurt1Procedure;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
@@ -18,6 +14,12 @@ import net.minecraftforge.items.wrapper.EntityArmorInvWrapper;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraftforge.fml.network.NetworkRegistry;
+import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fml.network.FMLPlayMessages;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -28,6 +30,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraft.world.World;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Hand;
@@ -49,14 +52,22 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.client.Minecraft;
 
 import javax.annotation.Nullable;
 import javax.annotation.Nonnull;
 
+import java.util.function.Supplier;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.function.Supplier;
 
 import io.netty.buffer.Unpooled;
 
@@ -74,7 +85,7 @@ public class RocketEntity extends BossToolsModElements.ModElement {
 	public void initElements() {
 		entity = (EntityType.Builder.<CustomEntity>create(CustomEntity::new, EntityClassification.MONSTER).setShouldReceiveVelocityUpdates(true)
 				.setTrackingRange(100).setUpdateInterval(3).setCustomClientFactory(CustomEntity::new).immuneToFire().size(1f, 3f)).build("rocket")
-				.setRegistryName("rocket");
+						.setRegistryName("rocket");
 		elements.entities.add(() -> entity);
 	}
 
@@ -154,6 +165,11 @@ public class RocketEntity extends BossToolsModElements.ModElement {
 		@Override
 		public boolean canDespawn(double distanceToClosestPlayer) {
 			return false;
+		}
+
+		@Override
+		public ItemStack getPickedResult(RayTraceResult target) {
+			return new ItemStack(Tier1RocketItemItem.block);
 		}
 
 		@Override
@@ -323,7 +339,7 @@ public class RocketEntity extends BossToolsModElements.ModElement {
 			double y = this.getPosY();
 			double z = this.getPosZ();
 			Entity entity = this;
-			//Animation Tick
+			// Animation Tick
 			if (entity.getPersistentData().getDouble("Powup") == 1) {
 				ar = ar + 1;
 				if (ar == 1) {
@@ -336,7 +352,7 @@ public class RocketEntity extends BossToolsModElements.ModElement {
 					ap = 0;
 				}
 			}
-			//Animation End
+			// Animation End
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("entity", entity);
@@ -349,9 +365,9 @@ public class RocketEntity extends BossToolsModElements.ModElement {
 			if (!this.world.isRemote)
 				NetworkLoader.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> this),
 						new RocketSpinPacket(this.getEntityId(), this.getPersistentData().getDouble("Powup")));
-
 		}
 	}
+
 	// packages System
 	private static class NetworkLoader {
 		public static SimpleChannel INSTANCE;
@@ -361,7 +377,7 @@ public class RocketEntity extends BossToolsModElements.ModElement {
 		}
 
 		public static void registerMessages() {
-			INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation("boss_tools", "rocket1_link2"), () -> "1.0", s -> true, s -> true);
+			INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation("boss_tools", "rocket_link"), () -> "1.0", s -> true, s -> true);
 			INSTANCE.registerMessage(nextID(), RocketSpinPacket.class, RocketSpinPacket::encode, RocketSpinPacket::decode, RocketSpinPacket::handle);
 		}
 	}

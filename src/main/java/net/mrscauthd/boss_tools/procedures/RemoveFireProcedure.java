@@ -1,7 +1,6 @@
 package net.mrscauthd.boss_tools.procedures;
 
-import net.minecraft.state.Property;
-import net.mrscauthd.boss_tools.block.TorchBlock;
+import net.mrscauthd.boss_tools.MobInnet;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.registries.ForgeRegistries;
@@ -17,6 +16,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.Direction;
+import net.minecraft.state.Property;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.block.CampfireBlock;
@@ -101,6 +101,50 @@ public class RemoveFireProcedure {
 				}
 				world.setBlockState(new BlockPos((int) x, (int) y, (int) z), Blocks.AIR.getDefaultState(), 3);
 			}
+			if (((world.getBlockState(new BlockPos((int) x, (int) y, (int) z))).getBlock() == Blocks.WALL_TORCH.getDefaultState().getBlock())) {
+				Direction TD = Direction.NORTH;
+				TD = (Direction) (new Object() {
+					public Direction getDirection(BlockPos pos) {
+						try {
+							BlockState _bs = world.getBlockState(pos);
+							DirectionProperty property = (DirectionProperty) _bs.getBlock().getStateContainer().getProperty("facing");
+							if (property != null)
+								return _bs.get(property);
+							return Direction.getFacingFromAxisDirection(
+									_bs.get((EnumProperty<Direction.Axis>) _bs.getBlock().getStateContainer().getProperty("axis")),
+									Direction.AxisDirection.POSITIVE);
+						} catch (Exception e) {
+							return Direction.NORTH;
+						}
+					}
+				}.getDirection(new BlockPos((int) x, (int) y, (int) z)));
+
+				if (world instanceof World && !world.isRemote()) {
+					((World) world)
+							.playSound(null, new BlockPos((int) x, (int) y, (int) z),
+									(net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS
+											.getValue(new ResourceLocation("entity.generic.extinguish_fire")),
+									SoundCategory.NEUTRAL, (float) 1, (float) 1);
+				} else {
+					((World) world).playSound(x, y, z,
+							(net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS
+									.getValue(new ResourceLocation("entity.generic.extinguish_fire")),
+							SoundCategory.NEUTRAL, (float) 1, (float) 1, false);
+				}
+
+				world.setBlockState(new BlockPos((int) x, (int) y, (int) z), MobInnet.WALLCOALTORCHBLOCK.get().getDefaultState(), 3);
+				try {
+					BlockState _bs = world.getBlockState(new BlockPos((int) x, (int) y, (int) z));
+					DirectionProperty _property = (DirectionProperty) _bs.getBlock().getStateContainer().getProperty("facing");
+					if (_property != null) {
+						world.setBlockState(new BlockPos((int) x, (int) y, (int) z), _bs.with(_property, TD), 3);
+					} else {
+						world.setBlockState(new BlockPos((int) x, (int) y, (int) z),
+								_bs.with((EnumProperty<Direction.Axis>) _bs.getBlock().getStateContainer().getProperty("axis"), TD.getAxis()), 3);
+					}
+				} catch (Exception e) {
+				}
+			}
 			if (((world.getBlockState(new BlockPos((int) x, (int) y, (int) z))).getBlock() == Blocks.TORCH.getDefaultState().getBlock())) {
 				if (world instanceof World && !world.isRemote()) {
 					((World) world)
@@ -114,7 +158,8 @@ public class RemoveFireProcedure {
 									.getValue(new ResourceLocation("entity.generic.extinguish_fire")),
 							SoundCategory.NEUTRAL, (float) 1, (float) 1, false);
 				}
-				world.setBlockState(new BlockPos((int) x, (int) y, (int) z), TorchBlock.block.getDefaultState(), 3);
+
+				world.setBlockState(new BlockPos((int) x, (int) y, (int) z), MobInnet.COALTORCHBLOCK.get().getDefaultState(), 3);
 			}
 			if (((world.getBlockState(new BlockPos((int) x, (int) y, (int) z))).getBlock() == Blocks.WALL_TORCH.getDefaultState().getBlock())) {
 				if (world instanceof World && !world.isRemote()) {
@@ -129,7 +174,7 @@ public class RemoveFireProcedure {
 									.getValue(new ResourceLocation("entity.generic.extinguish_fire")),
 							SoundCategory.NEUTRAL, (float) 1, (float) 1, false);
 				}
-				world.setBlockState(new BlockPos((int) x, (int) y, (int) z), TorchBlock.block.getDefaultState(), 3);
+				world.setBlockState(new BlockPos((int) x, (int) y, (int) z), MobInnet.COALTORCHBLOCK.get().getDefaultState(), 3);
 			}
 			if (((world.getBlockState(new BlockPos((int) x, (int) y, (int) z))).getBlock() == Blocks.CAMPFIRE.getDefaultState().getBlockState().with(CampfireBlock.LIT, false).getBlock())) {
 				{

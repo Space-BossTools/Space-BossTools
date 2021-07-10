@@ -1,6 +1,7 @@
 
 package net.mrscauthd.boss_tools.entity;
 
+import net.minecraft.util.math.RayTraceResult;
 import net.mrscauthd.boss_tools.procedures.RoverOnEntityTickUpdateProcedure;
 import net.mrscauthd.boss_tools.procedures.RoverEntityIsHurtProcedure;
 import net.mrscauthd.boss_tools.item.RoverItemItem;
@@ -292,6 +293,11 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 				}
 			}
 			super.removePassenger(passenger);
+		}
+		
+		@Override
+		public ItemStack getPickedResult(RayTraceResult target) {
+			return new ItemStack(RoverItemItem.block);
 		}
 
 		@Override

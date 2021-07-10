@@ -30,6 +30,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraft.world.World;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Hand;
@@ -84,7 +85,7 @@ public class RocketTier2Entity extends BossToolsModElements.ModElement {
 	public void initElements() {
 		entity = (EntityType.Builder.<CustomEntity>create(CustomEntity::new, EntityClassification.MONSTER).setShouldReceiveVelocityUpdates(true)
 				.setTrackingRange(100).setUpdateInterval(3).setCustomClientFactory(CustomEntity::new).immuneToFire().size(1f, 4f))
-						.build("rocket_tier_2").setRegistryName("rocket_tier_2");
+				.build("rocket_tier_2").setRegistryName("rocket_tier_2");
 		elements.entities.add(() -> entity);
 	}
 
@@ -104,6 +105,9 @@ public class RocketTier2Entity extends BossToolsModElements.ModElement {
 	}
 
 	public static class CustomEntity extends CreatureEntity {
+		public double ar = 0;
+		public double ay = 0;
+		public double ap = 0;
 		public CustomEntity(FMLPlayMessages.SpawnEntity packet, World world) {
 			this(entity, world);
 		}
@@ -146,6 +150,11 @@ public class RocketTier2Entity extends BossToolsModElements.ModElement {
 		@Override
 		protected boolean canTriggerWalking() {
 			return false;
+		}
+
+		@Override
+		public ItemStack getPickedResult(RayTraceResult target) {
+			return new ItemStack(Tier2RocketItemItem.block);
 		}
 
 		@Override
@@ -342,6 +351,20 @@ public class RocketTier2Entity extends BossToolsModElements.ModElement {
 			double y = this.getPosY();
 			double z = this.getPosZ();
 			Entity entity = this;
+			// Animation Tick
+			if (entity.getPersistentData().getDouble("Powup") == 1) {
+				ar = ar + 1;
+				if (ar == 1) {
+					ay = ay + 0.006;
+					ap = ap + 0.006;
+				}
+				if (ar == 2) {
+					ar = 0;
+					ay = 0;
+					ap = 0;
+				}
+			}
+			// Animation End
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("entity", entity);
@@ -353,14 +376,9 @@ public class RocketTier2Entity extends BossToolsModElements.ModElement {
 			}
 			if (!this.world.isRemote)
 				NetworkLoader.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> this),
-						new RocketSpinPacket(this.getEntityId(), this.getPersistentData().getDouble("Animation")));
-			// new Nbt
-			if (!this.world.isRemote)
-				NetworkLoader.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> this),
-						new RocketSpin2Packet(this.getEntityId(), this.getPersistentData().getDouble("AnimationPitch")));
+						new RocketSpinPacket(this.getEntityId(), this.getPersistentData().getDouble("Powup")));
 		}
 	}
-
 	// packages System
 	private static class NetworkLoader {
 		public static SimpleChannel INSTANCE;
@@ -370,15 +388,12 @@ public class RocketTier2Entity extends BossToolsModElements.ModElement {
 		}
 
 		public static void registerMessages() {
-			INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation("boss_tools2", "rocket_link2"), () -> "1.0", s -> true, s -> true);
+			INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation("boss_tools", "rocket_link2"), () -> "1.0", s -> true, s -> true);
 			INSTANCE.registerMessage(nextID(), RocketSpinPacket.class, RocketSpinPacket::encode, RocketSpinPacket::decode, RocketSpinPacket::handle);
-			// new animationpitch
-			INSTANCE.registerMessage(nextID(), RocketSpin2Packet.class, RocketSpin2Packet::encode, RocketSpin2Packet::decode,
-					RocketSpin2Packet::handle);
 		}
 	}
 
-	// First Animation
+	// First Animation (take off)
 	private static class RocketSpinPacket {
 		private double animation;
 		private int entityId;
@@ -400,36 +415,7 @@ public class RocketTier2Entity extends BossToolsModElements.ModElement {
 			ctx.get().enqueueWork(() -> {
 				Entity entity = Minecraft.getInstance().world.getEntityByID(msg.entityId);
 				if (entity instanceof LivingEntity) {
-					((LivingEntity) entity).getPersistentData().putDouble("Animation", msg.animation);
-				}
-			});
-			ctx.get().setPacketHandled(true);
-		}
-	}
-
-	// new animationpitch
-	private static class RocketSpin2Packet {
-		private double animationpitch;
-		private int entityId;
-		public RocketSpin2Packet(int entityId, double animationpitch) {
-			this.animationpitch = animationpitch;
-			this.entityId = entityId;
-		}
-
-		public static void encode(RocketSpin2Packet msg, PacketBuffer buf) {
-			buf.writeInt(msg.entityId);
-			buf.writeDouble(msg.animationpitch);
-		}
-
-		public static RocketSpin2Packet decode(PacketBuffer buf) {
-			return new RocketSpin2Packet(buf.readInt(), buf.readDouble());
-		}
-
-		public static void handle(RocketSpin2Packet msg, Supplier<NetworkEvent.Context> ctx) {
-			ctx.get().enqueueWork(() -> {
-				Entity entity = Minecraft.getInstance().world.getEntityByID(msg.entityId);
-				if (entity instanceof LivingEntity) {
-					((LivingEntity) entity).getPersistentData().putDouble("AnimationPitch", msg.animationpitch);
+					((LivingEntity) entity).getPersistentData().putDouble("Powup", msg.animation);
 				}
 			});
 			ctx.get().setPacketHandled(true);

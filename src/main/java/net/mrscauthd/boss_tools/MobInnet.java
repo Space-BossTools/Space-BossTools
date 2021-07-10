@@ -2,6 +2,12 @@
 package net.mrscauthd.boss_tools;
 
 import com.mojang.serialization.Codec;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
+import net.minecraft.item.BlockItem;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
@@ -16,12 +22,17 @@ import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.mrscauthd.boss_tools.block.CoalTorchBlock;
+import net.mrscauthd.boss_tools.entity.AlienZombieEntity;
+import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
+import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsBasicsItemGroup;
 import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsSpawnEggsItemGroup;
 import net.mrscauthd.boss_tools.entity.AlienEntity;
 
@@ -59,6 +70,17 @@ public class MobInnet extends BossToolsModElements.ModElement {
             .create(AlienEntity::new, EntityClassification.CREATURE).size(0.75f, 2.5f).build(new ResourceLocation("boss_tools", "alien").toString()));
     public static final RegistryObject<ModSpawnEggs> ALIEN_SPAWN_EGG = ITEMS.register("alien_spawn_egg",
             () -> new ModSpawnEggs(ALIEN, -13382401, -11650781, new Item.Properties().group(SpaceBosstoolsSpawnEggsItemGroup.tab)));
+    //Block
+    public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, "boss_tools");
+
+    public static RegistryObject<Block> COALTORCHBLOCK = BLOCKS.register("coal_torch",() -> new CoalTorchBlock(AbstractBlock.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.WOOD)));
+    public static RegistryObject<Block> WALLCOALTORCHBLOCK = BLOCKS.register("wall_coal_torch",() -> new WallCoalTorchBlock(AbstractBlock.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.WOOD).lootFrom(COALTORCHBLOCK.get())));
+
+    //Item
+    public static final RegistryObject<Item> TORCHITEM = ITEMS.register("coal_torch",
+            () -> new CoalTorchItem(COALTORCHBLOCK.get(), WALLCOALTORCHBLOCK.get(),new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab)));
+
+
     //Wrold Gen Things
     public static ConfiguredFeature<?, ?> ICE_SPIKE;
     public static MarsIceSpikeFeature MARS_ICE_SPIKE;
@@ -106,6 +128,7 @@ public class MobInnet extends BossToolsModElements.ModElement {
         //bus.addGenericListener(Structure.class, this::onRegisterStructures);
         ENTITYS.register(bus);
         ITEMS.register(bus);
+        BLOCKS.register(bus);
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
         //  forgeBus.addListener(EventPriority.HIGH, this::biomeModificationa);
 
@@ -189,8 +212,8 @@ public class MobInnet extends BossToolsModElements.ModElement {
             //meteor
             tempMap1.putIfAbsent(STStructures.METEOR.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.METEOR.get()));
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap1;
-			//venus bullet
-			Map<Structure<?>, StructureSeparationSettings> tempMap2 = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
+            //venus bullet
+            Map<Structure<?>, StructureSeparationSettings> tempMap2 = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
             //tempMap.putIfAbsent(STStructures.RUN_DOWN_HOUSE.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.RUN_DOWN_HOUSE.get()));
             //  serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_() = tempMap;
             //meteor
@@ -205,19 +228,19 @@ public class MobInnet extends BossToolsModElements.ModElement {
     public void init(final FMLCommonSetupEvent event) {
         DeferredWorkQueue.runLater(() -> {
             GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) ALIEN.get(), AlienEntity.setCustomAttributes().create());
-            });
-            event.enqueueWork(() -> {
-                ICE_SPIKE = register("ice_spike1",
-                        MobInnet.MARS_ICE_SPIKE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(2));
-                //Venus Deltas
-                DELTAS = register("deltas1",
-                        MobInnet.VENUS_DELTAS.withConfiguration(new ColumnConfig(FeatureSpread.func_242252_a(1), FeatureSpread.func_242253_a(1, 8)))
-                        .withPlacement(Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(4))));
-               //Venus Deltas2
-                DELTAS2 = register("deltas2",
-                        MobInnet.VENUS_DELTAS.withConfiguration(new ColumnConfig(FeatureSpread.func_242253_a(2, 1), FeatureSpread.func_242253_a(5, 6)))
-							.withPlacement(Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(1))));
-            });
+        });
+        event.enqueueWork(() -> {
+            ICE_SPIKE = register("ice_spike1",
+                    MobInnet.MARS_ICE_SPIKE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(2));
+            //Venus Deltas
+            DELTAS = register("deltas1",
+                    MobInnet.VENUS_DELTAS.withConfiguration(new ColumnConfig(FeatureSpread.func_242252_a(1), FeatureSpread.func_242253_a(1, 8)))
+                            .withPlacement(Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(4))));
+            //Venus Deltas2
+            DELTAS2 = register("deltas2",
+                    MobInnet.VENUS_DELTAS.withConfiguration(new ColumnConfig(FeatureSpread.func_242253_a(2, 1), FeatureSpread.func_242253_a(5, 6)))
+                            .withPlacement(Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(1))));
+        });
     }
     public void biomesLoading(final BiomeLoadingEvent event){
         if(event.getName().getPath().equals(MarsIceBiomeBiome.biome.getRegistryName().getPath())){

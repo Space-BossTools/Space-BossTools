@@ -1,5 +1,5 @@
 {
-  "parent": "boss_tools:custom/template_torch",
+  "parent": "boss_tools:custom/template_torch_wall",
   "textures": {
     "all": "boss_tools:blocks/coal_torch",
     "particle": "boss_tools:blocks/coal_torch",
