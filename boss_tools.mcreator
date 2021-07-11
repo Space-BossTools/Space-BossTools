@@ -5732,6 +5732,23 @@
       "ids": {},
       "registry_name": "coal_torch_recpie",
       "path": "~/Recpies"
+    },
+    {
+      "name": "SetPlanetWeather",
+      "type": "procedure",
+      "sortid": 415,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "set_planet_weather",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
     }
   ],
   "variable_elements": [
