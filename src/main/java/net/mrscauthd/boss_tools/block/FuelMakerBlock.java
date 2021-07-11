@@ -1,6 +1,7 @@
 
 package net.mrscauthd.boss_tools.block;
 
+import net.minecraft.world.IWorld;
 import net.mrscauthd.boss_tools.procedures.FuelRefineryTickProcedure;
 import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsMachinesItemGroup;
 import net.mrscauthd.boss_tools.gui.FuelRefineryGUIGui;
@@ -68,6 +69,7 @@ import net.minecraft.block.Block;
 
 import javax.annotation.Nullable;
 
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 import java.util.Random;
 import java.util.Map;
@@ -104,6 +106,7 @@ public class FuelMakerBlock extends BossToolsModElements.ModElement {
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 		public static final BooleanProperty ACTIAVATED = BlockStateProperties.LIT;
+		public static double energy = 0;
 		public CustomBlock() {
 			super(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 1f).setLightLevel(s -> 0).harvestLevel(1)
 					.harvestTool(ToolType.PICKAXE).setRequiresTool());
@@ -157,6 +160,16 @@ public class FuelMakerBlock extends BossToolsModElements.ModElement {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
+			energy = (new Object() {
+				public int getEnergyStored(IWorld world, BlockPos pos) {
+					AtomicInteger _retval = new AtomicInteger(0);
+					TileEntity _ent = world.getTileEntity(pos);
+					if (_ent != null)
+						_ent.getCapability(CapabilityEnergy.ENERGY, null).ifPresent(capability -> _retval.set(capability.getEnergyStored()));
+					return _retval.get();
+				}
+			}.getEnergyStored(world, new BlockPos((int) x, (int) y, (int) z)));
+
 			if (((new Object() {
 				public boolean getValue(BlockPos pos, String tag) {
 					TileEntity tileEntity = world.getTileEntity(pos);
@@ -164,7 +177,7 @@ public class FuelMakerBlock extends BossToolsModElements.ModElement {
 						return tileEntity.getTileData().getBoolean(tag);
 					return false;
 				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "activated")) == (true))) {
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "activated")) == (true)) && energy >= 1) {
 				world.setBlockState(pos, state.with(ACTIAVATED, Boolean.valueOf(true)), 3);
 			} else {
 				world.setBlockState(pos, state.with(ACTIAVATED, Boolean.valueOf(false)), 3);
@@ -182,21 +195,21 @@ public class FuelMakerBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos) {
-			if (state.get(ACTIAVATED) == true)
+			if (state.get(ACTIAVATED) == true && energy >= 1)
 				return 12;
 			return 0;
 		}
 
 		@Override
 		public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
-			if (state.get(ACTIAVATED) == true)
+			if (state.get(ACTIAVATED) == true && energy >= 1)
 				return 12;
 			return 0;
 		}
 
 		@Override
 		public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity entity, Hand hand,
-				BlockRayTraceResult hit) {
+												 BlockRayTraceResult hit) {
 			super.onBlockActivated(state, world, pos, entity, hand, hit);
 			int x = pos.getX();
 			int y = pos.getY();

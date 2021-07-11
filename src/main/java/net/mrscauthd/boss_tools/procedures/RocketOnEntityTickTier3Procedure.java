@@ -16,7 +16,9 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.item.ItemStack;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Entity;
@@ -64,16 +66,12 @@ public class RocketOnEntityTickTier3Procedure {
 		if (((entity.getPersistentData().getDouble("Powup_trigger")) == 1)) {
 			if (((entity.getPersistentData().getDouble("fly")) >= 200)) {
 				if (world instanceof ServerWorld) {
-					((World) world).getServer().getCommandManager().handleCommand(
-							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/particle minecraft:flame ~ ~-2.2 ~ .1 .1 .1 .001 100 force");
-				}
-				if (world instanceof ServerWorld) {
-					((World) world).getServer().getCommandManager().handleCommand(
-							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/particle minecraft:smoke ~ ~-3.2 ~ .1 .1 .1 .04 50 force");
+					for (ServerPlayerEntity p : ((ServerWorld) world).getPlayers()) {
+						((ServerWorld) world).spawnParticle(p, ParticleTypes.FLAME, true, entity.getPosX(), entity.getPosY() - 2.2, entity.getPosZ(),
+								100, 0.1, 0.1, 0.1, (double) 0.001);
+						((ServerWorld) world).spawnParticle(p, ParticleTypes.SMOKE, true, entity.getPosX(), entity.getPosY() - 3.2, entity.getPosZ(),
+								50, 0.1, 0.1, 0.1, (double) 0.04);
+					}
 				}
 			}
 		}
@@ -134,10 +132,10 @@ public class RocketOnEntityTickTier3Procedure {
 		if (((entity.getPersistentData().getDouble("Powup_trigger")) == 1)) {
 			if (((entity.getPersistentData().getDouble("fly")) <= 200)) {
 				if (world instanceof ServerWorld) {
-					((World) world).getServer().getCommandManager().handleCommand(
-							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-							"/particle minecraft:campfire_cosy_smoke ~ ~-0.5 ~ 0.1 .1 0.1 .013 6 force");
+					for (ServerPlayerEntity p : ((ServerWorld) world).getPlayers()) {
+						((ServerWorld) world).spawnParticle(p, ParticleTypes.CAMPFIRE_COSY_SMOKE, true, entity.getPosX(), entity.getPosY() - 0.5,
+								entity.getPosZ(), 6, 0.1, 0.1, 0.1, (double) 0.013);
+					}
 				}
 			}
 		}

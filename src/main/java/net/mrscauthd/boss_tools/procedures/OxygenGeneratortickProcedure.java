@@ -17,7 +17,9 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.item.ItemStack;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.command.ICommandSource;
@@ -410,10 +412,10 @@ public class OxygenGeneratortickProcedure {
 							}
 						}
 						if (world instanceof ServerWorld) {
-							((World) world).getServer().getCommandManager().handleCommand(
-									new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-											new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-									"/particle minecraft:cloud ~0.5 ~1 ~0.5 0.1 .1 0.1 .001 1 force");
+							for (ServerPlayerEntity p : ((ServerWorld) world).getPlayers()) {
+								((ServerWorld) world).spawnParticle(p, ParticleTypes.CLOUD, true, x + 0.5, y + 1, z + 0.5, 1, 0.1, 0.1, 0.1,
+										(double) 0.001);
+							}
 						}
 						{
 							List<Entity> _entfound = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB((x + 0.5) - (6 / 2d), y - (6 / 2d),
@@ -488,10 +490,10 @@ public class OxygenGeneratortickProcedure {
 							}
 						}
 						if (world instanceof ServerWorld) {
-							((World) world).getServer().getCommandManager().handleCommand(
-									new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
-											new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
-									"/particle minecraft:cloud ~0.5 ~1 ~0.5 0.1 .1 0.1 .001 1 force");
+							for (ServerPlayerEntity p : ((ServerWorld) world).getPlayers()) {
+								((ServerWorld) world).spawnParticle(p, ParticleTypes.CLOUD, true, x + 0.5, y + 1, z + 0.5, 1, 0.1, 0.1, 0.1,
+										(double) 0.001);
+							}
 						}
 					}
 				}
