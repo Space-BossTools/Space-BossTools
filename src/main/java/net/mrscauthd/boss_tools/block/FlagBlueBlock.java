@@ -66,8 +66,8 @@ public class FlagBlueBlock extends BossToolsModElements.ModElement {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 		public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 		public CustomBlock() {
-			super(Block.Properties.create(Material.WOOD).sound(SoundType.STONE).hardnessAndResistance(1f, 1f).setLightLevel(s -> 1).notSolid()
-					.setOpaque((bs, br, bp) -> false));
+			super(Block.Properties.create(Material.WOOD).sound(SoundType.STONE).hardnessAndResistance(1f, 1f).setLightLevel(s -> 1)
+					.doesNotBlockMovement().notSolid().setOpaque((bs, br, bp) -> false));
 			this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(WATERLOGGED, false));
 			setRegistryName("flag_blue");
 		}
