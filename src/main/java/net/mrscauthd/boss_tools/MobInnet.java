@@ -78,7 +78,7 @@ public class MobInnet extends BossToolsModElements.ModElement {
     public static RegistryObject<Block> COALTORCHBLOCK = BLOCKS.register("coal_torch",() -> new CoalTorchBlock(AbstractBlock.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.WOOD)));
     public static RegistryObject<Block> WALLCOALTORCHBLOCK = BLOCKS.register("wall_coal_torch",() -> new WallCoalTorchBlock(AbstractBlock.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.WOOD).lootFrom(COALTORCHBLOCK.get())));
     //Flag Blocks
-    public static RegistryObject<Block> FLAGBLOCK = BLOCKS.register("flag",() -> new FlagBlock(AbstractBlock.Properties.create(Material.WOOD).doesNotBlockMovement().hardnessAndResistance(1.0F).sound(SoundType.STONE).notSolid().setLightLevel(s -> 1).setOpaque((bs, br, bp) -> false)));
+    public static RegistryObject<Block> FLAGBLOCK = BLOCKS.register("flag",() -> new FlagBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.STONE).notSolid().setLightLevel(s -> 1).setOpaque((bs, br, bp) -> false).harvestTool(ToolType.PICKAXE)));
     
     //Item
     public static final RegistryObject<Item> TORCHITEM = ITEMS.register("coal_torch",

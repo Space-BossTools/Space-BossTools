@@ -5830,6 +5830,16 @@
       "ids": {},
       "registry_name": "cracked_moon_brick_slab_recpie_2",
       "path": "~/Recpies"
+    },
+    {
+      "name": "FlagLootTable",
+      "type": "loottable",
+      "sortid": 424,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "flag_loot_table",
+      "path": "~/LootTable"
     }
   ],
   "variable_elements": [

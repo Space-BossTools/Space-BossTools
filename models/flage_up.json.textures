@@ -1,0 +1,11 @@
+{
+  "mappings": {
+    "default": {
+      "map": {
+        "0": "flag_white",
+        "missing": "flag_white"
+      },
+      "name": "default"
+    }
+  }
+}

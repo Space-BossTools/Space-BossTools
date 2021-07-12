@@ -74,7 +74,7 @@
     "speedFactor": 1.0,
     "jumpFactor": 1.0,
     "reactionToPushing": "NORMAL",
-    "isNotColidable": true,
+    "isNotColidable": false,
     "isCustomSoundType": false,
     "soundOnStep": {
       "value": "STONE"
