@@ -1,0 +1,46 @@
+{
+  "_fv": 21,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "recipeRetstackSize": 4,
+    "group": "",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": "CUSTOM:CrackedMoonBricks"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "CUSTOM:CrackedMoonBricks"
+      },
+      {
+        "value": "CUSTOM:CrackedMoonBricks"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "CUSTOM:CrackedMoonBricks"
+      },
+      {
+        "value": "CUSTOM:CrackedMoonBricks"
+      },
+      {
+        "value": "CUSTOM:CrackedMoonBricks"
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:CrackedMoonBrickStairs"
+    },
+    "name": "cracked_moon_brick_stairs_recpie_2",
+    "namespace": "mod"
+  }
+}

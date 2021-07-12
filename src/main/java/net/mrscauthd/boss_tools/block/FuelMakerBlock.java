@@ -195,14 +195,14 @@ public class FuelMakerBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos) {
-			if (state.get(ACTIAVATED) == true && energy >= 1)
+			if (state.get(ACTIAVATED) == true)
 				return 12;
 			return 0;
 		}
 
 		@Override
 		public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
-			if (state.get(ACTIAVATED) == true && energy >= 1)
+			if (state.get(ACTIAVATED) == true)
 				return 12;
 			return 0;
 		}

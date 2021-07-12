@@ -5748,7 +5748,88 @@
             "type": "world"
           }
         ]
-      }
+      },
+      "path": "~/Procedures"
+    },
+    {
+      "name": "MoonBricksRecpie",
+      "type": "recipe",
+      "sortid": 416,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "moon_bricks_recpie",
+      "path": "~/Recpies"
+    },
+    {
+      "name": "MoonBrickStairsrecpie",
+      "type": "recipe",
+      "sortid": 417,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "moon_brick_stairsrecpie",
+      "path": "~/Recpies"
+    },
+    {
+      "name": "MoonBrickSlabRecpie",
+      "type": "recipe",
+      "sortid": 418,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "moon_brick_slab_recpie",
+      "path": "~/Recpies"
+    },
+    {
+      "name": "BrakedMoonBricksRecpie",
+      "type": "recipe",
+      "sortid": 419,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "braked_moon_bricks_recpie",
+      "path": "~/Recpies"
+    },
+    {
+      "name": "CrackedMoonBrickStairsRecpie",
+      "type": "recipe",
+      "sortid": 420,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "cracked_moon_brick_stairs_recpie",
+      "path": "~/Recpies"
+    },
+    {
+      "name": "CrackedMoonSlabRecpie",
+      "type": "recipe",
+      "sortid": 421,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "cracked_moon_slab_recpie",
+      "path": "~/Recpies"
+    },
+    {
+      "name": "CrackedMoonBrickStairsRecpie2",
+      "type": "recipe",
+      "sortid": 422,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "cracked_moon_brick_stairs_recpie_2",
+      "path": "~/Recpies"
+    },
+    {
+      "name": "CrackedMoonBrickSlabRecpie2",
+      "type": "recipe",
+      "sortid": 423,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "cracked_moon_brick_slab_recpie_2",
+      "path": "~/Recpies"
     }
   ],
   "variable_elements": [

@@ -3,6 +3,7 @@
   "textures": {
     "all": "boss_tools:blocks/cable_mid",
     "particle": "boss_tools:blocks/cable_mid",
+    "0": "boss_tools:blocks/cable_mid",
     "1": "boss_tools:blocks/cable_mid",
     "2": "boss_tools:blocks/cable_-x",
     "3": "boss_tools:blocks/cable_y",
