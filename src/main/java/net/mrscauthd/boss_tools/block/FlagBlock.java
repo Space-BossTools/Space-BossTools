@@ -45,16 +45,30 @@ public class FlagBlock extends Block implements IWaterLoggable {
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
 		Vector3d offset = state.getOffset(world, pos);
-		switch ((Direction) state.get(FACING)) {
-			case SOUTH :
-			default :
-				return VoxelShapes.or(makeCuboidShape(15.2, 0, 8, 1.6, 16, 9.6)).withOffset(offset.x, offset.y, offset.z);
-			case NORTH :
-				return VoxelShapes.or(makeCuboidShape(0.8, 0, 8, 14.4, 16, 6.4)).withOffset(offset.x, offset.y, offset.z);
-			case EAST :
-				return VoxelShapes.or(makeCuboidShape(8, 0, 0.8, 9.6, 16, 14.4)).withOffset(offset.x, offset.y, offset.z);
-			case WEST :
-				return VoxelShapes.or(makeCuboidShape(8, 0, 15.2, 6.4, 16, 1.6)).withOffset(offset.x, offset.y, offset.z);
+		if (state.get(HALF) == DoubleBlockHalf.LOWER) {
+			switch ((Direction) state.get(FACING)) {
+				case SOUTH :
+				default :
+					return VoxelShapes.or(makeCuboidShape(14.5, 0, 9, 12.5, 1, 7), makeCuboidShape(14, 1, 8.5, 13, 16, 7.5)).withOffset(offset.x, offset.y, offset.z);
+				case NORTH :
+					return VoxelShapes.or(makeCuboidShape(1.5, 0, 7, 3.5, 1, 9), makeCuboidShape(2, 1, 7.5, 3, 16, 8.5)).withOffset(offset.x, offset.y, offset.z);
+				case EAST :
+					return VoxelShapes.or(makeCuboidShape(9, 0, 1.5, 7, 1, 3.5), makeCuboidShape(8.5, 1, 2, 7.5, 16, 3)).withOffset(offset.x, offset.y, offset.z);
+				case WEST :
+					return VoxelShapes.or(makeCuboidShape(7, 0, 14.5, 9, 1, 12.5), makeCuboidShape(7.5, 1, 14, 8.5, 16, 13)).withOffset(offset.x, offset.y, offset.z);
+			}
+		} else {
+			switch ((Direction) state.get(FACING)) {
+				case SOUTH :
+				default :
+					return VoxelShapes.or(makeCuboidShape(14, 0, 8.5, 13, 16, 7.5), makeCuboidShape(14, 7, 8.5, 1, 15, 7.5)).withOffset(offset.x, offset.y, offset.z);
+				case NORTH :
+					return VoxelShapes.or(makeCuboidShape(2, 0, 7.5, 3, 16, 8.5), makeCuboidShape(2, 7, 7.5, 15, 15, 8.5)).withOffset(offset.x, offset.y, offset.z);
+				case EAST :
+					return VoxelShapes.or(makeCuboidShape(8.5, 0, 2, 7.5, 16, 3), makeCuboidShape(8.5, 7, 2, 7.5, 15, 15)).withOffset(offset.x, offset.y, offset.z);
+				case WEST :
+					return VoxelShapes.or(makeCuboidShape(7.5, 0, 14, 8.5, 16, 13), makeCuboidShape(7.5, 7, 14, 8.5, 15, 1)).withOffset(offset.x, offset.y, offset.z);
+			}
 		}
 	}
 
@@ -138,5 +152,4 @@ public class FlagBlock extends Block implements IWaterLoggable {
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
 		builder.add(HALF, FACING, WATERLOGGED);
 	}
-	//TODO: HitBox
 }
