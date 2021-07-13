@@ -151,22 +151,22 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 
 			List<VoxelShape> list = new ArrayList<VoxelShape>();
 			if (state.get(NORTH) == true)
-				list.add(VoxelShapes.or(makeCuboidShape(7.5, 7.5, 7.5, 15.5, 15.5, 15.5)).withOffset(offset.x, offset.y, offset.z));
+				list.add(VoxelShapes.or(makeCuboidShape(11.5, 4.5, 4.5, 16, 11.5, 11.5)).withOffset(offset.x, offset.y, offset.z));
 
 			if (state.get(SOUTH) == true)
-				list.add(VoxelShapes.or(makeCuboidShape(4.5, 4.5, 4.5, 11.5, 11.5, 11.5)).withOffset(offset.x, offset.y, offset.z));
+				list.add(VoxelShapes.or(makeCuboidShape(0, 4.5, 4.5, 4.5, 11.5, 11.5)).withOffset(offset.x, offset.y, offset.z));
 
 			if (state.get(EAST) == true)
-				list.add(VoxelShapes.or(makeCuboidShape(4.5, 4.5, 4.5, 11.5, 11.5, 11.5)).withOffset(offset.x, offset.y, offset.z));
+				list.add(VoxelShapes.or(makeCuboidShape(4.5, 4.5, 11.5, 11.5, 11.5, 16)).withOffset(offset.x, offset.y, offset.z));
 
 			if (state.get(WEST) == true)
-				list.add(VoxelShapes.or(makeCuboidShape(4.5, 4.5, 4.5, 11.5, 11.5, 11.5)).withOffset(offset.x, offset.y, offset.z));
+				list.add(VoxelShapes.or(makeCuboidShape(4.5, 4.5, 0, 11.5, 11.5, 4.5)).withOffset(offset.x, offset.y, offset.z));
 
 			if (state.get(UP) == true)
-				list.add(VoxelShapes.or(makeCuboidShape(4.5, 4.5, 4.5, 11.5, 11.5, 11.5)).withOffset(offset.x, offset.y, offset.z));
+				list.add(VoxelShapes.or(makeCuboidShape(4.5, 11.5, 4.5, 11.5, 16, 11.5)).withOffset(offset.x, offset.y, offset.z));
 
 			if (state.get(DOWN) == true)
-				list.add(VoxelShapes.or(makeCuboidShape(4.5, 4.5, 4.5, 11.5, 11.5, 11.5)).withOffset(offset.x, offset.y, offset.z));
+				list.add(VoxelShapes.or(makeCuboidShape(4.5, 0, 4.5, 11.5, 4.5, 11.5)).withOffset(offset.x, offset.y, offset.z));
 
 			return VoxelShapes.or(makeCuboidShape(4.5, 4.5, 4.5, 11.5, 11.5, 11.5).withOffset(offset.x,offset.y,offset.z), list.stream().toArray(VoxelShape[]::new));
 		}
