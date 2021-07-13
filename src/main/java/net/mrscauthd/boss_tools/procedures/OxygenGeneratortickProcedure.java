@@ -9,9 +9,6 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.IWorld;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.ResourceLocation;
@@ -22,8 +19,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.command.ICommandSource;
-import net.minecraft.command.CommandSource;
 import net.minecraft.block.BlockState;
 
 import java.util.stream.Collectors;
@@ -160,56 +155,6 @@ public class OxygenGeneratortickProcedure {
 					return -1;
 				}
 			}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "timer")) >= 400)) {
-				if (((new Object() {
-					public double getValue(IWorld world, BlockPos pos, String tag) {
-						TileEntity tileEntity = world.getTileEntity(pos);
-						if (tileEntity != null)
-							return tileEntity.getTileData().getDouble(tag);
-						return -1;
-					}
-				}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "recipe")) == 0)) {
-					{
-						List<Entity> _entfound = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB((x + 0.5) - (12 / 2d), y - (12 / 2d),
-								(z + 0.5) - (12 / 2d), (x + 0.5) + (12 / 2d), y + (12 / 2d), (z + 0.5) + (12 / 2d)), null).stream()
-								.sorted(new Object() {
-									Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-										return Comparator.comparing((Function<Entity, Double>) (_entcnd -> _entcnd.getDistanceSq(_x, _y, _z)));
-									}
-								}.compareDistOf((x + 0.5), y, (z + 0.5))).collect(Collectors.toList());
-						for (Entity entityiterator : _entfound) {
-							if ((entityiterator instanceof PlayerEntity)) {
-								if (world instanceof ServerWorld) {
-									((World) world).getServer().getCommandManager()
-											.handleCommand(new CommandSource(ICommandSource.DUMMY, new Vector3d((x + 0.5), y, (z + 0.5)),
-													Vector2f.ZERO, (ServerWorld) world, 4, "", new StringTextComponent(""),
-													((World) world).getServer(), null).withFeedbackDisabled(), "");
-								}
-							}
-						}
-					}
-				} else if (((new Object() {
-					public double getValue(IWorld world, BlockPos pos, String tag) {
-						TileEntity tileEntity = world.getTileEntity(pos);
-						if (tileEntity != null)
-							return tileEntity.getTileData().getDouble(tag);
-						return -1;
-					}
-				}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "recipe")) == 1)) {
-					{
-						TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
-						if (_ent != null) {
-							final int _sltid = (int) (0);
-							final int _amount = (int) 1;
-							_ent.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-								if (capability instanceof IItemHandlerModifiable) {
-									ItemStack _stk = capability.getStackInSlot(_sltid).copy();
-									_stk.shrink(_amount);
-									((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _stk);
-								}
-							});
-						}
-					}
-				}
 				if (!world.isRemote()) {
 					BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
 					TileEntity _tileEntity = world.getTileEntity(_bp);
@@ -395,6 +340,22 @@ public class OxygenGeneratortickProcedure {
 							return -1;
 						}
 					}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "OxygenLarge")) == 0)) {
+						if (!world.isRemote()) {
+							BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+							TileEntity _tileEntity = world.getTileEntity(_bp);
+							BlockState _bs = world.getBlockState(_bp);
+							if (_tileEntity != null)
+								_tileEntity.getTileData().putDouble("energy_timer", ((new Object() {
+									public double getValue(IWorld world, BlockPos pos, String tag) {
+										TileEntity tileEntity = world.getTileEntity(pos);
+										if (tileEntity != null)
+											return tileEntity.getTileData().getDouble(tag);
+										return -1;
+									}
+								}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "energy_timer")) + 1));
+							if (world instanceof World)
+								((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
+						}
 						if (((new Object() {
 							public double getValue(IWorld world, BlockPos pos, String tag) {
 								TileEntity tileEntity = world.getTileEntity(pos);
@@ -409,6 +370,15 @@ public class OxygenGeneratortickProcedure {
 								if (_ent != null)
 									_ent.getCapability(CapabilityEnergy.ENERGY, null)
 											.ifPresent(capability -> capability.extractEnergy(_amount, false));
+							}
+							if (!world.isRemote()) {
+								BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+								TileEntity _tileEntity = world.getTileEntity(_bp);
+								BlockState _bs = world.getBlockState(_bp);
+								if (_tileEntity != null)
+									_tileEntity.getTileData().putDouble("energy_timer", 0);
+								if (world instanceof World)
+									((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 							}
 						}
 						if (world instanceof ServerWorld) {
@@ -440,7 +410,7 @@ public class OxygenGeneratortickProcedure {
 								return tileEntity.getTileData().getDouble(tag);
 							return -1;
 						}
-					}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "OxygenLarge")) == 1)) {
+					}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "OxygenLarge")) == 2)) {
 						if (!world.isRemote()) {
 							BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
 							TileEntity _tileEntity = world.getTileEntity(_bp);
@@ -464,13 +434,22 @@ public class OxygenGeneratortickProcedure {
 									return tileEntity.getTileData().getDouble(tag);
 								return -1;
 							}
-						}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "energy_timer")) >= 2)) {
+						}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "energy_timer")) >= 1)) {
 							{
 								TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
 								int _amount = (int) 1;
 								if (_ent != null)
 									_ent.getCapability(CapabilityEnergy.ENERGY, null)
 											.ifPresent(capability -> capability.extractEnergy(_amount, false));
+							}
+							if (!world.isRemote()) {
+								BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+								TileEntity _tileEntity = world.getTileEntity(_bp);
+								BlockState _bs = world.getBlockState(_bp);
+								if (_tileEntity != null)
+									_tileEntity.getTileData().putDouble("energy_timer", 0);
+								if (world instanceof World)
+									((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 							}
 						}
 						{

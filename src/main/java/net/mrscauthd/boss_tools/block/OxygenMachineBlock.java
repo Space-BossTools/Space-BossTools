@@ -2,6 +2,7 @@
 package net.mrscauthd.boss_tools.block;
 
 import net.minecraft.world.IWorld;
+import net.mrscauthd.boss_tools.item.SpaceArmorItem;
 import net.mrscauthd.boss_tools.procedures.OxygenTickProcedure;
 import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsMachinesItemGroup;
 import net.mrscauthd.boss_tools.gui.OxygenLoaderGuiGui;
@@ -68,6 +69,7 @@ import net.minecraft.block.Block;
 import javax.annotation.Nullable;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.IntStream;
 import java.util.Random;
 import java.util.Map;
@@ -105,6 +107,7 @@ public class OxygenMachineBlock extends BossToolsModElements.ModElement {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 		public static final BooleanProperty ACTIAVATED = BlockStateProperties.LIT;
 		public static double energy = 0;
+		public static boolean itemcheck = false;
 		public CustomBlock() {
 			super(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 1f).setLightLevel(s -> 0).harvestLevel(1)
 					.harvestTool(ToolType.PICKAXE).setRequiresTool());
@@ -169,6 +172,19 @@ public class OxygenMachineBlock extends BossToolsModElements.ModElement {
 				}
 			}.getEnergyStored(world, new BlockPos((int) x, (int) y, (int) z)));
 
+			itemcheck = ((new Object() {
+				public ItemStack getItemStack(BlockPos pos, int sltid) {
+					AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
+					TileEntity _ent = world.getTileEntity(pos);
+					if (_ent != null) {
+						_ent.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+							_retval.set(capability.getStackInSlot(sltid).copy());
+						});
+					}
+					return _retval.get();
+				}
+			}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getItem() == new ItemStack(SpaceArmorItem.body, (int) (1)).getItem());
+
 			if (((new Object() {
 				public boolean getValue(BlockPos pos, String tag) {
 					TileEntity tileEntity = world.getTileEntity(pos);
@@ -176,7 +192,7 @@ public class OxygenMachineBlock extends BossToolsModElements.ModElement {
 						return tileEntity.getTileData().getBoolean(tag);
 					return false;
 				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "activated")) == (true)) && energy >= 1) {
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "activated")) == (true)) && energy >= 1 && itemcheck == true) {
 				world.setBlockState(pos, state.with(ACTIAVATED, Boolean.valueOf(true)), 3);
 			} else {
 				world.setBlockState(pos, state.with(ACTIAVATED, Boolean.valueOf(false)), 3);

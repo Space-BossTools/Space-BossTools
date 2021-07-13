@@ -12,18 +12,12 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.energy.CapabilityEnergy;
 
-import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.IWorld;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.command.ICommandSource;
-import net.minecraft.command.CommandSource;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.BlockState;
 
@@ -192,19 +186,6 @@ public class FuelRefineryTickProcedure {
 				}
 			}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "timer")) >= 100)) {
 				if (((new Object() {
-					public double getValue(IWorld world, BlockPos pos, String tag) {
-						TileEntity tileEntity = world.getTileEntity(pos);
-						if (tileEntity != null)
-							return tileEntity.getTileData().getDouble(tag);
-						return -1;
-					}
-				}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "recipe")) == 0)) {
-					if (world instanceof ServerWorld) {
-						((World) world).getServer().getCommandManager()
-								.handleCommand(new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4,
-										"", new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(), "");
-					}
-				} else if (((new Object() {
 					public double getValue(IWorld world, BlockPos pos, String tag) {
 						TileEntity tileEntity = world.getTileEntity(pos);
 						if (tileEntity != null)
@@ -481,6 +462,15 @@ public class FuelRefineryTickProcedure {
 								if (_ent != null)
 									_ent.getCapability(CapabilityEnergy.ENERGY, null)
 											.ifPresent(capability -> capability.extractEnergy(_amount, false));
+							}
+							if (!world.isRemote()) {
+								BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
+								TileEntity _tileEntity = world.getTileEntity(_bp);
+								BlockState _bs = world.getBlockState(_bp);
+								if (_tileEntity != null)
+									_tileEntity.getTileData().putDouble("energy_timer", 0);
+								if (world instanceof World)
+									((World) world).notifyBlockUpdate(_bp, _bs, _bs, 3);
 							}
 						}
 						{
