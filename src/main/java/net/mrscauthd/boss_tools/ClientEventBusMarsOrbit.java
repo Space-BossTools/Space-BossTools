@@ -1,6 +1,7 @@
 
 package net.mrscauthd.boss_tools;
 
+import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.common.Mod;
@@ -32,8 +33,14 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
+import java.util.Random;
+
 @Mod.EventBusSubscriber(modid = "boss_tools", bus = Bus.MOD, value = Dist.CLIENT)
 public class ClientEventBusMarsOrbit {
+	//star
+	@Nullable
+	public static VertexBuffer starVBO;
+	public static final VertexFormat skyVertexFormat = DefaultVertexFormats.POSITION;
 	private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation("boss_tools", "orbit_mars");
 	private static final ResourceLocation SUN_TEXTURES = new ResourceLocation("boss_tools", "textures/sky/mars.png");
 	private static final ResourceLocation MOON_PHASES_TEXTURES = new ResourceLocation("boss_tools", "textures/sky/no_a_sun.png");
@@ -71,7 +78,7 @@ public class ClientEventBusMarsOrbit {
 						return new ICloudRenderHandler() {
 							@Override
 							public void render(int ticks, float partialTicks, MatrixStack matrixStack, ClientWorld world, Minecraft mc,
-									double viewEntityX, double viewEntityY, double viewEntityZ) {
+											   double viewEntityX, double viewEntityY, double viewEntityZ) {
 							}
 						};
 					}
@@ -103,6 +110,8 @@ public class ClientEventBusMarsOrbit {
 								RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE,
 										GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 								RenderSystem.color4f(1f, 1f, 1f, 1f);
+								//star
+								generateStars();
 								mc.getTextureManager().bindTexture(SKY_TEXTURE);
 								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 								bufferbuilder.pos(matrix4f1, -100, 8f, -100).tex(0.0F, 0.0F).endVertex();
@@ -148,7 +157,7 @@ public class ClientEventBusMarsOrbit {
 										GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 								matrixStack.push();
 								float f11 = 100000.0F - world.getRainStrength(partialTicks);// Rrain basiss ist es auf
-																							// 1.0F
+								// 1.0F
 								RenderSystem.color4f(1.0F, 1.0F, 1.0F, f11);
 								matrixStack.rotate(Vector3f.YP.rotationDegrees(-90.0F));
 								matrixStack.rotate(Vector3f.XP.rotationDegrees(0.0F /* world.func_242415_f(partialTicks) * 360.0F */));
@@ -166,11 +175,11 @@ public class ClientEventBusMarsOrbit {
 								// new System (Sun main Planet)
 								float f17 = (float) mc.player.getEyePosition(partialTicks).y /*- world.getWorldInfo().getVoidFogHeight()*/;
 								bufferbuilder.pos(matrix4f1, -35.0F, -f17 - 18.0F, 35.0F).tex(0.0F, 0.0F).endVertex(); // 350
-																														// is
-																														// nice
-																														// but
-																														// fps
-																														// xD
+								// is
+								// nice
+								// but
+								// fps
+								// xD
 								bufferbuilder.pos(matrix4f1, 35.0F, -f17 - 18.0F, 35.0F).tex(1.0F, 0.0F).endVertex();
 								bufferbuilder.pos(matrix4f1, 35.0F, -f17 - 18.0F, -35.0F).tex(1.0F, 1.0F).endVertex();
 								bufferbuilder.pos(matrix4f1, -35.0F, -f17 - 18.0F, -35.0F).tex(0.0F, 1.0F).endVertex();
@@ -178,9 +187,9 @@ public class ClientEventBusMarsOrbit {
 								WorldVertexBufferUploader.draw(bufferbuilder);
 								f12 = 20.0F;
 								matrixStack.rotate(Vector3f.XP.rotationDegrees(world.func_242415_f(partialTicks) * 360.0F));// Moon
-																															// Rotation
-																															// (Sun
-																															// Planet)
+								// Rotation
+								// (Sun
+								// Planet)
 								mc.getTextureManager().bindTexture(MOON_PHASES_TEXTURES);
 								int k = world.getMoonPhase();
 								int l = k % 4;
@@ -219,9 +228,9 @@ public class ClientEventBusMarsOrbit {
 								// f11
 								if (f10 > 0.0F) {
 									RenderSystem.color4f(f10, f10, f10, f10);
-									mc.worldRenderer.starVBO.bindBuffer();
+									starVBO.bindBuffer();
 									mc.worldRenderer.skyVertexFormat.setupBufferState(0L);
-									mc.worldRenderer.starVBO.draw(matrixStack.getLast().getMatrix(), 7);
+									starVBO.draw(matrixStack.getLast().getMatrix(), 7);
 									VertexBuffer.unbindBuffer();
 									mc.worldRenderer.skyVertexFormat.clearBufferState();
 								}
@@ -233,8 +242,8 @@ public class ClientEventBusMarsOrbit {
 								RenderSystem.disableTexture();
 								RenderSystem.color3f(0.0F, 0.0F, 0.0F);
 								double d0 = 2.0F;// mc.player.getEyePosition(partialTicks).y -
-													// world.getWorldInfo().getVoidFogHeight();
-													// This is the Player High When The Sky Removed zb. bei 60 blöcken
+								// world.getWorldInfo().getVoidFogHeight();
+								// This is the Player High When The Sky Removed zb. bei 60 blöcken
 								if (d0 < 1.0D) {
 									// 0.0D
 									matrixStack.push();
@@ -257,6 +266,67 @@ public class ClientEventBusMarsOrbit {
 							}
 						};
 					}
+					//star renderer
+					private void generateStars() {
+						Tessellator tessellator = Tessellator.getInstance();
+						BufferBuilder bufferbuilder = tessellator.getBuffer();
+						//Minecraft.getInstance().worldRenderer.skyVBO.bindBuffer();
+						if (starVBO != null) {
+							starVBO.close();
+						}
+
+						starVBO = new VertexBuffer(skyVertexFormat);
+						this.renderStars(bufferbuilder);
+						bufferbuilder.finishDrawing();
+						starVBO.upload(bufferbuilder);
+					}
+
+					//star render start
+					private void renderStars(BufferBuilder bufferBuilderIn) {
+						Random random = new Random(10842L);
+						bufferBuilderIn.begin(7, DefaultVertexFormats.POSITION);
+
+						for(int i = 0; i < 20000; ++i) { //defoult star amount 1500
+							double d0 = (double)(random.nextFloat() * 2.0F - 1.0F);
+							double d1 = (double)(random.nextFloat() * 2.0F - 1.0F);
+							double d2 = (double)(random.nextFloat() * 2.0F - 1.0F);
+							double d3 = (double)(0.15F + random.nextFloat() * 0.1F);
+							double d4 = d0 * d0 + d1 * d1 + d2 * d2;
+							if (d4 < 1.0D && d4 > 0.01D) {
+								d4 = 1.0D / Math.sqrt(d4);
+								d0 = d0 * d4;
+								d1 = d1 * d4;
+								d2 = d2 * d4;
+								double d5 = d0 * 150.0D; //default Minecraft 100
+								double d6 = d1 * 150.0D;
+								double d7 = d2 * 150.0D;
+								double d8 = Math.atan2(d0, d2);
+								double d9 = Math.sin(d8);
+								double d10 = Math.cos(d8);
+								double d11 = Math.atan2(Math.sqrt(d0 * d0 + d2 * d2), d1);
+								double d12 = Math.sin(d11);
+								double d13 = Math.cos(d11);
+								double d14 = random.nextDouble() * Math.PI * 2.0D;
+								double d15 = Math.sin(d14);
+								double d16 = Math.cos(d14);
+
+								for(int j = 0; j < 4; ++j) {
+									double d17 = 0.0D;
+									double d18 = (double)((j & 2) - 1) * d3;
+									double d19 = (double)((j + 1 & 2) - 1) * d3;
+									double d20 = 0.0D;
+									double d21 = d18 * d16 - d19 * d15;
+									double d22 = d19 * d16 + d18 * d15;
+									double d23 = d21 * d12 + 0.0D * d13;
+									double d24 = 0.0D * d12 - d21 * d13;
+									double d25 = d24 * d9 - d22 * d10;
+									double d26 = d22 * d9 + d24 * d10;
+									bufferBuilderIn.pos(d5 + d25, d6 + d23, d7 + d26).endVertex();
+								}
+							}
+						}
+					}
+					//star render end
 				});
 	}
 }

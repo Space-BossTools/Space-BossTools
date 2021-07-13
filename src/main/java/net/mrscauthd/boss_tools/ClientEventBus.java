@@ -40,7 +40,6 @@ public class ClientEventBus {
 	@Nullable
 	public static VertexBuffer starVBO;
 	public static final VertexFormat skyVertexFormat = DefaultVertexFormats.POSITION;
-
 	private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation("boss_tools", "moon");
 	private static final ResourceLocation SUN_TEXTURES = new ResourceLocation("boss_tools", "textures/sky/no_a_sun.png");
 	private static final ResourceLocation MOON_PHASES_TEXTURES = new ResourceLocation("boss_tools", "textures/sky/earth.png");
@@ -272,7 +271,7 @@ public class ClientEventBus {
 						Random random = new Random(10842L);
 						bufferBuilderIn.begin(7, DefaultVertexFormats.POSITION);
 
-						for(int i = 0; i < 4500; ++i) { //defoult star amount 1500
+						for(int i = 0; i < 20000; ++i) { //defoult star amount 1500
 							double d0 = (double)(random.nextFloat() * 2.0F - 1.0F);
 							double d1 = (double)(random.nextFloat() * 2.0F - 1.0F);
 							double d2 = (double)(random.nextFloat() * 2.0F - 1.0F);

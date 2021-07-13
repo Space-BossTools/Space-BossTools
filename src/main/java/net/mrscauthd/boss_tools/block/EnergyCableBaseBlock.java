@@ -74,14 +74,10 @@ import net.minecraft.block.Block;
 
 import javax.annotation.Nullable;
 
+import java.util.*;
 import java.util.stream.IntStream;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.Random;
-import java.util.Map;
-import java.util.List;
-import java.util.HashMap;
-import java.util.Collections;
 
 import io.netty.buffer.Unpooled;
 
@@ -142,10 +138,37 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 			return true;
 		}
 
-		@Override
+	/*	@Override
 		public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
 			Vector3d offset = state.getOffset(world, pos);
 			return VoxelShapes.or(makeCuboidShape(4.5, 4.5, 4.5, 11.5, 11.5, 11.5)).withOffset(offset.x, offset.y, offset.z);
+		}
+*/
+
+		@Override
+		public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
+			Vector3d offset = state.getOffset(world, pos);
+
+			List<VoxelShape> list = new ArrayList<VoxelShape>();
+			if (state.get(NORTH) == true)
+				list.add(VoxelShapes.or(makeCuboidShape(7.5, 7.5, 7.5, 15.5, 15.5, 15.5)).withOffset(offset.x, offset.y, offset.z));
+
+			if (state.get(SOUTH) == true)
+				list.add(VoxelShapes.or(makeCuboidShape(4.5, 4.5, 4.5, 11.5, 11.5, 11.5)).withOffset(offset.x, offset.y, offset.z));
+
+			if (state.get(EAST) == true)
+				list.add(VoxelShapes.or(makeCuboidShape(4.5, 4.5, 4.5, 11.5, 11.5, 11.5)).withOffset(offset.x, offset.y, offset.z));
+
+			if (state.get(WEST) == true)
+				list.add(VoxelShapes.or(makeCuboidShape(4.5, 4.5, 4.5, 11.5, 11.5, 11.5)).withOffset(offset.x, offset.y, offset.z));
+
+			if (state.get(UP) == true)
+				list.add(VoxelShapes.or(makeCuboidShape(4.5, 4.5, 4.5, 11.5, 11.5, 11.5)).withOffset(offset.x, offset.y, offset.z));
+
+			if (state.get(DOWN) == true)
+				list.add(VoxelShapes.or(makeCuboidShape(4.5, 4.5, 4.5, 11.5, 11.5, 11.5)).withOffset(offset.x, offset.y, offset.z));
+
+			return VoxelShapes.or(makeCuboidShape(4.5, 4.5, 4.5, 11.5, 11.5, 11.5).withOffset(offset.x,offset.y,offset.z), list.stream().toArray(VoxelShape[]::new));
 		}
 
 		@Override
@@ -166,7 +189,7 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos,
-				BlockPos facingPos) {
+											  BlockPos facingPos) {
 			if (state.get(WATERLOGGED)) {
 				world.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(world));
 			}
@@ -878,7 +901,7 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity entity, Hand hand,
-				BlockRayTraceResult hit) {
+												 BlockRayTraceResult hit) {
 			super.onBlockActivated(state, world, pos, entity, hand, hit);
 			int x = pos.getX();
 			int y = pos.getY();
