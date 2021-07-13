@@ -410,7 +410,7 @@ public class OxygenGeneratortickProcedure {
 								return tileEntity.getTileData().getDouble(tag);
 							return -1;
 						}
-					}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "OxygenLarge")) == 2)) {
+					}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "OxygenLarge")) == 1)) {
 						if (!world.isRemote()) {
 							BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
 							TileEntity _tileEntity = world.getTileEntity(_bp);
@@ -434,7 +434,7 @@ public class OxygenGeneratortickProcedure {
 									return tileEntity.getTileData().getDouble(tag);
 								return -1;
 							}
-						}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "energy_timer")) >= 1)) {
+						}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "energy_timer")) >= 2)) {
 							{
 								TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
 								int _amount = (int) 1;
