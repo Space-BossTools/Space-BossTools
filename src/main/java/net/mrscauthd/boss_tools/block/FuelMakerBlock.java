@@ -1,7 +1,6 @@
 
 package net.mrscauthd.boss_tools.block;
 
-import net.minecraft.world.IWorld;
 import net.mrscauthd.boss_tools.procedures.FuelRefineryTickProcedure;
 import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsMachinesItemGroup;
 import net.mrscauthd.boss_tools.gui.FuelRefineryGUIGui;
@@ -25,6 +24,7 @@ import net.minecraftforge.common.ToolType;
 
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.ITextComponent;
@@ -69,8 +69,8 @@ import net.minecraft.block.Block;
 
 import javax.annotation.Nullable;
 
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Random;
 import java.util.Map;
 import java.util.List;
@@ -169,7 +169,6 @@ public class FuelMakerBlock extends BossToolsModElements.ModElement {
 					return _retval.get();
 				}
 			}.getEnergyStored(world, new BlockPos((int) x, (int) y, (int) z)));
-
 			if (((new Object() {
 				public boolean getValue(BlockPos pos, String tag) {
 					TileEntity tileEntity = world.getTileEntity(pos);
@@ -209,7 +208,7 @@ public class FuelMakerBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity entity, Hand hand,
-												 BlockRayTraceResult hit) {
+				BlockRayTraceResult hit) {
 			super.onBlockActivated(state, world, pos, entity, hand, hit);
 			int x = pos.getX();
 			int y = pos.getY();

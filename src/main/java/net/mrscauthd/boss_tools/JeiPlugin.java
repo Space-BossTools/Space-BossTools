@@ -493,6 +493,7 @@ public class JeiPlugin implements IModPlugin {
             this.textureanimation22 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/22.png"), 0, 0, 144, 84);
             this.textureanimation23 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/23.png"), 0, 0, 144, 84);
         }
+
         @Override
         public List<ITextComponent> getTooltipStrings(OxygenMachineRecipeWrapper recipe, double mouseX, double mouseY) {
             //   counter = counter - 1;

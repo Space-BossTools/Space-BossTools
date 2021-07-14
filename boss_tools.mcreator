@@ -5840,6 +5840,51 @@
       "ids": {},
       "registry_name": "flag_loot_table",
       "path": "~/LootTable"
+    },
+    {
+      "name": "Tes2",
+      "type": "procedure",
+      "sortid": 426,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tes_2",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SpaceSettingsButton",
+      "type": "procedure",
+      "sortid": 427,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "space_settings_button",
+      "metadata": {
+        "dependencies": []
+      }
     }
   ],
   "variable_elements": [
