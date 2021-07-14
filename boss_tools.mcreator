@@ -5842,39 +5842,6 @@
       "path": "~/LootTable"
     },
     {
-      "name": "Tes2",
-      "type": "procedure",
-      "sortid": 426,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "tes_2",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
       "name": "SpaceSettingsButton",
       "type": "procedure",
       "sortid": 427,
@@ -5885,6 +5852,15 @@
       "metadata": {
         "dependencies": []
       }
+    },
+    {
+      "name": "TestGui",
+      "type": "code",
+      "sortid": 428,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "test_gui"
     }
   ],
   "variable_elements": [
