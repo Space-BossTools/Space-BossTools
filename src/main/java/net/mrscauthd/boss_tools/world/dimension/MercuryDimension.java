@@ -26,7 +26,7 @@ import com.google.common.collect.ImmutableSet;
 @BossToolsModElements.ModElement.Tag
 public class MercuryDimension extends BossToolsModElements.ModElement {
 	public MercuryDimension(BossToolsModElements instance) {
-		super(instance, 100);
+		super(instance, 106);
 	}
 
 	@Override
@@ -44,8 +44,8 @@ public class MercuryDimension extends BossToolsModElements.ModElement {
 			}
 		});
 	}
-
-/*	@Override
+/*
+	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void clientLoad(FMLClientSetupEvent event) {
 		DimensionRenderInfo customEffect = new DimensionRenderInfo(Float.NaN, true, DimensionRenderInfo.FogType.NONE, false, false) {

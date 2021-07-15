@@ -5,6 +5,9 @@
     "biomesInDimension": [
       {
         "value": "CUSTOM:Mercurybiome"
+      },
+      {
+        "value": "CUSTOM:MercuryMagmaBiome"
       }
     ],
     "worldGenType": "Normal world gen",
