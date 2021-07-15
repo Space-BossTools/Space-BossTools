@@ -6,6 +6,13 @@
         "missing": "flag_white"
       },
       "name": "default"
+    },
+    "flag_down_blue": {
+      "map": {
+        "0": "flag_blue",
+        "missing": "flag_blue"
+      },
+      "name": "flag_down_blue"
     }
   }
 }
