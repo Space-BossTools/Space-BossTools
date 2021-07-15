@@ -5840,6 +5840,16 @@
       "ids": {},
       "registry_name": "flag_loot_table",
       "path": "~/LootTable"
+    },
+    {
+      "name": "VenusTower",
+      "type": "structure",
+      "sortid": 425,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "venus_tower",
+      "path": "~/Stuctures"
     }
   ],
   "variable_elements": [

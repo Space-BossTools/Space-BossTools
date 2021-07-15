@@ -174,6 +174,7 @@ public class MobInnet extends BossToolsModElements.ModElement {
         //Meteor
         STStructures.METEOR_DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
         STStructures2.VENUS_BULLET_DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
+        STStructures2.VENUS_TOWER_DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
         //forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing3);
         forgeBus.addListener(EventPriority.HIGH, this::biomesLoading);
     }
@@ -215,6 +216,10 @@ public class MobInnet extends BossToolsModElements.ModElement {
         if (event.getName().equals(new ResourceLocation("boss_tools:venus_biome")) && BossToolsModVariables.VenusBulletStructure == true) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.VENUS_BULLET_CONFIGURED_RUN_DOWN_HOUSE);
         }
+        //venus tower
+        if (event.getName().equals(new ResourceLocation("boss_tools:venus_biome")) && BossToolsModVariables.VenusBulletStructure == true) {
+            event.getGeneration().getStructures().add(() -> STConfiguredStructures.VENUS_TOWER_CONFIGURED_RUN_DOWN_HOUSE);
+        }        
     }
     private static Method GETCODEC_METHOD;
     public void addDimensionalSpacing(final WorldEvent.Load event) {
@@ -252,6 +257,11 @@ public class MobInnet extends BossToolsModElements.ModElement {
             //meteor
             tempMap2.putIfAbsent(STStructures2.VENUS_BULLET.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures2.VENUS_BULLET.get()));
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap2;
+			//venus tower
+			Map<Structure<?>, StructureSeparationSettings> tempMap3 = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
+			
+            tempMap3.putIfAbsent(STStructures2.VENUS_TOWER.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures2.VENUS_TOWER.get()));
+            serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap3;
         }
     }
 // Meteor

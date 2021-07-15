@@ -15,6 +15,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.boss_tools.world.structure.AlienVillageStructure;
 import net.mrscauthd.boss_tools.world.structure.MeteorStructure;
 import net.mrscauthd.boss_tools.world.structure.VenusBulletStructure;
+import net.mrscauthd.boss_tools.world.structure.VenusTowerStructure;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +33,7 @@ public class STStructures2 {
      */
     //Venus bullet
     public static final DeferredRegister<Structure<?>> VENUS_BULLET_DEFERRED_REGISTRY_STRUCTURE = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, "boss_tools");
+    public static final DeferredRegister<Structure<?>> VENUS_TOWER_DEFERRED_REGISTRY_STRUCTURE = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, "boss_tools");
     /**
      * Registers the structure itself and sets what its path is. In this case, the
      * structure will have the resourcelocation of structure_tutorial:run_down_house.
@@ -49,6 +51,7 @@ public class STStructures2 {
      */
     //Venus Bullet
     public static final RegistryObject<Structure<NoFeatureConfig>> VENUS_BULLET = VENUS_BULLET_DEFERRED_REGISTRY_STRUCTURE.register("venus_bullet", () -> (new VenusBulletStructure(NoFeatureConfig.field_236558_a_)));
+    public static final RegistryObject<Structure<NoFeatureConfig>> VENUS_TOWER = VENUS_TOWER_DEFERRED_REGISTRY_STRUCTURE.register("venus_tower", () -> (new VenusTowerStructure(NoFeatureConfig.field_236558_a_)));
     /**
      * This is where we set the rarity of your structures and determine if land conforms to it.
      * See the comments in below for more details.
@@ -59,6 +62,13 @@ public class STStructures2 {
                 VENUS_BULLET.get(), /* The instance of the structure */
                 new StructureSeparationSettings(29 /* average distance apart in chunks between spawn attempts */,
                         19 /* minimum distance apart in chunks between spawn attempts */,
+                        1234567890 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
+                true);
+                //venus Bullet
+        setupMapSpacingAndLand(
+                VENUS_TOWER.get(), /* The instance of the structure */
+                new StructureSeparationSettings(24 /* average distance apart in chunks between spawn attempts */,
+                        17 /* minimum distance apart in chunks between spawn attempts */,
                         1234567890 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
                 true);
     }
