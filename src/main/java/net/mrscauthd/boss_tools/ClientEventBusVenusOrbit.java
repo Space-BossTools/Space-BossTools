@@ -287,8 +287,8 @@ public class ClientEventBusVenusOrbit {
 						Random random = new Random(10842L);
 						bufferBuilderIn.begin(7, DefaultVertexFormats.POSITION);
 						int stars = 0;
-						if (Minecraft.getInstance().gameSettings.graphicFanciness == GraphicsFanciness.FANCY) {
-							stars = 12000; //for Very good pcs 20000
+						if (Minecraft.getInstance().gameSettings.graphicFanciness == GraphicsFanciness.FANCY || Minecraft.getInstance().gameSettings.graphicFanciness == GraphicsFanciness.FABULOUS) {
+							stars = 13000; //for Very good pcs 20000
 						} else {
 							stars = 6000;
 						}

@@ -64,7 +64,8 @@ public class ClientEventBusMercury {
 					@Override
 					// adjustSkyColor
 					public Vector3d func_230494_a_(Vector3d fogColor, float partialTicks) {
-						return fogColor;
+							return new Vector3d(0.572549019608, 0.082352941176, 0.082352941176);
+						//	return fogColor; //default
 					}
 
 					@Override
@@ -195,7 +196,7 @@ public class ClientEventBusMercury {
 								WorldVertexBufferUploader.draw(bufferbuilder);
 								RenderSystem.disableTexture();
 								// f11 = 1000.0F;// Star Brightness
-								float f10 = 0.8F;// world.getStarBrightness(partialTicks) * f11;
+								float f10 = 0.9F;// world.getStarBrightness(partialTicks) * f11;
 								// f11
 								if (f10 > 0.0F) {
 									RenderSystem.color4f(f10, f10, f10, f10);
@@ -254,8 +255,8 @@ public class ClientEventBusMercury {
 						Random random = new Random(10842L);
 						bufferBuilderIn.begin(7, DefaultVertexFormats.POSITION);
 						int stars = 0;
-						if (Minecraft.getInstance().gameSettings.graphicFanciness == GraphicsFanciness.FANCY) {
-							stars = 12000; //for Very good pcs 20000
+						if (Minecraft.getInstance().gameSettings.graphicFanciness == GraphicsFanciness.FANCY || Minecraft.getInstance().gameSettings.graphicFanciness == GraphicsFanciness.FABULOUS) {
+							stars = 13000; //for Very good pcs 20000
 						} else {
 							stars = 6000;
 						}
