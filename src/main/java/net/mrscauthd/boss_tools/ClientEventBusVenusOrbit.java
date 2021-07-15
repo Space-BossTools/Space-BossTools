@@ -2,6 +2,7 @@
 package net.mrscauthd.boss_tools;
 
 import net.minecraft.client.renderer.vertex.VertexFormat;
+import net.minecraft.client.settings.GraphicsFanciness;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.common.Mod;
@@ -285,8 +286,14 @@ public class ClientEventBusVenusOrbit {
 					private void renderStars(BufferBuilder bufferBuilderIn) {
 						Random random = new Random(10842L);
 						bufferBuilderIn.begin(7, DefaultVertexFormats.POSITION);
+						int stars = 0;
+						if (Minecraft.getInstance().gameSettings.graphicFanciness == GraphicsFanciness.FANCY) {
+							stars = 12000; //for Very good pcs 20000
+						} else {
+							stars = 6000;
+						}
 
-						for(int i = 0; i < 20000; ++i) { //defoult star amount 1500
+						for(int i = 0; i < stars; ++i) { //defoult star amount 1500
 							double d0 = (double)(random.nextFloat() * 2.0F - 1.0F);
 							double d1 = (double)(random.nextFloat() * 2.0F - 1.0F);
 							double d2 = (double)(random.nextFloat() * 2.0F - 1.0F);
