@@ -47,7 +47,8 @@ public class SolarPanelUpdateTickProcedure {
 		double Energy2 = 0;
 		double energy = 0;
 		double skysee = 0;
-		if ((((world.canBlockSeeSky(new BlockPos((int) x, (int) (y + 1), (int) z))) == (true))
+		System.out.println(((world.canBlockSeeSky(new BlockPos(x, (y), z).offset(Direction.UP))) == true));
+		if ((((world.canBlockSeeSky(new BlockPos(x, (y), z).offset(Direction.UP))) == true)
 				&& (((world instanceof World) ? ((World) world).isDaytime() : false) == (true)))) {
 			{
 				TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));

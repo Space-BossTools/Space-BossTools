@@ -2764,7 +2764,7 @@
       "type": "block",
       "sortid": 87,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "flag_blue",
       "path": "~/flags"
@@ -2774,7 +2774,7 @@
       "type": "block",
       "sortid": 88,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "flag_brown",
       "path": "~/flags"
@@ -2784,7 +2784,7 @@
       "type": "block",
       "sortid": 89,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "flag_cyan",
       "path": "~/flags"
@@ -2794,7 +2794,7 @@
       "type": "block",
       "sortid": 90,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "flag_gray",
       "path": "~/flags"
@@ -2804,7 +2804,7 @@
       "type": "block",
       "sortid": 91,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "flag_green",
       "path": "~/flags"
@@ -2814,7 +2814,7 @@
       "type": "block",
       "sortid": 92,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "flag_light_blue",
       "path": "~/flags"
@@ -2824,7 +2824,7 @@
       "type": "block",
       "sortid": 93,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "flag_lime",
       "path": "~/flags"
@@ -2834,7 +2834,7 @@
       "type": "block",
       "sortid": 94,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "flag_magenta",
       "path": "~/flags"
@@ -2844,7 +2844,7 @@
       "type": "block",
       "sortid": 95,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "flag_orange",
       "path": "~/flags"
@@ -2854,7 +2854,7 @@
       "type": "block",
       "sortid": 96,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "flag_pink",
       "path": "~/flags"
@@ -2864,7 +2864,7 @@
       "type": "block",
       "sortid": 97,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "flag_purple",
       "path": "~/flags"
@@ -2874,7 +2874,7 @@
       "type": "block",
       "sortid": 98,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "flag_red",
       "path": "~/flags"
@@ -2884,7 +2884,7 @@
       "type": "block",
       "sortid": 99,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "flag_yellow",
       "path": "~/flags"
@@ -3034,7 +3034,7 @@
       "type": "tab",
       "sortid": 247,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "space_bosstools_flags",
       "path": "~/CreativeTabs"
@@ -5840,27 +5840,6 @@
       "ids": {},
       "registry_name": "flag_loot_table",
       "path": "~/LootTable"
-    },
-    {
-      "name": "SpaceSettingsButton",
-      "type": "procedure",
-      "sortid": 427,
-      "compiles": true,
-      "locked_code": true,
-      "ids": {},
-      "registry_name": "space_settings_button",
-      "metadata": {
-        "dependencies": []
-      }
-    },
-    {
-      "name": "TestGui",
-      "type": "code",
-      "sortid": 428,
-      "compiles": true,
-      "locked_code": true,
-      "ids": {},
-      "registry_name": "test_gui"
     }
   ],
   "variable_elements": [

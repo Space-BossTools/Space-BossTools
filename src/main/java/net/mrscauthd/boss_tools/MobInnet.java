@@ -27,10 +27,10 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
-import net.mrscauthd.boss_tools.block.CoalTorchBlock;
-import net.mrscauthd.boss_tools.block.FlagBlock;
+import net.mrscauthd.boss_tools.block.*;
 import net.mrscauthd.boss_tools.entity.AlienZombieEntity;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
 import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsBasicsItemGroup;
@@ -79,14 +79,39 @@ public class MobInnet extends BossToolsModElements.ModElement {
     public static RegistryObject<Block> WALLCOALTORCHBLOCK = BLOCKS.register("wall_coal_torch",() -> new WallCoalTorchBlock(AbstractBlock.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.WOOD).lootFrom(COALTORCHBLOCK.get())));
     //Flag Blocks
     public static RegistryObject<Block> FLAGBLOCK = BLOCKS.register("flag",() -> new FlagBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.STONE).notSolid().setLightLevel(s -> 1).setOpaque((bs, br, bp) -> false).harvestTool(ToolType.PICKAXE)));
-    
+    public static RegistryObject<Block> FLAGBLOCKblue = BLOCKS.register("flag_blue",() -> new FlagBlueBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.STONE).notSolid().setLightLevel(s -> 1).setOpaque((bs, br, bp) -> false).harvestTool(ToolType.PICKAXE)));
+    public static RegistryObject<Block> FLAGBLOCKbrown = BLOCKS.register("flag_brown",() -> new FlagBrownBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.STONE).notSolid().setLightLevel(s -> 1).setOpaque((bs, br, bp) -> false).harvestTool(ToolType.PICKAXE)));
+    public static RegistryObject<Block> FLAGBLOCKcyan = BLOCKS.register("flag_cyan",() -> new FlagCyanBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.STONE).notSolid().setLightLevel(s -> 1).setOpaque((bs, br, bp) -> false).harvestTool(ToolType.PICKAXE)));
+    public static RegistryObject<Block> FLAGBLOCKgray = BLOCKS.register("flag_gray",() -> new FraggrayBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.STONE).notSolid().setLightLevel(s -> 1).setOpaque((bs, br, bp) -> false).harvestTool(ToolType.PICKAXE)));
+    public static RegistryObject<Block> FLAGBLOCKgreen = BLOCKS.register("flag_green",() -> new FraggreenBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.STONE).notSolid().setLightLevel(s -> 1).setOpaque((bs, br, bp) -> false).harvestTool(ToolType.PICKAXE)));
+    public static RegistryObject<Block> FLAGBLOCKlightblue = BLOCKS.register("flag_light_blue",() -> new FlaglightBlueBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.STONE).notSolid().setLightLevel(s -> 1).setOpaque((bs, br, bp) -> false).harvestTool(ToolType.PICKAXE)));
+    public static RegistryObject<Block> FLAGBLOCKlime = BLOCKS.register("flag_lime",() -> new FlagLimeBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.STONE).notSolid().setLightLevel(s -> 1).setOpaque((bs, br, bp) -> false).harvestTool(ToolType.PICKAXE)));
+    public static RegistryObject<Block> FLAGBLOCKmagenta = BLOCKS.register("flag_magenta",() -> new FlagmagentaBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.STONE).notSolid().setLightLevel(s -> 1).setOpaque((bs, br, bp) -> false).harvestTool(ToolType.PICKAXE)));
+    public static RegistryObject<Block> FLAGBLOCKorange = BLOCKS.register("flag_orange",() -> new FlagorangeBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.STONE).notSolid().setLightLevel(s -> 1).setOpaque((bs, br, bp) -> false).harvestTool(ToolType.PICKAXE)));
+    public static RegistryObject<Block> FLAGBLOCKpink = BLOCKS.register("flag_pink",() -> new FlagPinkBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.STONE).notSolid().setLightLevel(s -> 1).setOpaque((bs, br, bp) -> false).harvestTool(ToolType.PICKAXE)));
+    public static RegistryObject<Block> FLAGBLOCKpurple = BLOCKS.register("flag_purple",() -> new FlagPurpleBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.STONE).notSolid().setLightLevel(s -> 1).setOpaque((bs, br, bp) -> false).harvestTool(ToolType.PICKAXE)));
+    public static RegistryObject<Block> FLAGBLOCKred = BLOCKS.register("flag_red",() -> new FlagRedBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.STONE).notSolid().setLightLevel(s -> 1).setOpaque((bs, br, bp) -> false).harvestTool(ToolType.PICKAXE)));
+    public static RegistryObject<Block> FLAGBLOCKyellow = BLOCKS.register("flag_yellow",() -> new FlagYellowBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.STONE).notSolid().setLightLevel(s -> 1).setOpaque((bs, br, bp) -> false).harvestTool(ToolType.PICKAXE)));
+
     //Item
     public static final RegistryObject<Item> TORCHITEM = ITEMS.register("coal_torch",
             () -> new CoalTorchItem(COALTORCHBLOCK.get(), WALLCOALTORCHBLOCK.get(),new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab)));
-    
+
     //Flag Items
-    public static final RegistryObject<Item> FLAGITEM = ITEMS.register("flag",
-            () -> new TallBlockItem(FLAGBLOCK.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
+    public static final RegistryObject<Item> FLAGITEM = ITEMS.register("flag", () -> new TallBlockItem(FLAGBLOCK.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
+    public static final RegistryObject<Item> FLAGITEMblue = ITEMS.register("flag_blue", () -> new TallBlockItem(FLAGBLOCKblue.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
+    public static final RegistryObject<Item> FLAGITEMbrown = ITEMS.register("flag_brown", () -> new TallBlockItem(FLAGBLOCKbrown.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
+    public static final RegistryObject<Item> FLAGITEMcyan = ITEMS.register("flag_cyan", () -> new TallBlockItem(FLAGBLOCKcyan.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
+    public static final RegistryObject<Item> FLAGITEMgray = ITEMS.register("flag_gray", () -> new TallBlockItem(FLAGBLOCKgray.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
+    public static final RegistryObject<Item> FLAGITEMgreen = ITEMS.register("flag_green", () -> new TallBlockItem(FLAGBLOCKgreen.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
+    public static final RegistryObject<Item> FLAGITEMlightblue = ITEMS.register("flag_light_blue", () -> new TallBlockItem(FLAGBLOCKlightblue.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
+    public static final RegistryObject<Item> FLAGITEMlime = ITEMS.register("flag_lime", () -> new TallBlockItem(FLAGBLOCKlime.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
+    public static final RegistryObject<Item> FLAGITEMmagenta = ITEMS.register("flag_magenta", () -> new TallBlockItem(FLAGBLOCKmagenta.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
+    public static final RegistryObject<Item> FLAGITEMorange = ITEMS.register("flag_orange", () -> new TallBlockItem(FLAGBLOCKorange.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
+    public static final RegistryObject<Item> FLAGITEMpink = ITEMS.register("flag_pink", () -> new TallBlockItem(FLAGBLOCKpink.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
+    public static final RegistryObject<Item> FLAGITEMpruple = ITEMS.register("flag_purple", () -> new TallBlockItem(FLAGBLOCKpurple.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
+    public static final RegistryObject<Item> FLAGITEMred = ITEMS.register("flag_red", () -> new TallBlockItem(FLAGBLOCKred.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
+    public static final RegistryObject<Item> FLAGITEMyellow = ITEMS.register("flag_yellow", () -> new TallBlockItem(FLAGBLOCKyellow.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
 
 
     //Wrold Gen Things

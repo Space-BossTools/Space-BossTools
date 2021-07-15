@@ -165,9 +165,9 @@ public class SolarPanelBlock extends BossToolsModElements.ModElement {
 		@Override
 		public void tick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
 			super.tick(state, world, pos, random);
-			int x = pos.getX();
-			int y = pos.getY();
-			int z = pos.getZ();
+			double x = pos.getX();
+			double y = pos.getY();
+			double z = pos.getZ();
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("x", x);
@@ -379,7 +379,8 @@ public class SolarPanelBlock extends BossToolsModElements.ModElement {
 		}
 
 		private final LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.values());
-		private final EnergyStorage energyStorage = new EnergyStorage(50000, 200, 200, 0) {		
+		private final EnergyStorage energyStorage = new EnergyStorage(50000, 200, 200, 0) {
+		
 			@Override
 			public int receiveEnergy(int maxReceive, boolean simulate) {
 				int retval = super.receiveEnergy(maxReceive, simulate);
