@@ -114,11 +114,11 @@ public class AkivepotionProcedure {
 			}
 		}
 		if ((!(entity.getPersistentData().getBoolean("Oxygen_Bullet_Generator")))) {
-			if ((!(((entity instanceof LivingEntity)
+		/*	if ((!(((entity instanceof LivingEntity)
 					? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 3))
 					: ItemStack.EMPTY).getItem() == new ItemStack(SpaceArmorItem.helmet, (int) (1)).getItem()))) {
 				entity.getPersistentData().putBoolean("SpaceSuitH", (false));
-			}
+			}*/
 			if ((!(((entity instanceof LivingEntity)
 					? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 2))
 					: ItemStack.EMPTY).getItem() == new ItemStack(SpaceArmorItem.body, (int) (1)).getItem()))) {

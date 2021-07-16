@@ -46,8 +46,8 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 
 @BossToolsModElements.ModElement.Tag
 public class SpaceArmorItem extends BossToolsModElements.ModElement {
-	@ObjectHolder("boss_tools:oxygen_mask")
-	public static final Item helmet = null;
+//	@ObjectHolder("boss_tools:oxygen_mask")
+//	public static final Item helmet = null;
 	@ObjectHolder("boss_tools:space_suit")
 	public static final Item body = null;
 	@ObjectHolder("boss_tools:space_pants")
@@ -102,7 +102,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 				return 0f;
 			}
 		};
-		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.HEAD, new Item.Properties().group(BossToolsItemGroup.tab)) {
+	/*	elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.HEAD, new Item.Properties().group(BossToolsItemGroup.tab)) {
 			@Override
 			@OnlyIn(Dist.CLIENT)
 			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
@@ -132,7 +132,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 					SpaceArmorHelmetTickEventProcedure.executeProcedure($_dependencies);
 				}
 			}
-		}.setRegistryName("oxygen_mask"));
+		}.setRegistryName("oxygen_mask"));*/
 		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.CHEST, new Item.Properties().group(BossToolsItemGroup.tab)) {
 			@Override
 			@OnlyIn(Dist.CLIENT)

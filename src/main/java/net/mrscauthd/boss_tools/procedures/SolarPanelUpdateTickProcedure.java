@@ -5,38 +5,16 @@ import net.mrscauthd.boss_tools.BossToolsMod;
 import net.minecraftforge.energy.CapabilityEnergy;
 
 import net.minecraft.world.World;
-import net.minecraft.world.IWorldReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.block.FlowingFluidBlock;
-import net.minecraft.block.BlockState;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.Map;
 
 public class SolarPanelUpdateTickProcedure {
-	public static boolean canBlockSeeSky(BlockPos pos, IWorldReader world) {
-		if (pos.getY() >= world.getSeaLevel()) {
-			return world.canSeeSky(pos);
-		} else {
-			BlockPos blockpos = new BlockPos(pos.getX(), world.getSeaLevel(), pos.getZ());
-			if (!world.canSeeSky(blockpos)) {
-				return false;
-			} else {
-				for (BlockPos blockpos1 = blockpos.down(); blockpos1.getY() > pos.getY(); blockpos1 = blockpos1.down()) {
-					BlockState blockstate = world.getBlockState(blockpos1);
-					if (!blockstate.getMaterial().isLiquid()) {
-						return false;
-					}
-				}
-				return true;
-			}
-		}
-	}
-
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("x") == null) {
 			if (!dependencies.containsKey("x"))
@@ -69,7 +47,7 @@ public class SolarPanelUpdateTickProcedure {
 		double Energy2 = 0;
 		double energy = 0;
 		double skysee = 0;
-		if ((((canBlockSeeSky(new BlockPos((int) x, (int) (y + 1), (int) z), world)) == (true))
+		if ((((world.canBlockSeeSky(new BlockPos((int) (Math.floor(x)), (int) (y + 1), (int) (Math.floor(z))))) == (true))
 				&& (((world instanceof World) ? ((World) world).isDaytime() : false) == (true)))) {
 			{
 				TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));

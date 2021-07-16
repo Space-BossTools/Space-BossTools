@@ -3094,7 +3094,7 @@
       "type": "procedure",
       "sortid": 252,
       "compiles": true,
-      "locked_code": true,
+      "locked_code": false,
       "ids": {},
       "registry_name": "solar_panel_update_tick",
       "metadata": {
@@ -5860,6 +5860,35 @@
       "ids": {},
       "registry_name": "mercury_magma_biome",
       "path": "~/Biome"
+    },
+    {
+      "name": "OxygenMask",
+      "type": "item",
+      "sortid": 427,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "oxygen_mask"
+    },
+    {
+      "name": "SpaceSuitRenderer",
+      "type": "code",
+      "sortid": 428,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "space_suit_renderer",
+      "path": "~/SpaceSuitRenderer"
+    },
+    {
+      "name": "OxygenGearModel",
+      "type": "code",
+      "sortid": 429,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "oxygen_gear_model",
+      "path": "~/SpaceSuitRenderer"
     }
   ],
   "variable_elements": [
@@ -6217,6 +6246,10 @@
       },
       {
         "name": "Particles",
+        "children": []
+      },
+      {
+        "name": "SpaceSuitRenderer",
         "children": []
       }
     ]
