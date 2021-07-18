@@ -1,6 +1,7 @@
 package net.mrscauthd.boss_tools.procedures;
 
 import net.mrscauthd.boss_tools.item.SpaceArmorItem;
+import net.mrscauthd.boss_tools.item.NetheriteSpaceArmorItem;
 import net.mrscauthd.boss_tools.BossToolsModVariables;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
@@ -10,14 +11,20 @@ import net.minecraftforge.event.TickEvent;
 
 import net.minecraft.world.World;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.GameType;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.DamageSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.client.network.play.NetworkPlayerInfo;
+import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
+import net.minecraft.client.Minecraft;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -112,13 +119,68 @@ public class AkivepotionProcedure {
 					}
 				}
 			}
+			if ((BossToolsModVariables.PlayerOxygenSystem == (true))) {
+				if (((new Object() {
+					public boolean checkGamemode(Entity _ent) {
+						if (_ent instanceof ServerPlayerEntity) {
+							return ((ServerPlayerEntity) _ent).interactionManager.getGameType() == GameType.SURVIVAL;
+						} else if (_ent instanceof PlayerEntity && _ent.world.isRemote()) {
+							NetworkPlayerInfo _npi = Minecraft.getInstance().getConnection()
+									.getPlayerInfo(((AbstractClientPlayerEntity) _ent).getGameProfile().getId());
+							return _npi != null && _npi.getGameType() == GameType.SURVIVAL;
+						}
+						return false;
+					}
+				}.checkGamemode(entity)) || (new Object() {
+					public boolean checkGamemode(Entity _ent) {
+						if (_ent instanceof ServerPlayerEntity) {
+							return ((ServerPlayerEntity) _ent).interactionManager.getGameType() == GameType.ADVENTURE;
+						} else if (_ent instanceof PlayerEntity && _ent.world.isRemote()) {
+							NetworkPlayerInfo _npi = Minecraft.getInstance().getConnection()
+									.getPlayerInfo(((AbstractClientPlayerEntity) _ent).getGameProfile().getId());
+							return _npi != null && _npi.getGameType() == GameType.ADVENTURE;
+						}
+						return false;
+					}
+				}.checkGamemode(entity)))) {
+					if ((((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
+							.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury"))))
+							|| ((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
+									.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus")))))) {
+						if ((!(((entity instanceof LivingEntity)
+								? ((LivingEntity) entity)
+										.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 3))
+								: ItemStack.EMPTY).getItem() == new ItemStack(NetheriteSpaceArmorItem.helmet, (int) (1)).getItem()))) {
+							entity.setFire((int) 10);
+						}
+						if ((!(((entity instanceof LivingEntity)
+								? ((LivingEntity) entity)
+										.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 2))
+								: ItemStack.EMPTY).getItem() == new ItemStack(NetheriteSpaceArmorItem.body, (int) (1)).getItem()))) {
+							entity.setFire((int) 10);
+						}
+						if ((!(((entity instanceof LivingEntity)
+								? ((LivingEntity) entity)
+										.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 1))
+								: ItemStack.EMPTY).getItem() == new ItemStack(NetheriteSpaceArmorItem.legs, (int) (1)).getItem()))) {
+							entity.setFire((int) 10);
+						}
+						if ((!(((entity instanceof LivingEntity)
+								? ((LivingEntity) entity)
+										.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 0))
+								: ItemStack.EMPTY).getItem() == new ItemStack(NetheriteSpaceArmorItem.boots, (int) (1)).getItem()))) {
+							entity.setFire((int) 10);
+						}
+					}
+				}
+			}
 		}
 		if ((!(entity.getPersistentData().getBoolean("Oxygen_Bullet_Generator")))) {
-		/*	if ((!(((entity instanceof LivingEntity)
+			if ((!(((entity instanceof LivingEntity)
 					? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 3))
 					: ItemStack.EMPTY).getItem() == new ItemStack(SpaceArmorItem.helmet, (int) (1)).getItem()))) {
 				entity.getPersistentData().putBoolean("SpaceSuitH", (false));
-			}*/
+			}
 			if ((!(((entity instanceof LivingEntity)
 					? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 2))
 					: ItemStack.EMPTY).getItem() == new ItemStack(SpaceArmorItem.body, (int) (1)).getItem()))) {
@@ -134,6 +196,42 @@ public class AkivepotionProcedure {
 					: ItemStack.EMPTY).getItem() == new ItemStack(SpaceArmorItem.boots, (int) (1)).getItem()))) {
 				entity.getPersistentData().putBoolean("SpaceSuitB", (false));
 			}
+			if ((!(((entity instanceof LivingEntity)
+					? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 3))
+					: ItemStack.EMPTY).getItem() == new ItemStack(NetheriteSpaceArmorItem.helmet, (int) (1)).getItem()))) {
+				entity.getPersistentData().putBoolean("SpaceSuitH", (false));
+			}
+			if ((!(((entity instanceof LivingEntity)
+					? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 2))
+					: ItemStack.EMPTY).getItem() == new ItemStack(NetheriteSpaceArmorItem.body, (int) (1)).getItem()))) {
+				entity.getPersistentData().putBoolean("SpaceSuitC", (false));
+			}
+			if ((!(((entity instanceof LivingEntity)
+					? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 1))
+					: ItemStack.EMPTY).getItem() == new ItemStack(NetheriteSpaceArmorItem.legs, (int) (1)).getItem()))) {
+				entity.getPersistentData().putBoolean("SpaceSuitL", (false));
+			}
+			if ((!(((entity instanceof LivingEntity)
+					? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 0))
+					: ItemStack.EMPTY).getItem() == new ItemStack(NetheriteSpaceArmorItem.boots, (int) (1)).getItem()))) {
+				entity.getPersistentData().putBoolean("SpaceSuitB", (false));
+			}
+		}
+		if (((((entity instanceof LivingEntity)
+				? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 3))
+				: ItemStack.EMPTY).getItem() == new ItemStack(NetheriteSpaceArmorItem.helmet, (int) (1)).getItem())
+				&& ((((entity instanceof LivingEntity)
+						? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 2))
+						: ItemStack.EMPTY).getItem() == new ItemStack(NetheriteSpaceArmorItem.body, (int) (1)).getItem())
+						&& ((((entity instanceof LivingEntity)
+								? ((LivingEntity) entity)
+										.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 1))
+								: ItemStack.EMPTY).getItem() == new ItemStack(NetheriteSpaceArmorItem.legs, (int) (1)).getItem())
+								&& (((entity instanceof LivingEntity)
+										? ((LivingEntity) entity)
+												.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 0))
+										: ItemStack.EMPTY).getItem() == new ItemStack(NetheriteSpaceArmorItem.boots, (int) (1)).getItem()))))) {
+			entity.setFire((int) 0);
 		}
 	}
 }

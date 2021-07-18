@@ -25,31 +25,4 @@ public class ClientEventBusSubscriber {
 	public static void onRegistrerEntities(final RegistryEvent.Register<EntityType<?>> event) {
 		ModSpawnEggs.initSpawnEggs();
 	}
-
-	// Space Suit
-	@SubscribeEvent
-	public static void onClientSetup2(FMLClientSetupEvent event) {
-		event.enqueueWork(() -> {
-			Map<String, PlayerRenderer> skinMap = Minecraft.getInstance().getRenderManager().getSkinMap();
-			PlayerRenderer render = skinMap.get("default");
-			render.addLayer(new SpaceSuitRenderer(render));
-			render = skinMap.get("slim");
-			render.addLayer(new SpaceSuitRenderer(render));
-			// Player Renderer
-			/*
-			 * { Map<String, PlayerRenderer> skinMap =
-			 * Minecraft.getInstance().getRenderManager().getSkinMap();
-			 * 
-			 * PlayerRenderer render = skinMap.get("default"); render.addLayer(new
-			 * Test(render));
-			 * 
-			 * render = skinMap.get("slim"); render.addLayer(new Test(render)); }
-			 */
-			{
-				// BipedArmorLayer armorStandRenderer = (BipedArmorLayer)
-				// Minecraft.getInstance().getRenderManager().renderers.get(EntityType.ARMOR_STAND);
-				// armorStandRenderer.addLayer(new Test(armorStandRenderer));
-			}
-		});
-	}
 }

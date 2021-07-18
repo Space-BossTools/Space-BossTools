@@ -83,6 +83,7 @@ import net.mrscauthd.boss_tools.item.FuelBucketBigItem;
 import net.mrscauthd.boss_tools.item.RocketNoseItem;
 //OxygenMachine
 //Rover
+import net.mrscauthd.boss_tools.item.NetheriteSpaceArmorItem;
 import net.mrscauthd.boss_tools.item.RoverItemItem;
 import net.minecraftforge.registries.ObjectHolder;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
@@ -144,6 +145,8 @@ public class JeiPlugin implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         registration.addRecipes(generateOxygenMachineRecipes(), OxygenMachineJeiCategory.Uid);
+        //Recpie 2
+        registration.addRecipes(generateOxygenMachineRecipes2(), OxygenMachineJeiCategory.Uid);
         //Neue maschine
         registration.addRecipes(generateOxygenGeneratorRecipes(), OxygenGeneratorJeiCategory.Uid);
         //Generator
@@ -192,6 +195,19 @@ public class JeiPlugin implements IModPlugin {
         recipes.add(new OxygenMachineJeiCategory.OxygenMachineRecipeWrapper(inputs));
         return recipes;
     }
+    //recpie 2
+    private List<OxygenMachineJeiCategory.OxygenMachineRecipeWrapper> generateOxygenMachineRecipes2() {
+        List<OxygenMachineJeiCategory.OxygenMachineRecipeWrapper> recipes = new ArrayList<>();
+        ArrayList<ItemStack> inputs = new ArrayList<>();
+        ArrayList<ItemStack> outputs = new ArrayList<>();
+        inputs.add(new ItemStack(NetheriteSpaceArmorItem.body));
+        inputs.add(new ItemStack(Items.OAK_LEAVES));
+        inputs.get(0).getTag().putDouble("Energy", 48000);
+        // ...
+        recipes.add(new OxygenMachineJeiCategory.OxygenMachineRecipeWrapper(inputs));
+        return recipes;
+    }
+
     //New Maschine
     private List<OxygenGeneratorJeiCategory.OxygenGeneratorRecipeWrapper> generateOxygenGeneratorRecipes() {
         List<OxygenGeneratorJeiCategory.OxygenGeneratorRecipeWrapper> recipes = new ArrayList<>();
@@ -641,6 +657,7 @@ public class JeiPlugin implements IModPlugin {
             }
         }
     }
+
     //New Maschine
     public static class OxygenGeneratorJeiCategory implements IRecipeCategory<OxygenGeneratorJeiCategory.OxygenGeneratorRecipeWrapper> {
         private static ResourceLocation Uid = new ResourceLocation("boss_tools", "oxygengeneratorcategory");// muss klein geschrieben sein

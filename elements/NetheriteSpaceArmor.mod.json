@@ -1,0 +1,68 @@
+{
+  "_fv": 21,
+  "_type": "armor",
+  "definition": {
+    "enableHelmet": true,
+    "textureHelmet": "netherite_oxygen_mask",
+    "enableBody": true,
+    "textureBody": "netherite_space_suit",
+    "enableLeggings": true,
+    "textureLeggings": "netherite_space_pants",
+    "enableBoots": true,
+    "textureBoots": "netherite_space_boots",
+    "onHelmetTick": {
+      "name": "SpaceArmorHelmetTickEvent"
+    },
+    "onBodyTick": {
+      "name": "SpaceArmorBodyTickEvent"
+    },
+    "onLeggingsTick": {
+      "name": "SpaceArmorLeggingsTickEvent"
+    },
+    "onBootsTick": {
+      "name": "SpaceArmorBootsTickEvent"
+    },
+    "creativeTab": {
+      "value": "CUSTOM:BossTools"
+    },
+    "armorTextureFile": "netherite_spacesuit_",
+    "helmetName": "Oxygen Mask",
+    "bodyName": "Space Suit",
+    "leggingsName": "Space Pants",
+    "bootsName": "Space Boots",
+    "helmetSpecialInfo": [],
+    "bodySpecialInfo": [
+      "<ENBT:number:Energy>"
+    ],
+    "leggingsSpecialInfo": [],
+    "bootsSpecialInfo": [],
+    "helmetModelName": "Modelspacesuit",
+    "helmetModelPart": "kopf",
+    "helmetModelTexture": "netherite_spacesuit_layer_1.png",
+    "bodyModelName": "Modelspacesuit",
+    "bodyModelPart": "Body",
+    "armsModelPartL": "arml",
+    "armsModelPartR": "armr",
+    "bodyModelTexture": "From armor",
+    "leggingsModelName": "Modelarmor_leggings",
+    "leggingsModelPartL": "LeftLeg",
+    "leggingsModelPartR": "RightLeg",
+    "leggingsModelTexture": "netherite_spacesuit_layer_2.png",
+    "bootsModelName": "Modelspacesuit",
+    "bootsModelPartL": "Left_Foot",
+    "bootsModelPartR": "Right_Foot",
+    "bootsModelTexture": "From armor",
+    "maxDamage": 10,
+    "damageValueHelmet": 2,
+    "damageValueBody": 2,
+    "damageValueLeggings": 2,
+    "damageValueBoots": 2,
+    "enchantability": 0,
+    "toughness": 0.0,
+    "knockbackResistance": 0.0,
+    "equipSound": {
+      "value": "item.armor.equip_leather"
+    },
+    "repairItems": []
+  }
+}

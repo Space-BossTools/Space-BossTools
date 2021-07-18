@@ -1,12 +1,6 @@
 
 package net.mrscauthd.boss_tools.item;
 
-import com.google.common.collect.Maps;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.nbt.ListNBT;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorLeggingsTickEventProcedure;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorHelmetTickEventProcedure;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorBootsTickEventProcedure;
@@ -45,17 +39,17 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 @BossToolsModElements.ModElement.Tag
-public class SpaceArmorItem extends BossToolsModElements.ModElement {
-	@ObjectHolder("boss_tools:oxygen_mask")
+public class NetheriteSpaceArmorItem extends BossToolsModElements.ModElement {
+	@ObjectHolder("boss_tools:netherite_oxygen_mask")
 	public static final Item helmet = null;
-	@ObjectHolder("boss_tools:space_suit")
+	@ObjectHolder("boss_tools:netherite_space_suit")
 	public static final Item body = null;
-	@ObjectHolder("boss_tools:space_pants")
+	@ObjectHolder("boss_tools:netherite_space_pants")
 	public static final Item legs = null;
-	@ObjectHolder("boss_tools:space_boots")
+	@ObjectHolder("boss_tools:netherite_space_boots")
 	public static final Item boots = null;
-	public SpaceArmorItem(BossToolsModElements instance) {
-		super(instance, 12);
+	public NetheriteSpaceArmorItem(BossToolsModElements instance) {
+		super(instance, 427);
 	}
 
 	@Override
@@ -63,12 +57,12 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 		IArmorMaterial armormaterial = new IArmorMaterial() {
 			@Override
 			public int getDurability(EquipmentSlotType slot) {
-				return new int[]{15, 18, 16, 14}[slot.getIndex()] * 10;
+				return new int[]{13, 15, 16, 11}[slot.getIndex()] * 10;
 			}
 
 			@Override
 			public int getDamageReductionAmount(EquipmentSlotType slot) {
-				return new int[]{4, 5, 4, 4}[slot.getIndex()];
+				return new int[]{2, 2, 2, 2}[slot.getIndex()];
 			}
 
 			@Override
@@ -89,7 +83,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 			@OnlyIn(Dist.CLIENT)
 			@Override
 			public String getName() {
-				return "space_armor";
+				return "netherite_space_armor";
 			}
 
 			@Override
@@ -106,7 +100,6 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 			@Override
 			@OnlyIn(Dist.CLIENT)
 			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
-				// GL11.glDisable(GL11.GL_BLEND);
 				BipedModel armorModel = new BipedModel(1);
 				armorModel.bipedHead = new Modelspacesuit().kopf;
 				armorModel.isSneak = living.isSneaking();
@@ -117,7 +110,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 
 			@Override
 			public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-				return "boss_tools:textures/spacesuitmode__layer_1_head.png";
+				return "boss_tools:textures/netherite_spacesuit_layer_1.png";
 			}
 
 			@Override
@@ -132,7 +125,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 					SpaceArmorHelmetTickEventProcedure.executeProcedure($_dependencies);
 				}
 			}
-		}.setRegistryName("oxygen_mask"));
+		}.setRegistryName("netherite_oxygen_mask"));
 		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.CHEST, new Item.Properties().group(BossToolsItemGroup.tab)) {
 			@Override
 			@OnlyIn(Dist.CLIENT)
@@ -156,7 +149,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 
 			@Override
 			public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-				return "boss_tools:textures/models/armor/spacesuitmode__layer_" + (slot == EquipmentSlotType.LEGS ? "2" : "1") + ".png";
+				return "boss_tools:textures/models/armor/netherite_spacesuit__layer_" + (slot == EquipmentSlotType.LEGS ? "2" : "1") + ".png";
 			}
 
 			@Override
@@ -172,7 +165,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 					SpaceArmorBodyTickEventProcedure.executeProcedure($_dependencies);
 				}
 			}
-		}.setRegistryName("space_suit"));
+		}.setRegistryName("netherite_space_suit"));
 		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.LEGS, new Item.Properties().group(BossToolsItemGroup.tab)) {
 			@Override
 			@OnlyIn(Dist.CLIENT)
@@ -188,7 +181,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 
 			@Override
 			public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-				return "boss_tools:textures/spacesuitmode__layer_2.png";
+				return "boss_tools:textures/netherite_spacesuit_layer_2.png";
 			}
 
 			@Override
@@ -202,7 +195,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 					SpaceArmorLeggingsTickEventProcedure.executeProcedure($_dependencies);
 				}
 			}
-		}.setRegistryName("space_pants"));
+		}.setRegistryName("netherite_space_pants"));
 		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.FEET, new Item.Properties().group(BossToolsItemGroup.tab)) {
 			@Override
 			@OnlyIn(Dist.CLIENT)
@@ -218,7 +211,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 
 			@Override
 			public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-				return "boss_tools:textures/models/armor/spacesuitmode__layer_" + (slot == EquipmentSlotType.LEGS ? "2" : "1") + ".png";
+				return "boss_tools:textures/models/armor/netherite_spacesuit__layer_" + (slot == EquipmentSlotType.LEGS ? "2" : "1") + ".png";
 			}
 
 			@Override
@@ -232,7 +225,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 					SpaceArmorBootsTickEventProcedure.executeProcedure($_dependencies);
 				}
 			}
-		}.setRegistryName("space_boots"));
+		}.setRegistryName("netherite_space_boots"));
 	}
 	// Made with Blockbench 3.8.4
 	// Exported for Minecraft version 1.15 - 1.16
@@ -244,11 +237,6 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 		private final ModelRenderer arml;
 		private final ModelRenderer Left_Foot;
 		private final ModelRenderer Right_Foot;
-		/**
-		 * Entity currently being rendered in this model (since entity isn't passed into
-		 * render() anymore...)
-		 */
-		//public LivingEntity entity;
 		public Modelspacesuit() {
 			textureWidth = 64;
 			textureHeight = 64;
@@ -277,19 +265,17 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 			Right_Foot.setRotationPoint(-2.0F, 12.0F, 0.0F);
 			Right_Foot.setTextureOffset(48, 44).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, 0.4F, false);
 			Right_Foot.setTextureOffset(48, 54).addBox(-2.0F, 5.7F, -2.0F, 4.0F, 6.0F, 4.0F, 0.26F, false);
-			// RenderSystem.disableBlend();
-			// RenderSystem.defaultBlendFunc();
 		}
 
 		@Override
 		public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue,
-						   float alpha) {
-				kopf.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
-				Body.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
-				armr.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
-				arml.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
-				Left_Foot.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
-				Right_Foot.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
+				float alpha) {
+			kopf.render(matrixStack, buffer, packedLight, packedOverlay);
+			Body.render(matrixStack, buffer, packedLight, packedOverlay);
+			armr.render(matrixStack, buffer, packedLight, packedOverlay);
+			arml.render(matrixStack, buffer, packedLight, packedOverlay);
+			Left_Foot.render(matrixStack, buffer, packedLight, packedOverlay);
+			Right_Foot.render(matrixStack, buffer, packedLight, packedOverlay);
 		}
 
 		public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
@@ -321,7 +307,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 
 		@Override
 		public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue,
-						   float alpha) {
+				float alpha) {
 			RightLeg.render(matrixStack, buffer, packedLight, packedOverlay);
 			LeftLeg.render(matrixStack, buffer, packedLight, packedOverlay);
 		}

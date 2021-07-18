@@ -3094,7 +3094,7 @@
       "type": "procedure",
       "sortid": 252,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "solar_panel_update_tick",
       "metadata": {
@@ -5862,33 +5862,59 @@
       "path": "~/Biome"
     },
     {
-      "name": "OxygenMask",
-      "type": "item",
+      "name": "NetheriteSpaceArmor",
+      "type": "armor",
       "sortid": 427,
       "compiles": true,
       "locked_code": true,
       "ids": {},
-      "registry_name": "oxygen_mask"
+      "registry_name": "netherite_space_armor",
+      "metadata": {
+        "eh": true,
+        "el": true,
+        "eb": true,
+        "ec": true
+      }
     },
     {
-      "name": "SpaceSuitRenderer",
-      "type": "code",
+      "name": "NetheriteOxygenMaskRecpie",
+      "type": "recipe",
       "sortid": 428,
       "compiles": true,
       "locked_code": true,
       "ids": {},
-      "registry_name": "space_suit_renderer",
-      "path": "~/SpaceSuitRenderer"
+      "registry_name": "netherite_oxygen_mask_recpie",
+      "path": "~/Recpies"
     },
     {
-      "name": "OxygenGearModel",
-      "type": "code",
+      "name": "NetheriteSpaceSuitRecpie",
+      "type": "recipe",
       "sortid": 429,
       "compiles": true,
       "locked_code": true,
       "ids": {},
-      "registry_name": "oxygen_gear_model",
-      "path": "~/SpaceSuitRenderer"
+      "registry_name": "netherite_space_suit_recpie",
+      "path": "~/Recpies"
+    },
+    {
+      "name": "NetheriteSpacePantsRecpie",
+      "type": "recipe",
+      "sortid": 430,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "netherite_space_pants_recpie",
+      "path": "~/Recpies"
+    },
+    {
+      "name": "NetheriteSpaceBootsRecpie",
+      "type": "recipe",
+      "sortid": 431,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "netherite_space_boots_recpie",
+      "path": "~/Recpies"
     }
   ],
   "variable_elements": [
@@ -5976,6 +6002,7 @@
       "block.boss_tools.mercury_iron_ore": "Mercury Iron Ore",
       "block.boss_tools.fuel_refinery": "Fuel Refinery",
       "block.boss_tools.block_of_rusted_iron_plating": "Block of Rusted Iron Plating",
+      "item.boss_tools.netherite_space_suit": "Netherite Space Suit",
       "biome.boss_tools.mars_biome": "Mars Biome",
       "block.boss_tools.cracked_moon_bricks": "Cracked Moon Bricks",
       "fluid.boss_tools.fuel": "Fuel",
@@ -6044,6 +6071,7 @@
       "job.boss_tools.job9": "Weaponsmith",
       "item.boss_tools.venus": "Venus Portal Igniter",
       "advancements.rocket_tier_2_advancement.title": "Tier 2 Rocket",
+      "item.boss_tools.netherite_space_pants": "Netherite Space Pants",
       "advancements.workbench_advancement.descr": "§bHas crafted a NASA Workbench",
       "advancements.rocket_advancement.descr": "§bHas crafted a Tier 1 Rocket",
       "biome.boss_tools.moon_biome": "Moon Biome",
@@ -6067,6 +6095,7 @@
       "item.boss_tools.alien": "Alien Spawn Egg",
       "block.boss_tools.coal_generator": "Coal Generator",
       "item.boss_tools.orbit_overworld": "Admin Feuerzeug",
+      "item.boss_tools.netherite_space_boots": "Netherite Space Boots",
       "biome.boss_tools.venus_biome": "Venus Biome",
       "item.boss_tools.engine_fan": "Engine Fan",
       "fluid.fuel": "Fuel",
@@ -6095,6 +6124,7 @@
       "block.boss_tools.venus_stone": "Venus Stone",
       "entity.boss_tools.alien": "Alien",
       "block.boss_tools.iron_mark": "Iron Mark",
+      "item.boss_tools.netherite_oxygen_mask": "Netherite Oxygen Mask",
       "job.boss_tools.job12": "Leatherworker",
       "job.boss_tools.job13": "Mason",
       "job.boss_tools.job10": "Toolsmith",
@@ -6138,7 +6168,6 @@
       "item.boss_tools.desh_ingot": "Desh Ingot",
       "biome.boss_tools.orbit_overworld_biome": "Orbit Biome",
       "item.boss_tools.barrel_of_fuel": "Barrel of Fuel",
-      "item.boss_tools.oxygen_mask": "Oxygen Mask",
       "item.boss_tools.compressed_desh": "Compressed Desh",
       "block.boss_tools.flag_lime": "Lime Flag",
       "block.boss_tools.moon_glowstone_ore": "Moon Glowstone Ore",
@@ -6246,10 +6275,6 @@
       },
       {
         "name": "Particles",
-        "children": []
-      },
-      {
-        "name": "SpaceSuitRenderer",
         "children": []
       }
     ]
