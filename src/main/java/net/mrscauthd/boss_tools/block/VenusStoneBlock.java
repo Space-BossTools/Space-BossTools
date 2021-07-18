@@ -25,7 +25,7 @@ public class VenusStoneBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:venus_stone")
 	public static final Block block = null;
 	public VenusStoneBlock(BossToolsModElements instance) {
-		super(instance, 51);
+		super(instance, 53);
 	}
 
 	@Override

@@ -16,7 +16,7 @@ public class OxygenGearItem extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:oxygen_gear")
 	public static final Item block = null;
 	public OxygenGearItem(BossToolsModElements instance) {
-		super(instance, 34);
+		super(instance, 36);
 	}
 
 	@Override

@@ -4,7 +4,7 @@
     {
       "name": "RocketOnEntityTickUpdate",
       "type": "procedure",
-      "sortid": 112,
+      "sortid": 114,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -38,7 +38,7 @@
     {
       "name": "Rocket",
       "type": "mob",
-      "sortid": 100,
+      "sortid": 102,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -48,7 +48,7 @@
     {
       "name": "MoonStone",
       "type": "block",
-      "sortid": 46,
+      "sortid": 48,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -58,7 +58,7 @@
     {
       "name": "Moon",
       "type": "dimension",
-      "sortid": 103,
+      "sortid": 105,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -86,7 +86,7 @@
     {
       "name": "SpaceArmorHelmetRecipe",
       "type": "recipe",
-      "sortid": 113,
+      "sortid": 115,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -96,7 +96,7 @@
     {
       "name": "SpaceArmorBodyRecipe",
       "type": "recipe",
-      "sortid": 114,
+      "sortid": 116,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -106,7 +106,7 @@
     {
       "name": "SpaceArmorLeggingsRecipe",
       "type": "recipe",
-      "sortid": 115,
+      "sortid": 117,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -116,7 +116,7 @@
     {
       "name": "SpaceArmorBootsRecipe",
       "type": "recipe",
-      "sortid": 116,
+      "sortid": 118,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -126,7 +126,7 @@
     {
       "name": "SpaceArmorHelmetTickEvent",
       "type": "procedure",
-      "sortid": 117,
+      "sortid": 119,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -154,7 +154,7 @@
     {
       "name": "Ironplate",
       "type": "item",
-      "sortid": 21,
+      "sortid": 23,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -164,7 +164,7 @@
     {
       "name": "IronPlateRezept",
       "type": "recipe",
-      "sortid": 118,
+      "sortid": 120,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -174,7 +174,7 @@
     {
       "name": "Steahl",
       "type": "item",
-      "sortid": 18,
+      "sortid": 20,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -184,7 +184,7 @@
     {
       "name": "Hammer",
       "type": "item",
-      "sortid": 27,
+      "sortid": 29,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -194,7 +194,7 @@
     {
       "name": "Hammerrezept",
       "type": "recipe",
-      "sortid": 119,
+      "sortid": 121,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -204,7 +204,7 @@
     {
       "name": "RocketBaserezept",
       "type": "recipe",
-      "sortid": 120,
+      "sortid": 122,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -214,7 +214,7 @@
     {
       "name": "TurbinenRad",
       "type": "item",
-      "sortid": 32,
+      "sortid": 34,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -224,7 +224,7 @@
     {
       "name": "Turbinenradrezept",
       "type": "recipe",
-      "sortid": 121,
+      "sortid": 123,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -234,7 +234,7 @@
     {
       "name": "TurbinenGehause",
       "type": "item",
-      "sortid": 31,
+      "sortid": 33,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -244,7 +244,7 @@
     {
       "name": "Turbinengehauserezeot",
       "type": "recipe",
-      "sortid": 122,
+      "sortid": 124,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -254,7 +254,7 @@
     {
       "name": "Motor",
       "type": "item",
-      "sortid": 37,
+      "sortid": 39,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -264,7 +264,7 @@
     {
       "name": "Motorrezept",
       "type": "recipe",
-      "sortid": 123,
+      "sortid": 125,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -274,7 +274,7 @@
     {
       "name": "Turbine",
       "type": "item",
-      "sortid": 40,
+      "sortid": 42,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -284,7 +284,7 @@
     {
       "name": "Turbinenrezept",
       "type": "recipe",
-      "sortid": 124,
+      "sortid": 126,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -294,7 +294,7 @@
     {
       "name": "RocketEntityIsHurt1",
       "type": "procedure",
-      "sortid": 125,
+      "sortid": 127,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -332,7 +332,7 @@
     {
       "name": "RocketmoonGuiMoonTp",
       "type": "procedure",
-      "sortid": 126,
+      "sortid": 128,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -354,7 +354,7 @@
     {
       "name": "RocketOverworldtp",
       "type": "procedure",
-      "sortid": 127,
+      "sortid": 129,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -376,7 +376,7 @@
     {
       "name": "MeteorBlock",
       "type": "block",
-      "sortid": 44,
+      "sortid": 46,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -386,7 +386,7 @@
     {
       "name": "Meteor",
       "type": "structure",
-      "sortid": 128,
+      "sortid": 130,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -396,7 +396,7 @@
     {
       "name": "Meteorloot",
       "type": "loottable",
-      "sortid": 129,
+      "sortid": 131,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -416,7 +416,7 @@
     {
       "name": "Rockethurtentity2",
       "type": "procedure",
-      "sortid": 130,
+      "sortid": 132,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -454,7 +454,7 @@
     {
       "name": "Marssand",
       "type": "block",
-      "sortid": 47,
+      "sortid": 49,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -464,7 +464,7 @@
     {
       "name": "MarsStone",
       "type": "block",
-      "sortid": 48,
+      "sortid": 50,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -474,7 +474,7 @@
     {
       "name": "Mars",
       "type": "dimension",
-      "sortid": 104,
+      "sortid": 106,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -487,7 +487,7 @@
     {
       "name": "Rocketmarsworldtp",
       "type": "procedure",
-      "sortid": 131,
+      "sortid": 133,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -509,7 +509,7 @@
     {
       "name": "MooncopperOre",
       "type": "block",
-      "sortid": 55,
+      "sortid": 57,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -519,7 +519,7 @@
     {
       "name": "MoonCopperingot",
       "type": "item",
-      "sortid": 19,
+      "sortid": 21,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -529,7 +529,7 @@
     {
       "name": "MooncoperoreRezept",
       "type": "recipe",
-      "sortid": 132,
+      "sortid": 134,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -539,7 +539,7 @@
     {
       "name": "TurbineTier2",
       "type": "item",
-      "sortid": 41,
+      "sortid": 43,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -549,7 +549,7 @@
     {
       "name": "MotorTier2",
       "type": "item",
-      "sortid": 38,
+      "sortid": 40,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -559,7 +559,7 @@
     {
       "name": "Motorrezepttir2",
       "type": "recipe",
-      "sortid": 133,
+      "sortid": 135,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -569,7 +569,7 @@
     {
       "name": "Turbinenrezepttir2",
       "type": "recipe",
-      "sortid": 134,
+      "sortid": 136,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -579,7 +579,7 @@
     {
       "name": "Tinplate",
       "type": "item",
-      "sortid": 22,
+      "sortid": 24,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -589,7 +589,7 @@
     {
       "name": "Tinplaterezept",
       "type": "recipe",
-      "sortid": 135,
+      "sortid": 137,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -599,7 +599,7 @@
     {
       "name": "BossTools",
       "type": "tab",
-      "sortid": 136,
+      "sortid": 138,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -621,7 +621,7 @@
     {
       "name": "Marsdiamond",
       "type": "block",
-      "sortid": 62,
+      "sortid": 64,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -631,7 +631,7 @@
     {
       "name": "Iron",
       "type": "block",
-      "sortid": 60,
+      "sortid": 62,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -641,7 +641,7 @@
     {
       "name": "IronStick",
       "type": "item",
-      "sortid": 28,
+      "sortid": 30,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -651,7 +651,7 @@
     {
       "name": "IronSitckrezept",
       "type": "recipe",
-      "sortid": 137,
+      "sortid": 139,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -661,7 +661,7 @@
     {
       "name": "Whiteflagerezept",
       "type": "recipe",
-      "sortid": 138,
+      "sortid": 140,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -691,7 +691,7 @@
     {
       "name": "Bigbucket",
       "type": "recipe",
-      "sortid": 139,
+      "sortid": 141,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -701,7 +701,7 @@
     {
       "name": "Umlaufbahnerde",
       "type": "dimension",
-      "sortid": 105,
+      "sortid": 107,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -714,7 +714,7 @@
     {
       "name": "Umlaufbahneffects",
       "type": "procedure",
-      "sortid": 140,
+      "sortid": 142,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -736,7 +736,7 @@
     {
       "name": "Rocketoverworldumlaufbahn",
       "type": "procedure",
-      "sortid": 141,
+      "sortid": 143,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -768,7 +768,7 @@
     {
       "name": "OrbitPlacerrezept",
       "type": "recipe",
-      "sortid": 142,
+      "sortid": 144,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -778,7 +778,7 @@
     {
       "name": "PowUpOnKeyReleased",
       "type": "procedure",
-      "sortid": 143,
+      "sortid": 145,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -812,7 +812,7 @@
     {
       "name": "PowUp",
       "type": "keybind",
-      "sortid": 144,
+      "sortid": 146,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -822,7 +822,7 @@
     {
       "name": "RocketOnEntityTicktier2",
       "type": "procedure",
-      "sortid": 145,
+      "sortid": 147,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -856,7 +856,7 @@
     {
       "name": "Akivepotion",
       "type": "procedure",
-      "sortid": 146,
+      "sortid": 148,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -878,7 +878,7 @@
     {
       "name": "CheeseBlock",
       "type": "block",
-      "sortid": 57,
+      "sortid": 59,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -888,7 +888,7 @@
     {
       "name": "Chesserezept",
       "type": "recipe",
-      "sortid": 147,
+      "sortid": 149,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -898,7 +898,7 @@
     {
       "name": "Chesse",
       "type": "food",
-      "sortid": 15,
+      "sortid": 17,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -908,7 +908,7 @@
     {
       "name": "SpaceArmorBodyTickEvent",
       "type": "procedure",
-      "sortid": 148,
+      "sortid": 150,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -934,7 +934,7 @@
     {
       "name": "SpaceArmorLeggingsTickEvent",
       "type": "procedure",
-      "sortid": 149,
+      "sortid": 151,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -952,7 +952,7 @@
     {
       "name": "SpaceArmorBootsTickEvent",
       "type": "procedure",
-      "sortid": 150,
+      "sortid": 152,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -970,7 +970,7 @@
     {
       "name": "OxygenTank",
       "type": "item",
-      "sortid": 33,
+      "sortid": 35,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -980,7 +980,7 @@
     {
       "name": "OxygenTankrezept",
       "type": "recipe",
-      "sortid": 151,
+      "sortid": 153,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -990,7 +990,7 @@
     {
       "name": "OxygenMachine",
       "type": "block",
-      "sortid": 84,
+      "sortid": 86,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -1000,7 +1000,7 @@
     {
       "name": "OxygenGear",
       "type": "item",
-      "sortid": 34,
+      "sortid": 36,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -1010,7 +1010,7 @@
     {
       "name": "Oxygeangear",
       "type": "recipe",
-      "sortid": 152,
+      "sortid": 154,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -1020,7 +1020,7 @@
     {
       "name": "Oxygenmaschin",
       "type": "recipe",
-      "sortid": 153,
+      "sortid": 155,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -1030,7 +1030,7 @@
     {
       "name": "RemoveFire",
       "type": "procedure",
-      "sortid": 154,
+      "sortid": 156,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -1060,7 +1060,7 @@
     {
       "name": "OxygenGenerator",
       "type": "block",
-      "sortid": 85,
+      "sortid": 87,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -1110,7 +1110,7 @@
     {
       "name": "Workbench",
       "type": "block",
-      "sortid": 78,
+      "sortid": 80,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -1120,7 +1120,7 @@
     {
       "name": "Generator",
       "type": "block",
-      "sortid": 80,
+      "sortid": 82,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -1202,7 +1202,7 @@
     {
       "name": "Compressesteel",
       "type": "item",
-      "sortid": 23,
+      "sortid": 25,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -1212,7 +1212,7 @@
     {
       "name": "CompressedTin",
       "type": "item",
-      "sortid": 24,
+      "sortid": 26,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -1222,7 +1222,7 @@
     {
       "name": "RocketNose",
       "type": "item",
-      "sortid": 35,
+      "sortid": 37,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -1232,7 +1232,7 @@
     {
       "name": "Rocketfins",
       "type": "item",
-      "sortid": 36,
+      "sortid": 38,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -1302,7 +1302,7 @@
     {
       "name": "BlastingFurnace",
       "type": "block",
-      "sortid": 82,
+      "sortid": 84,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -1382,7 +1382,7 @@
     {
       "name": "LandingGear",
       "type": "mob",
-      "sortid": 101,
+      "sortid": 103,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -1725,7 +1725,7 @@
     {
       "name": "Compressor",
       "type": "block",
-      "sortid": 83,
+      "sortid": 85,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -1877,7 +1877,7 @@
     {
       "name": "Mercurystone",
       "type": "block",
-      "sortid": 53,
+      "sortid": 55,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -1887,7 +1887,7 @@
     {
       "name": "Mercury",
       "type": "dimension",
-      "sortid": 106,
+      "sortid": 108,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -1910,7 +1910,7 @@
     {
       "name": "MrrcuryCobblestone",
       "type": "block",
-      "sortid": 54,
+      "sortid": 56,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -1920,7 +1920,7 @@
     {
       "name": "MercuryIronore",
       "type": "block",
-      "sortid": 66,
+      "sortid": 68,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -1940,7 +1940,7 @@
     {
       "name": "Marssiliconore",
       "type": "block",
-      "sortid": 61,
+      "sortid": 63,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -1950,7 +1950,7 @@
     {
       "name": "SiliconIngot",
       "type": "item",
-      "sortid": 20,
+      "sortid": 22,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -1970,7 +1970,7 @@
     {
       "name": "Compressedsilicon",
       "type": "item",
-      "sortid": 25,
+      "sortid": 27,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -1980,7 +1980,7 @@
     {
       "name": "EngineTier3",
       "type": "item",
-      "sortid": 42,
+      "sortid": 44,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -1990,7 +1990,7 @@
     {
       "name": "TankTier3",
       "type": "item",
-      "sortid": 39,
+      "sortid": 41,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -2130,7 +2130,7 @@
     {
       "name": "OrbitMoon",
       "type": "dimension",
-      "sortid": 107,
+      "sortid": 109,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -2143,7 +2143,7 @@
     {
       "name": "OrbitMars",
       "type": "dimension",
-      "sortid": 108,
+      "sortid": 110,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -2156,7 +2156,7 @@
     {
       "name": "OrbitMercury",
       "type": "dimension",
-      "sortid": 109,
+      "sortid": 111,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -2441,7 +2441,7 @@
     {
       "name": "FuelMaker",
       "type": "block",
-      "sortid": 81,
+      "sortid": 83,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -2615,7 +2615,7 @@
     {
       "name": "Iceshard",
       "type": "item",
-      "sortid": 26,
+      "sortid": 28,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -2625,7 +2625,7 @@
     {
       "name": "Icesoil",
       "type": "block",
-      "sortid": 59,
+      "sortid": 61,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -2655,7 +2655,7 @@
     {
       "name": "Flag",
       "type": "block",
-      "sortid": 86,
+      "sortid": 88,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -2665,7 +2665,7 @@
     {
       "name": "Moonoreiron",
       "type": "block",
-      "sortid": 56,
+      "sortid": 58,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -2717,7 +2717,7 @@
     {
       "name": "StarCrawler",
       "type": "mob",
-      "sortid": 17,
+      "sortid": 19,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -2762,7 +2762,7 @@
     {
       "name": "FlagBlue",
       "type": "block",
-      "sortid": 87,
+      "sortid": 89,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -2772,7 +2772,7 @@
     {
       "name": "FlagBrown",
       "type": "block",
-      "sortid": 88,
+      "sortid": 90,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -2782,7 +2782,7 @@
     {
       "name": "FlagCyan",
       "type": "block",
-      "sortid": 89,
+      "sortid": 91,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -2792,7 +2792,7 @@
     {
       "name": "Fraggray",
       "type": "block",
-      "sortid": 90,
+      "sortid": 92,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -2802,7 +2802,7 @@
     {
       "name": "Fraggreen",
       "type": "block",
-      "sortid": 91,
+      "sortid": 93,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -2812,7 +2812,7 @@
     {
       "name": "FlaglightBlue",
       "type": "block",
-      "sortid": 92,
+      "sortid": 94,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -2822,7 +2822,7 @@
     {
       "name": "FlagLime",
       "type": "block",
-      "sortid": 93,
+      "sortid": 95,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -2832,7 +2832,7 @@
     {
       "name": "Flagmagenta",
       "type": "block",
-      "sortid": 94,
+      "sortid": 96,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -2842,7 +2842,7 @@
     {
       "name": "Flagorange",
       "type": "block",
-      "sortid": 95,
+      "sortid": 97,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -2852,7 +2852,7 @@
     {
       "name": "FlagPink",
       "type": "block",
-      "sortid": 96,
+      "sortid": 98,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -2862,7 +2862,7 @@
     {
       "name": "FlagPurple",
       "type": "block",
-      "sortid": 97,
+      "sortid": 99,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -2872,7 +2872,7 @@
     {
       "name": "FlagRed",
       "type": "block",
-      "sortid": 98,
+      "sortid": 100,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -2882,7 +2882,7 @@
     {
       "name": "FlagYellow",
       "type": "block",
-      "sortid": 99,
+      "sortid": 101,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -3082,7 +3082,7 @@
     {
       "name": "SolarPanel",
       "type": "block",
-      "sortid": 79,
+      "sortid": 81,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -3094,7 +3094,7 @@
       "type": "procedure",
       "sortid": 252,
       "compiles": true,
-      "locked_code": true,
+      "locked_code": false,
       "ids": {},
       "registry_name": "solar_panel_update_tick",
       "metadata": {
@@ -3862,7 +3862,7 @@
     {
       "name": "IronMark",
       "type": "block",
-      "sortid": 67,
+      "sortid": 69,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -4570,7 +4570,7 @@
     {
       "name": "BlueIronPlating",
       "type": "block",
-      "sortid": 68,
+      "sortid": 70,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -4580,7 +4580,7 @@
     {
       "name": "BlockOfIronPlating",
       "type": "block",
-      "sortid": 69,
+      "sortid": 71,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -4590,7 +4590,7 @@
     {
       "name": "BlockOfRustedIronPillar",
       "type": "block",
-      "sortid": 70,
+      "sortid": 72,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -4600,7 +4600,7 @@
     {
       "name": "BlockOfRustedIronPlating",
       "type": "block",
-      "sortid": 71,
+      "sortid": 73,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -4610,7 +4610,7 @@
     {
       "name": "BlockOfSteel",
       "type": "block",
-      "sortid": 43,
+      "sortid": 45,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -4755,7 +4755,7 @@
     {
       "name": "MoonBricks",
       "type": "block",
-      "sortid": 72,
+      "sortid": 74,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -4765,7 +4765,7 @@
     {
       "name": "CrackedMoonBricks",
       "type": "block",
-      "sortid": 75,
+      "sortid": 77,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -4775,7 +4775,7 @@
     {
       "name": "MoonBrickStairs",
       "type": "block",
-      "sortid": 73,
+      "sortid": 75,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -4785,7 +4785,7 @@
     {
       "name": "MoonBrickSlab",
       "type": "block",
-      "sortid": 74,
+      "sortid": 76,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -4795,7 +4795,7 @@
     {
       "name": "CrackedMoonBrickStairs",
       "type": "block",
-      "sortid": 76,
+      "sortid": 78,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -4805,7 +4805,7 @@
     {
       "name": "CrackedMoonBrickSlab",
       "type": "block",
-      "sortid": 77,
+      "sortid": 79,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -4833,7 +4833,7 @@
     {
       "name": "MoonGlowstoneOre",
       "type": "block",
-      "sortid": 58,
+      "sortid": 60,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -4863,7 +4863,7 @@
     {
       "name": "AlienZombie",
       "type": "mob",
-      "sortid": 16,
+      "sortid": 18,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -5114,7 +5114,7 @@
     {
       "name": "Rover",
       "type": "mob",
-      "sortid": 102,
+      "sortid": 104,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -5206,7 +5206,7 @@
     {
       "name": "Wheel",
       "type": "item",
-      "sortid": 30,
+      "sortid": 32,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -5325,7 +5325,7 @@
     {
       "name": "NetworkLinker",
       "type": "item",
-      "sortid": 29,
+      "sortid": 31,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -5354,7 +5354,7 @@
     {
       "name": "VenusSand",
       "type": "block",
-      "sortid": 49,
+      "sortid": 51,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -5384,7 +5384,7 @@
     {
       "name": "VenusStone",
       "type": "block",
-      "sortid": 51,
+      "sortid": 53,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -5404,7 +5404,7 @@
     {
       "name": "Venus",
       "type": "dimension",
-      "sortid": 110,
+      "sortid": 112,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -5437,7 +5437,7 @@
     {
       "name": "InfernalSpire",
       "type": "block",
-      "sortid": 52,
+      "sortid": 54,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -5539,7 +5539,7 @@
     {
       "name": "VenusSandStone",
       "type": "block",
-      "sortid": 50,
+      "sortid": 52,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -5559,7 +5559,7 @@
     {
       "name": "OrbitVenus",
       "type": "dimension",
-      "sortid": 111,
+      "sortid": 113,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -5582,7 +5582,7 @@
     {
       "name": "Moonsand",
       "type": "block",
-      "sortid": 45,
+      "sortid": 47,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -5613,7 +5613,7 @@
     {
       "name": "VenusCoalOre",
       "type": "block",
-      "sortid": 63,
+      "sortid": 65,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -5623,7 +5623,7 @@
     {
       "name": "VenusDiamondOre",
       "type": "block",
-      "sortid": 65,
+      "sortid": 67,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -5633,7 +5633,7 @@
     {
       "name": "VenusGoldOre",
       "type": "block",
-      "sortid": 64,
+      "sortid": 66,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -5693,7 +5693,7 @@
     {
       "name": "ChargeCoalTorch",
       "type": "procedure",
-      "sortid": 411,
+      "sortid": 410,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -5706,7 +5706,7 @@
     {
       "name": "CoalTorch2",
       "type": "loottable",
-      "sortid": 412,
+      "sortid": 411,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -5716,7 +5716,7 @@
     {
       "name": "CoalTorch",
       "type": "block",
-      "sortid": 413,
+      "sortid": 15,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -5726,7 +5726,7 @@
     {
       "name": "CoalTorchRecpie",
       "type": "recipe",
-      "sortid": 414,
+      "sortid": 412,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -5736,7 +5736,7 @@
     {
       "name": "SetPlanetWeather",
       "type": "procedure",
-      "sortid": 415,
+      "sortid": 413,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -5754,7 +5754,7 @@
     {
       "name": "MoonBricksRecpie",
       "type": "recipe",
-      "sortid": 416,
+      "sortid": 414,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -5764,7 +5764,7 @@
     {
       "name": "MoonBrickStairsrecpie",
       "type": "recipe",
-      "sortid": 417,
+      "sortid": 415,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -5774,7 +5774,7 @@
     {
       "name": "MoonBrickSlabRecpie",
       "type": "recipe",
-      "sortid": 418,
+      "sortid": 416,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -5784,7 +5784,7 @@
     {
       "name": "BrakedMoonBricksRecpie",
       "type": "recipe",
-      "sortid": 419,
+      "sortid": 417,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -5794,7 +5794,7 @@
     {
       "name": "CrackedMoonBrickStairsRecpie",
       "type": "recipe",
-      "sortid": 420,
+      "sortid": 418,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -5804,7 +5804,7 @@
     {
       "name": "CrackedMoonSlabRecpie",
       "type": "recipe",
-      "sortid": 421,
+      "sortid": 419,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -5814,7 +5814,7 @@
     {
       "name": "CrackedMoonBrickStairsRecpie2",
       "type": "recipe",
-      "sortid": 422,
+      "sortid": 420,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -5824,7 +5824,7 @@
     {
       "name": "CrackedMoonBrickSlabRecpie2",
       "type": "recipe",
-      "sortid": 423,
+      "sortid": 421,
       "compiles": true,
       "locked_code": false,
       "ids": {},
@@ -5834,7 +5834,7 @@
     {
       "name": "FlagLootTable",
       "type": "loottable",
-      "sortid": 424,
+      "sortid": 422,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -5844,7 +5844,7 @@
     {
       "name": "VenusTower",
       "type": "structure",
-      "sortid": 425,
+      "sortid": 423,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -5854,7 +5854,7 @@
     {
       "name": "MercuryMagmaBiome",
       "type": "biome",
-      "sortid": 426,
+      "sortid": 424,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -5864,7 +5864,7 @@
     {
       "name": "NetheriteSpaceArmor",
       "type": "armor",
-      "sortid": 427,
+      "sortid": 16,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -5879,7 +5879,7 @@
     {
       "name": "NetheriteOxygenMaskRecpie",
       "type": "recipe",
-      "sortid": 428,
+      "sortid": 425,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -5889,7 +5889,7 @@
     {
       "name": "NetheriteSpaceSuitRecpie",
       "type": "recipe",
-      "sortid": 429,
+      "sortid": 426,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -5899,7 +5899,7 @@
     {
       "name": "NetheriteSpacePantsRecpie",
       "type": "recipe",
-      "sortid": 430,
+      "sortid": 427,
       "compiles": true,
       "locked_code": true,
       "ids": {},
@@ -5909,7 +5909,7 @@
     {
       "name": "NetheriteSpaceBootsRecpie",
       "type": "recipe",
-      "sortid": 431,
+      "sortid": 428,
       "compiles": true,
       "locked_code": true,
       "ids": {},

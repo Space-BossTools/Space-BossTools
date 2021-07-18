@@ -2,12 +2,12 @@
   "_fv": 21,
   "_type": "block",
   "definition": {
-    "texture": "mars_ore_diamod",
-    "textureTop": "mars_ore_diamod",
-    "textureLeft": "mars_ore_diamod",
-    "textureFront": "mars_ore_diamod",
-    "textureRight": "mars_ore_diamod",
-    "textureBack": "mars_ore_diamod",
+    "texture": "mars_ore_diamond",
+    "textureTop": "mars_ore_diamond",
+    "textureLeft": "mars_ore_diamond",
+    "textureFront": "mars_ore_diamond",
+    "textureRight": "mars_ore_diamond",
+    "textureBack": "mars_ore_diamond",
     "renderType": 10,
     "customModelName": "Normal",
     "rotationMode": 0,
@@ -58,6 +58,9 @@
     "tickRandomly": false,
     "isReplaceable": false,
     "canProvidePower": false,
+    "emittedRedstonePower": {
+      "fixedValue": 15.0
+    },
     "colorOnMap": "ORANGE_TERRACOTTA",
     "creativePickItem": {
       "value": ""
@@ -75,6 +78,21 @@
     "isCustomSoundType": false,
     "soundOnStep": {
       "value": "STONE"
+    },
+    "breakSound": {
+      "value": ""
+    },
+    "stepSound": {
+      "value": ""
+    },
+    "placeSound": {
+      "value": ""
+    },
+    "hitSound": {
+      "value": ""
+    },
+    "fallSound": {
+      "value": ""
     },
     "luminance": 0,
     "unbreakable": false,

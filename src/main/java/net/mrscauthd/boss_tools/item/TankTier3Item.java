@@ -16,7 +16,7 @@ public class TankTier3Item extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:diamond_tank")
 	public static final Item block = null;
 	public TankTier3Item(BossToolsModElements instance) {
-		super(instance, 39);
+		super(instance, 41);
 	}
 
 	@Override

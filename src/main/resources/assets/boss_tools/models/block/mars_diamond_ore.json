@@ -1,12 +1,12 @@
 {
   "parent": "block/cube",
   "textures": {
-    "down": "boss_tools:blocks/mars_ore_diamod",
-    "up": "boss_tools:blocks/mars_ore_diamod",
-    "north": "boss_tools:blocks/mars_ore_diamod",
-    "east": "boss_tools:blocks/mars_ore_diamod",
-    "south": "boss_tools:blocks/mars_ore_diamod",
-    "west": "boss_tools:blocks/mars_ore_diamod",
-    "particle": "boss_tools:blocks/mars_ore_diamod"
+    "down": "boss_tools:blocks/mars_ore_diamond",
+    "up": "boss_tools:blocks/mars_ore_diamond",
+    "north": "boss_tools:blocks/mars_ore_diamond",
+    "east": "boss_tools:blocks/mars_ore_diamond",
+    "south": "boss_tools:blocks/mars_ore_diamond",
+    "west": "boss_tools:blocks/mars_ore_diamond",
+    "particle": "boss_tools:blocks/mars_ore_diamond"
   }
 }

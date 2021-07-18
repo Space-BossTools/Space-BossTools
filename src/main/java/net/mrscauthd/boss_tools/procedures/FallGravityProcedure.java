@@ -84,10 +84,8 @@ public class FallGravityProcedure {
 		IWorld world = (IWorld) dependencies.get("world");
 		if ((((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
 				new ResourceLocation("boss_tools:moon"))))
-				|| (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
-						.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury"))))
-						|| ((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
-								.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))))))) {
+				|| ((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
+						.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury")))))) {
 			if ((((((PlayerEntity) entity).abilities.isFlying) == (false)) && (((((PlayerEntity) entity).isElytraFlying()) == (false))
 					&& (((entity.isInWater()) == (false)) && (((entity.isInLava()) == (false))
 							&& (((entity instanceof LivingEntity) ? (entity.hasNoGravity()) : false) == (false))))))) {
@@ -232,8 +230,10 @@ public class FallGravityProcedure {
 				}
 			}
 		}
-		if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-				new ResourceLocation("boss_tools:mars"))))) {
+		if ((((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+				new ResourceLocation("boss_tools:mars"))))
+				|| ((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
+						.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus")))))) {
 			if ((((((PlayerEntity) entity).abilities.isFlying) == (false)) && (((((PlayerEntity) entity).isElytraFlying()) == (false))
 					&& (((entity.isInWater()) == (false)) && (((entity.isInLava()) == (false))
 							&& (((entity instanceof LivingEntity) ? (entity.hasNoGravity()) : false) == (false))))))) {

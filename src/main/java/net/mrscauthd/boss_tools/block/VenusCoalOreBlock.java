@@ -42,7 +42,7 @@ public class VenusCoalOreBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:venus_coal_ore")
 	public static final Block block = null;
 	public VenusCoalOreBlock(BossToolsModElements instance) {
-		super(instance, 63);
+		super(instance, 65);
 		MinecraftForge.EVENT_BUS.register(this);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new FeatureRegisterHandler());
 	}
