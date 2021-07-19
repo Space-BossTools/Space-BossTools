@@ -11,7 +11,6 @@ import net.minecraft.loot.LootContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.BlockItem;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.BlockState;
@@ -21,11 +20,11 @@ import java.util.List;
 import java.util.Collections;
 
 @BossToolsModElements.ModElement.Tag
-public class MoonBricksBlock extends BossToolsModElements.ModElement {
-	@ObjectHolder("boss_tools:moon_bricks")
+public class BlockOfSiliconBlock extends BossToolsModElements.ModElement {
+	@ObjectHolder("boss_tools:block_of_silicon")
 	public static final Block block = null;
-	public MoonBricksBlock(BossToolsModElements instance) {
-		super(instance, 76);
+	public BlockOfSiliconBlock(BossToolsModElements instance) {
+		super(instance, 47);
 	}
 
 	@Override
@@ -36,14 +35,9 @@ public class MoonBricksBlock extends BossToolsModElements.ModElement {
 	}
 	public static class CustomBlock extends Block {
 		public CustomBlock() {
-			super(Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 1f).setLightLevel(s -> 0).harvestLevel(1)
+			super(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 2.5f).setLightLevel(s -> 0).harvestLevel(1)
 					.harvestTool(ToolType.PICKAXE).setRequiresTool());
-			setRegistryName("moon_bricks");
-		}
-
-		@Override
-		public MaterialColor getMaterialColor() {
-			return MaterialColor.GRAY;
+			setRegistryName("block_of_silicon");
 		}
 
 		@Override

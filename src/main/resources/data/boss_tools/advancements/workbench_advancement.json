@@ -2,7 +2,7 @@
   "display": {
     "background": "minecraft:textures/block/stone.png",
     "icon": {
-      "item": "boss_tools:moon_stone"
+      "item": "boss_tools:nasa_workbench"
     },
     "title": {
       "translate": "advancements.workbench_advancement.title"

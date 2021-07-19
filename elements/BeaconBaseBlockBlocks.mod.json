@@ -7,6 +7,12 @@
     "blocks": [
       {
         "value": "CUSTOM:BlockOfSteel"
+      },
+      {
+        "value": "CUSTOM:BlockOfDesh"
+      },
+      {
+        "value": "CUSTOM:BlockOfSilicon"
       }
     ],
     "functions": [],

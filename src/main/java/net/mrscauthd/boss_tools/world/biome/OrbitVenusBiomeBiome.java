@@ -20,7 +20,7 @@ import net.minecraft.block.Blocks;
 public class OrbitVenusBiomeBiome extends BossToolsModElements.ModElement {
 	public static Biome biome;
 	public OrbitVenusBiomeBiome(BossToolsModElements instance) {
-		super(instance, 401);
+		super(instance, 403);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new BiomeRegisterHandler());
 	}
 	private static class BiomeRegisterHandler {

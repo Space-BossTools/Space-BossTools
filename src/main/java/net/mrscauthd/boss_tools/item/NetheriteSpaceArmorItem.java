@@ -49,7 +49,7 @@ public class NetheriteSpaceArmorItem extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:netherite_space_boots")
 	public static final Item boots = null;
 	public NetheriteSpaceArmorItem(BossToolsModElements instance) {
-		super(instance, 427);
+		super(instance, 16);
 	}
 
 	@Override
@@ -57,12 +57,12 @@ public class NetheriteSpaceArmorItem extends BossToolsModElements.ModElement {
 		IArmorMaterial armormaterial = new IArmorMaterial() {
 			@Override
 			public int getDurability(EquipmentSlotType slot) {
-				return new int[]{13, 15, 16, 11}[slot.getIndex()] * 10;
+				return new int[]{48, 55, 60, 40}[slot.getIndex()] * 10;
 			}
 
 			@Override
 			public int getDamageReductionAmount(EquipmentSlotType slot) {
-				return new int[]{2, 2, 2, 2}[slot.getIndex()];
+				return new int[]{3, 6, 8, 3}[slot.getIndex()];
 			}
 
 			@Override
@@ -96,7 +96,7 @@ public class NetheriteSpaceArmorItem extends BossToolsModElements.ModElement {
 				return 0f;
 			}
 		};
-		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.HEAD, new Item.Properties().group(BossToolsItemGroup.tab)) {
+		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.HEAD, new Item.Properties().group(BossToolsItemGroup.tab).isImmuneToFire()) {
 			@Override
 			@OnlyIn(Dist.CLIENT)
 			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
@@ -126,7 +126,7 @@ public class NetheriteSpaceArmorItem extends BossToolsModElements.ModElement {
 				}
 			}
 		}.setRegistryName("netherite_oxygen_mask"));
-		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.CHEST, new Item.Properties().group(BossToolsItemGroup.tab)) {
+		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.CHEST, new Item.Properties().group(BossToolsItemGroup.tab).isImmuneToFire()) {
 			@Override
 			@OnlyIn(Dist.CLIENT)
 			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
@@ -166,7 +166,7 @@ public class NetheriteSpaceArmorItem extends BossToolsModElements.ModElement {
 				}
 			}
 		}.setRegistryName("netherite_space_suit"));
-		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.LEGS, new Item.Properties().group(BossToolsItemGroup.tab)) {
+		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.LEGS, new Item.Properties().group(BossToolsItemGroup.tab).isImmuneToFire()) {
 			@Override
 			@OnlyIn(Dist.CLIENT)
 			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
@@ -196,7 +196,7 @@ public class NetheriteSpaceArmorItem extends BossToolsModElements.ModElement {
 				}
 			}
 		}.setRegistryName("netherite_space_pants"));
-		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.FEET, new Item.Properties().group(BossToolsItemGroup.tab)) {
+		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.FEET, new Item.Properties().group(BossToolsItemGroup.tab).isImmuneToFire()) {
 			@Override
 			@OnlyIn(Dist.CLIENT)
 			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
@@ -269,7 +269,7 @@ public class NetheriteSpaceArmorItem extends BossToolsModElements.ModElement {
 
 		@Override
 		public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue,
-				float alpha) {
+						   float alpha) {
 			kopf.render(matrixStack, buffer, packedLight, packedOverlay);
 			Body.render(matrixStack, buffer, packedLight, packedOverlay);
 			armr.render(matrixStack, buffer, packedLight, packedOverlay);
@@ -307,7 +307,7 @@ public class NetheriteSpaceArmorItem extends BossToolsModElements.ModElement {
 
 		@Override
 		public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue,
-				float alpha) {
+						   float alpha) {
 			RightLeg.render(matrixStack, buffer, packedLight, packedOverlay);
 			LeftLeg.render(matrixStack, buffer, packedLight, packedOverlay);
 		}

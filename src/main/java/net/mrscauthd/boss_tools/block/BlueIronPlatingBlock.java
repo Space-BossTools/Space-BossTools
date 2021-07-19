@@ -30,7 +30,7 @@ public class BlueIronPlatingBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:block_of_blue_iron_plating")
 	public static final Block block = null;
 	public BlueIronPlatingBlock(BossToolsModElements instance) {
-		super(instance, 70);
+		super(instance, 72);
 	}
 
 	@Override

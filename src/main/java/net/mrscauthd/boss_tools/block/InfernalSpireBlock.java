@@ -25,7 +25,7 @@ public class InfernalSpireBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:infernal_spire")
 	public static final Block block = null;
 	public InfernalSpireBlock(BossToolsModElements instance) {
-		super(instance, 54);
+		super(instance, 56);
 	}
 
 	@Override

@@ -25,7 +25,7 @@ public class MeteorBlockBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:sky_stone")
 	public static final Block block = null;
 	public MeteorBlockBlock(BossToolsModElements instance) {
-		super(instance, 46);
+		super(instance, 48);
 	}
 
 	@Override

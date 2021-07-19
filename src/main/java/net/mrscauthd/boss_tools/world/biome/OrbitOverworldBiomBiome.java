@@ -21,7 +21,7 @@ import net.minecraft.block.Blocks;
 public class OrbitOverworldBiomBiome extends BossToolsModElements.ModElement {
 	public static Biome biome;
 	public OrbitOverworldBiomBiome(BossToolsModElements instance) {
-		super(instance, 172);
+		super(instance, 174);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new BiomeRegisterHandler());
 	}
 	private static class BiomeRegisterHandler {

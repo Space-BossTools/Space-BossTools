@@ -42,7 +42,7 @@ public class VenusDiamondOreBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:venus_diamond_ore")
 	public static final Block block = null;
 	public VenusDiamondOreBlock(BossToolsModElements instance) {
-		super(instance, 67);
+		super(instance, 69);
 		MinecraftForge.EVENT_BUS.register(this);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new FeatureRegisterHandler());
 	}

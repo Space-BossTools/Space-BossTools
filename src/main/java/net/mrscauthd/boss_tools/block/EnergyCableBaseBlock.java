@@ -1,6 +1,7 @@
 
 package net.mrscauthd.boss_tools.block;
 
+import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsMachinesItemGroup;
 import net.mrscauthd.boss_tools.procedures.CableNetworkingProcedure;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
 import net.mrscauthd.boss_tools.gui.CableGUIGui;
@@ -88,14 +89,14 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:wireless_energy_router")
 	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
 	public EnergyCableBaseBlock(BossToolsModElements instance) {
-		super(instance, 10);
+		super(instance, 77);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new TileEntityRegisterHandler());
 	}
 
 	@Override
 	public void initElements() {
 		elements.blocks.add(() -> new CustomBlock());
-		elements.items.add(() -> new BlockItem(block, new Item.Properties().group(BossToolsItemGroup.tab)).setRegistryName(block.getRegistryName()));
+		elements.items.add(() -> new BlockItem(block, new Item.Properties().group(SpaceBosstoolsMachinesItemGroup.tab)).setRegistryName(block.getRegistryName()));
 	}
 	private static class TileEntityRegisterHandler {
 		@SubscribeEvent

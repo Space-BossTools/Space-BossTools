@@ -24,7 +24,7 @@ import net.minecraft.particles.ParticleTypes;
 public class VenusBiomeBiome extends BossToolsModElements.ModElement {
 	public static Biome biome;
 	public VenusBiomeBiome(BossToolsModElements instance) {
-		super(instance, 391);
+		super(instance, 393);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new BiomeRegisterHandler());
 	}
 	private static class BiomeRegisterHandler {

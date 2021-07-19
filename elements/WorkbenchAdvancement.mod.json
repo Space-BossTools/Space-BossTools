@@ -5,7 +5,7 @@
     "achievementName": "NASA Workbench",
     "achievementDescription": "§bHas crafted a NASA Workbench",
     "achievementIcon": {
-      "value": "CUSTOM:MoonStone"
+      "value": "CUSTOM:Workbench"
     },
     "background": "Default",
     "disableDisplay": false,

@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "boss_tools:deleted_mod_element",
+          "name": "boss_tools:coal_torch",
           "weight": 1,
           "functions": [
             {

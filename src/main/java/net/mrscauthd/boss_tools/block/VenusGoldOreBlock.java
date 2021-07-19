@@ -46,7 +46,7 @@ public class VenusGoldOreBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:venus_gold_ore")
 	public static final Block block = null;
 	public VenusGoldOreBlock(BossToolsModElements instance) {
-		super(instance, 66);
+		super(instance, 68);
 		MinecraftForge.EVENT_BUS.register(this);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new FeatureRegisterHandler());
 	}
