@@ -81,7 +81,8 @@
         "el": true,
         "eb": true,
         "ec": true
-      }
+      },
+      "path": "~/Armor"
     },
     {
       "name": "SpaceArmorHelmetRecipe",
@@ -5294,35 +5295,6 @@
       }
     },
     {
-      "name": "CableNetworking",
-      "type": "procedure",
-      "sortid": 390,
-      "compiles": true,
-      "locked_code": true,
-      "ids": {},
-      "registry_name": "cable_networking",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
       "name": "NetworkLinker",
       "type": "item",
       "sortid": 31,
@@ -5874,7 +5846,8 @@
         "el": true,
         "eb": true,
         "ec": true
-      }
+      },
+      "path": "~/Armor"
     },
     {
       "name": "NetheriteOxygenMaskRecpie",
@@ -5946,7 +5919,138 @@
       "registry_name": "disable_fire",
       "metadata": {
         "dependencies": []
-      }
+      },
+      "path": "~/Procedures"
+    },
+    {
+      "name": "FlagBlueLootTable",
+      "type": "loottable",
+      "sortid": 432,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "flag_blue_loot_table",
+      "path": "~/LootTable"
+    },
+    {
+      "name": "FlagBrownLootTable",
+      "type": "loottable",
+      "sortid": 433,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "flag_brown_loot_table",
+      "path": "~/LootTable"
+    },
+    {
+      "name": "FlagCyanLootTable",
+      "type": "loottable",
+      "sortid": 434,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "flag_cyan_loot_table",
+      "path": "~/LootTable"
+    },
+    {
+      "name": "FlagGrayLootTable",
+      "type": "loottable",
+      "sortid": 435,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "flag_gray_loot_table",
+      "path": "~/LootTable"
+    },
+    {
+      "name": "FlagGreenLootTable",
+      "type": "loottable",
+      "sortid": 436,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "flag_green_loot_table",
+      "path": "~/LootTable"
+    },
+    {
+      "name": "FlagLightBlueLootTable",
+      "type": "loottable",
+      "sortid": 437,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "flag_light_blue_loot_table",
+      "path": "~/LootTable"
+    },
+    {
+      "name": "FlagLimeLootTable",
+      "type": "loottable",
+      "sortid": 438,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "flag_lime_loot_table",
+      "path": "~/LootTable"
+    },
+    {
+      "name": "FlagMagentaLootTable",
+      "type": "loottable",
+      "sortid": 439,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "flag_magenta_loot_table",
+      "path": "~/LootTable"
+    },
+    {
+      "name": "FlagOrangeLootTable",
+      "type": "loottable",
+      "sortid": 440,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "flag_orange_loot_table",
+      "path": "~/LootTable"
+    },
+    {
+      "name": "FlagPinkLootTable",
+      "type": "loottable",
+      "sortid": 441,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "flag_pink_loot_table",
+      "path": "~/LootTable"
+    },
+    {
+      "name": "FlagPurpleLootTable",
+      "type": "loottable",
+      "sortid": 442,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "flag_purple_loot_table",
+      "path": "~/LootTable"
+    },
+    {
+      "name": "FlagRedLootTable",
+      "type": "loottable",
+      "sortid": 443,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "flag_red_loot_table",
+      "path": "~/LootTable"
+    },
+    {
+      "name": "FlagYellowLootTable",
+      "type": "loottable",
+      "sortid": 444,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "flag_yellow_loot_table",
+      "path": "~/LootTable"
     }
   ],
   "variable_elements": [
@@ -6309,6 +6413,10 @@
       },
       {
         "name": "Particles",
+        "children": []
+      },
+      {
+        "name": "Armor",
         "children": []
       }
     ]

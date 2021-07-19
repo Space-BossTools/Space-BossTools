@@ -2,7 +2,6 @@
 package net.mrscauthd.boss_tools.block;
 
 import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsMachinesItemGroup;
-import net.mrscauthd.boss_tools.procedures.CableNetworkingProcedure;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
 import net.mrscauthd.boss_tools.gui.CableGUIGui;
 import net.mrscauthd.boss_tools.BossToolsModElements;
@@ -890,12 +889,12 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 			super.tick(state, world, pos, random);
 			// super.tick(state., world, pos, random);
 			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
-				$_dependencies.put("world", world);
-				CableNetworkingProcedure.executeProcedure($_dependencies);
+//				Map<String, Object> $_dependencies = new HashMap<>();
+//				$_dependencies.put("x", x);
+//				$_dependencies.put("y", y);
+//				$_dependencies.put("z", z);
+//				$_dependencies.put("world", world);
+//				CableNetworkingProcedure.executeProcedure($_dependencies);
 			}
 			world.getPendingBlockTicks().scheduleTick(new BlockPos(x, y, z), this, 1);
 		}

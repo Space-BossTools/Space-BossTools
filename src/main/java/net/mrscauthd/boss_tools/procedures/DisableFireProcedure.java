@@ -49,19 +49,19 @@ public class DisableFireProcedure {
 		public static void disablerender(TickEvent.PlayerTickEvent event) {
 			if (event.phase == TickEvent.Phase.END) {
 				Entity entity = event.player;
-				if (((((entity instanceof LivingEntity)
-						? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 3))
+				if (((((entity instanceof PlayerEntity)
+						? ((PlayerEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 3))
 						: ItemStack.EMPTY).getItem() == new ItemStack(NetheriteSpaceArmorItem.helmet, (int) (1)).getItem())
-						&& ((((entity instanceof LivingEntity)
-						? ((LivingEntity) entity)
+						&& ((((entity instanceof PlayerEntity)
+						? ((PlayerEntity) entity)
 						.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 2))
 						: ItemStack.EMPTY).getItem() == new ItemStack(NetheriteSpaceArmorItem.body, (int) (1)).getItem())
-						&& ((((entity instanceof LivingEntity)
-						? ((LivingEntity) entity)
+						&& ((((entity instanceof PlayerEntity)
+						? ((PlayerEntity) entity)
 						.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 1))
 						: ItemStack.EMPTY).getItem() == new ItemStack(NetheriteSpaceArmorItem.legs, (int) (1)).getItem())
-						&& (((entity instanceof LivingEntity)
-						? ((LivingEntity) entity).getItemStackFromSlot(
+						&& (((entity instanceof PlayerEntity)
+						? ((PlayerEntity) entity).getItemStackFromSlot(
 						EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 0))
 						: ItemStack.EMPTY)
 						.getItem() == new ItemStack(NetheriteSpaceArmorItem.boots, (int) (1)).getItem()))))) {

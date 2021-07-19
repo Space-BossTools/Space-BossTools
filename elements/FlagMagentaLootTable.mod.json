@@ -1,0 +1,10 @@
+{
+  "_fv": 21,
+  "_type": "loottable",
+  "definition": {
+    "type": "Block",
+    "pools": [],
+    "name": "blocks/flag_magenta",
+    "namespace": "mod"
+  }
+}
