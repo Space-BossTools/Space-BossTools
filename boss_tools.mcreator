@@ -6143,6 +6143,12 @@
       "type": "logic",
       "scope": "global",
       "value": "true"
+    },
+    {
+      "name": "VenusTowerStructure",
+      "type": "logic",
+      "scope": "global",
+      "value": "true"
     }
   ],
   "sound_elements": [
@@ -6327,7 +6333,6 @@
       "entity.boss_tools.rocket_tier_3": "Rocket",
       "itemGroup.tabspace_bosstools_materials": "Space-Bosstools: Materials",
       "entity.boss_tools.rocket_tier_2": "Rocket",
-      "key.mcreator.landingear_space_hotkey": "Landing Gear",
       "block.boss_tools.moon_cheese_ore": "Moon Cheese Ore",
       "item.boss_tools.alien_zombie_spawn_egg": "Alien Zombie Spawn Egg",
       "biome.boss_tools.mars_ice_biome": "Mars Ice Biome",

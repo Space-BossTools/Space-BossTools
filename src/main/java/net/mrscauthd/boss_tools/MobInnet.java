@@ -217,9 +217,9 @@ public class MobInnet extends BossToolsModElements.ModElement {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.VENUS_BULLET_CONFIGURED_RUN_DOWN_HOUSE);
         }
         //venus tower
-        if (event.getName().equals(new ResourceLocation("boss_tools:venus_biome")) && BossToolsModVariables.VenusBulletStructure == true) {
+        if (event.getName().equals(new ResourceLocation("boss_tools:venus_biome")) && BossToolsModVariables.VenusTowerStructure == true) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.VENUS_TOWER_CONFIGURED_RUN_DOWN_HOUSE);
-        }        
+        }
     }
     private static Method GETCODEC_METHOD;
     public void addDimensionalSpacing(final WorldEvent.Load event) {

@@ -215,7 +215,7 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 		//for(int j = 0; j < i; ++j) {
 		if (this.isChild() == false) {
 			for(MerchantOffer merchantoffer : this.getOffers()) {
-				int max = 2;
+				int max = 1;
 				int min = 0;
 				merchantoffer.increaseSpecialPrice((int) Math.floor((amount*new Random().nextInt((max+1)-min)+min)));
 			}
