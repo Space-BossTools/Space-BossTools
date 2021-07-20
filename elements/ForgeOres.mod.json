@@ -1,0 +1,50 @@
+{
+  "_fv": 21,
+  "_type": "tag",
+  "definition": {
+    "type": "Items",
+    "items": [
+      {
+        "value": "CUSTOM:MooncopperOre"
+      },
+      {
+        "value": "CUSTOM:Marsdiamond"
+      },
+      {
+        "value": "CUSTOM:Iron"
+      },
+      {
+        "value": "CUSTOM:CheeseBlock"
+      },
+      {
+        "value": "CUSTOM:MercuryIronore"
+      },
+      {
+        "value": "CUSTOM:Marssiliconore"
+      },
+      {
+        "value": "CUSTOM:Icesoil"
+      },
+      {
+        "value": "CUSTOM:Moonoreiron"
+      },
+      {
+        "value": "CUSTOM:MoonGlowstoneOre"
+      },
+      {
+        "value": "CUSTOM:VenusCoalOre"
+      },
+      {
+        "value": "CUSTOM:VenusDiamondOre"
+      },
+      {
+        "value": "CUSTOM:VenusGoldOre"
+      }
+    ],
+    "blocks": [],
+    "functions": [],
+    "entities": [],
+    "name": "ores",
+    "namespace": "forge"
+  }
+}

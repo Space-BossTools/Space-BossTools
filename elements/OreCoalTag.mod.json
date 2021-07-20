@@ -5,22 +5,13 @@
     "type": "Items",
     "items": [
       {
-        "value": "CUSTOM:Iron"
-      },
-      {
-        "value": "CUSTOM:MercuryIronore"
-      },
-      {
-        "value": "CUSTOM:Moonoreiron"
-      },
-      {
         "value": "CUSTOM:VenusCoalOre"
       }
     ],
     "blocks": [],
     "functions": [],
     "entities": [],
-    "name": "ores/iron",
+    "name": "ores/coal",
     "namespace": "forge"
   }
 }

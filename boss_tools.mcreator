@@ -6051,6 +6051,36 @@
       "ids": {},
       "registry_name": "flag_yellow_loot_table",
       "path": "~/LootTable"
+    },
+    {
+      "name": "OreGoldTag",
+      "type": "tag",
+      "sortid": 445,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "ore_gold_tag",
+      "path": "~/Tags"
+    },
+    {
+      "name": "OreCoalTag",
+      "type": "tag",
+      "sortid": 446,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "ore_coal_tag",
+      "path": "~/Tags"
+    },
+    {
+      "name": "ForgeOres",
+      "type": "tag",
+      "sortid": 447,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "forge_ores",
+      "path": "~/Tags"
     }
   ],
   "variable_elements": [

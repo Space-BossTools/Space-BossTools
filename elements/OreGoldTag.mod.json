@@ -5,16 +5,13 @@
     "type": "Items",
     "items": [
       {
-        "value": "CUSTOM:Marsdiamond"
-      },
-      {
-        "value": "CUSTOM:VenusDiamondOre"
+        "value": "CUSTOM:VenusGoldOre"
       }
     ],
     "blocks": [],
     "functions": [],
     "entities": [],
-    "name": "ores/diamond",
+    "name": "ores/gold",
     "namespace": "forge"
   }
 }
