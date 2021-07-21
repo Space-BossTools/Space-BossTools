@@ -6081,6 +6081,46 @@
       "ids": {},
       "registry_name": "forge_ores",
       "path": "~/Tags"
+    },
+    {
+      "name": "DeshBlockRecpie",
+      "type": "recipe",
+      "sortid": 448,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "desh_block_recpie",
+      "path": "~/Recpies"
+    },
+    {
+      "name": "SiliconBlockRecpie",
+      "type": "recipe",
+      "sortid": 449,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "silicon_block_recpie",
+      "path": "~/Recpies"
+    },
+    {
+      "name": "DeshRecpie",
+      "type": "recipe",
+      "sortid": 450,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "desh_recpie",
+      "path": "~/Recpies"
+    },
+    {
+      "name": "SiliconRecpie",
+      "type": "recipe",
+      "sortid": 451,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "silicon_recpie",
+      "path": "~/Recpies"
     }
   ],
   "variable_elements": [
