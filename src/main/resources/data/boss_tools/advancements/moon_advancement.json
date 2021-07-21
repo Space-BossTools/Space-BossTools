@@ -1,6 +1,5 @@
 {
   "display": {
-    "background": "minecraft:textures/block/stone.png",
     "icon": {
       "item": "boss_tools:moon_stone"
     },
@@ -25,5 +24,6 @@
   },
   "rewards": {
     "experience": 7
-  }
+  },
+  "parent": "boss_tools:rocket_advancement"
 }

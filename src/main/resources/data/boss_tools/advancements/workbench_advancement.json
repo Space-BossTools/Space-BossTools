@@ -1,6 +1,5 @@
 {
   "display": {
-    "background": "minecraft:textures/block/stone.png",
     "icon": {
       "item": "boss_tools:nasa_workbench"
     },
@@ -33,5 +32,6 @@
   },
   "rewards": {
     "experience": 7
-  }
+  },
+  "parent": "boss_tools:rocket_advancement"
 }

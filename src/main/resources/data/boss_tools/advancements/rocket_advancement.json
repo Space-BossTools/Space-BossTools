@@ -1,6 +1,6 @@
 {
   "display": {
-    "background": "minecraft:textures/block/stone.png",
+    "background": "boss_tools:textures/blocks/iron_plating_block.png",
     "icon": {
       "item": "boss_tools:tier_1_rocket"
     },

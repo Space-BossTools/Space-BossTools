@@ -18,6 +18,9 @@ import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @OnlyIn(Dist.CLIENT)
 public class Tier2mainMenuGuiWindow extends ContainerScreen<Tier2mainMenuGui.GuiContainerMod> {
 	public static boolean Button1 = false;
@@ -36,24 +39,47 @@ public class Tier2mainMenuGuiWindow extends ContainerScreen<Tier2mainMenuGui.Gui
 		this.xSize = 512;
 		this.ySize = 512;
 	}
+	private static ResourceLocation GreenButton1T = new ResourceLocation("boss_tools:textures/buttons/green_button.png");
+	private static ResourceLocation GreenButton2T = new ResourceLocation("boss_tools:textures/buttons/green_button.png");
+	private static ResourceLocation GreenButton3T = new ResourceLocation("boss_tools:textures/buttons/red_button.png");
 
 	@Override
 	public void render(MatrixStack ms, int mouseX, int mouseY, float partialTicks) {
 		this.renderBackground(ms);
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
+		//lists
+		List<ITextComponent> Category1 = new ArrayList<ITextComponent>();
+		List<ITextComponent> Category2 = new ArrayList<ITextComponent>();
+		List<ITextComponent> Category3 = new ArrayList<ITextComponent>();
+
 		if (mouseX > guiLeft + 52 && mouseX < guiLeft + 123 && mouseY > guiTop + 222 && mouseY < guiTop + 243) {
 			Button1 = true;
+
+			//ToolTip
+			Category1.add(ITextComponent.getTextComponentOrEmpty("\u00A79Category: \u00A7aOverworld"));
+			Category1.add(ITextComponent.getTextComponentOrEmpty("\u00A79Provided: \u00A7bTier 1 Rocket"));
+			this.func_243308_b(ms, Category1, mouseX, mouseY);
 		} else {
 			Button1 = false;
 		}
 		if (mouseX > guiLeft + 52 && mouseX < guiLeft + 123 && mouseY > guiTop + 246 && mouseY < guiTop + 267) {
 			Button2 = true;
+
+			//ToolTip
+			Category2.add(ITextComponent.getTextComponentOrEmpty("\u00A79Category: \u00A7aMars"));
+			Category2.add(ITextComponent.getTextComponentOrEmpty("\u00A79Provided: \u00A7bTier 2 Rocket"));
+			this.func_243308_b(ms, Category2, mouseX, mouseY);
 		} else {
 			Button2 = false;
 		}
 		if (mouseX > guiLeft + 52 && mouseX < guiLeft + 123 && mouseY > guiTop + 270 && mouseY < guiTop + 291) {
 			Button3 = true;
+
+			//ToolTip
+			Category3.add(ITextComponent.getTextComponentOrEmpty("\u00A79Category: \u00A7cMercury"));
+			Category3.add(ITextComponent.getTextComponentOrEmpty("\u00A79Provided: \u00A7bTier 3 Rocket"));
+			this.func_243308_b(ms, Category3, mouseX, mouseY);
 		} else {
 			Button3 = false;
 		}
@@ -80,6 +106,44 @@ public class Tier2mainMenuGuiWindow extends ContainerScreen<Tier2mainMenuGui.Gui
 		this.blit(ms, this.guiLeft + 327, this.guiTop + 225, 0, 0, 8, 8, 8, 8);
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/mercury.png"));
 		this.blit(ms, this.guiLeft + 305, this.guiTop + 264, 0, 0, 8, 8, 8, 8);
+
+		if (Button1 == true) {
+			GreenButton1T = new ResourceLocation("boss_tools:textures/buttons/green_button_2.png");
+		} else {
+			GreenButton1T = new ResourceLocation("boss_tools:textures/buttons/green_button.png");
+		}
+
+		if (Button2 == true) {
+			GreenButton2T = new ResourceLocation("boss_tools:textures/buttons/green_button_2.png");
+		} else {
+			GreenButton2T = new ResourceLocation("boss_tools:textures/buttons/green_button.png");
+		}
+
+		if (Button3 == true) {
+			GreenButton3T = new ResourceLocation("boss_tools:textures/buttons/red_button_2.png");
+		} else {
+			GreenButton3T = new ResourceLocation("boss_tools:textures/buttons/red_button.png");
+		}
+
+		//Button 1
+		this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 223, 70, 20, 0, 0, 0, GreenButton1T, 70, 20,
+				(p_2130901) -> {
+					BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenuGui.ButtonPressedMessage(0, x, y, z));
+					Tier2mainMenuGui.handleButtonAction(entity, 0, x, y, z);
+				}));
+		//Button 2
+		this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 247, 70, 20, 0, 0, 0, GreenButton2T, 70, 20,
+				(p_2130901) -> {
+					BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenuGui.ButtonPressedMessage(1, x, y, z));
+					Tier2mainMenuGui.handleButtonAction(entity, 1, x, y, z);
+				}));
+		//Button 3
+		this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 271, 70, 20, 0, 0, 0, GreenButton3T, 70, 20,
+				(p_2130901) -> {
+					BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenuGui.ButtonPressedMessage(2, x, y, z));
+					Tier2mainMenuGui.handleButtonAction(entity, 2, x, y, z);
+				}));
+
 		RenderSystem.disableBlend();
 	}
 
@@ -115,50 +179,5 @@ public class Tier2mainMenuGuiWindow extends ContainerScreen<Tier2mainMenuGui.Gui
 	public void init(Minecraft minecraft, int width, int height) {
 		super.init(minecraft, width, height);
 		minecraft.keyboardListener.enableRepeatEvents(true);
-		// Buton 1
-		if (Button1 == false) {
-			this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 223, 70, 20, 0, 0, 0,
-					new ResourceLocation("boss_tools:textures/buttons/green_button.png"), 70, 20, (p_2130901) -> {
-						BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenuGui.ButtonPressedMessage(0, x, y, z));
-						Tier2mainMenuGui.handleButtonAction(entity, 0, x, y, z);
-					}));
-		} else {
-			this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 223, 70, 20, 0, 0, 0,
-					new ResourceLocation("boss_tools:textures/buttons/green_button_2.png"), 70, 20, (p_2130901) -> {
-						BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenuGui.ButtonPressedMessage(0, x, y, z));
-						Tier2mainMenuGui.handleButtonAction(entity, 0, x, y, z);
-					}));
-		}
-		// Buton 1 end
-		// Buton 2
-		if (Button2 == false) {
-			this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 247, 70, 20, 0, 0, 0,
-					new ResourceLocation("boss_tools:textures/buttons/green_button.png"), 70, 20, (p_2130901) -> {
-						BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenuGui.ButtonPressedMessage(1, x, y, z));
-						Tier2mainMenuGui.handleButtonAction(entity, 1, x, y, z);
-					}));
-		} else {
-			this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 247, 70, 20, 0, 0, 0,
-					new ResourceLocation("boss_tools:textures/buttons/green_button_2.png"), 70, 20, (p_2130901) -> {
-						BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenuGui.ButtonPressedMessage(1, x, y, z));
-						Tier2mainMenuGui.handleButtonAction(entity, 1, x, y, z);
-					}));
-		}
-		// Buton 2 end
-		// Buton 3
-		if (Button3 == false) {
-			this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 271, 70, 20, 0, 0, 0,
-					new ResourceLocation("boss_tools:textures/buttons/red_button.png"), 70, 20, (p_2130901) -> {
-						BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenuGui.ButtonPressedMessage(2, x, y, z));
-						Tier2mainMenuGui.handleButtonAction(entity, 2, x, y, z);
-					}));
-		} else {
-			this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 271, 70, 20, 0, 0, 0,
-					new ResourceLocation("boss_tools:textures/buttons/red_button_2.png"), 70, 20, (p_2130901) -> {
-						BossToolsMod.PACKET_HANDLER.sendToServer(new Tier2mainMenuGui.ButtonPressedMessage(2, x, y, z));
-						Tier2mainMenuGui.handleButtonAction(entity, 2, x, y, z);
-					}));
-		}
-		// Buton 3 end
 	}
 }

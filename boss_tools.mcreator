@@ -3431,7 +3431,7 @@
       "type": "achievement",
       "sortid": 283,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "rocket_advancement",
       "path": "~/Advancements"
@@ -6461,11 +6461,12 @@
     "modName": "Space-Bosstools",
     "version": "5.4",
     "description": "Fly to Other Planets!",
-    "author": "MrScautHD,PixKnight (Textures),Galacticraft (Mod idea)",
+    "author": "MrScautHD",
     "websiteURL": "https://www.curseforge.com/minecraft/mc-mods/space-bosstools",
     "license": "Not specified",
     "disableForgeVersionCheck": true,
     "serverSideOnly": false,
+    "modPicture": "space_bosstools_banner",
     "requiredMods": [
       "obfuscate"
     ],
