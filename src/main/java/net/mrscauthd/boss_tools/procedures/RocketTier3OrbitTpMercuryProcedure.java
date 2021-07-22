@@ -40,6 +40,17 @@ public class RocketTier3OrbitTpMercuryProcedure {
 		if (entity instanceof PlayerEntity && !entity.world.isRemote()) {
 			((PlayerEntity) entity).sendStatusMessage(new StringTextComponent("\u00A7cWARNING! \u00A77Hold \u00A7cSPACE\u00A77."), (true));
 		}
+		if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+				new ResourceLocation("boss_tools:orbit_mercury"))))) {
+			{
+				Entity _ent = entity;
+				_ent.setPositionAndUpdate((entity.getPosX()), 700, (entity.getPosZ()));
+				if (_ent instanceof ServerPlayerEntity) {
+					((ServerPlayerEntity) _ent).connection.setPlayerLocation((entity.getPosX()), 700, (entity.getPosZ()), _ent.rotationYaw,
+							_ent.rotationPitch, Collections.emptySet());
+				}
+			}
+		}
 		if ((!((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
 				new ResourceLocation("boss_tools:orbit_mercury")))))) {
 			{
@@ -57,17 +68,6 @@ public class RocketTier3OrbitTpMercuryProcedure {
 							((ServerPlayerEntity) _ent).connection.sendPacket(new SPlayEntityEffectPacket(_ent.getEntityId(), effectinstance));
 						}
 					}
-				}
-			}
-		}
-		if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-				new ResourceLocation("boss_tools:orbit_mercury"))))) {
-			{
-				Entity _ent = entity;
-				_ent.setPositionAndUpdate((entity.getPosX()), 700, (entity.getPosZ()));
-				if (_ent instanceof ServerPlayerEntity) {
-					((ServerPlayerEntity) _ent).connection.setPlayerLocation((entity.getPosX()), 700, (entity.getPosZ()), _ent.rotationYaw,
-							_ent.rotationPitch, Collections.emptySet());
 				}
 			}
 		}
