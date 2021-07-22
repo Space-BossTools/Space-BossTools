@@ -118,7 +118,7 @@ public class MeteorStructure extends Structure<NoFeatureConfig> {
 			// Turns the chunk coordinates into actual coordinates we can use. (Gets center of that chunk)
 			int x = (chunkX << 4) + 7;
 			int z = (chunkZ << 4) + 7;
-			BlockPos blockpos = new BlockPos(x, -9, z);
+			BlockPos blockpos = new BlockPos(x, -18, z);
 
 			// All a structure has to do is call this method to turn it into a jigsaw based structure!
 

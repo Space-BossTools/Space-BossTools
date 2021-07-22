@@ -6121,6 +6121,18 @@
       "ids": {},
       "registry_name": "silicon_recpie",
       "path": "~/Recpies"
+    },
+    {
+      "name": "DisableVehicleFishing",
+      "type": "procedure",
+      "sortid": 452,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "disable_vehicle_fishing",
+      "metadata": {
+        "dependencies": []
+      }
     }
   ],
   "variable_elements": [
