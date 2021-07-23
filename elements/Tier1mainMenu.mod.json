@@ -168,6 +168,27 @@
           "x": 10,
           "y": 86
         }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Venus",
+          "width": 70,
+          "height": 20,
+          "name": "Venus",
+          "x": 11,
+          "y": 159
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "space_station_check.png",
+          "use1Xscale": false,
+          "name": "space_station_check.png",
+          "x": 10,
+          "y": 158
+        }
       }
     ],
     "gridSettings": {

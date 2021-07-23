@@ -6132,7 +6132,8 @@
       "registry_name": "disable_vehicle_fishing",
       "metadata": {
         "dependencies": []
-      }
+      },
+      "path": "~/Procedures"
     }
   ],
   "variable_elements": [
