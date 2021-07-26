@@ -124,6 +124,7 @@ public class Tier3SpaceStationCreate2Procedure {
 			entity.getPersistentData().putDouble("Tier_3_open_main_menu", 0);
 			entity.getPersistentData().putDouble("Tier_3_space_station_open", 0);
 			entity.getPersistentData().putDouble("Player_movement", 0);
+			entity.setNoGravity((false));
 			entity.getPersistentData().putDouble("LanderSpawn", 1);
 			entity.getPersistentData().putDouble("Landersit", 3);
 			entity.getPersistentData().putDouble("SpaceStation", 1);

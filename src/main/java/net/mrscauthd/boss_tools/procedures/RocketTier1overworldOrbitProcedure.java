@@ -77,6 +77,7 @@ public class RocketTier1overworldOrbitProcedure {
 		entity.getPersistentData().putDouble("Tier_1_open_main_menu_back", 0);
 		entity.getPersistentData().putDouble("Tier_1_open_main_menu", 0);
 		entity.getPersistentData().putDouble("Player_movement", 0);
+		entity.setNoGravity((false));
 		entity.getPersistentData().putDouble("LanderSpawn", 1);
 		entity.getPersistentData().putDouble("Landersit", 1);
 		if (entity instanceof PlayerEntity)

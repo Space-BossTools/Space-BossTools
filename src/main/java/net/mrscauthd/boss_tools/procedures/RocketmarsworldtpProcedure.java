@@ -76,6 +76,7 @@ public class RocketmarsworldtpProcedure {
 		entity.getPersistentData().putDouble("Tier_2_open_main_menu_back", 0);
 		entity.getPersistentData().putDouble("Tier_2_open_main_menu", 0);
 		entity.getPersistentData().putDouble("Player_movement", 0);
+		entity.setNoGravity((false));
 		entity.getPersistentData().putDouble("LanderSpawn", 1);
 		entity.getPersistentData().putDouble("Landersit", 2);
 		if (entity instanceof PlayerEntity)

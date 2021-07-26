@@ -72,6 +72,7 @@ public class RocketTier3OverworldTpProcedure {
 		entity.getPersistentData().putDouble("Tier_3_open_main_menu_3", 0);
 		entity.getPersistentData().putDouble("Tier_3_open_main_menu_4", 0);
 		entity.getPersistentData().putDouble("Player_movement", 0);
+		entity.setNoGravity((false));
 		entity.getPersistentData().putDouble("LanderSpawn", 1);
 		entity.getPersistentData().putDouble("Landersit", 3);
 		if (entity instanceof PlayerEntity)

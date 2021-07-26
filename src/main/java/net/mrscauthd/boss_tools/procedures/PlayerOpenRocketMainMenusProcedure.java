@@ -37,6 +37,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -98,453 +99,522 @@ public class PlayerOpenRocketMainMenusProcedure {
 		IWorld world = (IWorld) dependencies.get("world");
 		// Overworld
 		if (((entity.getPersistentData().getDouble("Tier_1_open_main_menu_2")) == 1)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier1mainMenu2");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier1mainMenu2Gui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier1mainMenu2");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier1mainMenu2Gui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier1mainMenu2Gui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		} // Mars
 		if (((entity.getPersistentData().getDouble("Tier_1_open_main_menu_3")) == 1)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier1mainMenu2");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier1mainMenu2Gui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier1mainMenu2");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier1mainMenu2Gui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier1mainMenu2Gui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		} // Mercury
 		if (((entity.getPersistentData().getDouble("Tier_1_open_main_menu_4")) == 1)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier1mainMenu2");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier1mainMenu2Gui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier1mainMenu2");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier1mainMenu2Gui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier1mainMenu2Gui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		} // Back to main menu
 		if (((entity.getPersistentData().getDouble("Tier_1_open_main_menu_back")) == 1)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier1mainMenu");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier1mainMenuGui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier1mainMenu");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier1mainMenuGui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier1mainMenuGui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		} // Open Main Menu
 		if (((entity.getPersistentData().getDouble("Tier_1_open_main_menu")) == 1)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier1mainMenu");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier1mainMenuGui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier1mainMenu");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier1mainMenuGui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier1mainMenuGui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		} // Player Movement
 		if (((entity.getPersistentData().getDouble("Player_movement")) == 1)) {
-			entity.setMotion((entity.getMotion().getX()), ((entity.getMotion().getY()) + 0.08), (entity.getMotion().getZ()));
+			entity.setNoGravity((true));
 			entity.getPersistentData().putBoolean("Oxygen_Bullet_Generator", (true));
 			entity.getPersistentData().putDouble("timer_oxygen", 0);
 		} // Space Station Menu
 		if (((entity.getPersistentData().getDouble("Tier_1_space_station_open")) == 1)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier1mainMenuSpaceStation");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier1mainMenuSpaceStationGui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier1mainMenuSpaceStation");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier1mainMenuSpaceStationGui.GuiContainerMod(id, inventory,
-									new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier1mainMenuSpaceStationGui.GuiContainerMod(id, inventory,
+										new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		}
 		if (((entity.getPersistentData().getDouble("Tier_1_space_station_open")) == 2)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier1mainMenuSpaceStation2");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier1mainMenuSpaceStation2Gui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier1mainMenuSpaceStation2");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier1mainMenuSpaceStation2Gui.GuiContainerMod(id, inventory,
-									new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier1mainMenuSpaceStation2Gui.GuiContainerMod(id, inventory,
+										new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		} // Tier 2 Rocket
 		if (((entity.getPersistentData().getDouble("Tier_2_open_main_menu")) == 1)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier2mainMenu");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier2mainMenuGui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier2mainMenu");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier2mainMenuGui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier2mainMenuGui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		} // main menu back
 		if (((entity.getPersistentData().getDouble("Tier_2_open_main_menu_back")) == 1)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier2mainMenu");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier2mainMenuGui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier2mainMenu");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier2mainMenuGui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier2mainMenuGui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		} // Overworld
 		if (((entity.getPersistentData().getDouble("Tier_2_open_main_menu_2")) == 1)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier2mainMenu2");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier2mainMenu2Gui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier2mainMenu2");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier2mainMenu2Gui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier2mainMenu2Gui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		} // Mars
 		if (((entity.getPersistentData().getDouble("Tier_2_open_main_menu_3")) == 1)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier2mainMenu3");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier2mainMenu3Gui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier2mainMenu3");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier2mainMenu3Gui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier2mainMenu3Gui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		} // Space Station Menu
 		if (((entity.getPersistentData().getDouble("Tier_2_space_station_open")) == 1)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier2mainMenuSpaceStation1");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier2mainMenuSpaceStation1Gui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier2mainMenuSpaceStation1");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier2mainMenuSpaceStation1Gui.GuiContainerMod(id, inventory,
-									new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier2mainMenuSpaceStation1Gui.GuiContainerMod(id, inventory,
+										new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		}
 		if (((entity.getPersistentData().getDouble("Tier_2_space_station_open")) == 2)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier2mainMenuSpaceStation2");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier2mainMenuSpaceStation2Gui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier2mainMenuSpaceStation2");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier2mainMenuSpaceStation2Gui.GuiContainerMod(id, inventory,
-									new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier2mainMenuSpaceStation2Gui.GuiContainerMod(id, inventory,
+										new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		}
 		if (((entity.getPersistentData().getDouble("Tier_2_space_station_open")) == 3)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier2mainMenuSpaceStation3");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3mainMenuSpaceStation3Gui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier2mainMenuSpaceStation3");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier2mainMenuSpaceStation3Gui.GuiContainerMod(id, inventory,
-									new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier2mainMenuSpaceStation3Gui.GuiContainerMod(id, inventory,
+										new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		} // Tier 3 Rocket
 		if (((entity.getPersistentData().getDouble("Tier_3_open_main_menu")) == 1)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier3mainMenu");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3mainMenuGui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier3mainMenu");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier3mainMenuGui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier3mainMenuGui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		} // main menu back
 		if (((entity.getPersistentData().getDouble("Tier_3_open_main_menu_back")) == 1)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier3mainMenu");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3mainMenuGui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier3mainMenu");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier3mainMenuGui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier3mainMenuGui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		} // Overworld
 		if (((entity.getPersistentData().getDouble("Tier_3_open_main_menu_2")) == 1)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier3mainMenu2");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3mainMenu2Gui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier3mainMenu2");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier3mainMenu2Gui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier3mainMenu2Gui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		} // Mars
 		if (((entity.getPersistentData().getDouble("Tier_3_open_main_menu_3")) == 1)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier3mainMenu3");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3mainMenu3Gui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier3mainMenu3");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier3mainMenu3Gui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier3mainMenu3Gui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		} // Mercury
 		if (((entity.getPersistentData().getDouble("Tier_3_open_main_menu_4")) == 1)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier3mainMenu4");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3mainMenu4Gui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier3mainMenu4");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier3mainMenu4Gui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier3mainMenu4Gui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		} // Space Station Menu
 		if (((entity.getPersistentData().getDouble("Tier_3_space_station_open")) == 1)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier3mainMenuSpaceStation1");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3mainMenuSpaceStation1Gui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier3mainMenuSpaceStation1");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier3mainMenuSpaceStation1Gui.GuiContainerMod(id, inventory,
-									new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier3mainMenuSpaceStation1Gui.GuiContainerMod(id, inventory,
+										new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		}
 		if (((entity.getPersistentData().getDouble("Tier_3_space_station_open")) == 2)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier3mainMenuSpaceStation2");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3mainMenuSpaceStation2Gui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier3mainMenuSpaceStation2");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier3mainMenuSpaceStation2Gui.GuiContainerMod(id, inventory,
-									new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier3mainMenuSpaceStation2Gui.GuiContainerMod(id, inventory,
+										new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		}
 		if (((entity.getPersistentData().getDouble("Tier_3_space_station_open")) == 3)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier3mainMenuSpaceStation3");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3mainMenuSpaceStation3Gui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier3mainMenuSpaceStation3");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier3mainMenuSpaceStation3Gui.GuiContainerMod(id, inventory,
-									new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier3mainMenuSpaceStation3Gui.GuiContainerMod(id, inventory,
+										new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		}
 		if (((entity.getPersistentData().getDouble("Tier_3_space_station_open")) == 4)) {
-			{
-				Entity _ent = entity;
-				if (_ent instanceof ServerPlayerEntity) {
-					BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
-					NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Tier3mainMenuSpaceStation4");
-						}
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3mainMenuSpaceStation4Gui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier3mainMenuSpaceStation4");
+							}
 
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							return new Tier3mainMenuSpaceStation4Gui.GuiContainerMod(id, inventory,
-									new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
-						}
-					}, _bpos);
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier3mainMenuSpaceStation4Gui.GuiContainerMod(id, inventory,
+										new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
 				}
 			}
 		}
