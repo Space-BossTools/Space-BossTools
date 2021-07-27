@@ -21,6 +21,9 @@ public class PygroModel<T extends MobEntity> extends PlayerModel<T> {
     private final ModelRenderer field_241661_z_;
     private final ModelRenderer field_241658_A_;
     private final ModelRenderer field_241659_B_;
+    private final ModelRenderer nose1;
+    private final ModelRenderer nose2;
+    private final ModelRenderer eyes;
 
     public PygroModel(float p_i232336_1_, int p_i232336_2_, int p_i232336_3_) {
         super(p_i232336_1_, false);
@@ -42,6 +45,22 @@ public class PygroModel<T extends MobEntity> extends PlayerModel<T> {
         this.field_239116_b_.setTextureOffset(39, 6).addBox(-1.0F, 0.0F, -2.0F, 1.0F, 5.0F, 4.0F, p_i232336_1_);
         this.bipedHead.addChild(this.field_239116_b_);
         this.bipedHeadwear = new ModelRenderer(this);
+
+		nose1 = new ModelRenderer(this);
+        nose1.setRotationPoint(2.5F, -1.0F, -4.5F);
+        nose1.setTextureOffset(31, 2).addBox(-2.15F, -1.45F, -0.35F, 3.0F, 3.0F, 1.0F, 0.0F, false);
+        bipedHead.addChild(this.nose1);
+
+        nose2 = new ModelRenderer(this);
+        nose2.setRotationPoint(-2.0F, -1.0F, -4.5F);
+        nose2.setTextureOffset(31, 2).addBox(-1.25F, -1.35F, -0.5F, 3.0F, 3.0F, 1.0F, 0.0F, false);
+        bipedHead.addChild(this.nose2);
+
+        eyes = new ModelRenderer(this);
+        eyes.setRotationPoint(0.0F, -7.5F, -4.0F);
+        eyes.setTextureOffset(46, 36).addBox(-4.5F, -4.5F, -0.75F, 9.0F, 7.0F, 0.0F, 0.0F, false);
+        bipedHead.addChild(this.eyes);
+        
         this.field_241660_y_ = this.bipedBody.getModelAngleCopy();
         this.field_241661_z_ = this.bipedHead.getModelAngleCopy();
         this.field_241658_A_ = this.bipedLeftArm.getModelAngleCopy();
@@ -56,6 +75,17 @@ public class PygroModel<T extends MobEntity> extends PlayerModel<T> {
         this.bipedHead.copyModelAngles(this.field_241661_z_);
         this.bipedLeftArm.copyModelAngles(this.field_241658_A_);
         this.bipedRightArm.copyModelAngles(this.field_241659_B_);
+
+		this.nose1.rotateAngleX = 0.0631F;
+        this.nose1.rotateAngleY = -0.3435F;
+        this.nose1.rotateAngleZ = -0.1855F;
+
+        this.nose2.rotateAngleX = 0.0631F;
+        this.nose2.rotateAngleY = 0.3435F;
+        this.nose2.rotateAngleZ = 0.1855F;
+
+        this.eyes.rotateAngleX = 0.3054F;
+        
         super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         float f = ((float)Math.PI / 6F);
         float f1 = ageInTicks * 0.1F + limbSwing * 0.5F;
