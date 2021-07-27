@@ -5,6 +5,8 @@ import com.mojang.serialization.Codec;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.ai.brain.memory.MemoryModuleType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.TallBlockItem;
@@ -30,6 +32,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 import net.mrscauthd.boss_tools.block.*;
 import net.mrscauthd.boss_tools.entity.AlienZombieEntity;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
@@ -59,9 +62,12 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.CreatureEntity;
 import net.mrscauthd.boss_tools.BossToolsModVariables;
 
+import java.lang.management.MemoryType;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @BossToolsModElements.ModElement.Tag
 @Mod.EventBusSubscriber(modid = "boss_tools", bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -72,6 +78,20 @@ public class MobInnet extends BossToolsModElements.ModElement {
             .create(AlienEntity::new, EntityClassification.CREATURE).size(0.75f, 2.5f).build(new ResourceLocation("boss_tools", "alien").toString()));
     public static final RegistryObject<ModSpawnEggs> ALIEN_SPAWN_EGG = ITEMS.register("alien_spawn_egg",
             () -> new ModSpawnEggs(ALIEN, -13382401, -11650781, new Item.Properties().group(SpaceBosstoolsSpawnEggsItemGroup.tab)));
+
+
+    //abstract pygro
+//    public static final MemoryModuleType<List<AbstractPygroEntity>> NEAREST_ADULT_PYGROS = register2("nearby_adult_pygros");
+//    public static final MemoryModuleType<List<AbstractPygroEntity>> NEAREST_VISIBLE_ADULT_PYGROS = register2("nearest_visible_adult_pygros");
+
+   // public static RegistryObject<EntityType<?>> NEAREST_ADULT_PYGROS = ENTITYS.register("pygros", () -> EntityType.Builder.create(PygroEntity::new, EntityClassification.MONSTER).size(0.75f, 2.5f).build(new ResourceLocation("boss_tools", "pygros").toString()));
+
+
+  //  private static <U> MemoryModuleType<U> register2(String identifier) {
+  //      return Registry.register(Registry.MEMORY_MODULE_TYPE, new ResourceLocation(identifier), new MemoryModuleType<>(Optional.empty()));
+  //  }
+
+
     //Block
     public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, "boss_tools");
 
@@ -257,9 +277,9 @@ public class MobInnet extends BossToolsModElements.ModElement {
             //meteor
             tempMap2.putIfAbsent(STStructures2.VENUS_BULLET.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures2.VENUS_BULLET.get()));
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap2;
-			//venus tower
-			Map<Structure<?>, StructureSeparationSettings> tempMap3 = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
-			
+            //venus tower
+            Map<Structure<?>, StructureSeparationSettings> tempMap3 = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
+
             tempMap3.putIfAbsent(STStructures2.VENUS_TOWER.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures2.VENUS_TOWER.get()));
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap3;
         }

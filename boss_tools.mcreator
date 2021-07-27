@@ -6134,6 +6134,16 @@
         "dependencies": []
       },
       "path": "~/Procedures"
+    },
+    {
+      "name": "Pygros",
+      "type": "mob",
+      "sortid": 453,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "pygros",
+      "path": "~/Entitys"
     }
   ],
   "variable_elements": [
@@ -6240,6 +6250,7 @@
       "item.boss_tools.orbit_mars": "Admin Feuerzeug",
       "entity.boss_tools.rover": "Rover",
       "item.boss_tools.barrel": "Barrel",
+      "entity.boss_tools.pygros": "Pygros",
       "item.boss_tools.iron_plate": "Iron Plate",
       "key.boss_tools.rocket_key_rotation_d": "Rocket Key Rotation D",
       "block.boss_tools.moon_stone": "Moon Stone",
@@ -6268,6 +6279,7 @@
       "block.boss_tools.cracked_moon_brick_stairs": "Cracked Moon Brick Stairs",
       "block.boss_tools.flag_cyan": "Cyan Flag",
       "block.boss_tools.flag_light_blue": "Light Blue Flag",
+      "item.boss_tools.pygros_spawn_egg": "Pygros Spawn Egg",
       "block.boss_tools.moon_sand": "Moon Sand",
       "job.boss_tools.job2": "Fisherman",
       "job.boss_tools.job1": "Farmer",
@@ -6505,6 +6517,10 @@
       },
       {
         "name": "Armor",
+        "children": []
+      },
+      {
+        "name": "Pygros",
         "children": []
       }
     ]
