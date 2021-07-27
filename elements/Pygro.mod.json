@@ -2,26 +2,26 @@
   "_fv": 21,
   "_type": "mob",
   "definition": {
-    "mobName": "Pygros",
+    "mobName": "Pygro",
     "mobLabel": "",
-    "mobModelName": "Modelpygro",
-    "mobModelTexture": "pygro.png",
-    "mobModelGlowTexture": "pygro.png",
+    "mobModelName": "Biped",
+    "mobModelTexture": "animated_arrow_10.png",
+    "mobModelGlowTexture": "",
     "modelWidth": 0.6,
     "modelHeight": 1.8,
     "modelShadowSize": 0.5,
     "mountedYOffset": 0.0,
     "hasSpawnEgg": true,
     "spawnEggBaseColor": {
-      "value": -3381760,
+      "value": -1,
       "falpha": 0.0
     },
     "spawnEggDotColor": {
-      "value": -6750208,
+      "value": -1,
       "falpha": 0.0
     },
     "creativeTab": {
-      "value": "CUSTOM:SpaceBosstoolsSpawnEggs"
+      "value": "MISC"
     },
     "isBoss": false,
     "bossBarColor": "PINK",
@@ -45,7 +45,7 @@
       "value": ""
     },
     "mobBehaviourType": "Mob",
-    "mobCreatureType": "UNDEAD",
+    "mobCreatureType": "UNDEFINED",
     "attackStrength": 3,
     "attackKnockback": 0.0,
     "knockbackResistance": 0.0,
@@ -63,7 +63,7 @@
     "ridable": false,
     "canControlForward": false,
     "canControlStrafe": false,
-    "immuneToFire": true,
+    "immuneToFire": false,
     "immuneToArrows": false,
     "immuneToFallDamage": false,
     "immuneToCactus": false,
@@ -83,10 +83,10 @@
       "value": ""
     },
     "hurtSound": {
-      "value": ""
+      "value": "entity.generic.hurt"
     },
     "deathSound": {
-      "value": ""
+      "value": "entity.generic.death"
     },
     "stepSound": {
       "value": ""
@@ -109,7 +109,7 @@
       "value": ""
     },
     "rangedItemType": "Default item",
-    "spawnThisMob": false,
+    "spawnThisMob": true,
     "doesDespawnWhenIdle": true,
     "spawningProbability": 20,
     "mobSpawningType": "monster",

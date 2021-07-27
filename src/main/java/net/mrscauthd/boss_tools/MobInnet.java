@@ -7,6 +7,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.brain.memory.MemoryModuleType;
+import net.minecraft.entity.ai.brain.sensor.Sensor;
+import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.TallBlockItem;
@@ -68,6 +70,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 @BossToolsModElements.ModElement.Tag
 @Mod.EventBusSubscriber(modid = "boss_tools", bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -79,18 +82,10 @@ public class MobInnet extends BossToolsModElements.ModElement {
     public static final RegistryObject<ModSpawnEggs> ALIEN_SPAWN_EGG = ITEMS.register("alien_spawn_egg",
             () -> new ModSpawnEggs(ALIEN, -13382401, -11650781, new Item.Properties().group(SpaceBosstoolsSpawnEggsItemGroup.tab)));
 
-
-    //abstract pygro
-//    public static final MemoryModuleType<List<AbstractPygroEntity>> NEAREST_ADULT_PYGROS = register2("nearby_adult_pygros");
-//    public static final MemoryModuleType<List<AbstractPygroEntity>> NEAREST_VISIBLE_ADULT_PYGROS = register2("nearest_visible_adult_pygros");
-
-   // public static RegistryObject<EntityType<?>> NEAREST_ADULT_PYGROS = ENTITYS.register("pygros", () -> EntityType.Builder.create(PygroEntity::new, EntityClassification.MONSTER).size(0.75f, 2.5f).build(new ResourceLocation("boss_tools", "pygros").toString()));
-
-
-  //  private static <U> MemoryModuleType<U> register2(String identifier) {
-  //      return Registry.register(Registry.MEMORY_MODULE_TYPE, new ResourceLocation(identifier), new MemoryModuleType<>(Optional.empty()));
-  //  }
-
+    
+    //pygro
+    public static final DeferredRegister<SensorType<?>> SENSOR = DeferredRegister.create(ForgeRegistries.SENSOR_TYPES, "boss_tools");
+    public static final RegistryObject<SensorType<PygroMobsSensor>> PYGRO_SENSOR = SENSOR.register("pygro_sensor", ()->new SensorType<>(PygroMobsSensor::new));
 
     //Block
     public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, "boss_tools");
@@ -183,6 +178,7 @@ public class MobInnet extends BossToolsModElements.ModElement {
         ITEMS.register(bus);
         BLOCKS.register(bus);
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
+        SENSOR.register(bus);
         //  forgeBus.addListener(EventPriority.HIGH, this::biomeModificationa);
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
