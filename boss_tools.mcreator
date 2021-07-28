@@ -6152,8 +6152,7 @@
       "compiles": true,
       "locked_code": true,
       "ids": {},
-      "registry_name": "pygro_model",
-      "path": "~/Entitys"
+      "registry_name": "pygro_model"
     },
     {
       "name": "PygroMobsSensor",
