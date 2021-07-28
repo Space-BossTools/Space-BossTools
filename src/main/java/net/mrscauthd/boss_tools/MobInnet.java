@@ -128,7 +128,6 @@ public class MobInnet extends BossToolsModElements.ModElement {
     public static final RegistryObject<Item> FLAGITEMred = ITEMS.register("flag_red", () -> new TallBlockItem(FLAGBLOCKred.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
     public static final RegistryObject<Item> FLAGITEMyellow = ITEMS.register("flag_yellow", () -> new TallBlockItem(FLAGBLOCKyellow.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
 
-
     //Wrold Gen Things
     public static ConfiguredFeature<?, ?> ICE_SPIKE;
     public static MarsIceSpikeFeature MARS_ICE_SPIKE;
@@ -150,7 +149,6 @@ public class MobInnet extends BossToolsModElements.ModElement {
     public static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> register(String key, ConfiguredFeature<FC, ?> configuredFeature) {
         return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, key, configuredFeature);
     }
-
 
 
     /**
