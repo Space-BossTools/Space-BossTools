@@ -2,7 +2,6 @@
 package net.mrscauthd.boss_tools.world.biome;
 
 import net.mrscauthd.boss_tools.block.MarssandBlock;
-import net.mrscauthd.boss_tools.block.MarsStoneBlock;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -36,7 +35,7 @@ public class MarsBiomBiome extends BossToolsModElements.ModElement {
 						.setParticle(new ParticleEffectAmbience(ParticleTypes.CRIMSON_SPORE, 0.014f)).build();
 				BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder()
 						.withSurfaceBuilder(SurfaceBuilder.DEFAULT.func_242929_a(new SurfaceBuilderConfig(MarssandBlock.block.getDefaultState(),
-								MarsStoneBlock.block.getDefaultState(), MarsStoneBlock.block.getDefaultState())));
+								MarssandBlock.block.getDefaultState(), MarssandBlock.block.getDefaultState())));
 				DefaultBiomeFeatures.withCavesAndCanyons(biomeGenerationSettings);
 				MobSpawnInfo.Builder mobSpawnInfo = new MobSpawnInfo.Builder().isValidSpawnBiomeForPlayer();
 				biome = new Biome.Builder().precipitation(Biome.RainType.NONE).category(Biome.Category.NONE).depth(0.2f).scale(0.02f)

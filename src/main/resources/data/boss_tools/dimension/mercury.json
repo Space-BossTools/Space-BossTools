@@ -64,7 +64,7 @@
       "sea_level": 63,
       "disable_mob_generation": true,
       "default_block": {
-        "Name": "boss_tools:mercury_cobblestone"
+        "Name": "boss_tools:mercury_stone"
       },
       "default_fluid": {
         "Name": "minecraft:air"

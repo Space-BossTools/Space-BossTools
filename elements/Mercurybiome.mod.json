@@ -4,7 +4,7 @@
   "definition": {
     "name": "Mercury Biome",
     "groundBlock": {
-      "value": "CUSTOM:Mercurystone"
+      "value": "CUSTOM:MrrcuryCobblestone"
     },
     "undergroundBlock": {
       "value": "CUSTOM:MrrcuryCobblestone"

@@ -2,7 +2,6 @@
 package net.mrscauthd.boss_tools.world.biome;
 
 import net.mrscauthd.boss_tools.block.MoonsandBlock;
-import net.mrscauthd.boss_tools.block.MoonStoneBlock;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -34,7 +33,7 @@ public class MoonBiomBiome extends BossToolsModElements.ModElement {
 						.withSkyColor(-16777216).withFoliageColor(-16724992).withGrassColor(-16724992).build();
 				BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder()
 						.withSurfaceBuilder(SurfaceBuilder.DEFAULT.func_242929_a(new SurfaceBuilderConfig(MoonsandBlock.block.getDefaultState(),
-								MoonStoneBlock.block.getDefaultState(), MoonStoneBlock.block.getDefaultState())));
+								MoonsandBlock.block.getDefaultState(), MoonsandBlock.block.getDefaultState())));
 				biomeGenerationSettings.withStructure(StructureFeatures.PILLAGER_OUTPOST);
 				DefaultBiomeFeatures.withCavesAndCanyons(biomeGenerationSettings);
 				DefaultBiomeFeatures.withFrozenTopLayer(biomeGenerationSettings);

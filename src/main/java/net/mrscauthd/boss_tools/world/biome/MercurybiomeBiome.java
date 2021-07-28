@@ -2,7 +2,6 @@
 package net.mrscauthd.boss_tools.world.biome;
 
 import net.mrscauthd.boss_tools.block.MrrcuryCobblestoneBlock;
-import net.mrscauthd.boss_tools.block.MercurystoneBlock;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -31,8 +30,8 @@ public class MercurybiomeBiome extends BossToolsModElements.ModElement {
 			if (biome == null) {
 				BiomeAmbience effects = new BiomeAmbience.Builder().setFogColor(-16777216).setWaterColor(4159204).setWaterFogColor(329011)
 						.withSkyColor(-16777216).withFoliageColor(-16724992).withGrassColor(-16724992).build();
-				BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder()
-						.withSurfaceBuilder(SurfaceBuilder.DEFAULT.func_242929_a(new SurfaceBuilderConfig(MercurystoneBlock.block.getDefaultState(),
+				BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder().withSurfaceBuilder(
+						SurfaceBuilder.DEFAULT.func_242929_a(new SurfaceBuilderConfig(MrrcuryCobblestoneBlock.block.getDefaultState(),
 								MrrcuryCobblestoneBlock.block.getDefaultState(), MrrcuryCobblestoneBlock.block.getDefaultState())));
 				DefaultBiomeFeatures.withCavesAndCanyons(biomeGenerationSettings);
 				DefaultBiomeFeatures.withFrozenTopLayer(biomeGenerationSettings);
