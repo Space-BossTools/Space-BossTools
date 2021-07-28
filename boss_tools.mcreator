@@ -6163,21 +6163,19 @@
       "locked_code": true,
       "ids": {},
       "registry_name": "pygro_mobs_sensor"
+    },
+    {
+      "name": "Mogler",
+      "type": "mob",
+      "sortid": 456,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "mogler",
+      "path": "~/Entitys"
     }
   ],
   "variable_elements": [
-    {
-      "name": "RocketFueltier1",
-      "type": "number",
-      "scope": "player_persistent",
-      "value": "0"
-    },
-    {
-      "name": "fuel",
-      "type": "number",
-      "scope": "player_persistent",
-      "value": "0"
-    },
     {
       "name": "AlienSpawing",
       "type": "logic",
@@ -6260,6 +6258,7 @@
       "biome.boss_tools.mars_biome": "Mars Biome",
       "block.boss_tools.cracked_moon_bricks": "Cracked Moon Bricks",
       "fluid.boss_tools.fuel": "Fuel",
+      "entity.boss_tools.mogler": "Mogler",
       "item.boss_tools.silicon_ingot": "Silicon Ingot",
       "advancements.moon_advancement.descr": "§bHas entered the Moon",
       "itemGroup.tabspace_bosstools_flags": "Space-Bosstools: Flags",
@@ -6419,6 +6418,7 @@
       "entity.boss_tools.rocket_tier_2": "Rocket",
       "block.boss_tools.moon_cheese_ore": "Moon Cheese Ore",
       "item.boss_tools.alien_zombie_spawn_egg": "Alien Zombie Spawn Egg",
+      "item.boss_tools.mogler_spawn_egg": "Mogler Spawn Egg",
       "biome.boss_tools.mars_ice_biome": "Mars Ice Biome",
       "subtitles.rocketfly": "",
       "biome.boss_tools.orbit_venus_biome": "Orbit Biome",
