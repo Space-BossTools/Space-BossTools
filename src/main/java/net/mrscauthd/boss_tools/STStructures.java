@@ -48,9 +48,9 @@ public class STStructures {
      * However, users might not know that and think you are to blame for issues that doesn't exist.
      * So it is best to keep your structure names the same as long as you can instead of changing them frequently.
      */
-    public static final RegistryObject<Structure<NoFeatureConfig>> RUN_DOWN_HOUSE = DEFERRED_REGISTRY_STRUCTURE.register("alien_structure", () -> (new AlienVillageStructure(NoFeatureConfig.field_236558_a_)));
+    public static final RegistryObject<Structure<NoFeatureConfig>> RUN_DOWN_HOUSE = DEFERRED_REGISTRY_STRUCTURE.register("alien_village", () -> (new AlienVillageStructure(NoFeatureConfig.field_236558_a_)));
     //meteor
-    public static final RegistryObject<Structure<NoFeatureConfig>> METEOR = METEOR_DEFERRED_REGISTRY_STRUCTURE.register("meteor_structure", () -> (new MeteorStructure(NoFeatureConfig.field_236558_a_)));
+    public static final RegistryObject<Structure<NoFeatureConfig>> METEOR = METEOR_DEFERRED_REGISTRY_STRUCTURE.register("meteor", () -> (new MeteorStructure(NoFeatureConfig.field_236558_a_)));
    
     /**
      * This is where we set the rarity of your structures and determine if land conforms to it.

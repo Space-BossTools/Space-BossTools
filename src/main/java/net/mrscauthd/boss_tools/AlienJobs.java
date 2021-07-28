@@ -6,7 +6,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 //import space_traveler.com.space_traveler.Space_traveler;
 
 public enum AlienJobs {
-    JOB1("job.boss_tools.job1",new ResourceLocation("boss_tools","textures/entity_alien.png"),0),
+    JOB1("job.boss_tools.job1",new ResourceLocation("boss_tools","textures/entity_alien1.png"),0),
     JOB2("job.boss_tools.job2",new ResourceLocation("boss_tools","textures/entity_alien2.png"),1),
     JOB3("job.boss_tools.job3",new ResourceLocation("boss_tools","textures/entity_alien3.png"),2),
     JOB4("job.boss_tools.job4",new ResourceLocation("boss_tools","textures/entity_alien4.png"),3),
