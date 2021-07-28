@@ -79,7 +79,7 @@ import io.netty.buffer.Unpooled;
 
 @BossToolsModElements.ModElement.Tag
 public class RoverEntity extends BossToolsModElements.ModElement {
-	public static EntityType entity = (EntityType.Builder.<CustomEntity>create(CustomEntity::new, EntityClassification.MONSTER)
+	public static EntityType entity = (EntityType.Builder.<CustomEntity>create(CustomEntity::new, EntityClassification.CREATURE)
 			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(CustomEntity::new).immuneToFire()
 			.size(2.5f, 1.0f)).build("rover").setRegistryName("rover");
 	public RoverEntity(BossToolsModElements instance) {
