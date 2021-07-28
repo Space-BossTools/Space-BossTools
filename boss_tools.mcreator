@@ -6173,6 +6173,16 @@
       "ids": {},
       "registry_name": "mogler",
       "path": "~/Entitys"
+    },
+    {
+      "name": "MercuryStoneToolTip",
+      "type": "loottable",
+      "sortid": 457,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "mercury_stone_tool_tip",
+      "path": "~/LootTable"
     }
   ],
   "variable_elements": [
