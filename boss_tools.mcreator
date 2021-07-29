@@ -6172,6 +6172,16 @@
       "locked_code": true,
       "ids": {},
       "registry_name": "mogler_model"
+    },
+    {
+      "name": "MoglerLootTable",
+      "type": "loottable",
+      "sortid": 459,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "mogler_loot_table",
+      "path": "~/LootTable"
     }
   ],
   "variable_elements": [
