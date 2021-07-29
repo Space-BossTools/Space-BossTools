@@ -3,7 +3,6 @@ package net.mrscauthd.boss_tools.block;
 
 import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsMachinesItemGroup;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
-import net.mrscauthd.boss_tools.gui.CableGUIGui;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ObjectHolder;
@@ -83,15 +82,15 @@ import io.netty.buffer.Unpooled;
 
 @BossToolsModElements.ModElement.Tag
 public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
-	@ObjectHolder("boss_tools:wireless_energy_router")
-	public static final Block block = null;
-	@ObjectHolder("boss_tools:wireless_energy_router")
-	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
+//	@ObjectHolder("boss_tools:wireless_energy_router")
+//	public static final Block block = null;
+//	@ObjectHolder("boss_tools:wireless_energy_router")
+//	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
 	public EnergyCableBaseBlock(BossToolsModElements instance) {
 		super(instance, 77);
-		FMLJavaModLoadingContext.get().getModEventBus().register(new TileEntityRegisterHandler());
+	//	FMLJavaModLoadingContext.get().getModEventBus().register(new TileEntityRegisterHandler());
 	}
-
+	/*
 	@Override
 	public void initElements() {
 		elements.blocks.add(() -> new CustomBlock());
@@ -144,6 +143,7 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 			return VoxelShapes.or(makeCuboidShape(4.5, 4.5, 4.5, 11.5, 11.5, 11.5)).withOffset(offset.x, offset.y, offset.z);
 		}
 */
+	/*
 
 		@Override
 		public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
@@ -1124,5 +1124,5 @@ public class EnergyCableBaseBlock extends BossToolsModElements.ModElement {
 			for (LazyOptional<? extends IItemHandler> handler : handlers)
 				handler.invalidate();
 		}
-	}
+	}*/
 }

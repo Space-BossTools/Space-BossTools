@@ -5226,16 +5226,6 @@
       "path": "~/Recpies"
     },
     {
-      "name": "CableGUI",
-      "type": "gui",
-      "sortid": 387,
-      "compiles": true,
-      "locked_code": true,
-      "ids": {},
-      "registry_name": "cable_gui",
-      "path": "~/GUIS"
-    },
-    {
       "name": "CableCheck1",
       "type": "procedure",
       "sortid": 388,
@@ -5294,16 +5284,6 @@
           }
         ]
       }
-    },
-    {
-      "name": "NetworkLinker",
-      "type": "item",
-      "sortid": 31,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "network_linker",
-      "path": "~/Items"
     },
     {
       "name": "MarsIceBiome",
@@ -6283,7 +6263,6 @@
       "block.boss_tools.moon_stone": "Moon Stone",
       "item.boss_tools.desh_plate": "Desh Plate",
       "item.boss_tools.space_station": "Space Station",
-      "item.boss_tools.network_linker": "Network Linker",
       "item.boss_tools.compressed_silicon": "Compressed Silicon",
       "key.boss_tools.lander_key_space": "Lander Key Space",
       "item.boss_tools.mercury": "Admin Feuerzeug",
