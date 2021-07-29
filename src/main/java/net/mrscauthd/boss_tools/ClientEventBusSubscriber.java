@@ -12,6 +12,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.client.renderer.entity.PlayerRenderer;
 import net.minecraft.client.Minecraft;
 import net.mrscauthd.boss_tools.entity.PygroEntity;
+import net.mrscauthd.boss_tools.entity.MoglerEntity;
 
 
 import java.util.Map;
@@ -23,6 +24,8 @@ public class ClientEventBusSubscriber {
 		RenderingRegistry.registerEntityRenderingHandler(MobInnet.ALIEN.get(), ((IRenderFactory) AlienRenderer::new));
 
 		RenderingRegistry.registerEntityRenderingHandler(PygroEntity.entity, ((IRenderFactory) PygroRenderer::new));
+
+		RenderingRegistry.registerEntityRenderingHandler(MoglerEntity.entity, ((IRenderFactory) MoglerRenderer::new));
 	}
 
 	@SubscribeEvent

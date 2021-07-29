@@ -3,7 +3,7 @@ package net.mrscauthd.boss_tools.entity;
 import net.minecraft.entity.*;
 import net.minecraft.world.server.ServerWorld;
 import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsSpawnEggsItemGroup;
-import net.mrscauthd.boss_tools.entity.renderer.MoglerRenderer;
+//import net.mrscauthd.boss_tools.entity.renderer.MoglerRenderer;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -30,7 +30,7 @@ public class MoglerEntity extends BossToolsModElements.ModElement {
             .size(1.4f, 1.4f)).build("mogler").setRegistryName("mogler");
     public MoglerEntity(BossToolsModElements instance) {
         super(instance, 456);
-        FMLJavaModLoadingContext.get().getModEventBus().register(new MoglerRenderer.ModelRegisterHandler());
+      //  FMLJavaModLoadingContext.get().getModEventBus().register(new MoglerRenderer.ModelRegisterHandler());
         FMLJavaModLoadingContext.get().getModEventBus().register(new EntityAttributesRegisterHandler());
     }
 

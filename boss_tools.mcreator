@@ -6163,6 +6163,15 @@
       "ids": {},
       "registry_name": "mercury_stone_tool_tip",
       "path": "~/LootTable"
+    },
+    {
+      "name": "MoglerModel",
+      "type": "code",
+      "sortid": 458,
+      "compiles": true,
+      "locked_code": true,
+      "ids": {},
+      "registry_name": "mogler_model"
     }
   ],
   "variable_elements": [
