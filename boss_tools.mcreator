@@ -1355,7 +1355,7 @@
       "type": "biome",
       "sortid": 172,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "moon_biome",
       "path": "~/Biome"
@@ -1365,7 +1365,7 @@
       "type": "biome",
       "sortid": 173,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "mars_biome",
       "path": "~/Biome"
@@ -1375,7 +1375,7 @@
       "type": "biome",
       "sortid": 174,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "orbit_overworld_biome",
       "path": "~/Biome"
@@ -1903,7 +1903,7 @@
       "type": "biome",
       "sortid": 197,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "mercury_biome",
       "path": "~/Biome"
@@ -2304,7 +2304,7 @@
       "type": "biome",
       "sortid": 213,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "orbit_moon_biome",
       "path": "~/Biome"
@@ -2314,7 +2314,7 @@
       "type": "biome",
       "sortid": 214,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "orbit_mars_biome",
       "path": "~/Biome"
@@ -2324,7 +2324,7 @@
       "type": "biome",
       "sortid": 215,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "orbit_mercury_biome",
       "path": "~/Biome"
@@ -3851,16 +3851,6 @@
       "path": "~/RocketMainGuis"
     },
     {
-      "name": "Energycable",
-      "type": "recipe",
-      "sortid": 307,
-      "compiles": true,
-      "locked_code": true,
-      "ids": {},
-      "registry_name": "energycable",
-      "path": "~/Recpies"
-    },
-    {
       "name": "IronMark",
       "type": "block",
       "sortid": 71,
@@ -5290,7 +5280,7 @@
       "type": "biome",
       "sortid": 391,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "mars_ice_biome",
       "path": "~/Biome"
@@ -5349,7 +5339,7 @@
       "type": "biome",
       "sortid": 393,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "venus_biome",
       "path": "~/Biome"
@@ -5504,7 +5494,7 @@
       "type": "biome",
       "sortid": 403,
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "ids": {},
       "registry_name": "orbit_venus_biome",
       "path": "~/Biome"

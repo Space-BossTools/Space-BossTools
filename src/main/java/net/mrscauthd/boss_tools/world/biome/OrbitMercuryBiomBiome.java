@@ -29,7 +29,7 @@ public class OrbitMercuryBiomBiome extends BossToolsModElements.ModElement {
 		public void registerBiomes(RegistryEvent.Register<Biome> event) {
 			if (biome == null) {
 				BiomeAmbience effects = new BiomeAmbience.Builder().setFogColor(-16777216).setWaterColor(4159204).setWaterFogColor(329011)
-						.withSkyColor(-16777216).withFoliageColor(-16724992).withGrassColor(-16724992).build();
+						.withSkyColor(-16777216).withFoliageColor(7842607).withGrassColor(9551193).build();
 				BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder()
 						.withSurfaceBuilder(SurfaceBuilder.DEFAULT.func_242929_a(
 								new SurfaceBuilderConfig(Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState())));
