@@ -65,6 +65,7 @@ public class PygroModel<T extends MobEntity> extends PlayerModel<T> {
         this.field_241661_z_ = this.bipedHead.getModelAngleCopy();
         this.field_241658_A_ = this.bipedLeftArm.getModelAngleCopy();
         this.field_241659_B_ = this.bipedLeftArm.getModelAngleCopy();
+        
     }
 
     /**
