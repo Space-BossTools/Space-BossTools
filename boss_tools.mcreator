@@ -6553,9 +6553,7 @@
     "disableForgeVersionCheck": true,
     "serverSideOnly": false,
     "modPicture": "space_bosstools_banner",
-    "requiredMods": [
-      "obfuscate"
-    ],
+    "requiredMods": [],
     "dependencies": [],
     "dependants": [],
     "mcreatorDependencies": [

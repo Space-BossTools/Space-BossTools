@@ -21,18 +21,18 @@ Fly to Other Planets!
     ordering="NONE"
     side="BOTH"
 
+[[dependencies.boss_tools]]
+    modId="forge"
+    mandatory=true
+    versionRange="[36.2.0,]"
+    ordering="NONE"
+    side="BOTH"
+
 
 [[dependencies.boss_tools]]
     modId="obfuscate"
     mandatory=true
-    versionRange="[0,)"
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.boss_tools]]
-    modId="obfuscate"
-    mandatory=false
-    versionRange="[0,)"
+    versionRange="[0.5.0,)"
     ordering="NONE"
     side="BOTH"
 
