@@ -22,16 +22,16 @@ import net.minecraft.entity.Entity;
 import java.util.Map;
 import java.util.Collections;
 
-public class Tier2SpaceStationCreate2Procedure {
+public class Tier3SpaceStationCreate5Procedure {
 	public static void executeProcedure(Map<String, Object> dependencies) {
 		if (dependencies.get("entity") == null) {
 			if (!dependencies.containsKey("entity"))
-				BossToolsMod.LOGGER.warn("Failed to load dependency entity for procedure Tier2SpaceStationCreate2!");
+				BossToolsMod.LOGGER.warn("Failed to load dependency entity for procedure Tier3SpaceStationCreate5!");
 			return;
 		}
 		if (dependencies.get("world") == null) {
 			if (!dependencies.containsKey("world"))
-				BossToolsMod.LOGGER.warn("Failed to load dependency world for procedure Tier2SpaceStationCreate2!");
+				BossToolsMod.LOGGER.warn("Failed to load dependency world for procedure Tier3SpaceStationCreate5!");
 			return;
 		}
 		Entity entity = (Entity) dependencies.get("entity");
@@ -46,12 +46,12 @@ public class Tier2SpaceStationCreate2Procedure {
 				((PlayerEntity) entity).sendStatusMessage(new StringTextComponent("\u00A7cWARNING! \u00A77Press \u00A7cSPACE\u00A77."), (true));
 			}
 			if ((!((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-					new ResourceLocation("boss_tools:orbit_moon")))))) {
+					new ResourceLocation("boss_tools:orbit_venus")))))) {
 				{
 					Entity _ent = entity;
 					if (!_ent.world.isRemote && _ent instanceof ServerPlayerEntity) {
 						RegistryKey<World> destinationType = RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-								new ResourceLocation("boss_tools:orbit_moon"));
+								new ResourceLocation("boss_tools:orbit_venus"));
 						ServerWorld nextWorld = _ent.getServer().getWorld(destinationType);
 						if (nextWorld != null) {
 							((ServerPlayerEntity) _ent).connection.sendPacket(new SChangeGameStatePacket(SChangeGameStatePacket.field_241768_e_, 0));
@@ -66,7 +66,7 @@ public class Tier2SpaceStationCreate2Procedure {
 				}
 			}
 			if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-					new ResourceLocation("boss_tools:orbit_moon"))))) {
+					new ResourceLocation("boss_tools:orbit_venus"))))) {
 				{
 					Entity _ent = entity;
 					_ent.setPositionAndUpdate((entity.getPosX()), 700, (entity.getPosZ()));
@@ -76,16 +76,16 @@ public class Tier2SpaceStationCreate2Procedure {
 					}
 				}
 			}
-			entity.getPersistentData().putDouble("Tier_2_open_main_menu_2", 0);
-			entity.getPersistentData().putDouble("Tier_2_open_main_menu_3", 0);
-			entity.getPersistentData().putDouble("Tier_2_open_main_menu_4", 0);
-			entity.getPersistentData().putDouble("Tier_2_open_main_menu_back", 0);
-			entity.getPersistentData().putDouble("Tier_2_open_main_menu", 0);
-			entity.getPersistentData().putDouble("Tier_2_space_station_open", 0);
+			entity.getPersistentData().putDouble("Tier_3_open_main_menu_2", 0);
+			entity.getPersistentData().putDouble("Tier_3_open_main_menu_3", 0);
+			entity.getPersistentData().putDouble("Tier_3_open_main_menu_4", 0);
+			entity.getPersistentData().putDouble("Tier_3_open_main_menu_back", 0);
+			entity.getPersistentData().putDouble("Tier_3_open_main_menu", 0);
+			entity.getPersistentData().putDouble("Tier_3_space_station_open", 0);
 			entity.getPersistentData().putDouble("Player_movement", 0);
 			entity.setNoGravity((false));
 			entity.getPersistentData().putDouble("LanderSpawn", 1);
-			entity.getPersistentData().putDouble("Landersit", 2);
+			entity.getPersistentData().putDouble("Landersit", 3);
 			entity.getPersistentData().putDouble("SpaceStation", 1);
 			if (entity instanceof PlayerEntity) {
 				ItemStack _stktoremove = new ItemStack(OrbitPlacerItem.block, (int) (1));
