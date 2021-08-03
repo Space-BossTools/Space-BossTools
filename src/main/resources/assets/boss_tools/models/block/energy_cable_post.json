@@ -1,8 +1,0 @@
-{
-  "parent": "boss_tools:custom/cable_post",
-  "textures": {
-    "all": "boss_tools:blocks/cable_mid",
-    "particle": "boss_tools:blocks/cable_mid",
-    "0": "boss_tools:blocks/cable_mid"
-  }
-}

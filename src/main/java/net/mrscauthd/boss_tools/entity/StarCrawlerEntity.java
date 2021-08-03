@@ -1,9 +1,11 @@
 
 package net.mrscauthd.boss_tools.entity;
 
-import net.mrscauthd.boss_tools.procedures.StarCrawlerOnEntityTickUpdateProcedure;
+import net.minecraft.entity.projectile.ArrowEntity;
+import net.minecraft.entity.projectile.SpectralArrowEntity;
 import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsSpawnEggsItemGroup;
 import net.mrscauthd.boss_tools.entity.renderer.StarCrawlerRenderer;
+import net.mrscauthd.boss_tools.BossToolsModVariables;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ForgeRegistries;
@@ -23,7 +25,7 @@ import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.entity.projectile.ArrowEntity;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.RandomWalkingGoal;
@@ -38,9 +40,6 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.CreatureAttribute;
 
-import java.util.Map;
-import java.util.HashMap;
-
 @BossToolsModElements.ModElement.Tag
 public class StarCrawlerEntity extends BossToolsModElements.ModElement {
 	public static EntityType entity = null;
@@ -54,7 +53,7 @@ public class StarCrawlerEntity extends BossToolsModElements.ModElement {
 	public void initElements() {
 		entity = (EntityType.Builder.<CustomEntity>create(CustomEntity::new, EntityClassification.MONSTER).setShouldReceiveVelocityUpdates(true)
 				.setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(CustomEntity::new).size(1.2999999999999998f, 1f))
-						.build("star_crawler").setRegistryName("star_crawler");
+				.build("star_crawler").setRegistryName("star_crawler");
 		elements.entities.add(() -> entity);
 		elements.items.add(() -> new SpawnEggItem(entity, -13421773, -16724788, new Item.Properties().group(SpaceBosstoolsSpawnEggsItemGroup.tab))
 				.setRegistryName("star_crawler_spawn_egg"));
@@ -135,6 +134,8 @@ public class StarCrawlerEntity extends BossToolsModElements.ModElement {
 
 		@Override
 		public boolean attackEntityFrom(DamageSource source, float amount) {
+			if (source.getImmediateSource() instanceof SpectralArrowEntity)
+				return false;
 			if (source.getImmediateSource() instanceof ArrowEntity)
 				return false;
 			if (source == DamageSource.CACTUS)
@@ -149,10 +150,9 @@ public class StarCrawlerEntity extends BossToolsModElements.ModElement {
 			double y = this.getPosY();
 			double z = this.getPosZ();
 			Entity entity = this;
-			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("entity", entity);
-				StarCrawlerOnEntityTickUpdateProcedure.executeProcedure($_dependencies);
+			if ((BossToolsModVariables.StarCrawlerSpawn == (false))) {
+				if (!entity.world.isRemote())
+					entity.remove();
 			}
 		}
 	}

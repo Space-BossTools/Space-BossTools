@@ -2604,16 +2604,6 @@
       "path": "~/Procedures"
     },
     {
-      "name": "EnergyCableBase",
-      "type": "block",
-      "sortid": 17,
-      "compiles": true,
-      "locked_code": true,
-      "ids": {},
-      "registry_name": "energy_cable",
-      "path": "~/Blocks"
-    },
-    {
       "name": "Iceshard",
       "type": "item",
       "sortid": 28,
@@ -2724,24 +2714,6 @@
       "ids": {},
       "registry_name": "star_crawler",
       "path": "~/Entitys"
-    },
-    {
-      "name": "StarCrawlerOnEntityTickUpdate",
-      "type": "procedure",
-      "sortid": 233,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "star_crawler_on_entity_tick_update",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          }
-        ]
-      },
-      "path": "~/Procedures"
     },
     {
       "name": "Config",
@@ -5106,66 +5078,6 @@
       "ids": {},
       "registry_name": "wheel_recpie",
       "path": "~/Recpies"
-    },
-    {
-      "name": "CableCheck1",
-      "type": "procedure",
-      "sortid": 388,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "cable_check_1",
-      "metadata": {
-        "return_type": "logic",
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
-      "name": "CableCheck2",
-      "type": "procedure",
-      "sortid": 389,
-      "compiles": true,
-      "locked_code": false,
-      "ids": {},
-      "registry_name": "cable_check_2",
-      "metadata": {
-        "return_type": "logic",
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
     },
     {
       "name": "MarsIceBiome",
