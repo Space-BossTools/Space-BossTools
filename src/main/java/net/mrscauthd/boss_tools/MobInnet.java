@@ -9,9 +9,8 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.brain.memory.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.TallBlockItem;
+import net.minecraft.item.*;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
@@ -37,6 +36,7 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import net.mrscauthd.boss_tools.block.*;
 import net.mrscauthd.boss_tools.entity.AlienZombieEntity;
+import net.mrscauthd.boss_tools.item.SteahlItem;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
 import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsBasicsItemGroup;
 import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsFlagsItemGroup;
@@ -57,7 +57,6 @@ import net.mrscauthd.boss_tools.world.biome.MarsIceBiomeBiome;
 import net.mrscauthd.boss_tools.world.biome.InfernalVenusBarrensBiome;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.item.Item;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EntityClassification;
@@ -110,6 +109,34 @@ public class MobInnet extends BossToolsModElements.ModElement {
     //Item
     public static final RegistryObject<Item> TORCHITEM = ITEMS.register("coal_torch",
             () -> new CoalTorchItem(COALTORCHBLOCK.get(), WALLCOALTORCHBLOCK.get(),new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab)));
+
+    //Tools
+    public static final RegistryObject<Item> SteelSword = ITEMS.register("steel_sword",
+            () -> new SwordItem(new IItemTier() {
+                public int getMaxUses() {
+                    return 1361;
+                }
+
+                public float getEfficiency() {
+                    return 0f;
+                }
+
+                public float getAttackDamage() {
+                    return 6f;
+                }
+
+                public int getHarvestLevel() {
+                    return 0;
+                }
+
+                public int getEnchantability() {
+                    return 10;
+                }
+
+                public Ingredient getRepairMaterial() {
+                    return Ingredient.fromStacks(new ItemStack(SteahlItem.block, (int) (1)));
+                }
+            },3,-2.4f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab)));
 
     //Flag Items
     public static final RegistryObject<Item> FLAGITEM = ITEMS.register("flag", () -> new TallBlockItem(FLAGBLOCK.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));

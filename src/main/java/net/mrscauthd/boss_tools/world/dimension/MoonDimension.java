@@ -26,7 +26,7 @@ import com.google.common.collect.ImmutableSet;
 @BossToolsModElements.ModElement.Tag
 public class MoonDimension extends BossToolsModElements.ModElement {
 	public MoonDimension(BossToolsModElements instance) {
-		super(instance, 97);
+		super(instance, 107);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class MoonDimension extends BossToolsModElements.ModElement {
 		});
 	}
 
-/*	@Override
+	/*@Override
 	@OnlyIn(Dist.CLIENT)
 	public void clientLoad(FMLClientSetupEvent event) {
 		DimensionRenderInfo customEffect = new DimensionRenderInfo(Float.NaN, true, DimensionRenderInfo.FogType.NONE, false, false) {
