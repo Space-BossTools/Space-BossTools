@@ -110,33 +110,39 @@ public class MobInnet extends BossToolsModElements.ModElement {
     public static final RegistryObject<Item> TORCHITEM = ITEMS.register("coal_torch",
             () -> new CoalTorchItem(COALTORCHBLOCK.get(), WALLCOALTORCHBLOCK.get(),new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab)));
 
+    //Steel Item Tier
+    public static IItemTier SteelItemTier = new IItemTier() {
+        public int getMaxUses() {
+            return 1361;
+        }
+
+        public float getEfficiency() {
+            return 8.5f;
+        }
+
+        public float getAttackDamage() {
+            return 4f;
+        }
+
+        public int getHarvestLevel() {
+            return 4;
+        }
+
+        public int getEnchantability() {
+            return 10;
+        }
+
+        public Ingredient getRepairMaterial() {
+            return Ingredient.fromStacks(new ItemStack(SteahlItem.block, (int) (1)));
+        }
+    };
+
     //Tools
     public static final RegistryObject<Item> SteelSword = ITEMS.register("steel_sword",
-            () -> new SwordItem(new IItemTier() {
-                public int getMaxUses() {
-                    return 1361;
-                }
+            () -> new SwordItem(SteelItemTier,4,-2.4f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab)));
 
-                public float getEfficiency() {
-                    return 0f;
-                }
-
-                public float getAttackDamage() {
-                    return 6f;
-                }
-
-                public int getHarvestLevel() {
-                    return 0;
-                }
-
-                public int getEnchantability() {
-                    return 10;
-                }
-
-                public Ingredient getRepairMaterial() {
-                    return Ingredient.fromStacks(new ItemStack(SteahlItem.block, (int) (1)));
-                }
-            },3,-2.4f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab)));
+    public static final RegistryObject<Item> SteelPickaxe = ITEMS.register("steel_pickaxe",
+            () -> new PickaxeItem(SteelItemTier,1,-2.8f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab)));
 
     //Flag Items
     public static final RegistryObject<Item> FLAGITEM = ITEMS.register("flag", () -> new TallBlockItem(FLAGBLOCK.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
