@@ -19,7 +19,7 @@
         "value": "Blocks.CHEST"
       },
       {
-        "value": "CUSTOM:Ironplate"
+        "value": "TAG:forge:plates/iron"
       },
       {
         "value": "Blocks.FURNACE"
@@ -31,7 +31,7 @@
         "value": "CUSTOM:Wheel"
       },
       {
-        "value": "CUSTOM:Steahl"
+        "value": "TAG:forge:ingots/steel"
       },
       {
         "value": "CUSTOM:Wheel"

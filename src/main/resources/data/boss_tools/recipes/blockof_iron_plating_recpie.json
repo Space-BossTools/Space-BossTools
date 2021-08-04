@@ -8,13 +8,13 @@
   ],
   "key": {
     "0": {
-      "item": "boss_tools:iron_plate"
+      "tag": "forge:plates/iron"
     },
     "1": {
       "item": "minecraft:iron_nugget"
     },
     "2": {
-      "item": "boss_tools:iron_plate"
+      "tag": "forge:plates/iron"
     },
     "3": {
       "item": "minecraft:iron_nugget"
@@ -26,13 +26,13 @@
       "item": "minecraft:iron_nugget"
     },
     "6": {
-      "item": "boss_tools:iron_plate"
+      "tag": "forge:plates/iron"
     },
     "7": {
       "item": "minecraft:iron_nugget"
     },
     "8": {
-      "item": "boss_tools:iron_plate"
+      "tag": "forge:plates/iron"
     }
   },
   "result": {

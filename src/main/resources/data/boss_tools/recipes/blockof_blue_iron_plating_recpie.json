@@ -8,13 +8,13 @@
   ],
   "key": {
     "0": {
-      "item": "boss_tools:iron_plate"
+      "tag": "forge:plates/iron"
     },
     "1": {
       "item": "minecraft:lapis_lazuli"
     },
     "2": {
-      "item": "boss_tools:iron_plate"
+      "tag": "forge:plates/iron"
     },
     "3": {
       "item": "minecraft:lapis_lazuli"
@@ -26,13 +26,13 @@
       "item": "minecraft:lapis_lazuli"
     },
     "6": {
-      "item": "boss_tools:iron_plate"
+      "tag": "forge:plates/iron"
     },
     "7": {
       "item": "minecraft:lapis_lazuli"
     },
     "8": {
-      "item": "boss_tools:iron_plate"
+      "tag": "forge:plates/iron"
     }
   },
   "result": {

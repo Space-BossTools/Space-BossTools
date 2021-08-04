@@ -17,22 +17,22 @@
       "item": "minecraft:glass"
     },
     "3": {
-      "item": "boss_tools:steel_ingot"
+      "tag": "forge:ingots/steel"
     },
     "4": {
       "item": "minecraft:lapis_lazuli"
     },
     "5": {
-      "item": "boss_tools:steel_ingot"
+      "tag": "forge:ingots/steel"
     },
     "6": {
-      "item": "boss_tools:iron_plate"
+      "tag": "forge:plates/iron"
     },
     "7": {
       "item": "minecraft:redstone"
     },
     "8": {
-      "item": "boss_tools:iron_plate"
+      "tag": "forge:plates/iron"
     }
   },
   "result": {

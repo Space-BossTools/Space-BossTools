@@ -10,13 +10,13 @@
     "recipeShapeless": false,
     "recipeSlots": [
       {
-        "value": "CUSTOM:Ironplate"
+        "value": "TAG:forge:plates/iron"
       },
       {
         "value": "Items.IRON_NUGGET"
       },
       {
-        "value": "CUSTOM:Ironplate"
+        "value": "TAG:forge:plates/iron"
       },
       {
         "value": "Items.IRON_NUGGET"
@@ -28,13 +28,13 @@
         "value": "Items.IRON_NUGGET"
       },
       {
-        "value": "CUSTOM:Ironplate"
+        "value": "TAG:forge:plates/iron"
       },
       {
         "value": "Items.IRON_NUGGET"
       },
       {
-        "value": "CUSTOM:Ironplate"
+        "value": "TAG:forge:plates/iron"
       }
     ],
     "recipeReturnStack": {

@@ -10,13 +10,13 @@
     "recipeShapeless": false,
     "recipeSlots": [
       {
-        "value": "CUSTOM:Ironplate"
+        "value": "TAG:forge:plates/iron"
       },
       {
         "value": "Items.DYE#4"
       },
       {
-        "value": "CUSTOM:Ironplate"
+        "value": "TAG:forge:plates/iron"
       },
       {
         "value": "Items.DYE#4"
@@ -28,13 +28,13 @@
         "value": "Items.DYE#4"
       },
       {
-        "value": "CUSTOM:Ironplate"
+        "value": "TAG:forge:plates/iron"
       },
       {
         "value": "Items.DYE#4"
       },
       {
-        "value": "CUSTOM:Ironplate"
+        "value": "TAG:forge:plates/iron"
       }
     ],
     "recipeReturnStack": {

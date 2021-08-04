@@ -144,6 +144,15 @@ public class MobInnet extends BossToolsModElements.ModElement {
     public static final RegistryObject<Item> SteelPickaxe = ITEMS.register("steel_pickaxe",
             () -> new PickaxeItem(SteelItemTier,1,-2.8f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab)));
 
+    public static final RegistryObject<Item> SteelAxe = ITEMS.register("steel_axe",
+            () -> new AxeItem(SteelItemTier,5,-3f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab)));
+
+    public static final RegistryObject<Item> SteelShovel = ITEMS.register("steel_shovel",
+            () -> new ShovelItem(SteelItemTier,1.5f,-3f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab)));
+
+    public static final RegistryObject<Item> SteelHoe = ITEMS.register("steel_hoe",
+            () -> new HoeItem(SteelItemTier,-3,0f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab)));
+
     //Flag Items
     public static final RegistryObject<Item> FLAGITEM = ITEMS.register("flag", () -> new TallBlockItem(FLAGBLOCK.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
     public static final RegistryObject<Item> FLAGITEMblue = ITEMS.register("flag_blue", () -> new TallBlockItem(FLAGBLOCKblue.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
@@ -182,10 +191,6 @@ public class MobInnet extends BossToolsModElements.ModElement {
         return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, key, configuredFeature);
     }
 
-
-    /**
-     * Do not remove this constructor
-     */
     public MobInnet(BossToolsModElements instance) {
         super(instance, 901);
     }
@@ -310,8 +315,6 @@ public class MobInnet extends BossToolsModElements.ModElement {
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap3;
         }
     }
-// Meteor
-
 
     @Override
     public void init(final FMLCommonSetupEvent event) {

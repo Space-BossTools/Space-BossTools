@@ -14,7 +14,7 @@
       "item": "minecraft:chest"
     },
     "3": {
-      "item": "boss_tools:iron_plate"
+      "tag": "forge:plates/iron"
     },
     "4": {
       "item": "minecraft:furnace"
@@ -26,7 +26,7 @@
       "item": "boss_tools:wheel"
     },
     "7": {
-      "item": "boss_tools:steel_ingot"
+      "tag": "forge:ingots/steel"
     },
     "8": {
       "item": "boss_tools:wheel"

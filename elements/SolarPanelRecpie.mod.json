@@ -19,22 +19,22 @@
         "value": "Blocks.GLASS"
       },
       {
-        "value": "CUSTOM:Steahl"
+        "value": "TAG:forge:ingots/steel"
       },
       {
         "value": "Items.DYE#4"
       },
       {
-        "value": "CUSTOM:Steahl"
+        "value": "TAG:forge:ingots/steel"
       },
       {
-        "value": "CUSTOM:Ironplate"
+        "value": "TAG:forge:plates/iron"
       },
       {
         "value": "Items.REDSTONE"
       },
       {
-        "value": "CUSTOM:Ironplate"
+        "value": "TAG:forge:plates/iron"
       }
     ],
     "recipeReturnStack": {
