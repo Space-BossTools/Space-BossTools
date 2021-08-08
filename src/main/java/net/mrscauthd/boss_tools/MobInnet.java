@@ -113,23 +113,23 @@ public class MobInnet extends BossToolsModElements.ModElement {
     //Steel Item Tier
     public static IItemTier SteelItemTier = new IItemTier() {
         public int getMaxUses() {
-            return 1361;
+            return 1661;
         }
 
         public float getEfficiency() {
-            return 8.5f;
+            return 7f;
         }
 
         public float getAttackDamage() {
-            return 4f;
+            return 2f;
         }
 
         public int getHarvestLevel() {
-            return 4;
+            return 3;
         }
 
         public int getEnchantability() {
-            return 10;
+            return 14;
         }
 
         public Ingredient getRepairMaterial() {
@@ -139,19 +139,19 @@ public class MobInnet extends BossToolsModElements.ModElement {
 
     //Tools
     public static final RegistryObject<Item> SteelSword = ITEMS.register("steel_sword",
-            () -> new SwordItem(SteelItemTier,4,-2.4f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab)));
-
-    public static final RegistryObject<Item> SteelPickaxe = ITEMS.register("steel_pickaxe",
-            () -> new PickaxeItem(SteelItemTier,1,-2.8f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab)));
-
-    public static final RegistryObject<Item> SteelAxe = ITEMS.register("steel_axe",
-            () -> new AxeItem(SteelItemTier,5,-3f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab)));
+            () -> new SwordItem(SteelItemTier,3,-2.4f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab).isImmuneToFire()));
 
     public static final RegistryObject<Item> SteelShovel = ITEMS.register("steel_shovel",
-            () -> new ShovelItem(SteelItemTier,1.5f,-3f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab)));
+            () -> new ShovelItem(SteelItemTier,1.5f,-3f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab).isImmuneToFire()));
+
+    public static final RegistryObject<Item> SteelPickaxe = ITEMS.register("steel_pickaxe",
+            () -> new PickaxeItem(SteelItemTier,1,-2.8f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab).isImmuneToFire()));
+
+    public static final RegistryObject<Item> SteelAxe = ITEMS.register("steel_axe",
+            () -> new AxeItem(SteelItemTier,6,-3f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab).isImmuneToFire()));
 
     public static final RegistryObject<Item> SteelHoe = ITEMS.register("steel_hoe",
-            () -> new HoeItem(SteelItemTier,-3,0f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab)));
+            () -> new HoeItem(SteelItemTier,-2,0f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab).isImmuneToFire()));
 
     //Flag Items
     public static final RegistryObject<Item> FLAGITEM = ITEMS.register("flag", () -> new TallBlockItem(FLAGBLOCK.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
