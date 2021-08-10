@@ -17,6 +17,7 @@ public class OpenTier1mainMenuBackProcedure {
 		entity.getPersistentData().putDouble("Tier_1_open_main_menu_2", 0);
 		entity.getPersistentData().putDouble("Tier_1_open_main_menu_3", 0);
 		entity.getPersistentData().putDouble("Tier_1_open_main_menu_4", 0);
+		entity.getPersistentData().putDouble("Tier_1_open_main_menu_5", 0);
 		entity.getPersistentData().putDouble("Tier_1_open_main_menu_back", 1);
 	}
 }

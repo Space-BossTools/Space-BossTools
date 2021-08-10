@@ -57,7 +57,7 @@ public class RocketTier3OrbitVenusTpProcedure {
 				Entity _ent = entity;
 				if (!_ent.world.isRemote && _ent instanceof ServerPlayerEntity) {
 					RegistryKey<World> destinationType = RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-							new ResourceLocation("boss_tools:orbit_mercury"));
+							new ResourceLocation("boss_tools:orbit_venus"));
 					ServerWorld nextWorld = _ent.getServer().getWorld(destinationType);
 					if (nextWorld != null) {
 						((ServerPlayerEntity) _ent).connection.sendPacket(new SChangeGameStatePacket(SChangeGameStatePacket.field_241768_e_, 0));
@@ -76,6 +76,7 @@ public class RocketTier3OrbitVenusTpProcedure {
 		entity.getPersistentData().putDouble("Tier_3_open_main_menu_2", 0);
 		entity.getPersistentData().putDouble("Tier_3_open_main_menu_3", 0);
 		entity.getPersistentData().putDouble("Tier_3_open_main_menu_4", 0);
+		entity.getPersistentData().putDouble("Tier_3_open_main_menu_5", 0);
 		entity.getPersistentData().putDouble("Player_movement", 0);
 		entity.setNoGravity((false));
 		entity.getPersistentData().putDouble("LanderSpawn", 1);

@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.procedures;
 
+import net.mrscauthd.boss_tools.gui.Tier3mainMenuSpaceStation5Gui;
 import net.mrscauthd.boss_tools.gui.Tier3mainMenuSpaceStation4Gui;
 import net.mrscauthd.boss_tools.gui.Tier3mainMenuSpaceStation3Gui;
 import net.mrscauthd.boss_tools.gui.Tier3mainMenuSpaceStation2Gui;
@@ -8,6 +9,7 @@ import net.mrscauthd.boss_tools.gui.Tier3mainMenuGui;
 import net.mrscauthd.boss_tools.gui.Tier3mainMenu4Gui;
 import net.mrscauthd.boss_tools.gui.Tier3mainMenu3Gui;
 import net.mrscauthd.boss_tools.gui.Tier3mainMenu2Gui;
+import net.mrscauthd.boss_tools.gui.Tier3MainMenu5Gui;
 import net.mrscauthd.boss_tools.gui.Tier2mainMenuSpaceStation3Gui;
 import net.mrscauthd.boss_tools.gui.Tier2mainMenuSpaceStation2Gui;
 import net.mrscauthd.boss_tools.gui.Tier2mainMenuSpaceStation1Gui;
@@ -18,6 +20,7 @@ import net.mrscauthd.boss_tools.gui.Tier1mainMenuSpaceStationGui;
 import net.mrscauthd.boss_tools.gui.Tier1mainMenuSpaceStation2Gui;
 import net.mrscauthd.boss_tools.gui.Tier1mainMenuGui;
 import net.mrscauthd.boss_tools.gui.Tier1mainMenu2Gui;
+import net.mrscauthd.boss_tools.gui.GeneratorGUIGui;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -143,8 +146,7 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		} // Mercury
 		if (((entity.getPersistentData().getDouble("Tier_1_open_main_menu_4")) == 1)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier1mainMenu2Gui.GuiContainerMod))) {
+			if ((!(entity instanceof ClientPlayerEntity && ((ClientPlayerEntity) entity).openContainer instanceof GeneratorGUIGui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -525,6 +527,28 @@ public class PlayerOpenRocketMainMenusProcedure {
 					}
 				}
 			}
+		} // Venus
+		if (((entity.getPersistentData().getDouble("Tier_3_open_main_menu_5")) == 1)) {
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3MainMenu5Gui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier3MainMenu5");
+							}
+
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier3MainMenu5Gui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
+				}
+			}
 		} // Space Station Menu
 		if (((entity.getPersistentData().getDouble("Tier_3_space_station_open")) == 1)) {
 			if ((!(entity instanceof ClientPlayerEntity
@@ -611,6 +635,29 @@ public class PlayerOpenRocketMainMenusProcedure {
 							@Override
 							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
 								return new Tier3mainMenuSpaceStation4Gui.GuiContainerMod(id, inventory,
+										new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
+							}
+						}, _bpos);
+					}
+				}
+			}
+		}
+		if (((entity.getPersistentData().getDouble("Tier_3_space_station_open")) == 5)) {
+			if ((!(entity instanceof ClientPlayerEntity
+					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3mainMenuSpaceStation5Gui.GuiContainerMod))) {
+				{
+					Entity _ent = entity;
+					if (_ent instanceof ServerPlayerEntity) {
+						BlockPos _bpos = new BlockPos((int) x, (int) y, (int) z);
+						NetworkHooks.openGui((ServerPlayerEntity) _ent, new INamedContainerProvider() {
+							@Override
+							public ITextComponent getDisplayName() {
+								return new StringTextComponent("Tier3mainMenuSpaceStation5");
+							}
+
+							@Override
+							public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+								return new Tier3mainMenuSpaceStation5Gui.GuiContainerMod(id, inventory,
 										new PacketBuffer(Unpooled.buffer()).writeBlockPos(_bpos));
 							}
 						}, _bpos);

@@ -19,6 +19,7 @@ public class OpenTier3SpaceStationMenu4Procedure {
 		entity.getPersistentData().putDouble("Tier_3_open_main_menu_2", 0);
 		entity.getPersistentData().putDouble("Tier_3_open_main_menu_3", 0);
 		entity.getPersistentData().putDouble("Tier_3_open_main_menu_4", 0);
+		entity.getPersistentData().putDouble("Tier_3_open_main_menu_5", 0);
 		entity.getPersistentData().putDouble("Tier_3_space_station_open", 4);
 	}
 }

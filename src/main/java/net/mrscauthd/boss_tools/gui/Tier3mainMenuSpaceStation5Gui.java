@@ -2,9 +2,8 @@
 package net.mrscauthd.boss_tools.gui;
 
 import net.mrscauthd.boss_tools.procedures.OpenTier3MainMenu5Procedure;
+import net.mrscauthd.boss_tools.procedures.Tier3SpaceStationCreate4Procedure;
 import net.mrscauthd.boss_tools.procedures.OpenTier3mainMenu4Procedure;
-import net.mrscauthd.boss_tools.procedures.OpenTier3mainMenu3Procedure;
-import net.mrscauthd.boss_tools.procedures.OpenTier3mainMenu2Procedure;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.items.ItemStackHandler;
@@ -27,17 +26,18 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.client.gui.ScreenManager;
+import net.mrscauthd.boss_tools.procedures.Tier3SpaceStationCreate5Procedure;
 
 import java.util.function.Supplier;
 import java.util.Map;
 import java.util.HashMap;
 
 @BossToolsModElements.ModElement.Tag
-public class Tier3mainMenuGui extends BossToolsModElements.ModElement {
+public class Tier3mainMenuSpaceStation5Gui extends BossToolsModElements.ModElement {
 	public static HashMap guistate = new HashMap();
 	private static ContainerType<GuiContainerMod> containerType = null;
-	public Tier3mainMenuGui(BossToolsModElements instance) {
-		super(instance, 632);
+	public Tier3mainMenuSpaceStation5Gui(BossToolsModElements instance) {
+		super(instance, 471);
 		elements.addNetworkMessage(ButtonPressedMessage.class, ButtonPressedMessage::buffer, ButtonPressedMessage::new,
 				ButtonPressedMessage::handler);
 		elements.addNetworkMessage(GUISlotChangedMessage.class, GUISlotChangedMessage::buffer, GUISlotChangedMessage::new,
@@ -48,12 +48,12 @@ public class Tier3mainMenuGui extends BossToolsModElements.ModElement {
 	private static class ContainerRegisterHandler {
 		@SubscribeEvent
 		public void registerContainer(RegistryEvent.Register<ContainerType<?>> event) {
-			event.getRegistry().register(containerType.setRegistryName("tier_3main_menu"));
+			event.getRegistry().register(containerType.setRegistryName("tier_3main_menu_space_station_5"));
 		}
 	}
 	@OnlyIn(Dist.CLIENT)
 	public void initElements() {
-		DeferredWorkQueue.runLater(() -> ScreenManager.registerFactory(containerType, Tier3mainMenuGuiWindow::new));
+		DeferredWorkQueue.runLater(() -> ScreenManager.registerFactory(containerType, Tier3mainMenuSpaceStation5GuiWindow::new));
 	}
 	public static class GuiContainerModFactory implements IContainerFactory {
 		public GuiContainerMod create(int id, PlayerInventory inv, PacketBuffer extraData) {
@@ -182,28 +182,15 @@ public class Tier3mainMenuGui extends BossToolsModElements.ModElement {
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("entity", entity);
-				OpenTier3mainMenu2Procedure.executeProcedure($_dependencies);
+				OpenTier3MainMenu5Procedure.executeProcedure($_dependencies);
 			}
 		}
 		if (buttonID == 1) {
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("entity", entity);
-				OpenTier3mainMenu3Procedure.executeProcedure($_dependencies);
-			}
-		}
-		if (buttonID == 2) {
-			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("entity", entity);
-				OpenTier3mainMenu4Procedure.executeProcedure($_dependencies);
-			}
-		}
-		if (buttonID == 3) {
-			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("entity", entity);
-				OpenTier3MainMenu5Procedure.executeProcedure($_dependencies);
+				$_dependencies.put("world", world);
+				Tier3SpaceStationCreate5Procedure.executeProcedure($_dependencies);
 			}
 		}
 	}
