@@ -120,8 +120,7 @@ public class MoglerModel {
         }
 
         @Override
-        public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue,
-                           float alpha) {
+        public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue,float alpha) {
             if (isChild) {
                 matrixStack.scale(0.5f, 0.5f, 0.5f);
                 matrixStack.translate(0, 1.5f, 0);
