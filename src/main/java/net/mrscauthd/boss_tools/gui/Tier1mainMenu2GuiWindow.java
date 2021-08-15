@@ -73,9 +73,9 @@ public class Tier1mainMenu2GuiWindow extends ContainerScreen<Tier1mainMenu2Gui.G
 
 			//ToolTip
 			Category1.add(ITextComponent.getTextComponentOrEmpty("\u00A79Type: \u00A73Planet"));
-			Category1.add(ITextComponent.getTextComponentOrEmpty("\u00A79Gravity: \u00A739.807 m/s²"));
+			Category1.add(ITextComponent.getTextComponentOrEmpty("\u00A79Gravity: \u00A739.807 m/s"));
 			Category1.add(ITextComponent.getTextComponentOrEmpty("\u00A79Oxygen: \u00A7atrue")); //false c / true a
-			Category1.add(ITextComponent.getTextComponentOrEmpty("\u00A79Temperature: \u00A7a14°")); //hot c / cold a
+			Category1.add(ITextComponent.getTextComponentOrEmpty("\u00A79Temperature: \u00A7a14")); //hot c / cold a
 			this.func_243308_b(ms, Category1, mouseX, mouseY);
 		} else {
 			Button1 = false;
@@ -119,9 +119,9 @@ public class Tier1mainMenu2GuiWindow extends ContainerScreen<Tier1mainMenu2Gui.G
 
 			//ToolTip
 			Category4.add(ITextComponent.getTextComponentOrEmpty("\u00A79Type: \u00A73Moon"));
-			Category4.add(ITextComponent.getTextComponentOrEmpty("\u00A79Gravity: \u00A731.62 m/s²"));
+			Category4.add(ITextComponent.getTextComponentOrEmpty("\u00A79Gravity: \u00A731.62 m/s"));
 			Category4.add(ITextComponent.getTextComponentOrEmpty("\u00A79Oxygen: \u00A7cfalse")); //false c / true a
-			Category4.add(ITextComponent.getTextComponentOrEmpty("\u00A79Temperature: \u00A7c-173°")); //hot c / cold a
+			Category4.add(ITextComponent.getTextComponentOrEmpty("\u00A79Temperature: \u00A7c-173")); //hot c / cold a
 			this.func_243308_b(ms, Category4, mouseX, mouseY);
 		} else {
 			Button4 = false;
