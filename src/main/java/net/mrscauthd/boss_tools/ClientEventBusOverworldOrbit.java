@@ -231,6 +231,12 @@ public class ClientEventBusOverworldOrbit {
 								// float f17 = (float) mc.player.getEyePosition(partialTicks).y /*-
 								// world.getWorldInfo().getVoidFogHeight()*/;
 								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+
+								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(f15, f16).endVertex();
+								// bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(f13, f16).endVertex();
+								// bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(f13, f14).endVertex();
+								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(f15, f14).endVertex();
+
 								// bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(f15, f16).endVertex();
 								// bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(f13, f16).endVertex();
 								// bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(f13, f14).endVertex();
@@ -245,10 +251,10 @@ public class ClientEventBusOverworldOrbit {
 								 * -300.0F).tex(f15, f14).endVertex();
 								 */
 								// Texture
-								bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(0.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(1.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(1.0F, 1.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(0.0F, 1.0F).endVertex();
+								bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(f15, f16).endVertex();
+								bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(f13, f16).endVertex();
+								bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(f13, f14).endVertex();
+								bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(f15, f14).endVertex();
 								bufferbuilder.finishDrawing();
 								WorldVertexBufferUploader.draw(bufferbuilder);
 								RenderSystem.disableTexture();
@@ -272,7 +278,7 @@ public class ClientEventBusOverworldOrbit {
 								RenderSystem.color3f(0.0F, 0.0F, 0.0F);
 								double d0 = 2.0F;// mc.player.getEyePosition(partialTicks).y -
 								// world.getWorldInfo().getVoidFogHeight();
-								// This is the Player High When The Sky Removed zb. bei 60 blöcken
+								// This is the Player High When The Sky Removed zb. bei 60 blï¿½cken
 								if (d0 < 1.0D) {
 									// 0.0D
 									matrixStack.push();
