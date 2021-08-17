@@ -71,7 +71,6 @@ public class MoglerModel {
             cube_r4.setTextureOffset(66, 2).addBox(-12.0F, -22.0F, -4.0F, 24.0F, 11.0F, 11.0F, 0.0F, false);
             head = new ModelRenderer(this);
             head.setRotationPoint(0.0F, 9.0F, -8.0F);
-            //setRotationAngle(head,52,0,0);
             cube_r5 = new ModelRenderer(this);
             cube_r5.setRotationPoint(0.0F, 13.0F, 8.0F);
             head.addChild(cube_r5);

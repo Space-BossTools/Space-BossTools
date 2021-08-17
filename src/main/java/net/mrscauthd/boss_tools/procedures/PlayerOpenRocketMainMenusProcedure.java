@@ -40,7 +40,6 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -102,8 +101,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 		IWorld world = (IWorld) dependencies.get("world");
 		// Overworld
 		if (((entity.getPersistentData().getDouble("Tier_1_open_main_menu_2")) == 1)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier1mainMenu2Gui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier1mainMenu2Gui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -124,8 +123,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		} // Mars
 		if (((entity.getPersistentData().getDouble("Tier_1_open_main_menu_3")) == 1)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier1mainMenu2Gui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier1mainMenu2Gui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -146,7 +145,7 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		} // Mercury
 		if (((entity.getPersistentData().getDouble("Tier_1_open_main_menu_4")) == 1)) {
-			if ((!(entity instanceof ClientPlayerEntity && ((ClientPlayerEntity) entity).openContainer instanceof GeneratorGUIGui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity && ((ServerPlayerEntity) entity).openContainer instanceof GeneratorGUIGui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -167,8 +166,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		} // Back to main menu
 		if (((entity.getPersistentData().getDouble("Tier_1_open_main_menu_back")) == 1)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier1mainMenuGui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier1mainMenuGui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -189,8 +188,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		} // Open Main Menu
 		if (((entity.getPersistentData().getDouble("Tier_1_open_main_menu")) == 1)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier1mainMenuGui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier1mainMenuGui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -216,8 +215,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			entity.getPersistentData().putDouble("timer_oxygen", 0);
 		} // Space Station Menu
 		if (((entity.getPersistentData().getDouble("Tier_1_space_station_open")) == 1)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier1mainMenuSpaceStationGui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier1mainMenuSpaceStationGui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -239,8 +238,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		}
 		if (((entity.getPersistentData().getDouble("Tier_1_space_station_open")) == 2)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier1mainMenuSpaceStation2Gui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier1mainMenuSpaceStation2Gui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -262,8 +261,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		} // Tier 2 Rocket
 		if (((entity.getPersistentData().getDouble("Tier_2_open_main_menu")) == 1)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier2mainMenuGui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier2mainMenuGui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -284,8 +283,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		} // main menu back
 		if (((entity.getPersistentData().getDouble("Tier_2_open_main_menu_back")) == 1)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier2mainMenuGui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier2mainMenuGui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -306,8 +305,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		} // Overworld
 		if (((entity.getPersistentData().getDouble("Tier_2_open_main_menu_2")) == 1)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier2mainMenu2Gui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier2mainMenu2Gui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -328,8 +327,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		} // Mars
 		if (((entity.getPersistentData().getDouble("Tier_2_open_main_menu_3")) == 1)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier2mainMenu3Gui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier2mainMenu3Gui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -350,8 +349,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		} // Space Station Menu
 		if (((entity.getPersistentData().getDouble("Tier_2_space_station_open")) == 1)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier2mainMenuSpaceStation1Gui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier2mainMenuSpaceStation1Gui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -373,8 +372,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		}
 		if (((entity.getPersistentData().getDouble("Tier_2_space_station_open")) == 2)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier2mainMenuSpaceStation2Gui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier2mainMenuSpaceStation2Gui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -396,8 +395,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		}
 		if (((entity.getPersistentData().getDouble("Tier_2_space_station_open")) == 3)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3mainMenuSpaceStation3Gui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier3mainMenuSpaceStation3Gui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -419,8 +418,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		} // Tier 3 Rocket
 		if (((entity.getPersistentData().getDouble("Tier_3_open_main_menu")) == 1)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3mainMenuGui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier3mainMenuGui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -441,8 +440,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		} // main menu back
 		if (((entity.getPersistentData().getDouble("Tier_3_open_main_menu_back")) == 1)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3mainMenuGui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier3mainMenuGui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -463,8 +462,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		} // Overworld
 		if (((entity.getPersistentData().getDouble("Tier_3_open_main_menu_2")) == 1)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3mainMenu2Gui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier3mainMenu2Gui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -485,8 +484,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		} // Mars
 		if (((entity.getPersistentData().getDouble("Tier_3_open_main_menu_3")) == 1)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3mainMenu3Gui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier3mainMenu3Gui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -507,8 +506,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		} // Mercury
 		if (((entity.getPersistentData().getDouble("Tier_3_open_main_menu_4")) == 1)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3mainMenu4Gui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier3mainMenu4Gui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -529,8 +528,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		} // Venus
 		if (((entity.getPersistentData().getDouble("Tier_3_open_main_menu_5")) == 1)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3MainMenu5Gui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier3MainMenu5Gui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -551,8 +550,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		} // Space Station Menu
 		if (((entity.getPersistentData().getDouble("Tier_3_space_station_open")) == 1)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3mainMenuSpaceStation1Gui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier3mainMenuSpaceStation1Gui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -574,8 +573,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		}
 		if (((entity.getPersistentData().getDouble("Tier_3_space_station_open")) == 2)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3mainMenuSpaceStation2Gui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier3mainMenuSpaceStation2Gui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -597,8 +596,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		}
 		if (((entity.getPersistentData().getDouble("Tier_3_space_station_open")) == 3)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3mainMenuSpaceStation3Gui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier3mainMenuSpaceStation3Gui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -620,8 +619,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		}
 		if (((entity.getPersistentData().getDouble("Tier_3_space_station_open")) == 4)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3mainMenuSpaceStation4Gui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier3mainMenuSpaceStation4Gui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {
@@ -643,8 +642,8 @@ public class PlayerOpenRocketMainMenusProcedure {
 			}
 		}
 		if (((entity.getPersistentData().getDouble("Tier_3_space_station_open")) == 5)) {
-			if ((!(entity instanceof ClientPlayerEntity
-					&& ((ClientPlayerEntity) entity).openContainer instanceof Tier3mainMenuSpaceStation5Gui.GuiContainerMod))) {
+			if ((!(entity instanceof ServerPlayerEntity
+					&& ((ServerPlayerEntity) entity).openContainer instanceof Tier3mainMenuSpaceStation5Gui.GuiContainerMod))) {
 				{
 					Entity _ent = entity;
 					if (_ent instanceof ServerPlayerEntity) {

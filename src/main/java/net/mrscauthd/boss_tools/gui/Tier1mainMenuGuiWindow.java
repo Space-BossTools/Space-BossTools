@@ -147,26 +147,22 @@ public class Tier1mainMenuGuiWindow extends ContainerScreen<Tier1mainMenuGui.Gui
 		}
 
 		//Button 1
-		this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 223, 70, 20, 0, 0, 0, GreenButton1T, 70, 20,
-				(p_2130901) -> {
+		this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 223, 70, 20, 0, 0, 0, GreenButton1T, 70, 20, (p_2130901) -> {
 					BossToolsMod.PACKET_HANDLER.sendToServer(new Tier1mainMenuGui.ButtonPressedMessage(0, x, y, z));
 					Tier1mainMenuGui.handleButtonAction(entity, 0, x, y, z);
 				}));
 		//Button 2
-		this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 247, 70, 20, 0, 0, 0, GreenButton2T, 70, 20,
-				(p_2130901) -> {
+		this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 247, 70, 20, 0, 0, 0, GreenButton2T, 70, 20, (p_2130901) -> {
 					BossToolsMod.PACKET_HANDLER.sendToServer(new Tier1mainMenuGui.ButtonPressedMessage(1, x, y, z));
 					Tier1mainMenuGui.handleButtonAction(entity, 1, x, y, z);
 				}));
 		//Button 3
-		this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 271, 70, 20, 0, 0, 0, GreenButton3T, 70, 20,
-				(p_2130901) -> {
+		this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 271, 70, 20, 0, 0, 0, GreenButton3T, 70, 20, (p_2130901) -> {
 					BossToolsMod.PACKET_HANDLER.sendToServer(new Tier1mainMenuGui.ButtonPressedMessage(2, x, y, z));
 					Tier1mainMenuGui.handleButtonAction(entity, 2, x, y, z);
 				}));
 		//Button 4
-		this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 295, 70, 20, 0, 0, 0, GreenButton4T, 70, 20,
-				(p_2130901) -> {
+		this.addButton(new ImageButton(this.guiLeft + 53, this.guiTop + 295, 70, 20, 0, 0, 0, GreenButton4T, 70, 20, (p_2130901) -> {
 					BossToolsMod.PACKET_HANDLER.sendToServer(new Tier1mainMenuGui.ButtonPressedMessage(3, x, y, z));
 					Tier1mainMenuGui.handleButtonAction(entity, 3, x, y, z);
 				}));
