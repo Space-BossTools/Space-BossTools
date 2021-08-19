@@ -17,6 +17,8 @@
  */
 package net.mrscauthd.boss_tools;
 
+//import net.mrscauthd.boss_tools.events.FuelGuiSyncEvent;
+import net.mrscauthd.boss_tools.events.SyncEvents;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -52,6 +54,12 @@ public class BossToolsMod {
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientLoad);
 		MinecraftForge.EVENT_BUS.register(new BossToolsModFMLBusEvents(this));
+
+		//SyncEvent Registers
+		SyncEvents.FuelGuiSyncEvent.registerMessages();
+		SyncEvents.FuelSyncEvent.registerMessages();
+		SyncEvents.OxygenBulletGeneratorSyncEvent.NetworkLoader.registerMessages();
+		SyncEvents.PlayerMovementSyncEvent.NetworkLoader.registerMessages();
 	}
 
 	private void init(FMLCommonSetupEvent event) {

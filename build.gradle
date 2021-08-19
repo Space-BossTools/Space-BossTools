@@ -19,6 +19,11 @@ repositories {
     url = "https://modmaven.k-4u.nl/"
   }
 }
+repositories {
+    maven {
+        url = "https://www.cursemaven.com"
+    }
+}
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 
@@ -64,7 +69,8 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.5-36.2.0'
+  minecraft 'net.minecraftforge:forge:1.16.5-36.2.0'
+  compile fg.deobf("curse.maven:obfuscate-289380:3067472")
   compileOnly fg.deobf("mezz.jei:jei-1.16.4:7.6.0.62:api")
   runtimeOnly fg.deobf("mezz.jei:jei-1.16.4:7.6.0.62")
   annotationProcessor 'org.spongepowered:mixin:0.8.2:processor'
@@ -84,8 +90,6 @@ jar {
     }
 }
 apply plugin: 'org.spongepowered.mixin'
-
-apply from: 'mcreator.gradle'
 
 mixin {
     add sourceSets.main, "boss_tools.refmap.json"

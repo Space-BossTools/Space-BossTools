@@ -25,7 +25,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.mrscauthd.boss_tools.MobInnet;
+import net.mrscauthd.boss_tools.ModInnet;
 
 public class CoalTorchBlock extends Block {
     protected static final VoxelShape SHAPE = Block.makeCuboidShape(6.0D, 0.0D, 6.0D, 10.0D, 10.0D, 10.0D);

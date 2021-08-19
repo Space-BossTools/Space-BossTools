@@ -1,7 +1,9 @@
 
 package net.mrscauthd.boss_tools.entity;
 
-import net.mrscauthd.boss_tools.procedures.AlienZombieOnEntityTickUpdateProcedure;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.goal.*;
+import net.mrscauthd.boss_tools.events.Config;
 import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsSpawnEggsItemGroup;
 import net.mrscauthd.boss_tools.entity.renderer.AlienZombieRenderer;
 import net.mrscauthd.boss_tools.BossToolsModElements;
@@ -22,21 +24,8 @@ import net.minecraft.item.SpawnEggItem;
 import net.minecraft.item.Item;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.ai.goal.RandomWalkingGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.CreatureAttribute;
-
-import java.util.Map;
-import java.util.HashMap;
 
 @BossToolsModElements.ModElement.Tag
 public class AlienZombieEntity extends BossToolsModElements.ModElement {
@@ -71,7 +60,7 @@ public class AlienZombieEntity extends BossToolsModElements.ModElement {
 		}
 	}
 
-	public static class CustomEntity extends MonsterEntity {
+	public static class CustomEntity extends MonsterEntity implements IRangedAttackMob {
 		public CustomEntity(FMLPlayMessages.SpawnEntity packet, World world) {
 			this(entity, world);
 		}
@@ -96,6 +85,13 @@ public class AlienZombieEntity extends BossToolsModElements.ModElement {
 			this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
 			this.targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, PlayerEntity.class, false, false));
             this.targetSelector.addGoal(6, new NearestAttackableTargetGoal(this, AlienEntity.class, false, false));
+			this.goalSelector.addGoal(1, new RangedAttackGoal(this, 1.25, 20, 15) {
+				@Override
+				public boolean shouldContinueExecuting() {
+					return this.shouldExecute();
+				}
+			});
+
 		}
 
 		@Override
@@ -113,21 +109,17 @@ public class AlienZombieEntity extends BossToolsModElements.ModElement {
 			return (net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.pillager.death"));
 		}
 
+		public void attackEntityWithRangedAttack(LivingEntity target, float flval) {
+			AlienSpitEntity.shoot(this, target);
+		}
+
 		@Override
-		public void baseTick() {
-			super.baseTick();
-			double x = this.getPosX();
-			double y = this.getPosY();
-			double z = this.getPosZ();
+		public void tick() {
+			super.tick();
 			Entity entity = this;
-			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("entity", entity);
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
-				$_dependencies.put("world", world);
-				AlienZombieOnEntityTickUpdateProcedure.executeProcedure($_dependencies);
+			if (Config.AlienZombieSpawn == false) {
+				if (!entity.world.isRemote())
+					entity.remove();
 			}
 		}
 	}

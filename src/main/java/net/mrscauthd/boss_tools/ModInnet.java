@@ -4,10 +4,6 @@ package net.mrscauthd.boss_tools;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.brain.memory.MemoryModuleType;
-import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
@@ -30,14 +26,12 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 import net.mrscauthd.boss_tools.block.*;
-import net.mrscauthd.boss_tools.entity.AlienZombieEntity;
+import net.mrscauthd.boss_tools.entity.AlienSpitEntity;
+import net.mrscauthd.boss_tools.events.Config;
 import net.mrscauthd.boss_tools.item.SteahlItem;
-import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
 import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsBasicsItemGroup;
 import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsFlagsItemGroup;
 import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsSpawnEggsItemGroup;
@@ -61,23 +55,23 @@ import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.CreatureEntity;
-import net.mrscauthd.boss_tools.BossToolsModVariables;
 
-import java.lang.management.MemoryType;
 import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.function.Supplier;
 
 @BossToolsModElements.ModElement.Tag
 @Mod.EventBusSubscriber(modid = "boss_tools", bus = Mod.EventBusSubscriber.Bus.MOD)
-public class MobInnet extends BossToolsModElements.ModElement {
+public class ModInnet extends BossToolsModElements.ModElement {
     public static final DeferredRegister<EntityType<?>> ENTITYS = DeferredRegister.create(ForgeRegistries.ENTITIES, "boss_tools");
+
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, "boss_tools");
+
     public static RegistryObject<EntityType<?>> ALIEN = ENTITYS.register("alien", () -> EntityType.Builder
             .create(AlienEntity::new, EntityClassification.CREATURE).size(0.75f, 2.5f).build(new ResourceLocation("boss_tools", "alien").toString()));
+
+    public static RegistryObject<EntityType<?>> ALIENSPITENTITY = ENTITYS.register("alien_spit_entity", () -> AlienSpitEntity.arrow);
+
     public static final RegistryObject<ModSpawnEggs> ALIEN_SPAWN_EGG = ITEMS.register("alien_spawn_egg",
             () -> new ModSpawnEggs(ALIEN, -13382401, -11650781, new Item.Properties().group(SpaceBosstoolsSpawnEggsItemGroup.tab)));
 
@@ -191,7 +185,7 @@ public class MobInnet extends BossToolsModElements.ModElement {
         return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, key, configuredFeature);
     }
 
-    public MobInnet(BossToolsModElements instance) {
+    public ModInnet(BossToolsModElements instance) {
         super(instance, 901);
     }
 
@@ -243,32 +237,32 @@ public class MobInnet extends BossToolsModElements.ModElement {
 
     public void biomeModification(final BiomeLoadingEvent event) {
         RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
-        if (event.getName().equals(new ResourceLocation("boss_tools:moon_biome")) && BossToolsModVariables.AlienVillageStructure == true) {
+        if (event.getName().equals(new ResourceLocation("boss_tools:moon_biome")) && Config.AlienVillageStructure == true) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE);
         }
-        if (event.getName().equals(new ResourceLocation("plains")) && BossToolsModVariables.MeteorStructure == true) {
+        if (event.getName().equals(new ResourceLocation("plains")) && Config.MeteorStructure == true) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
             // event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE)
         }
-        if (event.getName().equals(new ResourceLocation("snowy_tundra")) && BossToolsModVariables.MeteorStructure == true) {
+        if (event.getName().equals(new ResourceLocation("snowy_tundra")) && Config.MeteorStructure == true) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
             // event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE)
         }
         //  if (event.getName().equals(new ResourceLocation("boss_tools:mars_biom"))) {
         //       event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
         //   }
-        if (event.getName().equals(new ResourceLocation("forest")) && BossToolsModVariables.MeteorStructure == true) {
+        if (event.getName().equals(new ResourceLocation("forest")) && Config.MeteorStructure == true) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
         }
-        if (event.getName().equals(new ResourceLocation("desert")) && BossToolsModVariables.MeteorStructure == true) {
+        if (event.getName().equals(new ResourceLocation("desert")) && Config.MeteorStructure == true) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
         }
         //venus bullet
-        if (event.getName().equals(new ResourceLocation("boss_tools:venus_biome")) && BossToolsModVariables.VenusBulletStructure == true) {
+        if (event.getName().equals(new ResourceLocation("boss_tools:venus_biome")) && Config.VenusBulletStructure == true) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.VENUS_BULLET_CONFIGURED_RUN_DOWN_HOUSE);
         }
         //venus tower
-        if (event.getName().equals(new ResourceLocation("boss_tools:venus_biome")) && BossToolsModVariables.VenusTowerStructure == true) {
+        if (event.getName().equals(new ResourceLocation("boss_tools:venus_biome")) && Config.VenusTowerStructure == true) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.VENUS_TOWER_CONFIGURED_RUN_DOWN_HOUSE);
         }
     }
@@ -323,14 +317,14 @@ public class MobInnet extends BossToolsModElements.ModElement {
         });
         event.enqueueWork(() -> {
             ICE_SPIKE = register("ice_spike1",
-                    MobInnet.MARS_ICE_SPIKE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(2));
+                    ModInnet.MARS_ICE_SPIKE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(2));
             //Venus Deltas
             DELTAS = register("deltas1",
-                    MobInnet.VENUS_DELTAS.withConfiguration(new ColumnConfig(FeatureSpread.func_242252_a(1), FeatureSpread.func_242253_a(1, 8)))
+                    ModInnet.VENUS_DELTAS.withConfiguration(new ColumnConfig(FeatureSpread.func_242252_a(1), FeatureSpread.func_242253_a(1, 8)))
                             .withPlacement(Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(4))));
             //Venus Deltas2
             DELTAS2 = register("deltas2",
-                    MobInnet.VENUS_DELTAS.withConfiguration(new ColumnConfig(FeatureSpread.func_242253_a(2, 1), FeatureSpread.func_242253_a(5, 6)))
+                    ModInnet.VENUS_DELTAS.withConfiguration(new ColumnConfig(FeatureSpread.func_242253_a(2, 1), FeatureSpread.func_242253_a(5, 6)))
                             .withPlacement(Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(1))));
         });
     }

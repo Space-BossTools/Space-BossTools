@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools;
+package net.mrscauthd.boss_tools.block;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;

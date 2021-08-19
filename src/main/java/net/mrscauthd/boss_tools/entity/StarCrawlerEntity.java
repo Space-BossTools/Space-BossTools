@@ -3,9 +3,9 @@ package net.mrscauthd.boss_tools.entity;
 
 import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.projectile.SpectralArrowEntity;
+import net.mrscauthd.boss_tools.events.Config;
 import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsSpawnEggsItemGroup;
 import net.mrscauthd.boss_tools.entity.renderer.StarCrawlerRenderer;
-import net.mrscauthd.boss_tools.BossToolsModVariables;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ForgeRegistries;
@@ -25,7 +25,6 @@ import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.RandomWalkingGoal;
@@ -150,7 +149,7 @@ public class StarCrawlerEntity extends BossToolsModElements.ModElement {
 			double y = this.getPosY();
 			double z = this.getPosZ();
 			Entity entity = this;
-			if ((BossToolsModVariables.StarCrawlerSpawn == (false))) {
+			if (Config.StarCrawlerSpawn == false) {
 				if (!entity.world.isRemote())
 					entity.remove();
 			}

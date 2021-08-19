@@ -10,7 +10,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SpawnEggItem;
-import net.mrscauthd.boss_tools.MobInnet;
+import net.mrscauthd.boss_tools.ModInnet;
 
 @BossToolsModElements.ModElement.Tag
 public class SpaceBosstoolsSpawnEggsItemGroup extends BossToolsModElements.ModElement {
@@ -24,7 +24,7 @@ public class SpaceBosstoolsSpawnEggsItemGroup extends BossToolsModElements.ModEl
 			@OnlyIn(Dist.CLIENT)
 			@Override
 			public ItemStack createIcon() {
-				return new ItemStack(MobInnet.ALIEN_SPAWN_EGG.get(), (int) (1));
+				return new ItemStack(ModInnet.ALIEN_SPAWN_EGG.get(), (int) (1));
 			}
 
 			@OnlyIn(Dist.CLIENT)

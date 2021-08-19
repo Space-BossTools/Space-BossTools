@@ -1,15 +1,12 @@
+package net.mrscauthd.boss_tools.entity;
 
-package net.mrscauthd.boss_tools.item;
-
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.SoundEvent;
-import net.mrscauthd.boss_tools.procedures.AlienspitentityWhileBulletFlyingTickProcedure;
-import net.mrscauthd.boss_tools.entity.renderer.AlienspitentityRenderer;
-import net.mrscauthd.boss_tools.BossToolsModElements;
+import net.mrscauthd.boss_tools.item.IceshardItem;
 
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.fml.network.FMLPlayMessages;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
@@ -28,63 +25,10 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.Entity;
 
 import java.util.Random;
-import java.util.Map;
-import java.util.HashMap;
 
-@BossToolsModElements.ModElement.Tag
-public class AlienspitentityItem extends BossToolsModElements.ModElement {
-    // @ObjectHolder("boss_tools:alienspitentity")
-    // public static final Item block = null;
-    public static final EntityType arrow = (EntityType.Builder.<ArrowCustomEntity>create(ArrowCustomEntity::new, EntityClassification.MISC)
-            .setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(1).setCustomClientFactory(ArrowCustomEntity::new)
-            .size(0.5f, 0.5f)).build("alien_spit_entity").setRegistryName("alien_spit_entity");
-    public AlienspitentityItem(BossToolsModElements instance) {
-        super(instance, 376);
-        FMLJavaModLoadingContext.get().getModEventBus().register(new AlienspitentityRenderer.ModelRegisterHandler());
-    }
+public class AlienSpitEntity {
+    public static final EntityType arrow = (EntityType.Builder.<ArrowCustomEntity>create(ArrowCustomEntity::new, EntityClassification.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(1).setCustomClientFactory(ArrowCustomEntity::new).size(0.5f, 0.5f)).build("alien_spit_entity");
 
-    @Override
-    public void initElements() {
-        // elements.items.add(() -> new ItemRanged());
-        elements.entities.add(() -> arrow);
-    }
-    /*
-     * public static class ItemRanged extends Item { public ItemRanged() { super(new
-     * Item.Properties().group(null).maxStackSize(1));
-     * setRegistryName("alienspitentity"); }
-     *
-     * @Override public ActionResult<ItemStack> onItemRightClick(World world,
-     * PlayerEntity entity, Hand hand) { entity.setActiveHand(hand); return new
-     * ActionResult(ActionResultType.SUCCESS, entity.getHeldItem(hand)); }
-     *
-     * @Override public UseAction getUseAction(ItemStack itemstack) { return
-     * UseAction.NONE; }
-     *
-     * @Override public int getUseDuration(ItemStack itemstack) { return 72000; }
-     *
-     * @Override public Multimap<Attribute, AttributeModifier>
-     * getAttributeModifiers(EquipmentSlotType slot) { if (slot ==
-     * EquipmentSlotType.MAINHAND) { ImmutableMultimap.Builder<Attribute,
-     * AttributeModifier> builder = ImmutableMultimap.builder();
-     * builder.putAll(super.getAttributeModifiers(slot));
-     * builder.put(Attributes.ATTACK_DAMAGE, new
-     * AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Ranged item modifier", (double)
-     * -2, AttributeModifier.Operation.ADDITION));
-     * builder.put(Attributes.ATTACK_SPEED, new
-     * AttributeModifier(ATTACK_SPEED_MODIFIER, "Ranged item modifier", -2.4,
-     * AttributeModifier.Operation.ADDITION)); return builder.build(); } return
-     * super.getAttributeModifiers(slot); }
-     *
-     * @Override public void onPlayerStoppedUsing(ItemStack itemstack, World world,
-     * LivingEntity entityLiving, int timeLeft) { if (!world.isRemote &&
-     * entityLiving instanceof ServerPlayerEntity) { ServerPlayerEntity entity =
-     * (ServerPlayerEntity) entityLiving; double x = entity.getPosX(); double y =
-     * entity.getPosY(); double z = entity.getPosZ(); if (true) { ArrowCustomEntity
-     * entityarrow = shoot(world, entity, random, 1f, 5, 5); itemstack.damageItem(1,
-     * entity, e -> e.sendBreakAnimation(entity.getActiveHand()));
-     * entityarrow.pickupStatus = AbstractArrowEntity.PickupStatus.DISALLOWED; } } }
-     * }
-     */
     @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
     public static class ArrowCustomEntity extends AbstractArrowEntity implements IRendersAsItem {
         public ArrowCustomEntity(FMLPlayMessages.SpawnEntity packet, World world) {
@@ -139,14 +83,8 @@ public class AlienspitentityItem extends BossToolsModElements.ModElement {
             double z = this.getPosZ();
             World world = this.world;
             Entity entity = this.func_234616_v_();
-            {
-                Map<String, Object> $_dependencies = new HashMap<>();
-                $_dependencies.put("x", x);
-                $_dependencies.put("y", y);
-                $_dependencies.put("z", z);
-                $_dependencies.put("world", world);
-                AlienspitentityWhileBulletFlyingTickProcedure.executeProcedure($_dependencies);
-            }
+            world.addParticle(ParticleTypes.SPIT, x, y, z, 0, 0.001, 0);
+            world.addParticle(ParticleTypes.ITEM_SNOWBALL, x, y, z, 0, 0.001, 0);
             if (this.inGround) {
                 this.remove();
             }
@@ -174,10 +112,10 @@ public class AlienspitentityItem extends BossToolsModElements.ModElement {
         double d0 = target.getPosY() + (double) target.getEyeHeight() - 1.1;
         double d1 = target.getPosX() - entity.getPosX();
         double d3 = target.getPosZ() - entity.getPosZ();
-        entityarrow.shoot(d1, d0 - entityarrow.getPosY() + (double) MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F, d3, 1f * 2, 12.0F);
+        entityarrow.shoot(d1, d0 - entityarrow.getPosY() + (double) MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F, d3, 0.7f * 2, 12.0F);
         entityarrow.setSilent(true);
         entityarrow.setDamage(5);
-        entityarrow.setKnockbackStrength(5);
+        entityarrow.setKnockbackStrength(1);
         entityarrow.setIsCritical(false);
         entity.world.addEntity(entityarrow);
         double x = entity.getPosX();

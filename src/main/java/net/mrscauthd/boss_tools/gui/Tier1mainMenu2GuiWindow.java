@@ -121,7 +121,7 @@ public class Tier1mainMenu2GuiWindow extends ContainerScreen<Tier1mainMenu2Gui.G
 			Category4.add(ITextComponent.getTextComponentOrEmpty("\u00A79Type: \u00A73Moon"));
 			Category4.add(ITextComponent.getTextComponentOrEmpty("\u00A79Gravity: \u00A731.62 m/s"));
 			Category4.add(ITextComponent.getTextComponentOrEmpty("\u00A79Oxygen: \u00A7cfalse")); //false c / true a
-			Category4.add(ITextComponent.getTextComponentOrEmpty("\u00A79Temperature: \u00A7c-173")); //hot c / cold a
+			Category4.add(ITextComponent.getTextComponentOrEmpty("\u00A79Temperature: \u00A73-173")); //hot c / cold 3
 			this.func_243308_b(ms, Category4, mouseX, mouseY);
 		} else {
 			Button4 = false;

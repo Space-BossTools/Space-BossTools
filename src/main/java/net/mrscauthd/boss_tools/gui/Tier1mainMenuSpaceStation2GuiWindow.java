@@ -4,26 +4,21 @@ package net.mrscauthd.boss_tools.gui;
 import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.item.ItemStack;
 import net.mrscauthd.boss_tools.item.OrbitPlacerItem;
-import net.mrscauthd.boss_tools.procedures.Spacestationcheck1Procedure;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.World;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.Minecraft;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.matrix.MatrixStack;
-
-import com.google.common.collect.ImmutableMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +53,6 @@ public class Tier1mainMenuSpaceStation2GuiWindow extends ContainerScreen<Tier1ma
 		//lists
 		List<ITextComponent> Category1 = new ArrayList<ITextComponent>();
 
-		//Todo try /clear
 		if (mouseX > guiLeft + 52 && mouseX < guiLeft + 123 && mouseY > guiTop + 246 && mouseY < guiTop + 267) {
 			Button1 = true;
 
@@ -73,7 +67,7 @@ public class Tier1mainMenuSpaceStation2GuiWindow extends ContainerScreen<Tier1ma
 			Category1.add(ITextComponent.getTextComponentOrEmpty("\u00A79Type: \u00A73Orbit"));
 			Category1.add(ITextComponent.getTextComponentOrEmpty("\u00A79Gravity: \u00A73No Gravity"));
 			Category1.add(ITextComponent.getTextComponentOrEmpty("\u00A79Oxygen: \u00A7cfalse")); //false c / true a
-			Category1.add(ITextComponent.getTextComponentOrEmpty("\u00A79Temperature: \u00A7c-270")); //hot c / cold a
+			Category1.add(ITextComponent.getTextComponentOrEmpty("\u00A79Temperature: \u00A73-270")); //hot c / cold 3
 			this.func_243308_b(ms, Category1, mouseX, mouseY);
 		} else {
 			Button1 = false;

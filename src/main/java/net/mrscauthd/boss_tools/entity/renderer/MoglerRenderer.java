@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools;
+package net.mrscauthd.boss_tools.entity.renderer;
 
 import net.mrscauthd.boss_tools.entity.renderer.MoglerModel;
 

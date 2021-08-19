@@ -1,8 +1,8 @@
 package net.mrscauthd.boss_tools.procedures;
 
+import net.mrscauthd.boss_tools.events.Config;
 import net.mrscauthd.boss_tools.item.SpaceArmorItem;
 import net.mrscauthd.boss_tools.item.NetheriteSpaceArmorItem;
-import net.mrscauthd.boss_tools.BossToolsModVariables;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.fml.common.Mod;
@@ -96,7 +96,7 @@ public class AkivepotionProcedure {
 																				: World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
 																						new ResourceLocation("boss_tools:orbit_venus"))))))))))))) {// Config
 			if ((!(entity.getPersistentData().getBoolean("Oxygen_Bullet_Generator")))) {
-				if ((BossToolsModVariables.PlayerOxygenSystem == (true))) {
+				if ((Config.PlayerOxygenSystem == (true))) {
 					if (((entity.getPersistentData().getBoolean("SpaceSuitH")) == (false))) {
 						if (entity instanceof LivingEntity) {
 							((LivingEntity) entity).attackEntityFrom(new DamageSource("oxygen").setDamageBypassesArmor(), (float) 1);
@@ -119,7 +119,7 @@ public class AkivepotionProcedure {
 					}
 				}
 			}
-			if ((BossToolsModVariables.PlayerOxygenSystem == (true))) {
+			if ((Config.PlayerOxygenSystem == (true))) {
 				if (((new Object() {
 					public boolean checkGamemode(Entity _ent) {
 						if (_ent instanceof ServerPlayerEntity) {

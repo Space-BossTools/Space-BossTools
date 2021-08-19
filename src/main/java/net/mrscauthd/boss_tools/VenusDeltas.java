@@ -1,6 +1,7 @@
 
 package net.mrscauthd.boss_tools;
 
+import net.minecraft.block.GlassBlock;
 import net.mrscauthd.boss_tools.block.InfernalSpireBlock;
 
 import net.minecraft.world.gen.feature.Feature;
@@ -24,8 +25,7 @@ import com.mojang.serialization.Codec;
 import com.google.common.collect.ImmutableList;
 
 public class VenusDeltas extends Feature<ColumnConfig> implements Supplier {
-	private static final ImmutableList<Block> field_236245_a_ = ImmutableList.of(Blocks.LAVA, Blocks.BEDROCK, Blocks.MAGMA_BLOCK, Blocks.SOUL_SAND,
-			Blocks.NETHER_BRICKS, Blocks.NETHER_BRICK_FENCE, Blocks.NETHER_BRICK_STAIRS, Blocks.NETHER_WART, Blocks.CHEST, Blocks.SPAWNER);
+	private static final ImmutableList<Block> field_236245_a_ = ImmutableList.of(Blocks.LAVA, Blocks.BEDROCK, Blocks.MAGMA_BLOCK, Blocks.SOUL_SAND, Blocks.NETHER_BRICKS, Blocks.NETHER_BRICK_FENCE, Blocks.NETHER_BRICK_STAIRS, Blocks.NETHER_WART, Blocks.CHEST, Blocks.SPAWNER, Blocks.LIGHT_BLUE_STAINED_GLASS);
 	public VenusDeltas(Codec<ColumnConfig> codec) {
 		super(codec);
 	}

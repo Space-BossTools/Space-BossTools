@@ -63,7 +63,6 @@ public class BossToolsModElements {
 		}
 		Collections.sort(elements);
 		elements.forEach(BossToolsModElements.ModElement::initElements);
-		MinecraftForge.EVENT_BUS.register(new BossToolsModVariables(this));
 	}
 
 	public void registerSounds(RegistryEvent.Register<net.minecraft.util.SoundEvent> event) {

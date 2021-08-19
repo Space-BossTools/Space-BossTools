@@ -25,6 +25,7 @@ import net.minecraft.world.IServerWorld;
 import net.minecraft.world.server.ServerWorld;
 import net.mrscauthd.boss_tools.*;
 //import net.mrscauthd.boss_tools.procedures.AlienOnEntityTickUpdateProcedure;
+import net.mrscauthd.boss_tools.events.Config;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
 //import net.mrscauthd.boss_tools.BossToolsModElements;
 
@@ -379,7 +380,7 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 
 		//populateTradeData();
 		ItemStack itemstack = sourceentity.getHeldItem(hand);
-		if (!this.hasCustomer() && (sourceentity.getHeldItemMainhand().getItem() != MobInnet.ALIEN_SPAWN_EGG.get()) && this.isChild() == false) {
+		if (!this.hasCustomer() && (sourceentity.getHeldItemMainhand().getItem() != ModInnet.ALIEN_SPAWN_EGG.get()) && this.isChild() == false) {
 			if (hand == Hand.MAIN_HAND) {
 				if (!this.world.isRemote) {
 					//this.shakeHead();
@@ -438,7 +439,7 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 	@Override
 	public AgeableEntity func_241840_a(ServerWorld world, AgeableEntity mate) {
 		double d0 = this.rand.nextDouble();
-		AlienEntity villagerentity = new AlienEntity((EntityType<? extends AlienEntity>) MobInnet.ALIEN.get(), world);
+		AlienEntity villagerentity = new AlienEntity((EntityType<? extends AlienEntity>) ModInnet.ALIEN.get(), world);
 		villagerentity.setAlienType(villagerentity.rand.nextInt(AlienJobs.values().length));
 		return villagerentity;
 	}
@@ -453,10 +454,9 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 		double y = this.getPosY();
 		double z = this.getPosZ();
 		Entity entity = this;
-		if (((BossToolsModVariables.AlienSpawing) == false)) {
+		if (Config.AlienSpawing == false) {
 			if (!entity.world.isRemote())
 				entity.remove();
 		}
 	}
-
 }

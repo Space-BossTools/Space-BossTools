@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools;
+package net.mrscauthd.boss_tools.entity.renderer;
 
 import com.google.common.collect.ImmutableMap;
 import java.util.Map;

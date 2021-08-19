@@ -1,7 +1,7 @@
 
 package net.mrscauthd.boss_tools.itemgroup;
 
-import net.mrscauthd.boss_tools.MobInnet;
+import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.block.FlagPurpleBlock;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
@@ -23,7 +23,7 @@ public class SpaceBosstoolsFlagsItemGroup extends BossToolsModElements.ModElemen
 			@OnlyIn(Dist.CLIENT)
 			@Override
 			public ItemStack createIcon() {
-				return new ItemStack(MobInnet.FLAGBLOCKpurple.get(), (int) (1));
+				return new ItemStack(ModInnet.FLAGBLOCKpurple.get(), (int) (1));
 			}
 
 			@OnlyIn(Dist.CLIENT)
