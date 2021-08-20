@@ -29,6 +29,19 @@ public class BossToolsItemGroups {
 			return false;
 		}
 	};
+	//Machines
+	public static ItemGroup tab_machines = new ItemGroup("tab_machines") {
+		@OnlyIn(Dist.CLIENT)
+		@Override
+		public ItemStack createIcon() {
+			return new ItemStack(WorkbenchBlock.block, (int) (1));
+		}
+
+		@OnlyIn(Dist.CLIENT)
+		public boolean hasSearchBar() {
+			return false;
+		}
+	};
 	//Basics
 	public static ItemGroup tab_basics = new ItemGroup("tab_basics") {
 		@OnlyIn(Dist.CLIENT)
@@ -42,12 +55,12 @@ public class BossToolsItemGroups {
 			return false;
 		}
 	};
-	//Blocks
-	public static ItemGroup tab_blocks = new ItemGroup("tab_blocks") {
+	//Materials
+	public static ItemGroup tab_materials = new ItemGroup("tab_materials") {
 		@OnlyIn(Dist.CLIENT)
 		@Override
 		public ItemStack createIcon() {
-			return new ItemStack(MoonoreironBlock.block, (int) (1));
+			return new ItemStack(IronplateItem.block, (int) (1));
 		}
 
 		@OnlyIn(Dist.CLIENT)
@@ -68,25 +81,12 @@ public class BossToolsItemGroups {
 			return false;
 		}
 	};
-	//Machines
-	public static ItemGroup tab_machines = new ItemGroup("tab_machines") {
+	//Blocks
+	public static ItemGroup tab_blocks = new ItemGroup("tab_blocks") {
 		@OnlyIn(Dist.CLIENT)
 		@Override
 		public ItemStack createIcon() {
-			return new ItemStack(WorkbenchBlock.block, (int) (1));
-		}
-
-		@OnlyIn(Dist.CLIENT)
-		public boolean hasSearchBar() {
-			return false;
-		}
-	};
-	//Materials
-	public static ItemGroup tab_materials = new ItemGroup("tab_materials") {
-		@OnlyIn(Dist.CLIENT)
-		@Override
-		public ItemStack createIcon() {
-			return new ItemStack(IronplateItem.block, (int) (1));
+			return new ItemStack(MoonoreironBlock.block, (int) (1));
 		}
 
 		@OnlyIn(Dist.CLIENT)
