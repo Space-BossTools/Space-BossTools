@@ -1,13 +1,17 @@
 package net.mrscauthd.boss_tools.events;
 
+import com.mrcrayfish.obfuscate.client.event.PlayerModelEvent;
+import com.mrcrayfish.obfuscate.client.event.RenderItemEvent;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.settings.PointOfView;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particles.ParticleTypes;
@@ -23,6 +27,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
+import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -35,6 +40,10 @@ import net.mrscauthd.boss_tools.entity.LandingGearEntity;
 import net.mrscauthd.boss_tools.entity.RocketEntity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
+import net.mrscauthd.boss_tools.item.RoverItemItem;
+import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
+import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
+import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,6 +61,7 @@ public class Events {
             double z = entity.getPosZ();
         }
     }
+
     //RightClickonBlock Event
     @SubscribeEvent
     public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
@@ -145,6 +155,7 @@ public class Events {
             }
         }
     }
+
     //BlockEvent
     @SubscribeEvent
     public static void onBlockPlace(BlockEvent event) {
@@ -234,6 +245,7 @@ public class Events {
             }
         }
     }
+
     //OnEntityTick Event
     @SubscribeEvent
     public static void onEntityTick(LivingEvent.LivingUpdateEvent event) {
@@ -258,6 +270,7 @@ public class Events {
             }
         }
     }
+
     //Camera Event
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
@@ -269,6 +282,69 @@ public class Events {
             if (Minecraft.getInstance().gameSettings.getPointOfView().equals(PointOfView.THIRD_PERSON_BACK)) {
                 event.getInfo().movePosition(-event.getInfo().calcCameraDistance(8d), 0d, 0);
             }
+        }
+    }
+    //Render Player Event
+    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
+    public static void render(RenderPlayerEvent event) {
+        if (((event.getEntity().getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+            event.getMatrixStack().scale(0f, 0f, 0f);
+            // event.getRenderer();
+        }
+    }
+    //Obfuscate Rotation Event
+    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
+    public static void setupPlayerAngles(PlayerModelEvent.SetupAngles.Post event) {
+        PlayerEntity player = event.getPlayer();
+        PlayerModel model = event.getModelPlayer();
+        //Player Rocket Sit Rotations
+        {
+        if (player.getRidingEntity() instanceof RocketEntity.CustomEntity || player.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || player.getRidingEntity() instanceof RocketTier3Entity.CustomEntity) {
+            model.bipedRightLeg.rotationPointY = (float) Math.toRadians(485F);
+            model.bipedLeftLeg.rotationPointY = (float) Math.toRadians(485F);
+            model.bipedRightLeg.rotateAngleX = (float) Math.toRadians(0F);
+            model.bipedLeftLeg.rotateAngleX = (float) Math.toRadians(0F);
+            model.bipedLeftLeg.rotateAngleY = (float) Math.toRadians(3F);
+            model.bipedRightLeg.rotateAngleY = (float) Math.toRadians(3F);
+            // Arms
+            model.bipedRightArm.rotationPointX = (float) Math.toRadians(-250F);// -200
+            model.bipedLeftArm.rotationPointX = (float) Math.toRadians(250F);
+            model.bipedLeftArm.rotateAngleX = (float) -0.07;
+            model.bipedRightArm.rotateAngleX = (float) -0.07;
+            }
+        }
+        //Player Hold Vehicles Rotation
+        if (!(player.getRidingEntity() instanceof RocketEntity.CustomEntity) && !(player.getRidingEntity() instanceof RocketTier2Entity.CustomEntity) && !(player.getRidingEntity() instanceof RocketTier3Entity.CustomEntity)) {
+            Item item1 = ((player instanceof LivingEntity) ? ((LivingEntity) player).getHeldItemMainhand() : ItemStack.EMPTY).getItem();
+            Item item2 = ((player instanceof LivingEntity) ? ((LivingEntity) player).getHeldItemOffhand() : ItemStack.EMPTY).getItem();
+            if(item1 == new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem()
+                    || item1 == new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem()
+                    || item1 == new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem()
+                    || item1 == new ItemStack(RoverItemItem.block, (int) (1)).getItem()
+                    //Off Hand
+                    || item2 == new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem()
+                    || item2 == new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem()
+                    || item2 == new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem()
+                    || item2 == new ItemStack(RoverItemItem.block, (int) (1)).getItem()) {
+                model.bipedRightArm.rotateAngleX = (float) 10;
+                model.bipedLeftArm.rotateAngleX = (float) 10;
+                model.bipedLeftArm.rotateAngleZ = (float) 0;
+                model.bipedRightArm.rotateAngleZ = (float) 0;
+                model.bipedRightArm.rotateAngleY = (float) 0;
+                model.bipedLeftArm.rotateAngleY = (float) 0;
+            }
+        }
+    }
+    //Obfuscate Item Render Event
+    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
+    public static void ItemRender(RenderItemEvent.Held event) {
+        Entity player = event.getEntity();
+        if (player.getRidingEntity() instanceof RocketEntity.CustomEntity || player.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || player.getRidingEntity() instanceof RocketTier3Entity.CustomEntity) {
+            //event.getMatrixStack().scale(0, 0, 0);
+            event.setCanceled(true);
         }
     }
     //Other Events
