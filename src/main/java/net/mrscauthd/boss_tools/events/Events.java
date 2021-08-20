@@ -275,7 +275,7 @@ public class Events {
 
     //BlockEvent
     @SubscribeEvent
-    public static void onBlockPlace(BlockEvent event) {
+    public static void onBlockPlace(BlockEvent.EntityPlaceEvent event) {
         IWorld world = event.getWorld();
         double x = event.getPos().getX();
         double y = event.getPos().getY();
@@ -356,6 +356,12 @@ public class Events {
                             }
                     }
                     world.setBlockState(_bp, _bs.with(CampfireBlock.LIT, false), 3);
+
+                    if (world instanceof World && !world.isRemote()) {
+                        ((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z), (net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.generic.extinguish_fire")), SoundCategory.NEUTRAL, (float) 1, (float) 1);
+                    } else {
+                        ((World) world).playSound(x, y, z, (net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.generic.extinguish_fire")), SoundCategory.NEUTRAL, (float) 1, (float) 1, false);
+                    }
                 }
 
                 //world.setBlockState(new BlockPos((int) x, (int) y, (int) z), Blocks.CAMPFIRE.getDefaultState().with(CampfireBlock.LIT, false), 3);
@@ -463,6 +469,28 @@ public class Events {
         Entity player = event.getEntity();
         if (player.getRidingEntity() instanceof RocketEntity.CustomEntity || player.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || player.getRidingEntity() instanceof RocketTier3Entity.CustomEntity) {
             event.setCanceled(true);
+        }
+    }
+    //World Tick Event
+    @SubscribeEvent
+    public static void onWorldTick(TickEvent.WorldTickEvent event) {
+        if (event.phase == TickEvent.Phase.END) {
+            World world = event.world;
+            RegistryKey<World> world2 = (world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD);
+            if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon"))
+             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_moon"))
+             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars"))
+             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mars"))
+             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury"))
+             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mercury"))
+             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_venus"))
+             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_overworld"))) {
+                world.thunderingStrength = 0;
+                world.rainingStrength = 0;
+            }
+            if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))) {
+                world.thunderingStrength = 0;
+            }
         }
     }
     //Other Events
