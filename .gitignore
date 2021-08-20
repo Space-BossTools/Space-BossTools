@@ -2,15 +2,34 @@
 .gradle/
 build/
 
-# Other IDE related folders
+# idea
+out
+*.ipr
+*.iws
+*.iml
 .idea/
+
+# eclipse
+bin
+eclipse
+*.launch
 .settings/
+.metadata
+.classpath
+.project
+.factorypath
 
 # MCreator workspace
 .mcreator/
 
 # Minecraft client/server files
 run/
+
+# Files from Forge MDK
+forge*changelog.txt
+.classpath
+.factorypath
+.project
 
 # MacOS system files
 .DS_STORE
