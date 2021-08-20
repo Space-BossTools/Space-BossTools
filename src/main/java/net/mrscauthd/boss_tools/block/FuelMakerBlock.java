@@ -78,7 +78,6 @@ import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.gui.FuelRefineryGUIGui;
 import net.mrscauthd.boss_tools.item.FuelBucketBigItem;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
-
 @BossToolsModElements.ModElement.Tag
 public class FuelMakerBlock extends BossToolsModElements.ModElement {
 
