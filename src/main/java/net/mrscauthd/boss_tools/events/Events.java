@@ -301,39 +301,41 @@ public class Events {
         PlayerModel model = event.getModelPlayer();
         //Player Rocket Sit Rotations
         {
-        if (player.getRidingEntity() instanceof RocketEntity.CustomEntity || player.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || player.getRidingEntity() instanceof RocketTier3Entity.CustomEntity) {
-            model.bipedRightLeg.rotationPointY = (float) Math.toRadians(485F);
-            model.bipedLeftLeg.rotationPointY = (float) Math.toRadians(485F);
-            model.bipedRightLeg.rotateAngleX = (float) Math.toRadians(0F);
-            model.bipedLeftLeg.rotateAngleX = (float) Math.toRadians(0F);
-            model.bipedLeftLeg.rotateAngleY = (float) Math.toRadians(3F);
-            model.bipedRightLeg.rotateAngleY = (float) Math.toRadians(3F);
-            // Arms
-            model.bipedRightArm.rotationPointX = (float) Math.toRadians(-250F);// -200
-            model.bipedLeftArm.rotationPointX = (float) Math.toRadians(250F);
-            model.bipedLeftArm.rotateAngleX = (float) -0.07;
-            model.bipedRightArm.rotateAngleX = (float) -0.07;
+            if (player.getRidingEntity() instanceof RocketEntity.CustomEntity || player.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || player.getRidingEntity() instanceof RocketTier3Entity.CustomEntity) {
+                model.bipedRightLeg.rotationPointY = (float) Math.toRadians(485F);
+                model.bipedLeftLeg.rotationPointY = (float) Math.toRadians(485F);
+                model.bipedRightLeg.rotateAngleX = (float) Math.toRadians(0F);
+                model.bipedLeftLeg.rotateAngleX = (float) Math.toRadians(0F);
+                model.bipedLeftLeg.rotateAngleY = (float) Math.toRadians(3F);
+                model.bipedRightLeg.rotateAngleY = (float) Math.toRadians(3F);
+                // Arms
+                model.bipedRightArm.rotationPointX = (float) Math.toRadians(-250F);// -200
+                model.bipedLeftArm.rotationPointX = (float) Math.toRadians(250F);
+                model.bipedLeftArm.rotateAngleX = (float) -0.07;
+                model.bipedRightArm.rotateAngleX = (float) -0.07;
             }
         }
         //Player Hold Vehicles Rotation
-        if (!(player.getRidingEntity() instanceof RocketEntity.CustomEntity) && !(player.getRidingEntity() instanceof RocketTier2Entity.CustomEntity) && !(player.getRidingEntity() instanceof RocketTier3Entity.CustomEntity)) {
-            Item item1 = ((player instanceof LivingEntity) ? ((LivingEntity) player).getHeldItemMainhand() : ItemStack.EMPTY).getItem();
-            Item item2 = ((player instanceof LivingEntity) ? ((LivingEntity) player).getHeldItemOffhand() : ItemStack.EMPTY).getItem();
-            if(item1 == new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem()
-                    || item1 == new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem()
-                    || item1 == new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem()
-                    || item1 == new ItemStack(RoverItemItem.block, (int) (1)).getItem()
-                    //Off Hand
-                    || item2 == new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem()
-                    || item2 == new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem()
-                    || item2 == new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem()
-                    || item2 == new ItemStack(RoverItemItem.block, (int) (1)).getItem()) {
-                model.bipedRightArm.rotateAngleX = (float) 10;
-                model.bipedLeftArm.rotateAngleX = (float) 10;
-                model.bipedLeftArm.rotateAngleZ = (float) 0;
-                model.bipedRightArm.rotateAngleZ = (float) 0;
-                model.bipedRightArm.rotateAngleY = (float) 0;
-                model.bipedLeftArm.rotateAngleY = (float) 0;
+        {
+            if (!(player.getRidingEntity() instanceof RocketEntity.CustomEntity) && !(player.getRidingEntity() instanceof RocketTier2Entity.CustomEntity) && !(player.getRidingEntity() instanceof RocketTier3Entity.CustomEntity)) {
+                Item item1 = ((player instanceof LivingEntity) ? ((LivingEntity) player).getHeldItemMainhand() : ItemStack.EMPTY).getItem();
+                Item item2 = ((player instanceof LivingEntity) ? ((LivingEntity) player).getHeldItemOffhand() : ItemStack.EMPTY).getItem();
+                if (item1 == new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem()
+                        || item1 == new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem()
+                        || item1 == new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem()
+                        || item1 == new ItemStack(RoverItemItem.block, (int) (1)).getItem()
+                        //Off Hand
+                        || item2 == new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem()
+                        || item2 == new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem()
+                        || item2 == new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem()
+                        || item2 == new ItemStack(RoverItemItem.block, (int) (1)).getItem()) {
+                    model.bipedRightArm.rotateAngleX = (float) 10;
+                    model.bipedLeftArm.rotateAngleX = (float) 10;
+                    model.bipedLeftArm.rotateAngleZ = (float) 0;
+                    model.bipedRightArm.rotateAngleZ = (float) 0;
+                    model.bipedRightArm.rotateAngleY = (float) 0;
+                    model.bipedLeftArm.rotateAngleY = (float) 0;
+                }
             }
         }
     }
