@@ -81,6 +81,7 @@ public class RocketOnEntityTickUpdateProcedure {
 					entity.remove();
 			}
 		}
+		if (((entity.getPersistentData().getDouble("Rocketfuel")) == 0)) {
 		if (((new Object() {
 			public ItemStack getItemStack(int sltid, Entity entity) {
 				AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
@@ -90,7 +91,6 @@ public class RocketOnEntityTickUpdateProcedure {
 				return _retval.get();
 			}
 		}.getItemStack((int) (0), entity)).getItem() == new ItemStack(FuelBlock.bucket, (int) (1)).getItem())) {
-			if (((entity.getPersistentData().getDouble("Rocketfuel")) == 0)) {
 				{
 					final ItemStack _setstack = new ItemStack(Items.BUCKET, (int) (1));
 					final int _sltid = (int) (0);

@@ -3,7 +3,6 @@ package net.mrscauthd.boss_tools.entity;
 
 import net.minecraft.util.math.RayTraceResult;
 import net.mrscauthd.boss_tools.procedures.RoverOnEntityTickUpdateProcedure;
-import net.mrscauthd.boss_tools.procedures.RoverEntityIsHurtProcedure;
 import net.mrscauthd.boss_tools.item.RoverItemItem;
 import net.mrscauthd.boss_tools.gui.Rover1GUIGui;
 import net.mrscauthd.boss_tools.entity.renderer.RoverRenderer;
@@ -417,40 +416,27 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 			Entity entity = this;
 			Entity sourceentity = source.getTrueSource();
 			if (sourceentity != null) {
-				if (sourceentity.isSneaking() == true) {
+				if (sourceentity.isSneaking() == true && !(entity.isBeingRidden())) {
 					for (int i = 0; i < inventory.getSlots(); ++i) {
 						ItemStack itemstack = inventory.getStackInSlot(i);
 						if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
 							this.entityDropItem(itemstack);
 						}
 					}
-					Map<String, Object> $_dependencies = new HashMap<>();
-					$_dependencies.put("entity", entity);
-					$_dependencies.put("x", x);
-					$_dependencies.put("y", y);
-					$_dependencies.put("z", z);
-					$_dependencies.put("world", world);
-					RoverEntityIsHurtProcedure.executeProcedure($_dependencies);
+					ItemStack itemfuel = ItemStack.EMPTY;
+						itemfuel = new ItemStack(RoverItemItem.block, (int) (1));
+						(itemfuel).getOrCreateTag().putDouble("Rocketfuel", (entity.getPersistentData().getDouble("Rocketfuel")));
+						(itemfuel).getOrCreateTag().putDouble("fuel", (entity.getPersistentData().getDouble("fuel")));
+						(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 160));
+						if (world instanceof World && !world.isRemote()) {
+							ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
+							entityToSpawn.setPickupDelay((int) 10);
+							world.addEntity(entityToSpawn);
+						}
+						if (!entity.world.isRemote())
+							entity.remove();
 				}
 			}
-			/*
-			 * if (sourceentity == null && entity.isBeingRidden() == false) { for (int i =
-			 * 0; i < inventory.getSlots(); ++i) { ItemStack itemstack =
-			 * inventory.getStackInSlot(i); if (!itemstack.isEmpty() &&
-			 * !EnchantmentHelper.hasVanishingCurse(itemstack)) {
-			 * this.entityDropItem(itemstack); } } ItemStack itemfuel = ItemStack.EMPTY;
-			 * itemfuel = new ItemStack(RoverItemItem.block, (int) (1));
-			 * (itemfuel).getOrCreateTag().putDouble("Rocketfuel",
-			 * (entity.getPersistentData().getDouble("Rocketfuel")));
-			 * (itemfuel).getOrCreateTag().putDouble("fuel",
-			 * (entity.getPersistentData().getDouble("fuel")));
-			 * (itemfuel).getOrCreateTag().putDouble("fuelgui",
-			 * ((entity.getPersistentData().getDouble("fuel")) / 160)); if (world instanceof
-			 * World && !world.isRemote()) { ItemEntity entityToSpawn = new
-			 * ItemEntity((World) world, x, y, z, (itemfuel));
-			 * entityToSpawn.setPickupDelay((int) 10); world.addEntity(entityToSpawn); }
-			 * this.remove(); }
-			 */
 			if (source == DamageSource.FALLING_BLOCK)
 				return false;
 			if (source.getImmediateSource() instanceof ArrowEntity)

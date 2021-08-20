@@ -1,8 +1,12 @@
 
 package net.mrscauthd.boss_tools.entity;
 
+import net.minecraft.command.CommandSource;
+import net.minecraft.command.ICommandSource;
+import net.minecraft.util.math.vector.Vector2f;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.server.ServerWorld;
 import net.mrscauthd.boss_tools.procedures.RocketOnEntityTickUpdateProcedure;
-import net.mrscauthd.boss_tools.procedures.RocketEntityIsHurt1Procedure;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.gui.RocketTier1GUIFuelGui;
 import net.mrscauthd.boss_tools.entity.renderer.RocketRenderer;
@@ -220,15 +224,46 @@ public class RocketEntity extends BossToolsModElements.ModElement {
 			double z = this.getPosZ();
 			Entity entity = this;
 			Entity sourceentity = source.getTrueSource();
-			if (!source.isProjectile()) {
-				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("entity", entity);
-				$_dependencies.put("sourceentity", sourceentity);
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
-				$_dependencies.put("world", world);
-				RocketEntityIsHurt1Procedure.executeProcedure($_dependencies);
+			ItemStack itemfuel = ItemStack.EMPTY;
+			if (!source.isProjectile() && sourceentity.isSneaking() && !(entity.isBeingRidden())) {
+
+				//Drop Rocket Item (without Fuel NBT)
+				if (entity.getPersistentData().getDouble("Rocketfuel") == 0) {
+					if (world instanceof World && !world.isRemote()) {
+						ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(Tier1RocketItemItem.block, (int) (1)));
+						entityToSpawn.setPickupDelay((int) 10);
+						world.addEntity(entityToSpawn);
+					}
+				}
+				//Drop Rocket Item (with Fuel NBT)
+				if (entity.getPersistentData().getDouble("Rocketfuel") == 1) {
+					itemfuel = new ItemStack(Tier1RocketItemItem.block, (int) (1));
+					(itemfuel).getOrCreateTag().putDouble("Rocketfuel", 1);
+					(itemfuel).getOrCreateTag().putDouble("fuel", (entity.getPersistentData().getDouble("fuel")));
+					(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 4));
+					if (world instanceof World && !world.isRemote()) {
+						ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
+						entityToSpawn.setPickupDelay((int) 10);
+						world.addEntity(entityToSpawn);
+					}
+				}
+				//Stop Rocket Sound
+				if (world instanceof ServerWorld) {
+					((World) world).getServer().getCommandManager().handleCommand(
+							new CommandSource(ICommandSource.DUMMY, new Vector3d(x, y, z), Vector2f.ZERO, (ServerWorld) world, 4, "",
+									new StringTextComponent(""), ((World) world).getServer(), null).withFeedbackDisabled(),
+							"/stopsound @p neutral boss_tools:rocketfly");
+				}
+				//Drop Inv
+				for (int i = 0; i < inventory.getSlots(); ++i) {
+					ItemStack itemstack = inventory.getStackInSlot(i);
+					if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
+						this.entityDropItem(itemstack);
+					}
+				}
+				//Remove Entity
+				if (!entity.world.isRemote())
+					entity.remove();
 			}
 			if (source.getImmediateSource() instanceof ArrowEntity)
 				return false;
