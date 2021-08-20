@@ -343,7 +343,6 @@ public class Events {
     public static void ItemRender(RenderItemEvent.Held event) {
         Entity player = event.getEntity();
         if (player.getRidingEntity() instanceof RocketEntity.CustomEntity || player.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || player.getRidingEntity() instanceof RocketTier3Entity.CustomEntity) {
-            //event.getMatrixStack().scale(0, 0, 0);
             event.setCanceled(true);
         }
     }
