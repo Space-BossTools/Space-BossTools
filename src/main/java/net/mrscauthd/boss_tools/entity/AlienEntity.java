@@ -23,6 +23,10 @@ import net.minecraft.world.IServerWorld;
 import net.minecraft.world.server.ServerWorld;
 import net.mrscauthd.boss_tools.*;
 //import net.mrscauthd.boss_tools.procedures.AlienOnEntityTickUpdateProcedure;
+import net.mrscauthd.boss_tools.alien.AlienJobs;
+import net.mrscauthd.boss_tools.alien.AlienTrade;
+import net.mrscauthd.boss_tools.alien.FollowGoal;
+import net.mrscauthd.boss_tools.alien.TradeGoal;
 import net.mrscauthd.boss_tools.events.Config;
 //import net.mrscauthd.boss_tools.BossToolsModElements;
 
@@ -325,7 +329,7 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 
 	protected void populateTradeData(int i)
 	{
-		Int2ObjectMap<VillagerTrades.ITrade[]> int2objectmap = net.mrscauthd.boss_tools.entity.AlienTrade.TRADES.get(AlienJobs.values()[this.getAlienType()]);
+		Int2ObjectMap<VillagerTrades.ITrade[]> int2objectmap = AlienTrade.TRADES.get(AlienJobs.values()[this.getAlienType()]);
 		//VillagerData villagerdata = this.getVillagerData();
 		//Int2ObjectMap<VillagerTrades.ITrade[]> int2objectmap = AlienTrade.TRADES.get(VillagerProfession.WEAPONSMITH);
 		if (int2objectmap != null && !int2objectmap.isEmpty()) {

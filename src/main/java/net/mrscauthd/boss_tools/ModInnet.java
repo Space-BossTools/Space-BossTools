@@ -26,10 +26,14 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.mrscauthd.boss_tools.alien.ModSpawnEggs;
 import net.mrscauthd.boss_tools.block.*;
 import net.mrscauthd.boss_tools.entity.AlienSpitEntity;
 import net.mrscauthd.boss_tools.events.Config;
+import net.mrscauthd.boss_tools.feature.MarsIceSpikeFeature;
+import net.mrscauthd.boss_tools.feature.VenusDeltas;
 import net.mrscauthd.boss_tools.item.BarrelItem;
+import net.mrscauthd.boss_tools.item.CoalTorchItem;
 import net.mrscauthd.boss_tools.item.SteahlItem;
 import net.mrscauthd.boss_tools.entity.AlienEntity;
 
@@ -41,6 +45,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
+import net.mrscauthd.boss_tools.pygro.PygroMobsSensor;
 import net.mrscauthd.boss_tools.world.biome.MarsIceBiomeBiome;
 import net.mrscauthd.boss_tools.world.biome.InfernalVenusBarrensBiome;
 
@@ -49,6 +54,9 @@ import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.CreatureEntity;
+import net.mrscauthd.boss_tools.world.structure.configuration.STConfiguredStructures;
+import net.mrscauthd.boss_tools.world.structure.configuration.STStructures;
+import net.mrscauthd.boss_tools.world.structure.configuration.STStructures2;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -56,7 +64,7 @@ import java.util.Map;
 
 //@BossToolsModElements.ModElement.Tag
 @Mod.EventBusSubscriber(modid = "boss_tools", bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ModInnet/* extends BossToolsModElements.ModElement*/ {
+public class ModInnet {
     public static final DeferredRegister<EntityType<?>> ENTITYS = DeferredRegister.create(ForgeRegistries.ENTITIES, "boss_tools");
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, "boss_tools");
@@ -182,10 +190,6 @@ public class ModInnet/* extends BossToolsModElements.ModElement*/ {
         return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, key, configuredFeature);
     }
 
-  //  public ModInnet(BossToolsModElements instance) {
-  //     super(instance, 901);
-  //  }
-
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         // RenderingRegistry.registerEntityRenderingHandler(STEntitys.ROCKET.get(),
@@ -194,32 +198,6 @@ public class ModInnet/* extends BossToolsModElements.ModElement*/ {
         // ((IRenderFactory) AlienRenderer::new));
     }
 
-  /*  @Override
-    public void initElements() {
-        // FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        MinecraftForge.EVENT_BUS.register(this);
-        //bus.addGenericListener(Structure.class, this::onRegisterStructures);
-        ENTITYS.register(bus);
-        ITEMS.register(bus);
-        BLOCKS.register(bus);
-        IEventBus forgeBus = MinecraftForge.EVENT_BUS;
-        SENSOR.register(bus);
-        //  forgeBus.addListener(EventPriority.HIGH, this::biomeModificationa);
-
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        //alien Village
-        STStructures.DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
-        modEventBus.addListener(this::setup2);
-        forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing);
-        forgeBus.addListener(EventPriority.HIGH, this::biomeModification);
-        //Meteor
-        STStructures.METEOR_DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
-        STStructures2.VENUS_BULLET_DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
-        STStructures2.VENUS_TOWER_DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
-        //forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing3);
-        forgeBus.addListener(EventPriority.HIGH, this::biomesLoading);
-    }*/
 
     @SubscribeEvent
     public static void setup2(final FMLCommonSetupEvent event)

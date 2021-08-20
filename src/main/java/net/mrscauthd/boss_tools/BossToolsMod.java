@@ -21,6 +21,8 @@ package net.mrscauthd.boss_tools;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.mrscauthd.boss_tools.events.SyncEvents;
+import net.mrscauthd.boss_tools.world.structure.configuration.STStructures;
+import net.mrscauthd.boss_tools.world.structure.configuration.STStructures2;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
