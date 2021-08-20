@@ -2,7 +2,6 @@ package net.mrscauthd.boss_tools.entity;
 
 import net.minecraft.entity.*;
 import net.minecraft.world.server.ServerWorld;
-import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsSpawnEggsItemGroup;
 //import net.mrscauthd.boss_tools.entity.renderer.MoglerRenderer;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
@@ -20,6 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.entity.monster.HoglinEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 
 import javax.annotation.Nullable;
 
@@ -37,7 +37,7 @@ public class MoglerEntity extends BossToolsModElements.ModElement {
     @Override
     public void initElements() {
         elements.entities.add(() -> entity);
-        elements.items.add(() -> new SpawnEggItem(entity, -13312, -3407872, new Item.Properties().group(SpaceBosstoolsSpawnEggsItemGroup.tab))
+        elements.items.add(() -> new SpawnEggItem(entity, -13312, -3407872, new Item.Properties().group(BossToolsItemGroups.tab_spawn_eggs))
                 .setRegistryName("mogler_spawn_egg"));
     }
 

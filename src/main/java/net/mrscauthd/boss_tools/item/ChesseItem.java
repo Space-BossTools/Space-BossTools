@@ -1,7 +1,7 @@
 
 package net.mrscauthd.boss_tools.item;
 
-import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
+import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ObjectHolder;
@@ -26,7 +26,7 @@ public class ChesseItem extends BossToolsModElements.ModElement {
 	}
 	public static class FoodItemCustom extends Item {
 		public FoodItemCustom() {
-			super(new Item.Properties().group(BossToolsItemGroup.tab).maxStackSize(64).rarity(Rarity.COMMON)
+			super(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(64).rarity(Rarity.COMMON)
 					.food((new Food.Builder()).hunger(4).saturation(3f).build()));
 			setRegistryName("chesse");
 		}

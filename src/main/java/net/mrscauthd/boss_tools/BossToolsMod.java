@@ -18,6 +18,8 @@
 package net.mrscauthd.boss_tools;
 
 //import net.mrscauthd.boss_tools.events.FuelGuiSyncEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.mrscauthd.boss_tools.events.SyncEvents;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -60,6 +62,25 @@ public class BossToolsMod {
 		SyncEvents.FuelSyncEvent.registerMessages();
 		SyncEvents.OxygenBulletGeneratorSyncEvent.NetworkLoader.registerMessages();
 		SyncEvents.PlayerMovementSyncEvent.NetworkLoader.registerMessages();
+
+		//MobInnet
+		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+		MinecraftForge.EVENT_BUS.register(this);
+		ModInnet.ENTITYS.register(bus);
+		ModInnet.ITEMS.register(bus);
+		ModInnet.BLOCKS.register(bus);
+		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
+		ModInnet.SENSOR.register(bus);
+		//alien Village
+		STStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
+		bus.addListener(ModInnet::setup2);
+		forgeBus.addListener(EventPriority.NORMAL, ModInnet::addDimensionalSpacing);
+		forgeBus.addListener(EventPriority.HIGH, ModInnet::biomeModification);
+		//Meteor
+		STStructures.METEOR_DEFERRED_REGISTRY_STRUCTURE.register(bus);
+		STStructures2.VENUS_BULLET_DEFERRED_REGISTRY_STRUCTURE.register(bus);
+		STStructures2.VENUS_TOWER_DEFERRED_REGISTRY_STRUCTURE.register(bus);
+		forgeBus.addListener(EventPriority.HIGH, ModInnet::biomesLoading);
 	}
 
 	private void init(FMLCommonSetupEvent event) {

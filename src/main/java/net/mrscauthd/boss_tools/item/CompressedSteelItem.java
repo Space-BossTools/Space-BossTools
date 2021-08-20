@@ -1,7 +1,6 @@
 
 package net.mrscauthd.boss_tools.item;
 
-import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsMaterialsItemGroup;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ObjectHolder;
@@ -10,13 +9,14 @@ import net.minecraft.item.Rarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
 import net.minecraft.block.BlockState;
+import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 
 @BossToolsModElements.ModElement.Tag
-public class CompressedsiliconItem extends BossToolsModElements.ModElement {
-	@ObjectHolder("boss_tools:compressed_silicon")
+public class CompressedSteelItem extends BossToolsModElements.ModElement {
+	@ObjectHolder("boss_tools:compressed_steel")
 	public static final Item block = null;
-	public CompressedsiliconItem(BossToolsModElements instance) {
-		super(instance, 27);
+	public CompressedSteelItem(BossToolsModElements instance) {
+		super(instance, 25);
 	}
 
 	@Override
@@ -25,8 +25,8 @@ public class CompressedsiliconItem extends BossToolsModElements.ModElement {
 	}
 	public static class ItemCustom extends Item {
 		public ItemCustom() {
-			super(new Item.Properties().group(SpaceBosstoolsMaterialsItemGroup.tab).maxStackSize(64).rarity(Rarity.COMMON));
-			setRegistryName("compressed_silicon");
+			super(new Item.Properties().group(BossToolsItemGroups.tab_materials).maxStackSize(64).rarity(Rarity.COMMON));
+			setRegistryName("compressed_steel");
 		}
 
 		@Override

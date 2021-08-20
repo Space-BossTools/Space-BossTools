@@ -1,7 +1,7 @@
 
 package net.mrscauthd.boss_tools.item;
 
-import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
+import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketEntity;
@@ -60,7 +60,7 @@ public class Tier3RocketItemItem extends BossToolsModElements.ModElement {
 	}
 	public static class ItemCustom extends Item {
 		public ItemCustom() {
-			super(new Item.Properties().group(BossToolsItemGroup.tab).maxStackSize(1).rarity(Rarity.COMMON));
+			super(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1).rarity(Rarity.COMMON));
 			setRegistryName("tier_3_rocket");
 		}
 

@@ -3,8 +3,8 @@ package net.mrscauthd.boss_tools.block;
 
 import net.minecraft.world.IWorld;
 import net.mrscauthd.boss_tools.item.SpaceArmorItem;
+import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 import net.mrscauthd.boss_tools.procedures.OxygenTickProcedure;
-import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsMachinesItemGroup;
 import net.mrscauthd.boss_tools.gui.OxygenLoaderGuiGui;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
@@ -93,7 +93,7 @@ public class OxygenMachineBlock extends BossToolsModElements.ModElement {
 	@Override
 	public void initElements() {
 		elements.blocks.add(() -> new CustomBlock());
-		elements.items.add(() -> new BlockItem(block, new Item.Properties().group(SpaceBosstoolsMachinesItemGroup.tab))
+		elements.items.add(() -> new BlockItem(block, new Item.Properties().group(BossToolsItemGroups.tab_machines))
 				.setRegistryName(block.getRegistryName()));
 	}
 	private static class TileEntityRegisterHandler {

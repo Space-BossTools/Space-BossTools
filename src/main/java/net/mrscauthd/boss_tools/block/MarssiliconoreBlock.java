@@ -1,7 +1,6 @@
 
 package net.mrscauthd.boss_tools.block;
 
-import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsBlocksItemGroup;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ObjectHolder;
@@ -42,6 +41,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Block;
+import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 
 import java.util.Random;
 import java.util.List;
@@ -61,7 +61,7 @@ public class MarssiliconoreBlock extends BossToolsModElements.ModElement {
 	public void initElements() {
 		elements.blocks.add(() -> new CustomBlock());
 		elements.items.add(
-				() -> new BlockItem(block, new Item.Properties().group(SpaceBosstoolsBlocksItemGroup.tab)).setRegistryName(block.getRegistryName()));
+				() -> new BlockItem(block, new Item.Properties().group(BossToolsItemGroups.tab_blocks)).setRegistryName(block.getRegistryName()));
 	}
 	public static class CustomBlock extends Block {
 		public CustomBlock() {

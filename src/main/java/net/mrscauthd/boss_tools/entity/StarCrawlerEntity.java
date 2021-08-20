@@ -4,7 +4,6 @@ package net.mrscauthd.boss_tools.entity;
 import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.projectile.SpectralArrowEntity;
 import net.mrscauthd.boss_tools.events.Config;
-import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsSpawnEggsItemGroup;
 import net.mrscauthd.boss_tools.entity.renderer.StarCrawlerRenderer;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
@@ -38,6 +37,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.CreatureAttribute;
+import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 
 @BossToolsModElements.ModElement.Tag
 public class StarCrawlerEntity extends BossToolsModElements.ModElement {
@@ -54,7 +54,7 @@ public class StarCrawlerEntity extends BossToolsModElements.ModElement {
 				.setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(CustomEntity::new).size(1.2999999999999998f, 1f))
 				.build("star_crawler").setRegistryName("star_crawler");
 		elements.entities.add(() -> entity);
-		elements.items.add(() -> new SpawnEggItem(entity, -13421773, -16724788, new Item.Properties().group(SpaceBosstoolsSpawnEggsItemGroup.tab))
+		elements.items.add(() -> new SpawnEggItem(entity, -13421773, -16724788, new Item.Properties().group(BossToolsItemGroups.tab_spawn_eggs))
 				.setRegistryName("star_crawler_spawn_egg"));
 	}
 

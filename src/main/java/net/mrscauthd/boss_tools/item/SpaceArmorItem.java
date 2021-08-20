@@ -1,17 +1,11 @@
 
 package net.mrscauthd.boss_tools.item;
 
-import com.google.common.collect.Maps;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.nbt.ListNBT;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorLeggingsTickEventProcedure;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorHelmetTickEventProcedure;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorBootsTickEventProcedure;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorBodyTickEventProcedure;
-import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
+import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ObjectHolder;
@@ -102,7 +96,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 				return 0f;
 			}
 		};
-		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.HEAD, new Item.Properties().group(BossToolsItemGroup.tab)) {
+		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.HEAD, new Item.Properties().group(BossToolsItemGroups.tab_normal)) {
 			@Override
 			@OnlyIn(Dist.CLIENT)
 			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
@@ -133,7 +127,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 				}
 			}
 		}.setRegistryName("oxygen_mask"));
-		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.CHEST, new Item.Properties().group(BossToolsItemGroup.tab)) {
+		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.CHEST, new Item.Properties().group(BossToolsItemGroups.tab_normal)) {
 			@Override
 			@OnlyIn(Dist.CLIENT)
 			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
@@ -173,7 +167,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 				}
 			}
 		}.setRegistryName("space_suit"));
-		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.LEGS, new Item.Properties().group(BossToolsItemGroup.tab)) {
+		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.LEGS, new Item.Properties().group(BossToolsItemGroups.tab_normal)) {
 			@Override
 			@OnlyIn(Dist.CLIENT)
 			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
@@ -203,7 +197,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 				}
 			}
 		}.setRegistryName("space_pants"));
-		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.FEET, new Item.Properties().group(BossToolsItemGroup.tab)) {
+		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.FEET, new Item.Properties().group(BossToolsItemGroups.tab_normal)) {
 			@Override
 			@OnlyIn(Dist.CLIENT)
 			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {

@@ -20,33 +20,27 @@ import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.mrscauthd.boss_tools.block.*;
 import net.mrscauthd.boss_tools.entity.AlienSpitEntity;
 import net.mrscauthd.boss_tools.events.Config;
+import net.mrscauthd.boss_tools.item.BarrelItem;
 import net.mrscauthd.boss_tools.item.SteahlItem;
-import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsBasicsItemGroup;
-import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsFlagsItemGroup;
-import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsSpawnEggsItemGroup;
 import net.mrscauthd.boss_tools.entity.AlienEntity;
 
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 import net.mrscauthd.boss_tools.world.biome.MarsIceBiomeBiome;
 import net.mrscauthd.boss_tools.world.biome.InfernalVenusBarrensBiome;
 
@@ -60,9 +54,9 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-@BossToolsModElements.ModElement.Tag
+//@BossToolsModElements.ModElement.Tag
 @Mod.EventBusSubscriber(modid = "boss_tools", bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ModInnet extends BossToolsModElements.ModElement {
+public class ModInnet/* extends BossToolsModElements.ModElement*/ {
     public static final DeferredRegister<EntityType<?>> ENTITYS = DeferredRegister.create(ForgeRegistries.ENTITIES, "boss_tools");
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, "boss_tools");
@@ -71,9 +65,6 @@ public class ModInnet extends BossToolsModElements.ModElement {
             .create(AlienEntity::new, EntityClassification.CREATURE).size(0.75f, 2.5f).build(new ResourceLocation("boss_tools", "alien").toString()));
 
     public static RegistryObject<EntityType<?>> ALIENSPITENTITY = ENTITYS.register("alien_spit_entity", () -> AlienSpitEntity.arrow);
-
-    public static final RegistryObject<ModSpawnEggs> ALIEN_SPAWN_EGG = ITEMS.register("alien_spawn_egg",
-            () -> new ModSpawnEggs(ALIEN, -13382401, -11650781, new Item.Properties().group(SpaceBosstoolsSpawnEggsItemGroup.tab)));
 
     //pygro
     public static final DeferredRegister<SensorType<?>> SENSOR = DeferredRegister.create(ForgeRegistries.SENSOR_TYPES, "boss_tools");
@@ -102,7 +93,13 @@ public class ModInnet extends BossToolsModElements.ModElement {
 
     //Item
     public static final RegistryObject<Item> TORCHITEM = ITEMS.register("coal_torch",
-            () -> new CoalTorchItem(COALTORCHBLOCK.get(), WALLCOALTORCHBLOCK.get(),new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab)));
+            () -> new CoalTorchItem(COALTORCHBLOCK.get(), WALLCOALTORCHBLOCK.get(),new Item.Properties().group(BossToolsItemGroups.tab_basics)));
+
+    public static final RegistryObject<ModSpawnEggs> ALIEN_SPAWN_EGG = ITEMS.register("alien_spawn_egg",
+            () -> new ModSpawnEggs(ALIEN, -13382401, -11650781, new Item.Properties().group(BossToolsItemGroups.tab_spawn_eggs)));
+
+
+    public static final RegistryObject<Item> BARREL = ITEMS.register("barrel", () -> new BarrelItem());
 
     //Steel Item Tier
     public static IItemTier SteelItemTier = new IItemTier() {
@@ -133,35 +130,35 @@ public class ModInnet extends BossToolsModElements.ModElement {
 
     //Tools
     public static final RegistryObject<Item> SteelSword = ITEMS.register("steel_sword",
-            () -> new SwordItem(SteelItemTier,3,-2.4f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab).isImmuneToFire()));
+            () -> new SwordItem(SteelItemTier,3,-2.4f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
 
     public static final RegistryObject<Item> SteelShovel = ITEMS.register("steel_shovel",
-            () -> new ShovelItem(SteelItemTier,1.5f,-3f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab).isImmuneToFire()));
+            () -> new ShovelItem(SteelItemTier,1.5f,-3f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
 
     public static final RegistryObject<Item> SteelPickaxe = ITEMS.register("steel_pickaxe",
-            () -> new PickaxeItem(SteelItemTier,1,-2.8f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab).isImmuneToFire()));
+            () -> new PickaxeItem(SteelItemTier,1,-2.8f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
 
     public static final RegistryObject<Item> SteelAxe = ITEMS.register("steel_axe",
-            () -> new AxeItem(SteelItemTier,6,-3f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab).isImmuneToFire()));
+            () -> new AxeItem(SteelItemTier,6,-3f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
 
     public static final RegistryObject<Item> SteelHoe = ITEMS.register("steel_hoe",
-            () -> new HoeItem(SteelItemTier,-2,0f,new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab).isImmuneToFire()));
+            () -> new HoeItem(SteelItemTier,-2,0f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
 
     //Flag Items
-    public static final RegistryObject<Item> FLAGITEM = ITEMS.register("flag", () -> new TallBlockItem(FLAGBLOCK.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
-    public static final RegistryObject<Item> FLAGITEMblue = ITEMS.register("flag_blue", () -> new TallBlockItem(FLAGBLOCKblue.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
-    public static final RegistryObject<Item> FLAGITEMbrown = ITEMS.register("flag_brown", () -> new TallBlockItem(FLAGBLOCKbrown.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
-    public static final RegistryObject<Item> FLAGITEMcyan = ITEMS.register("flag_cyan", () -> new TallBlockItem(FLAGBLOCKcyan.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
-    public static final RegistryObject<Item> FLAGITEMgray = ITEMS.register("flag_gray", () -> new TallBlockItem(FLAGBLOCKgray.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
-    public static final RegistryObject<Item> FLAGITEMgreen = ITEMS.register("flag_green", () -> new TallBlockItem(FLAGBLOCKgreen.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
-    public static final RegistryObject<Item> FLAGITEMlightblue = ITEMS.register("flag_light_blue", () -> new TallBlockItem(FLAGBLOCKlightblue.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
-    public static final RegistryObject<Item> FLAGITEMlime = ITEMS.register("flag_lime", () -> new TallBlockItem(FLAGBLOCKlime.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
-    public static final RegistryObject<Item> FLAGITEMmagenta = ITEMS.register("flag_magenta", () -> new TallBlockItem(FLAGBLOCKmagenta.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
-    public static final RegistryObject<Item> FLAGITEMorange = ITEMS.register("flag_orange", () -> new TallBlockItem(FLAGBLOCKorange.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
-    public static final RegistryObject<Item> FLAGITEMpink = ITEMS.register("flag_pink", () -> new TallBlockItem(FLAGBLOCKpink.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
-    public static final RegistryObject<Item> FLAGITEMpruple = ITEMS.register("flag_purple", () -> new TallBlockItem(FLAGBLOCKpurple.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
-    public static final RegistryObject<Item> FLAGITEMred = ITEMS.register("flag_red", () -> new TallBlockItem(FLAGBLOCKred.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
-    public static final RegistryObject<Item> FLAGITEMyellow = ITEMS.register("flag_yellow", () -> new TallBlockItem(FLAGBLOCKyellow.get(), new Item.Properties().group(SpaceBosstoolsFlagsItemGroup.tab)));
+    public static final RegistryObject<Item> FLAGITEM = ITEMS.register("flag", () -> new TallBlockItem(FLAGBLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
+    public static final RegistryObject<Item> FLAGITEMblue = ITEMS.register("flag_blue", () -> new TallBlockItem(FLAGBLOCKblue.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
+    public static final RegistryObject<Item> FLAGITEMbrown = ITEMS.register("flag_brown", () -> new TallBlockItem(FLAGBLOCKbrown.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
+    public static final RegistryObject<Item> FLAGITEMcyan = ITEMS.register("flag_cyan", () -> new TallBlockItem(FLAGBLOCKcyan.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
+    public static final RegistryObject<Item> FLAGITEMgray = ITEMS.register("flag_gray", () -> new TallBlockItem(FLAGBLOCKgray.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
+    public static final RegistryObject<Item> FLAGITEMgreen = ITEMS.register("flag_green", () -> new TallBlockItem(FLAGBLOCKgreen.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
+    public static final RegistryObject<Item> FLAGITEMlightblue = ITEMS.register("flag_light_blue", () -> new TallBlockItem(FLAGBLOCKlightblue.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
+    public static final RegistryObject<Item> FLAGITEMlime = ITEMS.register("flag_lime", () -> new TallBlockItem(FLAGBLOCKlime.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
+    public static final RegistryObject<Item> FLAGITEMmagenta = ITEMS.register("flag_magenta", () -> new TallBlockItem(FLAGBLOCKmagenta.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
+    public static final RegistryObject<Item> FLAGITEMorange = ITEMS.register("flag_orange", () -> new TallBlockItem(FLAGBLOCKorange.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
+    public static final RegistryObject<Item> FLAGITEMpink = ITEMS.register("flag_pink", () -> new TallBlockItem(FLAGBLOCKpink.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
+    public static final RegistryObject<Item> FLAGITEMpruple = ITEMS.register("flag_purple", () -> new TallBlockItem(FLAGBLOCKpurple.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
+    public static final RegistryObject<Item> FLAGITEMred = ITEMS.register("flag_red", () -> new TallBlockItem(FLAGBLOCKred.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
+    public static final RegistryObject<Item> FLAGITEMyellow = ITEMS.register("flag_yellow", () -> new TallBlockItem(FLAGBLOCKyellow.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
 
     //Wrold Gen Things
     public static ConfiguredFeature<?, ?> ICE_SPIKE;
@@ -185,9 +182,9 @@ public class ModInnet extends BossToolsModElements.ModElement {
         return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, key, configuredFeature);
     }
 
-    public ModInnet(BossToolsModElements instance) {
-        super(instance, 901);
-    }
+  //  public ModInnet(BossToolsModElements instance) {
+  //     super(instance, 901);
+  //  }
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
@@ -197,7 +194,7 @@ public class ModInnet extends BossToolsModElements.ModElement {
         // ((IRenderFactory) AlienRenderer::new));
     }
 
-    @Override
+  /*  @Override
     public void initElements() {
         // FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -222,8 +219,10 @@ public class ModInnet extends BossToolsModElements.ModElement {
         STStructures2.VENUS_TOWER_DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
         //forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing3);
         forgeBus.addListener(EventPriority.HIGH, this::biomesLoading);
-    }
-    public void setup2(final FMLCommonSetupEvent event)
+    }*/
+
+    @SubscribeEvent
+    public static void setup2(final FMLCommonSetupEvent event)
     {
         event.enqueueWork(() -> {
             STStructures.setupStructures();
@@ -234,8 +233,8 @@ public class ModInnet extends BossToolsModElements.ModElement {
             //STConfiguredStructures.registerConfiguredStructures();
         });
     }
-
-    public void biomeModification(final BiomeLoadingEvent event) {
+    //@SubscribeEvent
+    public static void biomeModification(final BiomeLoadingEvent event) {
         RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
         if (event.getName().equals(new ResourceLocation("boss_tools:moon_biome")) && Config.AlienVillageStructure == true) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE);
@@ -267,7 +266,8 @@ public class ModInnet extends BossToolsModElements.ModElement {
         }
     }
     private static Method GETCODEC_METHOD;
-    public void addDimensionalSpacing(final WorldEvent.Load event) {
+    //@SubscribeEvent
+    public static void addDimensionalSpacing(final WorldEvent.Load event) {
         if (event.getWorld() instanceof ServerWorld) {
             ServerWorld serverWorld = (ServerWorld) event.getWorld();
             try {
@@ -310,8 +310,9 @@ public class ModInnet extends BossToolsModElements.ModElement {
         }
     }
 
-    @Override
-    public void init(final FMLCommonSetupEvent event) {
+    //@Override
+    @SubscribeEvent
+    public static void init(final FMLCommonSetupEvent event) {
         DeferredWorkQueue.runLater(() -> {
             GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) ALIEN.get(), AlienEntity.setCustomAttributes().create());
         });
@@ -328,7 +329,8 @@ public class ModInnet extends BossToolsModElements.ModElement {
                             .withPlacement(Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(1))));
         });
     }
-    public void biomesLoading(final BiomeLoadingEvent event){
+    //@SubscribeEvent
+    public static void biomesLoading(final BiomeLoadingEvent event){
         if(event.getName().getPath().equals(MarsIceBiomeBiome.biome.getRegistryName().getPath())){
             event.getGeneration().withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ICE_SPIKE);
         }
@@ -338,8 +340,9 @@ public class ModInnet extends BossToolsModElements.ModElement {
             event.getGeneration().withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, DELTAS2);
         }
     }
-
+/*
     @Override
     public void serverLoad(FMLServerStartingEvent event) {
     }
+    */
 }

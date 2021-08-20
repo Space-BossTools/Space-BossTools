@@ -5,7 +5,7 @@ import net.mrscauthd.boss_tools.procedures.SpaceArmorLeggingsTickEventProcedure;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorHelmetTickEventProcedure;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorBootsTickEventProcedure;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorBodyTickEventProcedure;
-import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
+import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ObjectHolder;
@@ -96,7 +96,7 @@ public class NetheriteSpaceArmorItem extends BossToolsModElements.ModElement {
 				return 0f;
 			}
 		};
-		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.HEAD, new Item.Properties().group(BossToolsItemGroup.tab).isImmuneToFire()) {
+		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.HEAD, new Item.Properties().group(BossToolsItemGroups.tab_normal).isImmuneToFire()) {
 			@Override
 			@OnlyIn(Dist.CLIENT)
 			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
@@ -126,7 +126,7 @@ public class NetheriteSpaceArmorItem extends BossToolsModElements.ModElement {
 				}
 			}
 		}.setRegistryName("netherite_oxygen_mask"));
-		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.CHEST, new Item.Properties().group(BossToolsItemGroup.tab).isImmuneToFire()) {
+		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.CHEST, new Item.Properties().group(BossToolsItemGroups.tab_normal).isImmuneToFire()) {
 			@Override
 			@OnlyIn(Dist.CLIENT)
 			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
@@ -166,7 +166,7 @@ public class NetheriteSpaceArmorItem extends BossToolsModElements.ModElement {
 				}
 			}
 		}.setRegistryName("netherite_space_suit"));
-		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.LEGS, new Item.Properties().group(BossToolsItemGroup.tab).isImmuneToFire()) {
+		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.LEGS, new Item.Properties().group(BossToolsItemGroups.tab_normal).isImmuneToFire()) {
 			@Override
 			@OnlyIn(Dist.CLIENT)
 			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
@@ -196,7 +196,7 @@ public class NetheriteSpaceArmorItem extends BossToolsModElements.ModElement {
 				}
 			}
 		}.setRegistryName("netherite_space_pants"));
-		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.FEET, new Item.Properties().group(BossToolsItemGroup.tab).isImmuneToFire()) {
+		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.FEET, new Item.Properties().group(BossToolsItemGroups.tab_normal).isImmuneToFire()) {
 			@Override
 			@OnlyIn(Dist.CLIENT)
 			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {

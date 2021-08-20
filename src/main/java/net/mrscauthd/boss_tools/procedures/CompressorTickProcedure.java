@@ -1,8 +1,8 @@
 package net.mrscauthd.boss_tools.procedures;
 
-import net.mrscauthd.boss_tools.item.CompressesteelItem;
-import net.mrscauthd.boss_tools.item.CompressedsiliconItem;
-import net.mrscauthd.boss_tools.item.CompressedTinItem;
+import net.mrscauthd.boss_tools.item.CompressedSteelItem;
+import net.mrscauthd.boss_tools.item.CompressedSiliconItem;
+import net.mrscauthd.boss_tools.item.CompressedDeshItem;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -282,7 +282,7 @@ public class CompressorTickProcedure {
 						TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
 						if (_ent != null) {
 							final int _sltid = (int) (2);
-							final ItemStack _setstack = new ItemStack(CompressesteelItem.block, (int) (1));
+							final ItemStack _setstack = new ItemStack(CompressedSteelItem.block, (int) (1));
 							_setstack.setCount((int) ((new Object() {
 								public int getAmount(IWorld world, BlockPos pos, int sltid) {
 									AtomicInteger _retval = new AtomicInteger(0);
@@ -328,7 +328,7 @@ public class CompressorTickProcedure {
 						TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
 						if (_ent != null) {
 							final int _sltid = (int) (2);
-							final ItemStack _setstack = new ItemStack(CompressedTinItem.block, (int) (1));
+							final ItemStack _setstack = new ItemStack(CompressedDeshItem.block, (int) (1));
 							_setstack.setCount((int) ((new Object() {
 								public int getAmount(IWorld world, BlockPos pos, int sltid) {
 									AtomicInteger _retval = new AtomicInteger(0);
@@ -374,7 +374,7 @@ public class CompressorTickProcedure {
 						TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
 						if (_ent != null) {
 							final int _sltid = (int) (2);
-							final ItemStack _setstack = new ItemStack(CompressedsiliconItem.block, (int) (1));
+							final ItemStack _setstack = new ItemStack(CompressedSiliconItem.block, (int) (1));
 							_setstack.setCount((int) ((new Object() {
 								public int getAmount(IWorld world, BlockPos pos, int sltid) {
 									AtomicInteger _retval = new AtomicInteger(0);
@@ -451,7 +451,7 @@ public class CompressorTickProcedure {
 								return _retval.get();
 							}
 						}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (2)))
-								.getItem() == new ItemStack(CompressesteelItem.block, (int) (1)).getItem()) || ((new Object() {
+								.getItem() == new ItemStack(CompressedSteelItem.block, (int) (1)).getItem()) || ((new Object() {
 									public ItemStack getItemStack(BlockPos pos, int sltid) {
 										AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 										TileEntity _ent = world.getTileEntity(pos);
@@ -578,7 +578,7 @@ public class CompressorTickProcedure {
 								return _retval.get();
 							}
 						}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (2)))
-								.getItem() == new ItemStack(CompressedTinItem.block, (int) (1)).getItem()) || ((new Object() {
+								.getItem() == new ItemStack(CompressedDeshItem.block, (int) (1)).getItem()) || ((new Object() {
 									public ItemStack getItemStack(BlockPos pos, int sltid) {
 										AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 										TileEntity _ent = world.getTileEntity(pos);
@@ -705,7 +705,7 @@ public class CompressorTickProcedure {
 								return _retval.get();
 							}
 						}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (2)))
-								.getItem() == new ItemStack(CompressedsiliconItem.block, (int) (1)).getItem()) || ((new Object() {
+								.getItem() == new ItemStack(CompressedSiliconItem.block, (int) (1)).getItem()) || ((new Object() {
 									public ItemStack getItemStack(BlockPos pos, int sltid) {
 										AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 										TileEntity _ent = world.getTileEntity(pos);
@@ -891,7 +891,7 @@ public class CompressorTickProcedure {
 						}
 						return _retval.get();
 					}
-				}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (2))).getItem() == new ItemStack(CompressedTinItem.block, (int) (1))
+				}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (2))).getItem() == new ItemStack(CompressedDeshItem.block, (int) (1))
 						.getItem()))
 				|| (((ItemTags.getCollection().getTagByID(new ResourceLocation(("forge:ingots/steel").toLowerCase(java.util.Locale.ENGLISH)))
 						.contains((new Object() {
@@ -917,7 +917,7 @@ public class CompressorTickProcedure {
 								return _retval.get();
 							}
 						}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (2)))
-								.getItem() == new ItemStack(CompressedsiliconItem.block, (int) (1)).getItem()))
+								.getItem() == new ItemStack(CompressedSiliconItem.block, (int) (1)).getItem()))
 						|| (((ItemTags.getCollection().getTagByID(new ResourceLocation(("forge:ingots/desh").toLowerCase(java.util.Locale.ENGLISH)))
 								.contains((new Object() {
 									public ItemStack getItemStack(BlockPos pos, int sltid) {
@@ -942,7 +942,7 @@ public class CompressorTickProcedure {
 										return _retval.get();
 									}
 								}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (2)))
-										.getItem() == new ItemStack(CompressesteelItem.block, (int) (1)).getItem()))
+										.getItem() == new ItemStack(CompressedSteelItem.block, (int) (1)).getItem()))
 								|| (((ItemTags.getCollection()
 										.getTagByID(new ResourceLocation(("forge:ingots/desh").toLowerCase(java.util.Locale.ENGLISH)))
 										.contains((new Object() {
@@ -968,7 +968,7 @@ public class CompressorTickProcedure {
 												return _retval.get();
 											}
 										}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (2)))
-												.getItem() == new ItemStack(CompressedsiliconItem.block, (int) (1)).getItem()))
+												.getItem() == new ItemStack(CompressedSiliconItem.block, (int) (1)).getItem()))
 										|| (((ItemTags.getCollection()
 												.getTagByID(new ResourceLocation(("forge:ingots/silicon").toLowerCase(java.util.Locale.ENGLISH)))
 												.contains((new Object() {
@@ -996,7 +996,7 @@ public class CompressorTickProcedure {
 														return _retval.get();
 													}
 												}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (2)))
-														.getItem() == new ItemStack(CompressesteelItem.block, (int) (1)).getItem()))
+														.getItem() == new ItemStack(CompressedSteelItem.block, (int) (1)).getItem()))
 												|| ((ItemTags.getCollection()
 														.getTagByID(
 																new ResourceLocation(("forge:ingots/silicon").toLowerCase(java.util.Locale.ENGLISH)))
@@ -1026,7 +1026,7 @@ public class CompressorTickProcedure {
 																return _retval.get();
 															}
 														}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (2)))
-																.getItem() == new ItemStack(CompressedTinItem.block, (int) (1))
+																.getItem() == new ItemStack(CompressedDeshItem.block, (int) (1))
 																		.getItem()))))))) == (true))) {
 			if (!world.isRemote()) {
 				BlockPos _bp = new BlockPos((int) x, (int) y, (int) z);
@@ -1152,7 +1152,7 @@ public class CompressorTickProcedure {
 										return _retval.get();
 									}
 								}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (2)))
-										.getItem() == new ItemStack(CompressesteelItem.block, (int) (1)).getItem()) || ((new Object() {
+										.getItem() == new ItemStack(CompressedSteelItem.block, (int) (1)).getItem()) || ((new Object() {
 											public ItemStack getItemStack(BlockPos pos, int sltid) {
 												AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 												TileEntity _ent = world.getTileEntity(pos);
@@ -1247,7 +1247,7 @@ public class CompressorTickProcedure {
 										return _retval.get();
 									}
 								}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (2)))
-										.getItem() == new ItemStack(CompressedTinItem.block, (int) (1)).getItem()) || ((new Object() {
+										.getItem() == new ItemStack(CompressedDeshItem.block, (int) (1)).getItem()) || ((new Object() {
 											public ItemStack getItemStack(BlockPos pos, int sltid) {
 												AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 												TileEntity _ent = world.getTileEntity(pos);
@@ -1343,7 +1343,7 @@ public class CompressorTickProcedure {
 										return _retval.get();
 									}
 								}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (2)))
-										.getItem() == new ItemStack(CompressedsiliconItem.block, (int) (1)).getItem()) || ((new Object() {
+										.getItem() == new ItemStack(CompressedSiliconItem.block, (int) (1)).getItem()) || ((new Object() {
 											public ItemStack getItemStack(BlockPos pos, int sltid) {
 												AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 												TileEntity _ent = world.getTileEntity(pos);

@@ -1,15 +1,8 @@
 
 package net.mrscauthd.boss_tools.item;
 
-import net.minecraft.entity.item.BoatEntity;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.RayTraceResult;
-import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
+import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 import net.mrscauthd.boss_tools.entity.RoverEntity;
-import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
-import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
-import net.mrscauthd.boss_tools.entity.RocketEntity;
-import net.mrscauthd.boss_tools.entity.LandingGearEntity;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ObjectHolder;
@@ -20,7 +13,6 @@ import net.minecraft.world.World;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Hand;
@@ -44,10 +36,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.BlockState;
 
-import java.util.stream.Collectors;
-import java.util.function.Function;
 import java.util.List;
-import java.util.Comparator;
 
 @BossToolsModElements.ModElement.Tag
 public class RoverItemItem extends BossToolsModElements.ModElement {
@@ -63,7 +52,7 @@ public class RoverItemItem extends BossToolsModElements.ModElement {
 	}
 	public static class ItemCustom extends Item {
 		public ItemCustom() {
-			super(new Item.Properties().group(BossToolsItemGroup.tab).maxStackSize(1).rarity(Rarity.COMMON));
+			super(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1).rarity(Rarity.COMMON));
 			setRegistryName("rover");
 		}
 

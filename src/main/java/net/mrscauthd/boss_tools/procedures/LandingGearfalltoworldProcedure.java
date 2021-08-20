@@ -1,10 +1,11 @@
 package net.mrscauthd.boss_tools.procedures;
 
+import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.item.FuelBucketBigItem;
-import net.mrscauthd.boss_tools.item.BucketBigItem;
+import net.mrscauthd.boss_tools.item.BarrelItem;
 import net.mrscauthd.boss_tools.entity.LandingGearEntity;
 import net.mrscauthd.boss_tools.block.FuelBlock;
 import net.mrscauthd.boss_tools.BossToolsMod;
@@ -180,7 +181,7 @@ public class LandingGearfalltoworldProcedure {
 					});
 					return _retval.get();
 				}
-			}.getItemStack((int) (1), (entity.getRidingEntity()))).getItem() == new ItemStack(BucketBigItem.block, (int) (1)).getItem())) {
+			}.getItemStack((int) (1), (entity.getRidingEntity()))).getItem() == new ItemStack(ModInnet.BARREL.get(), (int) (1)).getItem())) {
 				entity.getPersistentData().putDouble("Bucket", 3);
 			}
 		}
@@ -328,7 +329,7 @@ public class LandingGearfalltoworldProcedure {
 					if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
 						if (((entity.getPersistentData().getDouble("Bucket")) == 3)) {
 							{
-								final ItemStack _setstack = new ItemStack(BucketBigItem.block, (int) (1));
+								final ItemStack _setstack = new ItemStack(ModInnet.BARREL.get(), (int) (1));
 								final int _sltid = (int) (1);
 								_setstack.setCount((int) 1);
 								(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
@@ -498,7 +499,7 @@ public class LandingGearfalltoworldProcedure {
 					if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
 						if (((entity.getPersistentData().getDouble("Bucket")) == 3)) {
 							{
-								final ItemStack _setstack = new ItemStack(BucketBigItem.block, (int) (1));
+								final ItemStack _setstack = new ItemStack(ModInnet.BARREL.get(), (int) (1));
 								final int _sltid = (int) (1);
 								_setstack.setCount((int) 1);
 								(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
@@ -668,7 +669,7 @@ public class LandingGearfalltoworldProcedure {
 					if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
 						if (((entity.getPersistentData().getDouble("Bucket")) == 3)) {
 							{
-								final ItemStack _setstack = new ItemStack(BucketBigItem.block, (int) (1));
+								final ItemStack _setstack = new ItemStack(ModInnet.BARREL.get(), (int) (1));
 								final int _sltid = (int) (1);
 								_setstack.setCount((int) 1);
 								(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
@@ -838,7 +839,7 @@ public class LandingGearfalltoworldProcedure {
 					if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
 						if (((entity.getPersistentData().getDouble("Bucket")) == 3)) {
 							{
-								final ItemStack _setstack = new ItemStack(BucketBigItem.block, (int) (1));
+								final ItemStack _setstack = new ItemStack(ModInnet.BARREL.get(), (int) (1));
 								final int _sltid = (int) (1);
 								_setstack.setCount((int) 1);
 								(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
@@ -1008,7 +1009,7 @@ public class LandingGearfalltoworldProcedure {
 					if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
 						if (((entity.getPersistentData().getDouble("Bucket")) == 3)) {
 							{
-								final ItemStack _setstack = new ItemStack(BucketBigItem.block, (int) (1));
+								final ItemStack _setstack = new ItemStack(ModInnet.BARREL.get(), (int) (1));
 								final int _sltid = (int) (1);
 								_setstack.setCount((int) 1);
 								(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)

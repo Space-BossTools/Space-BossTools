@@ -2,8 +2,7 @@
 package net.mrscauthd.boss_tools.item;
 
 import net.minecraft.item.*;
-import net.minecraftforge.fml.RegistryObject;
-import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
+import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketEntity;
@@ -13,7 +12,6 @@ import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ObjectHolder;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
@@ -40,14 +38,10 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.BlockState;
 
-import javax.annotation.Nullable;
-
 import java.util.stream.Collectors;
 import java.util.function.Function;
-import java.util.Map;
 import java.util.List;
 import java.util.Comparator;
-import java.util.ArrayList;
 
 @BossToolsModElements.ModElement.Tag
 public class Tier1RocketItemItem extends BossToolsModElements.ModElement {
@@ -64,7 +58,7 @@ public class Tier1RocketItemItem extends BossToolsModElements.ModElement {
 
 	public static class ItemCustom extends Item {
 		public ItemCustom() {
-			super(new Item.Properties().group(BossToolsItemGroup.tab).maxStackSize(1).rarity(Rarity.COMMON));
+			super(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1).rarity(Rarity.COMMON));
 			setRegistryName("tier_1_rocket");
 		}
 

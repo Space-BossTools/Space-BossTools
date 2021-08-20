@@ -1,7 +1,6 @@
 
 package net.mrscauthd.boss_tools.item;
 
-import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsBasicsItemGroup;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ObjectHolder;
@@ -10,6 +9,7 @@ import net.minecraft.item.Rarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
 import net.minecraft.block.BlockState;
+import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 
 @BossToolsModElements.ModElement.Tag
 public class TankTier3Item extends BossToolsModElements.ModElement {
@@ -25,7 +25,7 @@ public class TankTier3Item extends BossToolsModElements.ModElement {
 	}
 	public static class ItemCustom extends Item {
 		public ItemCustom() {
-			super(new Item.Properties().group(SpaceBosstoolsBasicsItemGroup.tab).maxStackSize(64).rarity(Rarity.COMMON));
+			super(new Item.Properties().group(BossToolsItemGroups.tab_basics).maxStackSize(64).rarity(Rarity.COMMON));
 			setRegistryName("diamond_tank");
 		}
 

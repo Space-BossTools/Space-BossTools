@@ -4,7 +4,6 @@ package net.mrscauthd.boss_tools.entity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.mrscauthd.boss_tools.events.Config;
-import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsSpawnEggsItemGroup;
 import net.mrscauthd.boss_tools.entity.renderer.AlienZombieRenderer;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
@@ -26,6 +25,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 
 @BossToolsModElements.ModElement.Tag
 public class AlienZombieEntity extends BossToolsModElements.ModElement {
@@ -41,7 +41,7 @@ public class AlienZombieEntity extends BossToolsModElements.ModElement {
 	@Override
 	public void initElements() {
 		elements.entities.add(() -> entity);
-		elements.items.add(() -> new SpawnEggItem(entity, -14804199, -16740159, new Item.Properties().group(SpaceBosstoolsSpawnEggsItemGroup.tab))
+		elements.items.add(() -> new SpawnEggItem(entity, -14804199, -16740159, new Item.Properties().group(BossToolsItemGroups.tab_spawn_eggs))
 				.setRegistryName("alien_zombie_spawn_egg"));
 	}
 

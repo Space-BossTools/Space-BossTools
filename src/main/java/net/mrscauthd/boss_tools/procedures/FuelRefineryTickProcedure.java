@@ -1,7 +1,8 @@
 package net.mrscauthd.boss_tools.procedures;
 
+import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.item.FuelBucketBigItem;
-import net.mrscauthd.boss_tools.item.BucketBigItem;
+import net.mrscauthd.boss_tools.item.BarrelItem;
 import net.mrscauthd.boss_tools.block.FuelBlock;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
@@ -552,7 +553,7 @@ public class FuelRefineryTickProcedure {
 				}
 				return _retval.get();
 			}
-		}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (1))).getItem() == new ItemStack(BucketBigItem.block, (int) (1)).getItem())) {
+		}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (1))).getItem() == new ItemStack(ModInnet.BARREL.get(), (int) (1)).getItem())) {
 			if (((new Object() {
 				public int getAmount(IWorld world, BlockPos pos, int sltid) {
 					AtomicInteger _retval = new AtomicInteger(0);

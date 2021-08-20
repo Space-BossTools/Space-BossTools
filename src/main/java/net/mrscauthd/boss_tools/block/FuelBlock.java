@@ -1,7 +1,7 @@
 
 package net.mrscauthd.boss_tools.block;
 
-import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroup;
+import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ObjectHolder;
@@ -65,7 +65,7 @@ public class FuelBlock extends BossToolsModElements.ModElement {
 				.add(() -> new FlowingFluidBlock(still, Block.Properties.create(Material.WATER).hardnessAndResistance(100f).setLightLevel(s -> 0)) {
 				}.setRegistryName("fuel"));
 		elements.items.add(() -> new BucketItem(still,
-				new Item.Properties().containerItem(Items.BUCKET).maxStackSize(1).group(BossToolsItemGroup.tab).rarity(Rarity.COMMON))
+				new Item.Properties().containerItem(Items.BUCKET).maxStackSize(1).group(BossToolsItemGroups.tab_normal).rarity(Rarity.COMMON))
 						.setRegistryName("fuel_bucket"));
 	}
 }

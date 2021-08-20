@@ -7,10 +7,8 @@ import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.monster.piglin.PiglinEntity;
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsSpawnEggsItemGroup;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.fml.network.FMLPlayMessages;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -19,23 +17,16 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 
 import net.minecraft.world.World;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.DamageSource;
 import net.minecraft.network.IPacket;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.item.Item;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.RandomWalkingGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.CreatureAttribute;
+import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 
 @BossToolsModElements.ModElement.Tag
 public class PygroEntity extends BossToolsModElements.ModElement {
@@ -51,7 +42,7 @@ public class PygroEntity extends BossToolsModElements.ModElement {
     @Override
     public void initElements() {
         elements.entities.add(() -> entity);
-        elements.items.add(() -> new SpawnEggItem(entity, -3381760, -6750208, new Item.Properties().group(SpaceBosstoolsSpawnEggsItemGroup.tab))
+        elements.items.add(() -> new SpawnEggItem(entity, -3381760, -6750208, new Item.Properties().group(BossToolsItemGroups.tab_spawn_eggs))
                 .setRegistryName("pygro_spawn_egg"));
     }
 

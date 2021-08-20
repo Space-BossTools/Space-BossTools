@@ -1,8 +1,8 @@
 
 package net.mrscauthd.boss_tools.block;
 
+import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 import net.mrscauthd.boss_tools.procedures.WorkbenchUpdateTickProcedure;
-import net.mrscauthd.boss_tools.itemgroup.SpaceBosstoolsMachinesItemGroup;
 import net.mrscauthd.boss_tools.gui.NasaWorkbenchGui;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
@@ -99,7 +99,7 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 	@Override
 	public void initElements() {
 		elements.blocks.add(() -> new CustomBlock());
-		elements.items.add(() -> new BlockItem(block, new Item.Properties().group(SpaceBosstoolsMachinesItemGroup.tab))
+		elements.items.add(() -> new BlockItem(block, new Item.Properties().group(BossToolsItemGroups.tab_machines))
 				.setRegistryName(block.getRegistryName()));
 	}
 	private static class TileEntityRegisterHandler {
@@ -222,7 +222,7 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 				NetworkHooks.openGui((ServerPlayerEntity) entity, new INamedContainerProvider() {
 					@Override
 					public ITextComponent getDisplayName() {
-						return new StringTextComponent("§dNASA Workbench");
+						return new StringTextComponent("ï¿½dNASA Workbench");
 					}
 
 					@Override
@@ -354,7 +354,7 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public ITextComponent getDisplayName() {
-			return new StringTextComponent("§dNASA Workbench");
+			return new StringTextComponent("ï¿½dNASA Workbench");
 		}
 
 		@Override

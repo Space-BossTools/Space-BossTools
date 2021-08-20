@@ -40,6 +40,7 @@ public class RocketRenderer {
 	// Paste this class into your mod and generate all required imports
 	public static class ModelRocketTier1 extends EntityModel<Entity> {
 		private final ModelRenderer Rocket;
+
 		public ModelRocketTier1() {
 			textureWidth = 512;
 			textureHeight = 256;
@@ -204,8 +205,7 @@ public class RocketRenderer {
 		}
 
 		@Override
-		public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue,
-						   float alpha) {
+		public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 			Rocket.render(matrixStack, buffer, packedLight, packedOverlay);
 		}
 
