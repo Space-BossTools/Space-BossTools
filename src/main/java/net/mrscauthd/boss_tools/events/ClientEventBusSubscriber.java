@@ -1,6 +1,9 @@
 package net.mrscauthd.boss_tools.events;
 
 import net.minecraft.client.renderer.entity.SpriteRenderer;
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -19,9 +22,12 @@ import net.mrscauthd.boss_tools.entity.MoglerEntity;
 import net.mrscauthd.boss_tools.entity.renderer.alien.AlienRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.mogler.MoglerRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.pygro.PygroRenderer;
+import net.mrscauthd.boss_tools.keybind.KeyBindings;
+import org.lwjgl.glfw.GLFW;
 
 @Mod.EventBusSubscriber(modid = "boss_tools", bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientEventBusSubscriber {
+	public static KeyBinding key1;
 	@SubscribeEvent
 	public static void onClientSetup(FMLClientSetupEvent event) {
 		RenderingRegistry.registerEntityRenderingHandler(ModInnet.ALIEN.get(), ((IRenderFactory) AlienRenderer::new));
@@ -31,6 +37,10 @@ public class ClientEventBusSubscriber {
 		RenderingRegistry.registerEntityRenderingHandler(MoglerEntity.entity, ((IRenderFactory) MoglerRenderer::new));
 
 		RenderingRegistry.registerEntityRenderingHandler(AlienSpitEntity.arrow, renderManager -> new SpriteRenderer(renderManager, Minecraft.getInstance().getItemRenderer()));
+
+		//Key Binding Registrys
+		key1 = new KeyBinding("key.boss_tools.rocket_start", GLFW.GLFW_KEY_SPACE, "key.categories.boss_tools");
+		ClientRegistry.registerKeyBinding(key1);
 	}
 
 	@SubscribeEvent

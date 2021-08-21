@@ -1,9 +1,12 @@
 package net.mrscauthd.boss_tools;
 
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.mrscauthd.boss_tools.events.BiomeRegisrtyEvents;
 import net.mrscauthd.boss_tools.events.SyncEvents;
+import net.mrscauthd.boss_tools.keybind.KeyBindings;
 import net.mrscauthd.boss_tools.world.structure.configuration.STStructures;
 import net.mrscauthd.boss_tools.world.structure.configuration.STStructures2;
 import org.apache.logging.log4j.Logger;
@@ -25,6 +28,7 @@ import net.minecraft.item.Item;
 import net.minecraft.entity.EntityType;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.block.Block;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.function.Supplier;
 
@@ -69,6 +73,12 @@ public class BossToolsMod {
 		forgeBus.addListener(EventPriority.HIGH, ModInnet::biomesLoading);
 		//Biome Registery Event
 		bus.register(new BiomeRegisrtyEvents.BiomeRegisterHandler());
+
+		//KeyBindings
+		KeyBindings.registerMessages();
+
+		//Client KeyBinds Registry
+		//ClientRegistry.registerKeyBinding(KeyBindings.key1);
 	}
 
 	private void init(FMLCommonSetupEvent event) {

@@ -190,15 +190,6 @@ public class ModInnet {
     }
 
     @SubscribeEvent
-    public static void onClientSetup(FMLClientSetupEvent event) {
-        // RenderingRegistry.registerEntityRenderingHandler(STEntitys.ROCKET.get(),
-        // ((IRenderFactory) RocketRenderer::new));
-        // RenderingRegistry.registerEntityRenderingHandler(ALIEN.get(),
-        // ((IRenderFactory) AlienRenderer::new));
-    }
-
-
-    @SubscribeEvent
     public static void setup2(final FMLCommonSetupEvent event)
     {
         event.enqueueWork(() -> {
