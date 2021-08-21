@@ -9,6 +9,7 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
@@ -18,6 +19,14 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.mrscauthd.boss_tools.block.WorkbenchBlock;
+import net.mrscauthd.boss_tools.gui.BlastFurnaceGUIGuiWindow;
+import net.mrscauthd.boss_tools.gui.CompressorGuiGui;
+import net.mrscauthd.boss_tools.gui.CompressorGuiGuiWindow;
+import net.mrscauthd.boss_tools.gui.FuelRefineryGUIGuiWindow;
+import net.mrscauthd.boss_tools.gui.GeneratorGUIGuiWindow;
+import net.mrscauthd.boss_tools.gui.NasaWorkbenchGuiWindow;
+import net.mrscauthd.boss_tools.gui.OxygenBulletGeneratorGUIGuiWindow;
+import net.mrscauthd.boss_tools.gui.OxygenLoaderGuiGuiWindow;
 import net.mrscauthd.boss_tools.block.FuelMakerBlock;
 import net.mrscauthd.boss_tools.block.FuelBlock;
 import net.mrscauthd.boss_tools.block.GeneratorBlock;
@@ -59,6 +68,17 @@ public class JeiPlugin implements IModPlugin {
     @Override
     public ResourceLocation getPluginUid() {
         return new ResourceLocation("boss_tools", "default");
+    }
+    
+    @Override
+    public void registerGuiHandlers(IGuiHandlerRegistration registration) {
+    	registration.addRecipeClickArea(NasaWorkbenchGuiWindow.class, 108, 49, 14, 14, WorkbenchJeiCategory.Uid);
+    	registration.addRecipeClickArea(GeneratorGUIGuiWindow.class, 78, 52, 13, 13, GeneratorJeiCategory.Uid);
+//    	registration.addRecipeClickArea(FuelRefineryGUIGuiWindow.class, 77, 61, 13, 13, FuelMakerJeiCategory.Uid, FuelMaker2JeiCategory.Uid);
+    	registration.addRecipeClickArea(BlastFurnaceGUIGuiWindow.class, 73, 38, 22, 15, BlastingFurnaceJeiCategory.Uid);
+    	registration.addRecipeClickArea(CompressorGuiGuiWindow.class, 61, 39, 22, 15, CompressorJeiCategory.Uid);
+    	registration.addRecipeClickArea(OxygenLoaderGuiGuiWindow.class, 76, 42, 14, 12, OxygenMachineJeiCategory.Uid);
+    	registration.addRecipeClickArea(OxygenBulletGeneratorGUIGuiWindow.class, 76, 30, 14, 12, OxygenGeneratorJeiCategory.Uid);
     }
 
     @Override
