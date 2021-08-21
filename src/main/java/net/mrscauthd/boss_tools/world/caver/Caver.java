@@ -3,13 +3,11 @@ package net.mrscauthd.boss_tools.world.caver;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.boss_tools.block.*;
-
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraft.world.gen.carver.WorldCarver;
 import net.minecraft.block.Block;
-
 import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;

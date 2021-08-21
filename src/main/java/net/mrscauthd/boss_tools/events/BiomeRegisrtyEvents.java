@@ -32,7 +32,6 @@ public class BiomeRegisrtyEvents {
                 BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder().withSurfaceBuilder(SurfaceBuilder.DEFAULT.func_242929_a(new SurfaceBuilderConfig(MoonsandBlock.block.getDefaultState(), MoonsandBlock.block.getDefaultState(), MoonsandBlock.block.getDefaultState())));
                 biomeGenerationSettings.withStructure(StructureFeatures.PILLAGER_OUTPOST);
                 DefaultBiomeFeatures.withCavesAndCanyons(biomeGenerationSettings);
-                DefaultBiomeFeatures.withFrozenTopLayer(biomeGenerationSettings);
                 MobSpawnInfo.Builder mobSpawnInfo = new MobSpawnInfo.Builder().isValidSpawnBiomeForPlayer();
                 moon_biome = new Biome.Builder().precipitation(Biome.RainType.NONE).category(Biome.Category.NONE).depth(0.2f).scale(0.02f).temperature(1.6f).downfall(0f).setEffects(effects).withMobSpawnSettings(mobSpawnInfo.copy()).withGenerationSettings(biomeGenerationSettings.build()).build();
                 event.getRegistry().register(moon_biome.setRegistryName("boss_tools:moon_biome"));
@@ -103,7 +102,6 @@ public class BiomeRegisrtyEvents {
                 BiomeAmbience effects = new BiomeAmbience.Builder().setFogColor(-16777216).setWaterColor(4159204).setWaterFogColor(329011).withSkyColor(-16777216).withFoliageColor(7842607).withGrassColor(9551193).build();
                 BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder().withSurfaceBuilder(SurfaceBuilder.DEFAULT.func_242929_a(new SurfaceBuilderConfig(MrrcuryCobblestoneBlock.block.getDefaultState(), MrrcuryCobblestoneBlock.block.getDefaultState(), MrrcuryCobblestoneBlock.block.getDefaultState())));
                 DefaultBiomeFeatures.withCavesAndCanyons(biomeGenerationSettings);
-                DefaultBiomeFeatures.withFrozenTopLayer(biomeGenerationSettings);
                 MobSpawnInfo.Builder mobSpawnInfo = new MobSpawnInfo.Builder().isValidSpawnBiomeForPlayer();
                 mercury_biome = new Biome.Builder().precipitation(Biome.RainType.NONE).category(Biome.Category.NONE).depth(1f).scale(0.2f).temperature(1.6f).downfall(0f).setEffects(effects).withMobSpawnSettings(mobSpawnInfo.copy()).withGenerationSettings(biomeGenerationSettings.build()).build();
                 event.getRegistry().register(mercury_biome.setRegistryName("boss_tools:mercury_biome"));
@@ -135,7 +133,6 @@ public class BiomeRegisrtyEvents {
             if (orbit_biome == null) {
                 BiomeAmbience effects = new BiomeAmbience.Builder().setFogColor(-16777216).setWaterColor(4159204).setWaterFogColor(329011).withSkyColor(-16777216).withFoliageColor(7842607).withGrassColor(9551193).build();
                 BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder().withSurfaceBuilder(SurfaceBuilder.DEFAULT.func_242929_a(new SurfaceBuilderConfig(Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState())));
-                DefaultBiomeFeatures.withFrozenTopLayer(biomeGenerationSettings);
                 MobSpawnInfo.Builder mobSpawnInfo = new MobSpawnInfo.Builder().isValidSpawnBiomeForPlayer();
                 orbit_biome = new Biome.Builder().precipitation(Biome.RainType.NONE).category(Biome.Category.NONE).depth(0.1f).scale(0.2f).temperature(1.6f).downfall(0f).setEffects(effects).withMobSpawnSettings(mobSpawnInfo.copy()).withGenerationSettings(biomeGenerationSettings.build()).build();
                 event.getRegistry().register(orbit_biome.setRegistryName("boss_tools:orbit_biome"));
