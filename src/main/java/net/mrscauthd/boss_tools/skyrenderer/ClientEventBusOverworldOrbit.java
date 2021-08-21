@@ -41,7 +41,7 @@ public class ClientEventBusOverworldOrbit {
 	@Nullable
 	public static VertexBuffer starVBO;
 	public static final VertexFormat skyVertexFormat = DefaultVertexFormats.POSITION;
-	private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation("boss_tools", "orbit_overworld");
+	private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation("boss_tools", "overworld_orbit");
 	private static final ResourceLocation SUN_TEXTURES = new ResourceLocation("boss_tools", "textures/sky/earth.png");
 	private static final ResourceLocation MOON_PHASES_TEXTURES = new ResourceLocation("boss_tools", "textures/sky/no_a_sun.png");
 	private static final ResourceLocation MOON = new ResourceLocation("boss_tools", "textures/sky/moon_phases.png");

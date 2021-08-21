@@ -1,5 +1,5 @@
 {
-  "type": "boss_tools:orbit_overworld",
+  "type": "boss_tools:mercury_orbit",
   "generator": {
     "type": "minecraft:noise",
     "seed": 0,
@@ -36,7 +36,7 @@
       },
       "biomes": [
         {
-          "biome": "boss_tools:orbit_overworld_biome",
+          "biome": "boss_tools:orbit_biome",
           "parameters": {
             "temperature": 0,
             "humidity": 0,
@@ -48,7 +48,7 @@
       ]
     },
     "settings": {
-      "name": "boss_tools:orbit_overworld",
+      "name": "boss_tools:mercury_orbit",
       "bedrock_roof_position": -10,
       "bedrock_floor_position": -10,
       "sea_level": 0,

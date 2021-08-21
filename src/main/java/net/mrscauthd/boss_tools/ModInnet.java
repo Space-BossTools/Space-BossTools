@@ -29,6 +29,7 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.mrscauthd.boss_tools.alien.ModSpawnEggs;
 import net.mrscauthd.boss_tools.block.*;
 import net.mrscauthd.boss_tools.entity.AlienSpitEntity;
+import net.mrscauthd.boss_tools.events.BiomeRegisrtyEvents;
 import net.mrscauthd.boss_tools.events.Config;
 import net.mrscauthd.boss_tools.feature.MarsIceSpikeFeature;
 import net.mrscauthd.boss_tools.feature.VenusDeltas;
@@ -46,8 +47,6 @@ import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 import net.mrscauthd.boss_tools.pygro.PygroMobsSensor;
-import net.mrscauthd.boss_tools.world.biome.MarsIceBiomeBiome;
-import net.mrscauthd.boss_tools.world.biome.InfernalVenusBarrensBiome;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
@@ -309,11 +308,11 @@ public class ModInnet {
     }
     //@SubscribeEvent
     public static void biomesLoading(final BiomeLoadingEvent event){
-        if(event.getName().getPath().equals(MarsIceBiomeBiome.biome.getRegistryName().getPath())){
+        if(event.getName().getPath().equals(BiomeRegisrtyEvents.mars_ice_spike_biome.getRegistryName().getPath())){
             event.getGeneration().withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ICE_SPIKE);
         }
         //Venus Deltas
-        if(event.getName().getPath().equals(InfernalVenusBarrensBiome.biome.getRegistryName().getPath())){
+        if(event.getName().getPath().equals(BiomeRegisrtyEvents.infernal_venus_barrens_biome.getRegistryName().getPath())){
             event.getGeneration().withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, DELTAS);
             event.getGeneration().withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, DELTAS2);
         }

@@ -46,7 +46,7 @@
           }
         },
         {
-          "biome": "boss_tools:mars_ice_biome",
+          "biome": "boss_tools:mars_ice_spike_biome",
           "parameters": {
             "temperature": 1,
             "humidity": -1,

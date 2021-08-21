@@ -1,5 +1,7 @@
 package net.mrscauthd.boss_tools.events;
 
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mrcrayfish.obfuscate.client.event.PlayerModelEvent;
 import com.mrcrayfish.obfuscate.client.event.RenderItemEvent;
 import net.minecraft.block.BlockState;
@@ -25,11 +27,10 @@ import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.Property;
 import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.DimensionType;
-import net.minecraft.world.GameType;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.Heightmap;
@@ -37,19 +38,18 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.entity.LandingGearEntity;
-import net.mrscauthd.boss_tools.entity.RocketEntity;
-import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
-import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
+import net.mrscauthd.boss_tools.entity.*;
 import net.mrscauthd.boss_tools.item.RoverItemItem;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
@@ -60,6 +60,8 @@ import java.util.Map;
 
 @Mod.EventBusSubscriber
 public class Events {
+    public static double counter = 1;
+    public static boolean check = false;
     //Player Tick
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
@@ -84,7 +86,7 @@ public class Events {
                 if (entity.getPosY() <= 1 && !(entity.getRidingEntity() instanceof LandingGearEntity.CustomEntity)) {
                     RegistryKey<World> world2 = (world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD);
                     //Overworld
-                    if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_overworld"))) {
+                    if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:overworld_orbit"))) {
                         {
                             Entity _ent = entity;
                             if (!_ent.world.isRemote && _ent instanceof ServerPlayerEntity) {
@@ -102,7 +104,7 @@ public class Events {
                         }
                     }
                     //Moon
-                    if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_moon"))) {
+                    if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon_orbit"))) {
                         {
                             Entity _ent = entity;
                             if (!_ent.world.isRemote && _ent instanceof ServerPlayerEntity) {
@@ -120,7 +122,7 @@ public class Events {
                         }
                     }
                     //Mars
-                    if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mars"))) {
+                    if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars_orbit"))) {
                         {
                             Entity _ent = entity;
                             if (!_ent.world.isRemote && _ent instanceof ServerPlayerEntity) {
@@ -138,7 +140,7 @@ public class Events {
                         }
                     }
                     //Mercury
-                    if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mercury"))) {
+                    if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury_orbit"))) {
                         {
                             Entity _ent = entity;
                             if (!_ent.world.isRemote && _ent instanceof ServerPlayerEntity) {
@@ -156,7 +158,7 @@ public class Events {
                         }
                     }
                     //Venus
-                    if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_venus"))) {
+                    if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus_orbit"))) {
                         {
                             Entity _ent = entity;
                             if (!_ent.world.isRemote && _ent instanceof ServerPlayerEntity) {
@@ -175,6 +177,19 @@ public class Events {
                     }
                 }
             }
+            //Lander Warning Overlay Tick
+                if (check == false) {
+                    counter = counter - 0.025;
+                    if (counter <= 0.2) {
+                        check = true;
+                    }
+                }
+                if (check == true) {
+                    counter = counter + 0.025;
+                    if (counter >= 1.2) {
+                        check = false;
+                    }
+                }
             //Other Player Ticks
         }
     }
@@ -193,8 +208,7 @@ public class Events {
         //Carge Coal Torch Event
         {
             //Check Dim
-            if (!(((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_overworld")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_moon")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mars")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mercury")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus")))) || ((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_venus"))))))))))))) {
-
+            if (!(((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:overworld_orbit")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon_orbit")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars_orbit")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury_orbit")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus")))) || ((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus_orbit"))))))))))))) {
                 //Flint and Steel check
                 if (((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY).getItem() == new ItemStack(Items.FLINT_AND_STEEL, (int) (1)).getItem()) || (((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemOffhand() : ItemStack.EMPTY).getItem() == new ItemStack(Items.FLINT_AND_STEEL, (int) (1)).getItem()))) {
                     if (entity.isSneaking() == false) {
@@ -379,7 +393,7 @@ public class Events {
         double z = entity.getPosZ();
         if (Config.EntityOxygenSystem == true) {
             if ((EntityTypeTags.getCollection().getTagByID(new ResourceLocation(("forge:entities/space").toLowerCase(java.util.Locale.ENGLISH))).contains(entity.getType()))) {
-                if ((((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_overworld")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_moon")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mars")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mercury")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus")))) || ((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_venus"))))))))))))) {
+                if ((((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:overworld_orbit")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon_orbit")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars_orbit")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury_orbit")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus")))) || ((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus_orbit"))))))))))))) {
                     entity.getPersistentData().putDouble("tick", ((entity.getPersistentData().getDouble("tick")) + 1));
                     if (((entity.getPersistentData().getDouble("tick")) >= 15)) {
                         world.addParticle(ParticleTypes.SMOKE, x, (y + 1), z, 0, 0, 0);
@@ -470,6 +484,7 @@ public class Events {
             event.setCanceled(true);
         }
     }
+    //TODO:Change Dimension Id in Teleport Code
     //World Tick Event
     @SubscribeEvent
     public static void onWorldTick(TickEvent.WorldTickEvent event) {
@@ -477,19 +492,67 @@ public class Events {
             World world = event.world;
             RegistryKey<World> world2 = (world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD);
             if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon"))
-             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_moon"))
+             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon_orbit"))
              || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars"))
-             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mars"))
+             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars_orbit"))
              || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury"))
-             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mercury"))
-             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_venus"))
-             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_overworld"))) {
+             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury_orbit"))
+             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus_orbit"))
+             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:overworld_orbit"))) {
                 world.thunderingStrength = 0;
                 world.rainingStrength = 0;
             }
             if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))) {
                 world.thunderingStrength = 0;
             }
+        }
+    }
+    //Overlay Event
+    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public static void Overlay(RenderGameOverlayEvent event) {
+        //Disable Food Overlay
+        {
+            if (event.getType() == RenderGameOverlayEvent.ElementType.HEALTHMOUNT) {
+                PlayerEntity entity = Minecraft.getInstance().player;
+                if (entity.getRidingEntity() instanceof RocketEntity.CustomEntity || entity.getRidingEntity() instanceof RocketTier3Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || entity.getRidingEntity() instanceof LandingGearEntity.CustomEntity || entity.getRidingEntity() instanceof RoverEntity.CustomEntity) {
+                    event.setCanceled(true);
+                }
+            }
+        }
+        //Lander Warning Overlay
+        if (!event.isCancelable() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
+            int posX = (event.getWindow().getScaledWidth()) / 2;
+            int posY = (event.getWindow().getScaledHeight()) / 2;
+            PlayerEntity entity = Minecraft.getInstance().player;
+            World world = entity.world;
+            double x = entity.getPosX();
+            double y = entity.getPosY();
+            double z = entity.getPosZ();
+            RenderSystem.disableDepthTest();
+            RenderSystem.depthMask(false);
+            RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+                    GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            RenderSystem.disableAlphaTest();
+            if ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
+                RenderSystem.color4f((float) counter, (float) counter, (float) counter, (float) counter);
+                // Plinken
+                Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/warning1.png"));
+                Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(),
+                        event.getWindow().getScaledHeight(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight());
+            }
+            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            if ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
+                double speed = Math.round(100.0 * (entity.getRidingEntity()).getMotion().getY()) / 100.0;
+                double speedcheck = speed;
+                Minecraft.getInstance().fontRenderer.drawString(event.getMatrixStack(), "" + speedcheck + " Speed",
+                        event.getWindow().getScaledWidth() / 2 - 29, event.getWindow().getScaledHeight() / 2 / 2.3f, -3407872);
+            }
+            RenderSystem.depthMask(true);
+            RenderSystem.enableDepthTest();
+            RenderSystem.enableAlphaTest();
+            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         }
     }
     //Other Events

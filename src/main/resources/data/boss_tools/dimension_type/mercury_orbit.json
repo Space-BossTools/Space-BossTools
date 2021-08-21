@@ -3,7 +3,7 @@
   "natural": false,
   "piglin_safe": false,
   "respawn_anchor_works": false,
-  "bed_works": true,
+  "bed_works": false,
   "has_raids": false,
   "has_skylight": true,
   "has_ceiling": false,
@@ -13,5 +13,5 @@
   "infiniburn": "minecraft:infiniburn_overworld",
   "min_y": 0,
   "height": 256,
-  "effects": "boss_tools:orbit_venus"
+  "effects": "boss_tools:mercury_orbit"
 }

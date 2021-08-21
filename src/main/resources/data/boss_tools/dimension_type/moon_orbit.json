@@ -13,5 +13,5 @@
   "infiniburn": "minecraft:infiniburn_overworld",
   "min_y": 0,
   "height": 256,
-  "effects": "boss_tools:orbit_mars"
+  "effects": "boss_tools:moon_orbit"
 }

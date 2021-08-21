@@ -2,6 +2,7 @@ package net.mrscauthd.boss_tools;
 
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.mrscauthd.boss_tools.events.BiomeRegisrtyEvents;
 import net.mrscauthd.boss_tools.events.SyncEvents;
 import net.mrscauthd.boss_tools.world.structure.configuration.STStructures;
 import net.mrscauthd.boss_tools.world.structure.configuration.STStructures2;
@@ -41,6 +42,8 @@ public class BossToolsMod {
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientLoad);
 		MinecraftForge.EVENT_BUS.register(new BossToolsModFMLBusEvents(this));
 
+		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+
 		//SyncEvent Registers
 		SyncEvents.FuelGuiSyncEvent.registerMessages();
 		SyncEvents.FuelSyncEvent.registerMessages();
@@ -48,7 +51,6 @@ public class BossToolsMod {
 		SyncEvents.PlayerMovementSyncEvent.NetworkLoader.registerMessages();
 
 		//MobInnet
-		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 		MinecraftForge.EVENT_BUS.register(this);
 		ModInnet.ENTITYS.register(bus);
 		ModInnet.ITEMS.register(bus);
@@ -65,6 +67,8 @@ public class BossToolsMod {
 		STStructures2.VENUS_BULLET_DEFERRED_REGISTRY_STRUCTURE.register(bus);
 		STStructures2.VENUS_TOWER_DEFERRED_REGISTRY_STRUCTURE.register(bus);
 		forgeBus.addListener(EventPriority.HIGH, ModInnet::biomesLoading);
+		//Biome Registery Event
+		bus.register(new BiomeRegisrtyEvents.BiomeRegisterHandler());
 	}
 
 	private void init(FMLCommonSetupEvent event) {

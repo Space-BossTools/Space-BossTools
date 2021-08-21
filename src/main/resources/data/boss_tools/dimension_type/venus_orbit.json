@@ -1,5 +1,5 @@
 {
-  "ultrawarm": false,
+  "ultrawarm": true,
   "natural": false,
   "piglin_safe": false,
   "respawn_anchor_works": false,
@@ -13,5 +13,5 @@
   "infiniburn": "minecraft:infiniburn_overworld",
   "min_y": 0,
   "height": 256,
-  "effects": "boss_tools:orbit_overworld"
+  "effects": "boss_tools:venus_orbit"
 }

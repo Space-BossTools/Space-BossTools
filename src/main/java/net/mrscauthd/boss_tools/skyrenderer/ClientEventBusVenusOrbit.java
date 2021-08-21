@@ -41,7 +41,7 @@ public class ClientEventBusVenusOrbit {
 	@Nullable
 	public static VertexBuffer starVBO;
 	public static final VertexFormat skyVertexFormat = DefaultVertexFormats.POSITION;
-	private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation("boss_tools", "orbit_venus");
+	private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation("boss_tools", "venus_orbit");
 	private static final ResourceLocation SUN_TEXTURES = new ResourceLocation("boss_tools", "textures/sky/venus.png");
 	private static final ResourceLocation MOON_PHASES_TEXTURES = new ResourceLocation("boss_tools", "textures/sky/no_a_sun.png");
 	private static final ResourceLocation SKY_TEXTURE = new ResourceLocation("boss_tools", "textures/sky/sky.png");
