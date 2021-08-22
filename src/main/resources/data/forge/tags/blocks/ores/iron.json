@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "boss_tools:mars_iron_ore",
+    "boss_tools:mercury_iron_ore",
+    "boss_tools:moon_iron_ore",
+    "boss_tools:venus_coal_ore"
+  ]
+}
