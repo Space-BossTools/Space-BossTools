@@ -160,8 +160,8 @@
   "key.categories.boss_tools": "Space-Bosstools",
   "key.boss_tools.rocket_start": "로켓 발사",
 
-  "death.attack.oxygen": "%1$s은(는) 더 이상 숨 쉴 수 없다",
-  "death.attack.venus.acid": "%1$s은(는) 대량의 산성에 희생되었다",
+  "death.attack.oxygen": "%1$s은(는) 더 이상 숨 쉴 수 없습니다",
+  "death.attack.venus.acid": "%1$s은(는) 대량의 산성에 희생되었습니다",
 
   "job.boss_tools.job1": "농부",
   "job.boss_tools.job2": "어부",
