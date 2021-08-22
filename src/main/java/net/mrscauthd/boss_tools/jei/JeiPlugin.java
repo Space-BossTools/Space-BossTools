@@ -18,8 +18,9 @@ import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.block.WorkbenchBlock;
-import net.mrscauthd.boss_tools.block.FuelMakerBlock;
+import net.mrscauthd.boss_tools.machines.FuelRefineryBlock;
 import net.mrscauthd.boss_tools.block.FuelBlock;
 import net.mrscauthd.boss_tools.block.GeneratorBlock;
 import net.mrscauthd.boss_tools.block.OxygenGeneratorBlock;
@@ -399,9 +400,9 @@ public class JeiPlugin implements IModPlugin {
         //Compressor
         registration.addRecipeCatalyst(new ItemStack(CompressorBlock.block), CompressorJeiCategory.Uid);
         //FuelMaker
-        registration.addRecipeCatalyst(new ItemStack(FuelMakerBlock.block), FuelMakerJeiCategory.Uid);
+        registration.addRecipeCatalyst(new ItemStack(ModInnet.FUEL_REFINERY_BLOCK.get()), FuelMakerJeiCategory.Uid);
         //fuel Maker Recpie 2
-        registration.addRecipeCatalyst(new ItemStack(FuelMakerBlock.block), FuelMaker2JeiCategory.Uid);
+        registration.addRecipeCatalyst(new ItemStack(ModInnet.FUEL_REFINERY_BLOCK.get()), FuelMaker2JeiCategory.Uid);
         //Rover
         registration.addRecipeCatalyst(new ItemStack(RoverItemItem.block), RoverJeiCategory.Uid);
     }

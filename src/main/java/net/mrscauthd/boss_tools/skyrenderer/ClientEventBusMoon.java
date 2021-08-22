@@ -33,6 +33,7 @@ import javax.annotation.Nullable;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import org.lwjgl.opengl.GL11;
 
 @Mod.EventBusSubscriber(modid = "boss_tools", bus = Bus.MOD, value = Dist.CLIENT)
 public class ClientEventBusMoon {
@@ -168,6 +169,16 @@ public class ClientEventBusMoon {
 								matrixStack.rotate(Vector3f.ZP.rotationDegrees(30.0F));
 								matrix4f1 = matrixStack.getLast().getMatrix();
 								float f12 = 30.0F;
+								// Earth light
+								mc.getTextureManager().bindTexture(EARTH_LIGHT_TEXTURES);
+								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+								bufferbuilder.pos(matrix4f1, -25, -100.0F, 25).tex(0.0F, 0.0F).endVertex();
+								bufferbuilder.pos(matrix4f1, 25, -100.0F, 25).tex(1.0F, 0.0F).endVertex();
+								bufferbuilder.pos(matrix4f1, 25, -100.0F, -25).tex(1.0F, 1.0F).endVertex();
+								bufferbuilder.pos(matrix4f1, -25, -100.0F, -25).tex(0.0F, 1.0F).endVertex();
+								bufferbuilder.finishDrawing();
+								WorldVertexBufferUploader.draw(bufferbuilder);
+								// Earth Light end
 								mc.getTextureManager().bindTexture(MOON_PHASES_TEXTURES);
 								int k = world.getMoonPhase();
 								int l = k % 4;
@@ -183,16 +194,6 @@ public class ClientEventBusMoon {
 								bufferbuilder.pos(matrix4f1, -9, -100.0F, -9).tex(0.0F, 1.0F).endVertex();
 								bufferbuilder.finishDrawing();
 								WorldVertexBufferUploader.draw(bufferbuilder);
-								// Earth light
-								mc.getTextureManager().bindTexture(EARTH_LIGHT_TEXTURES);
-								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-								bufferbuilder.pos(matrix4f1, -25, -100.0F, 25).tex(0.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, 25, -100.0F, 25).tex(1.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, 25, -100.0F, -25).tex(1.0F, 1.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, -25, -100.0F, -25).tex(0.0F, 1.0F).endVertex();
-								bufferbuilder.finishDrawing();
-								WorldVertexBufferUploader.draw(bufferbuilder);
-								// Earth Light end
 								// matrixStack.rotate(Vector3f.YP.rotationDegrees(-90.0F));
 								matrixStack.rotate(Vector3f.ZP.rotationDegrees(-30.0F));
 								matrixStack.rotate(Vector3f.XP.rotationDegrees(world.func_242415_f(partialTicks) * 360.0F));

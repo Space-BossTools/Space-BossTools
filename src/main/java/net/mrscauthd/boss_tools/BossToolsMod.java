@@ -56,6 +56,7 @@ public class BossToolsMod {
 		ModInnet.ENTITYS.register(bus);
 		ModInnet.ITEMS.register(bus);
 		ModInnet.BLOCKS.register(bus);
+		ModInnet.TILE_ENTITYS.register(bus);
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		ModInnet.SENSOR.register(bus);
 		//alien Village

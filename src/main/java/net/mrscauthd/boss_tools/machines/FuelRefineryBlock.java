@@ -1,117 +1,98 @@
+package net.mrscauthd.boss_tools.machines;
 
-package net.mrscauthd.boss_tools.block;
-
-import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
-import net.mrscauthd.boss_tools.procedures.FuelRefineryTickProcedure;
-import net.mrscauthd.boss_tools.gui.FuelRefineryGUIGui;
-import net.mrscauthd.boss_tools.BossToolsModElements;
-
-import net.minecraftforge.registries.ObjectHolder;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.fml.network.NetworkHooks;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.energy.EnergyStorage;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.ToolType;
-
-import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.World;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.LockableLootTileEntity;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.loot.LootContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Item;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.BlockItem;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.block.material.PushReaction;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.HorizontalBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Block;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.IntStream;
 
 import javax.annotation.Nullable;
 
-import java.util.stream.IntStream;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.Random;
-import java.util.Map;
-import java.util.List;
-import java.util.HashMap;
-import java.util.Collections;
-
 import io.netty.buffer.Unpooled;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.HorizontalBlock;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.material.PushReaction;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.inventory.ItemStackHelper;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.loot.LootContext;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
+import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.DirectionProperty;
+import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tileentity.LockableLootTileEntity;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Mirror;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.Rotation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.ToolType;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.EnergyStorage;
+import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
+import net.minecraftforge.registries.ObjectHolder;
+import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.block.FuelBlock;
+import net.mrscauthd.boss_tools.gui.FuelRefineryGUIGui;
+import net.mrscauthd.boss_tools.item.FuelBucketBigItem;
 
-@BossToolsModElements.ModElement.Tag
-public class FuelMakerBlock extends BossToolsModElements.ModElement {
-	@ObjectHolder("boss_tools:fuel_refinery")
-	public static final Block block = null;
-	@ObjectHolder("boss_tools:fuel_refinery")
-	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
-	public FuelMakerBlock(BossToolsModElements instance) {
-		super(instance, 72);
-		FMLJavaModLoadingContext.get().getModEventBus().register(new TileEntityRegisterHandler());
-	}
+public class FuelRefineryBlock {
+	public static final String KEY_ACTIVATED = "activated";
+	public static final String KEY_FUEL = "fuel";
+	public static final int BUCKET_SIZE = 1000;
+	public static final int BARREL_SIZE = 3000;
+	public static final double LAVA_TO_FUEL = 100.0D;
+	public static final double FUEL_CONSUME_PER_TICK = 1.0D;
+	public static final int ENERGY_CONSUME_PER_TICK = 1;
+	public static final int FLUID_GEN_PER_TICK = 10;
+	public static final int SLOT_INGREDIENT = 0;
+	public static final int SLOT_OUTPUT = 1;
 
-	@Override
-	public void initElements() {
-		elements.blocks.add(() -> new CustomBlock());
-		elements.items.add(() -> new BlockItem(block, new Item.Properties().group(BossToolsItemGroups.tab_machines))
-				.setRegistryName(block.getRegistryName()));
-	}
-	private static class TileEntityRegisterHandler {
-		@SubscribeEvent
-		public void registerTileEntity(RegistryEvent.Register<TileEntityType<?>> event) {
-			event.getRegistry().register(TileEntityType.Builder.create(CustomTileEntity::new, block).build(null).setRegistryName("fuel_refinery"));
-		}
-	}
-
+	//Fuel Refinery Block
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 		public static final BooleanProperty ACTIAVATED = BlockStateProperties.LIT;
-		public static double energy = 0;
+
 		public CustomBlock() {
-			super(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 1f).setLightLevel(s -> 0).harvestLevel(1)
-					.harvestTool(ToolType.PICKAXE).setRequiresTool());
+			super(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 1f).setLightLevel(s -> 0).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool());
 			this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(ACTIAVATED, Boolean.valueOf(false)));
-			setRegistryName("fuel_refinery");
 		}
 
 		@Override
@@ -157,58 +138,43 @@ public class FuelMakerBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public void tick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-			int x = pos.getX();
-			int y = pos.getY();
-			int z = pos.getZ();
-			energy = (new Object() {
-				public int getEnergyStored(IWorld world, BlockPos pos) {
-					AtomicInteger _retval = new AtomicInteger(0);
-					TileEntity _ent = world.getTileEntity(pos);
-					if (_ent != null)
-						_ent.getCapability(CapabilityEnergy.ENERGY, null).ifPresent(capability -> _retval.set(capability.getEnergyStored()));
-					return _retval.get();
-				}
-			}.getEnergyStored(world, new BlockPos((int) x, (int) y, (int) z)));
-			if (((new Object() {
-				public boolean getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getBoolean(tag);
-					return false;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "activated")) == (true)) && energy >= 1) {
-				world.setBlockState(pos, state.with(ACTIAVATED, Boolean.valueOf(true)), 3);
-			} else {
-				world.setBlockState(pos, state.with(ACTIAVATED, Boolean.valueOf(false)), 3);
+			CustomTileEntity tileEntity = (CustomTileEntity) world.getTileEntity(pos);
+			BlockState nextState = state;
+
+			boolean requireNotify = false;
+			requireNotify |= tileEntity.consumeIngredient();
+			requireNotify |= tileEntity.burnFuel();
+			requireNotify |= tileEntity.fillOutput();
+
+			int energy = tileEntity.getEnergyStorage().getEnergyStored();
+			boolean activated = tileEntity.isActivated();
+			boolean blockStateActivated = activated && energy >= ENERGY_CONSUME_PER_TICK;
+
+			if (state.get(ACTIAVATED).booleanValue() != blockStateActivated) {
+				requireNotify = true;
+				nextState = nextState.with(ACTIAVATED, blockStateActivated);
+				world.setBlockState(pos, nextState);
 			}
-			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
-				$_dependencies.put("world", world);
-				FuelRefineryTickProcedure.executeProcedure($_dependencies);
+
+			if (requireNotify) {
+				world.notifyBlockUpdate(pos, nextState, nextState, 3);
 			}
-			world.getPendingBlockTicks().scheduleTick(new BlockPos(x, y, z), this, 1);
+
+			world.getPendingBlockTicks().scheduleTick(pos, this, 1);
 		}
 
 		@Override
 		public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos) {
-			if (state.get(ACTIAVATED) == true)
-				return 12;
-			return 0;
+			return state.get(ACTIAVATED) ? 12 : 0;
 		}
 
 		@Override
 		public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
-			if (state.get(ACTIAVATED) == true)
-				return 12;
-			return 0;
+			return state.get(ACTIAVATED) ? 12 : 0;
 		}
 
 		@Override
-		public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity entity, Hand hand,
-				BlockRayTraceResult hit) {
+		public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity entity, Hand hand, BlockRayTraceResult hit) {
 			super.onBlockActivated(state, world, pos, entity, hand, hit);
 			int x = pos.getX();
 			int y = pos.getY();
@@ -222,8 +188,7 @@ public class FuelMakerBlock extends BossToolsModElements.ModElement {
 
 					@Override
 					public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-						return new FuelRefineryGUIGui.GuiContainerMod(id, inventory,
-								new PacketBuffer(Unpooled.buffer()).writeBlockPos(new BlockPos(x, y, z)));
+						return new FuelRefineryGUIGui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(new BlockPos(x, y, z)));
 					}
 				}, new BlockPos(x, y, z));
 			}
@@ -278,12 +243,15 @@ public class FuelMakerBlock extends BossToolsModElements.ModElement {
 			else
 				return 0;
 		}
+
 	}
 
+	//Fuel Refinery Tile Entity
 	public static class CustomTileEntity extends LockableLootTileEntity implements ISidedInventory {
 		private NonNullList<ItemStack> stacks = NonNullList.<ItemStack>withSize(9, ItemStack.EMPTY);
-		protected CustomTileEntity() {
-			super(tileEntityType);
+
+		public CustomTileEntity() {
+			super(ModInnet.FUEL_REFINERY.get());
 		}
 
 		@Override
@@ -345,7 +313,7 @@ public class FuelMakerBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public int getInventoryStackLimit() {
-			return 64;
+			return 1;
 		}
 
 		@Override
@@ -370,23 +338,7 @@ public class FuelMakerBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public boolean isItemValidForSlot(int index, ItemStack stack) {
-			if (index == 2)
-				return false;
-			if (index == 3)
-				return false;
-			if (index == 4)
-				return false;
-			if (index == 5)
-				return false;
-			if (index == 6)
-				return false;
-			if (index == 7)
-				return false;
-			if (index == 8)
-				return false;
-			if (index == 9)
-				return false;
-			return true;
+			return index == SLOT_INGREDIENT || index == SLOT_OUTPUT;
 		}
 
 		@Override
@@ -394,51 +346,49 @@ public class FuelMakerBlock extends BossToolsModElements.ModElement {
 			return IntStream.range(0, this.getSizeInventory()).toArray();
 		}
 
+		public boolean isFuelFillableItem(Item item) {
+			return item == Items.BUCKET || item == ModInnet.BARREL.get();
+		}
+
+		public boolean isIngredientItem(Item item) {
+			return item == Items.LAVA_BUCKET;
+		}
+
+		public boolean isSpentItem(Item item) {
+			return item == Items.BUCKET;
+		}
+
 		@Override
 		public boolean canInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
-			if (index == 1)
-				return false;
-			if (index == 2)
-				return false;
-			if (index == 3)
-				return false;
-			if (index == 4)
-				return false;
-			if (index == 5)
-				return false;
-			if (index == 6)
-				return false;
-			if (index == 7)
-				return false;
-			if (index == 8)
-				return false;
-			if (index == 9)
-				return false;
-			return true;
+
+			ItemStack stackInSlot = this.getStackInSlot(index);
+
+			if (stackInSlot.isEmpty() == true) {
+				Item item = stack != null ? stack.getItem() : null;
+
+				if (index == SLOT_INGREDIENT) {
+					return this.isIngredientItem(item); // Inject lava bucket
+				} else if (index == SLOT_OUTPUT) {
+					return this.isFuelFillableItem(item); // Wait for fill
+				}
+			}
+
+			return false;
 		}
 
 		@Override
 		public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-			if (index == 0)
-				return false;
-			if (index == 2)
-				return false;
-			if (index == 3)
-				return false;
-			if (index == 4)
-				return false;
-			if (index == 5)
-				return false;
-			if (index == 6)
-				return false;
-			if (index == 7)
-				return false;
-			if (index == 8)
-				return false;
-			if (index == 9)
-				return false;
-			return true;
+			Item item = stack != null ? stack.getItem() : null;
+
+			if (index == SLOT_INGREDIENT) {
+				return this.isSpentItem(item); // Eject empty bucket
+			} else if (index == SLOT_OUTPUT) {
+				return !this.isFuelFillableItem(item); // Wait for fill
+			}
+
+			return false;
 		}
+
 		private final LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.values());
 		private final EnergyStorage energyStorage = new EnergyStorage(9000, 200, 200, 0) {
 			@Override
@@ -475,6 +425,7 @@ public class FuelMakerBlock extends BossToolsModElements.ModElement {
 				world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
 			}
 		};
+
 		@Override
 		public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
 			if (!this.removed && facing != null && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
@@ -491,6 +442,97 @@ public class FuelMakerBlock extends BossToolsModElements.ModElement {
 			super.remove();
 			for (LazyOptional<? extends IItemHandler> handler : handlers)
 				handler.invalidate();
+		}
+
+		public boolean canOperate() {
+			FluidTank fluidTank = this.getFluidTank();
+			int fluidAmount = fluidTank.getFluidAmount();
+			int fluidCapacity = fluidTank.getCapacity();
+			IEnergyStorage energyStorage = this.getEnergyStorage();
+			return fluidAmount < fluidCapacity && energyStorage.getEnergyStored() >= ENERGY_CONSUME_PER_TICK;
+		}
+
+		public boolean consumeIngredient() {
+			double fuel = this.getFuel();
+			IItemHandlerModifiable itemHandler = this.getItemHandler();
+			ItemStack ingredient = itemHandler.getStackInSlot(SLOT_INGREDIENT);
+
+			if (fuel < FUEL_CONSUME_PER_TICK && this.canOperate() && ingredient.getItem() == Items.LAVA_BUCKET && ingredient.getCount() == 1) {
+				itemHandler.setStackInSlot(SLOT_INGREDIENT, new ItemStack(Items.BUCKET));
+				this.setFuel(fuel + LAVA_TO_FUEL);
+				return true;
+			}
+
+			return false;
+		}
+
+		public boolean burnFuel() {
+			double fuel = this.getFuel();
+
+			if (fuel >= FUEL_CONSUME_PER_TICK && this.canOperate()) {
+				this.setFuel(fuel - FUEL_CONSUME_PER_TICK);
+				this.getEnergyStorage().extractEnergy(ENERGY_CONSUME_PER_TICK, false);
+				this.getFluidTank().fill(new FluidStack(FuelBlock.still, FLUID_GEN_PER_TICK), FluidAction.EXECUTE);
+				this.setActivated(true);
+				return true;
+
+			} else if (this.isActivated()) {
+				this.setActivated(false);
+				return true;
+			}
+			return false;
+		}
+
+		public boolean fillOutput() {
+			if (this.tryFillOutput(Items.BUCKET, BUCKET_SIZE, FuelBlock.bucket) ) {
+				return true;
+			} else if (this.tryFillOutput(ModInnet.BARREL.get(), BARREL_SIZE, FuelBucketBigItem.block)) {
+				return true;
+			}
+
+			return false;
+		}
+
+		public boolean tryFillOutput(Item inputItem, int requireSize, Item outputItem) {
+			FluidTank fluidTank = this.getFluidTank();
+			IItemHandlerModifiable itemHandler = this.getItemHandler();
+			ItemStack output = itemHandler.getStackInSlot(SLOT_OUTPUT);
+
+			if (output.getItem() == inputItem && output.getCount() == 1 && fluidTank.getFluidAmount() >= requireSize) {
+				itemHandler.setStackInSlot(SLOT_OUTPUT, new ItemStack(outputItem));
+				fluidTank.drain(requireSize, IFluidHandler.FluidAction.EXECUTE).getAmount();
+				return true;
+			}
+
+			return false;
+		}
+
+		public IItemHandlerModifiable getItemHandler() {
+			return (IItemHandlerModifiable) this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).resolve().get();
+		}
+
+		public EnergyStorage getEnergyStorage() {
+			return this.energyStorage;
+		}
+
+		public FluidTank getFluidTank() {
+			return this.fluidTank;
+		}
+
+		public boolean isActivated() {
+			return this.getTileData().getBoolean(KEY_ACTIVATED);
+		}
+
+		public void setActivated(boolean activated) {
+			this.getTileData().putBoolean(KEY_ACTIVATED, activated);
+		}
+
+		public double getFuel() {
+			return this.getTileData().getDouble(KEY_FUEL);
+		}
+
+		public void setFuel(double fuel) {
+			this.getTileData().putDouble(KEY_FUEL, fuel);
 		}
 	}
 }
