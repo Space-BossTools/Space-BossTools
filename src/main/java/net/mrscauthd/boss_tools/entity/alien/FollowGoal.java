@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.alien;
+package net.mrscauthd.boss_tools.entity.alien;
 
 import java.util.EnumSet;
 import net.minecraft.entity.EntityPredicate;
@@ -6,7 +6,6 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.pathfinding.FlyingPathNavigator;
 import net.minecraft.pathfinding.GroundPathNavigator;
-import net.mrscauthd.boss_tools.entity.AlienEntity;
 
 public class FollowGoal extends Goal {
     private static final EntityPredicate ENTITY_PREDICATE = (new EntityPredicate()).setDistance(10.0D).allowInvulnerable().allowFriendlyFire().setSkipAttackChecks().setLineOfSiteRequired();

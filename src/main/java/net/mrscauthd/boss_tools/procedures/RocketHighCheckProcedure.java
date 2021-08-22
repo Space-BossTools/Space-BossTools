@@ -2,7 +2,7 @@ package net.mrscauthd.boss_tools.procedures;
 
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
-import net.mrscauthd.boss_tools.entity.RocketEntity;
+import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.fml.common.Mod;
@@ -75,7 +75,7 @@ public class RocketHighCheckProcedure {
 		double y = dependencies.get("y") instanceof Integer ? (int) dependencies.get("y") : (double) dependencies.get("y");
 		double z = dependencies.get("z") instanceof Integer ? (int) dependencies.get("z") : (double) dependencies.get("z");
 		IWorld world = (IWorld) dependencies.get("world");
-		if ((((entity.getRidingEntity()) instanceof RocketEntity.CustomEntity) == (true))) {
+		if ((((entity.getRidingEntity()) instanceof RocketTier1Entity.CustomEntity) == (true))) {
 			if ((((entity.getRidingEntity()).getPosY()) >= 600)) {
 				if ((((entity.getRidingEntity()).getPersistentData().getDouble("Powup_trigger")) == 1)) {
 					if (world instanceof ServerWorld) {

@@ -2,7 +2,7 @@ package net.mrscauthd.boss_tools.procedures;
 
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
-import net.mrscauthd.boss_tools.entity.RocketEntity;
+import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.registries.ForgeRegistries;
@@ -50,7 +50,7 @@ public class PowUpOnKeyReleasedProcedure {
 		double y = dependencies.get("y") instanceof Integer ? (int) dependencies.get("y") : (double) dependencies.get("y");
 		double z = dependencies.get("z") instanceof Integer ? (int) dependencies.get("z") : (double) dependencies.get("z");
 		IWorld world = (IWorld) dependencies.get("world");
-		if (((entity.getRidingEntity()) instanceof RocketEntity.CustomEntity)) {
+		if (((entity.getRidingEntity()) instanceof RocketTier1Entity.CustomEntity)) {
 			if ((((entity.getRidingEntity()).getPersistentData().getBoolean("Powup_trigger")) == (false))) {
 				if ((((entity.getRidingEntity()).getPersistentData().getDouble("fuel")) == 400)) {
 					if (world instanceof World && !world.isRemote()) {

@@ -2,10 +2,9 @@ package net.mrscauthd.boss_tools.procedures;
 
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.item.FuelBucketBigItem;
-import net.mrscauthd.boss_tools.item.BarrelItem;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
-import net.mrscauthd.boss_tools.entity.RocketEntity;
+import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
 import net.mrscauthd.boss_tools.block.FuelBlock;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
@@ -53,7 +52,7 @@ public class LanderNBTProcedure {
 			return;
 		}
 		Entity entity = (Entity) dependencies.get("entity");
-		if (((entity.getRidingEntity()) instanceof RocketEntity.CustomEntity)) {
+		if (((entity.getRidingEntity()) instanceof RocketTier1Entity.CustomEntity)) {
 			if (((new Object() {
 				public ItemStack getItemStack(int sltid, Entity entity) {
 					AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);

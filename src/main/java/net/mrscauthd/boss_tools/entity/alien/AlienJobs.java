@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.alien;
+package net.mrscauthd.boss_tools.entity.alien;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;

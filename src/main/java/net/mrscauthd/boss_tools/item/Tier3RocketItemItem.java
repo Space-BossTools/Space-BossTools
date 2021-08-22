@@ -4,7 +4,7 @@ package net.mrscauthd.boss_tools.item;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
-import net.mrscauthd.boss_tools.entity.RocketEntity;
+import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
 import net.mrscauthd.boss_tools.entity.LandingGearEntity;
 import net.mrscauthd.boss_tools.block.RocketLaunchPadBlock;
 import net.mrscauthd.boss_tools.BossToolsModElements;
@@ -115,7 +115,7 @@ public class Tier3RocketItemItem extends BossToolsModElements.ModElement {
 										}
 									}.compareDistOf((Math.floor(x)), (Math.floor(y)), (Math.floor(z)))).collect(Collectors.toList());
 							for (Entity entityiterator : _entfound) {
-								if (entityiterator instanceof RocketEntity.CustomEntity || entityiterator instanceof RocketTier2Entity.CustomEntity
+								if (entityiterator instanceof RocketTier1Entity.CustomEntity || entityiterator instanceof RocketTier2Entity.CustomEntity
 										|| entityiterator instanceof RocketTier3Entity.CustomEntity
 										|| entityiterator instanceof LandingGearEntity.CustomEntity) {
 									entityblock = true;

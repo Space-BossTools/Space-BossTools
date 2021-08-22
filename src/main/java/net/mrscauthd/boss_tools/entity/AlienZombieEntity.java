@@ -3,6 +3,7 @@ package net.mrscauthd.boss_tools.entity;
 
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
+import net.mrscauthd.boss_tools.entity.alien.AlienEntity;
 import net.mrscauthd.boss_tools.events.Config;
 import net.mrscauthd.boss_tools.entity.renderer.AlienZombieRenderer;
 import net.mrscauthd.boss_tools.BossToolsModElements;

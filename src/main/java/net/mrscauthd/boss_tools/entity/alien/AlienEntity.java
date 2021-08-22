@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.entity;
+package net.mrscauthd.boss_tools.entity.alien;
 
 import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -23,10 +23,6 @@ import net.minecraft.world.IServerWorld;
 import net.minecraft.world.server.ServerWorld;
 import net.mrscauthd.boss_tools.*;
 //import net.mrscauthd.boss_tools.procedures.AlienOnEntityTickUpdateProcedure;
-import net.mrscauthd.boss_tools.alien.AlienJobs;
-import net.mrscauthd.boss_tools.alien.AlienTrade;
-import net.mrscauthd.boss_tools.alien.FollowGoal;
-import net.mrscauthd.boss_tools.alien.TradeGoal;
 import net.mrscauthd.boss_tools.events.Config;
 //import net.mrscauthd.boss_tools.BossToolsModElements;
 

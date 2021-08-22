@@ -8,7 +8,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.settings.PointOfView;
 import net.minecraft.entity.Entity;
@@ -55,7 +54,6 @@ import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Mod.EventBusSubscriber
@@ -411,7 +409,7 @@ public class Events {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void CameraPos(EntityViewRenderEvent.CameraSetup event) {
-        if (event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketEntity.CustomEntity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier2Entity.CustomEntity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier3Entity.CustomEntity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof LandingGearEntity.CustomEntity) {
+        if (event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier1Entity.CustomEntity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier2Entity.CustomEntity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier3Entity.CustomEntity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof LandingGearEntity.CustomEntity) {
             if (Minecraft.getInstance().gameSettings.getPointOfView().equals(PointOfView.THIRD_PERSON_FRONT)) {
                 event.getInfo().movePosition(-event.getInfo().calcCameraDistance(8d), 0d, 0);
             }
@@ -437,7 +435,7 @@ public class Events {
         PlayerModel model = event.getModelPlayer();
         //Player Rocket Sit Rotations
         {
-            if (player.getRidingEntity() instanceof RocketEntity.CustomEntity || player.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || player.getRidingEntity() instanceof RocketTier3Entity.CustomEntity) {
+            if (player.getRidingEntity() instanceof RocketTier1Entity.CustomEntity || player.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || player.getRidingEntity() instanceof RocketTier3Entity.CustomEntity) {
                 model.bipedRightLeg.rotationPointY = (float) Math.toRadians(485F);
                 model.bipedLeftLeg.rotationPointY = (float) Math.toRadians(485F);
                 model.bipedRightLeg.rotateAngleX = (float) Math.toRadians(0F);
@@ -453,7 +451,7 @@ public class Events {
         }
         //Player Hold Vehicles Rotation
         {
-            if (!(player.getRidingEntity() instanceof RocketEntity.CustomEntity) && !(player.getRidingEntity() instanceof RocketTier2Entity.CustomEntity) && !(player.getRidingEntity() instanceof RocketTier3Entity.CustomEntity)) {
+            if (!(player.getRidingEntity() instanceof RocketTier1Entity.CustomEntity) && !(player.getRidingEntity() instanceof RocketTier2Entity.CustomEntity) && !(player.getRidingEntity() instanceof RocketTier3Entity.CustomEntity)) {
                 Item item1 = ((player instanceof LivingEntity) ? ((LivingEntity) player).getHeldItemMainhand() : ItemStack.EMPTY).getItem();
                 Item item2 = ((player instanceof LivingEntity) ? ((LivingEntity) player).getHeldItemOffhand() : ItemStack.EMPTY).getItem();
                 if (item1 == new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem()
@@ -480,7 +478,7 @@ public class Events {
     @SubscribeEvent
     public static void ItemRender(RenderItemEvent.Held event) {
         Entity player = event.getEntity();
-        if (player.getRidingEntity() instanceof RocketEntity.CustomEntity || player.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || player.getRidingEntity() instanceof RocketTier3Entity.CustomEntity) {
+        if (player.getRidingEntity() instanceof RocketTier1Entity.CustomEntity || player.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || player.getRidingEntity() instanceof RocketTier3Entity.CustomEntity) {
             event.setCanceled(true);
         }
     }
@@ -515,7 +513,7 @@ public class Events {
         {
             if (event.getType() == RenderGameOverlayEvent.ElementType.HEALTHMOUNT) {
                 PlayerEntity entity = Minecraft.getInstance().player;
-                if (entity.getRidingEntity() instanceof RocketEntity.CustomEntity || entity.getRidingEntity() instanceof RocketTier3Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || entity.getRidingEntity() instanceof LandingGearEntity.CustomEntity || entity.getRidingEntity() instanceof RoverEntity.CustomEntity) {
+                if (entity.getRidingEntity() instanceof RocketTier1Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier3Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || entity.getRidingEntity() instanceof LandingGearEntity.CustomEntity || entity.getRidingEntity() instanceof RoverEntity.CustomEntity) {
                     event.setCanceled(true);
                 }
             }
