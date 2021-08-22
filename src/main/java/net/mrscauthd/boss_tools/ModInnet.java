@@ -26,7 +26,7 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
-import net.mrscauthd.boss_tools.alien.ModSpawnEggs;
+import net.mrscauthd.boss_tools.entity.alien.ModSpawnEggs;
 import net.mrscauthd.boss_tools.block.*;
 import net.mrscauthd.boss_tools.entity.AlienSpitEntity;
 import net.mrscauthd.boss_tools.events.BiomeRegisrtyEvents;
@@ -36,17 +36,16 @@ import net.mrscauthd.boss_tools.feature.VenusDeltas;
 import net.mrscauthd.boss_tools.item.BarrelItem;
 import net.mrscauthd.boss_tools.item.CoalTorchItem;
 import net.mrscauthd.boss_tools.item.SteahlItem;
-import net.mrscauthd.boss_tools.entity.AlienEntity;
+import net.mrscauthd.boss_tools.entity.alien.AlienEntity;
 
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
-import net.mrscauthd.boss_tools.pygro.PygroMobsSensor;
+import net.mrscauthd.boss_tools.entity.pygro.PygroMobsSensor;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;

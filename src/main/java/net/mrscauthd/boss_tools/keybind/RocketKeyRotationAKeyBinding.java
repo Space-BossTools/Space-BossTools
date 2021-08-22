@@ -6,7 +6,7 @@ import org.lwjgl.glfw.GLFW;
 import net.mrscauthd.boss_tools.entity.RoverEntity;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
-import net.mrscauthd.boss_tools.entity.RocketEntity;
+import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
@@ -94,7 +94,7 @@ public class RocketKeyRotationAKeyBinding extends BossToolsModElements.ModElemen
 		if (!world.isBlockLoaded(new BlockPos(x, y, z)))
 			return;
 		if (type == 0) {
-			if ((((entity.getRidingEntity()) instanceof RocketEntity.CustomEntity)
+			if ((((entity.getRidingEntity()) instanceof RocketTier1Entity.CustomEntity)
 					|| (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)
 							|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)))) {
 				(entity.getRidingEntity()).rotationYaw = (float) ((((entity.getRidingEntity()).rotationYaw) - 1));

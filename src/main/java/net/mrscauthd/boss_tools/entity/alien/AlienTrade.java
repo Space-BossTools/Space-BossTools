@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.alien;
+package net.mrscauthd.boss_tools.entity.alien;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;

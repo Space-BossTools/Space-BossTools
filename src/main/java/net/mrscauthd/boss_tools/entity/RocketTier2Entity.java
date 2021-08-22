@@ -85,7 +85,7 @@ public class RocketTier2Entity extends BossToolsModElements.ModElement {
 	public void initElements() {
 		entity = (EntityType.Builder.<CustomEntity>create(CustomEntity::new, EntityClassification.CREATURE).setShouldReceiveVelocityUpdates(true)
 				.setTrackingRange(100).setUpdateInterval(3).setCustomClientFactory(CustomEntity::new).immuneToFire().size(1f, 4f))
-				.build("rocket_tier_2").setRegistryName("rocket_tier_2");
+				.build("rocket_t2").setRegistryName("rocket_t2");
 		elements.entities.add(() -> entity);
 	}
 

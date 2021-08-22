@@ -2,7 +2,6 @@ package net.mrscauthd.boss_tools.events;
 
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -15,14 +14,13 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraft.entity.EntityType;
 import net.minecraft.client.Minecraft;
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.alien.ModSpawnEggs;
+import net.mrscauthd.boss_tools.entity.alien.ModSpawnEggs;
 import net.mrscauthd.boss_tools.entity.AlienSpitEntity;
-import net.mrscauthd.boss_tools.entity.PygroEntity;
+import net.mrscauthd.boss_tools.entity.pygro.PygroEntity;
 import net.mrscauthd.boss_tools.entity.MoglerEntity;
 import net.mrscauthd.boss_tools.entity.renderer.alien.AlienRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.mogler.MoglerRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.pygro.PygroRenderer;
-import net.mrscauthd.boss_tools.keybind.KeyBindings;
 import org.lwjgl.glfw.GLFW;
 
 @Mod.EventBusSubscriber(modid = "boss_tools", bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)

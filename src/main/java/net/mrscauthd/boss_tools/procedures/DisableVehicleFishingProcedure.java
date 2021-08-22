@@ -14,7 +14,7 @@ public class DisableVehicleFishingProcedure {
 		@SubscribeEvent
 		public static void FishingBobberTick(ProjectileImpactEvent.FishingBobber event) {
 			if (event.getRayTraceResult().getType() == RayTraceResult.Type.ENTITY) {
-				if (((EntityRayTraceResult) event.getRayTraceResult()).getEntity() instanceof RocketEntity.CustomEntity || ((EntityRayTraceResult) event.getRayTraceResult()).getEntity() instanceof RocketTier2Entity.CustomEntity || ((EntityRayTraceResult) event.getRayTraceResult()).getEntity() instanceof RocketTier3Entity.CustomEntity || ((EntityRayTraceResult) event.getRayTraceResult()).getEntity() instanceof RoverEntity.CustomEntity || ((EntityRayTraceResult) event.getRayTraceResult()).getEntity() instanceof LandingGearEntity.CustomEntity) {
+				if (((EntityRayTraceResult) event.getRayTraceResult()).getEntity() instanceof RocketTier1Entity.CustomEntity || ((EntityRayTraceResult) event.getRayTraceResult()).getEntity() instanceof RocketTier2Entity.CustomEntity || ((EntityRayTraceResult) event.getRayTraceResult()).getEntity() instanceof RocketTier3Entity.CustomEntity || ((EntityRayTraceResult) event.getRayTraceResult()).getEntity() instanceof RoverEntity.CustomEntity || ((EntityRayTraceResult) event.getRayTraceResult()).getEntity() instanceof LandingGearEntity.CustomEntity) {
 					event.setCanceled(true);
 				}
 			}

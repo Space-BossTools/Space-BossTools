@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.entity;
+package net.mrscauthd.boss_tools.entity.pygro;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.ai.brain.Brain;

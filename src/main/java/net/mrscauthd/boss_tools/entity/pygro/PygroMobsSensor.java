@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.pygro;
+package net.mrscauthd.boss_tools.entity.pygro;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -23,7 +23,6 @@ import net.minecraft.entity.monster.piglin.PiglinEntity;
 import net.minecraft.entity.monster.piglin.PiglinTasks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
 

@@ -8,8 +8,7 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.boss_tools.entity.PygroEntity;
-import net.mrscauthd.boss_tools.entity.renderer.pygro.PygroModel;
+import net.mrscauthd.boss_tools.entity.pygro.PygroEntity;
 
 @OnlyIn(Dist.CLIENT)
 public class PygroRenderer extends BipedRenderer<MobEntity, PygroModel<MobEntity>> {

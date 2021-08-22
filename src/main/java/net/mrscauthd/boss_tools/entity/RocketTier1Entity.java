@@ -76,9 +76,9 @@ import java.util.HashMap;
 import io.netty.buffer.Unpooled;
 
 @BossToolsModElements.ModElement.Tag
-public class RocketEntity extends BossToolsModElements.ModElement {
+public class RocketTier1Entity extends BossToolsModElements.ModElement {
 	public static EntityType entity = null;
-	public RocketEntity(BossToolsModElements instance) {
+	public RocketTier1Entity(BossToolsModElements instance) {
 		super(instance, 91);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new RocketRenderer.ModelRegisterHandler());
 		FMLJavaModLoadingContext.get().getModEventBus().register(new EntityAttributesRegisterHandler());
@@ -88,8 +88,8 @@ public class RocketEntity extends BossToolsModElements.ModElement {
 	@Override
 	public void initElements() {
 		entity = (EntityType.Builder.<CustomEntity>create(CustomEntity::new, EntityClassification.CREATURE).setShouldReceiveVelocityUpdates(true)
-				.setTrackingRange(100).setUpdateInterval(3).setCustomClientFactory(CustomEntity::new).immuneToFire().size(1f, 3f)).build("rocket")
-						.setRegistryName("rocket");
+				.setTrackingRange(100).setUpdateInterval(3).setCustomClientFactory(CustomEntity::new).immuneToFire().size(1f, 3f)).build("rocket_t1")
+						.setRegistryName("rocket_t1");
 		elements.entities.add(() -> entity);
 	}
 

@@ -1,6 +1,6 @@
 package net.mrscauthd.boss_tools.entity.renderer;
 
-import net.mrscauthd.boss_tools.entity.RocketEntity;
+import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
 
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -24,7 +24,7 @@ public class RocketRenderer {
 		@SubscribeEvent
 		@OnlyIn(Dist.CLIENT)
 		public void registerModels(ModelRegistryEvent event) {
-			RenderingRegistry.registerEntityRenderingHandler(RocketEntity.entity, renderManager -> {
+			RenderingRegistry.registerEntityRenderingHandler(RocketTier1Entity.entity, renderManager -> {
 				return new MobRenderer(renderManager, new ModelRocketTier1(), 0.5f) {
 					@Override
 					public ResourceLocation getEntityTexture(Entity entity) {
@@ -216,7 +216,7 @@ public class RocketRenderer {
 		}
 
 		public void setRotationAngles(Entity en, float f, float f1, float f2, float f3, float f4) {
-			RocketEntity.CustomEntity e = (RocketEntity.CustomEntity) en;
+			RocketTier1Entity.CustomEntity e = (RocketTier1Entity.CustomEntity) en;
 			this.Rocket.rotateAngleY = f3 / (180F / (float) Math.PI);
 			// this.Rocket.rotateAngleX = f4 / (180F / (float) Math.PI);
 			// Animation1
