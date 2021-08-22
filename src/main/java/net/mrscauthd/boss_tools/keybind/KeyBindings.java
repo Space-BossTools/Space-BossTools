@@ -1,15 +1,17 @@
 package net.mrscauthd.boss_tools.keybind;
 
-import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
-import net.mrscauthd.boss_tools.entity.LandingGearEntity;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.mrscauthd.boss_tools.entity.*;
 import net.mrscauthd.boss_tools.events.ClientEventBusSubscriber;
-import net.mrscauthd.boss_tools.procedures.PowUpOnKeyReleasedProcedure;
 import org.lwjgl.glfw.GLFW;
 
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -25,8 +27,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.client.Minecraft;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = "boss_tools")
@@ -48,10 +48,25 @@ public class KeyBindings {
 	@SubscribeEvent
 	public static void onKeyInput1(TickEvent.ClientTickEvent event) {
 		if (event.phase == TickEvent.Phase.END) {
+			//Key Space
 			if (InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_SPACE)) {
 				if (Minecraft.getInstance().currentScreen == null) {
 					INSTANCE.sendToServer(new KeyBindingPressedMessage(0, 0));
 					pressAction(Minecraft.getInstance().player, 0, 0);
+				}
+			}
+			//Key A
+			if ((InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_A))) {
+				if (Minecraft.getInstance().currentScreen == null) {
+					INSTANCE.sendToServer(new KeyBindingPressedMessage(2, 0));
+					pressAction(Minecraft.getInstance().player, 2, 0);
+				}
+			}
+			//Key D
+			if ((InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_D))) {
+				if (Minecraft.getInstance().currentScreen == null) {
+					INSTANCE.sendToServer(new KeyBindingPressedMessage(3, 0));
+					pressAction(Minecraft.getInstance().player, 3, 0);
 				}
 			}
 		}
@@ -124,13 +139,91 @@ public class KeyBindings {
 		}
 		//Type 1
 		if (type == 1) {
-			Map<String, Object> $_dependencies = new HashMap<>();
-			$_dependencies.put("entity", entity);
-			$_dependencies.put("x", x);
-			$_dependencies.put("y", y);
-			$_dependencies.put("z", z);
-			$_dependencies.put("world", world);
-			PowUpOnKeyReleasedProcedure.executeProcedure($_dependencies);
+			if (entity.getRidingEntity() instanceof RocketTier1Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier3Entity.CustomEntity) {
+				if (entity.getRidingEntity().getPersistentData().getBoolean("Powup_trigger") == false) {
+					if (entity.getRidingEntity().getPersistentData().getDouble("fuel") == 400) {
+						if (world instanceof World && !world.isRemote()) {
+							((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z), (net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("boss_tools:rocketfly")), SoundCategory.NEUTRAL, (float) 3, (float) 1);
+						} else {
+							((World) world).playSound(x, y, z, (net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("boss_tools:rocketfly")), SoundCategory.NEUTRAL, (float) 3, (float) 1, false);
+						}
+						entity.getRidingEntity().getPersistentData().putDouble("Powup", 1);
+						entity.getRidingEntity().getPersistentData().putBoolean("Powup_trigger", true);
+					} else {
+						if (entity instanceof PlayerEntity && !entity.world.isRemote()) {
+							((PlayerEntity) entity).sendStatusMessage(new StringTextComponent("\u00A7cNO FUEL! \u00A77Fill the Rocket with \u00A7cFuel\u00A77. (\u00A76Sneak and Right Click\u00A77)"), false);
+						}
+					}
+				}
+			}
+		}
+		//Type 2
+		if (type == 2) {
+			//Rocket Rotation (Direction -1)
+			if (entity.getRidingEntity() instanceof RocketTier1Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier3Entity.CustomEntity) {
+				(entity.getRidingEntity()).rotationYaw = (float) ((((entity.getRidingEntity()).rotationYaw) - 1));
+				(entity.getRidingEntity()).setRenderYawOffset((entity.getRidingEntity()).rotationYaw);
+				(entity.getRidingEntity()).prevRotationYaw = (entity.getRidingEntity()).rotationYaw;
+				if ((entity.getRidingEntity()) instanceof LivingEntity) {
+					((LivingEntity) entity.getRidingEntity()).prevRenderYawOffset = entity.getRidingEntity().rotationYaw;
+				}
+			}
+			// Rover Rotation (Direction -1)
+			if (entity.getRidingEntity() instanceof RoverEntity.CustomEntity) {
+				float forward = ((LivingEntity) entity).moveForward;
+				if (entity.getRidingEntity().getPersistentData().getDouble("fuel") >= 1 && entity.getRidingEntity().areEyesInFluid(FluidTags.WATER) == false) {
+					if (forward >= 0.01) {
+						entity.getRidingEntity().rotationYaw = (float) entity.getRidingEntity().rotationYaw - 1;
+						entity.getRidingEntity().setRenderYawOffset(entity.getRidingEntity().rotationYaw);
+						entity.getRidingEntity().prevRotationYaw = entity.getRidingEntity().rotationYaw;
+						if (entity.getRidingEntity() instanceof LivingEntity) {
+							((LivingEntity) entity.getRidingEntity()).prevRenderYawOffset = entity.getRidingEntity().rotationYaw;
+						}
+					}
+					if (forward <= -0.01) {
+						entity.getRidingEntity().rotationYaw = (float) entity.getRidingEntity().rotationYaw + 1;
+						entity.getRidingEntity().setRenderYawOffset(entity.getRidingEntity().rotationYaw);
+						entity.getRidingEntity().prevRotationYaw = entity.getRidingEntity().rotationYaw;
+						if (entity.getRidingEntity() instanceof LivingEntity) {
+							((LivingEntity) entity.getRidingEntity()).prevRenderYawOffset = entity.getRidingEntity().rotationYaw;
+						}
+					}
+				}
+			}
+		}
+		//Type 3
+		if (type == 3) {
+			//Rocket Rotation (Direction +1)
+			if (entity.getRidingEntity() instanceof RocketTier1Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier3Entity.CustomEntity) {
+				(entity.getRidingEntity()).rotationYaw = (float) ((((entity.getRidingEntity()).rotationYaw) + 1));
+				(entity.getRidingEntity()).setRenderYawOffset((entity.getRidingEntity()).rotationYaw);
+				(entity.getRidingEntity()).prevRotationYaw = (entity.getRidingEntity()).rotationYaw;
+				if ((entity.getRidingEntity()) instanceof LivingEntity) {
+					((LivingEntity) entity.getRidingEntity()).prevRenderYawOffset = entity.getRidingEntity().rotationYaw;
+				}
+			}
+			// Rover Rotation (Direction +1)
+			if (entity.getRidingEntity() instanceof RoverEntity.CustomEntity) {
+				float forward = ((LivingEntity) entity).moveForward;
+				if (entity.getRidingEntity().getPersistentData().getDouble("fuel") >= 1 && entity.getRidingEntity().areEyesInFluid(FluidTags.WATER) == false) {
+					if (forward >= 0.01) {
+						entity.getRidingEntity().rotationYaw = (float) entity.getRidingEntity().rotationYaw + 1;
+						entity.getRidingEntity().setRenderYawOffset(entity.getRidingEntity().rotationYaw);
+						entity.getRidingEntity().prevRotationYaw = entity.getRidingEntity().rotationYaw;
+						if (entity.getRidingEntity() instanceof LivingEntity) {
+							((LivingEntity) entity.getRidingEntity()).prevRenderYawOffset = entity.getRidingEntity().rotationYaw;
+						}
+					}
+					if (forward <= -0.01) {
+						entity.getRidingEntity().rotationYaw = (float) entity.getRidingEntity().rotationYaw - 1;
+						entity.getRidingEntity().setRenderYawOffset(entity.getRidingEntity().rotationYaw);
+						entity.getRidingEntity().prevRotationYaw = entity.getRidingEntity().rotationYaw;
+						if (entity.getRidingEntity() instanceof LivingEntity) {
+							((LivingEntity) entity.getRidingEntity()).prevRenderYawOffset = entity.getRidingEntity().rotationYaw;
+						}
+					}
+				}
+			}
 		}
 	}
 }
