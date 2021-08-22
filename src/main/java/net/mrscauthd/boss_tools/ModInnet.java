@@ -29,7 +29,7 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.mrscauthd.boss_tools.entity.alien.ModSpawnEggs;
 import net.mrscauthd.boss_tools.block.*;
 import net.mrscauthd.boss_tools.entity.AlienSpitEntity;
-import net.mrscauthd.boss_tools.events.BiomeRegisrtyEvents;
+import net.mrscauthd.boss_tools.world.biomes.BiomeRegisrtyEvents;
 import net.mrscauthd.boss_tools.events.Config;
 import net.mrscauthd.boss_tools.feature.MarsIceSpikeFeature;
 import net.mrscauthd.boss_tools.feature.VenusDeltas;

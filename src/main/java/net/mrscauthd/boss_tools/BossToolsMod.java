@@ -1,10 +1,8 @@
 package net.mrscauthd.boss_tools;
 
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.mrscauthd.boss_tools.events.BiomeRegisrtyEvents;
+import net.mrscauthd.boss_tools.world.biomes.BiomeRegisrtyEvents;
 import net.mrscauthd.boss_tools.events.SyncEvents;
 import net.mrscauthd.boss_tools.keybind.KeyBindings;
 import net.mrscauthd.boss_tools.world.structure.configuration.STStructures;
@@ -28,7 +26,6 @@ import net.minecraft.item.Item;
 import net.minecraft.entity.EntityType;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.block.Block;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.function.Supplier;
 

@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.events;
+package net.mrscauthd.boss_tools.world.biomes;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.particles.ParticleTypes;

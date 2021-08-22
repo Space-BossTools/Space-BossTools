@@ -73,8 +73,8 @@ public class KeyBindings {
 	}
 
 	//Key Press Event
-	@SubscribeEvent
 	@OnlyIn(Dist.CLIENT)
+	@SubscribeEvent
 	public static void onKeyInput2(InputEvent.KeyInputEvent event) {
 		if (Minecraft.getInstance().currentScreen == null) {
 			if (event.getKey() == ClientEventBusSubscriber.key1.getKey().getKeyCode()) {

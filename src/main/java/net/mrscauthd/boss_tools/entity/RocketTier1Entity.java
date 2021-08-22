@@ -9,7 +9,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.mrscauthd.boss_tools.procedures.RocketOnEntityTickUpdateProcedure;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.gui.RocketTier1GUIFuelGui;
-import net.mrscauthd.boss_tools.entity.renderer.RocketRenderer;
+import net.mrscauthd.boss_tools.entity.renderer.RocketTier1Renderer;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ForgeRegistries;
@@ -80,7 +80,7 @@ public class RocketTier1Entity extends BossToolsModElements.ModElement {
 	public static EntityType entity = null;
 	public RocketTier1Entity(BossToolsModElements instance) {
 		super(instance, 91);
-		FMLJavaModLoadingContext.get().getModEventBus().register(new RocketRenderer.ModelRegisterHandler());
+		FMLJavaModLoadingContext.get().getModEventBus().register(new RocketTier1Renderer.ModelRegisterHandler());
 		FMLJavaModLoadingContext.get().getModEventBus().register(new EntityAttributesRegisterHandler());
 		NetworkLoader.registerMessages();
 	}

@@ -1,4 +1,3 @@
-
 package net.mrscauthd.boss_tools.particle;
 
 import net.minecraft.util.Direction;
@@ -98,8 +97,7 @@ public class VenusRainParticle {
             this.spriteSet = spriteSet;
         }
 
-        public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed,
-                                     double zSpeed) {
+        public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             return new CustomParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet);
         }
     }
