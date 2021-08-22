@@ -3,11 +3,10 @@ package net.mrscauthd.boss_tools.itemgroup;
 
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.block.MoonoreironBlock;
-import net.mrscauthd.boss_tools.block.WorkbenchBlock;
+import net.mrscauthd.boss_tools.machines.WorkbenchBlock;
 import net.mrscauthd.boss_tools.item.IronplateItem;
 import net.mrscauthd.boss_tools.item.OxygenGearItem;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
-import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;

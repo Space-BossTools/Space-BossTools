@@ -1,9 +1,9 @@
 
-package net.mrscauthd.boss_tools.block;
+package net.mrscauthd.boss_tools.machines;
 
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
-import net.mrscauthd.boss_tools.procedures.CompressorTickProcedure;
-import net.mrscauthd.boss_tools.gui.CompressorGuiGui;
+import net.mrscauthd.boss_tools.procedures.CoalGeneratorTickProcedure;
+import net.mrscauthd.boss_tools.gui.GeneratorGUIGui;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ObjectHolder;
@@ -19,6 +19,8 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
@@ -57,6 +59,7 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.SoundType;
@@ -76,13 +79,13 @@ import java.util.Collections;
 import io.netty.buffer.Unpooled;
 
 @BossToolsModElements.ModElement.Tag
-public class CompressorBlock extends BossToolsModElements.ModElement {
-	@ObjectHolder("boss_tools:compressor")
+public class GeneratorBlock extends BossToolsModElements.ModElement {
+	@ObjectHolder("boss_tools:coal_generator")
 	public static final Block block = null;
-	@ObjectHolder("boss_tools:compressor")
+	@ObjectHolder("boss_tools:coal_generator")
 	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
-	public CompressorBlock(BossToolsModElements instance) {
-		super(instance, 74);
+	public GeneratorBlock(BossToolsModElements instance) {
+		super(instance, 71);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new TileEntityRegisterHandler());
 	}
 
@@ -95,18 +98,26 @@ public class CompressorBlock extends BossToolsModElements.ModElement {
 	private static class TileEntityRegisterHandler {
 		@SubscribeEvent
 		public void registerTileEntity(RegistryEvent.Register<TileEntityType<?>> event) {
-			event.getRegistry().register(TileEntityType.Builder.create(CustomTileEntity::new, block).build(null).setRegistryName("compressor"));
+			event.getRegistry().register(TileEntityType.Builder.create(CustomTileEntity::new, block).build(null).setRegistryName("coal_generator"));
 		}
 	}
 
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 		public static final BooleanProperty ACTIAVATED = BlockStateProperties.LIT;
+		boolean light = false;
 		public CustomBlock() {
 			super(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 1f).setLightLevel(s -> 0).harvestLevel(1)
 					.harvestTool(ToolType.PICKAXE).setRequiresTool());
 			this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(ACTIAVATED, Boolean.valueOf(false)));
-			setRegistryName("compressor");
+			setRegistryName("coal_generator");
+		}
+
+		@Override
+		@OnlyIn(Dist.CLIENT)
+		public void addInformation(ItemStack itemstack, IBlockReader world, List<ITextComponent> list, ITooltipFlag flag) {
+			super.addInformation(itemstack, world, list, flag);
+			list.add(new StringTextComponent("\u00A79Producing: \u00A772 \u00A77FE/t"));
 		}
 
 		@Override
@@ -174,7 +185,7 @@ public class CompressorBlock extends BossToolsModElements.ModElement {
 				$_dependencies.put("y", y);
 				$_dependencies.put("z", z);
 				$_dependencies.put("world", world);
-				CompressorTickProcedure.executeProcedure($_dependencies);
+				CoalGeneratorTickProcedure.executeProcedure($_dependencies);
 			}
 			world.getPendingBlockTicks().scheduleTick(new BlockPos(x, y, z), this, 1);
 		}
@@ -204,12 +215,12 @@ public class CompressorBlock extends BossToolsModElements.ModElement {
 				NetworkHooks.openGui((ServerPlayerEntity) entity, new INamedContainerProvider() {
 					@Override
 					public ITextComponent getDisplayName() {
-						return new StringTextComponent("Compressor");
+						return new StringTextComponent("Coal Generator");
 					}
 
 					@Override
 					public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-						return new CompressorGuiGui.GuiContainerMod(id, inventory,
+						return new GeneratorGUIGui.GuiContainerMod(id, inventory,
 								new PacketBuffer(Unpooled.buffer()).writeBlockPos(new BlockPos(x, y, z)));
 					}
 				}, new BlockPos(x, y, z));
@@ -324,7 +335,7 @@ public class CompressorBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public ITextComponent getDefaultName() {
-			return new StringTextComponent("compressor");
+			return new StringTextComponent("coal_generator");
 		}
 
 		@Override
@@ -334,12 +345,12 @@ public class CompressorBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public Container createMenu(int id, PlayerInventory player) {
-			return new CompressorGuiGui.GuiContainerMod(id, player, new PacketBuffer(Unpooled.buffer()).writeBlockPos(this.getPos()));
+			return new GeneratorGUIGui.GuiContainerMod(id, player, new PacketBuffer(Unpooled.buffer()).writeBlockPos(this.getPos()));
 		}
 
 		@Override
 		public ITextComponent getDisplayName() {
-			return new StringTextComponent("Compressor");
+			return new StringTextComponent("Coal Generator");
 		}
 
 		@Override
@@ -387,25 +398,7 @@ public class CompressorBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-			if (index == 0)
-				return false;
-			if (index == 1)
-				return false;
-			if (index == 3)
-				return false;
-			if (index == 4)
-				return false;
-			if (index == 5)
-				return false;
-			if (index == 6)
-				return false;
-			if (index == 7)
-				return false;
-			if (index == 8)
-				return false;
-			if (index == 9)
-				return false;
-			return true;
+			return false;
 		}
 		private final LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.values());
 		private final EnergyStorage energyStorage = new EnergyStorage(9000, 200, 200, 0) {

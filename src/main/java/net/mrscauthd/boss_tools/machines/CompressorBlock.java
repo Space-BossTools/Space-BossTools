@@ -1,9 +1,9 @@
 
-package net.mrscauthd.boss_tools.block;
+package net.mrscauthd.boss_tools.machines;
 
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
-import net.mrscauthd.boss_tools.procedures.SolarPanelUpdateTickProcedure;
-import net.mrscauthd.boss_tools.gui.SolarPanelGUIGui;
+import net.mrscauthd.boss_tools.procedures.CompressorTickProcedure;
+import net.mrscauthd.boss_tools.gui.CompressorGuiGui;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ObjectHolder;
@@ -19,8 +19,6 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
@@ -38,8 +36,10 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.LockableLootTileEntity;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.DirectionProperty;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.NetworkManager;
@@ -57,7 +57,6 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.SoundType;
@@ -77,13 +76,13 @@ import java.util.Collections;
 import io.netty.buffer.Unpooled;
 
 @BossToolsModElements.ModElement.Tag
-public class SolarPanelBlock extends BossToolsModElements.ModElement {
-	@ObjectHolder("boss_tools:solar_panel")
+public class CompressorBlock extends BossToolsModElements.ModElement {
+	@ObjectHolder("boss_tools:compressor")
 	public static final Block block = null;
-	@ObjectHolder("boss_tools:solar_panel")
+	@ObjectHolder("boss_tools:compressor")
 	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
-	public SolarPanelBlock(BossToolsModElements instance) {
-		super(instance, 70);
+	public CompressorBlock(BossToolsModElements instance) {
+		super(instance, 74);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new TileEntityRegisterHandler());
 	}
 
@@ -96,34 +95,23 @@ public class SolarPanelBlock extends BossToolsModElements.ModElement {
 	private static class TileEntityRegisterHandler {
 		@SubscribeEvent
 		public void registerTileEntity(RegistryEvent.Register<TileEntityType<?>> event) {
-			event.getRegistry().register(TileEntityType.Builder.create(CustomTileEntity::new, block).build(null).setRegistryName("solar_panel"));
+			event.getRegistry().register(TileEntityType.Builder.create(CustomTileEntity::new, block).build(null).setRegistryName("compressor"));
 		}
 	}
 
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+		public static final BooleanProperty ACTIAVATED = BlockStateProperties.LIT;
 		public CustomBlock() {
-			super(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 1f).setLightLevel(s -> 1).harvestLevel(1)
+			super(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 1f).setLightLevel(s -> 0).harvestLevel(1)
 					.harvestTool(ToolType.PICKAXE).setRequiresTool());
-			this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
-			setRegistryName("solar_panel");
-		}
-
-		@Override
-		@OnlyIn(Dist.CLIENT)
-		public void addInformation(ItemStack itemstack, IBlockReader world, List<ITextComponent> list, ITooltipFlag flag) {
-			super.addInformation(itemstack, world, list, flag);
-			list.add(new StringTextComponent("\u00A79Producing: \u00A774 \u00A77FE/t"));
-		}
-
-		@Override
-		public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
-			return true;
+			this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(ACTIAVATED, Boolean.valueOf(false)));
+			setRegistryName("compressor");
 		}
 
 		@Override
 		protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-			builder.add(FACING);
+			builder.add(FACING, ACTIAVATED);
 		}
 
 		public BlockState rotate(BlockState state, Rotation rot) {
@@ -164,19 +152,45 @@ public class SolarPanelBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public void tick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+			int x = pos.getX();
+			int y = pos.getY();
+			int z = pos.getZ();
+			if (((new Object() {
+				public boolean getValue(BlockPos pos, String tag) {
+					TileEntity tileEntity = world.getTileEntity(pos);
+					if (tileEntity != null)
+						return tileEntity.getTileData().getBoolean(tag);
+					return false;
+				}
+			}.getValue(new BlockPos((int) x, (int) y, (int) z), "activated")) == (true))) {
+				world.setBlockState(pos, state.with(ACTIAVATED, Boolean.valueOf(true)), 3);
+			} else {
+				world.setBlockState(pos, state.with(ACTIAVATED, Boolean.valueOf(false)), 3);
+			}
 			super.tick(state, world, pos, random);
-			double x = pos.getX();
-			double y = pos.getY();
-			double z = pos.getZ();
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("x", x);
 				$_dependencies.put("y", y);
 				$_dependencies.put("z", z);
 				$_dependencies.put("world", world);
-				SolarPanelUpdateTickProcedure.executeProcedure($_dependencies);
+				CompressorTickProcedure.executeProcedure($_dependencies);
 			}
 			world.getPendingBlockTicks().scheduleTick(new BlockPos(x, y, z), this, 1);
+		}
+
+		@Override
+		public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos) {
+			if (state.get(ACTIAVATED) == true)
+				return 12;
+			return 0;
+		}
+
+		@Override
+		public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
+			if (state.get(ACTIAVATED) == true)
+				return 12;
+			return 0;
 		}
 
 		@Override
@@ -190,12 +204,12 @@ public class SolarPanelBlock extends BossToolsModElements.ModElement {
 				NetworkHooks.openGui((ServerPlayerEntity) entity, new INamedContainerProvider() {
 					@Override
 					public ITextComponent getDisplayName() {
-						return new StringTextComponent("Solar Panel");
+						return new StringTextComponent("Compressor");
 					}
 
 					@Override
 					public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-						return new SolarPanelGUIGui.GuiContainerMod(id, inventory,
+						return new CompressorGuiGui.GuiContainerMod(id, inventory,
 								new PacketBuffer(Unpooled.buffer()).writeBlockPos(new BlockPos(x, y, z)));
 					}
 				}, new BlockPos(x, y, z));
@@ -310,7 +324,7 @@ public class SolarPanelBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public ITextComponent getDefaultName() {
-			return new StringTextComponent("solar_panel");
+			return new StringTextComponent("compressor");
 		}
 
 		@Override
@@ -320,12 +334,12 @@ public class SolarPanelBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public Container createMenu(int id, PlayerInventory player) {
-			return new SolarPanelGUIGui.GuiContainerMod(id, player, new PacketBuffer(Unpooled.buffer()).writeBlockPos(this.getPos()));
+			return new CompressorGuiGui.GuiContainerMod(id, player, new PacketBuffer(Unpooled.buffer()).writeBlockPos(this.getPos()));
 		}
 
 		@Override
 		public ITextComponent getDisplayName() {
-			return new StringTextComponent("Solar Panel");
+			return new StringTextComponent("Compressor");
 		}
 
 		@Override
@@ -340,8 +354,6 @@ public class SolarPanelBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public boolean isItemValidForSlot(int index, ItemStack stack) {
-			if (index == 0)
-				return false;
 			if (index == 1)
 				return false;
 			if (index == 2)
@@ -375,12 +387,28 @@ public class SolarPanelBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
+			if (index == 0)
+				return false;
+			if (index == 1)
+				return false;
+			if (index == 3)
+				return false;
+			if (index == 4)
+				return false;
+			if (index == 5)
+				return false;
+			if (index == 6)
+				return false;
+			if (index == 7)
+				return false;
+			if (index == 8)
+				return false;
+			if (index == 9)
+				return false;
 			return true;
 		}
-
 		private final LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.values());
-		private final EnergyStorage energyStorage = new EnergyStorage(50000, 200, 200, 0) {
-		
+		private final EnergyStorage energyStorage = new EnergyStorage(9000, 200, 200, 0) {
 			@Override
 			public int receiveEnergy(int maxReceive, boolean simulate) {
 				int retval = super.receiveEnergy(maxReceive, simulate);

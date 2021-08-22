@@ -1,10 +1,9 @@
 
-package net.mrscauthd.boss_tools.block;
+package net.mrscauthd.boss_tools.machines;
 
-import net.minecraft.world.IWorld;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
-import net.mrscauthd.boss_tools.procedures.OxygenGeneratortickProcedure;
-import net.mrscauthd.boss_tools.gui.OxygenBulletGeneratorGUIGui;
+import net.mrscauthd.boss_tools.procedures.SolarPanelUpdateTickProcedure;
+import net.mrscauthd.boss_tools.gui.SolarPanelGUIGui;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ObjectHolder;
@@ -39,10 +38,8 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.LockableLootTileEntity;
-import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.BooleanProperty;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.NetworkManager;
@@ -70,7 +67,6 @@ import net.minecraft.block.Block;
 
 import javax.annotation.Nullable;
 
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 import java.util.Random;
 import java.util.Map;
@@ -81,13 +77,13 @@ import java.util.Collections;
 import io.netty.buffer.Unpooled;
 
 @BossToolsModElements.ModElement.Tag
-public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
-	@ObjectHolder("boss_tools:oxygen_bullet_generator")
+public class SolarPanelBlock extends BossToolsModElements.ModElement {
+	@ObjectHolder("boss_tools:solar_panel")
 	public static final Block block = null;
-	@ObjectHolder("boss_tools:oxygen_bullet_generator")
+	@ObjectHolder("boss_tools:solar_panel")
 	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
-	public OxygenGeneratorBlock(BossToolsModElements instance) {
-		super(instance, 76);
+	public SolarPanelBlock(BossToolsModElements instance) {
+		super(instance, 70);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new TileEntityRegisterHandler());
 	}
 
@@ -100,32 +96,34 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 	private static class TileEntityRegisterHandler {
 		@SubscribeEvent
 		public void registerTileEntity(RegistryEvent.Register<TileEntityType<?>> event) {
-			event.getRegistry()
-					.register(TileEntityType.Builder.create(CustomTileEntity::new, block).build(null).setRegistryName("oxygen_bullet_generator"));
+			event.getRegistry().register(TileEntityType.Builder.create(CustomTileEntity::new, block).build(null).setRegistryName("solar_panel"));
 		}
 	}
 
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
-		public static final BooleanProperty ACTIAVATED = BlockStateProperties.LIT;
-		public static double energy = 0;
 		public CustomBlock() {
-			super(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 1f).setLightLevel(s -> 0).harvestLevel(1)
+			super(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 1f).setLightLevel(s -> 1).harvestLevel(1)
 					.harvestTool(ToolType.PICKAXE).setRequiresTool());
-			this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(ACTIAVATED, Boolean.valueOf(false)));
-			setRegistryName("oxygen_bullet_generator");
+			this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
+			setRegistryName("solar_panel");
 		}
 
 		@Override
 		@OnlyIn(Dist.CLIENT)
 		public void addInformation(ItemStack itemstack, IBlockReader world, List<ITextComponent> list, ITooltipFlag flag) {
 			super.addInformation(itemstack, world, list, flag);
-			list.add(new StringTextComponent("\u00A77Make a Oxygen Bullet \u00A7c3x6"));
+			list.add(new StringTextComponent("\u00A79Producing: \u00A774 \u00A77FE/t"));
+		}
+
+		@Override
+		public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
+			return true;
 		}
 
 		@Override
 		protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-			builder.add(FACING, ACTIAVATED);
+			builder.add(FACING);
 		}
 
 		public BlockState rotate(BlockState state, Rotation rot) {
@@ -166,62 +164,24 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public void tick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-			int x = pos.getX();
-			int y = pos.getY();
-			int z = pos.getZ();
-
-			//energy
-			energy = (new Object() {
-				public int getEnergyStored(IWorld world, BlockPos pos) {
-					AtomicInteger _retval = new AtomicInteger(0);
-					TileEntity _ent = world.getTileEntity(pos);
-					if (_ent != null)
-						_ent.getCapability(CapabilityEnergy.ENERGY, null).ifPresent(capability -> _retval.set(capability.getEnergyStored()));
-					return _retval.get();
-				}
-			}.getEnergyStored(world, new BlockPos((int) x, (int) y, (int) z)));
-
-			if (((new Object() {
-				public boolean getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getBoolean(tag);
-					return false;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "activated")) == (true)) && energy >= 1) {
-				world.setBlockState(pos, state.with(ACTIAVATED, Boolean.valueOf(true)), 3);
-			} else {
-				world.setBlockState(pos, state.with(ACTIAVATED, Boolean.valueOf(false)), 3);
-			}
 			super.tick(state, world, pos, random);
+			double x = pos.getX();
+			double y = pos.getY();
+			double z = pos.getZ();
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
 				$_dependencies.put("x", x);
 				$_dependencies.put("y", y);
 				$_dependencies.put("z", z);
 				$_dependencies.put("world", world);
-				OxygenGeneratortickProcedure.executeProcedure($_dependencies);
+				SolarPanelUpdateTickProcedure.executeProcedure($_dependencies);
 			}
 			world.getPendingBlockTicks().scheduleTick(new BlockPos(x, y, z), this, 1);
 		}
 
 		@Override
-		public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos) {
-			if (state.get(ACTIAVATED) == true)
-				return 12;
-			return 0;
-		}
-
-		@Override
-		public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
-			if (state.get(ACTIAVATED) == true)
-				return 12;
-			return 0;
-		}
-
-		@Override
 		public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity entity, Hand hand,
-												 BlockRayTraceResult hit) {
+				BlockRayTraceResult hit) {
 			super.onBlockActivated(state, world, pos, entity, hand, hit);
 			int x = pos.getX();
 			int y = pos.getY();
@@ -230,12 +190,12 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 				NetworkHooks.openGui((ServerPlayerEntity) entity, new INamedContainerProvider() {
 					@Override
 					public ITextComponent getDisplayName() {
-						return new StringTextComponent("Oxygen Bullet Generator");
+						return new StringTextComponent("Solar Panel");
 					}
 
 					@Override
 					public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-						return new OxygenBulletGeneratorGUIGui.GuiContainerMod(id, inventory,
+						return new SolarPanelGUIGui.GuiContainerMod(id, inventory,
 								new PacketBuffer(Unpooled.buffer()).writeBlockPos(new BlockPos(x, y, z)));
 					}
 				}, new BlockPos(x, y, z));
@@ -350,7 +310,7 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public ITextComponent getDefaultName() {
-			return new StringTextComponent("oxygen_bullet_generator");
+			return new StringTextComponent("solar_panel");
 		}
 
 		@Override
@@ -360,12 +320,12 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public Container createMenu(int id, PlayerInventory player) {
-			return new OxygenBulletGeneratorGUIGui.GuiContainerMod(id, player, new PacketBuffer(Unpooled.buffer()).writeBlockPos(this.getPos()));
+			return new SolarPanelGUIGui.GuiContainerMod(id, player, new PacketBuffer(Unpooled.buffer()).writeBlockPos(this.getPos()));
 		}
 
 		@Override
 		public ITextComponent getDisplayName() {
-			return new StringTextComponent("Oxygen Bullet Generator");
+			return new StringTextComponent("Solar Panel");
 		}
 
 		@Override
@@ -380,6 +340,8 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public boolean isItemValidForSlot(int index, ItemStack stack) {
+			if (index == 0)
+				return false;
 			if (index == 1)
 				return false;
 			if (index == 2)
@@ -413,11 +375,12 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-			return false;
-			// FIX
+			return true;
 		}
+
 		private final LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.values());
-		private final EnergyStorage energyStorage = new EnergyStorage(9000, 200, 200, 0) {
+		private final EnergyStorage energyStorage = new EnergyStorage(50000, 200, 200, 0) {
+		
 			@Override
 			public int receiveEnergy(int maxReceive, boolean simulate) {
 				int retval = super.receiveEnergy(maxReceive, simulate);
