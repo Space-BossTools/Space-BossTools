@@ -1,6 +1,6 @@
 package net.mrscauthd.boss_tools.procedures;
 
-import net.mrscauthd.boss_tools.block.FuelBlock;
+import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -30,7 +30,7 @@ public class RoverOnEntityTickUpdateProcedure {
 				});
 				return _retval.get();
 			}
-		}.getItemStack((int) (0), entity)).getItem() == new ItemStack(FuelBlock.bucket, (int) (1)).getItem())) {
+		}.getItemStack((int) (0), entity)).getItem() == new ItemStack(ModInnet.FUEL_BUCKET.get(), (int) (1)).getItem())) {
 			if (((entity.getPersistentData().getDouble("fuel")) == 0)) {
 				{
 					final ItemStack _setstack = new ItemStack(Items.BUCKET, (int) (1));

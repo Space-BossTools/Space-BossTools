@@ -2,7 +2,7 @@ package net.mrscauthd.boss_tools.procedures;
 
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.events.Config;
-import net.mrscauthd.boss_tools.Armor.SpaceSuit;
+import net.mrscauthd.boss_tools.armor.SpaceSuit;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.fml.common.Mod;
@@ -178,22 +178,22 @@ public class AkivepotionProcedure {
 		if ((!(entity.getPersistentData().getBoolean("Oxygen_Bullet_Generator")))) {
 			if ((!(((entity instanceof LivingEntity)
 					? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 3))
-					: ItemStack.EMPTY).getItem() == new ItemStack(SpaceSuit.helmet, (int) (1)).getItem()))) {
+					: ItemStack.EMPTY).getItem() == new ItemStack(ModInnet.OXYGEN_MASK.get(), (int) (1)).getItem()))) {
 				entity.getPersistentData().putBoolean("SpaceSuitH", (false));
 			}
 			if ((!(((entity instanceof LivingEntity)
 					? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 2))
-					: ItemStack.EMPTY).getItem() == new ItemStack(SpaceSuit.body, (int) (1)).getItem()))) {
+					: ItemStack.EMPTY).getItem() == new ItemStack(ModInnet.SPACE_SUIT.get(), (int) (1)).getItem()))) {
 				entity.getPersistentData().putBoolean("SpaceSuitC", (false));
 			}
 			if ((!(((entity instanceof LivingEntity)
 					? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 1))
-					: ItemStack.EMPTY).getItem() == new ItemStack(SpaceSuit.legs, (int) (1)).getItem()))) {
+					: ItemStack.EMPTY).getItem() == new ItemStack(ModInnet.SPACE_PANTS.get(), (int) (1)).getItem()))) {
 				entity.getPersistentData().putBoolean("SpaceSuitL", (false));
 			}
 			if ((!(((entity instanceof LivingEntity)
 					? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 0))
-					: ItemStack.EMPTY).getItem() == new ItemStack(SpaceSuit.boots, (int) (1)).getItem()))) {
+					: ItemStack.EMPTY).getItem() == new ItemStack(ModInnet.SPACE_BOOTS.get(), (int) (1)).getItem()))) {
 				entity.getPersistentData().putBoolean("SpaceSuitB", (false));
 			}
 			if ((!(((entity instanceof LivingEntity)

@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.block;
+package net.mrscauthd.boss_tools.flag;
 
 import javax.annotation.Nullable;
 

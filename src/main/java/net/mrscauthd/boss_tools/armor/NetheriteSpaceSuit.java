@@ -1,5 +1,5 @@
 
-package net.mrscauthd.boss_tools.Armor;
+package net.mrscauthd.boss_tools.armor;
 
 import net.mrscauthd.boss_tools.procedures.SpaceArmorBodyTickEventProcedure;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
@@ -98,7 +98,6 @@ public class NetheriteSpaceSuit {
 
 		@Override
 		public void onArmorTick(ItemStack itemstack, World world, PlayerEntity entity) {
-			super.onArmorTick(itemstack, world, entity);
 			entity.getPersistentData().putBoolean("SpaceSuitH", (true));
 		}
 	};

@@ -1,6 +1,6 @@
 package net.mrscauthd.boss_tools.procedures;
 
-import net.mrscauthd.boss_tools.item.SteahlItem;
+import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -166,7 +166,7 @@ public class BlastFurnaceTickProcedure {
 						TileEntity _ent = world.getTileEntity(new BlockPos((int) x, (int) y, (int) z));
 						if (_ent != null) {
 							final int _sltid = (int) (2);
-							final ItemStack _setstack = new ItemStack(SteahlItem.block, (int) (1));
+							final ItemStack _setstack = new ItemStack(ModInnet.STEEL_INGOT.get(), (int) (1));
 							_setstack.setCount((int) ((new Object() {
 								public int getAmount(IWorld world, BlockPos pos, int sltid) {
 									AtomicInteger _retval = new AtomicInteger(0);

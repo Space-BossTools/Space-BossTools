@@ -59,6 +59,7 @@ public class BossToolsMod {
 		ModInnet.TILE_ENTITYS.register(bus);
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		ModInnet.SENSOR.register(bus);
+		ModInnet.FLUIDS.register(bus);
 		//alien Village
 		STStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
 		bus.addListener(ModInnet::setup2);
@@ -74,9 +75,6 @@ public class BossToolsMod {
 
 		//KeyBindings
 		KeyBindings.registerMessages();
-
-		//Client KeyBinds Registry
-		//ClientRegistry.registerKeyBinding(KeyBindings.key1);
 	}
 
 	private void init(FMLCommonSetupEvent event) {

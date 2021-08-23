@@ -67,7 +67,6 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.block.FuelBlock;
 import net.mrscauthd.boss_tools.gui.FuelRefineryGUIGui;
 
 public class FuelRefineryBlock {
@@ -408,9 +407,9 @@ public class FuelRefineryBlock {
 			}
 		};
 		private final FluidTank fluidTank = new FluidTank(3000, fs -> {
-			if (fs.getFluid() == FuelBlock.still)
+			if (fs.getFluid() == ModInnet.FUEL_STILL.get())
 				return true;
-			if (fs.getFluid() == FuelBlock.flowing)
+			if (fs.getFluid() == ModInnet.FLOWING_FUEL.get())
 				return true;
 			return false;
 		}) {
@@ -468,7 +467,7 @@ public class FuelRefineryBlock {
 			if (fuel >= FUEL_CONSUME_PER_TICK && this.canOperate()) {
 				this.setFuel(fuel - FUEL_CONSUME_PER_TICK);
 				this.getEnergyStorage().extractEnergy(ENERGY_CONSUME_PER_TICK, false);
-				this.getFluidTank().fill(new FluidStack(FuelBlock.still, FLUID_GEN_PER_TICK), FluidAction.EXECUTE);
+				this.getFluidTank().fill(new FluidStack(ModInnet.FUEL_STILL.get(), FLUID_GEN_PER_TICK), FluidAction.EXECUTE);
 				this.setActivated(true);
 				return true;
 
@@ -480,7 +479,7 @@ public class FuelRefineryBlock {
 		}
 
 		public boolean fillOutput() {
-			if (this.tryFillOutput(Items.BUCKET, BUCKET_SIZE, FuelBlock.bucket) ) {
+			if (this.tryFillOutput(Items.BUCKET, BUCKET_SIZE, ModInnet.FUEL_BUCKET.get()) ) {
 				return true;
 			} else if (this.tryFillOutput(ModInnet.BARREL.get(), BARREL_SIZE, ModInnet.FUEL_BARREL.get())) {
 				return true;
