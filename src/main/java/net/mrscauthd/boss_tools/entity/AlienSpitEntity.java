@@ -2,7 +2,6 @@ package net.mrscauthd.boss_tools.entity;
 
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.SoundEvent;
-import net.mrscauthd.boss_tools.item.IceshardItem;
 
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -23,6 +22,7 @@ import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.Entity;
+import net.mrscauthd.boss_tools.ModInnet;
 
 import java.util.Random;
 
@@ -55,7 +55,7 @@ public class AlienSpitEntity {
         @Override
         @OnlyIn(Dist.CLIENT)
         public ItemStack getItem() {
-            return new ItemStack(IceshardItem.block, (int) (1));
+            return new ItemStack(ModInnet.ICESHARD.get(), (int) (1));
         }
 
         @Override

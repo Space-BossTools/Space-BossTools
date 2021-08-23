@@ -30,12 +30,12 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.mrscauthd.boss_tools.entity.alien.ModSpawnEggs;
 import net.mrscauthd.boss_tools.block.*;
 import net.mrscauthd.boss_tools.entity.AlienSpitEntity;
+import net.mrscauthd.boss_tools.item.HammerItem;
 import net.mrscauthd.boss_tools.machines.FuelRefineryBlock;
 import net.mrscauthd.boss_tools.world.biomes.BiomeRegisrtyEvents;
 import net.mrscauthd.boss_tools.events.Config;
 import net.mrscauthd.boss_tools.feature.MarsIceSpikeFeature;
 import net.mrscauthd.boss_tools.feature.VenusDeltas;
-import net.mrscauthd.boss_tools.item.BarrelItem;
 import net.mrscauthd.boss_tools.item.CoalTorchItem;
 import net.mrscauthd.boss_tools.item.SteahlItem;
 import net.mrscauthd.boss_tools.entity.alien.AlienEntity;
@@ -113,13 +113,21 @@ public class ModInnet {
 
     //Item
     public static final RegistryObject<Item> TORCHITEM = ITEMS.register("coal_torch",
-            () -> new CoalTorchItem(COALTORCHBLOCK.get(), WALLCOALTORCHBLOCK.get(),new Item.Properties().group(BossToolsItemGroups.tab_basics)));
+    () -> new CoalTorchItem(COALTORCHBLOCK.get(), WALLCOALTORCHBLOCK.get(),new Item.Properties().group(BossToolsItemGroups.tab_basics)));
 
     public static final RegistryObject<ModSpawnEggs> ALIEN_SPAWN_EGG = ITEMS.register("alien_spawn_egg",
-            () -> new ModSpawnEggs(ALIEN, -13382401, -11650781, new Item.Properties().group(BossToolsItemGroups.tab_spawn_eggs)));
+    () -> new ModSpawnEggs(ALIEN, -13382401, -11650781, new Item.Properties().group(BossToolsItemGroups.tab_spawn_eggs)));
 
+    public static final RegistryObject<Item> BARREL = ITEMS.register("barrel", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(8)));
+    public static final RegistryObject<Item> FUELBARREL = ITEMS.register("fuel_barrel", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1)));
+    public static final RegistryObject<Item> CHESE = ITEMS.register("chesse", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_normal).food((new Food.Builder()).hunger(4).saturation(3f).build())));
+    public static final RegistryObject<Item> COMPRESSEDDESH = ITEMS.register("compressed_desh", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_materials)));
+    public static final RegistryObject<Item> COMPRESSEDSILICON = ITEMS.register("compressed_silicon", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_materials)));
+    public static final RegistryObject<Item> COMPRESSEDSTEEL = ITEMS.register("compressed_steel", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_materials)));
+    public static final RegistryObject<Item> DIAMONDENGINE = ITEMS.register("diamond_engine", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_basics)));
+    public static final RegistryObject<Item> HAMMER = ITEMS.register("hammer", () -> new HammerItem(new Item.Properties().group(BossToolsItemGroups.tab_basics).maxDamage(9).setNoRepair()));
+    public static final RegistryObject<Item> ICESHARD = ITEMS.register("ice_shard", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_materials)));
 
-    public static final RegistryObject<Item> BARREL = ITEMS.register("barrel", () -> new BarrelItem());
 
     //Steel Item Tier
     public static IItemTier SteelItemTier = new IItemTier() {
