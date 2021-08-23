@@ -1,7 +1,8 @@
 
 package net.mrscauthd.boss_tools.gui.overlay;
 
-import net.mrscauthd.boss_tools.Armor.SpaceSuit;
+import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.armor.SpaceSuit;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -52,7 +53,7 @@ public class OxygenTankCheckOverlay extends BossToolsModElements.ModElement {
 			RenderSystem.disableAlphaTest();
 			if ((((entity instanceof LivingEntity)
 					? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 2))
-					: ItemStack.EMPTY).getItem() == new ItemStack(SpaceSuit.body, (int) (1)).getItem())) {
+					: ItemStack.EMPTY).getItem() == new ItemStack(ModInnet.SPACE_SUIT.get(), (int) (1)).getItem())) {
 				// set Energy
 				double EnergyNBT = (double) (((entity instanceof LivingEntity)
 						? ((LivingEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 2))

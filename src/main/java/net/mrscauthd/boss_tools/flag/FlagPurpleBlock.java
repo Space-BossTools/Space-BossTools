@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.block;
+package net.mrscauthd.boss_tools.flag;
 
 import javax.annotation.Nullable;
 
@@ -32,12 +32,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class FlagPinkBlock extends Block implements IWaterLoggable {
+public class FlagPurpleBlock extends Block implements IWaterLoggable {
 	public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 	public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-	public FlagPinkBlock(AbstractBlock.Properties builder) {
+	public FlagPurpleBlock(AbstractBlock.Properties builder) {
 		super(builder);
 		this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(HALF, DoubleBlockHalf.LOWER).with(WATERLOGGED, false));
 	}

@@ -1,7 +1,7 @@
 
 package net.mrscauthd.boss_tools.gui;
 
-import net.mrscauthd.boss_tools.block.FuelBlock;
+import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
@@ -117,7 +117,7 @@ public class Rover1GUIGui extends BossToolsModElements.ModElement {
 			this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 8, 63) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
-					return (new ItemStack(FuelBlock.bucket, (int) (1)).getItem() == stack.getItem()
+					return (new ItemStack(ModInnet.FUEL_BUCKET.get(), (int) (1)).getItem() == stack.getItem()
 /* || new ItemStack(FuelBucketBigItem.block, (int) (1)).getItem() == stack.getItem()*/);
 				}
 			}));

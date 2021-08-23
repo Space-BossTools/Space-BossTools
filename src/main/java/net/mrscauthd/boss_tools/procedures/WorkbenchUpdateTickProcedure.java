@@ -9,7 +9,6 @@ import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.item.TankTier3Item;
 import net.mrscauthd.boss_tools.item.RocketfinsItem;
 import net.mrscauthd.boss_tools.item.RocketNoseItem;
-import net.mrscauthd.boss_tools.item.OxygenTankItem;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.registries.ForgeRegistries;
@@ -973,7 +972,7 @@ public class WorkbenchUpdateTickProcedure {
 																						return _retval.get();
 																					}
 																				}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (9)))
-																						.getItem() == new ItemStack(OxygenTankItem.block, (int) (1))
+																						.getItem() == new ItemStack(ModInnet.OXYGEN_TANK.get(), (int) (1))
 																								.getItem())
 																						&& (((new Object() {
 																							public ItemStack getItemStack(BlockPos pos, int sltid) {
@@ -994,7 +993,7 @@ public class WorkbenchUpdateTickProcedure {
 																						}.getItemStack(new BlockPos((int) x, (int) y, (int) z),
 																								(int) (10)))
 																										.getItem() == new ItemStack(
-																												OxygenTankItem.block, (int) (1))
+				ModInnet.OXYGEN_TANK.get(), (int) (1))
 																														.getItem())
 																								&& (((new Object() {
 																									public ItemStack getItemStack(BlockPos pos,
@@ -1493,7 +1492,7 @@ public class WorkbenchUpdateTickProcedure {
 																						return _retval.get();
 																					}
 																				}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (9)))
-																						.getItem() == new ItemStack(OxygenTankItem.block, (int) (1))
+																						.getItem() == new ItemStack(ModInnet.OXYGEN_TANK.get(), (int) (1))
 																								.getItem())
 																						|| (((new Object() {
 																							public ItemStack getItemStack(BlockPos pos, int sltid) {
@@ -1514,7 +1513,7 @@ public class WorkbenchUpdateTickProcedure {
 																						}.getItemStack(new BlockPos((int) x, (int) y, (int) z),
 																								(int) (10)))
 																										.getItem() == new ItemStack(
-																												OxygenTankItem.block, (int) (1))
+				ModInnet.OXYGEN_TANK.get(), (int) (1))
 																														.getItem())
 																								|| (((new Object() {
 																									public ItemStack getItemStack(BlockPos pos,
@@ -1744,7 +1743,7 @@ public class WorkbenchUpdateTickProcedure {
 																						return _retval.get();
 																					}
 																				}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (9)))
-																						.getItem() == new ItemStack(OxygenTankItem.block, (int) (1))
+																						.getItem() == new ItemStack(ModInnet.OXYGEN_TANK.get(), (int) (1))
 																								.getItem())
 																						&& (((new Object() {
 																							public ItemStack getItemStack(BlockPos pos, int sltid) {
@@ -1765,7 +1764,7 @@ public class WorkbenchUpdateTickProcedure {
 																						}.getItemStack(new BlockPos((int) x, (int) y, (int) z),
 																								(int) (10)))
 																										.getItem() == new ItemStack(
-																												OxygenTankItem.block, (int) (1))
+				ModInnet.OXYGEN_TANK.get(), (int) (1))
 																														.getItem())
 																								&& (((new Object() {
 																									public ItemStack getItemStack(BlockPos pos,
@@ -2263,7 +2262,7 @@ public class WorkbenchUpdateTickProcedure {
 																						return _retval.get();
 																					}
 																				}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (9)))
-																						.getItem() == new ItemStack(OxygenTankItem.block, (int) (1))
+																						.getItem() == new ItemStack(ModInnet.OXYGEN_TANK.get(), (int) (1))
 																								.getItem())
 																						|| (((new Object() {
 																							public ItemStack getItemStack(BlockPos pos, int sltid) {
@@ -2284,7 +2283,7 @@ public class WorkbenchUpdateTickProcedure {
 																						}.getItemStack(new BlockPos((int) x, (int) y, (int) z),
 																								(int) (10)))
 																										.getItem() == new ItemStack(
-																												OxygenTankItem.block, (int) (1))
+				ModInnet.OXYGEN_TANK.get(), (int) (1))
 																														.getItem())
 																								|| (((new Object() {
 																									public ItemStack getItemStack(BlockPos pos,

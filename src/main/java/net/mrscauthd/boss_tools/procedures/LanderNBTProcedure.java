@@ -4,7 +4,6 @@ import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
-import net.mrscauthd.boss_tools.block.FuelBlock;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -82,7 +81,7 @@ public class LanderNBTProcedure {
 					});
 					return _retval.get();
 				}
-			}.getItemStack((int) (0), (entity.getRidingEntity()))).getItem() == new ItemStack(FuelBlock.bucket, (int) (1)).getItem())) {
+			}.getItemStack((int) (0), (entity.getRidingEntity()))).getItem() == new ItemStack(ModInnet.FUEL_BUCKET.get(), (int) (1)).getItem())) {
 				entity.getPersistentData().putDouble("Bucket", 2);
 			}
 		}
