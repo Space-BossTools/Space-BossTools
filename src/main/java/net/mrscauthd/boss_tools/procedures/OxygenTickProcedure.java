@@ -1,8 +1,7 @@
 package net.mrscauthd.boss_tools.procedures;
 
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.item.SpaceArmorItem;
-import net.mrscauthd.boss_tools.item.NetheriteSpaceArmorItem;
+import net.mrscauthd.boss_tools.Armor.SpaceSuit;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -70,7 +69,7 @@ public class OxygenTickProcedure {
 				}
 				return _retval.get();
 			}
-		}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getItem() == new ItemStack(SpaceArmorItem.body, (int) (1)).getItem())
+		}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getItem() == new ItemStack(SpaceSuit.body, (int) (1)).getItem())
 				|| ((new Object() {
 					public ItemStack getItemStack(BlockPos pos, int sltid) {
 						AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
@@ -139,7 +138,7 @@ public class OxygenTickProcedure {
 				}
 				return _retval.get();
 			}
-		}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getItem() == new ItemStack(SpaceArmorItem.body, (int) (1)).getItem())
+		}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getItem() == new ItemStack(SpaceSuit.body, (int) (1)).getItem())
 				|| ((new Object() {
 					public ItemStack getItemStack(BlockPos pos, int sltid) {
 						AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
@@ -393,7 +392,7 @@ public class OxygenTickProcedure {
 					}
 					return _retval.get();
 				}
-			}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getItem() == new ItemStack(SpaceArmorItem.body, (int) (1))
+			}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getItem() == new ItemStack(SpaceSuit.body, (int) (1))
 					.getItem())) {
 				if (((new Object() {
 					public int getEnergyStored(IWorld world, BlockPos pos) {

@@ -3,16 +3,13 @@ package net.mrscauthd.boss_tools.procedures;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.TickEvent;
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.item.NetheriteSpaceArmorItem;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Entity;
 
 public class DisableFireProcedure {

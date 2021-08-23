@@ -1,5 +1,5 @@
 
-package net.mrscauthd.boss_tools.item;
+package net.mrscauthd.boss_tools.Armor;
 
 import net.mrscauthd.boss_tools.procedures.SpaceArmorLeggingsTickEventProcedure;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorHelmetTickEventProcedure;
@@ -39,7 +39,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 @BossToolsModElements.ModElement.Tag
-public class SpaceArmorItem extends BossToolsModElements.ModElement {
+public class SpaceSuit extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:oxygen_mask")
 	public static final Item helmet = null;
 	@ObjectHolder("boss_tools:space_suit")
@@ -48,7 +48,7 @@ public class SpaceArmorItem extends BossToolsModElements.ModElement {
 	public static final Item legs = null;
 	@ObjectHolder("boss_tools:space_boots")
 	public static final Item boots = null;
-	public SpaceArmorItem(BossToolsModElements instance) {
+	public SpaceSuit(BossToolsModElements instance) {
 		super(instance, 12);
 	}
 

@@ -26,7 +26,7 @@ import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock;
 import net.mrscauthd.boss_tools.machines.OxygenMachineBlock;
 import net.mrscauthd.boss_tools.machines.CompressorBlock;
 import net.mrscauthd.boss_tools.gui.*;
-import net.mrscauthd.boss_tools.item.SpaceArmorItem;
+import net.mrscauthd.boss_tools.Armor.SpaceSuit;
 import net.mrscauthd.boss_tools.item.OxygenTankItem;
 import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock;
 import net.mrscauthd.boss_tools.item.SteahlItem;
@@ -39,7 +39,6 @@ import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 import net.mrscauthd.boss_tools.item.SiliconIngotItem;
 import net.mrscauthd.boss_tools.item.TankTier3Item;
 import net.mrscauthd.boss_tools.item.RocketNoseItem;
-import net.mrscauthd.boss_tools.item.NetheriteSpaceArmorItem;
 import net.mrscauthd.boss_tools.item.RoverItemItem;
 
 
@@ -138,7 +137,7 @@ public class JeiPlugin implements IModPlugin {
         List<OxygenMachineJeiCategory.OxygenMachineRecipeWrapper> recipes = new ArrayList<>();
         ArrayList<ItemStack> inputs = new ArrayList<>();
         ArrayList<ItemStack> outputs = new ArrayList<>();
-        inputs.add(new ItemStack(SpaceArmorItem.body));
+        inputs.add(new ItemStack(SpaceSuit.body));
         inputs.add(new ItemStack(Items.OAK_LEAVES));
         inputs.get(0).getTag().putDouble("Energy", 48000);
         // ...

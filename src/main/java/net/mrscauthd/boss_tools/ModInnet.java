@@ -31,7 +31,7 @@ import net.mrscauthd.boss_tools.entity.alien.ModSpawnEggs;
 import net.mrscauthd.boss_tools.block.*;
 import net.mrscauthd.boss_tools.entity.AlienSpitEntity;
 import net.mrscauthd.boss_tools.item.HammerItem;
-import net.mrscauthd.boss_tools.item.NetheriteSpaceArmorItem;
+import net.mrscauthd.boss_tools.Armor.NetheriteSpaceSuit;
 import net.mrscauthd.boss_tools.machines.FuelRefineryBlock;
 import net.mrscauthd.boss_tools.world.biomes.BiomeRegisrtyEvents;
 import net.mrscauthd.boss_tools.events.Config;
@@ -135,10 +135,10 @@ public class ModInnet {
     public static final RegistryObject<Item> GOLDEN_TANK = ITEMS.register("golden_tank", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_basics)));
 
     //Space Suit Items
-    public static final RegistryObject<Item> NETHERITE_OXYGEN_MASK = ITEMS.register("netherite_oxygen_mask", () -> NetheriteSpaceArmorItem.NETHERITE_SPACE_SUIT);
-    public static final RegistryObject<Item> NETHERITE_SPACE_SUIT = ITEMS.register("netherite_space_suit", () -> NetheriteSpaceArmorItem.NETHERITE_OXYGEN_MASK);
-    public static final RegistryObject<Item> NETHERITE_SPACE_PANTS = ITEMS.register("netherite_space_pants", () -> NetheriteSpaceArmorItem.NETHERITE_SPACE_PANTS);
-    public static final RegistryObject<Item> NETHERITE_SPACE_BOOTS = ITEMS.register("netherite_space_boots", () -> NetheriteSpaceArmorItem.NETHERITE_SPACE_BOOTS);
+    public static final RegistryObject<Item> NETHERITE_OXYGEN_MASK = ITEMS.register("netherite_oxygen_mask", () -> NetheriteSpaceSuit.NETHERITE_SPACE_SUIT);
+    public static final RegistryObject<Item> NETHERITE_SPACE_SUIT = ITEMS.register("netherite_space_suit", () -> NetheriteSpaceSuit.NETHERITE_OXYGEN_MASK);
+    public static final RegistryObject<Item> NETHERITE_SPACE_PANTS = ITEMS.register("netherite_space_pants", () -> NetheriteSpaceSuit.NETHERITE_SPACE_PANTS);
+    public static final RegistryObject<Item> NETHERITE_SPACE_BOOTS = ITEMS.register("netherite_space_boots", () -> NetheriteSpaceSuit.NETHERITE_SPACE_BOOTS);
 
     //Steel Item Tier
     public static IItemTier SteelItemTier = new IItemTier() {

@@ -1,5 +1,5 @@
 
-package net.mrscauthd.boss_tools.item;
+package net.mrscauthd.boss_tools.Armor;
 
 import net.mrscauthd.boss_tools.procedures.SpaceArmorBodyTickEventProcedure;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
@@ -33,7 +33,7 @@ import java.util.HashMap;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
-public class NetheriteSpaceArmorItem {
+public class NetheriteSpaceSuit {
 	//Armor Material
 	public static IArmorMaterial armormaterial = new IArmorMaterial() {
 		@Override
@@ -249,7 +249,7 @@ public class NetheriteSpaceArmorItem {
 		}
 	}
 
-	//SPACE SUIT MODEL PART 1
+	//SPACE SUIT MODEL PART 2
 	public static class Netherite_Space_Suit_Part_2 extends EntityModel<Entity> {
 		private final ModelRenderer RightLeg;
 		private final ModelRenderer LeftLeg;
