@@ -117,7 +117,7 @@ public class RocketTier3GuiFuelGui extends BossToolsModElements.ModElement {
 			this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 46, 22) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
-					return (new ItemStack(ModInnet.FUELBARREL.get(), (int) (1)).getItem() == stack.getItem());
+					return (new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1)).getItem() == stack.getItem());
 				}
 			}));
 			int si;

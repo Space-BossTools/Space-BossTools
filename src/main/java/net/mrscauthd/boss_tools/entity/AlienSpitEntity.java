@@ -55,7 +55,7 @@ public class AlienSpitEntity {
         @Override
         @OnlyIn(Dist.CLIENT)
         public ItemStack getItem() {
-            return new ItemStack(ModInnet.ICESHARD.get(), (int) (1));
+            return new ItemStack(ModInnet.ICE_SHARD.get(), (int) (1));
         }
 
         @Override

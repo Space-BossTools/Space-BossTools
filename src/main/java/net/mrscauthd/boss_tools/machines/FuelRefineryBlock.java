@@ -482,7 +482,7 @@ public class FuelRefineryBlock {
 		public boolean fillOutput() {
 			if (this.tryFillOutput(Items.BUCKET, BUCKET_SIZE, FuelBlock.bucket) ) {
 				return true;
-			} else if (this.tryFillOutput(ModInnet.BARREL.get(), BARREL_SIZE, ModInnet.FUELBARREL.get())) {
+			} else if (this.tryFillOutput(ModInnet.BARREL.get(), BARREL_SIZE, ModInnet.FUEL_BARREL.get())) {
 				return true;
 			}
 

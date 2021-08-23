@@ -151,7 +151,7 @@ public class LanderSitProcedure {
 				if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
 					if (((entity.getPersistentData().getDouble("Bucket")) == 2)) {
 						{
-							final ItemStack _setstack = new ItemStack(ModInnet.FUELBARREL.get(), (int) (1));
+							final ItemStack _setstack = new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1));
 							final int _sltid = (int) (1);
 							_setstack.setCount((int) 1);
 							(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
@@ -207,7 +207,7 @@ public class LanderSitProcedure {
 				if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
 					if (((entity.getPersistentData().getDouble("Bucket")) == 2)) {
 						{
-							final ItemStack _setstack = new ItemStack(ModInnet.FUELBARREL.get(), (int) (1));
+							final ItemStack _setstack = new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1));
 							final int _sltid = (int) (1);
 							_setstack.setCount((int) 1);
 							(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {

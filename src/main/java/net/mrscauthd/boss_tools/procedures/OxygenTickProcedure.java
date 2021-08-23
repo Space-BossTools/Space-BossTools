@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.procedures;
 
+import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.item.SpaceArmorItem;
 import net.mrscauthd.boss_tools.item.NetheriteSpaceArmorItem;
 import net.mrscauthd.boss_tools.BossToolsMod;
@@ -82,7 +83,7 @@ public class OxygenTickProcedure {
 						return _retval.get();
 					}
 				}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0)))
-						.getItem() == new ItemStack(NetheriteSpaceArmorItem.body, (int) (1)).getItem()))
+						.getItem() == new ItemStack(ModInnet.NETHERITE_SPACE_SUIT.get(), (int) (1)).getItem()))
 				&& ((((new Object() {
 					public ItemStack getItemStack(BlockPos pos, int sltid) {
 						AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
@@ -151,7 +152,7 @@ public class OxygenTickProcedure {
 						return _retval.get();
 					}
 				}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0)))
-						.getItem() == new ItemStack(NetheriteSpaceArmorItem.body, (int) (1)).getItem()))
+						.getItem() == new ItemStack(ModInnet.NETHERITE_SPACE_SUIT.get(), (int) (1)).getItem()))
 				&& ((new Object() {
 					public int getAmount(IWorld world, BlockPos pos, int sltid) {
 						AtomicInteger _retval = new AtomicInteger(0);
@@ -441,7 +442,7 @@ public class OxygenTickProcedure {
 					}
 					return _retval.get();
 				}
-			}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getItem() == new ItemStack(NetheriteSpaceArmorItem.body, (int) (1))
+			}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getItem() == new ItemStack(ModInnet.NETHERITE_SPACE_SUIT.get(), (int) (1))
 					.getItem())) {
 				if (((new Object() {
 					public int getEnergyStored(IWorld world, BlockPos pos) {

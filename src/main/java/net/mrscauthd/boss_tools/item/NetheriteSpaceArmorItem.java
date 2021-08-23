@@ -1,14 +1,9 @@
 
 package net.mrscauthd.boss_tools.item;
 
-import net.mrscauthd.boss_tools.procedures.SpaceArmorLeggingsTickEventProcedure;
-import net.mrscauthd.boss_tools.procedures.SpaceArmorHelmetTickEventProcedure;
-import net.mrscauthd.boss_tools.procedures.SpaceArmorBootsTickEventProcedure;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorBodyTickEventProcedure;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
-import net.mrscauthd.boss_tools.BossToolsModElements;
 
-import net.minecraftforge.registries.ObjectHolder;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
@@ -38,206 +33,173 @@ import java.util.HashMap;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
-@BossToolsModElements.ModElement.Tag
-public class NetheriteSpaceArmorItem extends BossToolsModElements.ModElement {
-	@ObjectHolder("boss_tools:netherite_oxygen_mask")
-	public static final Item helmet = null;
-	@ObjectHolder("boss_tools:netherite_space_suit")
-	public static final Item body = null;
-	@ObjectHolder("boss_tools:netherite_space_pants")
-	public static final Item legs = null;
-	@ObjectHolder("boss_tools:netherite_space_boots")
-	public static final Item boots = null;
-	public NetheriteSpaceArmorItem(BossToolsModElements instance) {
-		super(instance, 16);
-	}
+public class NetheriteSpaceArmorItem {
+	//Armor Material
+	public static IArmorMaterial armormaterial = new IArmorMaterial() {
+		@Override
+		public int getDurability(EquipmentSlotType slot) {
+			return new int[]{48, 55, 60, 40}[slot.getIndex()] * 10;
+		}
 
-	@Override
-	public void initElements() {
-		IArmorMaterial armormaterial = new IArmorMaterial() {
-			@Override
-			public int getDurability(EquipmentSlotType slot) {
-				return new int[]{48, 55, 60, 40}[slot.getIndex()] * 10;
-			}
+		@Override
+		public int getDamageReductionAmount(EquipmentSlotType slot) {
+			return new int[]{3, 6, 8, 3}[slot.getIndex()];
+		}
 
-			@Override
-			public int getDamageReductionAmount(EquipmentSlotType slot) {
-				return new int[]{3, 6, 8, 3}[slot.getIndex()];
-			}
+		@Override
+		public int getEnchantability() {
+			return 0;
+		}
 
-			@Override
-			public int getEnchantability() {
-				return 0;
-			}
+		@Override
+		public net.minecraft.util.SoundEvent getSoundEvent() {
+			return (net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("item.armor.equip_leather"));
+		}
 
-			@Override
-			public net.minecraft.util.SoundEvent getSoundEvent() {
-				return (net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("item.armor.equip_leather"));
-			}
+		@Override
+		public Ingredient getRepairMaterial() {
+			return Ingredient.EMPTY;
+		}
 
-			@Override
-			public Ingredient getRepairMaterial() {
-				return Ingredient.EMPTY;
-			}
+		@OnlyIn(Dist.CLIENT)
+		@Override
+		public String getName() {
+			return "netherite_space_suit";
+		}
 
-			@OnlyIn(Dist.CLIENT)
-			@Override
-			public String getName() {
-				return "netherite_space_armor";
-			}
+		@Override
+		public float getToughness() {
+			return 0f;
+		}
 
-			@Override
-			public float getToughness() {
-				return 0f;
-			}
+		@Override
+		public float getKnockbackResistance() {
+			return 0f;
+		}
+	};
 
-			@Override
-			public float getKnockbackResistance() {
-				return 0f;
-			}
-		};
-		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.HEAD, new Item.Properties().group(BossToolsItemGroups.tab_normal).isImmuneToFire()) {
-			@Override
-			@OnlyIn(Dist.CLIENT)
-			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
-				BipedModel armorModel = new BipedModel(1);
-				armorModel.bipedHead = new Modelspacesuit().kopf;
-				armorModel.isSneak = living.isSneaking();
-				armorModel.isSitting = defaultModel.isSitting;
-				armorModel.isChild = living.isChild();
-				return armorModel;
-			}
+	//NETHERITE_OXYGEN_MASK
+	public static ArmorItem NETHERITE_OXYGEN_MASK = new ArmorItem(armormaterial, EquipmentSlotType.HEAD, new Item.Properties().group(BossToolsItemGroups.tab_normal).isImmuneToFire()) {
+		@Override
+		@OnlyIn(Dist.CLIENT)
+		public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
+			BipedModel armorModel = new BipedModel(1);
+			armorModel.bipedHead = new Netherite_Space_Suit_Part_1().kopf;
+			armorModel.isSneak = living.isSneaking();
+			armorModel.isSitting = defaultModel.isSitting;
+			armorModel.isChild = living.isChild();
+			return armorModel;
+		}
 
-			@Override
-			public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-				return "boss_tools:textures/netherite_spacesuit_layer_1.png";
-			}
+		@Override
+		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
+			return "boss_tools:textures/netherite_spacesuit_layer_1.png";
+		}
 
-			@Override
-			public void onArmorTick(ItemStack itemstack, World world, PlayerEntity entity) {
-				super.onArmorTick(itemstack, world, entity);
-				double x = entity.getPosX();
-				double y = entity.getPosY();
-				double z = entity.getPosZ();
-				{
-					Map<String, Object> $_dependencies = new HashMap<>();
-					$_dependencies.put("entity", entity);
-					SpaceArmorHelmetTickEventProcedure.executeProcedure($_dependencies);
-				}
-			}
-		}.setRegistryName("netherite_oxygen_mask"));
-		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.CHEST, new Item.Properties().group(BossToolsItemGroups.tab_normal).isImmuneToFire()) {
-			@Override
-			@OnlyIn(Dist.CLIENT)
-			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
-				BipedModel armorModel = new BipedModel(1);
-				armorModel.bipedBody = new Modelspacesuit().Body;
-				armorModel.bipedLeftArm = new Modelspacesuit().arml;
-				armorModel.bipedRightArm = new Modelspacesuit().armr;
-				armorModel.isSneak = living.isSneaking();
-				armorModel.isSitting = defaultModel.isSitting;
-				armorModel.isChild = living.isChild();
-				return armorModel;
-			}
+		@Override
+		public void onArmorTick(ItemStack itemstack, World world, PlayerEntity entity) {
+			super.onArmorTick(itemstack, world, entity);
+			entity.getPersistentData().putBoolean("SpaceSuitH", (true));
+		}
+	};
 
-			@Override
-			public void addInformation(ItemStack itemstack, World world, List<ITextComponent> list, ITooltipFlag flag) {
-				super.addInformation(itemstack, world, list, flag);
-				list.add(new StringTextComponent(
-						"\u00A79Oxygen:\u00A76 " + String.valueOf(itemstack.getOrCreateTag().getDouble("Energy")) + "\u00A78 | \u00A7c48000.0"));
-			}
+	//NETHERITE_SPACE_SUIT
+	public static ArmorItem NETHERITE_SPACE_SUIT = new ArmorItem(armormaterial, EquipmentSlotType.CHEST, new Item.Properties().group(BossToolsItemGroups.tab_normal).isImmuneToFire()) {
+		@Override
+		@OnlyIn(Dist.CLIENT)
+		public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
+			BipedModel armorModel = new BipedModel(1);
+			armorModel.bipedBody = new Netherite_Space_Suit_Part_1().Body;
+			armorModel.bipedLeftArm = new Netherite_Space_Suit_Part_1().arml;
+			armorModel.bipedRightArm = new Netherite_Space_Suit_Part_1().armr;
+			armorModel.isSneak = living.isSneaking();
+			armorModel.isSitting = defaultModel.isSitting;
+			armorModel.isChild = living.isChild();
+			return armorModel;
+		}
 
-			@Override
-			public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-				return "boss_tools:textures/models/armor/netherite_spacesuit__layer_" + (slot == EquipmentSlotType.LEGS ? "2" : "1") + ".png";
-			}
+		@Override
+		public void addInformation(ItemStack itemstack, World world, List<ITextComponent> list, ITooltipFlag flag) {
+			super.addInformation(itemstack, world, list, flag);
+			list.add(new StringTextComponent("\u00A79Oxygen:\u00A76 " + itemstack.getOrCreateTag().getDouble("Energy") + "\u00A78 | \u00A7c48000.0"));
+		}
 
-			@Override
-			public void onArmorTick(ItemStack itemstack, World world, PlayerEntity entity) {
-				double x = entity.getPosX();
-				double y = entity.getPosY();
-				double z = entity.getPosZ();
-				{
-					Map<String, Object> $_dependencies = new HashMap<>();
-					$_dependencies.put("entity", entity);
-					$_dependencies.put("itemstack", itemstack);
-					$_dependencies.put("world", world);
-					SpaceArmorBodyTickEventProcedure.executeProcedure($_dependencies);
-				}
-			}
-		}.setRegistryName("netherite_space_suit"));
-		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.LEGS, new Item.Properties().group(BossToolsItemGroups.tab_normal).isImmuneToFire()) {
-			@Override
-			@OnlyIn(Dist.CLIENT)
-			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
-				BipedModel armorModel = new BipedModel(1);
-				armorModel.bipedLeftLeg = new Modelarmor_leggings().LeftLeg;
-				armorModel.bipedRightLeg = new Modelarmor_leggings().RightLeg;
-				armorModel.isSneak = living.isSneaking();
-				armorModel.isSitting = defaultModel.isSitting;
-				armorModel.isChild = living.isChild();
-				return armorModel;
-			}
+		@Override
+		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
+			return "boss_tools:textures/models/armor/netherite_spacesuit__layer_" + (slot == EquipmentSlotType.LEGS ? "2" : "1") + ".png";
+		}
 
-			@Override
-			public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-				return "boss_tools:textures/netherite_spacesuit_layer_2.png";
+		@Override
+		public void onArmorTick(ItemStack itemstack, World world, PlayerEntity entity) {
+			{
+				Map<String, Object> $_dependencies = new HashMap<>();
+				$_dependencies.put("entity", entity);
+				$_dependencies.put("itemstack", itemstack);
+				$_dependencies.put("world", world);
+				SpaceArmorBodyTickEventProcedure.executeProcedure($_dependencies);
 			}
+		}
+	};
 
-			@Override
-			public void onArmorTick(ItemStack itemstack, World world, PlayerEntity entity) {
-				double x = entity.getPosX();
-				double y = entity.getPosY();
-				double z = entity.getPosZ();
-				{
-					Map<String, Object> $_dependencies = new HashMap<>();
-					$_dependencies.put("entity", entity);
-					SpaceArmorLeggingsTickEventProcedure.executeProcedure($_dependencies);
-				}
-			}
-		}.setRegistryName("netherite_space_pants"));
-		elements.items.add(() -> new ArmorItem(armormaterial, EquipmentSlotType.FEET, new Item.Properties().group(BossToolsItemGroups.tab_normal).isImmuneToFire()) {
-			@Override
-			@OnlyIn(Dist.CLIENT)
-			public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
-				BipedModel armorModel = new BipedModel(1);
-				armorModel.bipedLeftLeg = new Modelspacesuit().Left_Foot;
-				armorModel.bipedRightLeg = new Modelspacesuit().Right_Foot;
-				armorModel.isSneak = living.isSneaking();
-				armorModel.isSitting = defaultModel.isSitting;
-				armorModel.isChild = living.isChild();
-				return armorModel;
-			}
+	//NETHERITE_SPACE_PANTS
+	public static ArmorItem NETHERITE_SPACE_PANTS = new ArmorItem(armormaterial, EquipmentSlotType.LEGS, new Item.Properties().group(BossToolsItemGroups.tab_normal).isImmuneToFire()) {
+		@Override
+		@OnlyIn(Dist.CLIENT)
+		public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
+			BipedModel armorModel = new BipedModel(1);
+			armorModel.bipedLeftLeg = new Netherite_Space_Suit_Part_2().LeftLeg;
+			armorModel.bipedRightLeg = new Netherite_Space_Suit_Part_2().RightLeg;
+			armorModel.isSneak = living.isSneaking();
+			armorModel.isSitting = defaultModel.isSitting;
+			armorModel.isChild = living.isChild();
+			return armorModel;
+		}
 
-			@Override
-			public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-				return "boss_tools:textures/models/armor/netherite_spacesuit__layer_" + (slot == EquipmentSlotType.LEGS ? "2" : "1") + ".png";
-			}
+		@Override
+		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
+			return "boss_tools:textures/netherite_spacesuit_layer_2.png";
+		}
 
-			@Override
-			public void onArmorTick(ItemStack itemstack, World world, PlayerEntity entity) {
-				double x = entity.getPosX();
-				double y = entity.getPosY();
-				double z = entity.getPosZ();
-				{
-					Map<String, Object> $_dependencies = new HashMap<>();
-					$_dependencies.put("entity", entity);
-					SpaceArmorBootsTickEventProcedure.executeProcedure($_dependencies);
-				}
-			}
-		}.setRegistryName("netherite_space_boots"));
-	}
-	// Made with Blockbench 3.8.4
-	// Exported for Minecraft version 1.15 - 1.16
-	// Paste this class into your mod and generate all required imports
-	public static class Modelspacesuit extends EntityModel<Entity> {
+		@Override
+		public void onArmorTick(ItemStack itemstack, World world, PlayerEntity entity) {
+			entity.getPersistentData().putBoolean("SpaceSuitL", (true));
+		}
+	};
+
+	//NETHERITE_SPACE_BOOTS
+	public static ArmorItem NETHERITE_SPACE_BOOTS = new ArmorItem(armormaterial, EquipmentSlotType.FEET, new Item.Properties().group(BossToolsItemGroups.tab_normal).isImmuneToFire()) {
+		@Override
+		@OnlyIn(Dist.CLIENT)
+		public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
+			BipedModel armorModel = new BipedModel(1);
+			armorModel.bipedLeftLeg = new Netherite_Space_Suit_Part_1().Left_Foot;
+			armorModel.bipedRightLeg = new Netherite_Space_Suit_Part_1().Right_Foot;
+			armorModel.isSneak = living.isSneaking();
+			armorModel.isSitting = defaultModel.isSitting;
+			armorModel.isChild = living.isChild();
+			return armorModel;
+		}
+
+		@Override
+		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
+			return "boss_tools:textures/models/armor/netherite_spacesuit__layer_" + (slot == EquipmentSlotType.LEGS ? "2" : "1") + ".png";
+		}
+
+		@Override
+		public void onArmorTick(ItemStack itemstack, World world, PlayerEntity entity) {
+			entity.getPersistentData().putBoolean("SpaceSuitB", (true));
+		}
+	};
+
+	//SPACE SUIT MODEL PART 1
+	public static class Netherite_Space_Suit_Part_1 extends EntityModel<Entity> {
 		private final ModelRenderer kopf;
 		private final ModelRenderer Body;
 		private final ModelRenderer armr;
 		private final ModelRenderer arml;
 		private final ModelRenderer Left_Foot;
 		private final ModelRenderer Right_Foot;
-		public Modelspacesuit() {
+		public Netherite_Space_Suit_Part_1() {
 			textureWidth = 64;
 			textureHeight = 64;
 			kopf = new ModelRenderer(this);
@@ -268,8 +230,7 @@ public class NetheriteSpaceArmorItem extends BossToolsModElements.ModElement {
 		}
 
 		@Override
-		public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue,
-						   float alpha) {
+		public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 			kopf.render(matrixStack, buffer, packedLight, packedOverlay);
 			Body.render(matrixStack, buffer, packedLight, packedOverlay);
 			armr.render(matrixStack, buffer, packedLight, packedOverlay);
@@ -288,13 +249,11 @@ public class NetheriteSpaceArmorItem extends BossToolsModElements.ModElement {
 		}
 	}
 
-	// Made with Blockbench 3.8.4
-	// Exported for Minecraft version 1.15 - 1.16
-	// Paste this class into your mod and generate all required imports
-	public static class Modelarmor_leggings extends EntityModel<Entity> {
+	//SPACE SUIT MODEL PART 1
+	public static class Netherite_Space_Suit_Part_2 extends EntityModel<Entity> {
 		private final ModelRenderer RightLeg;
 		private final ModelRenderer LeftLeg;
-		public Modelarmor_leggings() {
+		public Netherite_Space_Suit_Part_2() {
 			textureWidth = 64;
 			textureHeight = 32;
 			RightLeg = new ModelRenderer(this);
@@ -306,8 +265,7 @@ public class NetheriteSpaceArmorItem extends BossToolsModElements.ModElement {
 		}
 
 		@Override
-		public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue,
-						   float alpha) {
+		public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 			RightLeg.render(matrixStack, buffer, packedLight, packedOverlay);
 			LeftLeg.render(matrixStack, buffer, packedLight, packedOverlay);
 		}

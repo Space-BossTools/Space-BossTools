@@ -117,7 +117,7 @@ public class LanderNBTProcedure {
 					});
 					return _retval.get();
 				}
-			}.getItemStack((int) (0), (entity.getRidingEntity()))).getItem() == new ItemStack(ModInnet.FUELBARREL.get(), (int) (1)).getItem())) {
+			}.getItemStack((int) (0), (entity.getRidingEntity()))).getItem() == new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1)).getItem())) {
 				entity.getPersistentData().putDouble("Bucket", 2);
 			}
 		}
@@ -152,7 +152,7 @@ public class LanderNBTProcedure {
 					});
 					return _retval.get();
 				}
-			}.getItemStack((int) (0), (entity.getRidingEntity()))).getItem() == new ItemStack(ModInnet.FUELBARREL.get(), (int) (1)).getItem())) {
+			}.getItemStack((int) (0), (entity.getRidingEntity()))).getItem() == new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1)).getItem())) {
 				entity.getPersistentData().putDouble("Bucket", 2);
 			}
 		}

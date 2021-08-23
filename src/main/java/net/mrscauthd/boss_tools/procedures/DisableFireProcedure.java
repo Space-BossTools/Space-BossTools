@@ -2,6 +2,7 @@ package net.mrscauthd.boss_tools.procedures;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.TickEvent;
+import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.item.NetheriteSpaceArmorItem;
 
 import net.minecraftforge.fml.common.Mod;
@@ -23,20 +24,20 @@ public class DisableFireProcedure {
 				Entity entity = event.getEntity();
 				if (((((entity instanceof PlayerEntity)
 						? ((PlayerEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 3))
-						: ItemStack.EMPTY).getItem() == new ItemStack(NetheriteSpaceArmorItem.helmet, (int) (1)).getItem())
+						: ItemStack.EMPTY).getItem() == new ItemStack(ModInnet.NETHERITE_OXYGEN_MASK.get(), (int) (1)).getItem())
 						&& ((((entity instanceof PlayerEntity)
 						? ((PlayerEntity) entity)
 						.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 2))
-						: ItemStack.EMPTY).getItem() == new ItemStack(NetheriteSpaceArmorItem.body, (int) (1)).getItem())
+						: ItemStack.EMPTY).getItem() == new ItemStack(ModInnet.NETHERITE_SPACE_SUIT.get(), (int) (1)).getItem())
 						&& ((((entity instanceof PlayerEntity)
 						? ((PlayerEntity) entity)
 						.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 1))
-						: ItemStack.EMPTY).getItem() == new ItemStack(NetheriteSpaceArmorItem.legs, (int) (1)).getItem())
+						: ItemStack.EMPTY).getItem() == new ItemStack(ModInnet.NETHERITE_SPACE_PANTS.get(), (int) (1)).getItem())
 						&& (((entity instanceof PlayerEntity)
 						? ((PlayerEntity) entity).getItemStackFromSlot(
 						EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 0))
 						: ItemStack.EMPTY)
-						.getItem() == new ItemStack(NetheriteSpaceArmorItem.boots, (int) (1)).getItem()))))) {
+						.getItem() == new ItemStack(ModInnet.NETHERITE_SPACE_BOOTS.get(), (int) (1)).getItem()))))) {
 					if (event.getSource().isFireDamage()) {
 						entity.forceFireTicks(0);
 						event.setCanceled(true);
@@ -51,20 +52,20 @@ public class DisableFireProcedure {
 				Entity entity = event.player;
 				if (((((entity instanceof PlayerEntity)
 						? ((PlayerEntity) entity).getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 3))
-						: ItemStack.EMPTY).getItem() == new ItemStack(NetheriteSpaceArmorItem.helmet, (int) (1)).getItem())
+						: ItemStack.EMPTY).getItem() == new ItemStack(ModInnet.NETHERITE_OXYGEN_MASK.get(), (int) (1)).getItem())
 						&& ((((entity instanceof PlayerEntity)
 						? ((PlayerEntity) entity)
 						.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 2))
-						: ItemStack.EMPTY).getItem() == new ItemStack(NetheriteSpaceArmorItem.body, (int) (1)).getItem())
+						: ItemStack.EMPTY).getItem() == new ItemStack(ModInnet.NETHERITE_SPACE_SUIT.get(), (int) (1)).getItem())
 						&& ((((entity instanceof PlayerEntity)
 						? ((PlayerEntity) entity)
 						.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 1))
-						: ItemStack.EMPTY).getItem() == new ItemStack(NetheriteSpaceArmorItem.legs, (int) (1)).getItem())
+						: ItemStack.EMPTY).getItem() == new ItemStack(ModInnet.NETHERITE_SPACE_PANTS.get(), (int) (1)).getItem())
 						&& (((entity instanceof PlayerEntity)
 						? ((PlayerEntity) entity).getItemStackFromSlot(
 						EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, (int) 0))
 						: ItemStack.EMPTY)
-						.getItem() == new ItemStack(NetheriteSpaceArmorItem.boots, (int) (1)).getItem()))))) {
+						.getItem() == new ItemStack(ModInnet.NETHERITE_SPACE_BOOTS.get(), (int) (1)).getItem()))))) {
 					event.player.forceFireTicks(0);
 				}
 			}

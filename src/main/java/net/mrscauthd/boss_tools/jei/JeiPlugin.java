@@ -27,12 +27,9 @@ import net.mrscauthd.boss_tools.machines.OxygenMachineBlock;
 import net.mrscauthd.boss_tools.machines.CompressorBlock;
 import net.mrscauthd.boss_tools.gui.*;
 import net.mrscauthd.boss_tools.item.SpaceArmorItem;
-import net.mrscauthd.boss_tools.item.MotorItem;
 import net.mrscauthd.boss_tools.item.OxygenTankItem;
-import net.mrscauthd.boss_tools.item.MotorTier2Item;
 import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock;
 import net.mrscauthd.boss_tools.item.SteahlItem;
-import net.mrscauthd.boss_tools.item.MoonCopperingotItem;
 import net.mrscauthd.boss_tools.item.TurbineItem;
 import net.mrscauthd.boss_tools.item.TurbineTier2Item;
 import net.mrscauthd.boss_tools.item.RocketfinsItem;
@@ -153,7 +150,7 @@ public class JeiPlugin implements IModPlugin {
         List<OxygenMachineJeiCategory.OxygenMachineRecipeWrapper> recipes = new ArrayList<>();
         ArrayList<ItemStack> inputs = new ArrayList<>();
         ArrayList<ItemStack> outputs = new ArrayList<>();
-        inputs.add(new ItemStack(NetheriteSpaceArmorItem.body));
+        inputs.add(new ItemStack(ModInnet.NETHERITE_SPACE_SUIT.get()));
         inputs.add(new ItemStack(Items.OAK_LEAVES));
         inputs.get(0).getTag().putDouble("Energy", 48000);
         // ...
@@ -204,14 +201,14 @@ public class JeiPlugin implements IModPlugin {
         ArrayList<ItemStack> inputs = new ArrayList<>();
         ArrayList<ItemStack> outputs = new ArrayList<>();
         inputs.add(new ItemStack(RocketNoseItem.block)); //RocketNoseitem
-        inputs.add(new ItemStack(ModInnet.COMPRESSEDSTEEL.get())); //Compressesteelitem
-        inputs.add(new ItemStack(ModInnet.COMPRESSEDSTEEL.get())); //Compressesteelitem
-        inputs.add(new ItemStack(ModInnet.COMPRESSEDSTEEL.get())); //Compressesteelitem
-        inputs.add(new ItemStack(ModInnet.COMPRESSEDSTEEL.get())); //Compressesteelitem
-        inputs.add(new ItemStack(ModInnet.COMPRESSEDSTEEL.get())); //Compressesteelitem
-        inputs.add(new ItemStack(ModInnet.COMPRESSEDSTEEL.get())); //Compressesteelitem
-        inputs.add(new ItemStack(MotorItem.block)); //MotorItem
-        inputs.add(new ItemStack(MotorItem.block)); //MotorItem
+        inputs.add(new ItemStack(ModInnet.COMPRESSED_STEEL.get())); //Compressesteelitem
+        inputs.add(new ItemStack(ModInnet.COMPRESSED_STEEL.get())); //Compressesteelitem
+        inputs.add(new ItemStack(ModInnet.COMPRESSED_STEEL.get())); //Compressesteelitem
+        inputs.add(new ItemStack(ModInnet.COMPRESSED_STEEL.get())); //Compressesteelitem
+        inputs.add(new ItemStack(ModInnet.COMPRESSED_STEEL.get())); //Compressesteelitem
+        inputs.add(new ItemStack(ModInnet.COMPRESSED_STEEL.get())); //Compressesteelitem
+        inputs.add(new ItemStack(ModInnet.IRON_TANK.get())); //MotorItem
+        inputs.add(new ItemStack(ModInnet.IRON_TANK.get())); //MotorItem
         inputs.add(new ItemStack(RocketfinsItem.block)); //Rocketfinsitems
         inputs.add(new ItemStack(RocketfinsItem.block)); //Rocketfinsitems
         inputs.add(new ItemStack(RocketfinsItem.block)); //Rocketfinsitems
@@ -228,14 +225,14 @@ public class JeiPlugin implements IModPlugin {
         ArrayList<ItemStack> inputs = new ArrayList<>();
         ArrayList<ItemStack> outputs = new ArrayList<>();
         inputs.add(new ItemStack(RocketNoseItem.block)); //RocketNoseitem
-        inputs.add(new ItemStack(ModInnet.COMPRESSEDDESH.get())); //CompressedTinItem
-        inputs.add(new ItemStack(ModInnet.COMPRESSEDDESH.get())); //CompressedTinItem
-        inputs.add(new ItemStack(ModInnet.COMPRESSEDDESH.get())); //CompressedTinItem
-        inputs.add(new ItemStack(ModInnet.COMPRESSEDDESH.get())); //CompressedTinItem
-        inputs.add(new ItemStack(ModInnet.COMPRESSEDDESH.get())); //CompressedTinItem
-        inputs.add(new ItemStack(ModInnet.COMPRESSEDDESH.get())); //CompressedTinItem
-        inputs.add(new ItemStack(MotorTier2Item.block)); //MotorTier2Item
-        inputs.add(new ItemStack(MotorTier2Item.block)); //MotorTier2Item
+        inputs.add(new ItemStack(ModInnet.COMPRESSED_DESH.get())); //CompressedTinItem
+        inputs.add(new ItemStack(ModInnet.COMPRESSED_DESH.get())); //CompressedTinItem
+        inputs.add(new ItemStack(ModInnet.COMPRESSED_DESH.get())); //CompressedTinItem
+        inputs.add(new ItemStack(ModInnet.COMPRESSED_DESH.get())); //CompressedTinItem
+        inputs.add(new ItemStack(ModInnet.COMPRESSED_DESH.get())); //CompressedTinItem
+        inputs.add(new ItemStack(ModInnet.COMPRESSED_DESH.get())); //CompressedTinItem
+        inputs.add(new ItemStack(ModInnet.GOLDEN_TANK.get())); //MotorTier2Item
+        inputs.add(new ItemStack(ModInnet.GOLDEN_TANK.get())); //MotorTier2Item
         inputs.add(new ItemStack(OxygenTankItem.block)); //OxygenTankItem
         inputs.add(new ItemStack(OxygenTankItem.block)); //OxygenTankItem
         inputs.add(new ItemStack(RocketfinsItem.block)); //Rocketfinsitems
@@ -252,19 +249,19 @@ public class JeiPlugin implements IModPlugin {
         ArrayList<ItemStack> inputs = new ArrayList<>();
         ArrayList<ItemStack> outputs = new ArrayList<>();
         inputs.add(new ItemStack(RocketNoseItem.block)); //RocketNoseitem
-        inputs.add(new ItemStack(ModInnet.COMPRESSEDSILICON.get())); //CompressedsiliconItem
-        inputs.add(new ItemStack(ModInnet.COMPRESSEDSILICON.get())); //CompressedsiliconItem
-        inputs.add(new ItemStack(ModInnet.COMPRESSEDSILICON.get())); //CompressedsiliconItem
-        inputs.add(new ItemStack(ModInnet.COMPRESSEDSILICON.get())); //CompressedsiliconItem
-        inputs.add(new ItemStack(ModInnet.COMPRESSEDSILICON.get())); //CompressedsiliconItem
-        inputs.add(new ItemStack(ModInnet.COMPRESSEDSILICON.get())); //CompressedsiliconItem
+        inputs.add(new ItemStack(ModInnet.COMPRESSED_SILICON.get())); //CompressedsiliconItem
+        inputs.add(new ItemStack(ModInnet.COMPRESSED_SILICON.get())); //CompressedsiliconItem
+        inputs.add(new ItemStack(ModInnet.COMPRESSED_SILICON.get())); //CompressedsiliconItem
+        inputs.add(new ItemStack(ModInnet.COMPRESSED_SILICON.get())); //CompressedsiliconItem
+        inputs.add(new ItemStack(ModInnet.COMPRESSED_SILICON.get())); //CompressedsiliconItem
+        inputs.add(new ItemStack(ModInnet.COMPRESSED_SILICON.get())); //CompressedsiliconItem
         inputs.add(new ItemStack(TankTier3Item.block)); //MotorTier3Item
         inputs.add(new ItemStack(TankTier3Item.block)); //MotorTier3Item
         inputs.add(new ItemStack(OxygenTankItem.block)); //OxygenTankItem
         inputs.add(new ItemStack(OxygenTankItem.block)); //OxygenTankItem
         inputs.add(new ItemStack(RocketfinsItem.block)); //Rocketfinsitems
         inputs.add(new ItemStack(RocketfinsItem.block)); //Rocketfinsitems
-        inputs.add(new ItemStack(ModInnet.DIAMONDENGINE.get())); //TurbineTier3Item
+        inputs.add(new ItemStack(ModInnet.DIAMOND_ENGINE.get())); //TurbineTier3Item
         outputs.add(new ItemStack(Tier3RocketItemItem.block)); //RocketItemtir3
         // ...
         recipes.add(new WorkbenchJeiCategory.WorkbenchRecipeWrapper(inputs, outputs));
@@ -288,7 +285,7 @@ public class JeiPlugin implements IModPlugin {
         ArrayList<ItemStack> inputs = new ArrayList<>();
         ArrayList<ItemStack> outputs = new ArrayList<>();
         inputs.add(new ItemStack(SteahlItem.block));
-        outputs.add(new ItemStack(ModInnet.COMPRESSEDSTEEL.get()));
+        outputs.add(new ItemStack(ModInnet.COMPRESSED_STEEL.get()));
         // ...
         recipes.add(new CompressorJeiCategory.CompressorRecipeWrapper(inputs, outputs));
         return recipes;
@@ -298,8 +295,8 @@ public class JeiPlugin implements IModPlugin {
         List<CompressorJeiCategory.CompressorRecipeWrapper> recipes = new ArrayList<>();
         ArrayList<ItemStack> inputs = new ArrayList<>();
         ArrayList<ItemStack> outputs = new ArrayList<>();
-        inputs.add(new ItemStack(MoonCopperingotItem.block));
-        outputs.add(new ItemStack(ModInnet.COMPRESSEDDESH.get()));
+        inputs.add(new ItemStack(ModInnet.DESH_INGOT.get()));
+        outputs.add(new ItemStack(ModInnet.COMPRESSED_DESH.get()));
         // ...
         recipes.add(new CompressorJeiCategory.CompressorRecipeWrapper(inputs, outputs));
         return recipes;
@@ -310,7 +307,7 @@ public class JeiPlugin implements IModPlugin {
         ArrayList<ItemStack> inputs = new ArrayList<>();
         ArrayList<ItemStack> outputs = new ArrayList<>();
         inputs.add(new ItemStack(SiliconIngotItem.block));
-        outputs.add(new ItemStack(ModInnet.COMPRESSEDSILICON.get()));
+        outputs.add(new ItemStack(ModInnet.COMPRESSED_SILICON.get()));
         // ...
         recipes.add(new CompressorJeiCategory.CompressorRecipeWrapper(inputs, outputs));
         return recipes;
@@ -333,7 +330,7 @@ public class JeiPlugin implements IModPlugin {
         ArrayList<ItemStack> inputs = new ArrayList<>();
         ArrayList<ItemStack> outputs = new ArrayList<>();
         inputs.add(new ItemStack(Items.LAVA_BUCKET));
-        outputs.add(new ItemStack(ModInnet.FUELBARREL.get()));
+        outputs.add(new ItemStack(ModInnet.FUEL_BARREL.get()));
         // ...
         recipes.add(new FuelMaker2JeiCategory.FuelMakerRecipeWrapper(inputs, outputs));
         return recipes;
@@ -351,7 +348,7 @@ public class JeiPlugin implements IModPlugin {
     private List<Tier2RocketItemItemJeiCategory.Tier2RocketItemItemRecipeWrapper> generateTier2RocketItemItemRecipes() {
         List<Tier2RocketItemItemJeiCategory.Tier2RocketItemItemRecipeWrapper> recipes = new ArrayList<>();
         ArrayList<ItemStack> inputs = new ArrayList<>();
-        inputs.add(new ItemStack(ModInnet.FUELBARREL.get()));
+        inputs.add(new ItemStack(ModInnet.FUEL_BARREL.get()));
         // ...
         recipes.add(new Tier2RocketItemItemJeiCategory.Tier2RocketItemItemRecipeWrapper(inputs));
         return recipes;
@@ -360,7 +357,7 @@ public class JeiPlugin implements IModPlugin {
     private List<Tier3RocketItemItemJeiCategory.Tier3RocketItemItemRecipeWrapper> generateTier3RocketItemItemRecipes() { //RocketItemTier3Block
         List<Tier3RocketItemItemJeiCategory.Tier3RocketItemItemRecipeWrapper> recipes = new ArrayList<>();
         ArrayList<ItemStack> inputs = new ArrayList<>();
-        inputs.add(new ItemStack(ModInnet.FUELBARREL.get()));
+        inputs.add(new ItemStack(ModInnet.FUEL_BARREL.get()));
         // ...
         recipes.add(new Tier3RocketItemItemJeiCategory.Tier3RocketItemItemRecipeWrapper(inputs));
         return recipes;

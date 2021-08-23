@@ -4,7 +4,6 @@ package net.mrscauthd.boss_tools.itemgroup;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.block.MoonoreironBlock;
 import net.mrscauthd.boss_tools.machines.WorkbenchBlock;
-import net.mrscauthd.boss_tools.item.IronplateItem;
 import net.mrscauthd.boss_tools.item.OxygenGearItem;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 
@@ -59,7 +58,7 @@ public class BossToolsItemGroups {
 		@OnlyIn(Dist.CLIENT)
 		@Override
 		public ItemStack createIcon() {
-			return new ItemStack(IronplateItem.block, (int) (1));
+			return new ItemStack(ModInnet.IRON_PLATE.get(), (int) (1));
 		}
 
 		@OnlyIn(Dist.CLIENT)
