@@ -6,6 +6,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock.CustomTileEntity;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.World;
@@ -55,24 +56,13 @@ public class BlastFurnaceGUIGuiWindow extends ContainerScreen<BlastFurnaceGUIGui
 		this.blit(ms, k, l, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off.png"));
 		this.blit(ms, this.guiLeft + 53, this.guiTop + 39, 0, 0, 15, 14, 15, 14);
+		
+		CustomTileEntity tileEntity = (CustomTileEntity) this.world.getTileEntity(new BlockPos(this.x, this.y, this.z));
 		// Energy NBT
-		double fireanimation = (double) (new Object() {
-			public double getValue(IWorld world, BlockPos pos, String tag) {
-				TileEntity tileEntity = world.getTileEntity(pos);
-				if (tileEntity != null)
-					return tileEntity.getTileData().getDouble(tag);
-				return -1;
-			}
-		}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "fire"));
+		
+		double fireanimation = tileEntity.getFuelRemainPercentage();
 		// fire NBT
-		double arrowanimation = (double) (new Object() {
-			public double getValue(IWorld world, BlockPos pos, String tag) {
-				TileEntity tileEntity = world.getTileEntity(pos);
-				if (tileEntity != null)
-					return tileEntity.getTileData().getDouble(tag);
-				return -1;
-			}
-		}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "loading"));
+		double arrowanimation = tileEntity.getTimerPercentage() * 2;
 		//fire animtion
 		if (fireanimation <= 100) {
 			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_on.png"));

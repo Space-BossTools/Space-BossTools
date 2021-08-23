@@ -2,13 +2,14 @@
 package net.mrscauthd.boss_tools.machines;
 
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
-import net.mrscauthd.boss_tools.procedures.BlastFurnaceTickProcedure;
 import net.mrscauthd.boss_tools.gui.BlastFurnaceGUIGui;
 import net.mrscauthd.boss_tools.BossToolsModElements;
-
+import net.mrscauthd.boss_tools.crafting.BlastingRecipe;
+import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.minecraftforge.registries.ObjectHolder;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -44,6 +45,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.loot.LootContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.BlockItem;
@@ -69,12 +71,30 @@ import java.util.Random;
 import java.util.Map;
 import java.util.List;
 import java.util.HashMap;
+import java.util.Arrays;
 import java.util.Collections;
 
 import io.netty.buffer.Unpooled;
 
 @BossToolsModElements.ModElement.Tag
 public class BlastingFurnaceBlock extends BossToolsModElements.ModElement {
+	public static final int SLOT_INGREDIENT = 0;
+	public static final int SLOT_EXTRA = 1;
+	public static final int SLOT_OUTPUT = 2;
+
+	public static final String KEY_FUEL = "fuel";
+	public static final String KEY_MAXFUEL = "maxFuel";
+	public static final String KEY_TIMER = "timer";
+	public static final String KEY_MAXTIMER = "maxTimer";
+	public static final String KEY_ACTIVATED = "activated";
+
+	public static final Map<Item, Integer> FUEL_MAP = new HashMap<>();
+	
+	static {
+		FUEL_MAP.put(Items.COAL, 600);
+		FUEL_MAP.put(Items.COAL_BLOCK, 960);
+	}
+	
 	@ObjectHolder("boss_tools:blast_furnace")
 	public static final Block block = null;
 	@ObjectHolder("boss_tools:blast_furnace")
@@ -150,50 +170,42 @@ public class BlastingFurnaceBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public void tick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-			int x = pos.getX();
-			int y = pos.getY();
-			int z = pos.getZ();
-			if (((new Object() {
-				public boolean getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getBoolean(tag);
-					return false;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "activated")) == (true))) {
-				world.setBlockState(pos, state.with(ACTIAVATED, Boolean.valueOf(true)), 3);
-			} else {
-				world.setBlockState(pos, state.with(ACTIAVATED, Boolean.valueOf(false)), 3);
+			CustomTileEntity tileEntity = (CustomTileEntity) world.getTileEntity(pos);
+			BlockState nextState = state;
+
+			boolean requireNotify = false;
+			requireNotify |= tileEntity.cookIngredient();
+			requireNotify |= tileEntity.burnFuel();
+			requireNotify |= tileEntity.udpateActivated();
+
+			boolean activated = tileEntity.isActivated();
+
+			if (tileEntity.isActivated() != activated) {
+				nextState = state.with(ACTIAVATED, activated);
+				world.setBlockState(pos, nextState, 3);
 			}
+
+			if (requireNotify) {
+				world.notifyBlockUpdate(pos, nextState, nextState, 3);
+			}
+
 			super.tick(state, world, pos, random);
-			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
-				$_dependencies.put("world", world);
-				BlastFurnaceTickProcedure.executeProcedure($_dependencies);
-			}
-			world.getPendingBlockTicks().scheduleTick(new BlockPos(x, y, z), this, 1);
+
+			world.getPendingBlockTicks().scheduleTick(pos, this, 1);
 		}
 
 		@Override
 		public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos) {
-			if (state.get(ACTIAVATED) == true)
-				return 12;
-			return 0;
+			return state.get(ACTIAVATED) ? 12 : 0;
 		}
 
 		@Override
 		public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
-			if (state.get(ACTIAVATED) == true)
-				return 12;
-			return 0;
+			return state.get(ACTIAVATED) ? 12 : 0;
 		}
 
 		@Override
-		public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity entity, Hand hand,
-				BlockRayTraceResult hit) {
+		public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity entity, Hand hand, BlockRayTraceResult hit) {
 			super.onBlockActivated(state, world, pos, entity, hand, hit);
 			int x = pos.getX();
 			int y = pos.getY();
@@ -349,58 +361,39 @@ public class BlastingFurnaceBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public boolean isItemValidForSlot(int index, ItemStack stack) {
-			if (index == 2)
-				return false;
-			if (index == 3)
-				return false;
-			if (index == 4)
-				return false;
-			if (index == 5)
-				return false;
-			if (index == 6)
-				return false;
-			if (index == 7)
-				return false;
-			if (index == 8)
-				return false;
-			if (index == 9)
-				return false;
 			return true;
 		}
 
 		@Override
 		public int[] getSlotsForFace(Direction side) {
-			return IntStream.range(0, this.getSizeInventory()).toArray();
+			if (side == Direction.UP) {
+				return new int[] { SLOT_INGREDIENT };
+			} else if (side == Direction.DOWN) {
+				return new int[] { SLOT_OUTPUT };
+			} else {
+				return new int[] { SLOT_EXTRA };
+			}
+
 		}
 
 		@Override
 		public boolean canInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
-			return this.isItemValidForSlot(index, stack);
+			if (index == SLOT_INGREDIENT && direction == Direction.UP) {
+				return true;
+			} else if (index == SLOT_EXTRA && direction != Direction.DOWN) {
+				return true;
+			}
+
+			return false;
 		}
 
 		@Override
 		public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-			if (index == 0)
-				return false;
-			if (index == 1)
-				return false;
-			if (index == 3)
-				return false;
-			if (index == 4)
-				return false;
-			if (index == 5)
-				return false;
-			if (index == 6)
-				return false;
-			if (index == 7)
-				return false;
-			if (index == 8)
-				return false;
-			if (index == 9)
-				return false;
-			return true;
+			return index == SLOT_OUTPUT && direction == Direction.DOWN;
 		}
+
 		private final LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.values());
+
 		@Override
 		public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
 			if (!this.removed && facing != null && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
@@ -414,5 +407,178 @@ public class BlastingFurnaceBlock extends BossToolsModElements.ModElement {
 			for (LazyOptional<? extends IItemHandler> handler : handlers)
 				handler.invalidate();
 		}
+
+		public boolean canRecipeOperate(ItemStack recipeOutput) {
+			ItemStack output = this.getItemHandler().getStackInSlot(SLOT_OUTPUT);
+			return canRecipeOperate(recipeOutput, output);
+		}
+
+		public boolean canRecipeOperate(ItemStack recipeOutput, ItemStack output) {
+			Item outputItem = output.getItem();
+
+			if (outputItem == Items.AIR) {
+				return true;
+			} else if (output.isItemEqual(recipeOutput)) {
+				int limit = Math.min(recipeOutput.getMaxStackSize(), this.getInventoryStackLimit());
+				return (output.getCount() + recipeOutput.getCount()) <= limit;
+			}
+
+			return false;
+		}
+
+		public boolean resetTimer() {
+			if (this.getTimer() > 0) {
+				this.setTimer(0);
+				return true;
+			} else {
+				return false;
+			}
+
+		}
+
+		public boolean burnFuel() {
+			IItemHandlerModifiable itemHandler = this.getItemHandler();
+			ItemStack ingredient = itemHandler.getStackInSlot(SLOT_INGREDIENT);
+			ItemStack extra = itemHandler.getStackInSlot(SLOT_EXTRA);
+
+			int prevFuel = this.getFuel();
+			int fuel = prevFuel;
+
+			if (fuel > 0) {
+				fuel--;
+				this.setFuel(fuel);
+			}
+
+			if (fuel == 0) {
+				int newFuel = 0;
+
+				if (!ingredient.isEmpty() && !extra.isEmpty()) {
+
+					World world = this.getWorld();
+					BlastingRecipe recipe = BossToolsRecipeTypes.BLASTING.findFirst(world, this);
+
+					if (this.canRecipeOperate(recipe.getCraftingResult(this)) == true) {
+						newFuel = FUEL_MAP.get(extra.getItem());
+						itemHandler.extractItem(SLOT_EXTRA, 1, false);
+					}
+
+				}
+
+				fuel = newFuel;
+				this.setFuel(newFuel);
+				this.setMaxFuel(newFuel);
+			}
+
+			return prevFuel != fuel;
+		}
+
+		public boolean cookIngredient() {
+			IItemHandlerModifiable itemHandler = this.getItemHandler();
+			ItemStack ingredient = itemHandler.getStackInSlot(SLOT_INGREDIENT);
+
+			if (ingredient.isEmpty()) {
+				return this.resetTimer();
+			}
+
+			int fuel = this.getFuel();
+
+			if (fuel == 0) {
+				return this.resetTimer();
+			}
+
+			World world = this.getWorld();
+			BlastingRecipe recipe = BossToolsRecipeTypes.BLASTING.findFirst(world, this);
+
+			if (recipe == null) {
+				return this.resetTimer();
+			}
+
+			ItemStack recipeOutput = recipe.getCraftingResult(this);
+
+			if (this.canRecipeOperate(recipeOutput) == true) {
+				int timer = this.getTimer() + 1;
+				this.setTimer(timer);
+				System.out.println(timer + ", " + fuel);
+
+				if (timer >= recipe.getCookTime()) {
+					itemHandler.insertItem(SLOT_OUTPUT, recipeOutput, false);
+					itemHandler.extractItem(SLOT_INGREDIENT, 1, false);
+					this.setTimer(0);
+					return true;
+				} else if (this.getFuel() > 0) {
+					this.setMaxTimer(recipe.getCookTime());
+					return true;
+				} else {
+					return false;
+				}
+
+			} else {
+				return false;
+			}
+
+		}
+
+		public boolean udpateActivated() {
+			boolean activated = this.getFuel() > 0;
+
+			if (this.isActivated() != activated) {
+				this.setActivated(activated);
+				return true;
+			}
+
+			return false;
+		}
+
+		public IItemHandlerModifiable getItemHandler() {
+			return (IItemHandlerModifiable) this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).resolve().get();
+		}
+
+		public int getFuel() {
+			return this.getTileData().getInt(KEY_FUEL);
+		}
+
+		public void setFuel(int fuel) {
+			this.getTileData().putInt(KEY_FUEL, fuel);
+		}
+
+		public int getMaxFuel() {
+			return this.getTileData().getInt(KEY_MAXFUEL);
+		}
+
+		public void setMaxFuel(int maxFuel) {
+			this.getTileData().putInt(KEY_MAXFUEL, maxFuel);
+		}
+
+		public double getFuelRemainPercentage() {
+			return this.getFuel() / (this.getMaxFuel() / 100.0D);
+		}
+
+		public int getTimer() {
+			return this.getTileData().getInt(KEY_TIMER);
+		}
+
+		public void setTimer(int timer) {
+			this.getTileData().putDouble(KEY_TIMER, timer);
+		}
+
+		public int getMaxTimer() {
+			return this.getTileData().getInt(KEY_MAXTIMER);
+		}
+
+		public void setMaxTimer(int maxTimer) {
+			this.getTileData().putDouble(KEY_MAXTIMER, maxTimer);
+		}
+
+		public double getTimerPercentage() {
+			return this.getTimer() / (this.getMaxTimer() / 100.0D);
+		}
+		public boolean isActivated() {
+			return this.getTileData().getBoolean(KEY_ACTIVATED);
+		}
+
+		public void setActivated(boolean activated) {
+			this.getTileData().putBoolean(KEY_ACTIVATED, activated);
+		}
+
 	}
 }

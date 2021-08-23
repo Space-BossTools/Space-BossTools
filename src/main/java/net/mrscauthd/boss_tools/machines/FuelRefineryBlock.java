@@ -76,8 +76,8 @@ public class FuelRefineryBlock {
 	public static final String KEY_FUEL = "fuel";
 	public static final int BUCKET_SIZE = 1000;
 	public static final int BARREL_SIZE = 3000;
-	public static final double LAVA_TO_FUEL = 100.0D;
-	public static final double FUEL_CONSUME_PER_TICK = 1.0D;
+	public static final int LAVA_TO_FUEL = 100;
+	public static final int FUEL_CONSUME_PER_TICK = 1;
 	public static final int ENERGY_CONSUME_PER_TICK = 1;
 	public static final int FLUID_GEN_PER_TICK = 10;
 	public static final int SLOT_INGREDIENT = 0;
@@ -144,19 +144,18 @@ public class FuelRefineryBlock {
 			requireNotify |= tileEntity.burnFuel();
 			requireNotify |= tileEntity.fillOutput();
 
-			int energy = tileEntity.getEnergyStorage().getEnergyStored();
 			boolean activated = tileEntity.isActivated();
-			boolean blockStateActivated = activated && energy >= ENERGY_CONSUME_PER_TICK;
 
-			if (state.get(ACTIAVATED).booleanValue() != blockStateActivated) {
-				requireNotify = true;
-				nextState = nextState.with(ACTIAVATED, blockStateActivated);
+			if (state.get(ACTIAVATED).booleanValue() != activated) {
+				nextState = nextState.with(ACTIAVATED, activated);
 				world.setBlockState(pos, nextState);
 			}
 
 			if (requireNotify) {
 				world.notifyBlockUpdate(pos, nextState, nextState, 3);
 			}
+
+			super.tick(state, world, pos, random);
 
 			world.getPendingBlockTicks().scheduleTick(pos, this, 1);
 		}
@@ -244,7 +243,7 @@ public class FuelRefineryBlock {
 
 	}
 
-	//Fuel Refinery Tile Entity
+	// Fuel Refinery Tile Entity
 	public static class CustomTileEntity extends LockableLootTileEntity implements ISidedInventory {
 		private NonNullList<ItemStack> stacks = NonNullList.<ItemStack>withSize(9, ItemStack.EMPTY);
 
@@ -336,7 +335,7 @@ public class FuelRefineryBlock {
 
 		@Override
 		public boolean isItemValidForSlot(int index, ItemStack stack) {
-			return index == SLOT_INGREDIENT || index == SLOT_OUTPUT;
+			return true;
 		}
 
 		@Override
@@ -451,7 +450,7 @@ public class FuelRefineryBlock {
 		}
 
 		public boolean consumeIngredient() {
-			double fuel = this.getFuel();
+			int fuel = this.getFuel();
 			IItemHandlerModifiable itemHandler = this.getItemHandler();
 			ItemStack ingredient = itemHandler.getStackInSlot(SLOT_INGREDIENT);
 
@@ -465,7 +464,7 @@ public class FuelRefineryBlock {
 		}
 
 		public boolean burnFuel() {
-			double fuel = this.getFuel();
+			int fuel = this.getFuel();
 
 			if (fuel >= FUEL_CONSUME_PER_TICK && this.canOperate()) {
 				this.setFuel(fuel - FUEL_CONSUME_PER_TICK);
@@ -473,7 +472,6 @@ public class FuelRefineryBlock {
 				this.getFluidTank().fill(new FluidStack(FuelBlock.still, FLUID_GEN_PER_TICK), FluidAction.EXECUTE);
 				this.setActivated(true);
 				return true;
-
 			} else if (this.isActivated()) {
 				this.setActivated(false);
 				return true;
@@ -482,7 +480,7 @@ public class FuelRefineryBlock {
 		}
 
 		public boolean fillOutput() {
-			if (this.tryFillOutput(Items.BUCKET, BUCKET_SIZE, FuelBlock.bucket) ) {
+			if (this.tryFillOutput(Items.BUCKET, BUCKET_SIZE, FuelBlock.bucket)) {
 				return true;
 			} else if (this.tryFillOutput(ModInnet.BARREL.get(), BARREL_SIZE, FuelBucketBigItem.block)) {
 				return true;
@@ -525,12 +523,12 @@ public class FuelRefineryBlock {
 			this.getTileData().putBoolean(KEY_ACTIVATED, activated);
 		}
 
-		public double getFuel() {
-			return this.getTileData().getDouble(KEY_FUEL);
+		public int getFuel() {
+			return this.getTileData().getInt(KEY_FUEL);
 		}
 
-		public void setFuel(double fuel) {
-			this.getTileData().putDouble(KEY_FUEL, fuel);
+		public void setFuel(int fuel) {
+			this.getTileData().putInt(KEY_FUEL, fuel);
 		}
 	}
 }
