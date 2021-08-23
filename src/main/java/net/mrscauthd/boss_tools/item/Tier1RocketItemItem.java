@@ -58,7 +58,7 @@ public class Tier1RocketItemItem extends BossToolsModElements.ModElement {
 
 	public static class ItemCustom extends Item {
 		public ItemCustom() {
-			super(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1).rarity(Rarity.COMMON));
+			super(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1).rarity(Rarity.RARE));
 			setRegistryName("tier_1_rocket");
 		}
 

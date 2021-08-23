@@ -69,7 +69,6 @@ import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.block.FuelBlock;
 import net.mrscauthd.boss_tools.gui.FuelRefineryGUIGui;
-import net.mrscauthd.boss_tools.item.FuelBucketBigItem;
 
 public class FuelRefineryBlock {
 	public static final String KEY_ACTIVATED = "activated";
@@ -108,7 +107,6 @@ public class FuelRefineryBlock {
 
 		@Override
 		public BlockState getStateForPlacement(BlockItemUseContext context) {
-			;
 			return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
 		}
 
@@ -482,7 +480,7 @@ public class FuelRefineryBlock {
 		public boolean fillOutput() {
 			if (this.tryFillOutput(Items.BUCKET, BUCKET_SIZE, FuelBlock.bucket)) {
 				return true;
-			} else if (this.tryFillOutput(ModInnet.BARREL.get(), BARREL_SIZE, FuelBucketBigItem.block)) {
+			} else if (this.tryFillOutput(ModInnet.BARREL.get(), BARREL_SIZE, ModInnet.FUEL_BARREL.get())) {
 				return true;
 			}
 

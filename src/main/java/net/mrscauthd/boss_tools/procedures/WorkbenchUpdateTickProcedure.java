@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.procedures;
 
+import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.item.TurbineTier2Item;
 import net.mrscauthd.boss_tools.item.TurbineItem;
 import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
@@ -9,12 +10,6 @@ import net.mrscauthd.boss_tools.item.TankTier3Item;
 import net.mrscauthd.boss_tools.item.RocketfinsItem;
 import net.mrscauthd.boss_tools.item.RocketNoseItem;
 import net.mrscauthd.boss_tools.item.OxygenTankItem;
-import net.mrscauthd.boss_tools.item.MotorTier2Item;
-import net.mrscauthd.boss_tools.item.MotorItem;
-import net.mrscauthd.boss_tools.item.DiamondEngine;
-import net.mrscauthd.boss_tools.item.CompressedSteelItem;
-import net.mrscauthd.boss_tools.item.CompressedSiliconItem;
-import net.mrscauthd.boss_tools.item.CompressedDeshItem;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.registries.ForgeRegistries;
@@ -97,7 +92,7 @@ public class WorkbenchUpdateTickProcedure {
 						}
 						return _retval.get();
 					}
-				}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (1))).getItem() == new ItemStack(CompressedSteelItem.block, (int) (1))
+				}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (1))).getItem() == new ItemStack(ModInnet.COMPRESSED_STEEL.get(), (int) (1))
 						.getItem()) && (((new Object() {
 							public ItemStack getItemStack(BlockPos pos, int sltid) {
 								AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
@@ -110,7 +105,7 @@ public class WorkbenchUpdateTickProcedure {
 								return _retval.get();
 							}
 						}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (2)))
-								.getItem() == new ItemStack(CompressedSteelItem.block, (int) (1)).getItem()) && (((new Object() {
+								.getItem() == new ItemStack(ModInnet.COMPRESSED_STEEL.get(), (int) (1)).getItem()) && (((new Object() {
 									public ItemStack getItemStack(BlockPos pos, int sltid) {
 										AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 										TileEntity _ent = world.getTileEntity(pos);
@@ -122,7 +117,7 @@ public class WorkbenchUpdateTickProcedure {
 										return _retval.get();
 									}
 								}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (3)))
-										.getItem() == new ItemStack(CompressedSteelItem.block, (int) (1)).getItem()) && (((new Object() {
+										.getItem() == new ItemStack(ModInnet.COMPRESSED_STEEL.get(), (int) (1)).getItem()) && (((new Object() {
 											public ItemStack getItemStack(BlockPos pos, int sltid) {
 												AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 												TileEntity _ent = world.getTileEntity(pos);
@@ -134,7 +129,7 @@ public class WorkbenchUpdateTickProcedure {
 												return _retval.get();
 											}
 										}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (4)))
-												.getItem() == new ItemStack(CompressedSteelItem.block, (int) (1)).getItem()) && (((new Object() {
+												.getItem() == new ItemStack(ModInnet.COMPRESSED_STEEL.get(), (int) (1)).getItem()) && (((new Object() {
 													public ItemStack getItemStack(BlockPos pos, int sltid) {
 														AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 														TileEntity _ent = world.getTileEntity(pos);
@@ -147,7 +142,7 @@ public class WorkbenchUpdateTickProcedure {
 														return _retval.get();
 													}
 												}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (5)))
-														.getItem() == new ItemStack(CompressedSteelItem.block, (int) (1)).getItem())
+														.getItem() == new ItemStack(ModInnet.COMPRESSED_STEEL.get(), (int) (1)).getItem())
 														&& (((new Object() {
 															public ItemStack getItemStack(BlockPos pos, int sltid) {
 																AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
@@ -161,7 +156,7 @@ public class WorkbenchUpdateTickProcedure {
 																return _retval.get();
 															}
 														}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (6)))
-																.getItem() == new ItemStack(CompressedSteelItem.block, (int) (1)).getItem())
+																.getItem() == new ItemStack(ModInnet.COMPRESSED_STEEL.get(), (int) (1)).getItem())
 																&& (((new Object() {
 																	public ItemStack getItemStack(BlockPos pos, int sltid) {
 																		AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
@@ -175,7 +170,7 @@ public class WorkbenchUpdateTickProcedure {
 																		return _retval.get();
 																	}
 																}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (7)))
-																		.getItem() == new ItemStack(MotorItem.block, (int) (1)).getItem())
+																		.getItem() == new ItemStack(ModInnet.IRON_TANK.get(), (int) (1)).getItem())
 																		&& (((new Object() {
 																			public ItemStack getItemStack(BlockPos pos, int sltid) {
 																				AtomicReference<ItemStack> _retval = new AtomicReference<>(
@@ -190,7 +185,7 @@ public class WorkbenchUpdateTickProcedure {
 																				return _retval.get();
 																			}
 																		}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (8)))
-																				.getItem() == new ItemStack(MotorItem.block, (int) (1)).getItem())
+																				.getItem() == new ItemStack(ModInnet.IRON_TANK.get(), (int) (1)).getItem())
 																				&& (((new Object() {
 																					public ItemStack getItemStack(BlockPos pos, int sltid) {
 																						AtomicReference<ItemStack> _retval = new AtomicReference<>(
@@ -616,7 +611,7 @@ public class WorkbenchUpdateTickProcedure {
 						}
 						return _retval.get();
 					}
-				}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (1))).getItem() == new ItemStack(CompressedSteelItem.block, (int) (1))
+				}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (1))).getItem() == new ItemStack(ModInnet.COMPRESSED_STEEL.get(), (int) (1))
 						.getItem()) || (((new Object() {
 							public ItemStack getItemStack(BlockPos pos, int sltid) {
 								AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
@@ -629,7 +624,7 @@ public class WorkbenchUpdateTickProcedure {
 								return _retval.get();
 							}
 						}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (2)))
-								.getItem() == new ItemStack(CompressedSteelItem.block, (int) (1)).getItem()) || (((new Object() {
+								.getItem() == new ItemStack(ModInnet.COMPRESSED_STEEL.get(), (int) (1)).getItem()) || (((new Object() {
 									public ItemStack getItemStack(BlockPos pos, int sltid) {
 										AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 										TileEntity _ent = world.getTileEntity(pos);
@@ -641,7 +636,7 @@ public class WorkbenchUpdateTickProcedure {
 										return _retval.get();
 									}
 								}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (3)))
-										.getItem() == new ItemStack(CompressedSteelItem.block, (int) (1)).getItem()) || (((new Object() {
+										.getItem() == new ItemStack(ModInnet.COMPRESSED_STEEL.get(), (int) (1)).getItem()) || (((new Object() {
 											public ItemStack getItemStack(BlockPos pos, int sltid) {
 												AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 												TileEntity _ent = world.getTileEntity(pos);
@@ -653,7 +648,7 @@ public class WorkbenchUpdateTickProcedure {
 												return _retval.get();
 											}
 										}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (4)))
-												.getItem() == new ItemStack(CompressedSteelItem.block, (int) (1)).getItem()) || (((new Object() {
+												.getItem() == new ItemStack(ModInnet.COMPRESSED_STEEL.get(), (int) (1)).getItem()) || (((new Object() {
 													public ItemStack getItemStack(BlockPos pos, int sltid) {
 														AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 														TileEntity _ent = world.getTileEntity(pos);
@@ -666,7 +661,7 @@ public class WorkbenchUpdateTickProcedure {
 														return _retval.get();
 													}
 												}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (5)))
-														.getItem() == new ItemStack(CompressedSteelItem.block, (int) (1)).getItem())
+														.getItem() == new ItemStack(ModInnet.COMPRESSED_STEEL.get(), (int) (1)).getItem())
 														|| (((new Object() {
 															public ItemStack getItemStack(BlockPos pos, int sltid) {
 																AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
@@ -680,7 +675,7 @@ public class WorkbenchUpdateTickProcedure {
 																return _retval.get();
 															}
 														}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (6)))
-																.getItem() == new ItemStack(CompressedSteelItem.block, (int) (1)).getItem())
+																.getItem() == new ItemStack(ModInnet.COMPRESSED_STEEL.get(), (int) (1)).getItem())
 																|| (((new Object() {
 																	public ItemStack getItemStack(BlockPos pos, int sltid) {
 																		AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
@@ -694,7 +689,7 @@ public class WorkbenchUpdateTickProcedure {
 																		return _retval.get();
 																	}
 																}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (7)))
-																		.getItem() == new ItemStack(MotorItem.block, (int) (1)).getItem())
+																		.getItem() == new ItemStack(ModInnet.IRON_TANK.get(), (int) (1)).getItem())
 																		|| (((new Object() {
 																			public ItemStack getItemStack(BlockPos pos, int sltid) {
 																				AtomicReference<ItemStack> _retval = new AtomicReference<>(
@@ -709,7 +704,7 @@ public class WorkbenchUpdateTickProcedure {
 																				return _retval.get();
 																			}
 																		}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (8)))
-																				.getItem() == new ItemStack(MotorItem.block, (int) (1)).getItem())
+																				.getItem() == new ItemStack(ModInnet.IRON_TANK.get(), (int) (1)).getItem())
 																				|| (((new Object() {
 																					public ItemStack getItemStack(BlockPos pos, int sltid) {
 																						AtomicReference<ItemStack> _retval = new AtomicReference<>(
@@ -867,7 +862,7 @@ public class WorkbenchUpdateTickProcedure {
 						}
 						return _retval.get();
 					}
-				}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (1))).getItem() == new ItemStack(CompressedDeshItem.block, (int) (1))
+				}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (1))).getItem() == new ItemStack(ModInnet.COMPRESSED_DESH.get(), (int) (1))
 						.getItem()) && (((new Object() {
 							public ItemStack getItemStack(BlockPos pos, int sltid) {
 								AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
@@ -880,7 +875,7 @@ public class WorkbenchUpdateTickProcedure {
 								return _retval.get();
 							}
 						}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (2)))
-								.getItem() == new ItemStack(CompressedDeshItem.block, (int) (1)).getItem()) && (((new Object() {
+								.getItem() == new ItemStack(ModInnet.COMPRESSED_DESH.get(), (int) (1)).getItem()) && (((new Object() {
 									public ItemStack getItemStack(BlockPos pos, int sltid) {
 										AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 										TileEntity _ent = world.getTileEntity(pos);
@@ -892,7 +887,7 @@ public class WorkbenchUpdateTickProcedure {
 										return _retval.get();
 									}
 								}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (3)))
-										.getItem() == new ItemStack(CompressedDeshItem.block, (int) (1)).getItem()) && (((new Object() {
+										.getItem() == new ItemStack(ModInnet.COMPRESSED_DESH.get(), (int) (1)).getItem()) && (((new Object() {
 											public ItemStack getItemStack(BlockPos pos, int sltid) {
 												AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 												TileEntity _ent = world.getTileEntity(pos);
@@ -904,7 +899,7 @@ public class WorkbenchUpdateTickProcedure {
 												return _retval.get();
 											}
 										}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (4)))
-												.getItem() == new ItemStack(CompressedDeshItem.block, (int) (1)).getItem()) && (((new Object() {
+												.getItem() == new ItemStack(ModInnet.COMPRESSED_DESH.get(), (int) (1)).getItem()) && (((new Object() {
 													public ItemStack getItemStack(BlockPos pos, int sltid) {
 														AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 														TileEntity _ent = world.getTileEntity(pos);
@@ -917,7 +912,7 @@ public class WorkbenchUpdateTickProcedure {
 														return _retval.get();
 													}
 												}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (5)))
-														.getItem() == new ItemStack(CompressedDeshItem.block, (int) (1)).getItem())
+														.getItem() == new ItemStack(ModInnet.COMPRESSED_DESH.get(), (int) (1)).getItem())
 														&& (((new Object() {
 															public ItemStack getItemStack(BlockPos pos, int sltid) {
 																AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
@@ -931,7 +926,7 @@ public class WorkbenchUpdateTickProcedure {
 																return _retval.get();
 															}
 														}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (6)))
-																.getItem() == new ItemStack(CompressedDeshItem.block, (int) (1)).getItem())
+																.getItem() == new ItemStack(ModInnet.COMPRESSED_DESH.get(), (int) (1)).getItem())
 																&& (((new Object() {
 																	public ItemStack getItemStack(BlockPos pos, int sltid) {
 																		AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
@@ -945,7 +940,7 @@ public class WorkbenchUpdateTickProcedure {
 																		return _retval.get();
 																	}
 																}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (7)))
-																		.getItem() == new ItemStack(MotorTier2Item.block, (int) (1)).getItem())
+																		.getItem() == new ItemStack(ModInnet.GOLDEN_TANK.get(), (int) (1)).getItem())
 																		&& (((new Object() {
 																			public ItemStack getItemStack(BlockPos pos, int sltid) {
 																				AtomicReference<ItemStack> _retval = new AtomicReference<>(
@@ -960,7 +955,7 @@ public class WorkbenchUpdateTickProcedure {
 																				return _retval.get();
 																			}
 																		}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (8)))
-																				.getItem() == new ItemStack(MotorTier2Item.block, (int) (1))
+																				.getItem() == new ItemStack(ModInnet.GOLDEN_TANK.get(), (int) (1))
 																						.getItem())
 																				&& (((new Object() {
 																					public ItemStack getItemStack(BlockPos pos, int sltid) {
@@ -1387,7 +1382,7 @@ public class WorkbenchUpdateTickProcedure {
 						}
 						return _retval.get();
 					}
-				}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (1))).getItem() == new ItemStack(CompressedDeshItem.block, (int) (1))
+				}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (1))).getItem() == new ItemStack(ModInnet.COMPRESSED_DESH.get(), (int) (1))
 						.getItem()) || (((new Object() {
 							public ItemStack getItemStack(BlockPos pos, int sltid) {
 								AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
@@ -1400,7 +1395,7 @@ public class WorkbenchUpdateTickProcedure {
 								return _retval.get();
 							}
 						}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (2)))
-								.getItem() == new ItemStack(CompressedDeshItem.block, (int) (1)).getItem()) || (((new Object() {
+								.getItem() == new ItemStack(ModInnet.COMPRESSED_DESH.get(), (int) (1)).getItem()) || (((new Object() {
 									public ItemStack getItemStack(BlockPos pos, int sltid) {
 										AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 										TileEntity _ent = world.getTileEntity(pos);
@@ -1412,7 +1407,7 @@ public class WorkbenchUpdateTickProcedure {
 										return _retval.get();
 									}
 								}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (3)))
-										.getItem() == new ItemStack(CompressedDeshItem.block, (int) (1)).getItem()) || (((new Object() {
+										.getItem() == new ItemStack(ModInnet.COMPRESSED_DESH.get(), (int) (1)).getItem()) || (((new Object() {
 											public ItemStack getItemStack(BlockPos pos, int sltid) {
 												AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 												TileEntity _ent = world.getTileEntity(pos);
@@ -1424,7 +1419,7 @@ public class WorkbenchUpdateTickProcedure {
 												return _retval.get();
 											}
 										}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (4)))
-												.getItem() == new ItemStack(CompressedDeshItem.block, (int) (1)).getItem()) || (((new Object() {
+												.getItem() == new ItemStack(ModInnet.COMPRESSED_DESH.get(), (int) (1)).getItem()) || (((new Object() {
 													public ItemStack getItemStack(BlockPos pos, int sltid) {
 														AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 														TileEntity _ent = world.getTileEntity(pos);
@@ -1437,7 +1432,7 @@ public class WorkbenchUpdateTickProcedure {
 														return _retval.get();
 													}
 												}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (5)))
-														.getItem() == new ItemStack(CompressedDeshItem.block, (int) (1)).getItem())
+														.getItem() == new ItemStack(ModInnet.COMPRESSED_DESH.get(), (int) (1)).getItem())
 														|| (((new Object() {
 															public ItemStack getItemStack(BlockPos pos, int sltid) {
 																AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
@@ -1451,7 +1446,7 @@ public class WorkbenchUpdateTickProcedure {
 																return _retval.get();
 															}
 														}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (6)))
-																.getItem() == new ItemStack(CompressedDeshItem.block, (int) (1)).getItem())
+																.getItem() == new ItemStack(ModInnet.COMPRESSED_DESH.get(), (int) (1)).getItem())
 																|| (((new Object() {
 																	public ItemStack getItemStack(BlockPos pos, int sltid) {
 																		AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
@@ -1465,7 +1460,7 @@ public class WorkbenchUpdateTickProcedure {
 																		return _retval.get();
 																	}
 																}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (7)))
-																		.getItem() == new ItemStack(MotorTier2Item.block, (int) (1)).getItem())
+																		.getItem() == new ItemStack(ModInnet.GOLDEN_TANK.get(), (int) (1)).getItem())
 																		|| (((new Object() {
 																			public ItemStack getItemStack(BlockPos pos, int sltid) {
 																				AtomicReference<ItemStack> _retval = new AtomicReference<>(
@@ -1480,7 +1475,7 @@ public class WorkbenchUpdateTickProcedure {
 																				return _retval.get();
 																			}
 																		}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (8)))
-																				.getItem() == new ItemStack(MotorTier2Item.block, (int) (1))
+																				.getItem() == new ItemStack(ModInnet.GOLDEN_TANK.get(), (int) (1))
 																						.getItem())
 																				|| (((new Object() {
 																					public ItemStack getItemStack(BlockPos pos, int sltid) {
@@ -1639,7 +1634,7 @@ public class WorkbenchUpdateTickProcedure {
 						}
 						return _retval.get();
 					}
-				}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (1))).getItem() == new ItemStack(CompressedSiliconItem.block, (int) (1))
+				}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (1))).getItem() == new ItemStack(ModInnet.COMPRESSED_SILICON.get(), (int) (1))
 						.getItem()) && (((new Object() {
 							public ItemStack getItemStack(BlockPos pos, int sltid) {
 								AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
@@ -1652,7 +1647,7 @@ public class WorkbenchUpdateTickProcedure {
 								return _retval.get();
 							}
 						}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (2)))
-								.getItem() == new ItemStack(CompressedSiliconItem.block, (int) (1)).getItem()) && (((new Object() {
+								.getItem() == new ItemStack(ModInnet.COMPRESSED_SILICON.get(), (int) (1)).getItem()) && (((new Object() {
 									public ItemStack getItemStack(BlockPos pos, int sltid) {
 										AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 										TileEntity _ent = world.getTileEntity(pos);
@@ -1664,7 +1659,7 @@ public class WorkbenchUpdateTickProcedure {
 										return _retval.get();
 									}
 								}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (3)))
-										.getItem() == new ItemStack(CompressedSiliconItem.block, (int) (1)).getItem()) && (((new Object() {
+										.getItem() == new ItemStack(ModInnet.COMPRESSED_SILICON.get(), (int) (1)).getItem()) && (((new Object() {
 											public ItemStack getItemStack(BlockPos pos, int sltid) {
 												AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 												TileEntity _ent = world.getTileEntity(pos);
@@ -1676,7 +1671,7 @@ public class WorkbenchUpdateTickProcedure {
 												return _retval.get();
 											}
 										}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (4)))
-												.getItem() == new ItemStack(CompressedSiliconItem.block, (int) (1)).getItem()) && (((new Object() {
+												.getItem() == new ItemStack(ModInnet.COMPRESSED_SILICON.get(), (int) (1)).getItem()) && (((new Object() {
 													public ItemStack getItemStack(BlockPos pos, int sltid) {
 														AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 														TileEntity _ent = world.getTileEntity(pos);
@@ -1689,7 +1684,7 @@ public class WorkbenchUpdateTickProcedure {
 														return _retval.get();
 													}
 												}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (5)))
-														.getItem() == new ItemStack(CompressedSiliconItem.block, (int) (1)).getItem())
+														.getItem() == new ItemStack(ModInnet.COMPRESSED_SILICON.get(), (int) (1)).getItem())
 														&& (((new Object() {
 															public ItemStack getItemStack(BlockPos pos, int sltid) {
 																AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
@@ -1703,7 +1698,7 @@ public class WorkbenchUpdateTickProcedure {
 																return _retval.get();
 															}
 														}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (6)))
-																.getItem() == new ItemStack(CompressedSiliconItem.block, (int) (1)).getItem())
+																.getItem() == new ItemStack(ModInnet.COMPRESSED_SILICON.get(), (int) (1)).getItem())
 																&& (((new Object() {
 																	public ItemStack getItemStack(BlockPos pos, int sltid) {
 																		AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
@@ -1847,7 +1842,7 @@ public class WorkbenchUpdateTickProcedure {
 																																(int) z),
 																														(int) (13)))
 																																.getItem() == new ItemStack(
-																																		DiamondEngine.block,
+				ModInnet.DIAMOND_ENGINE.get(),
 																																		(int) (1))
 																																				.getItem()))))))))))))))
 				&& ((((new Object() {
@@ -2158,7 +2153,7 @@ public class WorkbenchUpdateTickProcedure {
 						}
 						return _retval.get();
 					}
-				}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (1))).getItem() == new ItemStack(CompressedSiliconItem.block, (int) (1))
+				}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (1))).getItem() == new ItemStack(ModInnet.COMPRESSED_SILICON.get(), (int) (1))
 						.getItem()) || (((new Object() {
 							public ItemStack getItemStack(BlockPos pos, int sltid) {
 								AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
@@ -2171,7 +2166,7 @@ public class WorkbenchUpdateTickProcedure {
 								return _retval.get();
 							}
 						}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (2)))
-								.getItem() == new ItemStack(CompressedSiliconItem.block, (int) (1)).getItem()) || (((new Object() {
+								.getItem() == new ItemStack(ModInnet.COMPRESSED_SILICON.get(), (int) (1)).getItem()) || (((new Object() {
 									public ItemStack getItemStack(BlockPos pos, int sltid) {
 										AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 										TileEntity _ent = world.getTileEntity(pos);
@@ -2183,7 +2178,7 @@ public class WorkbenchUpdateTickProcedure {
 										return _retval.get();
 									}
 								}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (3)))
-										.getItem() == new ItemStack(CompressedSiliconItem.block, (int) (1)).getItem()) || (((new Object() {
+										.getItem() == new ItemStack(ModInnet.COMPRESSED_SILICON.get(), (int) (1)).getItem()) || (((new Object() {
 											public ItemStack getItemStack(BlockPos pos, int sltid) {
 												AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 												TileEntity _ent = world.getTileEntity(pos);
@@ -2195,7 +2190,7 @@ public class WorkbenchUpdateTickProcedure {
 												return _retval.get();
 											}
 										}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (4)))
-												.getItem() == new ItemStack(CompressedSiliconItem.block, (int) (1)).getItem()) || (((new Object() {
+												.getItem() == new ItemStack(ModInnet.COMPRESSED_SILICON.get(), (int) (1)).getItem()) || (((new Object() {
 													public ItemStack getItemStack(BlockPos pos, int sltid) {
 														AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
 														TileEntity _ent = world.getTileEntity(pos);
@@ -2208,7 +2203,7 @@ public class WorkbenchUpdateTickProcedure {
 														return _retval.get();
 													}
 												}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (5)))
-														.getItem() == new ItemStack(CompressedSiliconItem.block, (int) (1)).getItem())
+														.getItem() == new ItemStack(ModInnet.COMPRESSED_SILICON.get(), (int) (1)).getItem())
 														|| (((new Object() {
 															public ItemStack getItemStack(BlockPos pos, int sltid) {
 																AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
@@ -2222,7 +2217,7 @@ public class WorkbenchUpdateTickProcedure {
 																return _retval.get();
 															}
 														}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (6)))
-																.getItem() == new ItemStack(CompressedSiliconItem.block, (int) (1)).getItem())
+																.getItem() == new ItemStack(ModInnet.COMPRESSED_SILICON.get(), (int) (1)).getItem())
 																|| (((new Object() {
 																	public ItemStack getItemStack(BlockPos pos, int sltid) {
 																		AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
@@ -2366,7 +2361,7 @@ public class WorkbenchUpdateTickProcedure {
 																																(int) z),
 																														(int) (13)))
 																																.getItem() == new ItemStack(
-																																		DiamondEngine.block,
+				ModInnet.DIAMOND_ENGINE.get(),
 																																		(int) (1))
 																																				.getItem()))))))))))))))) {
 			if (world instanceof ServerWorld) {

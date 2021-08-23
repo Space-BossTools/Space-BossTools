@@ -1,7 +1,6 @@
 package net.mrscauthd.boss_tools.procedures;
 
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.item.FuelBucketBigItem;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
@@ -118,7 +117,7 @@ public class LanderNBTProcedure {
 					});
 					return _retval.get();
 				}
-			}.getItemStack((int) (0), (entity.getRidingEntity()))).getItem() == new ItemStack(FuelBucketBigItem.block, (int) (1)).getItem())) {
+			}.getItemStack((int) (0), (entity.getRidingEntity()))).getItem() == new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1)).getItem())) {
 				entity.getPersistentData().putDouble("Bucket", 2);
 			}
 		}
@@ -153,7 +152,7 @@ public class LanderNBTProcedure {
 					});
 					return _retval.get();
 				}
-			}.getItemStack((int) (0), (entity.getRidingEntity()))).getItem() == new ItemStack(FuelBucketBigItem.block, (int) (1)).getItem())) {
+			}.getItemStack((int) (0), (entity.getRidingEntity()))).getItem() == new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1)).getItem())) {
 				entity.getPersistentData().putDouble("Bucket", 2);
 			}
 		}

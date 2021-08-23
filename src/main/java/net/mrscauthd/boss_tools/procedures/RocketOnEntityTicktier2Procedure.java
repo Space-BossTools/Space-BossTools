@@ -2,8 +2,6 @@ package net.mrscauthd.boss_tools.procedures;
 
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
-import net.mrscauthd.boss_tools.item.FuelBucketBigItem;
-import net.mrscauthd.boss_tools.item.BarrelItem;
 import net.mrscauthd.boss_tools.block.RocketLaunchPadBlock;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
@@ -90,7 +88,7 @@ public class RocketOnEntityTicktier2Procedure {
 				});
 				return _retval.get();
 			}
-		}.getItemStack((int) (0), entity)).getItem() == new ItemStack(FuelBucketBigItem.block, (int) (1)).getItem())) {
+		}.getItemStack((int) (0), entity)).getItem() == new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1)).getItem())) {
 			if (((entity.getPersistentData().getDouble("Rocketfuel")) == 0)) {
 				{
 					final ItemStack _setstack = new ItemStack(ModInnet.BARREL.get(), (int) (1));
@@ -299,7 +297,7 @@ public class RocketOnEntityTicktier2Procedure {
 							});
 							return _retval.get();
 						}
-					}.getItemStack((int) (0), entity)).getItem() == new ItemStack(FuelBucketBigItem.block, (int) (1)).getItem())) {
+					}.getItemStack((int) (0), entity)).getItem() == new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1)).getItem())) {
 						{
 							final ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
 							final int _sltid = (int) (0);
@@ -311,7 +309,7 @@ public class RocketOnEntityTicktier2Procedure {
 							});
 						}
 						if (world instanceof World && !world.isRemote()) {
-							ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(FuelBucketBigItem.block, (int) (1)));
+							ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1)));
 							entityToSpawn.setPickupDelay((int) 10);
 							world.addEntity(entityToSpawn);
 						}

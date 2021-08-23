@@ -2,7 +2,7 @@
 package net.mrscauthd.boss_tools.machines;
 
 import net.minecraft.world.IWorld;
-import net.mrscauthd.boss_tools.item.SpaceArmorItem;
+import net.mrscauthd.boss_tools.Armor.SpaceSuit;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 import net.mrscauthd.boss_tools.procedures.OxygenTickProcedure;
 import net.mrscauthd.boss_tools.gui.OxygenLoaderGuiGui;
@@ -183,7 +183,7 @@ public class OxygenMachineBlock extends BossToolsModElements.ModElement {
 					}
 					return _retval.get();
 				}
-			}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getItem() == new ItemStack(SpaceArmorItem.body, (int) (1)).getItem());
+			}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (0))).getItem() == new ItemStack(SpaceSuit.body, (int) (1)).getItem());
 
 			if (((new Object() {
 				public boolean getValue(BlockPos pos, String tag) {

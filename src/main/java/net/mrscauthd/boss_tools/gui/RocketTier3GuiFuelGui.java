@@ -1,7 +1,6 @@
 
 package net.mrscauthd.boss_tools.gui;
 
-import net.mrscauthd.boss_tools.item.FuelBucketBigItem;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
@@ -31,6 +30,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.client.gui.ScreenManager;
+import net.mrscauthd.boss_tools.ModInnet;
 
 import java.util.function.Supplier;
 import java.util.Map;
@@ -117,7 +117,7 @@ public class RocketTier3GuiFuelGui extends BossToolsModElements.ModElement {
 			this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 46, 22) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
-					return (new ItemStack(FuelBucketBigItem.block, (int) (1)).getItem() == stack.getItem());
+					return (new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1)).getItem() == stack.getItem());
 				}
 			}));
 			int si;
