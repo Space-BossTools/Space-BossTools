@@ -66,12 +66,10 @@ import net.minecraft.block.Block;
 
 import javax.annotation.Nullable;
 
-import java.util.stream.IntStream;
 import java.util.Random;
 import java.util.Map;
 import java.util.List;
 import java.util.HashMap;
-import java.util.Arrays;
 import java.util.Collections;
 
 import io.netty.buffer.Unpooled;
@@ -91,7 +89,7 @@ public class BlastingFurnaceBlock extends BossToolsModElements.ModElement {
 	public static final Map<Item, Integer> FUEL_MAP = new HashMap<>();
 	
 	static {
-		FUEL_MAP.put(Items.COAL, 600);
+		FUEL_MAP.put(Items.COAL, 660);
 		FUEL_MAP.put(Items.COAL_BLOCK, 960);
 	}
 	
@@ -498,7 +496,6 @@ public class BlastingFurnaceBlock extends BossToolsModElements.ModElement {
 			if (this.canRecipeOperate(recipeOutput) == true) {
 				int timer = this.getTimer() + 1;
 				this.setTimer(timer);
-				System.out.println(timer + ", " + fuel);
 
 				if (timer >= recipe.getCookTime()) {
 					itemHandler.insertItem(SLOT_OUTPUT, recipeOutput, false);
