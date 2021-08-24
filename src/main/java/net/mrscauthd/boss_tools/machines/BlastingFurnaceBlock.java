@@ -109,7 +109,6 @@ public class BlastingFurnaceBlock {
 
 		@Override
 		public BlockState getStateForPlacement(BlockItemUseContext context) {
-			;
 			return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
 		}
 
@@ -379,7 +378,7 @@ public class BlastingFurnaceBlock {
 
 			boolean activated = this.isActivated();
 
-			if (this.isActivated() != activated) {
+			if (state.get(CustomBlock.ACTIAVATED).booleanValue() != activated) {
 				nextState = state.with(CustomBlock.ACTIAVATED, activated);
 				world.setBlockState(pos, nextState, 3);
 			}
@@ -551,6 +550,7 @@ public class BlastingFurnaceBlock {
 		public double getTimerPercentage() {
 			return this.getTimer() / (this.getMaxTimer() / 100.0D);
 		}
+
 		public boolean isActivated() {
 			return this.getTileData().getBoolean(KEY_ACTIVATED);
 		}
