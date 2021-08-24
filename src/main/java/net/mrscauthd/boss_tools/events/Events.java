@@ -14,6 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -40,6 +41,7 @@ import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -553,5 +555,33 @@ public class Events {
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         }
     }
+    @SubscribeEvent
+    public static void onEntityAttacked(LivingAttackEvent event) {
+        if (event != null && event.getEntity() instanceof PlayerEntity) {
+            PlayerEntity entity = (PlayerEntity) event.getEntity();
+
+            Boolean armorCheck1 = Events.Nethrite_SpaceSuit_Check(entity);
+
+            if (armorCheck1 == true) {
+                if (event.getSource().isFireDamage()) {
+                    entity.forceFireTicks(0);
+                    event.setCanceled(true);
+                }
+            }
+        }
+    }
     //Other Events
+
+    //Methodes
+    public static boolean Nethrite_SpaceSuit_Check(PlayerEntity player) {
+        Boolean item3 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 3)).getItem() == ModInnet.NETHERITE_OXYGEN_MASK.get();
+        Boolean item2 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 2)).getItem() == ModInnet.NETHERITE_SPACE_SUIT.get();
+        Boolean item1 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 1)).getItem() == ModInnet.NETHERITE_SPACE_PANTS.get();
+        Boolean item0 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 0)).getItem() == ModInnet.NETHERITE_SPACE_BOOTS.get();
+
+        if (item0 && item1 && item2 && item3) {
+            return true;
+        }
+        return false;
+    }
 }
