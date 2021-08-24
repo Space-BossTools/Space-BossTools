@@ -9,6 +9,7 @@ import net.mrscauthd.boss_tools.crafting.blasting.BossToolsRecipeTypes;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.common.util.LazyOptional;
@@ -392,17 +393,17 @@ public class BlastingFurnaceBlock {
 
 		}
 
-		public boolean canRecipeOperate(ItemStack recipeOutput) {
+		public boolean canOutput(ItemStack recipeOutput) {
 			ItemStack output = this.getItemHandler().getStackInSlot(SLOT_OUTPUT);
-			return canRecipeOperate(recipeOutput, output);
+			return canOutput(recipeOutput, output);
 		}
 
-		public boolean canRecipeOperate(ItemStack recipeOutput, ItemStack output) {
+		public boolean canOutput(ItemStack recipeOutput, ItemStack output) {
 			Item outputItem = output.getItem();
 
 			if (outputItem == Items.AIR) {
 				return true;
-			} else if (output.isItemEqual(recipeOutput)) {
+			} else if (ItemHandlerHelper.canItemStacksStack(output, recipeOutput)) {
 				int limit = Math.min(recipeOutput.getMaxStackSize(), this.getInventoryStackLimit());
 				return (output.getCount() + recipeOutput.getCount()) <= limit;
 			}
@@ -436,7 +437,7 @@ public class BlastingFurnaceBlock {
 			if (fuel == 0 && !ingredient.isEmpty() && !extra.isEmpty()) {
 				BlastingRecipe recipe = this.cacheRecipe();
 
-				if (recipe != null && this.canRecipeOperate(recipe.getCraftingResult(this)) && FUEL_MAP.containsKey(extra.getItem())) {
+				if (recipe != null && this.canOutput(recipe.getCraftingResult(this)) && FUEL_MAP.containsKey(extra.getItem())) {
 					fuel = FUEL_MAP.get(extra.getItem());
 					itemHandler.extractItem(SLOT_EXTRA, 1, false);
 					this.setFuel(fuel);
@@ -457,7 +458,7 @@ public class BlastingFurnaceBlock {
 
 			ItemStack recipeOutput = recipe.getCraftingResult(this);
 
-			if (this.canRecipeOperate(recipeOutput) == true) {
+			if (this.canOutput(recipeOutput) == true) {
 				int timer = this.getTimer();
 				int fuel = this.getFuel();
 				
