@@ -37,7 +37,6 @@ import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 import net.mrscauthd.boss_tools.item.TankTier3Item;
-import net.mrscauthd.boss_tools.item.RocketNoseItem;
 import net.mrscauthd.boss_tools.item.RoverItemItem;
 
 
@@ -199,7 +198,7 @@ public class JeiPlugin implements IModPlugin {
         List<WorkbenchJeiCategory.WorkbenchRecipeWrapper> recipes = new ArrayList<>();
         ArrayList<ItemStack> inputs = new ArrayList<>();
         ArrayList<ItemStack> outputs = new ArrayList<>();
-        inputs.add(new ItemStack(RocketNoseItem.block)); //RocketNoseitem
+        inputs.add(new ItemStack(ModInnet.ROCKET_NOSE_CONE.get())); //RocketNoseitem
         inputs.add(new ItemStack(ModInnet.COMPRESSED_STEEL.get())); //Compressesteelitem
         inputs.add(new ItemStack(ModInnet.COMPRESSED_STEEL.get())); //Compressesteelitem
         inputs.add(new ItemStack(ModInnet.COMPRESSED_STEEL.get())); //Compressesteelitem
@@ -223,7 +222,7 @@ public class JeiPlugin implements IModPlugin {
         List<WorkbenchJeiCategory.WorkbenchRecipeWrapper> recipes = new ArrayList<>();
         ArrayList<ItemStack> inputs = new ArrayList<>();
         ArrayList<ItemStack> outputs = new ArrayList<>();
-        inputs.add(new ItemStack(RocketNoseItem.block)); //RocketNoseitem
+        inputs.add(new ItemStack(ModInnet.ROCKET_NOSE_CONE.get())); //RocketNoseitem
         inputs.add(new ItemStack(ModInnet.COMPRESSED_DESH.get())); //CompressedTinItem
         inputs.add(new ItemStack(ModInnet.COMPRESSED_DESH.get())); //CompressedTinItem
         inputs.add(new ItemStack(ModInnet.COMPRESSED_DESH.get())); //CompressedTinItem
@@ -247,7 +246,7 @@ public class JeiPlugin implements IModPlugin {
         List<WorkbenchJeiCategory.WorkbenchRecipeWrapper> recipes = new ArrayList<>();
         ArrayList<ItemStack> inputs = new ArrayList<>();
         ArrayList<ItemStack> outputs = new ArrayList<>();
-        inputs.add(new ItemStack(RocketNoseItem.block)); //RocketNoseitem
+        inputs.add(new ItemStack(ModInnet.ROCKET_NOSE_CONE.get())); //RocketNoseitem
         inputs.add(new ItemStack(ModInnet.COMPRESSED_SILICON.get())); //CompressedsiliconItem
         inputs.add(new ItemStack(ModInnet.COMPRESSED_SILICON.get())); //CompressedsiliconItem
         inputs.add(new ItemStack(ModInnet.COMPRESSED_SILICON.get())); //CompressedsiliconItem
