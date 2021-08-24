@@ -112,7 +112,7 @@ public class FuelFluid extends FlowingFluid {
 		return net.minecraftforge.fluids.FluidAttributes.builder(
 			new ResourceLocation("boss_tools","blocks/fluid_fuel_still"),
 			new ResourceLocation("boss_tools","blocks/fluid_fuel_flow"))
-				.overlay(new ResourceLocation("boss_tools","block/fuel_overlay"))
+				.overlay(new ResourceLocation("boss_tools","blocks/fluid_fuel_still"))
 				.translationKey("block."+ "boss_tools" +".fuel")
 				.sound(SoundEvents.ITEM_BUCKET_FILL, SoundEvents.ITEM_BUCKET_EMPTY)
 				.build(this);

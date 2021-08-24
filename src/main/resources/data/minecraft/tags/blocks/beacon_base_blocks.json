@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "boss_tools:block_of_steel",
+    "boss_tools:steel_block",
     "boss_tools:block_of_desh",
-    "boss_tools:block_of_silicon"
+    "boss_tools:silicon_block"
   ]
 }
