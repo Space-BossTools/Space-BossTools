@@ -71,8 +71,6 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-
-//@BossToolsModElements.ModElement.Tag
 @Mod.EventBusSubscriber(modid = "boss_tools", bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModInnet {
     //Entity

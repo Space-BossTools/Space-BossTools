@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.jei;
 
+import com.google.common.collect.Lists;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -44,8 +45,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.google.common.collect.Lists;
 
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
