@@ -1,14 +1,9 @@
 
 package net.mrscauthd.boss_tools.armor;
 
-import net.mrscauthd.boss_tools.procedures.SpaceArmorLeggingsTickEventProcedure;
-import net.mrscauthd.boss_tools.procedures.SpaceArmorHelmetTickEventProcedure;
-import net.mrscauthd.boss_tools.procedures.SpaceArmorBootsTickEventProcedure;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorBodyTickEventProcedure;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
-import net.mrscauthd.boss_tools.BossToolsModElements;
 
-import net.minecraftforge.registries.ObjectHolder;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;

@@ -70,7 +70,7 @@ public class BossToolsItemGroups {
 		@OnlyIn(Dist.CLIENT)
 		@Override
 		public ItemStack createIcon() {
-			return new ItemStack(ModInnet.FLAGBLOCKpurple.get(), (int) (1));
+			return new ItemStack(ModInnet.FLAG_PURPLE_BLOCK.get(), (int) (1));
 		}
 
 		@OnlyIn(Dist.CLIENT)
