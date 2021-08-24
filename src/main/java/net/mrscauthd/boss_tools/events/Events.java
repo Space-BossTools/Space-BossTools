@@ -420,6 +420,7 @@ public class Events {
             }
         }
     }
+
     //Render Player Event
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
@@ -429,6 +430,7 @@ public class Events {
             // event.getRenderer();
         }
     }
+
     //Obfuscate Rotation Event
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
@@ -475,6 +477,7 @@ public class Events {
             }
         }
     }
+
     //Obfuscate Item Render Event
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
@@ -484,6 +487,7 @@ public class Events {
             event.setCanceled(true);
         }
     }
+
     //TODO:Change Dimension Id in Teleport Code
     //World Tick Event
     @SubscribeEvent
@@ -507,6 +511,7 @@ public class Events {
             }
         }
     }
+
     //Overlay Event
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent(priority = EventPriority.HIGH)
@@ -521,38 +526,40 @@ public class Events {
             }
         }
         //Lander Warning Overlay
-        if (!event.isCancelable() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
-            int posX = (event.getWindow().getScaledWidth()) / 2;
-            int posY = (event.getWindow().getScaledHeight()) / 2;
-            PlayerEntity entity = Minecraft.getInstance().player;
-            World world = entity.world;
-            double x = entity.getPosX();
-            double y = entity.getPosY();
-            double z = entity.getPosZ();
-            RenderSystem.disableDepthTest();
-            RenderSystem.depthMask(false);
-            RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
-                    GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-            RenderSystem.disableAlphaTest();
-            if ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
-                RenderSystem.color4f((float) counter, (float) counter, (float) counter, (float) counter);
-                // Plinken
-                Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/warning1.png"));
-                Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(),
-                        event.getWindow().getScaledHeight(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight());
+        {
+            if (!event.isCancelable() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
+                int posX = (event.getWindow().getScaledWidth()) / 2;
+                int posY = (event.getWindow().getScaledHeight()) / 2;
+                PlayerEntity entity = Minecraft.getInstance().player;
+                World world = entity.world;
+                double x = entity.getPosX();
+                double y = entity.getPosY();
+                double z = entity.getPosZ();
+                RenderSystem.disableDepthTest();
+                RenderSystem.depthMask(false);
+                RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+                        GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+                RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+                RenderSystem.disableAlphaTest();
+                if ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
+                    RenderSystem.color4f((float) counter, (float) counter, (float) counter, (float) counter);
+                    // Plinken
+                    Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/warning1.png"));
+                    Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(),
+                            event.getWindow().getScaledHeight(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight());
+                }
+                RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+                if ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
+                    double speed = Math.round(100.0 * (entity.getRidingEntity()).getMotion().getY()) / 100.0;
+                    double speedcheck = speed;
+                    Minecraft.getInstance().fontRenderer.drawString(event.getMatrixStack(), "" + speedcheck + " Speed",
+                            event.getWindow().getScaledWidth() / 2 - 29, event.getWindow().getScaledHeight() / 2 / 2.3f, -3407872);
+                }
+                RenderSystem.depthMask(true);
+                RenderSystem.enableDepthTest();
+                RenderSystem.enableAlphaTest();
+                RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             }
-            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-            if ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
-                double speed = Math.round(100.0 * (entity.getRidingEntity()).getMotion().getY()) / 100.0;
-                double speedcheck = speed;
-                Minecraft.getInstance().fontRenderer.drawString(event.getMatrixStack(), "" + speedcheck + " Speed",
-                        event.getWindow().getScaledWidth() / 2 - 29, event.getWindow().getScaledHeight() / 2 / 2.3f, -3407872);
-            }
-            RenderSystem.depthMask(true);
-            RenderSystem.enableDepthTest();
-            RenderSystem.enableAlphaTest();
-            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         }
     }
     @SubscribeEvent
@@ -560,7 +567,7 @@ public class Events {
         if (event != null && event.getEntity() instanceof PlayerEntity) {
             PlayerEntity entity = (PlayerEntity) event.getEntity();
 
-            Boolean armorCheck1 = Events.Nethrite_SpaceSuit_Check(entity);
+            Boolean armorCheck1 = Events.Nethrite_Space_Suit_Check(entity);
 
             if (armorCheck1 == true) {
                 if (event.getSource().isFireDamage()) {
@@ -573,11 +580,23 @@ public class Events {
     //Other Events
 
     //Methodes
-    public static boolean Nethrite_SpaceSuit_Check(PlayerEntity player) {
+    public static boolean Nethrite_Space_Suit_Check(PlayerEntity player) {
         Boolean item3 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 3)).getItem() == ModInnet.NETHERITE_OXYGEN_MASK.get();
         Boolean item2 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 2)).getItem() == ModInnet.NETHERITE_SPACE_SUIT.get();
         Boolean item1 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 1)).getItem() == ModInnet.NETHERITE_SPACE_PANTS.get();
         Boolean item0 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 0)).getItem() == ModInnet.NETHERITE_SPACE_BOOTS.get();
+
+        if (item0 && item1 && item2 && item3) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean Space_Suit_Check(PlayerEntity player) {
+        Boolean item3 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 3)).getItem() == ModInnet.OXYGEN_MASK.get();
+        Boolean item2 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 2)).getItem() == ModInnet.SPACE_SUIT.get();
+        Boolean item1 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 1)).getItem() == ModInnet.SPACE_PANTS.get();
+        Boolean item0 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 0)).getItem() == ModInnet.SPACE_BOOTS.get();
 
         if (item0 && item1 && item2 && item3) {
             return true;
