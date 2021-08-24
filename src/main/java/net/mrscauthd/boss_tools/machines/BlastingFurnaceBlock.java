@@ -467,7 +467,7 @@ public class BlastingFurnaceBlock extends BossToolsModElements.ModElement {
 
 					BlastingRecipe recipe = this.cacheRecipe();
 
-					if (recipe != null && this.canRecipeOperate(recipe.getCraftingResult(this)) == true) {
+					if (recipe != null && this.canRecipeOperate(recipe.getCraftingResult(this)) && FUEL_MAP.containsKey(extra.getItem())) {
 						newFuel = FUEL_MAP.get(extra.getItem());
 						itemHandler.extractItem(SLOT_EXTRA, 1, false);
 					}
