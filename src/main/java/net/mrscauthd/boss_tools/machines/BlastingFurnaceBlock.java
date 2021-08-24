@@ -354,6 +354,12 @@ public class BlastingFurnaceBlock {
 			{
 				this.lastRecipeItemStack = itemStack;
 				this.lastRecipe = BossToolsRecipeTypes.BLASTING.findFirst(this.getWorld(), this);
+				
+				if (this.lastRecipe != null)
+				{
+					this.setMaxTimer(this.lastRecipe.getCookTime());
+				}
+				
 			}
 
 			return this.lastRecipe;
@@ -379,7 +385,7 @@ public class BlastingFurnaceBlock {
 			boolean activated = this.isActivated();
 
 			if (state.get(CustomBlock.ACTIAVATED).booleanValue() != activated) {
-				nextState = state.with(CustomBlock.ACTIAVATED, activated);
+				nextState = nextState.with(CustomBlock.ACTIAVATED, activated);
 				world.setBlockState(pos, nextState, 3);
 			}
 
@@ -430,42 +436,22 @@ public class BlastingFurnaceBlock {
 				this.setFuel(fuel);
 			}
 
-			if (fuel == 0) {
-				int newFuel = 0;
+			if (fuel == 0 && !ingredient.isEmpty() && !extra.isEmpty()) {
+				BlastingRecipe recipe = this.cacheRecipe();
 
-				if (!ingredient.isEmpty() && !extra.isEmpty()) {
-
-					BlastingRecipe recipe = this.cacheRecipe();
-
-					if (recipe != null && this.canRecipeOperate(recipe.getCraftingResult(this)) && FUEL_MAP.containsKey(extra.getItem())) {
-						newFuel = FUEL_MAP.get(extra.getItem());
-						itemHandler.extractItem(SLOT_EXTRA, 1, false);
-					}
-
+				if (recipe != null && this.canRecipeOperate(recipe.getCraftingResult(this)) && FUEL_MAP.containsKey(extra.getItem())) {
+					fuel = FUEL_MAP.get(extra.getItem());
+					itemHandler.extractItem(SLOT_EXTRA, 1, false);
+					this.setFuel(fuel);
+					this.setMaxFuel(fuel);
 				}
 
-				fuel = newFuel;
-				this.setFuel(newFuel);
-				this.setMaxFuel(newFuel);
 			}
 
 			return prevFuel != fuel;
 		}
 
 		public boolean cookIngredient() {
-			IItemHandlerModifiable itemHandler = this.getItemHandler();
-			ItemStack ingredient = itemHandler.getStackInSlot(SLOT_INGREDIENT);
-
-			if (ingredient.isEmpty()) {
-				return this.resetTimer();
-			}
-
-			int fuel = this.getFuel();
-
-			if (fuel == 0) {
-				return this.resetTimer();
-			}
-
 			BlastingRecipe recipe = this.cacheRecipe();
 
 			if (recipe == null) {
@@ -475,21 +461,26 @@ public class BlastingFurnaceBlock {
 			ItemStack recipeOutput = recipe.getCraftingResult(this);
 
 			if (this.canRecipeOperate(recipeOutput) == true) {
-				int timer = this.getTimer() + 1;
-				this.setTimer(timer);
+				int timer = this.getTimer();
+				int fuel = this.getFuel();
+				
+				if (fuel > 0) {
+					timer++;
 
-				if (timer >= recipe.getCookTime()) {
-					itemHandler.insertItem(SLOT_OUTPUT, recipeOutput, false);
-					itemHandler.extractItem(SLOT_INGREDIENT, 1, false);
-					this.setTimer(0);
-					return true;
-				} else if (this.getFuel() > 0) {
-					this.setMaxTimer(recipe.getCookTime());
-					return true;
-				} else {
-					return false;
+					if (timer >= this.getMaxTimer()) {
+						IItemHandlerModifiable itemHandler = this.getItemHandler();
+						itemHandler.insertItem(SLOT_OUTPUT, recipeOutput.copy(), false);
+						itemHandler.extractItem(SLOT_INGREDIENT, 1, false);
+						timer = 0;
+					}
+
+				}
+				else if (timer > 0){
+					timer--;
 				}
 
+				this.setTimer(timer);
+				return true;
 			} else {
 				return false;
 			}
