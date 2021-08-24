@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.jei;
 
+import com.google.common.collect.Lists;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -13,12 +14,15 @@ import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.crafting.blasting.BlastingRecipe;
+import net.mrscauthd.boss_tools.crafting.blasting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.machines.WorkbenchBlock;
 import net.mrscauthd.boss_tools.machines.GeneratorBlock;
 import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock;
@@ -40,6 +44,7 @@ import net.mrscauthd.boss_tools.item.RoverItemItem;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
@@ -262,16 +267,8 @@ public class JeiPlugin implements IModPlugin {
         return recipes;
     }
     //BlastFurnace
-    private List<BlastingFurnaceJeiCategory.BlastingFurnaceRecipeWrapper> generateBlastingFurnaceRecipes() {
-        List<BlastingFurnaceJeiCategory.BlastingFurnaceRecipeWrapper> recipes = new ArrayList<>();
-        ArrayList<ItemStack> inputs = new ArrayList<>();
-        ArrayList<ItemStack> outputs = new ArrayList<>();
-        inputs.add(new ItemStack(Items.COAL));
-        inputs.add(new ItemStack(Items.IRON_INGOT));
-        outputs.add(new ItemStack(ModInnet.STEEL_INGOT.get()));
-        // ...
-        recipes.add(new BlastingFurnaceJeiCategory.BlastingFurnaceRecipeWrapper(inputs, outputs)); //Compressor
-        return recipes;
+    private List<BlastingRecipe> generateBlastingFurnaceRecipes() {
+        return BossToolsRecipeTypes.BLASTING.getRecipes(Minecraft.getInstance().world);
     }
     //Compressor
     private List<CompressorJeiCategory.CompressorRecipeWrapper> generateCompressorRecipes() {
@@ -375,7 +372,7 @@ public class JeiPlugin implements IModPlugin {
         //workbench
         registration.addRecipeCatalyst(new ItemStack(WorkbenchBlock.block), WorkbenchJeiCategory.Uid);
         //BlastingFurnace
-        registration.addRecipeCatalyst(new ItemStack(BlastingFurnaceBlock.block), BlastingFurnaceJeiCategory.Uid);
+        registration.addRecipeCatalyst(new ItemStack(ModInnet.BLAST_FURNACE_BLOCK.get()), BlastingFurnaceJeiCategory.Uid);
         //RocketTier1Gui
         registration.addRecipeCatalyst(new ItemStack(Tier1RocketItemItem.block), Tier1RocketItemItemJeiCategory.Uid);
         //RocketTier2Gui
@@ -986,7 +983,7 @@ public class JeiPlugin implements IModPlugin {
         }
     }
     //BlastingFurnace
-    public static class BlastingFurnaceJeiCategory implements IRecipeCategory<BlastingFurnaceJeiCategory.BlastingFurnaceRecipeWrapper> {
+    public static class BlastingFurnaceJeiCategory implements IRecipeCategory<BlastingRecipe> {
         private static ResourceLocation Uid = new ResourceLocation("boss_tools", "blastingfurnacecategory");
         private static final int input1 = 0; // THE NUMBER = SLOTID
         private static final int input2 = 1; // THE NUMBER = SLOTID
@@ -1057,8 +1054,8 @@ public class JeiPlugin implements IModPlugin {
         }
 
         @Override
-        public Class<? extends BlastingFurnaceRecipeWrapper> getRecipeClass() {
-            return BlastingFurnaceJeiCategory.BlastingFurnaceRecipeWrapper.class;
+        public Class<? extends BlastingRecipe> getRecipeClass() {
+            return BlastingRecipe.class;
         }
 
         @Override
@@ -1153,41 +1150,23 @@ public class JeiPlugin implements IModPlugin {
         }
 
         @Override
-        public void setIngredients(BlastingFurnaceRecipeWrapper recipeWrapper, IIngredients iIngredients) {
-            iIngredients.setInputs(VanillaTypes.ITEM, recipeWrapper.getInput());
-            iIngredients.setOutputs(VanillaTypes.ITEM, recipeWrapper.getOutput());
+        public void setIngredients(BlastingRecipe recipe, IIngredients iIngredients) {
+            iIngredients.setInputIngredients(Lists.newArrayList(recipe.getIngredients()));
+            iIngredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
         }
 
         @Override
-        public void setRecipe(IRecipeLayout iRecipeLayout, BlastingFurnaceRecipeWrapper recipeWrapper, IIngredients iIngredients) {
+        public void setRecipe(IRecipeLayout iRecipeLayout, BlastingRecipe recipe, IIngredients iIngredients) {
             IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
-            stacks.init(input1, true, 36, 53); //coal
-            stacks.init(input2, true, 36, 16);//Iron
-            stacks.init(output1, false, 86, 35);//steel
+            stacks.init(BlastingFurnaceBlock.SLOT_INGREDIENT, true, 36, 16);//Iron
+            stacks.init(BlastingFurnaceBlock.SLOT_EXTRA, true, 36, 53); //coal
+            stacks.init(BlastingFurnaceBlock.SLOT_OUTPUT, false, 86, 35);//steel
             // ...
 
-            stacks.set(input1, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
-            stacks.set(input2, iIngredients.getInputs(VanillaTypes.ITEM).get(1));
-            stacks.set(output1, iIngredients.getOutputs(VanillaTypes.ITEM).get(0));
+            stacks.set(BlastingFurnaceBlock.SLOT_INGREDIENT, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
+            stacks.set(BlastingFurnaceBlock.SLOT_EXTRA, BlastingFurnaceBlock.FUEL_MAP.keySet().stream().map(i -> new ItemStack(i)).collect(Collectors.toList()));
+            stacks.set(BlastingFurnaceBlock.SLOT_OUTPUT, iIngredients.getOutputs(VanillaTypes.ITEM).get(0));
             // ...
-        }
-        public static class BlastingFurnaceRecipeWrapper {
-            private ArrayList input;
-            private ArrayList output;
-
-            public BlastingFurnaceRecipeWrapper(ArrayList input, ArrayList output) {
-                this.input = input;
-                this.output = output;
-            }
-
-
-            public ArrayList getInput() {
-                return input;
-            }
-
-            public ArrayList getOutput() {
-                return output;
-            }
         }
     }
     //RocketTier1Gui

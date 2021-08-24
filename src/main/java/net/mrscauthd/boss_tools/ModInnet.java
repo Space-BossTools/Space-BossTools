@@ -8,6 +8,7 @@ import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.*;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.RegistryKey;
@@ -31,12 +32,15 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.mrscauthd.boss_tools.armor.SpaceSuit;
 import net.mrscauthd.boss_tools.block.*;
+import net.mrscauthd.boss_tools.crafting.blasting.BlastingRecipeSerializer;
+import net.mrscauthd.boss_tools.crafting.blasting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.entity.AlienSpitEntity;
 import net.mrscauthd.boss_tools.entity.alien.ModSpawnEggs;
 import net.mrscauthd.boss_tools.flag.*;
 import net.mrscauthd.boss_tools.fluid.FuelFluid;
 import net.mrscauthd.boss_tools.item.HammerItem;
 import net.mrscauthd.boss_tools.armor.NetheriteSpaceSuit;
+import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock;
 import net.mrscauthd.boss_tools.machines.FuelRefineryBlock;
 import net.mrscauthd.boss_tools.world.biomes.BiomeRegisrtyEvents;
 import net.mrscauthd.boss_tools.events.Config;
@@ -112,19 +116,23 @@ public class ModInnet {
 
     //Tile Entity RegistryObject
     public static final RegistryObject<TileEntityType<?>> FUEL_REFINERY = TILE_ENTITYS.register("fuel_refinery", () -> TileEntityType.Builder.create(FuelRefineryBlock.CustomTileEntity::new,ModInnet.FUEL_REFINERY_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<?>> BLAST_FURNACE = TILE_ENTITYS.register("blast_furnace", () -> TileEntityType.Builder.create(BlastingFurnaceBlock.CustomTileEntity::new,ModInnet.BLAST_FURNACE_BLOCK.get()).build(null));
+
 
     //Blocks
     public static RegistryObject<Block> FUEL_REFINERY_BLOCK = BLOCKS.register("fuel_refinery",() -> new FuelRefineryBlock.CustomBlock());
+    public static RegistryObject<Block> BLAST_FURNACE_BLOCK = BLOCKS.register("blast_furnace",() -> new BlastingFurnaceBlock.CustomBlock());
+
+    //Block Item
+    public static final RegistryObject<BlockItem> FUEL_REFINERY_ITEM = ITEMS.register("fuel_refinery", () -> new BlockItem(ModInnet.FUEL_REFINERY_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_machines)));
+    public static final RegistryObject<BlockItem> BLAST_FURNACE_ITEM = ITEMS.register("blast_furnace", () -> new BlockItem(ModInnet.BLAST_FURNACE_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_machines)));
+
 
     //Fuel Fluid
     public static final RegistryObject<FlowingFluid> FLOWING_FUEL = FLUIDS.register("flowing_fuel", ()-> new FuelFluid.Flowing());
     public static final RegistryObject<FlowingFluid> FUEL_STILL = FLUIDS.register("fuel", ()-> new FuelFluid.Source());
     public static RegistryObject<FlowingFluidBlock> FUEL_BLOCK = BLOCKS.register("fuel",() -> new FlowingFluidBlock(ModInnet.FUEL_STILL, Block.Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100f).noDrops()));
     public static final RegistryObject<Item> FUEL_BUCKET = ITEMS.register("fuel_bucket", () -> new BucketItem(ModInnet.FUEL_STILL, new Item.Properties().containerItem(Items.BUCKET).maxStackSize(1).group(BossToolsItemGroups.tab_normal)));
-
-
-    //Block Item
-    public static final RegistryObject<BlockItem> FUEL_REFINERY_ITEM = ITEMS.register("fuel_refinery", () -> new BlockItem(ModInnet.FUEL_REFINERY_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_machines)));
 
     //Item
     public static final RegistryObject<Item> TORCHITEM = ITEMS.register("coal_torch",
@@ -227,6 +235,10 @@ public class ModInnet {
     public static final RegistryObject<Item> FLAGITEMpruple = ITEMS.register("flag_purple", () -> new TallBlockItem(FLAGBLOCKpurple.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
     public static final RegistryObject<Item> FLAGITEMred = ITEMS.register("flag_red", () -> new TallBlockItem(FLAGBLOCKred.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
     public static final RegistryObject<Item> FLAGITEMyellow = ITEMS.register("flag_yellow", () -> new TallBlockItem(FLAGBLOCKyellow.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
+
+    //Blasting Recpies
+    public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, "boss_tools");
+    public static final RegistryObject<IRecipeSerializer<?>> RECIPE_SERIALIZER_BLASTING = RECIPE_SERIALIZERS.register("blasting", () -> new BlastingRecipeSerializer());
 
     //Wrold Gen Things
     public static ConfiguredFeature<?, ?> ICE_SPIKE;
@@ -346,6 +358,9 @@ public class ModInnet {
             GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) ALIEN.get(), AlienEntity.setCustomAttributes().create());
         });
         event.enqueueWork(() -> {
+
+            BossToolsRecipeTypes.init();
+
             ICE_SPIKE = register("ice_spike1",
                     ModInnet.MARS_ICE_SPIKE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(2));
             //Venus Deltas
