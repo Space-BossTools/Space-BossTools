@@ -19,7 +19,6 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.ToolType;
 
-import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.util.text.StringTextComponent;
@@ -34,6 +33,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.LockableLootTileEntity;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.StateContainer;
@@ -66,7 +66,6 @@ import net.minecraft.block.Block;
 
 import javax.annotation.Nullable;
 
-import java.util.Random;
 import java.util.Map;
 import java.util.List;
 import java.util.HashMap;
@@ -158,41 +157,6 @@ public class BlastingFurnaceBlock extends BossToolsModElements.ModElement {
 		}
 
 		@Override
-		public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean moving) {
-			super.onBlockAdded(state, world, pos, oldState, moving);
-			int x = pos.getX();
-			int y = pos.getY();
-			int z = pos.getZ();
-			world.getPendingBlockTicks().scheduleTick(new BlockPos(x, y, z), this, 1);
-		}
-
-		@Override
-		public void tick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-			CustomTileEntity tileEntity = (CustomTileEntity) world.getTileEntity(pos);
-			BlockState nextState = state;
-
-			boolean requireNotify = false;
-			requireNotify |= tileEntity.cookIngredient();
-			requireNotify |= tileEntity.burnFuel();
-			requireNotify |= tileEntity.udpateActivated();
-
-			boolean activated = tileEntity.isActivated();
-
-			if (tileEntity.isActivated() != activated) {
-				nextState = state.with(ACTIAVATED, activated);
-				world.setBlockState(pos, nextState, 3);
-			}
-
-			if (requireNotify) {
-				world.notifyBlockUpdate(pos, nextState, nextState, 3);
-			}
-
-			super.tick(state, world, pos, random);
-
-			world.getPendingBlockTicks().scheduleTick(pos, this, 1);
-		}
-
-		@Override
 		public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos) {
 			return state.get(ACTIAVATED) ? 12 : 0;
 		}
@@ -275,8 +239,10 @@ public class BlastingFurnaceBlock extends BossToolsModElements.ModElement {
 		}
 	}
 
-	public static class CustomTileEntity extends LockableLootTileEntity implements ISidedInventory {
+	public static class CustomTileEntity extends LockableLootTileEntity implements ISidedInventory, ITickableTileEntity {
 		private NonNullList<ItemStack> stacks = NonNullList.<ItemStack>withSize(9, ItemStack.EMPTY);
+		private ItemStack lastRecipeItemStack = null;
+		private BlastingRecipe lastRecipe = null;
 		protected CustomTileEntity() {
 			super(tileEntityType);
 		}
@@ -406,6 +372,53 @@ public class BlastingFurnaceBlock extends BossToolsModElements.ModElement {
 				handler.invalidate();
 		}
 
+		private BlastingRecipe cacheRecipe() {
+			ItemStack itemStack = this.getStackInSlot(SLOT_INGREDIENT);
+			
+			if (itemStack == null || itemStack.isEmpty())
+			{
+				this.lastRecipeItemStack = itemStack;
+				this.lastRecipe = null;
+			}
+			else if (this.lastRecipeItemStack == null || !this.lastRecipeItemStack.isItemEqual(itemStack))
+			{
+				this.lastRecipeItemStack = itemStack;
+				this.lastRecipe = BossToolsRecipeTypes.BLASTING.findFirst(this.getWorld(), this);
+			}
+			
+			return this.lastRecipe;
+		}
+		
+		@Override
+		public void tick() {
+			World world = this.getWorld();
+			
+			if (world.isRemote()) {
+				return;
+			}
+			
+			BlockPos pos = this.getPos();
+			BlockState state = this.getBlockState();
+			BlockState nextState = state;
+			
+			boolean requireNotify = false;
+			requireNotify |= this.cookIngredient();
+			requireNotify |= this.burnFuel();
+			requireNotify |= this.udpateActivated();
+			
+			boolean activated = this.isActivated();
+			
+			if (this.isActivated() != activated) {
+				nextState = state.with(CustomBlock.ACTIAVATED, activated);
+				world.setBlockState(pos, nextState, 3);
+			}
+			
+			if (requireNotify) {
+				world.notifyBlockUpdate(pos, nextState, nextState, 3);
+			}
+			
+		}
+
 		public boolean canRecipeOperate(ItemStack recipeOutput) {
 			ItemStack output = this.getItemHandler().getStackInSlot(SLOT_OUTPUT);
 			return canRecipeOperate(recipeOutput, output);
@@ -452,10 +465,9 @@ public class BlastingFurnaceBlock extends BossToolsModElements.ModElement {
 
 				if (!ingredient.isEmpty() && !extra.isEmpty()) {
 
-					World world = this.getWorld();
-					BlastingRecipe recipe = BossToolsRecipeTypes.BLASTING.findFirst(world, this);
+					BlastingRecipe recipe = this.cacheRecipe();
 
-					if (this.canRecipeOperate(recipe.getCraftingResult(this)) == true) {
+					if (recipe != null && this.canRecipeOperate(recipe.getCraftingResult(this)) == true) {
 						newFuel = FUEL_MAP.get(extra.getItem());
 						itemHandler.extractItem(SLOT_EXTRA, 1, false);
 					}
@@ -484,8 +496,7 @@ public class BlastingFurnaceBlock extends BossToolsModElements.ModElement {
 				return this.resetTimer();
 			}
 
-			World world = this.getWorld();
-			BlastingRecipe recipe = BossToolsRecipeTypes.BLASTING.findFirst(world, this);
+			BlastingRecipe recipe = this.cacheRecipe();
 
 			if (recipe == null) {
 				return this.resetTimer();

@@ -11,14 +11,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public class BlastingRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?>>
-		implements IRecipeSerializer<BlastingRecipe> {
+public class BlastingRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<BlastingRecipe> {
 
 	@Override
 	public BlastingRecipe read(ResourceLocation recipeId, JsonObject json) {
-		JsonObject inputJson = json.getAsJsonObject("input");
-		Ingredient ingredient = Ingredient.deserialize(inputJson.get("ingredient"));
-		ItemStack output = CraftingHelper.getItemStack(json.getAsJsonObject("output"), true);
+		JsonObject inputJson = JSONUtils.getJsonObject(json, "input");
+		Ingredient ingredient = Ingredient.deserialize(JSONUtils.getJsonObject(inputJson, "ingredient"));
+		ItemStack output = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "output"), true);
 		int cookTime = JSONUtils.getInt(json, "cookTime");
 
 		return new BlastingRecipe(recipeId, ingredient, output, cookTime);
