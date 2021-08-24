@@ -64,7 +64,6 @@ public class MoglerEntity extends BossToolsModElements.ModElement {
 
         public CustomEntity(EntityType<CustomEntity> type, World world) {
             super(type, world);
-            //experienceValue = 0;
             setNoAI(false);
         }
 

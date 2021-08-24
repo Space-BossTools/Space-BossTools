@@ -16,9 +16,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraft.entity.EntityType;
 import net.minecraft.client.Minecraft;
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.entity.alien.ModSpawnEggs;
+import net.mrscauthd.boss_tools.spawneggs.ModSpawnEggs;
 import net.mrscauthd.boss_tools.entity.AlienSpitEntity;
-import net.mrscauthd.boss_tools.entity.pygro.PygroEntity;
 import net.mrscauthd.boss_tools.entity.MoglerEntity;
 import net.mrscauthd.boss_tools.entity.renderer.alien.AlienRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.mogler.MoglerRenderer;
@@ -32,7 +31,7 @@ public class ClientEventBusSubscriber {
 	public static void onClientSetup(FMLClientSetupEvent event) {
 		RenderingRegistry.registerEntityRenderingHandler(ModInnet.ALIEN.get(), ((IRenderFactory) AlienRenderer::new));
 
-		RenderingRegistry.registerEntityRenderingHandler(PygroEntity.entity, ((IRenderFactory) PygroRenderer::new));
+		RenderingRegistry.registerEntityRenderingHandler(ModInnet.PYGRO.get(), ((IRenderFactory) PygroRenderer::new));
 
 		RenderingRegistry.registerEntityRenderingHandler(MoglerEntity.entity, ((IRenderFactory) MoglerRenderer::new));
 

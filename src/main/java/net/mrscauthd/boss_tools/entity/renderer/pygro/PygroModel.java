@@ -91,8 +91,8 @@ public class PygroModel<T extends MobEntity> extends PlayerModel<T> {
         float f2 = 0.08F + limbSwingAmount * 0.4F;
         this.field_239115_a_.rotateAngleZ = (-(float)Math.PI / 6F) - MathHelper.cos(f1 * 1.2F) * f2;
         this.field_239116_b_.rotateAngleZ = ((float)Math.PI / 6F) + MathHelper.cos(f1) * f2;
-        if (entityIn instanceof PygroEntity.CustomEntity) {
-            PygroEntity.CustomEntity abstractpiglinentity = (PygroEntity.CustomEntity)entityIn;
+        if (entityIn instanceof PygroEntity) {
+            PygroEntity abstractpiglinentity = (PygroEntity)entityIn;
             PiglinAction piglinaction = abstractpiglinentity.func_234424_eM_();
             if (piglinaction == PiglinAction.DANCING) {
                 float f3 = ageInTicks / 60.0F;
@@ -135,7 +135,7 @@ public class PygroModel<T extends MobEntity> extends PlayerModel<T> {
     }
 
     protected void func_230486_a_(T p_230486_1_, float p_230486_2_) {
-        if (this.swingProgress > 0.0F && p_230486_1_ instanceof PygroEntity.CustomEntity && ((PygroEntity.CustomEntity)p_230486_1_).func_234424_eM_() == PiglinAction.ATTACKING_WITH_MELEE_WEAPON) {
+        if (this.swingProgress > 0.0F && p_230486_1_ instanceof PygroEntity && ((PygroEntity)p_230486_1_).func_234424_eM_() == PiglinAction.ATTACKING_WITH_MELEE_WEAPON) {
             ModelHelper.func_239103_a_(this.bipedRightArm, this.bipedLeftArm, p_230486_1_, this.swingProgress, p_230486_2_);
         } else {
             super.func_230486_a_(p_230486_1_, p_230486_2_);
