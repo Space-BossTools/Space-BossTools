@@ -20,10 +20,10 @@ import java.util.List;
 import java.util.Collections;
 
 @BossToolsModElements.ModElement.Tag
-public class BlockOfSiliconBlock extends BossToolsModElements.ModElement {
-	@ObjectHolder("boss_tools:block_of_silicon")
+public class SiliconBlock extends BossToolsModElements.ModElement {
+	@ObjectHolder("boss_tools:silicon_block")
 	public static final Block block = null;
-	public BlockOfSiliconBlock(BossToolsModElements instance) {
+	public SiliconBlock(BossToolsModElements instance) {
 		super(instance, 47);
 	}
 
@@ -37,7 +37,7 @@ public class BlockOfSiliconBlock extends BossToolsModElements.ModElement {
 		public CustomBlock() {
 			super(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 2.5f).setLightLevel(s -> 0).harvestLevel(1)
 					.harvestTool(ToolType.PICKAXE).setRequiresTool());
-			setRegistryName("block_of_silicon");
+			setRegistryName("silicon_block");
 		}
 
 		@Override

@@ -6,11 +6,11 @@
   ],
   "key": {
     "0": {
-      "item": "boss_tools:block_of_silicon"
+      "item": "boss_tools:steel_block"
     }
   },
   "result": {
-    "item": "boss_tools:silicon_ingot",
+    "item": "boss_tools:steel_ingot",
     "count": 9
   }
 }
