@@ -1,6 +1,5 @@
 package net.mrscauthd.boss_tools.jei;
 
-import com.google.common.collect.Lists;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -45,6 +44,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.google.common.collect.Lists;
 
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
@@ -985,9 +986,6 @@ public class JeiPlugin implements IModPlugin {
     //BlastingFurnace
     public static class BlastingFurnaceJeiCategory implements IRecipeCategory<BlastingRecipe> {
         private static ResourceLocation Uid = new ResourceLocation("boss_tools", "blastingfurnacecategory");
-        private static final int input1 = 0; // THE NUMBER = SLOTID
-        private static final int input2 = 1; // THE NUMBER = SLOTID
-        private static final int output1 = 2; // THE NUMBER = SLOTID
 
         // ...
         private final String title;

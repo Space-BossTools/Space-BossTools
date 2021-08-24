@@ -2,7 +2,6 @@ package net.mrscauthd.boss_tools.machines;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.IntStream;
 
 import javax.annotation.Nullable;
@@ -50,7 +49,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -416,7 +414,7 @@ public class FuelRefineryBlock {
 		@Override
 		public void tick() {
 			World world = this.getWorld();
-
+			
 			if (world.isRemote()) {
 				return;
 			}
