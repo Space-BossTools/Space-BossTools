@@ -8,6 +8,7 @@ import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.*;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.RegistryKey;
@@ -31,6 +32,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.mrscauthd.boss_tools.armor.SpaceSuit;
 import net.mrscauthd.boss_tools.block.*;
+import net.mrscauthd.boss_tools.crafting.BlastingRecipeSerializer;
+import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.entity.AlienSpitEntity;
 import net.mrscauthd.boss_tools.entity.alien.ModSpawnEggs;
 import net.mrscauthd.boss_tools.flag.*;
@@ -235,6 +238,10 @@ public class ModInnet {
     public static ConfiguredFeature<?, ?> DELTAS;
     public static ConfiguredFeature<?, ?> DELTAS2;
     public static VenusDeltas VENUS_DELTAS;
+    
+    public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, "boss_tools");
+    public static final RegistryObject<IRecipeSerializer<?>> RECIPE_SERIALIZER_BLASTING = RECIPE_SERIALIZERS.register("blasting", () -> new BlastingRecipeSerializer());
+    
     @SubscribeEvent
     public static void RegistryFeature(RegistryEvent.Register<Feature<?>> feature) {
         MARS_ICE_SPIKE = new MarsIceSpikeFeature(NoFeatureConfig.field_236558_a_);
@@ -346,6 +353,9 @@ public class ModInnet {
             GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) ALIEN.get(), AlienEntity.setCustomAttributes().create());
         });
         event.enqueueWork(() -> {
+        	
+            BossToolsRecipeTypes.init();
+        	
             ICE_SPIKE = register("ice_spike1",
                     ModInnet.MARS_ICE_SPIKE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(2));
             //Venus Deltas
