@@ -35,6 +35,7 @@ import net.mrscauthd.boss_tools.block.*;
 import net.mrscauthd.boss_tools.crafting.blasting.BlastingRecipeSerializer;
 import net.mrscauthd.boss_tools.crafting.blasting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.entity.AlienSpitEntity;
+import net.mrscauthd.boss_tools.entity.MoglerEntity;
 import net.mrscauthd.boss_tools.spawneggs.ModSpawnEggs;
 import net.mrscauthd.boss_tools.entity.pygro.PygroEntity;
 import net.mrscauthd.boss_tools.flag.*;
@@ -86,6 +87,7 @@ public class ModInnet {
     //Entitys
     public static RegistryObject<EntityType<?>> ALIEN = ENTITYS.register("alien", () -> EntityType.Builder.create(AlienEntity::new, EntityClassification.CREATURE).size(0.75f, 2.5f).build(new ResourceLocation("boss_tools", "alien").toString()));
     public static RegistryObject<EntityType<?>> PYGRO = ENTITYS.register("pygro", () -> EntityType.Builder.create(PygroEntity::new, EntityClassification.MONSTER).immuneToFire().size(0.6f, 1.8f).build(new ResourceLocation("boss_tools", "pygro").toString()));
+    public static RegistryObject<EntityType<?>> MOGLER = ENTITYS.register("mogler", () -> EntityType.Builder.create(MoglerEntity::new, EntityClassification.MONSTER).immuneToFire().size(1.4f, 1.4f).build(new ResourceLocation("boss_tools", "mogler").toString()));
 
 
     public static RegistryObject<EntityType<?>> ALIENSPITENTITY = ENTITYS.register("alien_spit_entity", () -> AlienSpitEntity.arrow);
@@ -143,6 +145,7 @@ public class ModInnet {
     //Spawn Eggs
     public static final RegistryObject<ModSpawnEggs> ALIEN_SPAWN_EGG = ITEMS.register("alien_spawn_egg", () -> new ModSpawnEggs(ALIEN, -13382401, -11650781, new Item.Properties().group(BossToolsItemGroups.tab_spawn_eggs)));
     public static final RegistryObject<ModSpawnEggs> PYGRO_SPAWN_EGG = ITEMS.register("pygro_spawn_egg",() -> new ModSpawnEggs(PYGRO, -3381760, -6750208, new Item.Properties().group(BossToolsItemGroups.tab_spawn_eggs)));
+    public static final RegistryObject<ModSpawnEggs> MOGLER_SPAWN_EGG = ITEMS.register("mogler_spawn_egg",() -> new ModSpawnEggs(MOGLER, -13312, -3407872, new Item.Properties().group(BossToolsItemGroups.tab_spawn_eggs)));
 
     public static final RegistryObject<Item> BARREL = ITEMS.register("barrel", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(8)));
     public static final RegistryObject<Item> FUEL_BARREL = ITEMS.register("fuel_barrel", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1)));
@@ -363,6 +366,7 @@ public class ModInnet {
         DeferredWorkQueue.runLater(() -> {
             GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) ALIEN.get(), AlienEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) PYGRO.get(), PygroEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) MOGLER.get(), MoglerEntity.setCustomAttributes().create());
         });
         event.enqueueWork(() -> {
 

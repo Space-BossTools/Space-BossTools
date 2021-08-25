@@ -1,4 +1,3 @@
-
 package net.mrscauthd.boss_tools.paintings;
 
 import net.minecraftforge.fml.common.Mod;

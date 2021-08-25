@@ -33,7 +33,7 @@ public class ClientEventBusSubscriber {
 
 		RenderingRegistry.registerEntityRenderingHandler(ModInnet.PYGRO.get(), ((IRenderFactory) PygroRenderer::new));
 
-		RenderingRegistry.registerEntityRenderingHandler(MoglerEntity.entity, ((IRenderFactory) MoglerRenderer::new));
+		RenderingRegistry.registerEntityRenderingHandler(ModInnet.MOGLER.get(), ((IRenderFactory) MoglerRenderer::new));
 
 		RenderingRegistry.registerEntityRenderingHandler(AlienSpitEntity.arrow, renderManager -> new SpriteRenderer(renderManager, Minecraft.getInstance().getItemRenderer()));
 
