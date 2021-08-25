@@ -2,6 +2,7 @@
 package net.mrscauthd.boss_tools.gui;
 
 import net.mrscauthd.boss_tools.BossToolsModElements;
+import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.items.SlotItemHandler;
@@ -113,11 +114,11 @@ public class BlastFurnaceGUIGui extends BossToolsModElements.ModElement {
 					}
 				}
 			}
-			this.customSlots.put(1, this.addSlot(new SlotItemHandler(internal, 1, 53, 56) {
+			this.customSlots.put(BlastingFurnaceBlock.SLOT_INGREDIENT, this.addSlot(new SlotItemHandler(internal, BlastingFurnaceBlock.SLOT_INGREDIENT, 53, 19) {
 			}));
-			this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 53, 19) {
+			this.customSlots.put(BlastingFurnaceBlock.SLOT_EXTRA, this.addSlot(new SlotItemHandler(internal, BlastingFurnaceBlock.SLOT_EXTRA, 53, 56) {
 			}));
-			this.customSlots.put(2, this.addSlot(new SlotItemHandler(internal, 2, 104, 38) {
+			this.customSlots.put(BlastingFurnaceBlock.SLOT_OUTPUT, this.addSlot(new SlotItemHandler(internal, BlastingFurnaceBlock.SLOT_OUTPUT, 104, 38) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
 					return false;
