@@ -14,6 +14,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.ToolType;
 
 import net.minecraft.world.World;
@@ -41,8 +42,6 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.loot.LootContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.Container;
@@ -57,9 +56,7 @@ import net.minecraft.block.material.Material;
 
 import javax.annotation.Nullable;
 
-import java.util.Map;
 import java.util.List;
-import java.util.HashMap;
 import java.util.Collections;
 
 import io.netty.buffer.Unpooled;
@@ -74,14 +71,6 @@ public class BlastingFurnaceBlock {
 	public static final String KEY_TIMER = "timer";
 	public static final String KEY_MAXTIMER = "maxTimer";
 	public static final String KEY_ACTIVATED = "activated";
-
-	public static final Map<Item, Integer> FUEL_MAP = new HashMap<>();
-
-	static {
-		FUEL_MAP.put(Items.COAL, 660);
-		FUEL_MAP.put(Items.COAL_BLOCK, 960);
-		FUEL_MAP.put(Items.CHARCOAL, 660);
-	}
 
 	//Blast Furnace Block
 	public static class CustomBlock extends Block {
@@ -343,23 +332,17 @@ public class BlastingFurnaceBlock {
 		private BlastingRecipe cacheRecipe() {
 			ItemStack itemStack = this.getStackInSlot(SLOT_INGREDIENT);
 
-			if (itemStack == null || itemStack.isEmpty())
-			{
+			if (itemStack == null || itemStack.isEmpty()) {
 				this.lastRecipeItemStack = itemStack;
 				this.lastRecipe = null;
-			}
-			else if (this.lastRecipeItemStack == null || !this.lastRecipeItemStack.isItemEqual(itemStack))
-			{
+			} else if (this.lastRecipeItemStack == null || !ItemHandlerHelper.canItemStacksStack(this.lastRecipeItemStack, itemStack)) {
 				this.lastRecipeItemStack = itemStack;
 				this.lastRecipe = BossToolsRecipeTypes.BLASTING.findFirst(this.getWorld(), this);
 				
-				if (this.lastRecipe != null)
-				{
+				if (this.lastRecipe != null) {
 					this.setMaxTimer(this.lastRecipe.getCookTime());
 				}
-				
 			}
-
 			return this.lastRecipe;
 		}
 
@@ -399,9 +382,7 @@ public class BlastingFurnaceBlock {
 		}
 
 		public boolean canOutput(ItemStack recipeOutput, ItemStack output) {
-			Item outputItem = output.getItem();
-
-			if (outputItem == Items.AIR) {
+			if (output.isEmpty()) {
 				return true;
 			} else if (ItemHandlerHelper.canItemStacksStack(output, recipeOutput)) {
 				int limit = Math.min(recipeOutput.getMaxStackSize(), this.getInventoryStackLimit());
@@ -423,7 +404,6 @@ public class BlastingFurnaceBlock {
 
 		public boolean burnFuel() {
 			IItemHandlerModifiable itemHandler = this.getItemHandler();
-			ItemStack ingredient = itemHandler.getStackInSlot(SLOT_INGREDIENT);
 			ItemStack extra = itemHandler.getStackInSlot(SLOT_EXTRA);
 
 			int prevFuel = this.getFuel();
@@ -431,22 +411,31 @@ public class BlastingFurnaceBlock {
 
 			if (fuel > 0) {
 				fuel--;
-				this.setFuel(fuel);
 			}
 
-			if (fuel == 0 && !ingredient.isEmpty() && !extra.isEmpty()) {
+			if (fuel == 0 && !extra.isEmpty()) {
 				BlastingRecipe recipe = this.cacheRecipe();
 
-				if (recipe != null && this.canOutput(recipe.getCraftingResult(this)) && FUEL_MAP.containsKey(extra.getItem())) {
-					fuel = FUEL_MAP.get(extra.getItem());
-					itemHandler.extractItem(SLOT_EXTRA, 1, false);
-					this.setFuel(fuel);
-					this.setMaxFuel(fuel);
+				if (recipe != null && this.canOutput(recipe.getCraftingResult(this))) {
+					int burnTime = ForgeHooks.getBurnTime(extra, recipe.getType());
+					
+					if (burnTime > 0) {
+						itemHandler.extractItem(SLOT_EXTRA, 1, false);
+						fuel = burnTime;
+						this.setMaxFuel(fuel);
+					}
+					
 				}
 
 			}
 
-			return prevFuel != fuel;
+			if (prevFuel != fuel) {
+				this.setFuel(fuel);
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 
 		public boolean cookIngredient() {
@@ -480,7 +469,7 @@ public class BlastingFurnaceBlock {
 				this.setTimer(timer);
 				return true;
 			} else {
-				return false;
+				return this.resetTimer();
 			}
 
 		}

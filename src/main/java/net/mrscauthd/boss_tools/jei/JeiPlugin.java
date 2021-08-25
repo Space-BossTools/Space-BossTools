@@ -1,7 +1,10 @@
 package net.mrscauthd.boss_tools.jei;
 
 import com.google.common.collect.Lists;
+import com.mojang.blaze3d.matrix.MatrixStack;
+
 import mezz.jei.api.IModPlugin;
+import mezz.jei.api.constants.VanillaRecipeCategoryUid;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -14,7 +17,9 @@ import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.registration.IRecipeTransferRegistration;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
@@ -39,11 +44,10 @@ import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 import net.mrscauthd.boss_tools.item.TankTier3Item;
 import net.mrscauthd.boss_tools.item.RoverItemItem;
 
-
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
@@ -52,12 +56,19 @@ public class JeiPlugin implements IModPlugin {
     public ResourceLocation getPluginUid() {
         return new ResourceLocation("boss_tools", "default");
     }
+    
+    @Override
+    public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
+    	registration.addRecipeTransferHandler(BlastFurnaceGUIGui.GuiContainerMod.class, BlastingFurnaceJeiCategory.Uid, BlastingFurnaceBlock.SLOT_INGREDIENT, 1, BlastingFurnaceBlock.SLOT_OUTPUT + 1, 36);
+    	registration.addRecipeTransferHandler(BlastFurnaceGUIGui.GuiContainerMod.class, VanillaRecipeCategoryUid.FUEL, BlastingFurnaceBlock.SLOT_EXTRA, 1, BlastingFurnaceBlock.SLOT_OUTPUT + 1, 36);
+    }
+    
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
         registration.addRecipeClickArea(NasaWorkbenchGuiWindow.class, 108, 49, 14, 14, WorkbenchJeiCategory.Uid);
         registration.addRecipeClickArea(GeneratorGUIGuiWindow.class, 78, 52, 13, 13, GeneratorJeiCategory.Uid);
 //    	registration.addRecipeClickArea(FuelRefineryGUIGuiWindow.class, 77, 61, 13, 13, FuelMakerJeiCategory.Uid, FuelMaker2JeiCategory.Uid);
-        registration.addRecipeClickArea(BlastFurnaceGUIGuiWindow.class, 73, 38, 22, 15, BlastingFurnaceJeiCategory.Uid);
+        registration.addRecipeClickArea(BlastFurnaceGUIGuiWindow.class, 73, 38, 22, 15, BlastingFurnaceJeiCategory.Uid, VanillaRecipeCategoryUid.FUEL);
         registration.addRecipeClickArea(CompressorGuiGuiWindow.class, 61, 39, 22, 15, CompressorJeiCategory.Uid);
         registration.addRecipeClickArea(OxygenLoaderGuiGuiWindow.class, 76, 42, 14, 12, OxygenMachineJeiCategory.Uid);
         registration.addRecipeClickArea(OxygenBulletGeneratorGUIGuiWindow.class, 76, 30, 14, 12, OxygenGeneratorJeiCategory.Uid);
@@ -372,6 +383,7 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(WorkbenchBlock.block), WorkbenchJeiCategory.Uid);
         //BlastingFurnace
         registration.addRecipeCatalyst(new ItemStack(ModInnet.BLAST_FURNACE_BLOCK.get()), BlastingFurnaceJeiCategory.Uid);
+        registration.addRecipeCatalyst(new ItemStack(ModInnet.BLAST_FURNACE_BLOCK.get()), VanillaRecipeCategoryUid.FUEL);
         //RocketTier1Gui
         registration.addRecipeCatalyst(new ItemStack(Tier1RocketItemItem.block), Tier1RocketItemItemJeiCategory.Uid);
         //RocketTier2Gui
@@ -1139,6 +1151,21 @@ public class JeiPlugin implements IModPlugin {
             }
             return background;
         }
+        
+        @Override
+        public void draw(BlastingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+        	IRecipeCategory.super.draw(recipe, matrixStack, mouseX, mouseY);
+
+			NumberFormat numberInstance = NumberFormat.getNumberInstance();
+			numberInstance.setMaximumFractionDigits(2);
+        	int cookTime = recipe.getCookTime();
+			String text = numberInstance.format(cookTime / 20.0F) + "s";
+        	
+        	FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
+        	int stringWidth = fontRenderer.getStringWidth(text);
+        	IDrawable background = this.getBackground();
+			fontRenderer.drawString(matrixStack, text, background.getWidth() - 5 - stringWidth, background.getHeight() - fontRenderer.FONT_HEIGHT - 5, 0x808080);
+        }
 
         @Override
         public IDrawable getIcon() {
@@ -1155,12 +1182,10 @@ public class JeiPlugin implements IModPlugin {
         public void setRecipe(IRecipeLayout iRecipeLayout, BlastingRecipe recipe, IIngredients iIngredients) {
             IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
             stacks.init(BlastingFurnaceBlock.SLOT_INGREDIENT, true, 36, 16);//Iron
-            stacks.init(BlastingFurnaceBlock.SLOT_EXTRA, true, 36, 53); //coal
             stacks.init(BlastingFurnaceBlock.SLOT_OUTPUT, false, 86, 35);//steel
             // ...
 
             stacks.set(BlastingFurnaceBlock.SLOT_INGREDIENT, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
-            stacks.set(BlastingFurnaceBlock.SLOT_EXTRA, BlastingFurnaceBlock.FUEL_MAP.keySet().stream().map(i -> new ItemStack(i)).collect(Collectors.toList()));
             stacks.set(BlastingFurnaceBlock.SLOT_OUTPUT, iIngredients.getOutputs(VanillaTypes.ITEM).get(0));
             // ...
         }
