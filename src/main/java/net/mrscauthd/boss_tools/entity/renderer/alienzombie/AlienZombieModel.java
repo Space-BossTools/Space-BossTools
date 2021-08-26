@@ -1,65 +1,40 @@
-package net.mrscauthd.boss_tools.entity.renderer;
+package net.mrscauthd.boss_tools.entity.renderer.alienzombie;
 
-import net.mrscauthd.boss_tools.entity.AlienZombieEntity;
+import net.minecraft.entity.MobEntity;
 
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.entity.Entity;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.entity.MobRenderer;
 
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 @OnlyIn(Dist.CLIENT)
-public class AlienZombieRenderer {
-	public static class ModelRegisterHandler {
-		@SubscribeEvent
-		@OnlyIn(Dist.CLIENT)
-		public void registerModels(ModelRegistryEvent event) {
-			RenderingRegistry.registerEntityRenderingHandler(AlienZombieEntity.entity, renderManager -> {
-				return new MobRenderer(renderManager, new Modelalienzombie(), 0.5f) {
-					@Override
-					public ResourceLocation getEntityTexture(Entity entity) {
-						return new ResourceLocation("boss_tools:textures/alien_zombie.png");
-					}
-				};
-			});
-		}
-	}
-
-	// Made with Blockbench 3.8.4
-	// Exported for Minecraft version 1.15 - 1.16
-	// Paste this class into your mod and generate all required imports
-	public static class Modelalienzombie extends EntityModel<Entity> {
-		private final ModelRenderer head;
-		private final ModelRenderer nose_r1;
-		private final ModelRenderer cube_r1;
-		private final ModelRenderer cube_r2;
-		private final ModelRenderer cube_r3;
-		private final ModelRenderer head_r1;
-		private final ModelRenderer head_r2;
-		private final ModelRenderer body;
-		private final ModelRenderer leg0;
-		private final ModelRenderer leg1;
-		private final ModelRenderer arm2;
-		private final ModelRenderer arms;
-		private final ModelRenderer monsterarm1;
-		private final ModelRenderer cube_r4;
-		private final ModelRenderer monsterarm2;
-		private final ModelRenderer cube_r5;
-		private final ModelRenderer monsterarm3;
-		private final ModelRenderer cube_r6;
-		private final ModelRenderer monsterarm4;
-		private final ModelRenderer cube_r7;
-		public Modelalienzombie() {
+public class AlienZombieModel<T extends MobEntity> extends EntityModel<T> {
+	private final ModelRenderer head;
+	private final ModelRenderer nose_r1;
+	private final ModelRenderer cube_r1;
+	private final ModelRenderer cube_r2;
+	private final ModelRenderer cube_r3;
+	private final ModelRenderer head_r1;
+	private final ModelRenderer head_r2;
+	private final ModelRenderer body;
+	private final ModelRenderer leg0;
+	private final ModelRenderer leg1;
+	private final ModelRenderer arm2;
+	private final ModelRenderer arms;
+	private final ModelRenderer monsterarm1;
+	private final ModelRenderer cube_r4;
+	private final ModelRenderer monsterarm2;
+	private final ModelRenderer cube_r5;
+	private final ModelRenderer monsterarm3;
+	private final ModelRenderer cube_r6;
+	private final ModelRenderer monsterarm4;
+	private final ModelRenderer cube_r7;
+	public AlienZombieModel() {
 		textureWidth = 96;
 		textureHeight = 64;
 
@@ -170,56 +145,55 @@ public class AlienZombieRenderer {
 		monsterarm4.addChild(cube_r7);
 		setRotationAngle(cube_r7, 0.0F, -1.1345F, 0.0F);
 		cube_r7.setTextureOffset(30, 46).addBox(-15.0F, -1.0F, -1.0F, 15.0F, 2.0F, 2.0F, -0.1F, false);
-		}
+	}
 
-		@Override
-		public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue,
-				float alpha) {
-			head.render(matrixStack, buffer, packedLight, packedOverlay);
-			body.render(matrixStack, buffer, packedLight, packedOverlay);
-			leg0.render(matrixStack, buffer, packedLight, packedOverlay);
-			leg1.render(matrixStack, buffer, packedLight, packedOverlay);
-			arm2.render(matrixStack, buffer, packedLight, packedOverlay);
-			arms.render(matrixStack, buffer, packedLight, packedOverlay);
-			monsterarm1.render(matrixStack, buffer, packedLight, packedOverlay);
-			monsterarm2.render(matrixStack, buffer, packedLight, packedOverlay);
-			monsterarm3.render(matrixStack, buffer, packedLight, packedOverlay);
-			monsterarm4.render(matrixStack, buffer, packedLight, packedOverlay);
-		}
+	@Override
+	public void setRotationAngles(T entityIn, float f, float f1, float f2, float f3, float f4) {
+		//base
+		this.arm2.rotateAngleY = 0.0F;
+		this.arms.rotateAngleY = 0.0F;
+		this.arm2.rotateAngleZ = 0.0F;
+		this.arms.rotateAngleZ = 0.0F;
+		this.arm2.rotateAngleX = 0.0F;
+		this.arms.rotateAngleX = 0.0F;
 
-		public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-			modelRenderer.rotateAngleX = x;
-			modelRenderer.rotateAngleY = y;
-			modelRenderer.rotateAngleZ = z;
-		}
+		this.arm2.rotateAngleZ -= MathHelper.cos(f2 * 0.04F) * 0.04F + 0.04F;
+		this.arms.rotateAngleZ += MathHelper.cos(f2 * 0.04F) * 0.04F + 0.04F;
 
-		public void setRotationAngles(Entity e, float f, float f1, float f2, float f3, float f4) {
-			//base
-			this.arm2.rotateAngleY = 0.0F;
-			this.arms.rotateAngleY = 0.0F;
-			this.arm2.rotateAngleZ = 0.0F;
-			this.arms.rotateAngleZ = 0.0F;
-			this.arm2.rotateAngleX = 0.0F;
-			this.arms.rotateAngleX = 0.0F;
-			
-            this.arm2.rotateAngleZ -= MathHelper.cos(f2 * 0.04F) * 0.04F + 0.04F;
-			this.arms.rotateAngleZ += MathHelper.cos(f2 * 0.04F) * 0.04F + 0.04F;
+		//base end
 
-			//base end
-		
-            this.head.rotateAngleY = f3 / (180F / (float) Math.PI);
-            this.head.rotateAngleX = f4 / (180F / (float) Math.PI);
-            this.leg0.rotateAngleX = MathHelper.cos(f * 1.0F) * -1.0F * f1;
-            this.leg1.rotateAngleX = MathHelper.cos(f * 1.0F) * 1.0F * f1;
-            this.monsterarm1.rotateAngleY = MathHelper.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;
-            this.monsterarm4.rotateAngleY = MathHelper.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;
-            this.monsterarm3.rotateAngleY = MathHelper.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;
-            this.monsterarm2.rotateAngleY = MathHelper.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;
-            this.arms.rotateAngleX = 30f;
-            this.arm2.rotateAngleX = 30f;
-            
-            this.arm2.rotateAngleX -= MathHelper.cos(f2 * 0.04F) * 0.04F + 0.04F;
-			this.arms.rotateAngleX += MathHelper.cos(f2 * 0.04F) * 0.04F + 0.04F;
-		}
+		this.head.rotateAngleY = f3 / (180F / (float) Math.PI);
+		this.head.rotateAngleX = f4 / (180F / (float) Math.PI);
+		this.leg0.rotateAngleX = MathHelper.cos(f * 1.0F) * -1.0F * f1;
+		this.leg1.rotateAngleX = MathHelper.cos(f * 1.0F) * 1.0F * f1;
+		this.monsterarm1.rotateAngleY = MathHelper.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;
+		this.monsterarm4.rotateAngleY = MathHelper.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;
+		this.monsterarm3.rotateAngleY = MathHelper.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;
+		this.monsterarm2.rotateAngleY = MathHelper.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;
+		this.arms.rotateAngleX = 30f;
+		this.arm2.rotateAngleX = 30f;
+
+		this.arm2.rotateAngleX -= MathHelper.cos(f2 * 0.04F) * 0.04F + 0.04F;
+		this.arms.rotateAngleX += MathHelper.cos(f2 * 0.04F) * 0.04F + 0.04F;
+	}
+
+	@Override
+	public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		head.render(matrixStack, buffer, packedLight, packedOverlay);
+		body.render(matrixStack, buffer, packedLight, packedOverlay);
+		leg0.render(matrixStack, buffer, packedLight, packedOverlay);
+		leg1.render(matrixStack, buffer, packedLight, packedOverlay);
+		arm2.render(matrixStack, buffer, packedLight, packedOverlay);
+		arms.render(matrixStack, buffer, packedLight, packedOverlay);
+		monsterarm1.render(matrixStack, buffer, packedLight, packedOverlay);
+		monsterarm2.render(matrixStack, buffer, packedLight, packedOverlay);
+		monsterarm3.render(matrixStack, buffer, packedLight, packedOverlay);
+		monsterarm4.render(matrixStack, buffer, packedLight, packedOverlay);
+	}
+
+	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
+		modelRenderer.rotateAngleX = x;
+		modelRenderer.rotateAngleY = y;
+		modelRenderer.rotateAngleZ = z;
 	}
 }

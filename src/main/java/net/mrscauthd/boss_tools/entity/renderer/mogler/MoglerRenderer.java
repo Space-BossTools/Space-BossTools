@@ -11,11 +11,11 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 
 @OnlyIn(Dist.CLIENT)
-public class MoglerRenderer extends MobRenderer<HoglinEntity, MoglerModel.Modelmoglerium<HoglinEntity>> {
+public class MoglerRenderer extends MobRenderer<HoglinEntity, MoglerModel<HoglinEntity>> {
     private static final ResourceLocation field_239382_a_ = new ResourceLocation("boss_tools:textures/moglerium.png");
 
     public MoglerRenderer(EntityRendererManager p_i232470_1_) {
-        super(p_i232470_1_, new MoglerModel.Modelmoglerium<>(), 0.7F);
+        super(p_i232470_1_, new MoglerModel<>(), 0.7F);
     }
 
     /**
