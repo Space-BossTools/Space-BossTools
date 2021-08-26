@@ -32,8 +32,7 @@ public class STStructures2 {
      * is no Deferred Registry system for them.
      */
     //Venus bullet
-    public static final DeferredRegister<Structure<?>> VENUS_BULLET_DEFERRED_REGISTRY_STRUCTURE = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, "boss_tools");
-    public static final DeferredRegister<Structure<?>> VENUS_TOWER_DEFERRED_REGISTRY_STRUCTURE = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, "boss_tools");
+    public static final DeferredRegister<Structure<?>> DEFERRED_REGISTRY_STRUCTURE = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, "boss_tools");
     /**
      * Registers the structure itself and sets what its path is. In this case, the
      * structure will have the resourcelocation of structure_tutorial:run_down_house.
@@ -50,8 +49,8 @@ public class STStructures2 {
      * So it is best to keep your structure names the same as long as you can instead of changing them frequently.
      */
     //Venus Bullet
-    public static final RegistryObject<Structure<NoFeatureConfig>> VENUS_BULLET = VENUS_BULLET_DEFERRED_REGISTRY_STRUCTURE.register("venus_bullet", () -> (new VenusBulletStructure(NoFeatureConfig.field_236558_a_)));
-    public static final RegistryObject<Structure<NoFeatureConfig>> VENUS_TOWER = VENUS_TOWER_DEFERRED_REGISTRY_STRUCTURE.register("venus_tower", () -> (new VenusTowerStructure(NoFeatureConfig.field_236558_a_)));
+    public static final RegistryObject<Structure<NoFeatureConfig>> VENUS_BULLET = DEFERRED_REGISTRY_STRUCTURE.register("venus_bullet", () -> (new VenusBulletStructure(NoFeatureConfig.field_236558_a_)));
+    public static final RegistryObject<Structure<NoFeatureConfig>> VENUS_TOWER = DEFERRED_REGISTRY_STRUCTURE.register("venus_tower", () -> (new VenusTowerStructure(NoFeatureConfig.field_236558_a_)));
     /**
      * This is where we set the rarity of your structures and determine if land conforms to it.
      * See the comments in below for more details.

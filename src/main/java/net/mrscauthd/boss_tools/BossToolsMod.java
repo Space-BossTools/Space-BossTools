@@ -61,15 +61,13 @@ public class BossToolsMod {
 		ModInnet.SENSOR.register(bus);
 		ModInnet.FLUIDS.register(bus);
 		ModInnet.RECIPE_SERIALIZERS.register(bus);
-		//alien Village
-		STStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
 		bus.addListener(ModInnet::setup2);
 		forgeBus.addListener(EventPriority.NORMAL, ModInnet::addDimensionalSpacing);
 		forgeBus.addListener(EventPriority.HIGH, ModInnet::biomeModification);
-		//Meteor
-		STStructures.METEOR_DEFERRED_REGISTRY_STRUCTURE.register(bus);
-		STStructures2.VENUS_BULLET_DEFERRED_REGISTRY_STRUCTURE.register(bus);
-		STStructures2.VENUS_TOWER_DEFERRED_REGISTRY_STRUCTURE.register(bus);
+		//Structures
+		STStructures2.DEFERRED_REGISTRY_STRUCTURE.register(bus);
+		STStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
+
 		forgeBus.addListener(EventPriority.HIGH, ModInnet::biomesLoading);
 		//Biome Registery Event
 		bus.register(new BiomeRegisrtyEvents.BiomeRegisterHandler());

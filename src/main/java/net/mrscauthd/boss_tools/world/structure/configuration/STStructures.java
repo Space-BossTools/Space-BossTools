@@ -1,9 +1,7 @@
 package net.mrscauthd.boss_tools.world.structure.configuration;
 
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-//import com.telepathicgrunt.structuretutorial.structures.RunDownHouseStructure;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
@@ -14,11 +12,10 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.boss_tools.world.structure.AlienVillageStructure;
 import net.mrscauthd.boss_tools.world.structure.MeteorStructure;
-import net.mrscauthd.boss_tools.world.structure.VenusBulletStructure;
+import net.mrscauthd.boss_tools.world.structure.OilStructure;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Supplier;
 
 public class STStructures {
 
@@ -31,8 +28,6 @@ public class STStructures {
      * is no Deferred Registry system for them.
      */
     public static final DeferredRegister<Structure<?>> DEFERRED_REGISTRY_STRUCTURE = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, "boss_tools");
-    //MEteor
-    public static final DeferredRegister<Structure<?>> METEOR_DEFERRED_REGISTRY_STRUCTURE = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, "boss_tools");
     /**
      * Registers the structure itself and sets what its path is. In this case, the
      * structure will have the resourcelocation of structure_tutorial:run_down_house.
@@ -50,8 +45,10 @@ public class STStructures {
      */
     public static final RegistryObject<Structure<NoFeatureConfig>> RUN_DOWN_HOUSE = DEFERRED_REGISTRY_STRUCTURE.register("alien_village", () -> (new AlienVillageStructure(NoFeatureConfig.field_236558_a_)));
     //meteor
-    public static final RegistryObject<Structure<NoFeatureConfig>> METEOR = METEOR_DEFERRED_REGISTRY_STRUCTURE.register("meteor", () -> (new MeteorStructure(NoFeatureConfig.field_236558_a_)));
-   
+    public static final RegistryObject<Structure<NoFeatureConfig>> METEOR = DEFERRED_REGISTRY_STRUCTURE.register("meteor", () -> (new MeteorStructure(NoFeatureConfig.field_236558_a_)));
+
+    public static final RegistryObject<Structure<NoFeatureConfig>> OIL = DEFERRED_REGISTRY_STRUCTURE.register("oil_well", () -> (new OilStructure(NoFeatureConfig.field_236558_a_)));
+
     /**
      * This is where we set the rarity of your structures and determine if land conforms to it.
      * See the comments in below for more details.
@@ -71,6 +68,13 @@ public class STStructures {
                 METEOR.get(), /* The instance of the structure */
                 new StructureSeparationSettings(22 /* average distance apart in chunks between spawn attempts */,
                         5 /* minimum distance apart in chunks between spawn attempts */,
+                        1234567890 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
+                true);
+
+        setupMapSpacingAndLand(
+                OIL.get(), /* The instance of the structure */
+                new StructureSeparationSettings(18 /* average distance apart in chunks between spawn attempts */,
+                        7 /* minimum distance apart in chunks between spawn attempts */,
                         1234567890 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
                 true);
     }

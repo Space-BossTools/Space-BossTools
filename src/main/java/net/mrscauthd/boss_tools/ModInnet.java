@@ -320,6 +320,16 @@ public class ModInnet {
         if (event.getName().equals(new ResourceLocation("boss_tools:venus_biome")) && Config.VenusTowerStructure == true) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.VENUS_TOWER_CONFIGURED_RUN_DOWN_HOUSE);
         }
+        //Oil
+        if (event.getName().equals(new ResourceLocation("ocean")) && Config.OILWellStructure == true) {
+            event.getGeneration().getStructures().add(() -> STConfiguredStructures.OIL_CONFIGURED_RUN_DOWN_HOUSE);
+        }
+        if (event.getName().equals(new ResourceLocation("deep_cold_ocean")) && Config.OILWellStructure == true) {
+            event.getGeneration().getStructures().add(() -> STConfiguredStructures.OIL_CONFIGURED_RUN_DOWN_HOUSE);
+        }
+        if (event.getName().equals(new ResourceLocation("deep_ocean")) && Config.OILWellStructure == true) {
+            event.getGeneration().getStructures().add(() -> STConfiguredStructures.OIL_CONFIGURED_RUN_DOWN_HOUSE);
+        }
     }
     private static Method GETCODEC_METHOD;
     //@SubscribeEvent
@@ -363,6 +373,11 @@ public class ModInnet {
 
             tempMap3.putIfAbsent(STStructures2.VENUS_TOWER.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures2.VENUS_TOWER.get()));
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap3;
+            //OIl
+            Map<Structure<?>, StructureSeparationSettings> tempMap4 = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
+
+            tempMap4.putIfAbsent(STStructures.OIL.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.OIL.get()));
+            serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap4;
         }
     }
 

@@ -11,6 +11,7 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
+import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
@@ -141,6 +142,8 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipes(generateFuelMakerRecipes2(), FuelMaker2JeiCategory.Uid);
         //Rover
         registration.addRecipes(generateRoverRecipes(), RoverJeiCategory.Uid);
+        //Oil
+        registration.addIngredientInfo(new ItemStack(ModInnet.OIL_BUCKET.get()),registration.getIngredientManager().getIngredientType(ItemStack.class),"  You can find Oil in the Ocean");
         // ...
     }
 
