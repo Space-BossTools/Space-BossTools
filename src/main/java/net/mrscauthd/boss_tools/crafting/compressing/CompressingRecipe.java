@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.crafting.blasting;
+package net.mrscauthd.boss_tools.crafting.compressing;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -9,20 +9,20 @@ import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipe;
 
-public class BlastingRecipe extends ItemStackToItemStackRecipe {
+public class CompressingRecipe extends ItemStackToItemStackRecipe {
 
-	public BlastingRecipe(ResourceLocation id, Ingredient ingredient, ItemStack output, int cookTime) {
+	public CompressingRecipe(ResourceLocation id, Ingredient ingredient, ItemStack output, int cookTime) {
 		super(id, ingredient, output, cookTime);
 	}
 
 	@Override
 	public IRecipeSerializer<?> getSerializer() {
-		return ModInnet.RECIPE_SERIALIZER_BLASTING.get();
+		return ModInnet.RECIPE_SERIALIZER_COMPRESSING.get();
 	}
 
 	@Override
 	public IRecipeType<?> getType() {
-		return BossToolsRecipeTypes.BLASTING;
+		return BossToolsRecipeTypes.COMPRESSING;
 	}
 
 }

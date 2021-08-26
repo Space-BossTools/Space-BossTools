@@ -1,81 +1,56 @@
 
 package net.mrscauthd.boss_tools.machines;
 
-import net.minecraft.block.*;
-import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.gui.BlastFurnaceGUIGui;
-import net.mrscauthd.boss_tools.crafting.blasting.BlastingRecipe;
-import net.mrscauthd.boss_tools.crafting.blasting.BossToolsRecipeTypes;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.fml.network.NetworkHooks;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.ToolType;
-
-import net.minecraft.world.World;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.LockableLootTileEntity;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.loot.LootContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.block.material.PushReaction;
-import net.minecraft.block.material.Material;
-
-import javax.annotation.Nullable;
-
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
 
 import io.netty.buffer.Unpooled;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.HorizontalBlock;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.material.PushReaction;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootContext;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.DirectionProperty;
+import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Mirror;
+import net.minecraft.util.Rotation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
+import net.minecraftforge.fml.network.NetworkHooks;
+import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
+import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipeType;
+import net.mrscauthd.boss_tools.gui.BlastFurnaceGUIGui;
 
 public class BlastingFurnaceBlock {
-	public static final int SLOT_INGREDIENT = 0;
-	public static final int SLOT_EXTRA = 1;
-	public static final int SLOT_OUTPUT = 2;
 
-	public static final String KEY_FUEL = "fuel";
-	public static final String KEY_MAXFUEL = "maxFuel";
-	public static final String KEY_TIMER = "timer";
-	public static final String KEY_MAXTIMER = "maxTimer";
-	public static final String KEY_ACTIVATED = "activated";
-
-	//Blast Furnace Block
+	// Blast Furnace Block
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 		public static final BooleanProperty ACTIAVATED = BlockStateProperties.LIT;
+
 		public CustomBlock() {
 			super(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 1f).setLightLevel(s -> 0).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool());
 			this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(ACTIAVATED, Boolean.valueOf(false)));
@@ -125,9 +100,6 @@ public class BlastingFurnaceBlock {
 		@Override
 		public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity entity, Hand hand, BlockRayTraceResult hit) {
 			super.onBlockActivated(state, world, pos, entity, hand, hit);
-			int x = pos.getX();
-			int y = pos.getY();
-			int z = pos.getZ();
 			if (entity instanceof ServerPlayerEntity) {
 				NetworkHooks.openGui((ServerPlayerEntity) entity, new INamedContainerProvider() {
 					@Override
@@ -137,10 +109,9 @@ public class BlastingFurnaceBlock {
 
 					@Override
 					public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-						return new BlastFurnaceGUIGui.GuiContainerMod(id, inventory,
-								new PacketBuffer(Unpooled.buffer()).writeBlockPos(new BlockPos(x, y, z)));
+						return new BlastFurnaceGUIGui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(pos));
 					}
-				}, new BlockPos(x, y, z));
+				}, pos);
 			}
 			return ActionResultType.SUCCESS;
 		}
@@ -195,69 +166,14 @@ public class BlastingFurnaceBlock {
 		}
 	}
 
-	//Blast Furnace Tile Entity
-	public static class CustomTileEntity extends LockableLootTileEntity implements ISidedInventory, ITickableTileEntity {
-		private NonNullList<ItemStack> stacks = NonNullList.<ItemStack>withSize(9, ItemStack.EMPTY);
-		private ItemStack lastRecipeItemStack = null;
-		private BlastingRecipe lastRecipe = null;
+	public static class CustomTileEntity extends ItemStackToItemStackFuelTileEntity {
 		public CustomTileEntity() {
 			super(ModInnet.BLAST_FURNACE.get());
 		}
 
 		@Override
-		public void read(BlockState blockState, CompoundNBT compound) {
-			super.read(blockState, compound);
-			if (!this.checkLootAndRead(compound)) {
-				this.stacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
-			}
-			ItemStackHelper.loadAllItems(compound, this.stacks);
-		}
-
-		@Override
-		public CompoundNBT write(CompoundNBT compound) {
-			super.write(compound);
-			if (!this.checkLootAndWrite(compound)) {
-				ItemStackHelper.saveAllItems(compound, this.stacks);
-			}
-			return compound;
-		}
-
-		@Override
-		public SUpdateTileEntityPacket getUpdatePacket() {
-			return new SUpdateTileEntityPacket(this.pos, 0, this.getUpdateTag());
-		}
-
-		@Override
-		public CompoundNBT getUpdateTag() {
-			return this.write(new CompoundNBT());
-		}
-
-		@Override
-		public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-			this.read(this.getBlockState(), pkt.getNbtCompound());
-		}
-
-		@Override
-		public int getSizeInventory() {
-			return stacks.size();
-		}
-
-		@Override
-		public boolean isEmpty() {
-			for (ItemStack itemstack : this.stacks)
-				if (!itemstack.isEmpty())
-					return false;
-			return true;
-		}
-
-		@Override
 		public ITextComponent getDefaultName() {
 			return new StringTextComponent("blast_furnace");
-		}
-
-		@Override
-		public int getInventoryStackLimit() {
-			return 64;
 		}
 
 		@Override
@@ -271,271 +187,15 @@ public class BlastingFurnaceBlock {
 		}
 
 		@Override
-		protected NonNullList<ItemStack> getItems() {
-			return this.stacks;
+		protected ItemStackToItemStackRecipeType<?> getRecipeType() {
+			return BossToolsRecipeTypes.BLASTING;
 		}
-
+		
 		@Override
-		protected void setItems(NonNullList<ItemStack> stacks) {
-			this.stacks = stacks;
-		}
-
-		@Override
-		public boolean isItemValidForSlot(int index, ItemStack stack) {
-			return true;
-		}
-
-		@Override
-		public int[] getSlotsForFace(Direction side) {
-			if (side == Direction.UP) {
-				return new int[] { SLOT_INGREDIENT };
-			} else if (side == Direction.DOWN) {
-				return new int[] { SLOT_OUTPUT };
-			} else {
-				return new int[] { SLOT_EXTRA };
-			}
-
-		}
-
-		@Override
-		public boolean canInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
-			if (index == SLOT_INGREDIENT && direction == Direction.UP) {
-				return true;
-			} else if (index == SLOT_EXTRA && direction != Direction.DOWN) {
-				return true;
-			}
-
-			return false;
-		}
-
-		@Override
-		public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-			return index == SLOT_OUTPUT && direction == Direction.DOWN;
-		}
-
-		private final LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.values());
-
-		@Override
-		public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-			if (!this.removed && facing != null && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-				return handlers[facing.ordinal()].cast();
-			return super.getCapability(capability, facing);
-		}
-
-		@Override
-		public void remove() {
-			super.remove();
-			for (LazyOptional<? extends IItemHandler> handler : handlers)
-				handler.invalidate();
-		}
-
-		private BlastingRecipe cacheRecipe() {
-			ItemStack itemStack = this.getStackInSlot(SLOT_INGREDIENT);
-
-			if (itemStack == null || itemStack.isEmpty()) {
-				this.lastRecipeItemStack = itemStack;
-				this.lastRecipe = null;
-			} else if (this.lastRecipeItemStack == null || !ItemHandlerHelper.canItemStacksStack(this.lastRecipeItemStack, itemStack)) {
-				this.lastRecipeItemStack = itemStack;
-				this.lastRecipe = BossToolsRecipeTypes.BLASTING.findFirst(this.getWorld(), this);
-				
-				if (this.lastRecipe != null) {
-					this.setMaxTimer(this.lastRecipe.getCookTime());
-				}
-			}
-			return this.lastRecipe;
-		}
-
-		@Override
-		public void tick() {
-			World world = this.getWorld();
-
-			if (world.isRemote()) {
-				return;
-			}
-
-			BlockPos pos = this.getPos();
-			BlockState state = this.getBlockState();
-			BlockState nextState = state;
-
-			boolean requireNotify = false;
-			requireNotify |= this.cookIngredient();
-			requireNotify |= this.burnFuel();
-			requireNotify |= this.udpateActivated();
-
-			boolean activated = this.isActivated();
-
-			if (state.get(CustomBlock.ACTIAVATED).booleanValue() != activated) {
-				nextState = nextState.with(CustomBlock.ACTIAVATED, activated);
-				world.setBlockState(pos, nextState, 3);
-			}
-
-			if (requireNotify) {
-				world.notifyBlockUpdate(pos, nextState, nextState, 3);
-			}
-
-		}
-
-		public boolean canOutput(ItemStack recipeOutput) {
-			ItemStack output = this.getItemHandler().getStackInSlot(SLOT_OUTPUT);
-			return canOutput(recipeOutput, output);
-		}
-
-		public boolean canOutput(ItemStack recipeOutput, ItemStack output) {
-			if (output.isEmpty()) {
-				return true;
-			} else if (ItemHandlerHelper.canItemStacksStack(output, recipeOutput)) {
-				int limit = Math.min(recipeOutput.getMaxStackSize(), this.getInventoryStackLimit());
-				return (output.getCount() + recipeOutput.getCount()) <= limit;
-			}
-
-			return false;
-		}
-
-		public boolean resetTimer() {
-			if (this.getTimer() > 0) {
-				this.setTimer(0);
-				return true;
-			} else {
-				return false;
-			}
-
-		}
-
-		public boolean burnFuel() {
-			IItemHandlerModifiable itemHandler = this.getItemHandler();
-			ItemStack extra = itemHandler.getStackInSlot(SLOT_EXTRA);
-
-			int prevFuel = this.getFuel();
-			int fuel = prevFuel;
-
-			if (fuel > 0) {
-				fuel--;
-			}
-
-			if (fuel == 0 && !extra.isEmpty()) {
-				BlastingRecipe recipe = this.cacheRecipe();
-
-				if (recipe != null && this.canOutput(recipe.getCraftingResult(this))) {
-					int burnTime = ForgeHooks.getBurnTime(extra, recipe.getType());
-					
-					if (burnTime > 0) {
-						itemHandler.extractItem(SLOT_EXTRA, 1, false);
-						fuel = burnTime;
-						this.setMaxFuel(fuel);
-					}
-					
-				}
-
-			}
-
-			if (prevFuel != fuel) {
-				this.setFuel(fuel);
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
-
-		public boolean cookIngredient() {
-			BlastingRecipe recipe = this.cacheRecipe();
-
-			if (recipe == null) {
-				return this.resetTimer();
-			}
-
-			ItemStack recipeOutput = recipe.getCraftingResult(this);
-
-			if (this.canOutput(recipeOutput) == true) {
-				int timer = this.getTimer();
-				int fuel = this.getFuel();
-				
-				if (fuel > 0) {
-					timer++;
-
-					if (timer >= this.getMaxTimer()) {
-						IItemHandlerModifiable itemHandler = this.getItemHandler();
-						itemHandler.insertItem(SLOT_OUTPUT, recipeOutput.copy(), false);
-						itemHandler.extractItem(SLOT_INGREDIENT, 1, false);
-						timer = 0;
-					}
-
-				}
-				else if (timer > 0){
-					timer--;
-				}
-
-				this.setTimer(timer);
-				return true;
-			} else {
-				return this.resetTimer();
-			}
-
-		}
-
-		public boolean udpateActivated() {
-			boolean activated = this.getFuel() > 0;
-
-			if (this.isActivated() != activated) {
-				this.setActivated(activated);
-				return true;
-			}
-
-			return false;
-		}
-
-		public IItemHandlerModifiable getItemHandler() {
-			return (IItemHandlerModifiable) this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).resolve().get();
-		}
-
-		public int getFuel() {
-			return this.getTileData().getInt(KEY_FUEL);
-		}
-
-		public void setFuel(int fuel) {
-			this.getTileData().putInt(KEY_FUEL, fuel);
-		}
-
-		public int getMaxFuel() {
-			return this.getTileData().getInt(KEY_MAXFUEL);
-		}
-
-		public void setMaxFuel(int maxFuel) {
-			this.getTileData().putInt(KEY_MAXFUEL, maxFuel);
-		}
-
-		public double getFuelRemainPercentage() {
-			return this.getFuel() / (this.getMaxFuel() / 100.0D);
-		}
-
-		public int getTimer() {
-			return this.getTileData().getInt(KEY_TIMER);
-		}
-
-		public void setTimer(int timer) {
-			this.getTileData().putDouble(KEY_TIMER, timer);
-		}
-
-		public int getMaxTimer() {
-			return this.getTileData().getInt(KEY_MAXTIMER);
-		}
-
-		public void setMaxTimer(int maxTimer) {
-			this.getTileData().putDouble(KEY_MAXTIMER, maxTimer);
-		}
-
-		public double getTimerPercentage() {
-			return this.getTimer() / (this.getMaxTimer() / 100.0D);
-		}
-
-		public boolean isActivated() {
-			return this.getTileData().getBoolean(KEY_ACTIVATED);
-		}
-
-		public void setActivated(boolean activated) {
-			this.getTileData().putBoolean(KEY_ACTIVATED, activated);
+		protected BooleanProperty getBlockActivatedProperty() {
+			return CustomBlock.ACTIAVATED;
 		}
 
 	}
+
 }

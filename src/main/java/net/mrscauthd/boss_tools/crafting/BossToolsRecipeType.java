@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.crafting.blasting;
+package net.mrscauthd.boss_tools.crafting;
 
 import java.util.List;
 
