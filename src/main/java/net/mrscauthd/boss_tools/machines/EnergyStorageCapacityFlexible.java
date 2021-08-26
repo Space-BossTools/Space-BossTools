@@ -25,8 +25,6 @@ public class EnergyStorageCapacityFlexible extends EnergyStorage {
 	{
 		CompoundNBT compound = new CompoundNBT();
 		compound.putInt("capacity", this.capacity);
-		compound.putInt("maxReceive", this.maxReceive);
-		compound.putInt("maxExtract", this.maxExtract);
 		compound.putInt("energy", this.energy);
 		return compound;
 	}
@@ -34,8 +32,6 @@ public class EnergyStorageCapacityFlexible extends EnergyStorage {
 	public void read(CompoundNBT compound)
 	{
 		this.capacity = compound.getInt("capacity");
-		this.maxReceive = compound.getInt("maxReceive");
-		this.maxExtract = compound.getInt("maxExtract");
 		this.energy = compound.getInt("energy");
 	}
 	

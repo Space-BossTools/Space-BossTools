@@ -70,12 +70,8 @@ public abstract class ItemStackToItemStackFuelTileEntity extends ItemStackToItem
 	}
 
 	@Override
-	protected boolean canCook() {
-		return this.getEnergyStorage().getEnergyStored() >= this.getEnergyForOperation();
-	}
-
-	@Override
-	protected void onCantCook() {
+	protected void onCantCooking() {
+		super.onCantCooking();
 		this.setTimer(this.getTimer() - 1);
 	}
 

@@ -101,6 +101,11 @@ public abstract class ItemStackToItemStackTileEntity extends LockableLootTileEnt
 		}
 		ItemStackHelper.loadAllItems(compound, this.stacks);
 		this.energyStorage.read(compound.getCompound("energyStorage"));
+
+		if (this.energyStorage.getMaxEnergyStored() == 0) {
+			this.energyStorage.setMaxEnergyStored(this.getEnergyCapacity());
+		}
+
 	}
 
 	@Override
@@ -340,9 +345,17 @@ public abstract class ItemStackToItemStackTileEntity extends LockableLootTileEnt
 		return false;
 	}
 
-	protected abstract boolean canCook();
+	protected boolean canCook() {
+		return this.getEnergyStorage().getEnergyStored() >= this.getEnergyForOperation();
+	}
 
-	protected abstract void onCantCook();
+	protected void onCooking() {
+		this.setTimer(this.getTimer() + 1);
+	}
+
+	protected void onCantCooking() {
+
+	}
 
 	public boolean cookIngredient() {
 		ItemStackToItemStackRecipe recipe = this.cacheRecipe();
@@ -354,21 +367,18 @@ public abstract class ItemStackToItemStackTileEntity extends LockableLootTileEnt
 		ItemStack recipeOutput = recipe.getCraftingResult(this);
 
 		if (this.canOutput(recipeOutput) == true) {
-			int timer = this.getTimer();
 
 			if (this.canCook()) {
-				timer++;
+				this.onCooking();
 
-				if (timer >= this.getMaxTimer()) {
+				if (this.getTimer() >= this.getMaxTimer()) {
 					IItemHandlerModifiable itemHandler = this.getItemHandler();
 					itemHandler.insertItem(SLOT_OUTPUT, recipeOutput.copy(), false);
 					itemHandler.extractItem(SLOT_INGREDIENT, 1, false);
-					timer = 0;
+					this.setTimer(0);
 				}
-
-				this.setTimer(timer);
-			} else if (timer > 0) {
-				this.onCantCook();
+			} else {
+				this.onCantCooking();
 			}
 
 			return true;

@@ -22,13 +22,9 @@ public abstract class ItemStackToItemStackEnergyTileEntity extends ItemStackToIt
 	}
 
 	@Override
-	protected boolean canCook() {
-		return this.consumeEnergy();
-	}
-
-	@Override
-	protected void onCantCook() {
-
+	protected void onCooking() {
+		super.onCooking();
+		this.consumeEnergy();
 	}
 
 	@Override
