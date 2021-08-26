@@ -3,24 +3,23 @@ package net.mrscauthd.boss_tools.gui;
 
 import org.lwjgl.opengl.GL11;
 
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.api.distmarker.Dist;
-
-import net.minecraft.world.World;
-import net.minecraft.world.IWorld;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.Minecraft;
-
 import com.mojang.blaze3d.matrix.MatrixStack;
 
-import com.google.common.collect.ImmutableMap;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.mrscauthd.boss_tools.machines.CompressorBlock.CustomTileEntity;
+import net.mrscauthd.boss_tools.machines.EnergyStorageCapacityFlexible;
 
 @OnlyIn(Dist.CLIENT)
 public class CompressorGuiGuiWindow extends ContainerScreen<CompressorGuiGui.GuiContainerMod> {
@@ -39,21 +38,17 @@ public class CompressorGuiGuiWindow extends ContainerScreen<CompressorGuiGui.Gui
     }
     private static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/compressor_gui.png");
     @Override
-    public void render(MatrixStack ms, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(ms);
-        super.render(ms, mouseX, mouseY, partialTicks);
-        this.renderHoveredTooltip(ms, mouseX, mouseY);
-        // tooltip Energy
-        if (mouseX > guiLeft + 143 && mouseX < guiLeft + 168 && mouseY > guiTop + 20 && mouseY < guiTop + 69)
-            this.renderTooltip(ms, new StringTextComponent(((new Object() {
-                public double getValue(IWorld world, BlockPos pos, String tag) {
-                    TileEntity tileEntity = world.getTileEntity(pos);
-                    if (tileEntity != null)
-                        return tileEntity.getTileData().getDouble(tag);
-                    return -1;
-                }
-            }.getValue(world, new BlockPos((int) x, (int) y, (int) z), "energy_fe_gui"))) + " FE / 9000.0 FE"), mouseX, mouseY);
-    }
+	public void render(MatrixStack ms, int mouseX, int mouseY, float partialTicks) {
+		this.renderBackground(ms);
+		super.render(ms, mouseX, mouseY, partialTicks);
+		this.renderHoveredTooltip(ms, mouseX, mouseY);
+		// tooltip Energy
+		if (mouseX > guiLeft + 143 && mouseX < guiLeft + 168 && mouseY > guiTop + 20 && mouseY < guiTop + 69) {
+			CustomTileEntity tileEntity = (CustomTileEntity) world.getTileEntity(new BlockPos(this.x, this.y, this.z));
+			EnergyStorageCapacityFlexible energyStorage = tileEntity.getEnergyStorage();
+			this.renderTooltip(ms, new StringTextComponent(energyStorage.getEnergyStored() + " FE / " + energyStorage.getMaxEnergyStored() + " FE"), mouseX, mouseY);
+		}
+	}
 
     @Override
     protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float par1, int par2, int par3) {
@@ -64,24 +59,12 @@ public class CompressorGuiGuiWindow extends ContainerScreen<CompressorGuiGui.Gui
         this.blit(ms, k, l, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
         Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/outputslot.png"));
         this.blit(ms, this.guiLeft + 87, this.guiTop + 33, 0, 0, 26, 26, 26, 26);
-        // Energy NBT
-        double energyanimation = (double) (new Object() {
-            public double getValue(IWorld world, BlockPos pos, String tag) {
-                TileEntity tileEntity = world.getTileEntity(pos);
-                if (tileEntity != null)
-                    return tileEntity.getTileData().getDouble(tag);
-                return -1;
-            }
-        }.getValue(world, new BlockPos((int) x, (int) y, (int) z), "EnergyGui"));
-        // Arrow NBT
-        double arrowanimation = (double) (new Object() {
-            public double getValue(IWorld world, BlockPos pos, String tag) {
-                TileEntity tileEntity = world.getTileEntity(pos);
-                if (tileEntity != null)
-                    return tileEntity.getTileData().getDouble(tag);
-                return -1;
-            }
-        }.getValue(world, new BlockPos((int) x, (int) y, (int) z), "loading"));
+        
+
+		CustomTileEntity tileEntity = (CustomTileEntity) this.world.getTileEntity(new BlockPos(this.x, this.y, this.z));
+		double energyanimation = tileEntity.getEnergyStorage().getEnergyStored();
+		double arrowanimation = tileEntity.getTimerPercentage() * 2;
+		
         // energy 0
         Minecraft.getInstance().getTextureManager()
                 .bindTexture(new ResourceLocation("boss_tools:textures/energy_volume_fractional_vertical_bar_background.png"));

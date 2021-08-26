@@ -69,8 +69,6 @@ import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.gui.FuelRefineryGUIGui;
 
 public class FuelRefineryBlock {
-	public static final String KEY_ACTIVATED = "activated";
-	public static final String KEY_FUEL = "fuel";
 	public static final int BUCKET_SIZE = 1000;
 	public static final int BARREL_SIZE = 3000;
 	public static final int LAVA_TO_FUEL = 100;
@@ -80,7 +78,10 @@ public class FuelRefineryBlock {
 	public static final int SLOT_INGREDIENT = 0;
 	public static final int SLOT_OUTPUT = 1;
 
-	//Fuel Refinery Block
+	public static final String KEY_ACTIVATED = "activated";
+	public static final String KEY_FUEL = "fuel";
+
+	// Fuel Refinery Block
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 		public static final BooleanProperty ACTIAVATED = BlockStateProperties.LIT;
@@ -119,15 +120,6 @@ public class FuelRefineryBlock {
 			if (!dropsOriginal.isEmpty())
 				return dropsOriginal;
 			return Collections.singletonList(new ItemStack(this, 1));
-		}
-
-		@Override
-		public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean moving) {
-			super.onBlockAdded(state, world, pos, oldState, moving);
-			int x = pos.getX();
-			int y = pos.getY();
-			int z = pos.getZ();
-			world.getPendingBlockTicks().scheduleTick(new BlockPos(x, y, z), this, 1);
 		}
 
 		@Override
@@ -327,7 +319,6 @@ public class FuelRefineryBlock {
 
 		@Override
 		public boolean canInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
-
 			ItemStack stackInSlot = this.getStackInSlot(index);
 
 			if (stackInSlot.isEmpty() == true) {
@@ -414,7 +405,7 @@ public class FuelRefineryBlock {
 		@Override
 		public void tick() {
 			World world = this.getWorld();
-			
+
 			if (world.isRemote()) {
 				return;
 			}
@@ -469,7 +460,7 @@ public class FuelRefineryBlock {
 			if (fuel >= FUEL_CONSUME_PER_TICK && this.canOperate()) {
 				this.setFuel(fuel - FUEL_CONSUME_PER_TICK);
 				this.getEnergyStorage().extractEnergy(ENERGY_CONSUME_PER_TICK, false);
-			this.getFluidTank().fill(new FluidStack(ModInnet.FUEL_STILL.get(), FLUID_GEN_PER_TICK), FluidAction.EXECUTE);
+				this.getFluidTank().fill(new FluidStack(ModInnet.FUEL_STILL.get(), FLUID_GEN_PER_TICK), FluidAction.EXECUTE);
 				this.setActivated(true);
 				return true;
 			} else if (this.isActivated()) {

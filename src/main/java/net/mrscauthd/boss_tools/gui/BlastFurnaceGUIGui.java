@@ -1,64 +1,65 @@
 
 package net.mrscauthd.boss_tools.gui;
 
-import net.mrscauthd.boss_tools.BossToolsModElements;
-import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock;
-import net.mrscauthd.boss_tools.BossToolsMod;
-
-import net.minecraftforge.items.SlotItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.fml.network.NetworkEvent;
-import net.minecraftforge.fml.network.IContainerFactory;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.DeferredWorkQueue;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.api.distmarker.Dist;
-
-import net.minecraft.world.World;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.client.gui.ScreenManager;
-
-import java.util.function.Supplier;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
+
+import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.inventory.container.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DeferredWorkQueue;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.network.IContainerFactory;
+import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.SlotItemHandler;
+import net.mrscauthd.boss_tools.BossToolsMod;
+import net.mrscauthd.boss_tools.BossToolsModElements;
+import net.mrscauthd.boss_tools.machines.ItemStackToItemStackFuelTileEntity;
+import net.mrscauthd.boss_tools.machines.ItemStackToItemStackTileEntity;
 
 @BossToolsModElements.ModElement.Tag
 public class BlastFurnaceGUIGui extends BossToolsModElements.ModElement {
 	public static HashMap guistate = new HashMap();
 	private static ContainerType<GuiContainerMod> containerType = null;
+
 	public BlastFurnaceGUIGui(BossToolsModElements instance) {
 		super(instance, 161);
-		elements.addNetworkMessage(ButtonPressedMessage.class, ButtonPressedMessage::buffer, ButtonPressedMessage::new,
-				ButtonPressedMessage::handler);
-		elements.addNetworkMessage(GUISlotChangedMessage.class, GUISlotChangedMessage::buffer, GUISlotChangedMessage::new,
-				GUISlotChangedMessage::handler);
+		elements.addNetworkMessage(ButtonPressedMessage.class, ButtonPressedMessage::buffer, ButtonPressedMessage::new, ButtonPressedMessage::handler);
+		elements.addNetworkMessage(GUISlotChangedMessage.class, GUISlotChangedMessage::buffer, GUISlotChangedMessage::new, GUISlotChangedMessage::handler);
 		containerType = new ContainerType<>(new GuiContainerModFactory());
 		FMLJavaModLoadingContext.get().getModEventBus().register(new ContainerRegisterHandler());
 	}
+
 	private static class ContainerRegisterHandler {
 		@SubscribeEvent
 		public void registerContainer(RegistryEvent.Register<ContainerType<?>> event) {
 			event.getRegistry().register(containerType.setRegistryName("blast_furnace_gui"));
 		}
 	}
+
 	@OnlyIn(Dist.CLIENT)
 	public void initElements() {
 		DeferredWorkQueue.runLater(() -> ScreenManager.registerFactory(containerType, BlastFurnaceGUIGuiWindow::new));
 	}
+
 	public static class GuiContainerModFactory implements IContainerFactory {
 		public GuiContainerMod create(int id, PlayerInventory inv, PacketBuffer extraData) {
 			return new GuiContainerMod(id, inv, extraData);
@@ -72,6 +73,7 @@ public class BlastFurnaceGUIGui extends BossToolsModElements.ModElement {
 		private IItemHandler internal;
 		private Map<Integer, Slot> customSlots = new HashMap<>();
 		private boolean bound = false;
+
 		public GuiContainerMod(int id, PlayerInventory inv, PacketBuffer extraData) {
 			super(containerType, id);
 			this.entity = inv.player;
@@ -114,15 +116,15 @@ public class BlastFurnaceGUIGui extends BossToolsModElements.ModElement {
 					}
 				}
 			}
-			this.customSlots.put(BlastingFurnaceBlock.SLOT_INGREDIENT, this.addSlot(new SlotItemHandler(internal, BlastingFurnaceBlock.SLOT_INGREDIENT, 53, 19) {
+			this.customSlots.put(ItemStackToItemStackTileEntity.SLOT_INGREDIENT, this.addSlot(new SlotItemHandler(internal, ItemStackToItemStackTileEntity.SLOT_INGREDIENT, 53, 19) {
 			}));
-			this.customSlots.put(BlastingFurnaceBlock.SLOT_EXTRA, this.addSlot(new SlotItemHandler(internal, BlastingFurnaceBlock.SLOT_EXTRA, 53, 56) {
-			}));
-			this.customSlots.put(BlastingFurnaceBlock.SLOT_OUTPUT, this.addSlot(new SlotItemHandler(internal, BlastingFurnaceBlock.SLOT_OUTPUT, 104, 38) {
+			this.customSlots.put(ItemStackToItemStackTileEntity.SLOT_OUTPUT, this.addSlot(new SlotItemHandler(internal, ItemStackToItemStackTileEntity.SLOT_OUTPUT, 104, 38) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
 					return false;
 				}
+			}));
+			this.customSlots.put(ItemStackToItemStackFuelTileEntity.SLOT_FUEL, this.addSlot(new SlotItemHandler(internal, ItemStackToItemStackFuelTileEntity.SLOT_FUEL, 53, 56) {
 			}));
 			int si;
 			int sj;
@@ -270,8 +272,7 @@ public class BlastFurnaceGUIGui extends BossToolsModElements.ModElement {
 					}
 				} else {
 					for (int i = 0; i < internal.getSlots(); ++i) {
-						playerIn.inventory.placeItemBackInInventory(playerIn.world,
-								internal.extractItem(i, internal.getStackInSlot(i).getCount(), false));
+						playerIn.inventory.placeItemBackInInventory(playerIn.world, internal.extractItem(i, internal.getStackInSlot(i).getCount(), false));
 					}
 				}
 			}
@@ -287,6 +288,7 @@ public class BlastFurnaceGUIGui extends BossToolsModElements.ModElement {
 
 	public static class ButtonPressedMessage {
 		int buttonID, x, y, z;
+
 		public ButtonPressedMessage(PacketBuffer buffer) {
 			this.buttonID = buffer.readInt();
 			this.x = buffer.readInt();
@@ -324,6 +326,7 @@ public class BlastFurnaceGUIGui extends BossToolsModElements.ModElement {
 
 	public static class GUISlotChangedMessage {
 		int slotID, x, y, z, changeType, meta;
+
 		public GUISlotChangedMessage(int slotID, int x, int y, int z, int changeType, int meta) {
 			this.slotID = slotID;
 			this.x = x;
@@ -366,6 +369,7 @@ public class BlastFurnaceGUIGui extends BossToolsModElements.ModElement {
 			context.setPacketHandled(true);
 		}
 	}
+
 	static void handleButtonAction(PlayerEntity entity, int buttonID, int x, int y, int z) {
 		World world = entity.world;
 		// security measure to prevent arbitrary chunk generation

@@ -1,6 +1,5 @@
 package net.mrscauthd.boss_tools.jei;
 
-import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import mezz.jei.api.IModPlugin;
@@ -28,15 +27,17 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.blasting.BlastingRecipe;
-import net.mrscauthd.boss_tools.crafting.blasting.BossToolsRecipeTypes;
+import net.mrscauthd.boss_tools.crafting.compressing.CompressingRecipe;
 import net.mrscauthd.boss_tools.machines.WorkbenchBlock;
 import net.mrscauthd.boss_tools.machines.GeneratorBlock;
+import net.mrscauthd.boss_tools.machines.ItemStackToItemStackFuelTileEntity;
+import net.mrscauthd.boss_tools.machines.ItemStackToItemStackTileEntity;
 import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock;
 import net.mrscauthd.boss_tools.machines.OxygenMachineBlock;
 import net.mrscauthd.boss_tools.machines.CompressorBlock;
 import net.mrscauthd.boss_tools.gui.*;
-import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock;
 import net.mrscauthd.boss_tools.item.TurbineItem;
 import net.mrscauthd.boss_tools.item.TurbineTier2Item;
 import net.mrscauthd.boss_tools.item.RocketfinsItem;
@@ -61,8 +62,14 @@ public class JeiPlugin implements IModPlugin {
     
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
-    	registration.addRecipeTransferHandler(BlastFurnaceGUIGui.GuiContainerMod.class, BlastingFurnaceJeiCategory.Uid, BlastingFurnaceBlock.SLOT_INGREDIENT, 1, BlastingFurnaceBlock.SLOT_OUTPUT + 1, 36);
-    	registration.addRecipeTransferHandler(BlastFurnaceGUIGui.GuiContainerMod.class, VanillaRecipeCategoryUid.FUEL, BlastingFurnaceBlock.SLOT_EXTRA, 1, BlastingFurnaceBlock.SLOT_OUTPUT + 1, 36);
+    	int inventorySlotStart = ItemStackToItemStackTileEntity.SLOT_OUTPUT + 1;
+    	int inventorySlotCount = 36;
+    	
+    	// BlastFurnace
+		registration.addRecipeTransferHandler(BlastFurnaceGUIGui.GuiContainerMod.class, BlastingFurnaceJeiCategory.Uid, ItemStackToItemStackTileEntity.SLOT_INGREDIENT, 1, inventorySlotStart, inventorySlotCount);
+    	registration.addRecipeTransferHandler(BlastFurnaceGUIGui.GuiContainerMod.class, VanillaRecipeCategoryUid.FUEL, ItemStackToItemStackFuelTileEntity.SLOT_FUEL, 1, inventorySlotStart, inventorySlotCount);
+    	//Compressor
+    	registration.addRecipeTransferHandler(CompressorGuiGui.GuiContainerMod.class, CompressorJeiCategory.Uid, ItemStackToItemStackTileEntity.SLOT_INGREDIENT, 1, inventorySlotStart, inventorySlotCount);
     }
     
     @Override
@@ -131,11 +138,7 @@ public class JeiPlugin implements IModPlugin {
         //RocketTier3Gui
         registration.addRecipes(generateTier3RocketItemItemRecipes(), Tier3RocketItemItemJeiCategory.Uid);
         //Compressor
-        registration.addRecipes(generateCompressorRecipes(), CompressorJeiCategory.Uid);
-        //Compresor 2 Recpie
-        registration.addRecipes(generateCompressorRecipes2(), CompressorJeiCategory.Uid);
-        //Compressor 3 Recpie
-        registration.addRecipes(generateCompressorRecipes3(), CompressorJeiCategory.Uid);
+        registration.addRecipes(generateCompressingRecipes(), CompressorJeiCategory.Uid);
         //Fuel Maker
         registration.addRecipes(generateFuelMakerRecipes(), FuelMakerJeiCategory.Uid);
         //fuel Maker 2 Recpie
@@ -285,37 +288,8 @@ public class JeiPlugin implements IModPlugin {
         return BossToolsRecipeTypes.BLASTING.getRecipes(Minecraft.getInstance().world);
     }
     //Compressor
-    private List<CompressorJeiCategory.CompressorRecipeWrapper> generateCompressorRecipes() {
-        List<CompressorJeiCategory.CompressorRecipeWrapper> recipes = new ArrayList<>();
-        ArrayList<ItemStack> inputs = new ArrayList<>();
-        ArrayList<ItemStack> outputs = new ArrayList<>();
-        inputs.add(new ItemStack(ModInnet.STEEL_INGOT.get()));
-        outputs.add(new ItemStack(ModInnet.COMPRESSED_STEEL.get()));
-        // ...
-        recipes.add(new CompressorJeiCategory.CompressorRecipeWrapper(inputs, outputs));
-        return recipes;
-    }
-    //Compressor 2 Recpie
-    private List<CompressorJeiCategory.CompressorRecipeWrapper> generateCompressorRecipes2() {
-        List<CompressorJeiCategory.CompressorRecipeWrapper> recipes = new ArrayList<>();
-        ArrayList<ItemStack> inputs = new ArrayList<>();
-        ArrayList<ItemStack> outputs = new ArrayList<>();
-        inputs.add(new ItemStack(ModInnet.DESH_INGOT.get()));
-        outputs.add(new ItemStack(ModInnet.COMPRESSED_DESH.get()));
-        // ...
-        recipes.add(new CompressorJeiCategory.CompressorRecipeWrapper(inputs, outputs));
-        return recipes;
-    }
-    //Compressor 3 Recpie
-    private List<CompressorJeiCategory.CompressorRecipeWrapper> generateCompressorRecipes3() {
-        List<CompressorJeiCategory.CompressorRecipeWrapper> recipes = new ArrayList<>();
-        ArrayList<ItemStack> inputs = new ArrayList<>();
-        ArrayList<ItemStack> outputs = new ArrayList<>();
-        inputs.add(new ItemStack(ModInnet.SILICON_INGOT.get()));
-        outputs.add(new ItemStack(ModInnet.COMPRESSED_SILICON.get()));
-        // ...
-        recipes.add(new CompressorJeiCategory.CompressorRecipeWrapper(inputs, outputs));
-        return recipes;
+    private List<CompressingRecipe> generateCompressingRecipes() {
+        return BossToolsRecipeTypes.COMPRESSING.getRecipes(Minecraft.getInstance().world);
     }
     //Fuel Maker
     private List<FuelMakerJeiCategory.FuelMakerRecipeWrapper> generateFuelMakerRecipes() {
@@ -1178,19 +1152,19 @@ public class JeiPlugin implements IModPlugin {
 
         @Override
         public void setIngredients(BlastingRecipe recipe, IIngredients iIngredients) {
-            iIngredients.setInputIngredients(Lists.newArrayList(recipe.getIngredients()));
+            iIngredients.setInputIngredients(recipe.getIngredients());
             iIngredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
         }
 
         @Override
         public void setRecipe(IRecipeLayout iRecipeLayout, BlastingRecipe recipe, IIngredients iIngredients) {
             IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
-            stacks.init(BlastingFurnaceBlock.SLOT_INGREDIENT, true, 36, 16);//Iron
-            stacks.init(BlastingFurnaceBlock.SLOT_OUTPUT, false, 86, 35);//steel
+            stacks.init(ItemStackToItemStackTileEntity.SLOT_INGREDIENT, true, 36, 16);//Iron
+            stacks.init(ItemStackToItemStackTileEntity.SLOT_OUTPUT, false, 86, 35);//steel
             // ...
 
-            stacks.set(BlastingFurnaceBlock.SLOT_INGREDIENT, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
-            stacks.set(BlastingFurnaceBlock.SLOT_OUTPUT, iIngredients.getOutputs(VanillaTypes.ITEM).get(0));
+            stacks.set(ItemStackToItemStackTileEntity.SLOT_INGREDIENT, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
+            stacks.set(ItemStackToItemStackTileEntity.SLOT_OUTPUT, iIngredients.getOutputs(VanillaTypes.ITEM).get(0));
             // ...
         }
     }
@@ -1353,10 +1327,8 @@ public class JeiPlugin implements IModPlugin {
         }
     }
     //Compressor
-    public static class CompressorJeiCategory implements IRecipeCategory<CompressorJeiCategory.CompressorRecipeWrapper> {
+    public static class CompressorJeiCategory implements IRecipeCategory<CompressingRecipe> {
         private static ResourceLocation Uid = new ResourceLocation("boss_tools", "compressorcategory");
-        private static final int input1 = 0; // THE NUMBER = SLOTID
-        private static final int output1 = 2; // THE NUMBER = SLOTID
         // ...
         private final String title;
         private final IDrawable background;
@@ -1417,7 +1389,7 @@ public class JeiPlugin implements IModPlugin {
         }
 
         @Override
-        public List<ITextComponent> getTooltipStrings(CompressorRecipeWrapper recipe, double mouseX, double mouseY) {
+        public List<ITextComponent> getTooltipStrings(CompressingRecipe recipe, double mouseX, double mouseY) {
             //   counter = counter - 1;
             //    if (counter <= 0){
             //        counter = 9000;
@@ -1435,8 +1407,8 @@ public class JeiPlugin implements IModPlugin {
         }
 
         @Override
-        public Class<? extends CompressorRecipeWrapper> getRecipeClass() {
-            return CompressorJeiCategory.CompressorRecipeWrapper.class;
+        public Class<? extends CompressingRecipe> getRecipeClass() {
+            return CompressingRecipe.class;
         }
 
         @Override
@@ -1526,44 +1498,41 @@ public class JeiPlugin implements IModPlugin {
         }
 
         @Override
+        public void draw(CompressingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+        	IRecipeCategory.super.draw(recipe, matrixStack, mouseX, mouseY);
+
+			NumberFormat numberInstance = NumberFormat.getNumberInstance();
+			numberInstance.setMaximumFractionDigits(2);
+        	int cookTime = recipe.getCookTime();
+			String text = numberInstance.format(cookTime / 20.0F) + "s";
+        	
+        	FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
+        	int stringWidth = fontRenderer.getStringWidth(text);
+        	IDrawable background = this.getBackground();
+			fontRenderer.drawString(matrixStack, text, background.getWidth() - 5 - stringWidth, background.getHeight() - fontRenderer.FONT_HEIGHT - 5, 0x808080);
+        }
+
+        @Override
         public IDrawable getIcon() {
             return null;
         }
 
         @Override
-        public void setIngredients(CompressorRecipeWrapper recipeWrapper, IIngredients iIngredients) {
-            iIngredients.setInputs(VanillaTypes.ITEM, recipeWrapper.getInput());
-            iIngredients.setOutputs(VanillaTypes.ITEM, recipeWrapper.getOutput());
+        public void setIngredients(CompressingRecipe recipe, IIngredients iIngredients) {
+            iIngredients.setInputIngredients(recipe.getIngredients());
+            iIngredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
         }
 
         @Override
-        public void setRecipe(IRecipeLayout iRecipeLayout, CompressorRecipeWrapper recipeWrapper, IIngredients iIngredients) {
+        public void setRecipe(IRecipeLayout iRecipeLayout, CompressingRecipe recipe, IIngredients iIngredients) {
             IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
-            stacks.init(input1, true, 14, 29);
-            stacks.init(output1, false, 69, 28);
+            stacks.init(ItemStackToItemStackTileEntity.SLOT_INGREDIENT, true, 14, 29);
+            stacks.init(ItemStackToItemStackTileEntity.SLOT_OUTPUT, false, 69, 28);
             // ...
 
-            stacks.set(input1, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
-            stacks.set(output1, iIngredients.getOutputs(VanillaTypes.ITEM).get(0));
+            stacks.set(ItemStackToItemStackTileEntity.SLOT_INGREDIENT, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
+            stacks.set(ItemStackToItemStackTileEntity.SLOT_OUTPUT, iIngredients.getOutputs(VanillaTypes.ITEM).get(0));
             // ...
-        }
-        public static class CompressorRecipeWrapper {
-            private ArrayList input;
-            private ArrayList output;
-
-            public CompressorRecipeWrapper(ArrayList input, ArrayList output) {
-                this.input = input;
-                this.output = output;
-            }
-
-
-            public ArrayList getInput() {
-                return input;
-            }
-
-            public ArrayList getOutput() {
-                return output;
-            }
         }
     }
     //RocketTier3Gui
