@@ -1,5 +1,6 @@
 {
   "item.boss_tools.fuel_bucket": "연료 양동이",
+  "item.boss_tools.oil_bucket": "Oil Bucket",
   "item.boss_tools.star_crawler_spawn_egg": "Star Crawler 생성 알",
   "item.boss_tools.iron_engine": "철 엔진",
   "item.boss_tools.oxygen_tank": "산소 탱크",
@@ -63,6 +64,7 @@
   "block.boss_tools.block_of_blue_iron_plating": "청금 철 판 블록",
   "block.boss_tools.mercury_iron_ore": "수성 철 광석",
   "block.boss_tools.fuel": "연료",
+  "block.boss_tools.oil": "Oil",
   "block.boss_tools.block_of_rusted_iron_pillar": "녹슨 철 기둥",
   "block.boss_tools.mars_silicon_ore": "화성 실리콘 광석",
   "block.boss_tools.moon_brick_slab": "달 벽돌 반 블록",
@@ -125,6 +127,8 @@
 
   "fluid.boss_tools.fuel": "연료",
   "fluid.fuel": "연료",
+  "fluid.boss_tools.oil": "Oil",
+  "fluid.oil": "Oil",
 
   "entity.boss_tools.mogler": "Mogler",
   "entity.boss_tools.pygro": "Pygro",
