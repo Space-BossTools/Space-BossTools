@@ -1,5 +1,6 @@
 {
   "item.boss_tools.fuel_bucket": "Fuel Bucket",
+  "item.boss_tools.oil_bucket": "Oil Bucket",
   "item.boss_tools.star_crawler_spawn_egg": "Star Crawler Spawn Egg",
   "item.boss_tools.iron_engine": "Iron Engine",
   "item.boss_tools.oxygen_tank": "Oxygen Tank",
@@ -63,6 +64,7 @@
   "block.boss_tools.block_of_blue_iron_plating": "Block of Blue Iron Plating",
   "block.boss_tools.mercury_iron_ore": "Mercury Iron Ore",
   "block.boss_tools.fuel": "Fuel",
+  "block.boss_tools.oil": "Oil",
   "block.boss_tools.block_of_rusted_iron_pillar": "Block of Rusted Iron Pillar",
   "block.boss_tools.mars_silicon_ore": "Mars Silicon Ore",
   "block.boss_tools.moon_brick_slab": "Moon Brick Slab",
@@ -125,6 +127,8 @@
 
   "fluid.boss_tools.fuel": "Fuel",
   "fluid.fuel": "Fuel",
+  "fluid.boss_tools.oil": "Oil",
+  "fluid.oil": "Oil",
 
   "entity.boss_tools.mogler": "Mogler",
   "entity.boss_tools.pygro": "Pygro",

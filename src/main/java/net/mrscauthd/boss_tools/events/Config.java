@@ -27,6 +27,7 @@ public class Config {
 	public static boolean EntityOxygenSystem = true;
 	public static boolean VenusBulletStructure = true;
 	public static boolean VenusTowerStructure = true;
+	public static boolean OILWellStructure = true;
 		@SubscribeEvent
 		public static void init(FMLCommonSetupEvent event) {
 			File boss_tools = new File((FMLPaths.GAMEDIR.get().toString() + "" + ("//config/")), File.separator + "space-bosstools-config.json");
@@ -43,6 +44,7 @@ public class Config {
 					Config.addProperty("Meteor Structure", (true));
 					Config.addProperty("Venus Bullet Structure", (true));
 					Config.addProperty("Venus Tower Structure", (true));
+					Config.addProperty("Oil Well", (true));
 					Config.addProperty("Player Oxygen System", (true));
 					Config.addProperty("Entity Oxygen System", (true));
 					try {
@@ -76,6 +78,7 @@ public class Config {
 						Config.addProperty("Meteor Structure", (true));
 						Config.addProperty("Venus Bullet Structure", (true));
 						Config.addProperty("Venus Tower Structure", (true));
+						Config.addProperty("Oil Well", (true));
 						Config.addProperty("Player Oxygen System", (true));
 						Config.addProperty("Entity Oxygen System", (true));
 						try {
@@ -87,7 +90,7 @@ public class Config {
 						}
 					}
 					// in category check
-					if (Config.get("Alien Spawn") == null || Config.get("Star Crawler Spawn") == null || Config.get("Alien Zombie Spawn") == null || Config.get("Alien Village Structure") == null || Config.get("Meteor Structure") == null || Config.get("Player Oxygen System") == null || Config.get("Entity Oxygen System") == null || Config.get("Venus Bullet Structure") == null || Config.get("Venus Tower Structure") == null) {
+					if (Config.get("Alien Spawn") == null || Config.get("Star Crawler Spawn") == null || Config.get("Alien Zombie Spawn") == null || Config.get("Alien Village Structure") == null || Config.get("Meteor Structure") == null || Config.get("Player Oxygen System") == null || Config.get("Entity Oxygen System") == null || Config.get("Venus Bullet Structure") == null || Config.get("Venus Tower Structure") == null || Config.get("Oil Well") == null) {
 						Gson gson = new GsonBuilder().setPrettyPrinting().create();
 						Config = new JsonObject();
 						Config.addProperty("Alien Spawn", (true));
@@ -97,6 +100,7 @@ public class Config {
 						Config.addProperty("Meteor Structure", (true));
 						Config.addProperty("Venus Bullet Structure", (true));
 						Config.addProperty("Venus Tower Structure", (true));
+						Config.addProperty("Oil Well", (true));
 						Config.addProperty("Player Oxygen System", (true));
 						Config.addProperty("Entity Oxygen System", (true));
 						try {
@@ -118,6 +122,7 @@ public class Config {
 					MeteorStructure = (boolean) Config.get("Meteor Structure").getAsBoolean();
 					VenusBulletStructure = (boolean) Config.get("Venus Bullet Structure").getAsBoolean();
 					VenusTowerStructure = (boolean) Config.get("Venus Bullet Structure").getAsBoolean();
+					OILWellStructure = (boolean) Config.get("Oil Well").getAsBoolean();
 					// Oxygen System
 					PlayerOxygenSystem = (boolean) Config.get("Player Oxygen System").getAsBoolean();
 					EntityOxygenSystem = (boolean) Config.get("Entity Oxygen System").getAsBoolean();
