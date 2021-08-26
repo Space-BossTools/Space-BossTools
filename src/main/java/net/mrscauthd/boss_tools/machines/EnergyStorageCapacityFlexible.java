@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.machines;
 
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.energy.EnergyStorage;
 
 public class EnergyStorageCapacityFlexible extends EnergyStorage {
@@ -18,6 +19,24 @@ public class EnergyStorageCapacityFlexible extends EnergyStorage {
 
 	public EnergyStorageCapacityFlexible(int capacity) {
 		super(capacity);
+	}
+	
+	public CompoundNBT write()
+	{
+		CompoundNBT compound = new CompoundNBT();
+		compound.putInt("capacity", this.capacity);
+		compound.putInt("maxReceive", this.maxReceive);
+		compound.putInt("maxExtract", this.maxExtract);
+		compound.putInt("energy", this.energy);
+		return compound;
+	}
+	
+	public void read(CompoundNBT compound)
+	{
+		this.capacity = compound.getInt("capacity");
+		this.maxReceive = compound.getInt("maxReceive");
+		this.maxExtract = compound.getInt("maxExtract");
+		this.energy = compound.getInt("energy");
 	}
 	
 //	public void setEnergyStored(int energy) {

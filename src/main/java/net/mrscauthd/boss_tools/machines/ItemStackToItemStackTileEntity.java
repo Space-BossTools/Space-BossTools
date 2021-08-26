@@ -20,7 +20,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -101,7 +100,7 @@ public abstract class ItemStackToItemStackTileEntity extends LockableLootTileEnt
 			this.stacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
 		}
 		ItemStackHelper.loadAllItems(compound, this.stacks);
-		CapabilityEnergy.ENERGY.readNBT(this.energyStorage, null, compound.get("energyStorage"));
+		this.energyStorage.read(compound.getCompound("energyStorage"));
 	}
 
 	@Override
@@ -110,7 +109,7 @@ public abstract class ItemStackToItemStackTileEntity extends LockableLootTileEnt
 		if (!this.checkLootAndWrite(compound)) {
 			ItemStackHelper.saveAllItems(compound, this.stacks);
 		}
-		compound.put("energyStorage", CapabilityEnergy.ENERGY.writeNBT(this.energyStorage, null));
+		compound.put("energyStorage", this.energyStorage.write());
 		return compound;
 	}
 
@@ -191,15 +190,17 @@ public abstract class ItemStackToItemStackTileEntity extends LockableLootTileEnt
 	@Override
 	public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
 		if (!this.removed && facing != null && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-			return handlers[facing.ordinal()].cast();
+			return this.handlers[facing.ordinal()].cast();
 		return super.getCapability(capability, facing);
 	}
 
 	@Override
 	public void remove() {
 		super.remove();
-		for (LazyOptional<? extends IItemHandler> handler : handlers)
+
+		for (LazyOptional<? extends IItemHandler> handler : this.handlers) {
 			handler.invalidate();
+		}
 	}
 
 	public ItemStackToItemStackRecipe cacheRecipe() {
@@ -365,11 +366,11 @@ public abstract class ItemStackToItemStackTileEntity extends LockableLootTileEnt
 					timer = 0;
 				}
 
+				this.setTimer(timer);
 			} else if (timer > 0) {
 				this.onCantCook();
 			}
 
-			this.setTimer(timer);
 			return true;
 		} else {
 			return this.resetTimer();

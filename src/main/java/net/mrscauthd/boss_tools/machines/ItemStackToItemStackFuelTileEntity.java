@@ -34,6 +34,10 @@ public abstract class ItemStackToItemStackFuelTileEntity extends ItemStackToItem
 		boolean changed = super.onTickUpdatePost();
 		changed |= this.consumeEnergy();
 
+		if (!this.canCook()) {
+			changed |= this.feedEnergy(true);
+		}
+
 		return changed;
 	}
 
@@ -77,6 +81,9 @@ public abstract class ItemStackToItemStackFuelTileEntity extends ItemStackToItem
 
 	@Override
 	protected boolean feedEnergy(boolean spareForNextTick) {
+		if (spareForNextTick == false) {
+			return false;
+		}
 		IItemHandlerModifiable itemHandler = this.getItemHandler();
 		ItemStack extra = itemHandler.getStackInSlot(SLOT_FUEL);
 
@@ -87,7 +94,9 @@ public abstract class ItemStackToItemStackFuelTileEntity extends ItemStackToItem
 
 				if (burnTime > 0) {
 					itemHandler.extractItem(SLOT_FUEL, 1, false);
-					this.getEnergyStorage().receiveEnergy(burnTime, false);
+					EnergyStorageCapacityFlexible energyStorage = this.getEnergyStorage();
+					energyStorage.setMaxEnergyStored(energyStorage.getEnergyStored() + burnTime);
+					energyStorage.receiveEnergy(burnTime, false);
 					this.notifyBlockUpdate();
 					return true;
 				}
