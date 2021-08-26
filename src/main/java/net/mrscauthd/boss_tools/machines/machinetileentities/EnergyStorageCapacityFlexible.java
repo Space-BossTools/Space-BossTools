@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.machines;
+package net.mrscauthd.boss_tools.machines.machinetileentities;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.energy.EnergyStorage;

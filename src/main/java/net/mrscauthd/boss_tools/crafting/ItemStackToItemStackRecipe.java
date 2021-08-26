@@ -9,7 +9,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.mrscauthd.boss_tools.machines.ItemStackToItemStackTileEntity;
+import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackTileEntity;
 
 public abstract class ItemStackToItemStackRecipe implements IRecipe<IInventory> {
 	private final ResourceLocation id;

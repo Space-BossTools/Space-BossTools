@@ -32,8 +32,8 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.BossToolsModElements;
-import net.mrscauthd.boss_tools.machines.ItemStackToItemStackFuelTileEntity;
-import net.mrscauthd.boss_tools.machines.ItemStackToItemStackTileEntity;
+import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackFuelTileEntity;
+import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackTileEntity;
 
 @BossToolsModElements.ModElement.Tag
 public class BlastFurnaceGUIGui extends BossToolsModElements.ModElement {
