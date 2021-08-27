@@ -2,8 +2,11 @@ package net.mrscauthd.boss_tools.machines.machinetileentities;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.google.common.primitives.Ints;
@@ -29,6 +32,8 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -39,7 +44,8 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	public static final String KEY_ACTIVATED = "activated";
 
 	private PowerSystem powerSystem = null;
-	private final LazyOptional<? extends IItemHandler>[] handlers;
+	private IFluidHandler fluidHandler = null;
+	private final LazyOptional<? extends IItemHandler>[] itemHandlers;
 	private NonNullList<ItemStack> stacks = null;
 
 	private boolean processedInThisTick = false;
@@ -48,7 +54,8 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		super(type);
 
 		this.powerSystem = this.createPowerSystem();
-		this.handlers = SidedInvWrapper.create(this, Direction.values());
+		this.fluidHandler = this.createFluidHandler();
+		this.itemHandlers = SidedInvWrapper.create(this, Direction.values());
 		this.stacks = NonNullList.<ItemStack>withSize(this.getInitialInventorySize(), ItemStack.EMPTY);
 	}
 
@@ -134,9 +141,8 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	}
 
 	public <T> LazyOptional<T> getCapabilityItemHandler(Capability<T> capability, @Nullable Direction facing) {
-
 		if (facing != null) {
-			return this.handlers[facing.ordinal()].cast();
+			return this.itemHandlers[facing.ordinal()].cast();
 		} else {
 			return super.getCapability(capability, facing);
 		}
@@ -163,6 +169,16 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		return null;
 	}
 
+	public <T> LazyOptional<T> getCapabilityFluidHandler(Capability<T> capability, Direction facing) {
+		IFluidHandler fluidHandler = this.getFluidHandler();
+
+		if (fluidHandler != null) {
+			return LazyOptional.of(() -> fluidHandler).cast();
+		}
+
+		return null;
+	}
+
 	@Override
 	public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
 
@@ -177,6 +193,11 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 				if (optional != null) {
 					return optional;
 				}
+			} else if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+				LazyOptional<T> optional = this.getCapabilityFluidHandler(capability, facing);
+				if (optional != null) {
+					return optional;
+				}
 			}
 		}
 
@@ -186,7 +207,7 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	@Override
 	public void remove() {
 		super.remove();
-		Arrays.stream(this.handlers).forEach(h -> h.invalidate());
+		Arrays.stream(this.itemHandlers).forEach(h -> h.invalidate());
 	}
 
 	@Override
@@ -268,11 +289,17 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	}
 
 	protected abstract PowerSystem createPowerSystem();
-
-	public final PowerSystem getPowerSystem() {
+	
+	public PowerSystem getPowerSystem() {
 		return this.powerSystem;
 	}
 
+	protected abstract IFluidHandler createFluidHandler();
+
+	public IFluidHandler getFluidHandler() {
+		return this.fluidHandler;
+	}
+	
 	public IItemHandlerModifiable getItemHandler() {
 		return (IItemHandlerModifiable) this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).resolve().get();
 	}
@@ -281,7 +308,7 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		return this.getTileData().getBoolean(KEY_ACTIVATED);
 	}
 
-	public void setActivated(boolean activated) {
+	protected void setActivated(boolean activated) {
 		if (this.isActivated() != activated) {
 			this.getTileData().putBoolean(KEY_ACTIVATED, activated);
 			this.markDirty();

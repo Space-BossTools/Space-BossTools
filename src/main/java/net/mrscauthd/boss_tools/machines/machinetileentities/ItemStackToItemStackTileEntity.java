@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipe;
@@ -28,6 +29,11 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 
 	public ItemStackToItemStackTileEntity(TileEntityType<?> type) {
 		super(type);
+	}
+
+	@Override
+	protected IFluidHandler createFluidHandler() {
+		return null;
 	}
 
 	@Override

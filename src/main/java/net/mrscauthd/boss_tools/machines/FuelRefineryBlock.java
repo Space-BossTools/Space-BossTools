@@ -196,6 +196,8 @@ public class FuelRefineryBlock {
 
 	// Fuel Refinery Tile Entity
 	public static class CustomTileEntity extends AbstractMachineTileEntity {
+		private FluidTank fluidTank;
+
 		public CustomTileEntity() {
 			super(ModInnet.FUEL_REFINERY.get());
 		}
@@ -208,6 +210,18 @@ public class FuelRefineryBlock {
 					return 1;
 				}
 			};
+		}
+
+		@Override
+		protected IFluidHandler createFluidHandler() {
+			this.fluidTank = new FluidTank(3000, fs -> fs.getFluid() instanceof FuelFluid) {
+				@Override
+				protected void onContentsChanged() {
+					super.onContentsChanged();
+					markDirty();
+				}
+			};
+			return this.fluidTank;
 		}
 
 		@Override
@@ -299,14 +313,6 @@ public class FuelRefineryBlock {
 
 			return false;
 		}
-
-		private final FluidTank fluidTank = new FluidTank(3000, fs -> fs.getFluid() instanceof FuelFluid) {
-			@Override
-			protected void onContentsChanged() {
-				super.onContentsChanged();
-				markDirty();
-			}
-		};
 
 		@Override
 		public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
