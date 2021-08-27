@@ -9,20 +9,26 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 public abstract class PowerSystemFuel extends PowerSystem {
-	private final IItemHandlerModifiable itemHandler;
+	private final Lazy<IItemHandlerModifiable> itemHandler;
 	private final int slot;
 
 	private int fuel;
 	private int maxFuel;
 
-	public PowerSystemFuel(AbstractMachineTileEntity tileEntity, IItemHandlerModifiable itemHandler, int slot) {
+	public PowerSystemFuel(AbstractMachineTileEntity tileEntity, Lazy<IItemHandlerModifiable> itemHandler, int slot) {
 		super(tileEntity);
 
 		this.itemHandler = itemHandler;
 		this.slot = slot;
+	}
+	
+	@Override
+	public int getUsingSlots() {
+		return 1;
 	}
 
 	@Override
@@ -134,7 +140,7 @@ public abstract class PowerSystemFuel extends PowerSystem {
 	}
 
 	public IItemHandlerModifiable getItemHandler() {
-		return this.itemHandler;
+		return this.itemHandler.get();
 	}
 
 	public int getSlot() {

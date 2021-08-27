@@ -1,35 +1,16 @@
 package net.mrscauthd.boss_tools.machines.machinetileentities;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Nullable;
 
-import com.google.common.primitives.Ints;
-
-import net.minecraft.block.BlockState;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipe;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipeType;
 
@@ -41,78 +22,22 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 
 	public static final String KEY_TIMER = "timer";
 	public static final String KEY_MAXTIMER = "maxTimer";
-	public static final String KEY_ACTIVATED = "activated";
-
-	private final LazyOptional<? extends IItemHandler>[] handlers;
-	private NonNullList<ItemStack> stacks = null;
-	private PowerSystem powerSystem = null;
 
 	private ItemStack lastRecipeItemStack = null;
 	private ItemStackToItemStackRecipe lastRecipe = null;
-	private boolean cookedInThisTick = false;
 
 	public ItemStackToItemStackTileEntity(TileEntityType<?> type) {
 		super(type);
-
-		this.handlers = SidedInvWrapper.create(this, Direction.values());
-		this.stacks = NonNullList.<ItemStack>withSize(9, ItemStack.EMPTY);
-		this.powerSystem = this.createPowerSystem();
-	}
-
-	public int getPowerPerTick() {
-		return this.getPowerSystem().getBasePowerPerTick();
-	}
-
-	public int getPowerForOperation() {
-		return this.getPowerSystem().getBasePowerForOperation();
-	}
-
-	public boolean isPowerEnoughForOperation() {
-		return this.getPowerSystem().getStored() >= this.getPowerPerTick() + this.getPowerForOperation();
 	}
 
 	@Override
-	public void read(BlockState blockState, CompoundNBT compound) {
-		super.read(blockState, compound);
-		if (!this.checkLootAndRead(compound)) {
-			this.stacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
-		}
-		ItemStackHelper.loadAllItems(compound, this.stacks);
-		this.getPowerSystem().read(compound.getCompound("powerSystem"));
-	}
-
-	@Override
-	public CompoundNBT write(CompoundNBT compound) {
-		super.write(compound);
-		if (!this.checkLootAndWrite(compound)) {
-			ItemStackHelper.saveAllItems(compound, this.stacks);
-		}
-		compound.put("powerSystem", this.getPowerSystem().write());
-		return compound;
-	}
-
-	@Override
-	public int getSizeInventory() {
-		return stacks.size();
-	}
-
-	@Override
-	public boolean isEmpty() {
-		return this.getItems().stream().allMatch(ItemStack::isEmpty);
-	}
-
-	@Override
-	protected NonNullList<ItemStack> getItems() {
-		return this.stacks;
-	}
-
-	@Override
-	protected void setItems(NonNullList<ItemStack> stacks) {
-		this.stacks = stacks;
+	protected int getInitialInventorySize() {
+		return 2 + this.getPowerSystem().getUsingSlots();
 	}
 
 	protected void getSlotsForFace(Direction direction, List<Integer> slots) {
-		this.getPowerSystem().getSlotsForFace(direction, slots);
+		super.getSlotsForFace(direction, slots);
+
 		if (direction == Direction.UP) {
 			slots.add(SLOT_INGREDIENT);
 		} else if (direction == Direction.DOWN) {
@@ -121,15 +46,8 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 	}
 
 	@Override
-	public int[] getSlotsForFace(Direction side) {
-		List<Integer> slots = new ArrayList<>();
-		this.getSlotsForFace(side, slots);
-		return Ints.toArray(slots);
-	}
-
-	@Override
 	public boolean canInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
-		if (this.getPowerSystem().canInsertItem(direction, index, stack)) {
+		if (super.canInsertItem(index, stack, direction)) {
 			return true;
 		} else if (index == SLOT_INGREDIENT && direction == Direction.UP) {
 			return true;
@@ -139,7 +57,7 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 
 	@Override
 	public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-		if (this.getPowerSystem().canExtractItem(direction, index, stack)) {
+		if (super.canExtractItem(index, stack, direction)) {
 			return true;
 		} else if (index == SLOT_OUTPUT && direction == Direction.DOWN) {
 			return true;
@@ -147,63 +65,12 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 		return false;
 	}
 
-	public <T> LazyOptional<T> getCapabilityItemHandler(Capability<T> capability, @Nullable Direction facing) {
-
-		if (facing != null) {
-			return this.handlers[facing.ordinal()].cast();
-		} else {
-			return super.getCapability(capability, facing);
-		}
-
-	}
-
-	public <T> LazyOptional<T> getCapabilityEnergy(Capability<T> capability, @Nullable Direction facing) {
-		PowerSystem powerSystem = this.getPowerSystem();
-
-		if (powerSystem instanceof PowerSystemEnergy) {
-			PowerSystemEnergy powerSystemEnergy = (PowerSystemEnergy) powerSystem;
-
-			if (powerSystemEnergy.canProvideCapability()) {
-				IEnergyStorage energyStorage = powerSystemEnergy.getEnergyStorage();
-
-				if (energyStorage != null) {
-					return LazyOptional.of(() -> energyStorage).cast();
-				}
-
-			}
-
-		}
-
-		return null;
-	}
-
 	@Override
-	public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-
-		if (!this.removed) {
-			if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-				LazyOptional<T> optional = this.getCapabilityItemHandler(capability, facing);
-				if (optional != null) {
-					return optional;
-				}
-			} else if (capability == CapabilityEnergy.ENERGY) {
-				LazyOptional<T> optional = this.getCapabilityEnergy(capability, facing);
-				if (optional != null) {
-					return optional;
-				}
-			}
-		}
-
-		return super.getCapability(capability, facing);
+	protected void tickProcessing() {
+		this.cookIngredient();
 	}
 
-	@Override
-	public void remove() {
-		super.remove();
-		Arrays.stream(this.handlers).forEach(h -> h.invalidate());
-	}
-
-	public ItemStackToItemStackRecipe cacheRecipe() {
+	protected ItemStackToItemStackRecipe cacheRecipe() {
 		ItemStack itemStack = this.getStackInSlot(SLOT_INGREDIENT);
 
 		if (itemStack == null || itemStack.isEmpty()) {
@@ -220,73 +87,12 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 		return this.lastRecipe;
 	}
 
-	@Override
-	public void tick() {
-		World world = this.getWorld();
-
-		if (world.isRemote()) {
-			return;
-		}
-
-		this.onTickUpdatePre();
-		this.cookIngredient();
-		this.onTickUpdatePost();
-
-		this.updatePowerSystem();
-
-		this.updateActivated();
-		this.refreshBlockActivatedChanged();
-	}
-
-	protected void updatePowerSystem() {
-		int eft = this.getPowerPerTick();
-		PowerSystem powerSystem = this.getPowerSystem();
-
-		if (eft > 0) {
-			powerSystem.consume(eft);
-
-			if (!this.isPowerEnoughForOperation()) {
-				powerSystem.feed(true);
-			}
-
-		}
-
-	}
-
-	protected BooleanProperty getBlockActivatedProperty() {
-		return BlockStateProperties.LIT;
-	}
-
-	protected void refreshBlockActivatedChanged() {
-		BooleanProperty property = this.getBlockActivatedProperty();
-
-		if (property == null) {
-			return;
-		}
-
-		World world = this.getWorld();
-		BlockPos pos = this.getPos();
-		BlockState state = this.getBlockState();
-		boolean activated = this.isActivated();
-
-		if (state.get(property).booleanValue() != activated) {
-			world.setBlockState(pos, state.with(property, activated), 3);
-		}
-	}
-
-	protected void onTickUpdatePre() {
-		this.cookedInThisTick = false;
-	}
-
-	protected void onTickUpdatePost() {
-	}
-
-	public boolean hasSpaceInOutput() {
+	protected boolean hasSpaceInOutput() {
 		IRecipe<IInventory> cacheRecipe = this.cacheRecipe();
 		return cacheRecipe != null && this.hasSpaceInOutput(cacheRecipe.getRecipeOutput());
 	}
 
-	public boolean hasSpaceInOutput(ItemStack recipeOutput) {
+	protected boolean hasSpaceInOutput(ItemStack recipeOutput) {
 		ItemStack output = this.getItemHandler().getStackInSlot(SLOT_OUTPUT);
 		return hasSpaceInOutput(recipeOutput, output);
 	}
@@ -302,7 +108,7 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 		return false;
 	}
 
-	public boolean resetTimer() {
+	protected boolean resetTimer() {
 		if (this.getTimer() > 0) {
 			this.setTimer(0);
 			return true;
@@ -321,14 +127,14 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 
 	protected void onCooking() {
 		this.setTimer(this.getTimer() + 1);
-		this.cookedInThisTick = true;
+		this.setProcessedInThisTick();
 	}
 
 	protected void onCantCooking() {
-
+		this.setTimer(this.getTimer() - 1);
 	}
 
-	public void cookIngredient() {
+	protected void cookIngredient() {
 		ItemStackToItemStackRecipe recipe = this.cacheRecipe();
 
 		if (recipe != null) {
@@ -354,30 +160,6 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 			this.resetTimer();
 		}
 
-	}
-
-	public boolean updateActivated() {
-		this.setActivated(this.canActivated());
-		return true;
-	}
-
-	protected boolean canActivated() {
-		if (this.getPowerSystem() instanceof PowerSystemFuel) {
-			return this.isPowerEnoughForOperation();
-		} else {
-			return this.cookedInThisTick;
-		}
-
-	}
-
-	protected abstract PowerSystem createPowerSystem();
-
-	public final PowerSystem getPowerSystem() {
-		return this.powerSystem;
-	}
-
-	public IItemHandlerModifiable getItemHandler() {
-		return (IItemHandlerModifiable) this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).resolve().get();
 	}
 
 	public int getTimer() {
@@ -408,17 +190,6 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 
 	public double getTimerPercentage() {
 		return this.getTimer() / (this.getMaxTimer() / 100.0D);
-	}
-
-	public boolean isActivated() {
-		return this.getTileData().getBoolean(KEY_ACTIVATED);
-	}
-
-	public void setActivated(boolean activated) {
-		if (this.isActivated() != activated) {
-			this.getTileData().putBoolean(KEY_ACTIVATED, activated);
-			this.markDirty();
-		}
 	}
 
 }

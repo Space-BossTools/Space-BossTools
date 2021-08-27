@@ -16,9 +16,7 @@ import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
@@ -27,21 +25,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootContext;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.LockableLootTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Mirror;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -52,33 +45,29 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.EnergyStorage;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.fml.network.NetworkHooks;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.fluid.FuelFluid;
 import net.mrscauthd.boss_tools.gui.FuelRefineryGUIGui;
+import net.mrscauthd.boss_tools.machines.machinetileentities.AbstractMachineTileEntity;
+import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystem;
+import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystemCommonEnergy;
 
 public class FuelRefineryBlock {
 	public static final int BUCKET_SIZE = 1000;
 	public static final int BARREL_SIZE = 3000;
 	public static final int LAVA_TO_FUEL = 100;
 	public static final int FUEL_CONSUME_PER_TICK = 1;
-	public static final int ENERGY_CONSUME_PER_TICK = 1;
-	public static final int FLUID_GEN_PER_TICK = 10;
+	public static final int FLUID_PER_FUEL = 10;
 	public static final int SLOT_INGREDIENT = 0;
 	public static final int SLOT_OUTPUT = 1;
 
-	public static final String KEY_ACTIVATED = "activated";
 	public static final String KEY_FUEL = "fuel";
 
 	// Fuel Refinery Block
@@ -206,63 +195,35 @@ public class FuelRefineryBlock {
 	}
 
 	// Fuel Refinery Tile Entity
-	public static class CustomTileEntity extends LockableLootTileEntity implements ISidedInventory, ITickableTileEntity {
-		private NonNullList<ItemStack> stacks = NonNullList.<ItemStack>withSize(9, ItemStack.EMPTY);
-
+	public static class CustomTileEntity extends AbstractMachineTileEntity {
 		public CustomTileEntity() {
 			super(ModInnet.FUEL_REFINERY.get());
 		}
 
 		@Override
+		protected PowerSystem createPowerSystem() {
+			return new PowerSystemCommonEnergy(this) {
+				@Override
+				public int getBasePowerForOperation() {
+					return 1;
+				}
+			};
+		}
+
+		@Override
 		public void read(BlockState blockState, CompoundNBT compound) {
 			super.read(blockState, compound);
-			if (!this.checkLootAndRead(compound)) {
-				this.stacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
-			}
-			ItemStackHelper.loadAllItems(compound, this.stacks);
-			if (compound.get("energyStorage") != null)
-				CapabilityEnergy.ENERGY.readNBT(energyStorage, null, compound.get("energyStorage"));
-			if (compound.get("fluidTank") != null)
-				CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.readNBT(fluidTank, null, compound.get("fluidTank"));
+
+			CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.readNBT(this.fluidTank, null, compound.get("fluidTank"));
 		}
 
 		@Override
 		public CompoundNBT write(CompoundNBT compound) {
 			super.write(compound);
-			if (!this.checkLootAndWrite(compound)) {
-				ItemStackHelper.saveAllItems(compound, this.stacks);
-			}
-			compound.put("energyStorage", CapabilityEnergy.ENERGY.writeNBT(energyStorage, null));
-			compound.put("fluidTank", CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.writeNBT(fluidTank, null));
+
+			compound.put("fluidTank", CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.writeNBT(this.fluidTank, null));
+
 			return compound;
-		}
-
-		@Override
-		public SUpdateTileEntityPacket getUpdatePacket() {
-			return new SUpdateTileEntityPacket(this.pos, 0, this.getUpdateTag());
-		}
-
-		@Override
-		public CompoundNBT getUpdateTag() {
-			return this.write(new CompoundNBT());
-		}
-
-		@Override
-		public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-			this.read(this.getBlockState(), pkt.getNbtCompound());
-		}
-
-		@Override
-		public int getSizeInventory() {
-			return stacks.size();
-		}
-
-		@Override
-		public boolean isEmpty() {
-			for (ItemStack itemstack : this.stacks)
-				if (!itemstack.isEmpty())
-					return false;
-			return true;
 		}
 
 		@Override
@@ -285,22 +246,6 @@ public class FuelRefineryBlock {
 			return new StringTextComponent("Fuel Refinery");
 		}
 
-		@Override
-		protected NonNullList<ItemStack> getItems() {
-			return this.stacks;
-		}
-
-		@Override
-		protected void setItems(NonNullList<ItemStack> stacks) {
-			this.stacks = stacks;
-		}
-
-		@Override
-		public boolean isItemValidForSlot(int index, ItemStack stack) {
-			return true;
-		}
-
-		@Override
 		public int[] getSlotsForFace(Direction side) {
 			return IntStream.range(0, this.getSizeInventory()).toArray();
 		}
@@ -319,6 +264,10 @@ public class FuelRefineryBlock {
 
 		@Override
 		public boolean canInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
+			if (super.canInsertItem(index, stack, direction)) {
+				return true;
+			}
+
 			ItemStack stackInSlot = this.getStackInSlot(index);
 
 			if (stackInSlot.isEmpty() == true) {
@@ -336,6 +285,10 @@ public class FuelRefineryBlock {
 
 		@Override
 		public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
+			if (super.canExtractItem(index, stack, direction)) {
+				return true;
+			}
+
 			Item item = stack != null ? stack.getItem() : null;
 
 			if (index == SLOT_INGREDIENT) {
@@ -347,126 +300,71 @@ public class FuelRefineryBlock {
 			return false;
 		}
 
-		private final LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.values());
-		private final EnergyStorage energyStorage = new EnergyStorage(9000, 200, 200, 0) {
-			@Override
-			public int receiveEnergy(int maxReceive, boolean simulate) {
-				int retval = super.receiveEnergy(maxReceive, simulate);
-				if (!simulate) {
-					markDirty();
-					world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
-				}
-				return retval;
-			}
-
-			@Override
-			public int extractEnergy(int maxExtract, boolean simulate) {
-				int retval = super.extractEnergy(maxExtract, simulate);
-				if (!simulate) {
-					markDirty();
-					world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
-				}
-				return retval;
-			}
-		};
-		private final FluidTank fluidTank = new FluidTank(3000, fs -> {
-			if (fs.getFluid() == ModInnet.FUEL_STILL.get())
-				return true;
-			if (fs.getFluid() == ModInnet.FLOWING_FUEL.get())
-				return true;
-			return false;
-		}) {
+		private final FluidTank fluidTank = new FluidTank(3000, fs -> fs.getFluid() instanceof FuelFluid) {
 			@Override
 			protected void onContentsChanged() {
 				super.onContentsChanged();
 				markDirty();
-				world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
 			}
 		};
 
 		@Override
 		public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-			if (!this.removed && facing != null && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-				return handlers[facing.ordinal()].cast();
-			if (!this.removed && capability == CapabilityEnergy.ENERGY)
-				return LazyOptional.of(() -> energyStorage).cast();
-			if (!this.removed && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
-				return LazyOptional.of(() -> fluidTank).cast();
+			if (!this.removed && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+				return LazyOptional.of(() -> this.fluidTank).cast();
+			}
+
 			return super.getCapability(capability, facing);
 		}
 
 		@Override
-		public void remove() {
-			super.remove();
-			for (LazyOptional<? extends IItemHandler> handler : handlers)
-				handler.invalidate();
+		protected void tickProcessing() {
+			this.consumeIngredient();
+			this.burnFuel();
+			this.fillOutput();
 		}
 
-		@Override
-		public void tick() {
-			World world = this.getWorld();
-
-			if (world.isRemote()) {
-				return;
-			}
-
-			BlockPos pos = this.getPos();
-			BlockState state = this.getBlockState();
-			BlockState nextState = state;
-
-			boolean requireNotify = false;
-			requireNotify |= this.consumeIngredient();
-			requireNotify |= this.burnFuel();
-			requireNotify |= this.fillOutput();
-
-			boolean activated = this.isActivated();
-
-			if (state.get(CustomBlock.ACTIAVATED).booleanValue() != activated) {
-				nextState = nextState.with(CustomBlock.ACTIAVATED, activated);
-				world.setBlockState(pos, nextState);
-			}
-
-			if (requireNotify) {
-				world.notifyBlockUpdate(pos, nextState, nextState, 3);
-			}
-
-		}
-
-		public boolean canOperate() {
+		public boolean hasSpaceInOutput() {
 			FluidTank fluidTank = this.getFluidTank();
 			int fluidAmount = fluidTank.getFluidAmount();
 			int fluidCapacity = fluidTank.getCapacity();
-			IEnergyStorage energyStorage = this.getEnergyStorage();
-			return fluidAmount < fluidCapacity && energyStorage.getEnergyStored() >= ENERGY_CONSUME_PER_TICK;
+			return fluidAmount < fluidCapacity;
 		}
 
 		public boolean consumeIngredient() {
-			int fuel = this.getFuel();
 			IItemHandlerModifiable itemHandler = this.getItemHandler();
 			ItemStack ingredient = itemHandler.getStackInSlot(SLOT_INGREDIENT);
 
-			if (fuel < FUEL_CONSUME_PER_TICK && this.canOperate() && ingredient.getItem() == Items.LAVA_BUCKET && ingredient.getCount() == 1) {
-				itemHandler.setStackInSlot(SLOT_INGREDIENT, new ItemStack(Items.BUCKET));
-				this.setFuel(fuel + LAVA_TO_FUEL);
-				return true;
+			if (this.hasSpaceInOutput() && this.getPowerSystem().getStored() >= this.getPowerForOperation() && ingredient.getItem() == Items.LAVA_BUCKET && ingredient.getCount() == 1) {
+				int fuel = this.getFuel();
+
+				if (fuel < FUEL_CONSUME_PER_TICK) {
+					itemHandler.setStackInSlot(SLOT_INGREDIENT, new ItemStack(Items.BUCKET));
+					this.setFuel(fuel + LAVA_TO_FUEL);
+					this.markDirty();
+					return true;
+				}
+
 			}
 
 			return false;
 		}
 
 		public boolean burnFuel() {
-			int fuel = this.getFuel();
 
-			if (fuel >= FUEL_CONSUME_PER_TICK && this.canOperate()) {
-				this.setFuel(fuel - FUEL_CONSUME_PER_TICK);
-				this.getEnergyStorage().extractEnergy(ENERGY_CONSUME_PER_TICK, false);
-				this.getFluidTank().fill(new FluidStack(ModInnet.FUEL_STILL.get(), FLUID_GEN_PER_TICK), FluidAction.EXECUTE);
-				this.setActivated(true);
-				return true;
-			} else if (this.isActivated()) {
-				this.setActivated(false);
-				return true;
+			if (this.hasSpaceInOutput()) {
+				int fuel = this.getFuel();
+
+				if (fuel >= FUEL_CONSUME_PER_TICK && this.getPowerSystem().consume(this.getPowerForOperation())) {
+					this.setFuel(fuel - FUEL_CONSUME_PER_TICK);
+					this.getFluidTank().fill(new FluidStack(ModInnet.FUEL_STILL.get(), FLUID_PER_FUEL * FUEL_CONSUME_PER_TICK), FluidAction.EXECUTE);
+					this.setProcessedInThisTick();
+					this.markDirty();
+					return true;
+				}
+
 			}
+
 			return false;
 		}
 
@@ -488,30 +386,15 @@ public class FuelRefineryBlock {
 			if (output.getItem() == inputItem && output.getCount() == 1 && fluidTank.getFluidAmount() >= requireSize) {
 				itemHandler.setStackInSlot(SLOT_OUTPUT, new ItemStack(outputItem));
 				fluidTank.drain(requireSize, IFluidHandler.FluidAction.EXECUTE).getAmount();
+				this.markDirty();
 				return true;
 			}
 
 			return false;
 		}
 
-		public IItemHandlerModifiable getItemHandler() {
-			return (IItemHandlerModifiable) this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).resolve().get();
-		}
-
-		public EnergyStorage getEnergyStorage() {
-			return this.energyStorage;
-		}
-
 		public FluidTank getFluidTank() {
 			return this.fluidTank;
-		}
-
-		public boolean isActivated() {
-			return this.getTileData().getBoolean(KEY_ACTIVATED);
-		}
-
-		public void setActivated(boolean activated) {
-			this.getTileData().putBoolean(KEY_ACTIVATED, activated);
 		}
 
 		public int getFuel() {
@@ -519,7 +402,22 @@ public class FuelRefineryBlock {
 		}
 
 		public void setFuel(int fuel) {
-			this.getTileData().putInt(KEY_FUEL, fuel);
+			fuel = Math.max(fuel, 0);
+
+			if (this.getFuel() != fuel) {
+				this.getTileData().putInt(KEY_FUEL, fuel);
+				this.markDirty();
+			}
+		}
+
+		@Override
+		protected int getInitialInventorySize() {
+			return 2;
+		}
+
+		@Override
+		public boolean isIngredientReady() {
+			return this.hasSpaceInOutput();
 		}
 	}
 }

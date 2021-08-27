@@ -201,14 +201,8 @@ public class BlastingFurnaceBlock {
 		}
 		
 		@Override
-		protected void onCantCooking() {
-			super.onCantCooking();
-			this.setTimer(this.getTimer() - 1);
-		}
-
-		@Override
 		protected PowerSystem createPowerSystem() {
-			return new PowerSystemFuel(this, this.getItemHandler(), SLOT_FUEL) {
+			return new PowerSystemFuel(this, this::getItemHandler, SLOT_FUEL) {
 				@Override
 				public IRecipeType<?> getRecipeType() {
 					return CustomTileEntity.this.getRecipeType();

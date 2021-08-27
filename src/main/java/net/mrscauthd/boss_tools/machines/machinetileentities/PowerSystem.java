@@ -15,6 +15,10 @@ public abstract class PowerSystem {
 		this.tileEntity = tileEntity;
 	}
 
+	public int getUsingSlots() {
+		return 0;
+	}
+
 	public abstract int getBasePowerPerTick();
 
 	public abstract int getBasePowerForOperation();
