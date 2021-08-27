@@ -18,6 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.AlienZombieEntity;
 import net.mrscauthd.boss_tools.entity.renderer.alienzombie.AlienZombieRenderer;
+import net.mrscauthd.boss_tools.entity.renderer.starcrawler.StarCrawlerRenderer;
 import net.mrscauthd.boss_tools.spawneggs.ModSpawnEggs;
 import net.mrscauthd.boss_tools.entity.renderer.alien.AlienRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.mogler.MoglerRenderer;
@@ -36,6 +37,8 @@ public class ClientEventBusSubscriber {
 		RenderingRegistry.registerEntityRenderingHandler(ModInnet.MOGLER.get(), ((IRenderFactory) MoglerRenderer::new));
 
 		RenderingRegistry.registerEntityRenderingHandler(ModInnet.ALIEN_ZOMBIE.get(), ((IRenderFactory) AlienZombieRenderer::new));
+
+		RenderingRegistry.registerEntityRenderingHandler(ModInnet.STAR_CRAWLER.get(), ((IRenderFactory) StarCrawlerRenderer::new));
 
 		RenderingRegistry.registerEntityRenderingHandler(ModInnet.ALIEN_SPIT_ENTITY.get(), renderManager -> new SpriteRenderer(renderManager, Minecraft.getInstance().getItemRenderer()));
 

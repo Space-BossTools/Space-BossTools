@@ -38,6 +38,7 @@ import net.mrscauthd.boss_tools.crafting.compressing.CompressingRecipeSerializer
 import net.mrscauthd.boss_tools.entity.AlienSpitEntity;
 import net.mrscauthd.boss_tools.entity.AlienZombieEntity;
 import net.mrscauthd.boss_tools.entity.MoglerEntity;
+import net.mrscauthd.boss_tools.entity.StarCrawlerEntity;
 import net.mrscauthd.boss_tools.fluid.OilFluid;
 import net.mrscauthd.boss_tools.machines.CompressorBlock;
 import net.mrscauthd.boss_tools.spawneggs.ModSpawnEggs;
@@ -93,6 +94,7 @@ public class ModInnet {
     public static RegistryObject<EntityType<?>> PYGRO = ENTITYS.register("pygro", () -> EntityType.Builder.create(PygroEntity::new, EntityClassification.MONSTER).immuneToFire().size(0.6f, 1.8f).build(new ResourceLocation("boss_tools", "pygro").toString()));
     public static RegistryObject<EntityType<?>> MOGLER = ENTITYS.register("mogler", () -> EntityType.Builder.create(MoglerEntity::new, EntityClassification.MONSTER).size(1.4f, 1.4f).build(new ResourceLocation("boss_tools", "mogler").toString()));
     public static RegistryObject<EntityType<?>> ALIEN_ZOMBIE = ENTITYS.register("alien_zombie", () -> EntityType.Builder.create(AlienZombieEntity::new, EntityClassification.MONSTER).size(0.6f, 2.4f).build(new ResourceLocation("boss_tools", "alien_zombie").toString()));
+    public static RegistryObject<EntityType<?>> STAR_CRAWLER = ENTITYS.register("star_crawler", () -> EntityType.Builder.create(StarCrawlerEntity::new, EntityClassification.MONSTER).size(1.3f, 1f).build(new ResourceLocation("boss_tools", "star_crawler").toString()));
 
 
     //Alien Spit Entity
@@ -162,6 +164,8 @@ public class ModInnet {
     public static final RegistryObject<ModSpawnEggs> PYGRO_SPAWN_EGG = ITEMS.register("pygro_spawn_egg",() -> new ModSpawnEggs(PYGRO, -3381760, -6750208, new Item.Properties().group(BossToolsItemGroups.tab_spawn_eggs)));
     public static final RegistryObject<ModSpawnEggs> MOGLER_SPAWN_EGG = ITEMS.register("mogler_spawn_egg",() -> new ModSpawnEggs(MOGLER, -13312, -3407872, new Item.Properties().group(BossToolsItemGroups.tab_spawn_eggs)));
     public static final RegistryObject<ModSpawnEggs> ALIEN_ZOMBIE_SPAWN_EGG = ITEMS.register("alien_zombie_spawn_egg",() -> new ModSpawnEggs(ALIEN_ZOMBIE, -14804199, -16740159, new Item.Properties().group(BossToolsItemGroups.tab_spawn_eggs)));
+    public static final RegistryObject<ModSpawnEggs> STAR_CRAWLER_SPAWN_EGG = ITEMS.register("star_crawler_spawn_egg",() -> new ModSpawnEggs(STAR_CRAWLER, -13421773, -16724788, new Item.Properties().group(BossToolsItemGroups.tab_spawn_eggs)));
+
 
     public static final RegistryObject<Item> BARREL = ITEMS.register("barrel", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(8)));
     public static final RegistryObject<Item> FUEL_BARREL = ITEMS.register("fuel_barrel", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1)));
@@ -400,6 +404,7 @@ public class ModInnet {
             GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) PYGRO.get(), PygroEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) MOGLER.get(), MoglerEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) ALIEN_ZOMBIE.get(), AlienZombieEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) STAR_CRAWLER.get(), StarCrawlerEntity.setCustomAttributes().create());
         });
         event.enqueueWork(() -> {
 

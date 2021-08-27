@@ -45,7 +45,6 @@ import net.mrscauthd.boss_tools.gui.CompressorGuiGui;
 import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackEnergyTileEntity;
 
 public class CompressorBlock {
-
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 		public static final BooleanProperty ACTIAVATED = BlockStateProperties.LIT;

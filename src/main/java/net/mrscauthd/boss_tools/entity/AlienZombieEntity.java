@@ -20,7 +20,7 @@ import net.minecraft.entity.monster.MonsterEntity;
 public class AlienZombieEntity extends MonsterEntity implements IRangedAttackMob {
 	public AlienZombieEntity(EntityType type, World world) {
 		super(type, world);
-		experienceValue = 5;
+		this.experienceValue = 5;
 	}
 
 	public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
