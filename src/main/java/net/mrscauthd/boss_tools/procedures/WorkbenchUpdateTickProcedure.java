@@ -1,12 +1,9 @@
 package net.mrscauthd.boss_tools.procedures;
 
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.item.TurbineTier2Item;
-import net.mrscauthd.boss_tools.item.TurbineItem;
 import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
-import net.mrscauthd.boss_tools.item.TankTier3Item;
 import net.mrscauthd.boss_tools.item.RocketfinsItem;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
@@ -298,7 +295,7 @@ public class WorkbenchUpdateTickProcedure {
 																																(int) z),
 																														(int) (13)))
 																																.getItem() == new ItemStack(
-																																		TurbineItem.block,
+																																		ModInnet.IRON_ENGINE.get(),
 																																		(int) (1))
 																																				.getItem()))))))))))))))
 				&& ((((new Object() {
@@ -817,7 +814,7 @@ public class WorkbenchUpdateTickProcedure {
 																																(int) z),
 																														(int) (13)))
 																																.getItem() == new ItemStack(
-																																		TurbineItem.block,
+				ModInnet.IRON_ENGINE.get(),
 																																		(int) (1))
 																																				.getItem()))))))))))))))) {
 			if (world instanceof ServerWorld) {
@@ -1069,7 +1066,7 @@ public class WorkbenchUpdateTickProcedure {
 																																(int) z),
 																														(int) (13)))
 																																.getItem() == new ItemStack(
-																																		TurbineTier2Item.block,
+				ModInnet.GOLDEN_ENGINE.get(),
 																																		(int) (1))
 																																				.getItem()))))))))))))))
 				&& ((((new Object() {
@@ -1589,7 +1586,7 @@ public class WorkbenchUpdateTickProcedure {
 																																(int) z),
 																														(int) (13)))
 																																.getItem() == new ItemStack(
-																																		TurbineItem.block,
+				ModInnet.IRON_ENGINE.get(),
 																																		(int) (1))
 																																				.getItem()))))))))))))))) {
 			if (world instanceof ServerWorld) {
@@ -1710,7 +1707,7 @@ public class WorkbenchUpdateTickProcedure {
 																		return _retval.get();
 																	}
 																}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (7)))
-																		.getItem() == new ItemStack(TankTier3Item.block, (int) (1)).getItem())
+																		.getItem() == new ItemStack(ModInnet.DIAMOND_TANK.get(), (int) (1)).getItem())
 																		&& (((new Object() {
 																			public ItemStack getItemStack(BlockPos pos, int sltid) {
 																				AtomicReference<ItemStack> _retval = new AtomicReference<>(
@@ -1725,7 +1722,7 @@ public class WorkbenchUpdateTickProcedure {
 																				return _retval.get();
 																			}
 																		}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (8)))
-																				.getItem() == new ItemStack(TankTier3Item.block, (int) (1)).getItem())
+																				.getItem() == new ItemStack(ModInnet.DIAMOND_TANK.get(), (int) (1)).getItem())
 																				&& (((new Object() {
 																					public ItemStack getItemStack(BlockPos pos, int sltid) {
 																						AtomicReference<ItemStack> _retval = new AtomicReference<>(
@@ -2229,7 +2226,7 @@ public class WorkbenchUpdateTickProcedure {
 																		return _retval.get();
 																	}
 																}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (7)))
-																		.getItem() == new ItemStack(TankTier3Item.block, (int) (1)).getItem())
+																		.getItem() == new ItemStack(ModInnet.DIAMOND_TANK.get(), (int) (1)).getItem())
 																		|| (((new Object() {
 																			public ItemStack getItemStack(BlockPos pos, int sltid) {
 																				AtomicReference<ItemStack> _retval = new AtomicReference<>(
@@ -2244,7 +2241,7 @@ public class WorkbenchUpdateTickProcedure {
 																				return _retval.get();
 																			}
 																		}.getItemStack(new BlockPos((int) x, (int) y, (int) z), (int) (8)))
-																				.getItem() == new ItemStack(TankTier3Item.block, (int) (1)).getItem())
+																				.getItem() == new ItemStack(ModInnet.DIAMOND_TANK.get(), (int) (1)).getItem())
 																				|| (((new Object() {
 																					public ItemStack getItemStack(BlockPos pos, int sltid) {
 																						AtomicReference<ItemStack> _retval = new AtomicReference<>(
