@@ -3,7 +3,6 @@ package net.mrscauthd.boss_tools.entity.renderer.starcrawler;
 import net.minecraft.entity.MobEntity;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
-
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
