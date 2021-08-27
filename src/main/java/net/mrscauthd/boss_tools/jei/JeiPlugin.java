@@ -10,7 +10,6 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
-import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
@@ -19,7 +18,6 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IRecipeTransferRegistration;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -32,8 +30,8 @@ import net.mrscauthd.boss_tools.crafting.blasting.BlastingRecipe;
 import net.mrscauthd.boss_tools.crafting.compressing.CompressingRecipe;
 import net.mrscauthd.boss_tools.machines.WorkbenchBlock;
 import net.mrscauthd.boss_tools.machines.GeneratorBlock;
-import net.mrscauthd.boss_tools.machines.ItemStackToItemStackFuelTileEntity;
-import net.mrscauthd.boss_tools.machines.ItemStackToItemStackTileEntity;
+import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackFuelTileEntity;
+import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackTileEntity;
 import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock;
 import net.mrscauthd.boss_tools.machines.OxygenMachineBlock;
 import net.mrscauthd.boss_tools.machines.CompressorBlock;
@@ -369,7 +367,7 @@ public class JeiPlugin implements IModPlugin {
         //RocketTier3Gui
         registration.addRecipeCatalyst(new ItemStack(Tier3RocketItemItem.block), Tier3RocketItemItemJeiCategory.Uid);
         //Compressor
-        registration.addRecipeCatalyst(new ItemStack(CompressorBlock.block), CompressorJeiCategory.Uid);
+        registration.addRecipeCatalyst(new ItemStack(ModInnet.COMPRESSOR_BLOCK.get()), CompressorJeiCategory.Uid);
         //FuelMaker
         registration.addRecipeCatalyst(new ItemStack(ModInnet.FUEL_REFINERY_BLOCK.get()), FuelMakerJeiCategory.Uid);
         //fuel Maker Recpie 2

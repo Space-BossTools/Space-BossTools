@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.machines;
+package net.mrscauthd.boss_tools.machines.machinetileentities;
 
 import javax.annotation.Nullable;
 

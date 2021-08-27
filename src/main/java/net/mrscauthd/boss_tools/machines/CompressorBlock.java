@@ -1,4 +1,3 @@
-
 package net.mrscauthd.boss_tools.machines;
 
 import java.util.Collections;
@@ -17,9 +16,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
 import net.minecraft.network.PacketBuffer;
@@ -28,7 +25,6 @@ import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -41,41 +37,14 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkHooks;
-import net.minecraftforge.registries.ObjectHolder;
-import net.mrscauthd.boss_tools.BossToolsModElements;
+import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipeType;
 import net.mrscauthd.boss_tools.gui.CompressorGuiGui;
-import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
+import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackEnergyTileEntity;
 
-@BossToolsModElements.ModElement.Tag
-public class CompressorBlock extends BossToolsModElements.ModElement {
-	@ObjectHolder("boss_tools:compressor")
-	public static final Block block = null;
-	@ObjectHolder("boss_tools:compressor")
-	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
-
-	public CompressorBlock(BossToolsModElements instance) {
-		super(instance, 74);
-		FMLJavaModLoadingContext.get().getModEventBus().register(new TileEntityRegisterHandler());
-	}
-
-	@Override
-	public void initElements() {
-		elements.blocks.add(() -> new CustomBlock());
-		elements.items.add(() -> new BlockItem(block, new Item.Properties().group(BossToolsItemGroups.tab_machines)).setRegistryName(block.getRegistryName()));
-	}
-
-	private static class TileEntityRegisterHandler {
-		@SubscribeEvent
-		public void registerTileEntity(RegistryEvent.Register<TileEntityType<?>> event) {
-			event.getRegistry().register(TileEntityType.Builder.create(CustomTileEntity::new, block).build(null).setRegistryName("compressor"));
-		}
-	}
+public class CompressorBlock {
 
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
@@ -84,7 +53,6 @@ public class CompressorBlock extends BossToolsModElements.ModElement {
 		public CustomBlock() {
 			super(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 1f).setLightLevel(s -> 0).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool());
 			this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(ACTIAVATED, Boolean.valueOf(false)));
-			setRegistryName("compressor");
 		}
 
 		@Override
@@ -199,7 +167,7 @@ public class CompressorBlock extends BossToolsModElements.ModElement {
 
 	public static class CustomTileEntity extends ItemStackToItemStackEnergyTileEntity {
 		public CustomTileEntity() {
-			super(tileEntityType);
+			super(ModInnet.COMPRESSOR.get());
 		}
 
 		@Override
