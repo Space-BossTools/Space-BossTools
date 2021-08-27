@@ -1,43 +1,29 @@
 package net.mrscauthd.boss_tools.machines.machinetileentities;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.inventory.ItemStackHelper;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.LockableLootTileEntity;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipe;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipeType;
 
-public abstract class ItemStackToItemStackTileEntity extends LockableLootTileEntity implements ISidedInventory, ITickableTileEntity {
+public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTileEntity {
 
 	public static final int SLOT_INGREDIENT = 0;
 	public static final int SLOT_OUTPUT = 1;
+	public static final int SLOT_FUEL = 2;
 
 	public static final String KEY_TIMER = "timer";
 	public static final String KEY_MAXTIMER = "maxTimer";
-	public static final String KEY_ACTIVATED = "activated";
 
-	private NonNullList<ItemStack> stacks = NonNullList.<ItemStack>withSize(9, ItemStack.EMPTY);
 	private ItemStack lastRecipeItemStack = null;
 	private ItemStackToItemStackRecipe lastRecipe = null;
 
@@ -45,165 +31,52 @@ public abstract class ItemStackToItemStackTileEntity extends LockableLootTileEnt
 		super(type);
 	}
 
-	private final LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.values());
+	@Override
+	protected IFluidHandler createFluidHandler() {
+		return null;
+	}
 
-	private final EnergyStorageCapacityFlexible energyStorage = new EnergyStorageCapacityFlexible(this.getEnergyCapacity(), this.getEnergyMaxRecieve(), this.getEnergyMaxExtract(), 0) {
-		@Override
-		public int receiveEnergy(int maxReceive, boolean simulate) {
-			int retval = super.receiveEnergy(maxReceive, simulate);
-			ItemStackToItemStackTileEntity.this.onReceiveEnergy(maxReceive, simulate, retval);
+	@Override
+	protected int getInitialInventorySize() {
+		return 2 + this.getPowerSystem().getUsingSlots();
+	}
 
-			return retval;
+	protected void getSlotsForFace(Direction direction, List<Integer> slots) {
+		super.getSlotsForFace(direction, slots);
+
+		if (direction == Direction.UP) {
+			slots.add(SLOT_INGREDIENT);
+		} else if (direction == Direction.DOWN) {
+			slots.add(SLOT_OUTPUT);
 		}
-
-		@Override
-		public int extractEnergy(int maxExtract, boolean simulate) {
-			int retval = super.extractEnergy(maxExtract, simulate);
-			ItemStackToItemStackTileEntity.this.onExtractEnergy(maxExtract, simulate, retval);
-			return retval;
-		}
-
-	};
-
-	protected int getEnergyCapacity() {
-		return 9000;
-	}
-
-	protected int getEnergyMaxRecieve() {
-		return 200;
-	}
-
-	protected int getEnergyMaxExtract() {
-		return 200;
-	}
-
-	protected void onReceiveEnergy(int maxReceive, boolean simulate, int retval) {
-		if (!simulate) {
-			this.onEnergyDirty();
-		}
-	}
-
-	protected void onExtractEnergy(int maxExtract, boolean simulate, int retval) {
-		if (!simulate) {
-			this.onEnergyDirty();
-		}
-	}
-
-	protected void onEnergyDirty() {
-		this.notifyBlockUpdate(2);
-	}
-
-	@Override
-	public void read(BlockState blockState, CompoundNBT compound) {
-		super.read(blockState, compound);
-		if (!this.checkLootAndRead(compound)) {
-			this.stacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
-		}
-		ItemStackHelper.loadAllItems(compound, this.stacks);
-		this.energyStorage.read(compound.getCompound("energyStorage"));
-	}
-
-	@Override
-	public CompoundNBT write(CompoundNBT compound) {
-		super.write(compound);
-		if (!this.checkLootAndWrite(compound)) {
-			ItemStackHelper.saveAllItems(compound, this.stacks);
-		}
-		compound.put("energyStorage", this.energyStorage.write());
-		return compound;
-	}
-
-	@Override
-	public SUpdateTileEntityPacket getUpdatePacket() {
-		return new SUpdateTileEntityPacket(this.pos, 0, this.getUpdateTag());
-	}
-
-	@Override
-	public CompoundNBT getUpdateTag() {
-		return this.write(new CompoundNBT());
-	}
-
-	@Override
-	public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-		this.read(this.getBlockState(), pkt.getNbtCompound());
-	}
-
-	@Override
-	public int getSizeInventory() {
-		return stacks.size();
-	}
-
-	@Override
-	public boolean isEmpty() {
-		for (ItemStack itemstack : this.stacks)
-			if (!itemstack.isEmpty())
-				return false;
-		return true;
-	}
-
-	@Override
-	public int getInventoryStackLimit() {
-		return 64;
-	}
-
-	@Override
-	protected NonNullList<ItemStack> getItems() {
-		return this.stacks;
-	}
-
-	@Override
-	protected void setItems(NonNullList<ItemStack> stacks) {
-		this.stacks = stacks;
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	public int[] getSlotsForFace(Direction side) {
-		if (side == Direction.UP) {
-			return new int[] { SLOT_INGREDIENT };
-		} else if (side == Direction.DOWN) {
-			return new int[] { SLOT_OUTPUT };
-		} else {
-			return new int[] {};
-		}
-
 	}
 
 	@Override
 	public boolean canInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
-		if (index == SLOT_INGREDIENT && direction == Direction.UP) {
+		if (super.canInsertItem(index, stack, direction)) {
+			return true;
+		} else if (index == SLOT_INGREDIENT && direction == Direction.UP) {
 			return true;
 		}
-
 		return false;
 	}
 
 	@Override
 	public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-		return index == SLOT_OUTPUT && direction == Direction.DOWN;
-	}
-
-	@Override
-	public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-		if (!this.removed && facing != null && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-			return this.handlers[facing.ordinal()].cast();
-		return super.getCapability(capability, facing);
-	}
-
-	@Override
-	public void remove() {
-		super.remove();
-
-		for (LazyOptional<? extends IItemHandler> handler : this.handlers) {
-			handler.invalidate();
+		if (super.canExtractItem(index, stack, direction)) {
+			return true;
+		} else if (index == SLOT_OUTPUT && direction == Direction.DOWN) {
+			return true;
 		}
+		return false;
 	}
 
-	public ItemStackToItemStackRecipe cacheRecipe() {
+	@Override
+	protected void tickProcessing() {
+		this.cookIngredient();
+	}
+
+	protected ItemStackToItemStackRecipe cacheRecipe() {
 		ItemStack itemStack = this.getStackInSlot(SLOT_INGREDIENT);
 
 		if (itemStack == null || itemStack.isEmpty()) {
@@ -220,73 +93,17 @@ public abstract class ItemStackToItemStackTileEntity extends LockableLootTileEnt
 		return this.lastRecipe;
 	}
 
-	@Override
-	public void tick() {
-		World world = this.getWorld();
-
-		if (world.isRemote()) {
-			return;
-		}
-
-		boolean requireNotify = false;
-		requireNotify |= this.onTickUpdatePre();
-		requireNotify |= this.cookIngredient();
-		requireNotify |= this.onTickUpdatePost();
-		requireNotify |= this.updateActivated();
-
-		this.refreshBlockActivatedChanged();
-
-		if (requireNotify) {
-			this.notifyBlockUpdate();
-		}
-
+	protected boolean hasSpaceInOutput() {
+		IRecipe<IInventory> cacheRecipe = this.cacheRecipe();
+		return cacheRecipe != null && this.hasSpaceInOutput(cacheRecipe.getRecipeOutput());
 	}
 
-	public void notifyBlockUpdate() {
-		this.notifyBlockUpdate(3);
-	}
-
-	public void notifyBlockUpdate(int flag) {
-		this.markDirty();
-		BlockState state = this.getBlockState();
-		this.getWorld().notifyBlockUpdate(this.getPos(), state, state, flag);
-	}
-
-	protected BooleanProperty getBlockActivatedProperty() {
-		return BlockStateProperties.LIT;
-	}
-
-	protected void refreshBlockActivatedChanged() {
-		BooleanProperty property = this.getBlockActivatedProperty();
-
-		if (property == null) {
-			return;
-		}
-
-		World world = this.getWorld();
-		BlockPos pos = this.getPos();
-		BlockState state = this.getBlockState();
-		boolean activated = this.isActivated();
-
-		if (state.get(property).booleanValue() != activated) {
-			world.setBlockState(pos, state.with(property, activated), 3);
-		}
-	}
-
-	protected boolean onTickUpdatePre() {
-		return false;
-	}
-
-	protected boolean onTickUpdatePost() {
-		return false;
-	}
-
-	public boolean canOutput(ItemStack recipeOutput) {
+	protected boolean hasSpaceInOutput(ItemStack recipeOutput) {
 		ItemStack output = this.getItemHandler().getStackInSlot(SLOT_OUTPUT);
-		return canOutput(recipeOutput, output);
+		return hasSpaceInOutput(recipeOutput, output);
 	}
 
-	public boolean canOutput(ItemStack recipeOutput, ItemStack output) {
+	public boolean hasSpaceInOutput(ItemStack recipeOutput, ItemStack output) {
 		if (output.isEmpty()) {
 			return true;
 		} else if (ItemHandlerHelper.canItemStacksStack(output, recipeOutput)) {
@@ -297,7 +114,7 @@ public abstract class ItemStackToItemStackTileEntity extends LockableLootTileEnt
 		return false;
 	}
 
-	public boolean resetTimer() {
+	protected boolean resetTimer() {
 		if (this.getTimer() > 0) {
 			this.setTimer(0);
 			return true;
@@ -309,90 +126,46 @@ public abstract class ItemStackToItemStackTileEntity extends LockableLootTileEnt
 
 	protected abstract ItemStackToItemStackRecipeType<?> getRecipeType();
 
-	protected abstract int getEnergyForOperation();
-
-	/**
-	 * 
-	 * @return complete extract energy for operation
-	 */
-	public boolean consumeEnergy() {
-		EnergyStorageCapacityFlexible energyStorage = this.getEnergyStorage();
-		int energyForOperateion = this.getEnergyForOperation();
-
-		while (true) {
-			if (energyStorage.extractEnergy(energyForOperateion, true) == energyForOperateion) {
-				energyStorage.extractEnergy(energyForOperateion, false);
-				this.notifyBlockUpdate();
-
-				if (energyStorage.extractEnergy(energyForOperateion, true) < energyForOperateion) {
-					this.feedEnergy(true);
-				}
-
-				return true;
-			} else if (!this.feedEnergy(false)) {
-				this.notifyBlockUpdate();
-				return false;
-			}
-		}
+	@Override
+	public boolean isIngredientReady() {
+		return this.hasSpaceInOutput();
 	}
 
-	protected boolean feedEnergy(boolean spareForNextTick) {
-		return false;
+	protected void onCooking() {
+		this.setTimer(this.getTimer() + 1);
+		this.setProcessedInThisTick();
 	}
 
-	protected abstract boolean canCook();
+	protected void onCantCooking() {
+		this.setTimer(this.getTimer() - 1);
+	}
 
-	protected abstract void onCantCook();
-
-	public boolean cookIngredient() {
+	protected void cookIngredient() {
 		ItemStackToItemStackRecipe recipe = this.cacheRecipe();
 
-		if (recipe == null) {
-			return this.resetTimer();
-		}
+		if (recipe != null) {
+			ItemStack recipeOutput = recipe.getCraftingResult(this);
 
-		ItemStack recipeOutput = recipe.getCraftingResult(this);
+			if (this.hasSpaceInOutput(recipeOutput)) {
+				if (this.isPowerEnoughForOperation() && this.getPowerSystem().consume(this.getPowerForOperation())) {
+					this.onCooking();
 
-		if (this.canOutput(recipeOutput) == true) {
-			int timer = this.getTimer();
-
-			if (this.canCook()) {
-				timer++;
-
-				if (timer >= this.getMaxTimer()) {
-					IItemHandlerModifiable itemHandler = this.getItemHandler();
-					itemHandler.insertItem(SLOT_OUTPUT, recipeOutput.copy(), false);
-					itemHandler.extractItem(SLOT_INGREDIENT, 1, false);
-					timer = 0;
+					if (this.getTimer() >= this.getMaxTimer()) {
+						IItemHandlerModifiable itemHandler = this.getItemHandler();
+						itemHandler.insertItem(SLOT_OUTPUT, recipeOutput.copy(), false);
+						itemHandler.extractItem(SLOT_INGREDIENT, 1, false);
+						this.setTimer(0);
+					}
+				} else {
+					this.onCantCooking();
 				}
-
-				this.setTimer(timer);
-			} else if (timer > 0) {
-				this.onCantCook();
+			} else {
+				this.resetTimer();
 			}
-
-			return true;
 		} else {
-			return this.resetTimer();
+			this.resetTimer();
 		}
 
-	}
-
-	public boolean updateActivated() {
-		boolean activated = this.canActivated();
-
-		if (this.isActivated() != activated) {
-			this.setActivated(activated);
-			return true;
-		}
-
-		return false;
-	}
-
-	protected abstract boolean canActivated();
-
-	public IItemHandlerModifiable getItemHandler() {
-		return (IItemHandlerModifiable) this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).resolve().get();
 	}
 
 	public int getTimer() {
@@ -400,7 +173,12 @@ public abstract class ItemStackToItemStackTileEntity extends LockableLootTileEnt
 	}
 
 	public void setTimer(int timer) {
-		this.getTileData().putInt(KEY_TIMER, Math.max(timer, 0));
+		timer = Math.max(timer, 0);
+
+		if (this.getTimer() != timer) {
+			this.getTileData().putInt(KEY_TIMER, timer);
+			this.markDirty();
+		}
 	}
 
 	public int getMaxTimer() {
@@ -408,23 +186,16 @@ public abstract class ItemStackToItemStackTileEntity extends LockableLootTileEnt
 	}
 
 	public void setMaxTimer(int maxTimer) {
-		this.getTileData().putInt(KEY_MAXTIMER, maxTimer);
+		maxTimer = Math.max(maxTimer, 0);
+
+		if (this.getMaxTimer() != maxTimer) {
+			this.getTileData().putInt(KEY_MAXTIMER, maxTimer);
+			this.markDirty();
+		}
 	}
 
 	public double getTimerPercentage() {
 		return this.getTimer() / (this.getMaxTimer() / 100.0D);
-	}
-
-	public boolean isActivated() {
-		return this.getTileData().getBoolean(KEY_ACTIVATED);
-	}
-
-	public void setActivated(boolean activated) {
-		this.getTileData().putBoolean(KEY_ACTIVATED, activated);
-	}
-
-	public EnergyStorageCapacityFlexible getEnergyStorage() {
-		return this.energyStorage;
 	}
 
 }

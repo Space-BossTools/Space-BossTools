@@ -52,7 +52,7 @@ public class BlastFurnaceGUIGuiWindow extends ContainerScreen<BlastFurnaceGUIGui
 		this.blit(ms, this.guiLeft + 53, this.guiTop + 39, 0, 0, 15, 14, 15, 14);
 
 		CustomTileEntity tileEntity = (CustomTileEntity) this.world.getTileEntity(new BlockPos(this.x, this.y, this.z));
-		double fireanimation = tileEntity.getEnergyStorage().getEnergyStoredPercentage();
+		double fireanimation = tileEntity.getPowerSystem().getStoredPercentage();
 		double arrowanimation = tileEntity.getTimerPercentage() * 2;
 		
 		if (fireanimation <= 100) {

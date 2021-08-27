@@ -30,11 +30,9 @@ import net.mrscauthd.boss_tools.crafting.blasting.BlastingRecipe;
 import net.mrscauthd.boss_tools.crafting.compressing.CompressingRecipe;
 import net.mrscauthd.boss_tools.machines.WorkbenchBlock;
 import net.mrscauthd.boss_tools.machines.GeneratorBlock;
-import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackFuelTileEntity;
 import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackTileEntity;
 import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock;
 import net.mrscauthd.boss_tools.machines.OxygenMachineBlock;
-import net.mrscauthd.boss_tools.machines.CompressorBlock;
 import net.mrscauthd.boss_tools.gui.*;
 import net.mrscauthd.boss_tools.item.TurbineItem;
 import net.mrscauthd.boss_tools.item.TurbineTier2Item;
@@ -60,14 +58,14 @@ public class JeiPlugin implements IModPlugin {
     
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
-    	int inventorySlotStart = ItemStackToItemStackTileEntity.SLOT_OUTPUT + 1;
     	int inventorySlotCount = 36;
     	
     	// BlastFurnace
-		registration.addRecipeTransferHandler(BlastFurnaceGUIGui.GuiContainerMod.class, BlastingFurnaceJeiCategory.Uid, ItemStackToItemStackTileEntity.SLOT_INGREDIENT, 1, inventorySlotStart, inventorySlotCount);
-    	registration.addRecipeTransferHandler(BlastFurnaceGUIGui.GuiContainerMod.class, VanillaRecipeCategoryUid.FUEL, ItemStackToItemStackFuelTileEntity.SLOT_FUEL, 1, inventorySlotStart, inventorySlotCount);
+		int blastInventoryStartIndex = ItemStackToItemStackTileEntity.SLOT_FUEL + 1;
+		registration.addRecipeTransferHandler(BlastFurnaceGUIGui.GuiContainerMod.class, BlastingFurnaceJeiCategory.Uid, ItemStackToItemStackTileEntity.SLOT_INGREDIENT, 1, blastInventoryStartIndex, inventorySlotCount);
+    	registration.addRecipeTransferHandler(BlastFurnaceGUIGui.GuiContainerMod.class, VanillaRecipeCategoryUid.FUEL, ItemStackToItemStackTileEntity.SLOT_FUEL, 1, blastInventoryStartIndex, inventorySlotCount);
     	//Compressor
-    	registration.addRecipeTransferHandler(CompressorGuiGui.GuiContainerMod.class, CompressorJeiCategory.Uid, ItemStackToItemStackTileEntity.SLOT_INGREDIENT, 1, inventorySlotStart, inventorySlotCount);
+    	registration.addRecipeTransferHandler(CompressorGuiGui.GuiContainerMod.class, CompressorJeiCategory.Uid, ItemStackToItemStackTileEntity.SLOT_INGREDIENT, 1, ItemStackToItemStackTileEntity.SLOT_OUTPUT + 1, inventorySlotCount);
     }
     
     @Override

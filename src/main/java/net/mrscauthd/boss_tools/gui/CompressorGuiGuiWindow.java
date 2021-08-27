@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.boss_tools.machines.CompressorBlock.CustomTileEntity;
-import net.mrscauthd.boss_tools.machines.machinetileentities.EnergyStorageCapacityFlexible;
+import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystem;
 
 @OnlyIn(Dist.CLIENT)
 public class CompressorGuiGuiWindow extends ContainerScreen<CompressorGuiGui.GuiContainerMod> {
@@ -43,8 +43,8 @@ public class CompressorGuiGuiWindow extends ContainerScreen<CompressorGuiGui.Gui
 		// tooltip Energy
 		if (mouseX > guiLeft + 143 && mouseX < guiLeft + 168 && mouseY > guiTop + 20 && mouseY < guiTop + 69) {
 			CustomTileEntity tileEntity = (CustomTileEntity) world.getTileEntity(new BlockPos(this.x, this.y, this.z));
-			EnergyStorageCapacityFlexible energyStorage = tileEntity.getEnergyStorage();
-			this.renderTooltip(ms, new StringTextComponent(energyStorage.getEnergyStored() + " FE / " + energyStorage.getMaxEnergyStored() + " FE"), mouseX, mouseY);
+			PowerSystem powerSystem = tileEntity.getPowerSystem();
+			this.renderTooltip(ms, new StringTextComponent(powerSystem.getStored() + " FE / " + powerSystem.getCapacity() + " FE"), mouseX, mouseY);
 		}
 	}
 
@@ -60,7 +60,7 @@ public class CompressorGuiGuiWindow extends ContainerScreen<CompressorGuiGui.Gui
         
 
 		CustomTileEntity tileEntity = (CustomTileEntity) this.world.getTileEntity(new BlockPos(this.x, this.y, this.z));
-		double energyanimation = tileEntity.getEnergyStorage().getEnergyStored();
+		double energyanimation = tileEntity.getPowerSystem().getStored();
 		double arrowanimation = tileEntity.getTimerPercentage() * 2;
 		
         // energy 0
