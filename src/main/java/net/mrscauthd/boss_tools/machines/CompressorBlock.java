@@ -42,7 +42,9 @@ import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipeType;
 import net.mrscauthd.boss_tools.gui.CompressorGuiGui;
-import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackEnergyTileEntity;
+import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackTileEntity;
+import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystem;
+import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystemCommonEnergy;
 
 public class CompressorBlock {
 
@@ -165,7 +167,7 @@ public class CompressorBlock {
 		}
 	}
 
-	public static class CustomTileEntity extends ItemStackToItemStackEnergyTileEntity {
+	public static class CustomTileEntity extends ItemStackToItemStackTileEntity {
 		public CustomTileEntity() {
 			super(ModInnet.COMPRESSOR.get());
 		}
@@ -191,13 +193,18 @@ public class CompressorBlock {
 		}
 
 		@Override
-		protected int getEnergyForOperation() {
-			return 1;
+		protected BooleanProperty getBlockActivatedProperty() {
+			return CustomBlock.ACTIAVATED;
 		}
 
 		@Override
-		protected BooleanProperty getBlockActivatedProperty() {
-			return CustomBlock.ACTIAVATED;
+		protected PowerSystem createPowerSystem() {
+			return new PowerSystemCommonEnergy(this) {
+				@Override
+				public int getBasePowerForOperation() {
+					return 1;
+				}
+			};
 		}
 
 	}

@@ -19,6 +19,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.loot.LootContext;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.state.BooleanProperty;
@@ -43,7 +44,9 @@ import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipeType;
 import net.mrscauthd.boss_tools.gui.BlastFurnaceGUIGui;
-import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackFuelTileEntity;
+import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackTileEntity;
+import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystem;
+import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystemFuel;
 
 public class BlastingFurnaceBlock {
 
@@ -167,7 +170,7 @@ public class BlastingFurnaceBlock {
 		}
 	}
 
-	public static class CustomTileEntity extends ItemStackToItemStackFuelTileEntity {
+	public static class CustomTileEntity extends ItemStackToItemStackTileEntity {
 		public CustomTileEntity() {
 			super(ModInnet.BLAST_FURNACE.get());
 		}
@@ -191,10 +194,26 @@ public class BlastingFurnaceBlock {
 		protected ItemStackToItemStackRecipeType<?> getRecipeType() {
 			return BossToolsRecipeTypes.BLASTING;
 		}
-		
+
 		@Override
 		protected BooleanProperty getBlockActivatedProperty() {
 			return CustomBlock.ACTIAVATED;
+		}
+		
+		@Override
+		protected void onCantCooking() {
+			super.onCantCooking();
+			this.setTimer(this.getTimer() - 1);
+		}
+
+		@Override
+		protected PowerSystem createPowerSystem() {
+			return new PowerSystemFuel(this, this.getItemHandler(), SLOT_FUEL) {
+				@Override
+				public IRecipeType<?> getRecipeType() {
+					return CustomTileEntity.this.getRecipeType();
+				}
+			};
 		}
 
 	}

@@ -32,7 +32,6 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.BossToolsModElements;
-import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackFuelTileEntity;
 import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackTileEntity;
 
 @BossToolsModElements.ModElement.Tag
@@ -124,7 +123,7 @@ public class BlastFurnaceGUIGui extends BossToolsModElements.ModElement {
 					return false;
 				}
 			}));
-			this.customSlots.put(ItemStackToItemStackFuelTileEntity.SLOT_FUEL, this.addSlot(new SlotItemHandler(internal, ItemStackToItemStackFuelTileEntity.SLOT_FUEL, 53, 56) {
+			this.customSlots.put(ItemStackToItemStackTileEntity.SLOT_FUEL, this.addSlot(new SlotItemHandler(internal, ItemStackToItemStackTileEntity.SLOT_FUEL, 53, 56) {
 			}));
 			int si;
 			int sj;
