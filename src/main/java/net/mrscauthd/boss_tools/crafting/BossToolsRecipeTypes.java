@@ -7,6 +7,7 @@ public class BossToolsRecipeTypes {
 	public static final ItemStackToItemStackRecipeType<BlastingRecipe> BLASTING = create(new ItemStackToItemStackRecipeType<>("blasting"));
 	public static final ItemStackToItemStackRecipeType<CompressingRecipe> COMPRESSING = create(new ItemStackToItemStackRecipeType<>("compressing"));
 	public static final BossToolsRecipeType<GeneratingRecipe> GENERATING = create(new BossToolsRecipeType<>("generating"));
+	public static final BossToolsRecipeType<OxygenMakingRecipe> OXYGENMAKING = create(new BossToolsRecipeType<>("oxygenmaking"));
 
 	/**
 	 * for initialize static final fields

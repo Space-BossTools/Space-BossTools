@@ -4,18 +4,21 @@ package net.mrscauthd.boss_tools.gui;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.client.gui.GuiUtils;
+import net.mrscauthd.boss_tools.machines.OxygenMachineBlock.CustomTileEntity;
+import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystem;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.World;
-import net.minecraft.world.IWorld;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.Minecraft;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -42,195 +45,24 @@ public class OxygenLoaderGuiGuiWindow extends ContainerScreen<OxygenLoaderGuiGui
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 		// tooltip Energy
-		if (mouseX > guiLeft + 143 && mouseX < guiLeft + 168 && mouseY > guiTop + 20 && mouseY < guiTop + 69)
-			this.renderTooltip(ms, new StringTextComponent(((new Object() {
-				public double getValue(IWorld world, BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "energy_fe_gui"))) + " FE / 9000.0 FE"), mouseX, mouseY);
+		if (mouseX > this.guiLeft + 143 && mouseX < this.guiLeft + 168 && mouseY > this.guiTop + 20 && mouseY < this.guiTop + 69) {
+			CustomTileEntity tileEntity = (CustomTileEntity) this.world.getTileEntity(new BlockPos(this.x, this.y, this.z));
+			PowerSystem powerSystem = tileEntity.getPowerSystem();
+			this.renderTooltip(ms, new StringTextComponent(powerSystem.getStored() + " FE / " + powerSystem.getCapacity() + " FE"), mouseX, mouseY);
+		}
 	}
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float par1, int par2, int par3) {
-		GL11.glColor4f(1, 1, 1, 1);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		Minecraft.getInstance().getTextureManager().bindTexture(texture);
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
-		this.blit(ms, k, l, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
-		// Energy NBT
-		double energyanimation = (double) (new Object() {
-			public double getValue(IWorld world, BlockPos pos, String tag) {
-				TileEntity tileEntity = world.getTileEntity(pos);
-				if (tileEntity != null)
-					return tileEntity.getTileData().getDouble(tag);
-				return -1;
-			}
-		}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "EnergyGui"));
-		// Oxygen NBT
-		double oxygenanimation = (double) (new Object() {
-			public double getValue(IWorld world, BlockPos pos, String tag) {
-				TileEntity tileEntity = world.getTileEntity(pos);
-				if (tileEntity != null)
-					return tileEntity.getTileData().getDouble(tag);
-				return -1;
-			}
-		}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "fire"));
-		// energy 0
-		Minecraft.getInstance().getTextureManager()
-				.bindTexture(new ResourceLocation("boss_tools:textures/energy_volume_fractional_vertical_bar_background.png"));
-		this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		// Energy bar
-		if (energyanimation >= 360) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull0.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		if (energyanimation >= 720) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull1.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		if (energyanimation >= 1080) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull2.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		if (energyanimation >= 1440) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull3.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		if (energyanimation >= 1800) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull4.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		if (energyanimation >= 2160) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull5.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		if (energyanimation >= 2520) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull6.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		if (energyanimation >= 3240) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull7.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		if (energyanimation >= 3600) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull8.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		if (energyanimation >= 3960) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull9.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		if (energyanimation >= 4320) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull10.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		if (energyanimation >= 4680) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull11.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		if (energyanimation >= 5040) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull12.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		if (energyanimation >= 5400) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull13.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		if (energyanimation >= 5760) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull14.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		if (energyanimation >= 6120) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull15.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		if (energyanimation >= 6480) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull16.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		if (energyanimation >= 6840) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull17.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		if (energyanimation >= 7200) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull18.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		if (energyanimation >= 7560) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull19.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		if (energyanimation >= 8000) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull20.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		if (energyanimation >= 8560) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull21.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		if (energyanimation >= 9000) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/energyfull22.png"));
-			this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		}
-		// Oxygen 0
-		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload0.png"));
-		this.blit(ms, this.guiLeft + 76, this.guiTop + 40, 0, 0, 15, 14, 15, 14);
-		// Oxygen Animation
-		if (oxygenanimation <= 200) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenloadfull.png"));
-			this.blit(ms, this.guiLeft + 76, this.guiTop + 40, 0, 0, 15, 14, 15, 14);
-		}
-		if (oxygenanimation <= 185) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload1.png"));
-			this.blit(ms, this.guiLeft + 76, this.guiTop + 40, 0, 0, 15, 14, 15, 14);
-		}
-		if (oxygenanimation <= 170) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload2.png"));
-			this.blit(ms, this.guiLeft + 76, this.guiTop + 40, 0, 0, 15, 14, 15, 14);
-		}
-		if (oxygenanimation <= 155) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload3.png"));
-			this.blit(ms, this.guiLeft + 76, this.guiTop + 40, 0, 0, 15, 14, 15, 14);
-		}
-		if (oxygenanimation <= 140) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload4.png"));
-			this.blit(ms, this.guiLeft + 76, this.guiTop + 40, 0, 0, 15, 14, 15, 14);
-		}
-		if (oxygenanimation <= 125) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload5.png"));
-			this.blit(ms, this.guiLeft + 76, this.guiTop + 40, 0, 0, 15, 14, 15, 14);
-		}
-		if (oxygenanimation <= 110) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload6.png"));
-			this.blit(ms, this.guiLeft + 76, this.guiTop + 40, 0, 0, 15, 14, 15, 14);
-		}
-		if (oxygenanimation <= 95) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload7.png"));
-			this.blit(ms, this.guiLeft + 76, this.guiTop + 40, 0, 0, 15, 14, 15, 14);
-		}
-		if (oxygenanimation <= 80) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload8.png"));
-			this.blit(ms, this.guiLeft + 76, this.guiTop + 40, 0, 0, 15, 14, 15, 14);
-		}
-		if (oxygenanimation <= 65) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload9.png"));
-			this.blit(ms, this.guiLeft + 76, this.guiTop + 40, 0, 0, 15, 14, 15, 14);
-		}
-		if (oxygenanimation <= 50) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload10.png"));
-			this.blit(ms, this.guiLeft + 76, this.guiTop + 40, 0, 0, 15, 14, 15, 14);
-		}
-		if (oxygenanimation <= 35) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload11.png"));
-			this.blit(ms, this.guiLeft + 76, this.guiTop + 40, 0, 0, 15, 14, 15, 14);
-		}
-		if (oxygenanimation <= 20) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenload12.png"));
-			this.blit(ms, this.guiLeft + 76, this.guiTop + 40, 0, 0, 15, 14, 15, 14);
-		}
+		AbstractGui.blit(ms, k, l, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
+
+		CustomTileEntity tileEntity = (CustomTileEntity) this.world.getTileEntity(new BlockPos(this.x, this.y, this.z));
+		GuiHelper.drawOxygen(ms, this.guiLeft + 75, this.guiTop + 40, (double)tileEntity.getActivatingTime() / (double) tileEntity.getMaxActivatingTime());
+		GuiHelper.drawEnergy(ms, this.guiLeft + 144, this.guiTop + 21, tileEntity.getPowerSystem().getStoredRatio());
 	}
 
 	@Override
