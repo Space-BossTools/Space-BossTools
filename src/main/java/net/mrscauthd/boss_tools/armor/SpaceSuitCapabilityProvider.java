@@ -28,7 +28,7 @@ public class SpaceSuitCapabilityProvider implements ICapabilityProvider, IOxygen
 
 	public void writeOxygen() {
 		CompoundNBT compound = this.getItemStack().getOrCreateTag();
-		compound.putInt(KEY_OXYGEN, this.getOxygenStorage().getMaxOxygenStored());
+		compound.putInt(KEY_OXYGEN, this.getOxygenStorage().getOxygenStored());
 	}
 
 	@Override
