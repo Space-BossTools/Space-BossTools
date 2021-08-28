@@ -4,21 +4,20 @@ package net.mrscauthd.boss_tools.gui;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.energy.IEnergyStorage;
+import net.mrscauthd.boss_tools.machines.GeneratorBlock.CustomTileEntity;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.World;
-import net.minecraft.world.IWorld;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.Minecraft;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 @OnlyIn(Dist.CLIENT)
@@ -44,14 +43,12 @@ public class GeneratorGUIGuiWindow extends ContainerScreen<GeneratorGUIGui.GuiCo
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 		// tooltip Energy
 		if (mouseX > guiLeft + 143 && mouseX < guiLeft + 168 && mouseY > guiTop + 20 && mouseY < guiTop + 69)
-			this.renderTooltip(ms, new StringTextComponent(((new Object() {
-				public double getValue(IWorld world, BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getDouble(tag);
-					return -1;
-				}
-			}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "energy_fe_gui"))) + " FE / 9000.0 FE"), mouseX, mouseY);
+		{
+			CustomTileEntity tileEntity = (CustomTileEntity) this.world.getTileEntity(new BlockPos(this.x, this.y, this.z));
+			IEnergyStorage energyStorage = tileEntity.getEnergyStorage();
+			this.renderTooltip(ms, new StringTextComponent(energyStorage.getEnergyStored() + " FE / " + energyStorage.getMaxEnergyStored()+" FE"), mouseX, mouseY);
+		}
+		
 	}
 
 	@Override
@@ -64,25 +61,12 @@ public class GeneratorGUIGuiWindow extends ContainerScreen<GeneratorGUIGui.GuiCo
 		Minecraft.getInstance().getTextureManager()
 				.bindTexture(new ResourceLocation("boss_tools:textures/energy_volume_fractional_vertical_bar_background.png"));
 		this.blit(ms, this.guiLeft + 144, this.guiTop + 21, 0, 0, 24, 48, 24, 48);
-		// get NBTS
-		// Fire NBT
-		double animation = (double) (new Object() {
-			public double getValue(IWorld world, BlockPos pos, String tag) {
-				TileEntity tileEntity = world.getTileEntity(pos);
-				if (tileEntity != null)
-					return tileEntity.getTileData().getDouble(tag);
-				return -1;
-			}
-		}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "fire"));
-		// Energy NBT
-		double energyanimation = (double) (new Object() {
-			public double getValue(IWorld world, BlockPos pos, String tag) {
-				TileEntity tileEntity = world.getTileEntity(pos);
-				if (tileEntity != null)
-					return tileEntity.getTileData().getDouble(tag);
-				return -1;
-			}
-		}.getValue(world, new BlockPos((int) x, (int) y, (int) z), "EnergyGui"));
+		
+
+		CustomTileEntity tileEntity = (CustomTileEntity) this.world.getTileEntity(new BlockPos(this.x, this.y, this.z));
+		double energyanimation = tileEntity.getEnergyStorage().getEnergyStored();
+		double animation = tileEntity.getPowerSystem().getStoredPercentage();
+		
 		// Background
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/fire_off.png"));
 		this.blit(ms, this.guiLeft + 77, this.guiTop + 51, 0, 0, 15, 14, 15, 14);

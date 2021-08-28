@@ -38,7 +38,7 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 
 	@Override
 	protected int getInitialInventorySize() {
-		return 2 + this.getPowerSystem().getUsingSlots();
+		return super.getInitialInventorySize() + 2;
 	}
 
 	protected void getSlotsForFace(Direction direction, List<Integer> slots) {
@@ -93,12 +93,13 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 		return this.lastRecipe;
 	}
 
-	protected boolean hasSpaceInOutput() {
+	@Override
+	public boolean hasSpaceInOutput() {
 		IRecipe<IInventory> cacheRecipe = this.cacheRecipe();
 		return cacheRecipe != null && this.hasSpaceInOutput(cacheRecipe.getRecipeOutput());
 	}
 
-	protected boolean hasSpaceInOutput(ItemStack recipeOutput) {
+	public boolean hasSpaceInOutput(ItemStack recipeOutput) {
 		ItemStack output = this.getItemHandler().getStackInSlot(SLOT_OUTPUT);
 		return hasSpaceInOutput(recipeOutput, output);
 	}
@@ -126,11 +127,6 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 
 	protected abstract ItemStackToItemStackRecipeType<?> getRecipeType();
 
-	@Override
-	public boolean isIngredientReady() {
-		return this.hasSpaceInOutput();
-	}
-
 	protected void onCooking() {
 		this.setTimer(this.getTimer() + 1);
 		this.setProcessedInThisTick();
@@ -147,7 +143,7 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 			ItemStack recipeOutput = recipe.getCraftingResult(this);
 
 			if (this.hasSpaceInOutput(recipeOutput)) {
-				if (this.isPowerEnoughForOperation() && this.getPowerSystem().consume(this.getPowerForOperation())) {
+				if (this.isPowerEnoughAndConsume()) {
 					this.onCooking();
 
 					if (this.getTimer() >= this.getMaxTimer()) {
