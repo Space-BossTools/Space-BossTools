@@ -73,7 +73,7 @@ public class STStructures {
 
         setupMapSpacingAndLand(
                 OIL.get(), /* The instance of the structure */
-                new StructureSeparationSettings(15 /* average distance apart in chunks between spawn attempts */,
+                new StructureSeparationSettings(13 /* average distance apart in chunks between spawn attempts */,
                         7 /* minimum distance apart in chunks between spawn attempts */,
                         1234567890 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
                 true);
