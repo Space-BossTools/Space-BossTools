@@ -43,9 +43,9 @@ import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.gui.SolarPanelGUIGui;
-import net.mrscauthd.boss_tools.machines.machinetileentities.GeneratorTileEntity;
-import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystem;
-import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystemNone;
+import net.mrscauthd.boss_tools.machines.tile.GeneratorTileEntity;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystemNone;
 
 public class SolarPanelBlock {
 	public static final int ENERGY_PER_TICK = 4;
