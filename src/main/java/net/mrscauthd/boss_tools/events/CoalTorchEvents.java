@@ -31,6 +31,7 @@ public class CoalTorchEvents {
         double x = event.getPos().getX();
         double y = event.getPos().getY();
         double z = event.getPos().getZ();
+        BlockPos pos = new BlockPos(x,y,z);
         IWorld world = event.getWorld();
 
         //Check Dim
@@ -39,25 +40,22 @@ public class CoalTorchEvents {
                 && entity.isSneaking() == false) {
 
             //Block check (wall torch)
-            if (world.getBlockState(new BlockPos(x,y,z)).getBlock() == ModInnet.WALLCOALTORCHBLOCK.get().getDefaultState().getBlock()) {
-                //Get Wall Torch Dr
-                BlockPos pos = new BlockPos(x,y,z);
-
+            if (world.getBlockState(pos).getBlock() == ModInnet.WALLCOALTORCHBLOCK.get().getDefaultState().getBlock()) {
                 //Facing
-                BlockState bs = world.getBlockState(new BlockPos(pos));
+                BlockState bs = world.getBlockState(pos);
                 DirectionProperty property = (DirectionProperty) bs.getBlock().getStateContainer().getProperty("facing");
 
                 //Place Coal Torch Block with Dr
-                world.setBlockState(new BlockPos(pos), Blocks.WALL_TORCH.getDefaultState().with(property,bs.get(property)), 3);
+                world.setBlockState(pos, Blocks.WALL_TORCH.getDefaultState().with(property,bs.get(property)), 3);
 
                 play_fire_sounds_place(pos, (World) world);
             }
 
             //Replace Coal Torch to Torch
-            if (world.getBlockState(new BlockPos(x,y,z)).getBlock() == ModInnet.COALTORCHBLOCK.get().getDefaultState().getBlock()) {
-                world.setBlockState(new BlockPos(x,y,z), Blocks.TORCH.getDefaultState(), 3);
+            if (world.getBlockState(pos).getBlock() == ModInnet.COALTORCHBLOCK.get().getDefaultState().getBlock()) {
+                world.setBlockState(pos, Blocks.TORCH.getDefaultState(), 3);
 
-                play_fire_sounds_place(new BlockPos(x,y,z), (World) world);
+                play_fire_sounds_place(pos, (World) world);
             }
         }
     }
@@ -69,39 +67,36 @@ public class CoalTorchEvents {
         double x = event.getPos().getX();
         double y = event.getPos().getY();
         double z = event.getPos().getZ();
+        BlockPos pos = new BlockPos(x,y,z);
         if (Events.DimCheck((World) world) == true) {
             //Remove Fire
-            if (world.getBlockState(new BlockPos(x,y,z)).getBlock() == Blocks.FIRE.getDefaultState().getBlock()) {
-                world.setBlockState(new BlockPos(x,y,z), Blocks.AIR.getDefaultState(), 3);
+            if (world.getBlockState(pos).getBlock() == Blocks.FIRE.getDefaultState().getBlock()) {
+                world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
 
-                play_fire_sounds_delete(new BlockPos(x,y,z), (World) world);
+                play_fire_sounds_delete(pos, (World) world);
             }
 
             //Place Coal Wall Torch
-            if (world.getBlockState(new BlockPos(x,y,z)).getBlock() == Blocks.WALL_TORCH.getDefaultState().getBlock()) {
-                //Get Wall Torch Dr
-                BlockPos pos = new BlockPos(x,y,z);
-
+            if (world.getBlockState(pos).getBlock() == Blocks.WALL_TORCH.getDefaultState().getBlock()) {
                 //Facing
-                BlockState bs = world.getBlockState(new BlockPos(pos));
+                BlockState bs = world.getBlockState(pos);
                 DirectionProperty property = (DirectionProperty) bs.getBlock().getStateContainer().getProperty("facing");
 
                 //Place Coal Torch Block with Dr
-                world.setBlockState(new BlockPos(pos), ModInnet.WALLCOALTORCHBLOCK.get().getDefaultState().with(property,bs.get(property)), 3);
+                world.setBlockState(pos, ModInnet.WALLCOALTORCHBLOCK.get().getDefaultState().with(property,bs.get(property)), 3);
 
                 play_fire_sounds_delete(pos, (World) world);
             }
 
             //Place Coal Torch
-            if (world.getBlockState(new BlockPos(x,y,z)).getBlock() == Blocks.TORCH.getDefaultState().getBlock()) {
-                world.setBlockState(new BlockPos(x,y,z), ModInnet.COALTORCHBLOCK.get().getDefaultState(), 3);
+            if (world.getBlockState(pos).getBlock() == Blocks.TORCH.getDefaultState().getBlock()) {
+                world.setBlockState(pos, ModInnet.COALTORCHBLOCK.get().getDefaultState(), 3);
 
-                play_fire_sounds_delete(new BlockPos(x,y,z), (World) world);
+                play_fire_sounds_delete(pos, (World) world);
             }
 
             //Campfire State Change
-            if (world.getBlockState(new BlockPos(x,y,z)).getBlock() == Blocks.CAMPFIRE.getDefaultState().getBlockState().with(CampfireBlock.LIT, true).getBlock()) {
-                BlockPos pos = new BlockPos(x,y,z);
+            if (world.getBlockState(pos).getBlock() == Blocks.CAMPFIRE.getDefaultState().getBlockState().with(CampfireBlock.LIT, true).getBlock()) {
                 //Get Block State
                 BooleanProperty property = (BooleanProperty) world.getBlockState(pos).getBlock().getStateContainer().getProperty("lit");
 

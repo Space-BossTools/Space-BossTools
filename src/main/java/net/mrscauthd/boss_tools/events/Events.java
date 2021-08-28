@@ -20,6 +20,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.*;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.server.ServerWorld;
@@ -49,16 +50,16 @@ public class Events {
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
             Entity entity = event.player;
-            World world = entity.world;
+            IWorld world = entity.world;
             double x = entity.getPosX();
             double y = entity.getPosY();
             double z = entity.getPosZ();
             //Venus Rain
             {
-                if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))))) {
+                if (((World) world).getDimensionKey() == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))) {
                     if (((PlayerEntity) entity).abilities.isCreativeMode == false && entity.isSpectator() == false) {
-                        if (((world.getWorldInfo().isRaining() == (true)) && ((world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (int) (Math.floor(x)), (int) (Math.floor(z)))) <= ((Math.floor(y)) + 1)))) {
-                            ((LivingEntity) entity).attackEntityFrom(new DamageSource("venus.acid").setDamageBypassesArmor(), (float) 1);
+                        if (world.getWorldInfo().isRaining() == (true) && world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(x), (int) Math.floor(z)) <= Math.floor(y) + 1) {
+                            entity.attackEntityFrom(new DamageSource("venus.acid").setDamageBypassesArmor(), (float) 1);
                         }
                     }
                 }
@@ -66,7 +67,7 @@ public class Events {
             //Player orbit Fall Teleport
             {
                 if (entity.getPosY() <= 1 && !(entity.getRidingEntity() instanceof LandingGearEntity.CustomEntity)) {
-                    RegistryKey<World> world2 = (world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD);
+                    RegistryKey<World> world2 = ((World) world).getDimensionKey();
                     //Overworld
                     if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:overworld_orbit"))) {
                         {
@@ -185,14 +186,12 @@ public class Events {
         double y = entity.getPosY();
         double z = entity.getPosZ();
         if (Config.EntityOxygenSystem == true) {
-            if ((EntityTypeTags.getCollection().getTagByID(new ResourceLocation(("forge:entities/space").toLowerCase(java.util.Locale.ENGLISH))).contains(entity.getType()))) {
-                if ((((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:overworld_orbit")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon_orbit")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars_orbit")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury_orbit")))) || (((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus")))) || ((entity.world.getDimensionKey()) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus_orbit"))))))))))))) {
-                    entity.getPersistentData().putDouble("tick", ((entity.getPersistentData().getDouble("tick")) + 1));
-                    if (((entity.getPersistentData().getDouble("tick")) >= 15)) {
+            if (EntityTypeTags.getCollection().getTagByID(new ResourceLocation(("forge:entities/space").toLowerCase(java.util.Locale.ENGLISH))).contains(entity.getType())) {
+                if (DimCheck(world)) {
+                    entity.getPersistentData().putDouble("tick", entity.getPersistentData().getDouble("tick") + 1);
+                    if (entity.getPersistentData().getDouble("tick") >= 15) {
                         world.addParticle(ParticleTypes.SMOKE, x, (y + 1), z, 0, 0, 0);
-                        if (entity instanceof LivingEntity) {
-                            ((LivingEntity) entity).attackEntityFrom(new DamageSource("space").setDamageBypassesArmor(), (float) 1);
-                        }
+                        entity.attackEntityFrom(new DamageSource("space").setDamageBypassesArmor(),1);
                         entity.getPersistentData().putDouble("tick", 0);
                     }
                 }
@@ -218,9 +217,8 @@ public class Events {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void render(RenderPlayerEvent event) {
-        if (((event.getEntity().getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
-            event.getMatrixStack().scale(0f, 0f, 0f);
-            // event.getRenderer();
+        if (event.getEntity().getRidingEntity() instanceof LandingGearEntity.CustomEntity) {
+            event.setCanceled(true);
         }
     }
 
@@ -232,7 +230,7 @@ public class Events {
         PlayerModel model = event.getModelPlayer();
         //Player Rocket Sit Rotations
         {
-            if (player.getRidingEntity() instanceof RocketTier1Entity.CustomEntity || player.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || player.getRidingEntity() instanceof RocketTier3Entity.CustomEntity) {
+            if (RocketCheckOr((LivingEntity) player.getRidingEntity()) == true) {
                 model.bipedRightLeg.rotationPointY = (float) Math.toRadians(485F);
                 model.bipedLeftLeg.rotationPointY = (float) Math.toRadians(485F);
                 model.bipedRightLeg.rotateAngleX = (float) Math.toRadians(0F);
@@ -242,30 +240,30 @@ public class Events {
                 // Arms
                 model.bipedRightArm.rotationPointX = (float) Math.toRadians(-250F);// -200
                 model.bipedLeftArm.rotationPointX = (float) Math.toRadians(250F);
-                model.bipedLeftArm.rotateAngleX = (float) -0.07;
-                model.bipedRightArm.rotateAngleX = (float) -0.07;
+                model.bipedLeftArm.rotateAngleX = -0.07f;
+                model.bipedRightArm.rotateAngleX = -0.07f;
             }
         }
         //Player Hold Vehicles Rotation
         {
-            if (!(player.getRidingEntity() instanceof RocketTier1Entity.CustomEntity) && !(player.getRidingEntity() instanceof RocketTier2Entity.CustomEntity) && !(player.getRidingEntity() instanceof RocketTier3Entity.CustomEntity)) {
-                Item item1 = ((player instanceof LivingEntity) ? ((LivingEntity) player).getHeldItemMainhand() : ItemStack.EMPTY).getItem();
-                Item item2 = ((player instanceof LivingEntity) ? ((LivingEntity) player).getHeldItemOffhand() : ItemStack.EMPTY).getItem();
-                if (item1 == new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem()
-                        || item1 == new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem()
-                        || item1 == new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem()
-                        || item1 == new ItemStack(RoverItemItem.block, (int) (1)).getItem()
+            if (RocketCheckAnd((LivingEntity) player.getRidingEntity()) == false) {
+                Item item1 = player.getHeldItemMainhand().getItem();
+                Item item2 = player.getHeldItemOffhand().getItem();
+                if (item1 == Tier1RocketItemItem.block
+                        || item1 == Tier2RocketItemItem.block
+                        || item1 == Tier3RocketItemItem.block
+                        || item1 == RoverItemItem.block
                         //Off Hand
-                        || item2 == new ItemStack(Tier1RocketItemItem.block, (int) (1)).getItem()
-                        || item2 == new ItemStack(Tier2RocketItemItem.block, (int) (1)).getItem()
-                        || item2 == new ItemStack(Tier3RocketItemItem.block, (int) (1)).getItem()
-                        || item2 == new ItemStack(RoverItemItem.block, (int) (1)).getItem()) {
-                    model.bipedRightArm.rotateAngleX = (float) 10;
-                    model.bipedLeftArm.rotateAngleX = (float) 10;
-                    model.bipedLeftArm.rotateAngleZ = (float) 0;
-                    model.bipedRightArm.rotateAngleZ = (float) 0;
-                    model.bipedRightArm.rotateAngleY = (float) 0;
-                    model.bipedLeftArm.rotateAngleY = (float) 0;
+                        || item2 == Tier1RocketItemItem.block
+                        || item2 == Tier2RocketItemItem.block
+                        || item2 == Tier3RocketItemItem.block
+                        || item2 == RoverItemItem.block) {
+                    model.bipedRightArm.rotateAngleX = 10;
+                    model.bipedLeftArm.rotateAngleX = 10;
+                    model.bipedLeftArm.rotateAngleZ = 0;
+                    model.bipedRightArm.rotateAngleZ = 0;
+                    model.bipedRightArm.rotateAngleY =  0;
+                    model.bipedLeftArm.rotateAngleY = 0;
                 }
             }
         }
@@ -276,7 +274,7 @@ public class Events {
     @SubscribeEvent
     public static void ItemRender(RenderItemEvent.Held event) {
         Entity player = event.getEntity();
-        if (player.getRidingEntity() instanceof RocketTier1Entity.CustomEntity || player.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || player.getRidingEntity() instanceof RocketTier3Entity.CustomEntity) {
+        if (RocketCheckOr((LivingEntity) player.getRidingEntity()) == true) {
             event.setCanceled(true);
         }
     }
@@ -310,9 +308,9 @@ public class Events {
         if (event != null && event.getEntity() instanceof PlayerEntity) {
             PlayerEntity entity = (PlayerEntity) event.getEntity();
 
-            Boolean armorCheck1 = Events.Nethrite_Space_Suit_Check(entity);
+            Boolean armorCheck = Events.Nethrite_Space_Suit_Check(entity);
 
-            if (armorCheck1 == true) {
+            if (armorCheck == true) {
                 if (event.getSource().isFireDamage()) {
                     entity.forceFireTicks(0);
                     event.setCanceled(true);
@@ -358,6 +356,21 @@ public class Events {
                 || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))
                 || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus_orbit"))
                 || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:overworld_orbit"))) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean RocketCheckAnd(LivingEntity pass) {
+        Entity entity = pass.getRidingEntity();
+        if (entity instanceof RocketTier1Entity.CustomEntity && entity instanceof RocketTier2Entity.CustomEntity && entity instanceof RocketTier3Entity.CustomEntity) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean RocketCheckOr(LivingEntity entity) {
+        if (entity instanceof RocketTier1Entity.CustomEntity || entity instanceof RocketTier2Entity.CustomEntity || entity instanceof RocketTier3Entity.CustomEntity) {
             return true;
         }
         return false;
