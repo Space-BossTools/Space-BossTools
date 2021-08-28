@@ -14,32 +14,32 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.mrscauthd.boss_tools.ModInnet;
 
-public class GeneratingRecipe extends BossToolsRecipe {
+public class OxygenMakingRecipe extends BossToolsRecipe {
 
-	public static final int SLOT_FUEL = 0;
+	public static final int SLOT_INGREDIENT = 0;
 
 	private final Ingredient ingredient;
-	private final int burnTime;
+	private final int activaingTime;
 
-	public GeneratingRecipe(ResourceLocation id, JsonObject json) {
+	public OxygenMakingRecipe(ResourceLocation id, JsonObject json) {
 		super(id, json);
 		JsonObject inputJson = JSONUtils.getJsonObject(json, "input");
 		this.ingredient = Ingredient.deserialize(JSONUtils.getJsonObject(inputJson, "ingredient"));
-		this.burnTime = JSONUtils.getInt(json, "burnTime");
+		this.activaingTime = JSONUtils.getInt(json, "activaingTime");
 	}
 
-	public GeneratingRecipe(ResourceLocation id, PacketBuffer buffer) {
+	public OxygenMakingRecipe(ResourceLocation id, PacketBuffer buffer) {
 		super(id, buffer);
 
 		this.ingredient = Ingredient.read(buffer);
-		this.burnTime = buffer.readInt();
+		this.activaingTime = buffer.readInt();
 
 	}
 
-	public GeneratingRecipe(ResourceLocation id, Ingredient ingredient, int burnTime) {
+	public OxygenMakingRecipe(ResourceLocation id, Ingredient ingredient, int activaingTime) {
 		super(id);
 		this.ingredient = ingredient;
-		this.burnTime = burnTime;
+		this.activaingTime = activaingTime;
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class GeneratingRecipe extends BossToolsRecipe {
 		super.write(buffer);
 
 		this.getIngredient().write(buffer);
-		buffer.writeInt(this.getBurnTime());
+		buffer.writeInt(this.getActivaingTime());
 	}
 
 	@Override
@@ -67,21 +67,21 @@ public class GeneratingRecipe extends BossToolsRecipe {
 
 	@Override
 	public IRecipeSerializer<?> getSerializer() {
-		return ModInnet.RECIPE_SERIALIZER_GENERATING.get();
+		return ModInnet.RECIPE_SERIALIZER_OXYGENMAKING.get();
 	}
 
 	@Override
 	public IRecipeType<?> getType() {
-		return BossToolsRecipeTypes.GENERATING;
+		return BossToolsRecipeTypes.OXYGENMAKING;
 	}
 
-	public int getFuelSlot(IInventory inventory, World world) {
-		return SLOT_FUEL;
+	public int getIngredientSlot(IInventory inventory, World world) {
+		return SLOT_INGREDIENT;
 	}
 
 	@Override
 	public boolean matches(IInventory inventory, World world) {
-		if (!this.ingredient.test(inventory.getStackInSlot(this.getFuelSlot(inventory, world))))
+		if (!this.ingredient.test(inventory.getStackInSlot(this.getIngredientSlot(inventory, world))))
 			return false;
 
 		return true;
@@ -98,8 +98,8 @@ public class GeneratingRecipe extends BossToolsRecipe {
 		return list;
 	}
 
-	public int getBurnTime() {
-		return this.burnTime;
+	public int getActivaingTime() {
+		return this.activaingTime;
 	}
 
 }

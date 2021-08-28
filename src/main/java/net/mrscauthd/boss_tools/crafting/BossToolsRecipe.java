@@ -31,5 +31,10 @@ public abstract class BossToolsRecipe implements IRecipe<IInventory> {
 	public final ResourceLocation getId() {
 		return this.id;
 	}
+	
+	@Override
+	public String getGroup() {
+		return this.getSerializer().getRegistryType().toString();
+	}
 
 }

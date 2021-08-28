@@ -36,6 +36,7 @@ import net.mrscauthd.boss_tools.crafting.BlastingRecipeSerializer;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.CompressingRecipeSerializer;
 import net.mrscauthd.boss_tools.crafting.GeneratingRecipeSerializer;
+import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipeSerializer;
 import net.mrscauthd.boss_tools.entity.AlienSpitEntity;
 import net.mrscauthd.boss_tools.entity.AlienZombieEntity;
 import net.mrscauthd.boss_tools.entity.MoglerEntity;
@@ -276,11 +277,12 @@ public class ModInnet {
     public static final RegistryObject<Item> FLAG_RED_ITEM = ITEMS.register("flag_red", () -> new TallBlockItem(FLAG_RED_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
     public static final RegistryObject<Item> FLAG_YELLOW_ITEM = ITEMS.register("flag_yellow", () -> new TallBlockItem(FLAG_YELLOW_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
 
-    //Blasting Recpies
+    //Recpies
     public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, "boss_tools");
     public static final RegistryObject<IRecipeSerializer<?>> RECIPE_SERIALIZER_BLASTING = RECIPE_SERIALIZERS.register("blasting", () -> new BlastingRecipeSerializer());
     public static final RegistryObject<IRecipeSerializer<?>> RECIPE_SERIALIZER_COMPRESSING = RECIPE_SERIALIZERS.register("compressing", () -> new CompressingRecipeSerializer());
     public static final RegistryObject<IRecipeSerializer<?>> RECIPE_SERIALIZER_GENERATING = RECIPE_SERIALIZERS.register("generating", () -> new GeneratingRecipeSerializer());
+    public static final RegistryObject<IRecipeSerializer<?>> RECIPE_SERIALIZER_OXYGENMAKING = RECIPE_SERIALIZERS.register("oxygenmaking", () -> new OxygenMakingRecipeSerializer());
 
     //Wrold Gen Things
     public static ConfiguredFeature<?, ?> ICE_SPIKE;

@@ -69,11 +69,6 @@ public abstract class ItemStackToItemStackRecipe extends BossToolsRecipe {
 		return this.output.copy();
 	}
 
-	@Override
-	public String getGroup() {
-		return this.getSerializer().getRegistryName().toString();
-	}
-
 	public int getIngredientSlot(IInventory inventory, World world) {
 		return ItemStackToItemStackTileEntity.SLOT_INGREDIENT;
 	}
