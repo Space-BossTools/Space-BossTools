@@ -3,7 +3,7 @@
 	"conditions": [
     {
 		"value": {
-			"tag": "minecraft:coal_coke",
+			"tag": "forge:coal_coke",
 			"type": "forge:tag_empty"
 		},
 		"type": "forge:not"
@@ -11,7 +11,7 @@
   ],
    "input":{
       "ingredient":{
-         "tag":"minecraft:coal_coke"
+         "tag":"forge:coal_coke"
       }
    },
    "burnTime":800

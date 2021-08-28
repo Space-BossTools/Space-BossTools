@@ -788,7 +788,7 @@ public class JeiPlugin implements IModPlugin {
             if (counter >= 8000 && counter <= 8560) {
                 return textureanimation22;
             }
-            if (counter >= 8560 && counter <= 9000) {
+            if (counter >= 8560) {
                 return textureanimation23;
             }
             return background;
