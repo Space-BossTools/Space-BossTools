@@ -330,6 +330,7 @@ public class FuelRefineryBlock {
 			this.fillOutput();
 		}
 
+		@Override
 		public boolean hasSpaceInOutput() {
 			FluidTank fluidTank = this.getFluidTank();
 			int fluidAmount = fluidTank.getFluidAmount();
@@ -361,7 +362,7 @@ public class FuelRefineryBlock {
 			if (this.hasSpaceInOutput()) {
 				int fuel = this.getFuel();
 
-				if (fuel >= FUEL_CONSUME_PER_TICK && this.getPowerSystem().consume(this.getPowerForOperation())) {
+				if (fuel >= FUEL_CONSUME_PER_TICK && this.isPowerEnoughAndConsume()) {
 					this.setFuel(fuel - FUEL_CONSUME_PER_TICK);
 					this.getFluidTank().fill(new FluidStack(ModInnet.FUEL_STILL.get(), FLUID_PER_FUEL * FUEL_CONSUME_PER_TICK), FluidAction.EXECUTE);
 					this.setProcessedInThisTick();
@@ -419,11 +420,6 @@ public class FuelRefineryBlock {
 		@Override
 		protected int getInitialInventorySize() {
 			return 2;
-		}
-
-		@Override
-		public boolean isIngredientReady() {
-			return this.hasSpaceInOutput();
 		}
 	}
 }

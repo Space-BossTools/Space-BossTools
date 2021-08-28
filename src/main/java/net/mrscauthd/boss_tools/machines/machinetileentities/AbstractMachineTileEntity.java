@@ -2,11 +2,8 @@ package net.mrscauthd.boss_tools.machines.machinetileentities;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.google.common.primitives.Ints;
@@ -39,7 +36,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
-public abstract class AbstractMachineTileEntity extends LockableLootTileEntity implements ISidedInventory, ITickableTileEntity {
+public abstract class AbstractMachineTileEntity extends LockableLootTileEntity implements ISidedInventory, ITickableTileEntity, IEnergyStorageHolder {
 
 	public static final String KEY_ACTIVATED = "activated";
 
@@ -47,6 +44,7 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	private IFluidHandler fluidHandler = null;
 	private final LazyOptional<? extends IItemHandler>[] itemHandlers;
 	private NonNullList<ItemStack> stacks = null;
+	private EnergyStorageBasic energyStorage = null;
 
 	private boolean processedInThisTick = false;
 
@@ -57,9 +55,12 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		this.fluidHandler = this.createFluidHandler();
 		this.itemHandlers = SidedInvWrapper.create(this, Direction.values());
 		this.stacks = NonNullList.<ItemStack>withSize(this.getInitialInventorySize(), ItemStack.EMPTY);
+		this.energyStorage = this.createEnergyStorage();
 	}
 
-	protected abstract int getInitialInventorySize();
+	protected int getInitialInventorySize() {
+		return this.getPowerSystem().getUsingSlots();
+	}
 
 	public int getPowerPerTick() {
 		return this.getPowerSystem().getBasePowerPerTick();
@@ -73,6 +74,10 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		return this.getPowerSystem().getStored() >= this.getPowerPerTick() + this.getPowerForOperation();
 	}
 
+	protected boolean isPowerEnoughAndConsume() {
+		return this.isPowerEnoughForOperation() && this.getPowerSystem().consume(this.getPowerForOperation());
+	}
+
 	@Override
 	public void read(BlockState blockState, CompoundNBT compound) {
 		super.read(blockState, compound);
@@ -81,6 +86,13 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		}
 		ItemStackHelper.loadAllItems(compound, this.stacks);
 		this.getPowerSystem().read(compound.getCompound("powerSystem"));
+
+		EnergyStorageBasic energyStorage = this.getEnergyStorage();
+
+		if (energyStorage != null) {
+			energyStorage.read(compound.getCompound("energyStorage"));
+		}
+
 	}
 
 	@Override
@@ -90,6 +102,13 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 			ItemStackHelper.saveAllItems(compound, this.stacks);
 		}
 		compound.put("powerSystem", this.getPowerSystem().write());
+
+		EnergyStorageBasic energyStorage = this.getEnergyStorage();
+
+		if (energyStorage != null) {
+			compound.put("energyStorage", energyStorage.write());
+		}
+
 		return compound;
 	}
 
@@ -150,16 +169,23 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	}
 
 	public <T> LazyOptional<T> getCapabilityEnergy(Capability<T> capability, @Nullable Direction facing) {
+
+		EnergyStorageBasic energyStorage = this.getEnergyStorage();
+
+		if (energyStorage != null) {
+			return LazyOptional.of(() -> energyStorage).cast();
+		}
+
 		PowerSystem powerSystem = this.getPowerSystem();
 
 		if (powerSystem instanceof PowerSystemEnergy) {
 			PowerSystemEnergy powerSystemEnergy = (PowerSystemEnergy) powerSystem;
 
 			if (powerSystemEnergy.canProvideCapability()) {
-				IEnergyStorage energyStorage = powerSystemEnergy.getEnergyStorage();
+				IEnergyStorage powerEnergyStorage = powerSystemEnergy.getEnergyStorage();
 
-				if (energyStorage != null) {
-					return LazyOptional.of(() -> energyStorage).cast();
+				if (powerEnergyStorage != null) {
+					return LazyOptional.of(() -> powerEnergyStorage).cast();
 				}
 
 			}
@@ -280,7 +306,7 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	}
 
 	protected boolean canActivated() {
-		if (this.getPowerSystem() instanceof PowerSystemFuel) {
+		if (this.getPowerSystem() instanceof PowerSystemFuelAbstract) {
 			return this.isPowerEnoughForOperation();
 		} else {
 			return this.processedInThisTick;
@@ -289,17 +315,31 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	}
 
 	protected abstract PowerSystem createPowerSystem();
-	
+
 	public PowerSystem getPowerSystem() {
 		return this.powerSystem;
 	}
 
-	protected abstract IFluidHandler createFluidHandler();
+	@Nullable
+	protected IFluidHandler createFluidHandler() {
+		return null;
+	}
 
+	@Nullable
 	public IFluidHandler getFluidHandler() {
 		return this.fluidHandler;
 	}
-	
+
+	@Nullable
+	protected EnergyStorageBasic createEnergyStorage() {
+		return null;
+	}
+
+	@Nullable
+	public EnergyStorageBasic getEnergyStorage() {
+		return this.energyStorage;
+	}
+
 	public IItemHandlerModifiable getItemHandler() {
 		return (IItemHandlerModifiable) this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).resolve().get();
 	}
@@ -341,6 +381,20 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		this.read(this.getBlockState(), pkt.getNbtCompound());
 	}
 
+	@Override
+	public void onEnergyReceived(IEnergyStorage energyStorage, int energyReceived) {
+		if (this.getEnergyStorage() == energyStorage) {
+			this.markDirty();
+		}
+	}
+
+	@Override
+	public void onEnergyExtracted(IEnergyStorage energyStorage, int energyExtracted) {
+		if (this.getEnergyStorage() == energyStorage) {
+			this.markDirty();
+		}
+	}
+
 	protected boolean isProcessedInThisTick() {
 		return processedInThisTick;
 	}
@@ -349,6 +403,6 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		this.processedInThisTick = true;
 	}
 
-	public abstract boolean isIngredientReady();
+	public abstract boolean hasSpaceInOutput();
 
 }

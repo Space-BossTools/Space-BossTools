@@ -25,9 +25,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.crafting.BlastingRecipe;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
-import net.mrscauthd.boss_tools.crafting.blasting.BlastingRecipe;
-import net.mrscauthd.boss_tools.crafting.compressing.CompressingRecipe;
+import net.mrscauthd.boss_tools.crafting.CompressingRecipe;
+import net.mrscauthd.boss_tools.crafting.GeneratingRecipe;
 import net.mrscauthd.boss_tools.machines.WorkbenchBlock;
 import net.mrscauthd.boss_tools.machines.GeneratorBlock;
 import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackTileEntity;
@@ -57,11 +58,13 @@ public class JeiPlugin implements IModPlugin {
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
     	int inventorySlotCount = 36;
     	
+    	// Generator
+    	registration.addRecipeTransferHandler(GeneratorGUIGui.GuiContainerMod.class, GeneratorJeiCategory.Uid, GeneratorBlock.SLOT_FUEL, 1, GeneratorBlock.SLOT_FUEL + 1, inventorySlotCount);
     	// BlastFurnace
 		int blastInventoryStartIndex = ItemStackToItemStackTileEntity.SLOT_FUEL + 1;
 		registration.addRecipeTransferHandler(BlastFurnaceGUIGui.GuiContainerMod.class, BlastingFurnaceJeiCategory.Uid, ItemStackToItemStackTileEntity.SLOT_INGREDIENT, 1, blastInventoryStartIndex, inventorySlotCount);
     	registration.addRecipeTransferHandler(BlastFurnaceGUIGui.GuiContainerMod.class, VanillaRecipeCategoryUid.FUEL, ItemStackToItemStackTileEntity.SLOT_FUEL, 1, blastInventoryStartIndex, inventorySlotCount);
-    	//Compressor
+    	// Compressor
     	registration.addRecipeTransferHandler(CompressorGuiGui.GuiContainerMod.class, CompressorJeiCategory.Uid, ItemStackToItemStackTileEntity.SLOT_INGREDIENT, 1, ItemStackToItemStackTileEntity.SLOT_OUTPUT + 1, inventorySlotCount);
     }
     
@@ -112,10 +115,6 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipes(generateOxygenGeneratorRecipes(), OxygenGeneratorJeiCategory.Uid);
         //Generator
         registration.addRecipes(generateGeneratorRecipes(), GeneratorJeiCategory.Uid);
-        //generator Recpie 2
-        registration.addRecipes(generateGeneratorRecipes2(), GeneratorJeiCategory.Uid);
-        //generator Recpie 3
-        registration.addRecipes(generateGeneratorRecipes3(), GeneratorJeiCategory.Uid);
         //workbench
         registration.addRecipes(generateWorkbenchRecipes(), WorkbenchJeiCategory.Uid);
         //workbench Tier 2
@@ -177,32 +176,8 @@ public class JeiPlugin implements IModPlugin {
         return recipes;
     }
     //Generator
-    private List<GeneratorJeiCategory.GeneratorRecipeWrapper> generateGeneratorRecipes() {
-        List<GeneratorJeiCategory.GeneratorRecipeWrapper> recipes = new ArrayList<>();
-        ArrayList<ItemStack> inputs = new ArrayList<>();
-        inputs.add(new ItemStack(Items.COAL));
-        inputs.add(new ItemStack(Items.COAL_BLOCK));
-        // ...
-        recipes.add(new GeneratorJeiCategory.GeneratorRecipeWrapper(inputs));
-        return recipes;
-    }
-    //Generator
-    private List<GeneratorJeiCategory.GeneratorRecipeWrapper> generateGeneratorRecipes2() {
-        List<GeneratorJeiCategory.GeneratorRecipeWrapper> recipes = new ArrayList<>();
-        ArrayList<ItemStack> inputs = new ArrayList<>();
-        inputs.add(new ItemStack(Items.COAL_BLOCK));
-        // ...
-        recipes.add(new GeneratorJeiCategory.GeneratorRecipeWrapper(inputs));
-        return recipes;
-    }
-    //Generator
-    private List<GeneratorJeiCategory.GeneratorRecipeWrapper> generateGeneratorRecipes3() {
-        List<GeneratorJeiCategory.GeneratorRecipeWrapper> recipes = new ArrayList<>();
-        ArrayList<ItemStack> inputs = new ArrayList<>();
-        inputs.add(new ItemStack(Items.CHARCOAL));
-        // ...
-        recipes.add(new GeneratorJeiCategory.GeneratorRecipeWrapper(inputs));
-        return recipes;
+    private List<GeneratingRecipe> generateGeneratorRecipes() {
+        return BossToolsRecipeTypes.GENERATING.getRecipes(Minecraft.getInstance().world);
     }
     //Workbench
     private List<WorkbenchJeiCategory.WorkbenchRecipeWrapper> generateWorkbenchRecipes() {
@@ -648,9 +623,9 @@ public class JeiPlugin implements IModPlugin {
         }
     }
     //Genrator
-    public static class GeneratorJeiCategory implements IRecipeCategory<GeneratorJeiCategory.GeneratorRecipeWrapper> {
+    public static class GeneratorJeiCategory implements IRecipeCategory<GeneratingRecipe> {
         private static ResourceLocation Uid = new ResourceLocation("boss_tools", "generatorcategory");// muss klein geschrieben sein
-        private static final int input1 = 0; // THE NUMBER = SLOTID
+        
         // ...
         private final String title;
         private final IDrawable background;
@@ -680,7 +655,6 @@ public class JeiPlugin implements IModPlugin {
 
         //Animation nummber
         int counter = 0;
-        int animation = 1 ;
         public GeneratorJeiCategory(IGuiHelper guiHelper) {
             this.title = "Coal Generator";
             this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen0.png"), 0, 0, 144, 84);
@@ -710,14 +684,9 @@ public class JeiPlugin implements IModPlugin {
             this.textureanimation23 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen23.png"), 0, 0, 144, 84);
         }
         @Override
-        public List<ITextComponent> getTooltipStrings(GeneratorJeiCategory.GeneratorRecipeWrapper recipe, double mouseX, double mouseY) {
-            //   counter = counter - 1;
-            //    if (counter <= 0){
-            //        counter = 9000;
-            // }
-            // animation = counter;
+        public List<ITextComponent> getTooltipStrings(GeneratingRecipe recipe, double mouseX, double mouseY) {
             if (mouseX > 106 && mouseX < 131 && mouseY > 15 && mouseY < 64) {
-                return Collections.singletonList(new TranslationTextComponent(animation + " FE / 9000.0 FE"));
+                return Collections.singletonList(new TranslationTextComponent(recipe.getBurnTime() * GeneratorBlock.ENERGY_PER_TICK +" FE"));
             }
             return Collections.emptyList();
         }
@@ -728,8 +697,8 @@ public class JeiPlugin implements IModPlugin {
         }
 
         @Override
-        public Class<? extends GeneratorRecipeWrapper> getRecipeClass() {
-            return GeneratorJeiCategory.GeneratorRecipeWrapper.class;
+        public Class<? extends GeneratingRecipe> getRecipeClass() {
+            return GeneratingRecipe.class;
         }
 
         @Override
@@ -738,14 +707,18 @@ public class JeiPlugin implements IModPlugin {
         }
 
         @Override
+        public void draw(GeneratingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+        	IRecipeCategory.super.draw(recipe, matrixStack, mouseX, mouseY);
+        	
+        	this.getImage(recipe.getBurnTime() * GeneratorBlock.ENERGY_PER_TICK).draw(matrixStack);
+        }
+
+        @Override
         public IDrawable getBackground() {
-            //animation tick
-            counter = counter + 1;
-            if (counter >= 9000){
-                counter = 0;
-            }
-            animation = counter;
-            //animation tick
+        	return this.background;
+        }
+        
+        public IDrawable getImage(int counter) {
             if (counter >= 360 && counter <= 720) {
                 return textureanimation1;
             }
@@ -812,7 +785,7 @@ public class JeiPlugin implements IModPlugin {
             if (counter >= 8000 && counter <= 8560) {
                 return textureanimation22;
             }
-            if (counter >= 8560 && counter <= 9000) {
+            if (counter >= 8560) {
                 return textureanimation23;
             }
             return background;
@@ -824,31 +797,18 @@ public class JeiPlugin implements IModPlugin {
         }
 
         @Override
-        public void setIngredients(GeneratorRecipeWrapper recipeWrapper, IIngredients iIngredients) {
-            iIngredients.setInputs(VanillaTypes.ITEM, recipeWrapper.getInput());
+        public void setIngredients(GeneratingRecipe recipe, IIngredients iIngredients) {
+            iIngredients.setInputIngredients(recipe.getIngredients());
         }
 
         @Override
-        public void setRecipe(IRecipeLayout iRecipeLayout, GeneratorRecipeWrapper recipeWrapper, IIngredients iIngredients) {
+        public void setRecipe(IRecipeLayout iRecipeLayout, GeneratingRecipe recipe, IIngredients iIngredients) {
             IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
-            stacks.init(input1, true, 44, 25);//Numern wie im GUI
+            stacks.init(GeneratorBlock.SLOT_FUEL, true, 44, 25);//Numern wie im GUI
             // ...
 
-            stacks.set(input1, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
+            stacks.set(GeneratorBlock.SLOT_FUEL, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
             // ...
-        }
-        public static class GeneratorRecipeWrapper {
-            private ArrayList input;
-            private ArrayList output;
-
-            public GeneratorRecipeWrapper(ArrayList input) {
-                this.input = input;
-            }
-
-
-            public ArrayList getInput() {
-                return input;
-            }
         }
     }
     //workbench

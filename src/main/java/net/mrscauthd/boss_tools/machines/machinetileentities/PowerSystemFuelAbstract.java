@@ -5,27 +5,25 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
-import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
-public abstract class PowerSystemFuel extends PowerSystem {
+public abstract class PowerSystemFuelAbstract extends PowerSystem {
 	private final Lazy<IItemHandlerModifiable> itemHandler;
 	private final int slot;
 
 	private int fuel;
 	private int maxFuel;
 
-	public PowerSystemFuel(AbstractMachineTileEntity tileEntity, Lazy<IItemHandlerModifiable> itemHandler, int slot) {
+	public PowerSystemFuelAbstract(AbstractMachineTileEntity tileEntity, Lazy<IItemHandlerModifiable> itemHandler, int slot) {
 		super(tileEntity);
 
 		this.itemHandler = itemHandler;
 		this.slot = slot;
 	}
-	
+
 	@Override
 	public int getUsingSlots() {
 		return 1;
@@ -65,8 +63,6 @@ public abstract class PowerSystemFuel extends PowerSystem {
 		return this.maxFuel;
 	}
 
-	public abstract IRecipeType<?> getRecipeType();
-
 	@Override
 	public int getBasePowerPerTick() {
 		return 1;
@@ -78,13 +74,13 @@ public abstract class PowerSystemFuel extends PowerSystem {
 	}
 
 	public boolean canFeed(boolean spareForNextTick, ItemStack fuel) {
-		return this.getTileEntity().isIngredientReady();
+		return this.getTileEntity().hasSpaceInOutput();
 	}
 
 	@Override
 	public void read(CompoundNBT compound) {
 		super.read(compound);
-		
+
 		this.fuel = compound.getInt("fuel");
 		this.maxFuel = compound.getInt("maxFuel");
 	}
@@ -92,12 +88,14 @@ public abstract class PowerSystemFuel extends PowerSystem {
 	@Override
 	public CompoundNBT write() {
 		CompoundNBT compound = super.write();
-		
+
 		compound.putInt("fuel", this.fuel);
 		compound.putInt("maxFuel", this.maxFuel);
 
 		return compound;
 	}
+
+	public abstract int getBurnTime(ItemStack fuel);
 
 	@Override
 	public boolean feed(boolean spareForNextTick) {
@@ -110,7 +108,7 @@ public abstract class PowerSystemFuel extends PowerSystem {
 		ItemStack fuel = itemHandler.getStackInSlot(slot);
 
 		if (!fuel.isEmpty() && this.canFeed(spareForNextTick, fuel)) {
-			int burnTime = ForgeHooks.getBurnTime(fuel, this.getRecipeType());
+			int burnTime = this.getBurnTime(fuel);
 
 			if (burnTime > 0) {
 				itemHandler.extractItem(slot, 1, false);
@@ -136,7 +134,7 @@ public abstract class PowerSystemFuel extends PowerSystem {
 
 	@Override
 	public boolean canInsertItem(@Nullable Direction direction, int index, ItemStack stack) {
-		return this.matchDirection(direction) && index == this.getSlot() && ForgeHooks.getBurnTime(stack, this.getRecipeType()) > 0;
+		return this.matchDirection(direction) && index == this.getSlot() && this.getBurnTime(stack) > 0;
 	}
 
 	public IItemHandlerModifiable getItemHandler() {

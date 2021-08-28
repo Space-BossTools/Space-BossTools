@@ -1,27 +1,49 @@
 package net.mrscauthd.boss_tools.crafting;
 
+import com.google.gson.JsonObject;
+
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackTileEntity;
 
-public abstract class ItemStackToItemStackRecipe implements IRecipe<IInventory> {
-	private final ResourceLocation id;
+public abstract class ItemStackToItemStackRecipe extends BossToolsRecipe {
 	private final Ingredient ingredient;
 	private final ItemStack output;
 	private final int cookTime;
 
+	public ItemStackToItemStackRecipe(ResourceLocation id, JsonObject json) {
+		super(id, json);
+		JsonObject inputJson = JSONUtils.getJsonObject(json, "input");
+		this.ingredient = Ingredient.deserialize(JSONUtils.getJsonObject(inputJson, "ingredient"));
+		this.output = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "output"), true);
+		this.cookTime = JSONUtils.getInt(json, "cookTime");
+	}
+
+	public ItemStackToItemStackRecipe(ResourceLocation id, PacketBuffer buffer) {
+		super(id, buffer);
+		this.ingredient = Ingredient.read(buffer);
+		this.output = buffer.readItemStack();
+		this.cookTime = buffer.readInt();
+	}
+
 	public ItemStackToItemStackRecipe(ResourceLocation id, Ingredient ingredient, ItemStack output, int cookTime) {
-		this.id = id;
+		super(id);
 		this.ingredient = ingredient;
 		this.output = output;
 		this.cookTime = cookTime;
+	}
+
+	public void write(PacketBuffer buffer) {
+		this.getIngredient().write(buffer);
+		buffer.writeItemStack(this.getOutput());
+		buffer.writeInt(this.getCookTime());
 	}
 
 	@Override
@@ -39,17 +61,12 @@ public abstract class ItemStackToItemStackRecipe implements IRecipe<IInventory> 
 
 	@Override
 	public boolean canFit(int var1, int var2) {
-		return false;
+		return true;
 	}
 
 	@Override
 	public ItemStack getRecipeOutput() {
 		return this.output.copy();
-	}
-
-	@Override
-	public ResourceLocation getId() {
-		return this.id;
 	}
 
 	@Override
@@ -62,14 +79,8 @@ public abstract class ItemStackToItemStackRecipe implements IRecipe<IInventory> 
 	}
 
 	@Override
-	public abstract IRecipeSerializer<?> getSerializer();
-
-	@Override
-	public abstract IRecipeType<?> getType();
-
-	@Override
 	public NonNullList<Ingredient> getIngredients() {
-		NonNullList<Ingredient> list = IRecipe.super.getIngredients();
+		NonNullList<Ingredient> list = super.getIngredients();
 		list.add(this.getIngredient());
 		return list;
 	}

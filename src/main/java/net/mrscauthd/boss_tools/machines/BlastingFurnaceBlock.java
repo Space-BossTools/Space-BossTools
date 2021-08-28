@@ -46,7 +46,7 @@ import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipeType;
 import net.mrscauthd.boss_tools.gui.BlastFurnaceGUIGui;
 import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackTileEntity;
 import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystem;
-import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystemFuel;
+import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystemFuelVanilla;
 
 public class BlastingFurnaceBlock {
 
@@ -202,7 +202,7 @@ public class BlastingFurnaceBlock {
 		
 		@Override
 		protected PowerSystem createPowerSystem() {
-			return new PowerSystemFuel(this, this::getItemHandler, SLOT_FUEL) {
+			return new PowerSystemFuelVanilla(this, this::getItemHandler, SLOT_FUEL) {
 				@Override
 				public IRecipeType<?> getRecipeType() {
 					return CustomTileEntity.this.getRecipeType();
