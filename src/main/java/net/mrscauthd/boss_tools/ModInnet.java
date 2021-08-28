@@ -1,4 +1,3 @@
-
 package net.mrscauthd.boss_tools;
 
 import com.mojang.serialization.Codec;
@@ -42,6 +41,7 @@ import net.mrscauthd.boss_tools.entity.AlienZombieEntity;
 import net.mrscauthd.boss_tools.entity.MoglerEntity;
 import net.mrscauthd.boss_tools.entity.StarCrawlerEntity;
 import net.mrscauthd.boss_tools.fluid.OilFluid;
+import net.mrscauthd.boss_tools.machines.CoalGeneratorBlock;
 import net.mrscauthd.boss_tools.machines.CompressorBlock;
 import net.mrscauthd.boss_tools.spawneggs.ModSpawnEggs;
 import net.mrscauthd.boss_tools.entity.pygro.PygroEntity;
@@ -136,18 +136,21 @@ public class ModInnet {
     public static final RegistryObject<TileEntityType<?>> FUEL_REFINERY = TILE_ENTITYS.register("fuel_refinery", () -> TileEntityType.Builder.create(FuelRefineryBlock.CustomTileEntity::new,ModInnet.FUEL_REFINERY_BLOCK.get()).build(null));
     public static final RegistryObject<TileEntityType<?>> BLAST_FURNACE = TILE_ENTITYS.register("blast_furnace", () -> TileEntityType.Builder.create(BlastingFurnaceBlock.CustomTileEntity::new,ModInnet.BLAST_FURNACE_BLOCK.get()).build(null));
     public static final RegistryObject<TileEntityType<?>> COMPRESSOR = TILE_ENTITYS.register("compressor", () -> TileEntityType.Builder.create(CompressorBlock.CustomTileEntity::new,ModInnet.COMPRESSOR_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<?>> COAL_GENERATOR = TILE_ENTITYS.register("coal_generator", () -> TileEntityType.Builder.create(CoalGeneratorBlock.CustomTileEntity::new,ModInnet.COAL_GENERATOR_BLOCK.get()).build(null));
 
 
     //Blocks
     public static RegistryObject<Block> FUEL_REFINERY_BLOCK = BLOCKS.register("fuel_refinery",() -> new FuelRefineryBlock.CustomBlock());
     public static RegistryObject<Block> BLAST_FURNACE_BLOCK = BLOCKS.register("blast_furnace",() -> new BlastingFurnaceBlock.CustomBlock());
     public static RegistryObject<Block> COMPRESSOR_BLOCK = BLOCKS.register("compressor",() -> new CompressorBlock.CustomBlock());
+    public static RegistryObject<Block> COAL_GENERATOR_BLOCK = BLOCKS.register("coal_generator",() -> new CoalGeneratorBlock.CustomBlock());
 
 
     //Block Item
     public static final RegistryObject<BlockItem> FUEL_REFINERY_ITEM = ITEMS.register("fuel_refinery", () -> new BlockItem(ModInnet.FUEL_REFINERY_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_machines)));
     public static final RegistryObject<BlockItem> BLAST_FURNACE_ITEM = ITEMS.register("blast_furnace", () -> new BlockItem(ModInnet.BLAST_FURNACE_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_machines)));
     public static final RegistryObject<BlockItem> COMPRESSOR_ITEM = ITEMS.register("compressor", () -> new BlockItem(ModInnet.COMPRESSOR_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_machines)));
+    public static final RegistryObject<BlockItem> COAL_GENERATOR_ITEM = ITEMS.register("coal_generator", () -> new BlockItem(ModInnet.COAL_GENERATOR_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_machines)));
 
 
     //Fuel Fluid

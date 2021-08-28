@@ -5,7 +5,7 @@ import org.lwjgl.opengl.GL11;
 
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.mrscauthd.boss_tools.machines.GeneratorBlock.CustomTileEntity;
+import net.mrscauthd.boss_tools.machines.CoalGeneratorBlock.CustomTileEntity;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.World;

@@ -1,4 +1,3 @@
-
 package net.mrscauthd.boss_tools.machines;
 
 import java.util.Collections;
@@ -18,9 +17,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
 import net.minecraft.network.PacketBuffer;
@@ -29,7 +26,6 @@ import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -44,45 +40,16 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkHooks;
-import net.minecraftforge.registries.ObjectHolder;
-import net.mrscauthd.boss_tools.BossToolsModElements;
+import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.gui.GeneratorGUIGui;
-import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 import net.mrscauthd.boss_tools.machines.machinetileentities.GeneratorTileEntity;
 import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystem;
 import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystemFuelGeneratingRecipe;
 
-@BossToolsModElements.ModElement.Tag
-public class GeneratorBlock extends BossToolsModElements.ModElement {
+public class CoalGeneratorBlock {
 	public static final int SLOT_FUEL = 0;
 	public static final int ENERGY_PER_TICK = 2;
-
-	@ObjectHolder("boss_tools:coal_generator")
-	public static final Block block = null;
-	@ObjectHolder("boss_tools:coal_generator")
-	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
-
-	public GeneratorBlock(BossToolsModElements instance) {
-		super(instance, 71);
-		FMLJavaModLoadingContext.get().getModEventBus().register(new TileEntityRegisterHandler());
-	}
-
-	@Override
-	public void initElements() {
-		elements.blocks.add(() -> new CustomBlock());
-		elements.items.add(() -> new BlockItem(block, new Item.Properties().group(BossToolsItemGroups.tab_machines)).setRegistryName(block.getRegistryName()));
-	}
-
-	private static class TileEntityRegisterHandler {
-		@SubscribeEvent
-		public void registerTileEntity(RegistryEvent.Register<TileEntityType<?>> event) {
-			event.getRegistry().register(TileEntityType.Builder.create(CustomTileEntity::new, block).build(null).setRegistryName("coal_generator"));
-		}
-	}
 
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
@@ -91,7 +58,6 @@ public class GeneratorBlock extends BossToolsModElements.ModElement {
 		public CustomBlock() {
 			super(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 1f).setLightLevel(s -> 0).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool());
 			this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(ACTIAVATED, Boolean.valueOf(false)));
-			setRegistryName("coal_generator");
 		}
 
 		@Override
@@ -207,8 +173,8 @@ public class GeneratorBlock extends BossToolsModElements.ModElement {
 
 	public static class CustomTileEntity extends GeneratorTileEntity {
 
-		protected CustomTileEntity() {
-			super(tileEntityType);
+		public CustomTileEntity() {
+			super(ModInnet.COAL_GENERATOR.get());
 		}
 
 		@Override
@@ -241,6 +207,7 @@ public class GeneratorBlock extends BossToolsModElements.ModElement {
 		protected List<Direction> getEjectDirections() {
 			List<Direction> list = super.getEjectDirections();
 			list.add(Direction.UP);
+			list.add(Direction.DOWN);
 			return list;
 		}
 

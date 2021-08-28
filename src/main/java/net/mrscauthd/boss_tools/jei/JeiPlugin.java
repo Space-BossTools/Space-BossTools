@@ -30,7 +30,7 @@ import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.CompressingRecipe;
 import net.mrscauthd.boss_tools.crafting.GeneratingRecipe;
 import net.mrscauthd.boss_tools.machines.WorkbenchBlock;
-import net.mrscauthd.boss_tools.machines.GeneratorBlock;
+import net.mrscauthd.boss_tools.machines.CoalGeneratorBlock;
 import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackTileEntity;
 import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock;
 import net.mrscauthd.boss_tools.machines.OxygenMachineBlock;
@@ -59,7 +59,7 @@ public class JeiPlugin implements IModPlugin {
     	int inventorySlotCount = 36;
     	
     	// Generator
-    	registration.addRecipeTransferHandler(GeneratorGUIGui.GuiContainerMod.class, GeneratorJeiCategory.Uid, GeneratorBlock.SLOT_FUEL, 1, GeneratorBlock.SLOT_FUEL + 1, inventorySlotCount);
+    	registration.addRecipeTransferHandler(GeneratorGUIGui.GuiContainerMod.class, GeneratorJeiCategory.Uid, CoalGeneratorBlock.SLOT_FUEL, 1, CoalGeneratorBlock.SLOT_FUEL + 1, inventorySlotCount);
     	// BlastFurnace
 		int blastInventoryStartIndex = ItemStackToItemStackTileEntity.SLOT_FUEL + 1;
 		registration.addRecipeTransferHandler(BlastFurnaceGUIGui.GuiContainerMod.class, BlastingFurnaceJeiCategory.Uid, ItemStackToItemStackTileEntity.SLOT_INGREDIENT, 1, blastInventoryStartIndex, inventorySlotCount);
@@ -324,7 +324,7 @@ public class JeiPlugin implements IModPlugin {
         //Neue maschine
         registration.addRecipeCatalyst(new ItemStack(OxygenGeneratorBlock.block), OxygenGeneratorJeiCategory.Uid);
         //Genrator
-        registration.addRecipeCatalyst(new ItemStack(GeneratorBlock.block), GeneratorJeiCategory.Uid);
+        registration.addRecipeCatalyst(new ItemStack(ModInnet.COAL_GENERATOR_BLOCK.get()), GeneratorJeiCategory.Uid);
         //workbench
         registration.addRecipeCatalyst(new ItemStack(WorkbenchBlock.block), WorkbenchJeiCategory.Uid);
         //BlastingFurnace
@@ -686,7 +686,7 @@ public class JeiPlugin implements IModPlugin {
         @Override
         public List<ITextComponent> getTooltipStrings(GeneratingRecipe recipe, double mouseX, double mouseY) {
             if (mouseX > 106 && mouseX < 131 && mouseY > 15 && mouseY < 64) {
-                return Collections.singletonList(new TranslationTextComponent(recipe.getBurnTime() * GeneratorBlock.ENERGY_PER_TICK +" FE"));
+                return Collections.singletonList(new TranslationTextComponent(recipe.getBurnTime() * CoalGeneratorBlock.ENERGY_PER_TICK +" FE"));
             }
             return Collections.emptyList();
         }
@@ -710,7 +710,7 @@ public class JeiPlugin implements IModPlugin {
         public void draw(GeneratingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
         	IRecipeCategory.super.draw(recipe, matrixStack, mouseX, mouseY);
         	
-        	this.getImage(recipe.getBurnTime() * GeneratorBlock.ENERGY_PER_TICK).draw(matrixStack);
+        	this.getImage(recipe.getBurnTime() * CoalGeneratorBlock.ENERGY_PER_TICK).draw(matrixStack);
         }
 
         @Override
@@ -804,10 +804,10 @@ public class JeiPlugin implements IModPlugin {
         @Override
         public void setRecipe(IRecipeLayout iRecipeLayout, GeneratingRecipe recipe, IIngredients iIngredients) {
             IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
-            stacks.init(GeneratorBlock.SLOT_FUEL, true, 44, 25);//Numern wie im GUI
+            stacks.init(CoalGeneratorBlock.SLOT_FUEL, true, 44, 25);//Numern wie im GUI
             // ...
 
-            stacks.set(GeneratorBlock.SLOT_FUEL, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
+            stacks.set(CoalGeneratorBlock.SLOT_FUEL, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
             // ...
         }
     }
