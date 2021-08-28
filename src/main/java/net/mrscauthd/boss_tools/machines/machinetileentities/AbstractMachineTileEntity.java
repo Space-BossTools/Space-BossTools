@@ -285,7 +285,7 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		BlockState state = this.getBlockState();
 		boolean activated = this.isActivated();
 
-		if (state.get(property).booleanValue() != activated) {
+		if (state.hasProperty(property) && state.get(property).booleanValue() != activated) {
 			world.setBlockState(pos, state.with(property, activated), 3);
 		}
 	}
@@ -382,15 +382,8 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	}
 
 	@Override
-	public void onEnergyReceived(IEnergyStorage energyStorage, int energyReceived) {
-		if (this.getEnergyStorage() == energyStorage) {
-			this.markDirty();
-		}
-	}
-
-	@Override
-	public void onEnergyExtracted(IEnergyStorage energyStorage, int energyExtracted) {
-		if (this.getEnergyStorage() == energyStorage) {
+	public void onEnergyChanged(IEnergyStorage energyStorage, int energyDelta) {
+		if (energyStorage == this.getEnergyStorage()) {
 			this.markDirty();
 		}
 	}

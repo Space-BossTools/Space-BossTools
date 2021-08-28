@@ -64,7 +64,7 @@ public class CoalGeneratorBlock {
 		@OnlyIn(Dist.CLIENT)
 		public void addInformation(ItemStack itemstack, IBlockReader world, List<ITextComponent> list, ITooltipFlag flag) {
 			super.addInformation(itemstack, world, list, flag);
-			list.add(new StringTextComponent("\u00A79Producing: \u00A772 \u00A77FE/t"));
+			list.add(new StringTextComponent("\u00A79Producing: \u00A77" + ENERGY_PER_TICK +" \u00A77FE/t"));
 		}
 
 		@Override
@@ -191,16 +191,20 @@ public class CoalGeneratorBlock {
 		public ITextComponent getDisplayName() {
 			return new StringTextComponent("Coal Generator");
 		}
+		
+		public int getGeneratePerTick()
+		{
+			return ENERGY_PER_TICK;
+		}
 
 		@Override
-		protected void tickProcessing() {
+		protected void generateEnergy() {
 			if (this.isPowerEnoughAndConsume()) {
-				this.getEnergyStorage().receiveEnergyInternal(ENERGY_PER_TICK, false);
+				this.getEnergyStorage().receiveEnergyInternal(this.getGeneratePerTick(), false);
 				this.setProcessedInThisTick();
 				this.markDirty();
 			}
 
-			this.ejectEnergy();
 		}
 
 		@Override
@@ -218,7 +222,7 @@ public class CoalGeneratorBlock {
 
 		@Override
 		public boolean hasSpaceInOutput() {
-			return this.getEnergyStorage().receiveEnergyInternal(ENERGY_PER_TICK, true) > 0;
+			return this.getEnergyStorage().receiveEnergyInternal(this.getGeneratePerTick(), true) > 0;
 		}
 
 	}
