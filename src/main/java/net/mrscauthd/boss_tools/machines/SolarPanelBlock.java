@@ -1,4 +1,3 @@
-
 package net.mrscauthd.boss_tools.machines;
 
 import java.util.Arrays;
@@ -20,16 +19,13 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -44,44 +40,15 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkHooks;
-import net.minecraftforge.registries.ObjectHolder;
-import net.mrscauthd.boss_tools.BossToolsModElements;
+import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.gui.SolarPanelGUIGui;
-import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
-import net.mrscauthd.boss_tools.machines.tile.GeneratorTileEntity;
-import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
-import net.mrscauthd.boss_tools.machines.tile.PowerSystemNone;
+import net.mrscauthd.boss_tools.machines.machinetileentities.GeneratorTileEntity;
+import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystem;
+import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystemNone;
 
-@BossToolsModElements.ModElement.Tag
-public class SolarPanelBlock extends BossToolsModElements.ModElement {
+public class SolarPanelBlock {
 	public static final int ENERGY_PER_TICK = 4;
-
-	@ObjectHolder("boss_tools:solar_panel")
-	public static final Block block = null;
-	@ObjectHolder("boss_tools:solar_panel")
-	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
-
-	public SolarPanelBlock(BossToolsModElements instance) {
-		super(instance, 70);
-		FMLJavaModLoadingContext.get().getModEventBus().register(new TileEntityRegisterHandler());
-	}
-
-	@Override
-	public void initElements() {
-		elements.blocks.add(() -> new CustomBlock());
-		elements.items.add(() -> new BlockItem(block, new Item.Properties().group(BossToolsItemGroups.tab_machines)).setRegistryName(block.getRegistryName()));
-	}
-
-	private static class TileEntityRegisterHandler {
-		@SubscribeEvent
-		public void registerTileEntity(RegistryEvent.Register<TileEntityType<?>> event) {
-			event.getRegistry().register(TileEntityType.Builder.create(CustomTileEntity::new, block).build(null).setRegistryName("solar_panel"));
-		}
-	}
 
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
@@ -200,8 +167,8 @@ public class SolarPanelBlock extends BossToolsModElements.ModElement {
 
 	public static class CustomTileEntity extends GeneratorTileEntity {
 
-		protected CustomTileEntity() {
-			super(tileEntityType);
+		public CustomTileEntity() {
+			super(ModInnet.SOLAR_PANEL.get());
 		}
 
 		@Override
