@@ -1,5 +1,7 @@
 package net.mrscauthd.boss_tools.machines.machinetileentities;
 
+import java.util.Optional;
+
 import net.minecraft.nbt.CompoundNBT;
 
 public class EnergyStorageDelegate extends EnergyStorageBasic {
@@ -20,7 +22,7 @@ public class EnergyStorageDelegate extends EnergyStorageBasic {
 			int energyReceived = Math.min(this.getMaxEnergyStored() - this.getEnergyStored(), Math.min(this.getMaxReceive(), maxReceive));
 			if (!simulate && energyReceived > 0) {
 				this.energy += energyReceived;
-				this.getHolder().onEnergyChanged(this, +maxReceive);
+				Optional.ofNullable(this.getHolder()).ifPresent(h -> h.onEnergyChanged(this, +energyReceived));
 			}
 
 			return energyReceived;
@@ -35,7 +37,7 @@ public class EnergyStorageDelegate extends EnergyStorageBasic {
 			int energyExtracted = Math.min(this.getEnergyStored(), Math.min(this.getMaxExtract(), maxExtract));
 			if (!simulate && energyExtracted > 0) {
 				this.energy -= energyExtracted;
-				this.getHolder().onEnergyChanged(this, -energyExtracted);
+				Optional.ofNullable(this.getHolder()).ifPresent(h -> h.onEnergyChanged(this, -energyExtracted));
 			}
 
 			return energyExtracted;

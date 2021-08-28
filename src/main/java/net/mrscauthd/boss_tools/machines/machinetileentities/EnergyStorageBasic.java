@@ -52,7 +52,7 @@ public class EnergyStorageBasic extends EnergyStorage implements IEnergyStorageE
 	public int receiveEnergy(int maxReceive, boolean simulate) {
 		int energyReceived = super.receiveEnergy(maxReceive, simulate);
 
-		if (energyReceived > 0) {
+		if (!simulate && energyReceived > 0) {
 			Optional.ofNullable(this.getHolder()).ifPresent(h -> h.onEnergyChanged(this, +energyReceived));
 		}
 
@@ -63,7 +63,7 @@ public class EnergyStorageBasic extends EnergyStorage implements IEnergyStorageE
 	public int extractEnergy(int maxExtract, boolean simulate) {
 		int energyExtracted = super.extractEnergy(maxExtract, simulate);
 
-		if (energyExtracted > 0) {
+		if (!simulate && energyExtracted > 0) {
 			Optional.ofNullable(this.getHolder()).ifPresent(h -> h.onEnergyChanged(this, -energyExtracted));
 		}
 
