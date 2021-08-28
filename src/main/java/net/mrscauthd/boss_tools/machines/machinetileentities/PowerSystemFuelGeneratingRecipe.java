@@ -24,6 +24,10 @@ public class PowerSystemFuelGeneratingRecipe extends PowerSystemFuelAbstract {
 
 	@Override
 	public int getBurnTime(ItemStack fuel) {
+		if (fuel == null || fuel.isEmpty()) {
+			return -1;
+		}
+
 		int recipeSlot = this.getRecipeSlot();
 		Inventory virtualInventory = new Inventory(recipeSlot + 1);
 		virtualInventory.setInventorySlotContents(recipeSlot, fuel);

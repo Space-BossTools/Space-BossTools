@@ -1,0 +1,9 @@
+{
+   "type":"boss_tools:oxygenmaking",
+   "input":{
+      "ingredient":{
+         "tag":"minecraft:leaves"
+      }
+   },
+   "activaingTime":200
+}

@@ -17,6 +17,7 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IRecipeTransferRegistration;
+import mezz.jei.gui.elements.DrawableResource;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
@@ -24,11 +25,16 @@ import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.armor.CapabilityOxygen;
+import net.mrscauthd.boss_tools.armor.IOxygenStorage;
 import net.mrscauthd.boss_tools.crafting.BlastingRecipe;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.CompressingRecipe;
 import net.mrscauthd.boss_tools.crafting.GeneratingRecipe;
+import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipe;
 import net.mrscauthd.boss_tools.machines.WorkbenchBlock;
 import net.mrscauthd.boss_tools.machines.CoalGeneratorBlock;
 import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackTileEntity;
@@ -45,6 +51,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
@@ -57,7 +64,10 @@ public class JeiPlugin implements IModPlugin {
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
     	int inventorySlotCount = 36;
-    	
+    	// OxygenLoader
+    	int oxygenLoaderInventoryStartIndex = OxygenMachineBlock.SLOT_ACTIVATING + 1;
+		registration.addRecipeTransferHandler(OxygenLoaderGuiGui.GuiContainerMod.class, OxygenMakingJeiCategory.Uid, OxygenMachineBlock.SLOT_ACTIVATING, 1, oxygenLoaderInventoryStartIndex, inventorySlotCount);    	
+		registration.addRecipeTransferHandler(OxygenLoaderGuiGui.GuiContainerMod.class, OxygenLoadingJeiCategory.Uid, OxygenMachineBlock.SLOT_ITEM, 1, oxygenLoaderInventoryStartIndex, inventorySlotCount);    	
     	// Generator
     	registration.addRecipeTransferHandler(GeneratorGUIGui.GuiContainerMod.class, GeneratorJeiCategory.Uid, CoalGeneratorBlock.SLOT_FUEL, 1, CoalGeneratorBlock.SLOT_FUEL + 1, inventorySlotCount);
     	// BlastFurnace
@@ -75,14 +85,15 @@ public class JeiPlugin implements IModPlugin {
 //    	registration.addRecipeClickArea(FuelRefineryGUIGuiWindow.class, 77, 61, 13, 13, FuelMakerJeiCategory.Uid, FuelMaker2JeiCategory.Uid);
         registration.addRecipeClickArea(BlastFurnaceGUIGuiWindow.class, 73, 38, 22, 15, BlastingFurnaceJeiCategory.Uid, VanillaRecipeCategoryUid.FUEL);
         registration.addRecipeClickArea(CompressorGuiGuiWindow.class, 61, 39, 22, 15, CompressorJeiCategory.Uid);
-        registration.addRecipeClickArea(OxygenLoaderGuiGuiWindow.class, 76, 42, 14, 12, OxygenMachineJeiCategory.Uid);
+        registration.addRecipeClickArea(OxygenLoaderGuiGuiWindow.class, 76, 42, 14, 12, OxygenMakingJeiCategory.Uid, OxygenLoadingJeiCategory.Uid);
         registration.addRecipeClickArea(OxygenBulletGeneratorGUIGuiWindow.class, 76, 30, 14, 12, OxygenGeneratorJeiCategory.Uid);
     }
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         jeiHelper = registration.getJeiHelpers();
-        registration.addRecipeCategories(new OxygenMachineJeiCategory(jeiHelper.getGuiHelper()));
+        registration.addRecipeCategories(new OxygenMakingJeiCategory(jeiHelper.getGuiHelper()));
+        registration.addRecipeCategories(new OxygenLoadingJeiCategory(jeiHelper.getGuiHelper()));
         //Neue maschine
         registration.addRecipeCategories(new OxygenGeneratorJeiCategory(jeiHelper.getGuiHelper()));
         //Genrator
@@ -108,9 +119,9 @@ public class JeiPlugin implements IModPlugin {
     }
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        registration.addRecipes(generateOxygenMachineRecipes(), OxygenMachineJeiCategory.Uid);
-        //Recpie 2
-        registration.addRecipes(generateOxygenMachineRecipes2(), OxygenMachineJeiCategory.Uid);
+    	//OxygenMaking
+        registration.addRecipes(generateOxygenMakingRecipes(), OxygenMakingJeiCategory.Uid);
+        registration.addRecipes(generateOxygenLoadingRecipes(), OxygenLoadingJeiCategory.Uid);
         //Neue maschine
         registration.addRecipes(generateOxygenGeneratorRecipes(), OxygenGeneratorJeiCategory.Uid);
         //Generator
@@ -142,30 +153,14 @@ public class JeiPlugin implements IModPlugin {
         // ...
     }
 
-    private List<OxygenMachineJeiCategory.OxygenMachineRecipeWrapper> generateOxygenMachineRecipes() {
-        List<OxygenMachineJeiCategory.OxygenMachineRecipeWrapper> recipes = new ArrayList<>();
-        ArrayList<ItemStack> inputs = new ArrayList<>();
-        ArrayList<ItemStack> outputs = new ArrayList<>();
-        inputs.add(new ItemStack(ModInnet.SPACE_SUIT.get()));
-        inputs.add(new ItemStack(Items.OAK_LEAVES));
-        inputs.get(0).getTag().putDouble("Energy", 48000);
-        // ...
-        recipes.add(new OxygenMachineJeiCategory.OxygenMachineRecipeWrapper(inputs));
-        return recipes;
-    }
-    //recpie 2
-    private List<OxygenMachineJeiCategory.OxygenMachineRecipeWrapper> generateOxygenMachineRecipes2() {
-        List<OxygenMachineJeiCategory.OxygenMachineRecipeWrapper> recipes = new ArrayList<>();
-        ArrayList<ItemStack> inputs = new ArrayList<>();
-        ArrayList<ItemStack> outputs = new ArrayList<>();
-        inputs.add(new ItemStack(ModInnet.NETHERITE_SPACE_SUIT.get()));
-        inputs.add(new ItemStack(Items.OAK_LEAVES));
-        inputs.get(0).getTag().putDouble("Energy", 48000);
-        // ...
-        recipes.add(new OxygenMachineJeiCategory.OxygenMachineRecipeWrapper(inputs));
-        return recipes;
+    private List<OxygenMakingRecipe> generateOxygenMakingRecipes() {
+    	return BossToolsRecipeTypes.OXYGENMAKING.getRecipes(Minecraft.getInstance().world);
     }
 
+    private List<ItemStack> generateOxygenLoadingRecipes() {
+    	return ForgeRegistries.ITEMS.getValues().stream().map(i -> new ItemStack(i)).filter(is -> is.getCapability(CapabilityOxygen.OXYGEN).orElse(null) != null).collect(Collectors.toList());
+    }
+    
     //New Maschine
     private List<OxygenGeneratorJeiCategory.OxygenGeneratorRecipeWrapper> generateOxygenGeneratorRecipes() {
         List<OxygenGeneratorJeiCategory.OxygenGeneratorRecipeWrapper> recipes = new ArrayList<>();
@@ -320,7 +315,7 @@ public class JeiPlugin implements IModPlugin {
     }
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(new ItemStack(OxygenMachineBlock.block), OxygenMachineJeiCategory.Uid);
+        registration.addRecipeCatalyst(new ItemStack(OxygenMachineBlock.block), OxygenMakingJeiCategory.Uid, OxygenLoadingJeiCategory.Uid);
         //Neue maschine
         registration.addRecipeCatalyst(new ItemStack(OxygenGeneratorBlock.block), OxygenGeneratorJeiCategory.Uid);
         //Genrator
@@ -328,8 +323,7 @@ public class JeiPlugin implements IModPlugin {
         //workbench
         registration.addRecipeCatalyst(new ItemStack(WorkbenchBlock.block), WorkbenchJeiCategory.Uid);
         //BlastingFurnace
-        registration.addRecipeCatalyst(new ItemStack(ModInnet.BLAST_FURNACE_BLOCK.get()), BlastingFurnaceJeiCategory.Uid);
-        registration.addRecipeCatalyst(new ItemStack(ModInnet.BLAST_FURNACE_BLOCK.get()), VanillaRecipeCategoryUid.FUEL);
+        registration.addRecipeCatalyst(new ItemStack(ModInnet.BLAST_FURNACE_BLOCK.get()), BlastingFurnaceJeiCategory.Uid, VanillaRecipeCategoryUid.FUEL);
         //RocketTier1Gui
         registration.addRecipeCatalyst(new ItemStack(Tier1RocketItemItem.block), Tier1RocketItemItemJeiCategory.Uid);
         //RocketTier2Gui
@@ -345,80 +339,24 @@ public class JeiPlugin implements IModPlugin {
         //Rover
         registration.addRecipeCatalyst(new ItemStack(RoverItemItem.block), RoverJeiCategory.Uid);
     }
-    public static class OxygenMachineJeiCategory implements IRecipeCategory<OxygenMachineJeiCategory.OxygenMachineRecipeWrapper> {
-        private static ResourceLocation Uid = new ResourceLocation("boss_tools", "oxygenmachinecategory");
-        private static final int input1 = 0; // THE NUMBER = SLOTID
-        private static final int input2 = 1; // THE NUMBER = SLOTID
+
+    public static class OxygenLoadingJeiCategory implements IRecipeCategory<ItemStack> {
+        private static ResourceLocation Uid = new ResourceLocation("boss_tools", "oxygenloadingcategory");
         // ...
         private final String title;
         private final IDrawable background;
-        private final IDrawable textureanimation1;
-        private final IDrawable textureanimation2;
-        private final IDrawable textureanimation3;
-        private final IDrawable textureanimation4;
-        private final IDrawable textureanimation5;
-        private final IDrawable textureanimation6;
-        private final IDrawable textureanimation7;
-        private final IDrawable textureanimation8;
-        private final IDrawable textureanimation9;
-        private final IDrawable textureanimation10;
-        private final IDrawable textureanimation11;
-        private final IDrawable textureanimation12;
-        private final IDrawable textureanimation13;
-        private final IDrawable textureanimation14;
-        private final IDrawable textureanimation15;
-        private final IDrawable textureanimation16;
-        private final IDrawable textureanimation17;
-        private final IDrawable textureanimation18;
-        private final IDrawable textureanimation19;
-        private final IDrawable textureanimation20;
-        private final IDrawable textureanimation21;
-        private final IDrawable textureanimation22;
-        private final IDrawable textureanimation23;
+        private final DrawableResource activating_empty;
+        private final DrawableResource activating_full;
 
         //Animation nummber
-        int counter = 9000;
-        int animation = 1 ;
-        public OxygenMachineJeiCategory(IGuiHelper guiHelper) {
-            this.title = "Oxygen Loader";
-            this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/0.png"), 0, 0, 144, 84);
-            //animation
-            this.textureanimation1 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/1.png"), 0, 0, 144, 84);
-            this.textureanimation2 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/2.png"), 0, 0, 144, 84);
-            this.textureanimation3 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/3.png"), 0, 0, 144, 84);
-            this.textureanimation4 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/4.png"), 0, 0, 144, 84);
-            this.textureanimation5 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/5.png"), 0, 0, 144, 84);
-            this.textureanimation6 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/6.png"), 0, 0, 144, 84);
-            this.textureanimation7 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/7.png"), 0, 0, 144, 84);
-            this.textureanimation8 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/8.png"), 0, 0, 144, 84);
-            this.textureanimation9 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/9.png"), 0, 0, 144, 84);
-            this.textureanimation10 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/10.png"), 0, 0, 144, 84);
-            this.textureanimation11 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/11.png"), 0, 0, 144, 84);
-            this.textureanimation12 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/12.png"), 0, 0, 144, 84);
-            this.textureanimation13 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/13.png"), 0, 0, 144, 84);
-            this.textureanimation14 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/14.png"), 0, 0, 144, 84);
-            this.textureanimation15 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/15.png"), 0, 0, 144, 84);
-            this.textureanimation16 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/16.png"), 0, 0, 144, 84);
-            this.textureanimation17 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/17.png"), 0, 0, 144, 84);
-            this.textureanimation18 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/18.png"), 0, 0, 144, 84);
-            this.textureanimation19 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/19.png"), 0, 0, 144, 84);
-            this.textureanimation20 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/20.png"), 0, 0, 144, 84);
-            this.textureanimation21 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/21.png"), 0, 0, 144, 84);
-            this.textureanimation22 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/22.png"), 0, 0, 144, 84);
-            this.textureanimation23 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_eng_bar/23.png"), 0, 0, 144, 84);
-        }
-
-        @Override
-        public List<ITextComponent> getTooltipStrings(OxygenMachineRecipeWrapper recipe, double mouseX, double mouseY) {
-            //   counter = counter - 1;
-            //    if (counter <= 0){
-            //        counter = 9000;
-            // }
-            // animation = counter;
-            if (mouseX > 102 && mouseX < 127 && mouseY > 16 && mouseY < 65) {
-                return Collections.singletonList(new TranslationTextComponent(animation + " FE / 9000.0 FE"));
-            }
-            return Collections.emptyList();
+        int animation = 1;
+        
+        public OxygenLoadingJeiCategory(IGuiHelper guiHelper) {
+            this.title = "Oxygen Loading";
+            ResourceLocation path = new ResourceLocation("boss_tools", "textures/oxygen_loader_jei.png");
+			this.background = guiHelper.createDrawable(path, 0, 0, 144, 84);
+            this.activating_empty = (DrawableResource) guiHelper.createDrawable(path, 144, 0, 15, 14);
+            this.activating_full = (DrawableResource) guiHelper.createDrawable(path, 144, 14, 15, 14);
         }
 
         @Override
@@ -427,94 +365,18 @@ public class JeiPlugin implements IModPlugin {
         }
 
         @Override
-        public Class<? extends OxygenMachineRecipeWrapper> getRecipeClass() {
-            return OxygenMachineJeiCategory.OxygenMachineRecipeWrapper.class;
+        public Class<? extends ItemStack> getRecipeClass() {
+            return ItemStack.class;
         }
 
         @Override
         public String getTitle() {
-            return title;
+            return this.title;
         }
 
         @Override
         public IDrawable getBackground() {
-            //animation tick
-            counter = counter - 1;
-            if (counter <= 0){
-                counter = 9000;
-            }
-            animation = counter;
-            //animation tick
-            if (counter >= 360 && counter <= 720) {
-                return textureanimation1;
-            }
-            if (counter >= 720 && counter <= 1080) {
-                return textureanimation2;
-            }
-            if (counter >= 1080 && counter <= 1440) {
-                return textureanimation3;
-            }
-            if (counter >= 1440 && counter <= 1800) {
-                return textureanimation4;
-            }
-            if (counter >= 1800 && counter <= 2160) {
-                return textureanimation5;
-            }
-            if (counter >= 2160 && counter <= 2520) {
-                return textureanimation6;
-            }
-            if (counter >= 2520 && counter <= 2880) {
-                return textureanimation7;
-            }
-            if (counter >= 2880 && counter <= 3240) {
-                return textureanimation8;
-            }
-            if (counter >= 3240 && counter <= 3600) {
-                return textureanimation9;
-            }
-            if (counter >= 3600 && counter <= 3960) {
-                return textureanimation10;
-            }
-            if (counter >= 3960 && counter <= 4320) {
-                return textureanimation11;
-            }
-            if (counter >= 4320 && counter <= 4680) {
-                return textureanimation12;
-            }
-            if (counter >= 4680 && counter <= 5040) {
-                return textureanimation13;
-            }
-            if (counter >= 5040 && counter <= 5400) {
-                return textureanimation14;
-            }
-            if (counter >= 5040 && counter <= 5760) {
-                return textureanimation15;
-            }
-            if (counter >= 5760 && counter <= 6120) {
-                return textureanimation16;
-            }
-            if (counter >= 6120 && counter <= 6480) {
-                return textureanimation17;
-            }
-            if (counter >= 6480 && counter <= 6840) {
-                return textureanimation18;
-            }
-            if (counter >= 6840 && counter <= 7200) {
-                return textureanimation19;
-            }
-            if (counter >= 7200 && counter <= 7560) {
-                return textureanimation20;
-            }
-            if (counter >= 7560 && counter <= 8000) {
-                return textureanimation21;
-            }
-            if (counter >= 8000 && counter <= 8560) {
-                return textureanimation22;
-            }
-            if (counter >= 8560 && counter <= 9000) {
-                return textureanimation23;
-            }
-            return background;
+            return this.background;
         }
 
         @Override
@@ -523,36 +385,115 @@ public class JeiPlugin implements IModPlugin {
         }
 
         @Override
-        public void setIngredients(OxygenMachineRecipeWrapper recipeWrapper, IIngredients iIngredients) {
-            iIngredients.setInputs(VanillaTypes.ITEM, recipeWrapper.getInput());
+        public void setIngredients(ItemStack recipe, IIngredients iIngredients) {
+            iIngredients.setInput(VanillaTypes.ITEM, recipe);
         }
 
         @Override
-        public void setRecipe(IRecipeLayout iRecipeLayout, OxygenMachineRecipeWrapper recipeWrapper, IIngredients iIngredients) {
-            IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
-            stacks.init(input1, true, 42, 13);
-            stacks.init(input2, true, 42, 47);
-            // ...
-
-            stacks.set(input1, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
-            stacks.set(input2, iIngredients.getInputs(VanillaTypes.ITEM).get(1));
-            // ...
-            //stacks.getGuiIngredients().get(0).getDisplayedIngredient().getTag().putDouble("Energy", stacks.getGuiIngredients().get(0).getDisplayedIngredient().getTag().getDouble("Energy") + 1);
-            //System.out.println("test");
+        public void draw(ItemStack recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+        	IRecipeCategory.super.draw(recipe, matrixStack, mouseX, mouseY);
+        	
+        	int activaingTime = 200;
+        	
+			double ratio = (double)this.animation / activaingTime;
+        	this.activating_empty.draw(matrixStack, 43, 32);
+        	this.activating_full.draw(matrixStack, 43, 32, (int)(22 * ratio), 0, 0, 0);
+        	this.animation++;
+        	
+        	if (this.animation > activaingTime) {
+        		this.animation = 0;
+        	}
+        	
+        	IOxygenStorage oxygenStorage = recipe.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
+        	
+        	if (oxygenStorage != null) {
+        		if (oxygenStorage.receiveOxygen(OxygenMachineBlock.OXYGEN_PER_TICK, false) == 0) {
+        			oxygenStorage.setOxygenStored(0);
+        		}
+        	}
         }
-        public static class OxygenMachineRecipeWrapper {
-            private ArrayList input;
-            private ArrayList output;
 
-            public OxygenMachineRecipeWrapper(ArrayList input) {
-                this.input = input;
-                this.output = output;
-            }
+        @Override
+        public void setRecipe(IRecipeLayout iRecipeLayout, ItemStack recipe, IIngredients iIngredients) {
+            IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
+            stacks.init(OxygenMachineBlock.SLOT_ITEM, true, 42, 13);
+            stacks.set(OxygenMachineBlock.SLOT_ITEM, recipe);
+        }
+    }
+    
+    public static class OxygenMakingJeiCategory implements IRecipeCategory<OxygenMakingRecipe> {
+        private static ResourceLocation Uid = new ResourceLocation("boss_tools", "oxygenmakingcategory");
+        // ...
+        private final String title;
+        private final IDrawable background;
+        private final DrawableResource activating_empty;
+        private final DrawableResource activating_full;
 
+        //Animation nummber
+        int animation = 1;
+        
+        public OxygenMakingJeiCategory(IGuiHelper guiHelper) {
+            this.title = "Oxygen Making";
+            ResourceLocation path = new ResourceLocation("boss_tools", "textures/oxygen_loader_jei.png");
+			this.background = guiHelper.createDrawable(path, 0, 0, 144, 84);
+            this.activating_empty = (DrawableResource) guiHelper.createDrawable(path, 144, 0, 15, 14);
+            this.activating_full = (DrawableResource) guiHelper.createDrawable(path, 144, 14, 15, 14);
+        }
 
-            public ArrayList getInput() {
-                return input;
-            }
+        @Override
+        public ResourceLocation getUid() {
+            return Uid;
+        }
+
+        @Override
+        public Class<? extends OxygenMakingRecipe> getRecipeClass() {
+            return OxygenMakingRecipe.class;
+        }
+
+        @Override
+        public String getTitle() {
+            return this.title;
+        }
+
+        @Override
+        public IDrawable getBackground() {
+            return this.background;
+        }
+
+        @Override
+        public IDrawable getIcon() {
+            return null;
+        }
+
+        @Override
+        public void setIngredients(OxygenMakingRecipe recipe, IIngredients iIngredients) {
+            iIngredients.setInputIngredients(recipe.getIngredients());
+        }
+
+        @Override
+        public void draw(OxygenMakingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+        	IRecipeCategory.super.draw(recipe, matrixStack, mouseX, mouseY);
+        	
+        	FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
+        	int activaingTime = recipe.getActivaingTime();
+			fontRenderer.drawString(matrixStack, "Oxygen : " + (activaingTime * OxygenMachineBlock.OXYGEN_PER_TICK) , 60, 35, 0x555555);
+        	
+			double ratio = (double)this.animation / activaingTime;
+        	this.activating_empty.draw(matrixStack, 43, 32);
+        	this.activating_full.draw(matrixStack, 43, 32, (int)(22 * ratio), 0, 0, 0);
+        	this.animation++;
+        	
+        	if (this.animation > activaingTime) {
+        		this.animation = 0;
+        	}
+        	
+        }
+
+        @Override
+        public void setRecipe(IRecipeLayout iRecipeLayout, OxygenMakingRecipe recipe, IIngredients iIngredients) {
+            IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
+            stacks.init(OxygenMachineBlock.SLOT_ACTIVATING, true, 42, 47);
+            stacks.set(OxygenMachineBlock.SLOT_ACTIVATING, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
         }
     }
 
