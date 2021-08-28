@@ -57,6 +57,7 @@ public class BossToolsMod {
 		ModInnet.ITEMS.register(bus);
 		ModInnet.BLOCKS.register(bus);
 		ModInnet.TILE_ENTITYS.register(bus);
+		ModInnet.SOUNDS.register(bus);
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		ModInnet.SENSOR.register(bus);
 		ModInnet.FLUIDS.register(bus);

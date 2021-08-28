@@ -38,8 +38,6 @@ public class BossToolsModElements {
 	public final List<Supplier<Enchantment>> enchantments = new ArrayList<>();
 	public static Map<ResourceLocation, net.minecraft.util.SoundEvent> sounds = new HashMap<>();
 	public BossToolsModElements() {
-		sounds.put(new ResourceLocation("boss_tools", "rocketfly"),
-				new net.minecraft.util.SoundEvent(new ResourceLocation("boss_tools", "rocketfly")));
 		try {
 			ModFileScanData modFileInfo = ModList.get().getModFileById("boss_tools").getFile().getScanResult();
 			Set<ModFileScanData.AnnotationData> annotations = modFileInfo.getAnnotations();
