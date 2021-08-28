@@ -358,6 +358,9 @@ public class ModInnet {
         if (event.getName().equals(new ResourceLocation("deep_ocean")) && Config.OILWellStructure == true) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.OIL_CONFIGURED_RUN_DOWN_HOUSE);
         }
+        if (event.getName().equals(new ResourceLocation("lukewarm_ocean")) && Config.OILWellStructure == true) {
+            event.getGeneration().getStructures().add(() -> STConfiguredStructures.OIL_CONFIGURED_RUN_DOWN_HOUSE);
+        }
     }
     private static Method GETCODEC_METHOD;
     //@SubscribeEvent

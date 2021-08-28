@@ -229,7 +229,7 @@ public class Events {
         PlayerModel model = event.getModelPlayer();
         //Player Rocket Sit Rotations
         {
-            if (RocketCheckOr((LivingEntity) player.getRidingEntity()) == true) {
+            if (RocketCheckOr(player.getRidingEntity()) == true) {
                 model.bipedRightLeg.rotationPointY = (float) Math.toRadians(485F);
                 model.bipedLeftLeg.rotationPointY = (float) Math.toRadians(485F);
                 model.bipedRightLeg.rotateAngleX = (float) Math.toRadians(0F);
@@ -245,7 +245,7 @@ public class Events {
         }
         //Player Hold Vehicles Rotation
         {
-            if (RocketCheckAnd((LivingEntity) player.getRidingEntity()) == false) {
+            if (RocketCheckAnd(player.getRidingEntity()) == false) {
                 Item item1 = player.getHeldItemMainhand().getItem();
                 Item item2 = player.getHeldItemOffhand().getItem();
                 if (item1 == Tier1RocketItemItem.block
@@ -273,7 +273,7 @@ public class Events {
     @SubscribeEvent
     public static void ItemRender(RenderItemEvent.Held event) {
         Entity player = event.getEntity();
-        if (RocketCheckOr((LivingEntity) player.getRidingEntity()) == true) {
+        if (RocketCheckOr(player.getRidingEntity()) == true) {
             event.setCanceled(true);
         }
     }
@@ -360,14 +360,14 @@ public class Events {
         return false;
     }
 
-    public static boolean RocketCheckAnd(LivingEntity entity) {
+    public static boolean RocketCheckAnd(Entity entity) {
         if (entity instanceof RocketTier1Entity.CustomEntity && entity instanceof RocketTier2Entity.CustomEntity && entity instanceof RocketTier3Entity.CustomEntity) {
             return true;
         }
         return false;
     }
 
-    public static boolean RocketCheckOr(LivingEntity entity) {
+    public static boolean RocketCheckOr(Entity entity) {
         if (entity instanceof RocketTier1Entity.CustomEntity || entity instanceof RocketTier2Entity.CustomEntity || entity instanceof RocketTier3Entity.CustomEntity) {
             return true;
         }
