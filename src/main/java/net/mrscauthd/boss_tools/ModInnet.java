@@ -449,9 +449,5 @@ public class ModInnet {
             event.getGeneration().withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, DELTAS2);
         }
     }
-/*
-    @Override
-    public void serverLoad(FMLServerStartingEvent event) {
-    }
-    */
+
 }

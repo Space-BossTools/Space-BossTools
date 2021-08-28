@@ -269,7 +269,7 @@ public class FuelRefineryBlock {
 		}
 
 		public boolean isIngredientItem(Item item) {
-			return item == Items.LAVA_BUCKET;
+			return item == ModInnet.OIL_BUCKET.get();
 		}
 
 		public boolean isSpentItem(Item item) {
@@ -342,7 +342,7 @@ public class FuelRefineryBlock {
 			IItemHandlerModifiable itemHandler = this.getItemHandler();
 			ItemStack ingredient = itemHandler.getStackInSlot(SLOT_INGREDIENT);
 
-			if (this.hasSpaceInOutput() && this.getPowerSystem().getStored() >= this.getPowerForOperation() && ingredient.getItem() == Items.LAVA_BUCKET && ingredient.getCount() == 1) {
+			if (this.hasSpaceInOutput() && this.getPowerSystem().getStored() >= this.getPowerForOperation() && ingredient.getItem() == ModInnet.OIL_BUCKET.get() && ingredient.getCount() == 1) {
 				int fuel = this.getFuel();
 
 				if (fuel < FUEL_CONSUME_PER_TICK) {
