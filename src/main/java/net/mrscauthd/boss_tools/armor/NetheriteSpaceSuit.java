@@ -6,6 +6,7 @@ import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.World;
@@ -13,6 +14,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.IArmorMaterial;
@@ -118,9 +120,18 @@ public class NetheriteSpaceSuit {
 		}
 
 		@Override
+		public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT nbt) {
+			return new SpaceSuitCapabilityProvider(stack, 48000);
+		}
+
+		@Override
 		public void addInformation(ItemStack itemstack, World world, List<ITextComponent> list, ITooltipFlag flag) {
 			super.addInformation(itemstack, world, list, flag);
-			list.add(new StringTextComponent("\u00A79Oxygen:\u00A76 " + itemstack.getOrCreateTag().getDouble("Energy") + "\u00A78 | \u00A7c48000.0"));
+			IOxygenStorage oxygenStorage = itemstack.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
+
+			if (oxygenStorage != null) {
+				list.add(new StringTextComponent("\u00A79Oxygen:\u00A76 " + oxygenStorage.getOxygenStored() + "\u00A78 | \u00A7c" + oxygenStorage.getMaxOxygenStored()));
+			}
 		}
 
 		@Override

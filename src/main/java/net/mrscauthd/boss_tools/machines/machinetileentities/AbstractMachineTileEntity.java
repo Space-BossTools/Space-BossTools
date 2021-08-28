@@ -382,15 +382,8 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	}
 
 	@Override
-	public void onEnergyReceived(IEnergyStorage energyStorage, int energyReceived) {
-		if (this.getEnergyStorage() == energyStorage) {
-			this.markDirty();
-		}
-	}
-
-	@Override
-	public void onEnergyExtracted(IEnergyStorage energyStorage, int energyExtracted) {
-		if (this.getEnergyStorage() == energyStorage) {
+	public void onEnergyChanged(IEnergyStorage energyStorage, int energyDelta) {
+		if (energyStorage == this.getEnergyStorage()) {
 			this.markDirty();
 		}
 	}

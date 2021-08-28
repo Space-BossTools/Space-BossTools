@@ -37,13 +37,10 @@ public abstract class PowerSystemEnergy extends PowerSystem implements IEnergySt
 	}
 
 	@Override
-	public void onEnergyReceived(IEnergyStorage energyStorage, int energyReceived) {
-		this.getTileEntity().markDirty();
-	}
-
-	@Override
-	public void onEnergyExtracted(IEnergyStorage energyStorage, int energyExtracted) {
-		this.getTileEntity().markDirty();
+	public void onEnergyChanged(IEnergyStorage energyStorage, int energyDelta) {
+		if (energyStorage == this.getEnergyStorage()) {
+			this.getTileEntity().markDirty();
+		}
 	}
 
 	@Override
