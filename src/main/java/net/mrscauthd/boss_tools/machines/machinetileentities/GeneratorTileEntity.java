@@ -20,6 +20,14 @@ public abstract class GeneratorTileEntity extends AbstractMachineTileEntity {
 	}
 
 	@Override
+	protected void tickProcessing() {
+		this.generateEnergy();
+		this.ejectEnergy();
+	}
+
+	protected abstract void generateEnergy();
+
+	@Override
 	protected EnergyStorageBasic createEnergyStorage() {
 		return new EnergyStorageBasic(this, 9000, 0, 200, 0);
 	}
@@ -28,6 +36,10 @@ public abstract class GeneratorTileEntity extends AbstractMachineTileEntity {
 		for (Direction direction : this.getEjectDirections()) {
 			this.ejectEnergy(direction);
 		}
+	}
+
+	protected int getAutoEjectingEnergy() {
+		return 1;
 	}
 
 	protected int ejectEnergy(Direction direction) {
@@ -42,7 +54,7 @@ public abstract class GeneratorTileEntity extends AbstractMachineTileEntity {
 
 			if (capability != null && capability.isPresent()) {
 				IEnergyStorage sink = capability.resolve().get();
-				int extractEnergy = source.extractEnergy(1, true);
+				int extractEnergy = source.extractEnergy(this.getAutoEjectingEnergy(), true);
 				int receiveEnergy = sink.receiveEnergy(extractEnergy, true);
 
 				int real = source.extractEnergy(receiveEnergy, false);

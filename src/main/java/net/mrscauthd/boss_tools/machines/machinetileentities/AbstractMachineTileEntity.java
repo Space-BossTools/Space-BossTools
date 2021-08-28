@@ -285,7 +285,7 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		BlockState state = this.getBlockState();
 		boolean activated = this.isActivated();
 
-		if (state.get(property).booleanValue() != activated) {
+		if (state.hasProperty(property) && state.get(property).booleanValue() != activated) {
 			world.setBlockState(pos, state.with(property, activated), 3);
 		}
 	}
