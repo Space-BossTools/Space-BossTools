@@ -2,6 +2,7 @@
 package net.mrscauthd.boss_tools.gui;
 
 import net.mrscauthd.boss_tools.BossToolsModElements;
+import net.mrscauthd.boss_tools.machines.GeneratorBlock;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.items.SlotItemHandler;
@@ -113,7 +114,7 @@ public class GeneratorGUIGui extends BossToolsModElements.ModElement {
 					}
 				}
 			}
-			this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 77, 31) {
+			this.customSlots.put(GeneratorBlock.SLOT_FUEL, this.addSlot(new SlotItemHandler(internal, GeneratorBlock.SLOT_FUEL, 77, 31) {
 			}));
 			int si;
 			int sj;

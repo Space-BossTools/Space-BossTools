@@ -2,12 +2,13 @@ package net.mrscauthd.boss_tools.machines.machinetileentities;
 
 import net.minecraft.nbt.CompoundNBT;
 
-public class EnergyStorageDelegate implements IEnergyStorageExtends {
+public class EnergyStorageDelegate extends EnergyStorageBasic {
 
-	private final IEnergyStorageHolder holder;
+	private final IEnergyStorageDelegateHolder holder;
 	private int energy;
 
-	public EnergyStorageDelegate(IEnergyStorageHolder holder) {
+	public EnergyStorageDelegate(IEnergyStorageDelegateHolder holder) {
+		super(holder, 0);
 		this.holder = holder;
 	}
 
@@ -69,7 +70,7 @@ public class EnergyStorageDelegate implements IEnergyStorageExtends {
 		return this.getMaxReceive() > 0;
 	}
 
-	public IEnergyStorageHolder getHolder() {
+	public IEnergyStorageDelegateHolder getHolder() {
 		return this.holder;
 	}
 
