@@ -364,6 +364,11 @@ public class OxygenLoaderBlock {
 				this.markDirty();
 			}
 		}
+		
+		@Override
+		protected BooleanProperty getBlockActivatedProperty() {
+			return CustomBlock.ACTIAVATED;
+		}
 
 	}
 

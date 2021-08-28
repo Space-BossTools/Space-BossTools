@@ -393,10 +393,12 @@ public class JeiPlugin implements IModPlugin {
         	IRecipeCategory.super.draw(recipe, matrixStack, mouseX, mouseY);
         	
         	int activaingTime = 200;
-        	
-			double ratio = (double)this.animation / activaingTime;
-        	this.activating_empty.draw(matrixStack, 43, 32);
-        	this.activating_full.draw(matrixStack, 43, 32, (int)(22 * ratio), 0, 0, 0);
+
+        	double ratio = (double)this.animation / activaingTime;
+        	int xOffset = 43;
+        	int yOffset = 32;
+        	this.activating_empty.draw(matrixStack, xOffset, yOffset);
+        	this.activating_full.draw(matrixStack, xOffset, yOffset, (int)(this.activating_full.getHeight() * ratio), 0, 0, 0);
         	this.animation++;
         	
         	if (this.animation > activaingTime) {

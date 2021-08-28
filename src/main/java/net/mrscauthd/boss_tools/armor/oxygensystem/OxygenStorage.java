@@ -52,7 +52,15 @@ public class OxygenStorage implements IOxygenStorage {
 
 	@Override
 	public void setOxygenStored(int oxygen) {
-		this.oxygen = Math.max(Math.min(oxygen, this.getMaxOxygenStored()), 0);
+		oxygen = Math.max(Math.min(oxygen, this.getMaxOxygenStored()), 0);
+		int oxygenPrev = this.getOxygenStored();
+
+		if (oxygenPrev != oxygen) {
+			this.oxygen = oxygen;
+
+			int delta = oxygen - oxygenPrev;
+			Optional.ofNullable(this.getHolder()).ifPresent(h -> h.onOxygenChanged(this, delta));
+		}
 	}
 
 	public int getMaxOxygenStored() {
