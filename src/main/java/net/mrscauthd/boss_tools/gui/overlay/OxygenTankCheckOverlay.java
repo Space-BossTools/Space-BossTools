@@ -2,7 +2,7 @@
 package net.mrscauthd.boss_tools.gui.overlay;
 
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.armor.CapabilityOxygen;
+import net.mrscauthd.boss_tools.armor.oxygensystem.CapabilityOxygen;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.eventbus.api.SubscribeEvent;

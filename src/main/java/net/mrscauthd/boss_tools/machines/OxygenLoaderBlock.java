@@ -1,24 +1,19 @@
 
 package net.mrscauthd.boss_tools.machines;
 
-import net.mrscauthd.boss_tools.armor.CapabilityOxygen;
-import net.mrscauthd.boss_tools.armor.IOxygenStorage;
+import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.armor.oxygensystem.CapabilityOxygen;
+import net.mrscauthd.boss_tools.armor.oxygensystem.IOxygenStorage;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipe;
-import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 import net.mrscauthd.boss_tools.machines.machinetileentities.AbstractMachineTileEntity;
 import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystem;
 import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystemCommonEnergy;
 import net.mrscauthd.boss_tools.gui.OxygenLoaderGuiGui;
-import net.mrscauthd.boss_tools.BossToolsModElements;
 
-import net.minecraftforge.registries.ObjectHolder;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.common.ToolType;
 
 import net.minecraft.world.World;
@@ -32,7 +27,6 @@ import net.minecraft.util.Mirror;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.StateContainer;
@@ -41,9 +35,7 @@ import net.minecraft.state.BooleanProperty;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.loot.LootContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Item;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.BlockItem;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.Inventory;
@@ -63,8 +55,7 @@ import java.util.Collections;
 
 import io.netty.buffer.Unpooled;
 
-@BossToolsModElements.ModElement.Tag
-public class OxygenMachineBlock extends BossToolsModElements.ModElement {
+public class OxygenLoaderBlock {
 	public static final int SLOT_ITEM = 0;
 	public static final int SLOT_ACTIVATING = 1;
 	
@@ -72,29 +63,6 @@ public class OxygenMachineBlock extends BossToolsModElements.ModElement {
 
 	public static final String KEY_ACTIVATINGTIME = "activatingTime";
 	public static final String KEY_MAXACTIVATINGTIME = "maxActivatingTime";
-
-	@ObjectHolder("boss_tools:oxygen_loader")
-	public static final Block block = null;
-	@ObjectHolder("boss_tools:oxygen_loader")
-	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
-
-	public OxygenMachineBlock(BossToolsModElements instance) {
-		super(instance, 75);
-		FMLJavaModLoadingContext.get().getModEventBus().register(new TileEntityRegisterHandler());
-	}
-
-	@Override
-	public void initElements() {
-		elements.blocks.add(() -> new CustomBlock());
-		elements.items.add(() -> new BlockItem(block, new Item.Properties().group(BossToolsItemGroups.tab_machines)).setRegistryName(block.getRegistryName()));
-	}
-
-	private static class TileEntityRegisterHandler {
-		@SubscribeEvent
-		public void registerTileEntity(RegistryEvent.Register<TileEntityType<?>> event) {
-			event.getRegistry().register(TileEntityType.Builder.create(CustomTileEntity::new, block).build(null).setRegistryName("oxygen_loader"));
-		}
-	}
 
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
@@ -105,7 +73,6 @@ public class OxygenMachineBlock extends BossToolsModElements.ModElement {
 		public CustomBlock() {
 			super(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 1f).setLightLevel(s -> 0).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool());
 			this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(ACTIAVATED, Boolean.valueOf(false)));
-			setRegistryName("oxygen_loader");
 		}
 
 		@Override
@@ -220,8 +187,8 @@ public class OxygenMachineBlock extends BossToolsModElements.ModElement {
 
 	public static class CustomTileEntity extends AbstractMachineTileEntity {
 
-		protected CustomTileEntity() {
-			super(tileEntityType);
+		public CustomTileEntity() {
+			super(ModInnet.OXYGEN_LOADER.get());
 		}
 
 		@Override

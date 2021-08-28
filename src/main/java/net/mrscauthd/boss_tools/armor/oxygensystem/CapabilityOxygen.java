@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.armor;
+package net.mrscauthd.boss_tools.armor.oxygensystem;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;

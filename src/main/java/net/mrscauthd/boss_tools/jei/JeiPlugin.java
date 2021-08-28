@@ -7,6 +7,7 @@ import mezz.jei.api.constants.VanillaRecipeCategoryUid;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
@@ -17,7 +18,6 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IRecipeTransferRegistration;
-import mezz.jei.gui.elements.DrawableResource;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
@@ -25,11 +25,10 @@ import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.armor.CapabilityOxygen;
-import net.mrscauthd.boss_tools.armor.IOxygenStorage;
+import net.mrscauthd.boss_tools.armor.oxygensystem.CapabilityOxygen;
+import net.mrscauthd.boss_tools.armor.oxygensystem.IOxygenStorage;
 import net.mrscauthd.boss_tools.crafting.BlastingRecipe;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.CompressingRecipe;
@@ -39,7 +38,7 @@ import net.mrscauthd.boss_tools.machines.WorkbenchBlock;
 import net.mrscauthd.boss_tools.machines.CoalGeneratorBlock;
 import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackTileEntity;
 import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock;
-import net.mrscauthd.boss_tools.machines.OxygenMachineBlock;
+import net.mrscauthd.boss_tools.machines.OxygenLoaderBlock;
 import net.mrscauthd.boss_tools.gui.*;
 import net.mrscauthd.boss_tools.item.RocketfinsItem;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
@@ -65,9 +64,9 @@ public class JeiPlugin implements IModPlugin {
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
     	int inventorySlotCount = 36;
     	// OxygenLoader
-    	int oxygenLoaderInventoryStartIndex = OxygenMachineBlock.SLOT_ACTIVATING + 1;
-		registration.addRecipeTransferHandler(OxygenLoaderGuiGui.GuiContainerMod.class, OxygenMakingJeiCategory.Uid, OxygenMachineBlock.SLOT_ACTIVATING, 1, oxygenLoaderInventoryStartIndex, inventorySlotCount);    	
-		registration.addRecipeTransferHandler(OxygenLoaderGuiGui.GuiContainerMod.class, OxygenLoadingJeiCategory.Uid, OxygenMachineBlock.SLOT_ITEM, 1, oxygenLoaderInventoryStartIndex, inventorySlotCount);    	
+    	int oxygenLoaderInventoryStartIndex = OxygenLoaderBlock.SLOT_ACTIVATING + 1;
+		registration.addRecipeTransferHandler(OxygenLoaderGuiGui.GuiContainerMod.class, OxygenMakingJeiCategory.Uid, OxygenLoaderBlock.SLOT_ACTIVATING, 1, oxygenLoaderInventoryStartIndex, inventorySlotCount);
+		registration.addRecipeTransferHandler(OxygenLoaderGuiGui.GuiContainerMod.class, OxygenLoadingJeiCategory.Uid, OxygenLoaderBlock.SLOT_ITEM, 1, oxygenLoaderInventoryStartIndex, inventorySlotCount);
     	// Generator
     	registration.addRecipeTransferHandler(GeneratorGUIGui.GuiContainerMod.class, GeneratorJeiCategory.Uid, CoalGeneratorBlock.SLOT_FUEL, 1, CoalGeneratorBlock.SLOT_FUEL + 1, inventorySlotCount);
     	// BlastFurnace
@@ -315,7 +314,7 @@ public class JeiPlugin implements IModPlugin {
     }
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(new ItemStack(OxygenMachineBlock.block), OxygenMakingJeiCategory.Uid, OxygenLoadingJeiCategory.Uid);
+        registration.addRecipeCatalyst(new ItemStack(ModInnet.OXYGEN_LOADER_BLOCK.get()), OxygenMakingJeiCategory.Uid, OxygenLoadingJeiCategory.Uid);
         //Neue maschine
         registration.addRecipeCatalyst(new ItemStack(OxygenGeneratorBlock.block), OxygenGeneratorJeiCategory.Uid);
         //Genrator
@@ -345,8 +344,8 @@ public class JeiPlugin implements IModPlugin {
         // ...
         private final String title;
         private final IDrawable background;
-        private final DrawableResource activating_empty;
-        private final DrawableResource activating_full;
+        private final IDrawableStatic activating_empty;
+        private final IDrawableStatic activating_full;
 
         //Animation nummber
         int animation = 1;
@@ -355,8 +354,8 @@ public class JeiPlugin implements IModPlugin {
             this.title = "Oxygen Loading";
             ResourceLocation path = new ResourceLocation("boss_tools", "textures/oxygen_loader_jei.png");
 			this.background = guiHelper.createDrawable(path, 0, 0, 144, 84);
-            this.activating_empty = (DrawableResource) guiHelper.createDrawable(path, 144, 0, 15, 14);
-            this.activating_full = (DrawableResource) guiHelper.createDrawable(path, 144, 14, 15, 14);
+            this.activating_empty = (IDrawableStatic) guiHelper.createDrawable(path, 144, 0, 15, 14);
+            this.activating_full = (IDrawableStatic) guiHelper.createDrawable(path, 144, 14, 15, 14);
         }
 
         @Override
@@ -407,7 +406,7 @@ public class JeiPlugin implements IModPlugin {
         	IOxygenStorage oxygenStorage = recipe.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
         	
         	if (oxygenStorage != null) {
-        		if (oxygenStorage.receiveOxygen(OxygenMachineBlock.OXYGEN_PER_TICK, false) == 0) {
+        		if (oxygenStorage.receiveOxygen(OxygenLoaderBlock.OXYGEN_PER_TICK, false) == 0) {
         			oxygenStorage.setOxygenStored(0);
         		}
         	}
@@ -416,8 +415,8 @@ public class JeiPlugin implements IModPlugin {
         @Override
         public void setRecipe(IRecipeLayout iRecipeLayout, ItemStack recipe, IIngredients iIngredients) {
             IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
-            stacks.init(OxygenMachineBlock.SLOT_ITEM, true, 42, 13);
-            stacks.set(OxygenMachineBlock.SLOT_ITEM, recipe);
+            stacks.init(OxygenLoaderBlock.SLOT_ITEM, true, 42, 13);
+            stacks.set(OxygenLoaderBlock.SLOT_ITEM, recipe);
         }
     }
     
@@ -426,8 +425,8 @@ public class JeiPlugin implements IModPlugin {
         // ...
         private final String title;
         private final IDrawable background;
-        private final DrawableResource activating_empty;
-        private final DrawableResource activating_full;
+        private final IDrawableStatic activating_empty;
+        private final IDrawableStatic activating_full;
 
         //Animation nummber
         int animation = 1;
@@ -436,8 +435,8 @@ public class JeiPlugin implements IModPlugin {
             this.title = "Oxygen Making";
             ResourceLocation path = new ResourceLocation("boss_tools", "textures/oxygen_loader_jei.png");
 			this.background = guiHelper.createDrawable(path, 0, 0, 144, 84);
-            this.activating_empty = (DrawableResource) guiHelper.createDrawable(path, 144, 0, 15, 14);
-            this.activating_full = (DrawableResource) guiHelper.createDrawable(path, 144, 14, 15, 14);
+            this.activating_empty = (IDrawableStatic) guiHelper.createDrawable(path, 144, 0, 15, 14);
+            this.activating_full = (IDrawableStatic) guiHelper.createDrawable(path, 144, 14, 15, 14);
         }
 
         @Override
@@ -476,7 +475,7 @@ public class JeiPlugin implements IModPlugin {
         	
         	FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
         	int activaingTime = recipe.getActivaingTime();
-			fontRenderer.drawString(matrixStack, "Oxygen : " + (activaingTime * OxygenMachineBlock.OXYGEN_PER_TICK) , 60, 35, 0x555555);
+			fontRenderer.drawString(matrixStack, "Oxygen : " + (activaingTime * OxygenLoaderBlock.OXYGEN_PER_TICK) , 60, 35, 0x555555);
         	
 			double ratio = (double)this.animation / activaingTime;
         	this.activating_empty.draw(matrixStack, 43, 32);
@@ -492,8 +491,8 @@ public class JeiPlugin implements IModPlugin {
         @Override
         public void setRecipe(IRecipeLayout iRecipeLayout, OxygenMakingRecipe recipe, IIngredients iIngredients) {
             IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
-            stacks.init(OxygenMachineBlock.SLOT_ACTIVATING, true, 42, 47);
-            stacks.set(OxygenMachineBlock.SLOT_ACTIVATING, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
+            stacks.init(OxygenLoaderBlock.SLOT_ACTIVATING, true, 42, 47);
+            stacks.set(OxygenLoaderBlock.SLOT_ACTIVATING, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
         }
     }
 
@@ -501,7 +500,6 @@ public class JeiPlugin implements IModPlugin {
     public static class OxygenGeneratorJeiCategory implements IRecipeCategory<OxygenGeneratorJeiCategory.OxygenGeneratorRecipeWrapper> {
         private static ResourceLocation Uid = new ResourceLocation("boss_tools", "oxygengeneratorcategory");// muss klein geschrieben sein
         private static final int input1 = 0; // THE NUMBER = SLOTID
-        private static final int input2 = 1; // THE NUMBER = SLOTID
         // ...
         private final String title;
         private final IDrawable background;

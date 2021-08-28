@@ -1,6 +1,9 @@
 
 package net.mrscauthd.boss_tools.armor;
 
+import net.mrscauthd.boss_tools.armor.oxygensystem.CapabilityOxygen;
+import net.mrscauthd.boss_tools.armor.oxygensystem.IOxygenStorage;
+import net.mrscauthd.boss_tools.armor.oxygensystem.SpaceSuitCapabilityProvider;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorBodyTickEventProcedure;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 

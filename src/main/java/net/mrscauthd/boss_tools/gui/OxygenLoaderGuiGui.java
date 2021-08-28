@@ -2,7 +2,7 @@
 package net.mrscauthd.boss_tools.gui;
 
 import net.mrscauthd.boss_tools.BossToolsModElements;
-import net.mrscauthd.boss_tools.machines.OxygenMachineBlock;
+import net.mrscauthd.boss_tools.machines.OxygenLoaderBlock;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.items.SlotItemHandler;
@@ -114,9 +114,9 @@ public class OxygenLoaderGuiGui extends BossToolsModElements.ModElement {
 					}
 				}
 			}
-			this.customSlots.put(OxygenMachineBlock.SLOT_ITEM, this.addSlot(new SlotItemHandler(internal, OxygenMachineBlock.SLOT_ITEM, 75, 22) {
+			this.customSlots.put(OxygenLoaderBlock.SLOT_ITEM, this.addSlot(new SlotItemHandler(internal, OxygenLoaderBlock.SLOT_ITEM, 75, 22) {
 			}));
-			this.customSlots.put(OxygenMachineBlock.SLOT_ACTIVATING, this.addSlot(new SlotItemHandler(internal, OxygenMachineBlock.SLOT_ACTIVATING, 75, 56) {
+			this.customSlots.put(OxygenLoaderBlock.SLOT_ACTIVATING, this.addSlot(new SlotItemHandler(internal, OxygenLoaderBlock.SLOT_ACTIVATING, 75, 56) {
 			}));
 			int si;
 			int sj;

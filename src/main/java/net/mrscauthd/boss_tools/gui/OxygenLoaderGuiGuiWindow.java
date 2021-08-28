@@ -1,11 +1,11 @@
 
 package net.mrscauthd.boss_tools.gui;
 
+import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.client.gui.GuiUtils;
-import net.mrscauthd.boss_tools.machines.OxygenMachineBlock.CustomTileEntity;
+import net.mrscauthd.boss_tools.machines.OxygenLoaderBlock.CustomTileEntity;
 import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystem;
 import net.minecraftforge.api.distmarker.Dist;
 
@@ -18,7 +18,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.Minecraft;
 
 import com.mojang.blaze3d.matrix.MatrixStack;

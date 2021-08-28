@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.gui;
+package net.mrscauthd.boss_tools.gui.guihelper;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
