@@ -18,7 +18,7 @@ public class OxygenStorage implements IOxygenStorage {
 	}
 
 	public int receiveOxygen(int maxReceive, boolean simulate) {
-		int oxygenReceived = Math.min(this.capacity - this.oxygen, Math.min(0, maxReceive));
+		int oxygenReceived = Math.min(this.capacity - this.oxygen, Math.max(0, maxReceive));
 		if (!simulate) {
 			this.oxygen += oxygenReceived;
 			if (oxygenReceived > 0) {
@@ -30,7 +30,7 @@ public class OxygenStorage implements IOxygenStorage {
 	}
 
 	public int extractOxygen(int maxExtract, boolean simulate) {
-		int oxygenExtracted = Math.min(this.oxygen, Math.min(0, maxExtract));
+		int oxygenExtracted = Math.min(this.oxygen, Math.max(0, maxExtract));
 		if (!simulate) {
 			this.oxygen -= oxygenExtracted;
 
