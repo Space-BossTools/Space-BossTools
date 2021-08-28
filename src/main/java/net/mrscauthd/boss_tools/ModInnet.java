@@ -136,6 +136,7 @@ public class ModInnet {
     public static final RegistryObject<TileEntityType<?>> COMPRESSOR = TILE_ENTITYS.register("compressor", () -> TileEntityType.Builder.create(CompressorBlock.CustomTileEntity::new,ModInnet.COMPRESSOR_BLOCK.get()).build(null));
     public static final RegistryObject<TileEntityType<?>> COAL_GENERATOR = TILE_ENTITYS.register("coal_generator", () -> TileEntityType.Builder.create(CoalGeneratorBlock.CustomTileEntity::new,ModInnet.COAL_GENERATOR_BLOCK.get()).build(null));
     public static final RegistryObject<TileEntityType<?>> OXYGEN_LOADER = TILE_ENTITYS.register("oxygen_loader", () -> TileEntityType.Builder.create(OxygenLoaderBlock.CustomTileEntity::new,ModInnet.OXYGEN_LOADER_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<?>> SOLAR_PANEL = TILE_ENTITYS.register("solar_panel", () -> TileEntityType.Builder.create(SolarPanelBlock.CustomTileEntity::new,ModInnet.SOLAR_PANEL_BLOCK.get()).build(null));
 
 
     //Blocks
@@ -144,6 +145,7 @@ public class ModInnet {
     public static RegistryObject<Block> COMPRESSOR_BLOCK = BLOCKS.register("compressor",() -> new CompressorBlock.CustomBlock());
     public static RegistryObject<Block> COAL_GENERATOR_BLOCK = BLOCKS.register("coal_generator",() -> new CoalGeneratorBlock.CustomBlock());
     public static RegistryObject<Block> OXYGEN_LOADER_BLOCK = BLOCKS.register("oxygen_loader",() -> new OxygenLoaderBlock.CustomBlock());
+    public static RegistryObject<Block> SOLAR_PANEL_BLOCK = BLOCKS.register("solar_panel",() -> new SolarPanelBlock.CustomBlock());
 
     //Block Item
     public static final RegistryObject<BlockItem> FUEL_REFINERY_ITEM = ITEMS.register("fuel_refinery", () -> new BlockItem(ModInnet.FUEL_REFINERY_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_machines)));
@@ -151,6 +153,7 @@ public class ModInnet {
     public static final RegistryObject<BlockItem> COMPRESSOR_ITEM = ITEMS.register("compressor", () -> new BlockItem(ModInnet.COMPRESSOR_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_machines)));
     public static final RegistryObject<BlockItem> COAL_GENERATOR_ITEM = ITEMS.register("coal_generator", () -> new BlockItem(ModInnet.COAL_GENERATOR_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_machines)));
     public static final RegistryObject<BlockItem> OXYGEN_LOADER_ITEM = ITEMS.register("oxygen_loader", () -> new BlockItem(ModInnet.OXYGEN_LOADER_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_machines)));
+    public static final RegistryObject<BlockItem> SOLAR_PANEL_ITEM = ITEMS.register("solar_panel", () -> new BlockItem(ModInnet.SOLAR_PANEL_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_machines)));
 
 
     //Fuel Fluid
