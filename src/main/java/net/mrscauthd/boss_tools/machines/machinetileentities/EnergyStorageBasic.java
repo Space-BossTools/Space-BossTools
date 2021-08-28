@@ -1,5 +1,7 @@
 package net.mrscauthd.boss_tools.machines.machinetileentities;
 
+import java.util.Optional;
+
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.energy.EnergyStorage;
 
@@ -30,7 +32,7 @@ public class EnergyStorageBasic extends EnergyStorage implements IEnergyStorageE
 		int energyReceived = Math.min(this.capacity - this.energy, maxReceive);
 		if (!simulate && energyReceived > 0) {
 			this.energy += energyReceived;
-			this.getHolder().onEnergyReceived(this, energyReceived);
+			Optional.ofNullable(this.getHolder()).ifPresent(h -> h.onEnergyChanged(this, +energyReceived));
 		}
 
 		return energyReceived;
@@ -40,7 +42,7 @@ public class EnergyStorageBasic extends EnergyStorage implements IEnergyStorageE
 		int energyExtracted = Math.min(this.energy, maxExtract);
 		if (!simulate && energyExtracted > 0) {
 			this.energy -= energyExtracted;
-			this.getHolder().onEnergyExtracted(this, energyExtracted);
+			Optional.ofNullable(this.getHolder()).ifPresent(h -> h.onEnergyChanged(this, -energyExtracted));
 		}
 
 		return energyExtracted;
@@ -50,8 +52,8 @@ public class EnergyStorageBasic extends EnergyStorage implements IEnergyStorageE
 	public int receiveEnergy(int maxReceive, boolean simulate) {
 		int energyReceived = super.receiveEnergy(maxReceive, simulate);
 
-		if (energyReceived > 0) {
-			this.getHolder().onEnergyReceived(this, energyReceived);
+		if (!simulate && energyReceived > 0) {
+			Optional.ofNullable(this.getHolder()).ifPresent(h -> h.onEnergyChanged(this, +energyReceived));
 		}
 
 		return energyReceived;
@@ -61,8 +63,8 @@ public class EnergyStorageBasic extends EnergyStorage implements IEnergyStorageE
 	public int extractEnergy(int maxExtract, boolean simulate) {
 		int energyExtracted = super.extractEnergy(maxExtract, simulate);
 
-		if (energyExtracted > 0) {
-			this.getHolder().onEnergyExtracted(this, energyExtracted);
+		if (!simulate && energyExtracted > 0) {
+			Optional.ofNullable(this.getHolder()).ifPresent(h -> h.onEnergyChanged(this, -energyExtracted));
 		}
 
 		return energyExtracted;
