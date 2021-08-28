@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.machines.machinetileentities;
+package net.mrscauthd.boss_tools.machines.tile;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;

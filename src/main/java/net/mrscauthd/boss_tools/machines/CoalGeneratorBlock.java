@@ -43,9 +43,9 @@ import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.gui.GeneratorGUIGui;
-import net.mrscauthd.boss_tools.machines.machinetileentities.GeneratorTileEntity;
-import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystem;
-import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystemFuelGeneratingRecipe;
+import net.mrscauthd.boss_tools.machines.tile.GeneratorTileEntity;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystemFuelGeneratingRecipe;
 
 public class CoalGeneratorBlock {
 	public static final int SLOT_FUEL = 0;

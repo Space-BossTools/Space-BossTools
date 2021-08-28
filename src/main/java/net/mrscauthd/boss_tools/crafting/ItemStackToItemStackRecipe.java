@@ -11,7 +11,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackTileEntity;
+import net.mrscauthd.boss_tools.machines.tile.ItemStackToItemStackTileEntity;
 
 public abstract class ItemStackToItemStackRecipe extends BossToolsRecipe {
 	private final Ingredient ingredient;

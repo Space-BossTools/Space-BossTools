@@ -1,10 +1,10 @@
 
 package net.mrscauthd.boss_tools.armor;
 
-import net.mrscauthd.boss_tools.armor.oxygensystem.CapabilityOxygen;
-import net.mrscauthd.boss_tools.armor.oxygensystem.IOxygenStorage;
-import net.mrscauthd.boss_tools.armor.oxygensystem.SpaceSuitCapabilityProvider;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorBodyTickEventProcedure;
+import net.mrscauthd.boss_tools.capability.CapabilityOxygen;
+import net.mrscauthd.boss_tools.capability.IOxygenStorage;
+import net.mrscauthd.boss_tools.capability.SpaceSuitCapabilityProvider;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 
 import net.minecraftforge.registries.ForgeRegistries;

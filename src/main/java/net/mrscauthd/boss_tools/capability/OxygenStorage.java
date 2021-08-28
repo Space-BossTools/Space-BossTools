@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.armor.oxygensystem;
+package net.mrscauthd.boss_tools.capability;
 
 import java.util.Optional;
 
