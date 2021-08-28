@@ -361,8 +361,7 @@ public class Events {
         return false;
     }
 
-    public static boolean RocketCheckAnd(LivingEntity pass) {
-        Entity entity = pass.getRidingEntity();
+    public static boolean RocketCheckAnd(LivingEntity entity) {
         if (entity instanceof RocketTier1Entity.CustomEntity && entity instanceof RocketTier2Entity.CustomEntity && entity instanceof RocketTier3Entity.CustomEntity) {
             return true;
         }
