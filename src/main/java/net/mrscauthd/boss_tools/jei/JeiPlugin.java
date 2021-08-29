@@ -29,6 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.boss_tools.ModInnet;
@@ -493,6 +494,19 @@ public class JeiPlugin implements IModPlugin {
         public void setIngredients(OxygenMakingRecipe recipe, IIngredients iIngredients) {
             iIngredients.setInputIngredients(recipe.getIngredients());
         }
+        
+        @Override
+        public List<ITextComponent> getTooltipStrings(OxygenMakingRecipe recipe, double mouseX, double mouseY) {
+        	if (this.getOxygenBounds().contains((int) mouseX, (int) mouseY)) {
+        		return Collections.singletonList(new StringTextComponent("Activating Time: " + recipe.getActivaingTime()));
+        	}
+        	
+        	return IRecipeCategory.super.getTooltipStrings(recipe, mouseX, mouseY);
+        }
+        
+        public Rectangle2d getOxygenBounds(){
+        	return GuiHelper.getOxygenBounds(OXYGEN_LEFT, OXYGEN_TOP);
+        }
 
         @Override
         public void draw(OxygenMakingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
@@ -607,7 +621,10 @@ public class JeiPlugin implements IModPlugin {
         }
         @Override
         public List<ITextComponent> getTooltipStrings(GeneratingRecipe recipe, double mouseX, double mouseY) {
-            if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
+        	if (this.getFireBounds().contains((int) mouseX, (int) mouseY)) {
+        		return Collections.singletonList(new StringTextComponent("Burn Time: " + recipe.getBurnTime()));
+        	}
+        	else if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
                 return Collections.singletonList(new TranslationTextComponent(recipe.getBurnTime() * CoalGeneratorBlock.ENERGY_PER_TICK + " FE"));
             }
             return Collections.emptyList();
@@ -627,7 +644,11 @@ public class JeiPlugin implements IModPlugin {
         public String getTitle() {
             return this.title;
         }
-        
+
+        public Rectangle2d getFireBounds() {
+        	return GuiHelper.getFireBounds(FIRE_LEFT, FIRE_TOP);
+        }
+
         public Rectangle2d getEnergyBounds() {
         	return GuiHelper.getEnergyBounds(ENERGY_LEFT, ENERGY_TOP);
         }
@@ -836,7 +857,11 @@ public class JeiPlugin implements IModPlugin {
     
     //BlastingFurnace
     public static class BlastingFurnaceJeiCategory implements IRecipeCategory<BlastingRecipe> {
-        private static ResourceLocation Uid = new ResourceLocation("boss_tools", "blastingfurnacecategory");
+    	public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "blastingfurnacecategory");
+    	public static final int FIRE_LEFT = 37;
+    	public static final int FIRE_TOP = 37;
+    	public static final int ARROW_LEFT = 55;
+    	public static final int ARROW_TOP = 35;
 
         private final String title;
         private final IDrawable background;
@@ -874,8 +899,8 @@ public class JeiPlugin implements IModPlugin {
         public void draw(BlastingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
         	IRecipeCategory.super.draw(recipe, matrixStack, mouseX, mouseY);
         	
-        	this.fire.draw(matrixStack, 37, 37);
-        	this.cachedArrows.getUnchecked(recipe.getCookTime()).draw(matrixStack, 55, 35);
+        	this.fire.draw(matrixStack, FIRE_LEFT, FIRE_TOP);
+        	this.cachedArrows.getUnchecked(recipe.getCookTime()).draw(matrixStack, ARROW_LEFT, ARROW_TOP);
 
         	drawCookTime(matrixStack, this.getBackground(), recipe.getCookTime());
         }
