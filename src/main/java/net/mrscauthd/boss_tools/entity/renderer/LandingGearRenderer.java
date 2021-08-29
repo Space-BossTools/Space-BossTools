@@ -1,6 +1,6 @@
 package net.mrscauthd.boss_tools.entity.renderer;
 
-import net.mrscauthd.boss_tools.entity.LandingGearEntity;
+import net.mrscauthd.boss_tools.entity.LanderEntity;
 
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -23,7 +23,7 @@ public class LandingGearRenderer {
 		@SubscribeEvent
 		@OnlyIn(Dist.CLIENT)
 		public void registerModels(ModelRegistryEvent event) {
-			RenderingRegistry.registerEntityRenderingHandler(LandingGearEntity.entity, renderManager -> {
+			RenderingRegistry.registerEntityRenderingHandler(LanderEntity.entity, renderManager -> {
 				return new MobRenderer(renderManager, new ModelLander(), 0f) {
 					@Override
 					public ResourceLocation getEntityTexture(Entity entity) {

@@ -17,6 +17,8 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.*;
+import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -27,6 +29,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -64,7 +67,7 @@ public class Events {
             }
             //Player orbit Fall Teleport
             {
-                if (entity.getPosY() <= 1 && !(entity.getRidingEntity() instanceof LandingGearEntity.CustomEntity)) {
+                if (entity.getPosY() <= 1 && !(entity.getRidingEntity() instanceof LanderEntity.CustomEntity)) {
                     RegistryKey<World> world2 = ((World) world).getDimensionKey();
                     //Overworld
                     if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:overworld_orbit"))) {
@@ -201,7 +204,7 @@ public class Events {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void CameraPos(EntityViewRenderEvent.CameraSetup event) {
-        if (event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier1Entity.CustomEntity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier2Entity.CustomEntity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier3Entity.CustomEntity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof LandingGearEntity.CustomEntity) {
+        if (event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier1Entity.CustomEntity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier2Entity.CustomEntity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier3Entity.CustomEntity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof LanderEntity.CustomEntity) {
             if (Minecraft.getInstance().gameSettings.getPointOfView().equals(PointOfView.THIRD_PERSON_FRONT)) {
                 event.getInfo().movePosition(-event.getInfo().calcCameraDistance(8d), 0d, 0);
             }
@@ -215,7 +218,7 @@ public class Events {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void render(RenderPlayerEvent event) {
-        if (event.getEntity().getRidingEntity() instanceof LandingGearEntity.CustomEntity) {
+        if (event.getEntity().getRidingEntity() instanceof LanderEntity.CustomEntity) {
             event.setCanceled(true);
         }
     }
@@ -316,6 +319,16 @@ public class Events {
             }
         }
     }
+
+    @SubscribeEvent
+    public static void FishingBobberTick(ProjectileImpactEvent.FishingBobber event) {
+        if (event.getRayTraceResult().getType() == RayTraceResult.Type.ENTITY) {
+            Entity entity = ((EntityRayTraceResult) event.getRayTraceResult()).getEntity();
+            if (AllVehiclesOr(entity) == true) {
+                event.setCanceled(true);
+            }
+        }
+    }
     //Other Events
 
     //Methodes
@@ -368,6 +381,13 @@ public class Events {
 
     public static boolean RocketCheckOr(Entity entity) {
         if (entity instanceof RocketTier1Entity.CustomEntity || entity instanceof RocketTier2Entity.CustomEntity || entity instanceof RocketTier3Entity.CustomEntity) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean AllVehiclesOr(Entity entity) {
+        if (entity instanceof RocketTier1Entity.CustomEntity || entity instanceof RocketTier2Entity.CustomEntity || entity instanceof RocketTier3Entity.CustomEntity || entity instanceof LanderEntity.CustomEntity || entity instanceof RoverEntity.CustomEntity) {
             return true;
         }
         return false;

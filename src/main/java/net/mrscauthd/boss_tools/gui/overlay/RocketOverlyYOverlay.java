@@ -6,7 +6,7 @@ import net.minecraft.util.registry.Registry;
 import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
-import net.mrscauthd.boss_tools.entity.LandingGearEntity;
+import net.mrscauthd.boss_tools.entity.LanderEntity;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -73,7 +73,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 												if ((((entity.getRidingEntity()) instanceof RocketTier1Entity.CustomEntity)
 														|| (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)
 														|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
-														|| ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)))) {
+														|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)))) {
 													//Rocket Y
 													Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_y_main_1.png"));
 													Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(),
@@ -93,7 +93,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 				if ((((entity.getRidingEntity()) instanceof RocketTier1Entity.CustomEntity)
 						|| (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)
 						|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
-						|| ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)))) {
+						|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)))) {
 					//Rocket Y
 					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_y_main_moon.png"));
 					Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(),
@@ -105,7 +105,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 				if ((((entity.getRidingEntity()) instanceof RocketTier1Entity.CustomEntity)
 						|| (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)
 						|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
-						|| ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)))) {
+						|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)))) {
 					//Rocket Y
 					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_y_main_mars.png"));
 					Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(),
@@ -117,7 +117,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 				if ((((entity.getRidingEntity()) instanceof RocketTier1Entity.CustomEntity)
 						|| (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)
 						|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
-						|| ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)))) {
+						|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)))) {
 					//Rocket Y
 					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_y_main_mercury.png"));
 					Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(),
@@ -129,7 +129,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 				if ((((entity.getRidingEntity()) instanceof RocketTier1Entity.CustomEntity)
 						|| (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)
 						|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
-						|| ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)))) {
+						|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)))) {
 					//Rocket Y
 					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_y_main_venus.png"));
 					Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(),
@@ -149,7 +149,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 				if ((((entity.getRidingEntity()) instanceof RocketTier1Entity.CustomEntity)
 						|| (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)
 						|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
-						|| ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)))) {
+						|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)))) {
 					//Rocket Y
 					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_y_main_orbit.png"));
 					Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(),
@@ -160,7 +160,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 			if ((((entity.getRidingEntity()) instanceof RocketTier1Entity.CustomEntity)
 					|| (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)
 					|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
-					|| ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)))) {
+					|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)))) {
 				//Check
 				if ((((entity.getPosY()) >= 0) && (!((entity.getPosY()) >= 10)))) {
 					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_y_1.png"));

@@ -67,11 +67,11 @@ import java.util.HashMap;
 import io.netty.buffer.Unpooled;
 
 @BossToolsModElements.ModElement.Tag
-public class LandingGearEntity extends BossToolsModElements.ModElement {
+public class LanderEntity extends BossToolsModElements.ModElement {
 	public static EntityType entity = (EntityType.Builder.<CustomEntity>create(CustomEntity::new, EntityClassification.CREATURE)
 			.setShouldReceiveVelocityUpdates(true).setTrackingRange(100).setUpdateInterval(3).setCustomClientFactory(CustomEntity::new).immuneToFire()
 			.size(0.6f, 2f)).build("lander").setRegistryName("lander");
-	public LandingGearEntity(BossToolsModElements instance) {
+	public LanderEntity(BossToolsModElements instance) {
 		super(instance, 92);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new LandingGearRenderer.ModelRegisterHandler());
 		FMLJavaModLoadingContext.get().getModEventBus().register(new EntityAttributesRegisterHandler());

@@ -4,7 +4,7 @@ import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
-import net.mrscauthd.boss_tools.entity.LandingGearEntity;
+import net.mrscauthd.boss_tools.entity.LanderEntity;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -54,7 +54,7 @@ public class LanderSitProcedure {
 		if (((entity.getPersistentData().getDouble("Landersit")) == 1)) {
 			if (((entity.getPersistentData().getDouble("LanderSpawn")) == 1)) {
 				entity.getPersistentData().putDouble("LanderSpawn", 0);
-				Entity entity2 = new LandingGearEntity.CustomEntity(LandingGearEntity.entity, entity.world);
+				Entity entity2 = new LanderEntity.CustomEntity(LanderEntity.entity, entity.world);
 				entity2.setPositionAndUpdate(entity.getPosX(), entity.getPosY(), entity.getPosZ());
 				entity2.rotationYaw = (float) (0);
 				if (entity2 instanceof MobEntity)
@@ -65,7 +65,7 @@ public class LanderSitProcedure {
 				entity.startRiding(entity2);
 				Entity entityiterator = entity2;
 				entity.getPersistentData().putDouble("Landersit", 0);
-				if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+				if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
 					{
 						final ItemStack _setstack = new ItemStack(Tier1RocketItemItem.block, (int) (1));
 						final int _sltid = (int) (0);
@@ -77,7 +77,7 @@ public class LanderSitProcedure {
 						});
 					}
 				}
-				if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+				if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
 					if (((entity.getPersistentData().getDouble("Bucket")) == 1)) {
 						{
 							final ItemStack _setstack = new ItemStack(Items.BUCKET, (int) (1));
@@ -91,7 +91,7 @@ public class LanderSitProcedure {
 						}
 					}
 				}
-				if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+				if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
 					if (((entity.getPersistentData().getDouble("Bucket")) == 2)) {
 						{
 							final ItemStack _setstack = new ItemStack(ModInnet.FUEL_BUCKET.get(), (int) (1));
@@ -110,7 +110,7 @@ public class LanderSitProcedure {
 		if (((entity.getPersistentData().getDouble("Landersit")) == 2)) {
 			if (((entity.getPersistentData().getDouble("LanderSpawn")) == 1)) {
 				entity.getPersistentData().putDouble("LanderSpawn", 0);
-				Entity entity2 = new LandingGearEntity.CustomEntity(LandingGearEntity.entity, entity.world);
+				Entity entity2 = new LanderEntity.CustomEntity(LanderEntity.entity, entity.world);
 				entity2.setPositionAndUpdate(entity.getPosX(), entity.getPosY(), entity.getPosZ());
 				entity2.rotationYaw = (float) (0);
 				if (entity2 instanceof MobEntity)
@@ -121,7 +121,7 @@ public class LanderSitProcedure {
 				entity.startRiding(entity2);
 				Entity entityiterator = entity2;
 				entity.getPersistentData().putDouble("Landersit", 0);
-				if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+				if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
 					{
 						final ItemStack _setstack = new ItemStack(Tier2RocketItemItem.block, (int) (1));
 						final int _sltid = (int) (0);
@@ -133,7 +133,7 @@ public class LanderSitProcedure {
 						});
 					}
 				}
-				if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+				if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
 					if (((entity.getPersistentData().getDouble("Bucket")) == 1)) {
 						{
 							final ItemStack _setstack = new ItemStack(ModInnet.BARREL.get(), (int) (1));
@@ -147,7 +147,7 @@ public class LanderSitProcedure {
 						}
 					}
 				}
-				if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+				if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
 					if (((entity.getPersistentData().getDouble("Bucket")) == 2)) {
 						{
 							final ItemStack _setstack = new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1));
@@ -166,7 +166,7 @@ public class LanderSitProcedure {
 		if (((entity.getPersistentData().getDouble("Landersit")) == 3)) {
 			if (((entity.getPersistentData().getDouble("LanderSpawn")) == 1)) {
 				entity.getPersistentData().putDouble("LanderSpawn", 0);
-				Entity entity2 = new LandingGearEntity.CustomEntity(LandingGearEntity.entity, entity.world);
+				Entity entity2 = new LanderEntity.CustomEntity(LanderEntity.entity, entity.world);
 				entity2.setPositionAndUpdate(entity.getPosX(), entity.getPosY(), entity.getPosZ());
 				entity2.rotationYaw = (float) (0);
 				if (entity2 instanceof MobEntity)
@@ -177,7 +177,7 @@ public class LanderSitProcedure {
 				entity.startRiding(entity2);
 				Entity entityiterator = entity2;
 				entity.getPersistentData().putDouble("Landersit", 0);
-				if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+				if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
 					{
 						final ItemStack _setstack = new ItemStack(Tier3RocketItemItem.block, (int) (1));
 						final int _sltid = (int) (0);
@@ -189,7 +189,7 @@ public class LanderSitProcedure {
 						});
 					}
 				}
-				if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+				if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
 					if (((entity.getPersistentData().getDouble("Bucket")) == 1)) {
 						{
 							final ItemStack _setstack = new ItemStack(ModInnet.BARREL.get(), (int) (1));
@@ -203,7 +203,7 @@ public class LanderSitProcedure {
 						}
 					}
 				}
-				if (((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity)) {
+				if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
 					if (((entity.getPersistentData().getDouble("Bucket")) == 2)) {
 						{
 							final ItemStack _setstack = new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1));

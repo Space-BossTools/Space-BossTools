@@ -4,7 +4,7 @@ import net.mrscauthd.boss_tools.entity.RoverEntity;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
-import net.mrscauthd.boss_tools.entity.LandingGearEntity;
+import net.mrscauthd.boss_tools.entity.LanderEntity;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.fml.common.Mod;
@@ -128,7 +128,7 @@ public class FallGravityProcedure {
 						}.compareDistOf(x, y, z)).collect(Collectors.toList());
 				for (Entity entityiterator : _entfound) {
 					if ((!(entityiterator instanceof PlayerEntity))) {
-						if ((!(entityiterator instanceof LandingGearEntity.CustomEntity))) {
+						if ((!(entityiterator instanceof LanderEntity.CustomEntity))) {
 							if ((!(entityiterator instanceof RocketTier1Entity.CustomEntity))) {
 								if ((!(entityiterator instanceof RocketTier2Entity.CustomEntity))) {
 									if ((!(entityiterator instanceof RocketTier3Entity.CustomEntity))) {
@@ -205,7 +205,7 @@ public class FallGravityProcedure {
 						}.compareDistOf(x, y, z)).collect(Collectors.toList());
 				for (Entity entityiterator : _entfound) {
 					if ((!(entityiterator instanceof PlayerEntity))) {
-						if ((!(entityiterator instanceof LandingGearEntity.CustomEntity))) {
+						if ((!(entityiterator instanceof LanderEntity.CustomEntity))) {
 							if ((!(entityiterator instanceof RocketTier1Entity.CustomEntity))) {
 								if ((!(entityiterator instanceof RocketTier2Entity.CustomEntity))) {
 									if ((!(entityiterator instanceof RocketTier3Entity.CustomEntity))) {
@@ -276,7 +276,7 @@ public class FallGravityProcedure {
 						}.compareDistOf(x, y, z)).collect(Collectors.toList());
 				for (Entity entityiterator : _entfound) {
 					if ((!(entityiterator instanceof PlayerEntity))) {
-						if ((!(entityiterator instanceof LandingGearEntity.CustomEntity))) {
+						if ((!(entityiterator instanceof LanderEntity.CustomEntity))) {
 							if ((!(entityiterator instanceof RocketTier1Entity.CustomEntity))) {
 								if ((!(entityiterator instanceof RocketTier2Entity.CustomEntity))) {
 									if ((!(entityiterator instanceof RocketTier3Entity.CustomEntity))) {

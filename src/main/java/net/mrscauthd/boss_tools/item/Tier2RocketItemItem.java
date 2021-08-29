@@ -5,7 +5,7 @@ import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
-import net.mrscauthd.boss_tools.entity.LandingGearEntity;
+import net.mrscauthd.boss_tools.entity.LanderEntity;
 import net.mrscauthd.boss_tools.block.RocketLaunchPadBlock;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
@@ -119,7 +119,7 @@ public class Tier2RocketItemItem extends BossToolsModElements.ModElement {
 						for (Entity entityiterator : _entfound) {
 							if (entityiterator instanceof RocketTier1Entity.CustomEntity || entityiterator instanceof RocketTier2Entity.CustomEntity
 									|| entityiterator instanceof RocketTier3Entity.CustomEntity
-									|| entityiterator instanceof LandingGearEntity.CustomEntity) {
+									|| entityiterator instanceof LanderEntity.CustomEntity) {
 								entityblock = true;
 							} else {
 								entityblock = false;

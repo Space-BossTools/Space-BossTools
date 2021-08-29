@@ -22,7 +22,7 @@ public class OverlayEvents {
         {
             if (event.getType() == RenderGameOverlayEvent.ElementType.HEALTHMOUNT) {
                 PlayerEntity entity = Minecraft.getInstance().player;
-                if (entity.getRidingEntity() instanceof RocketTier1Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier3Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || entity.getRidingEntity() instanceof LandingGearEntity.CustomEntity || entity.getRidingEntity() instanceof RoverEntity.CustomEntity) {
+                if (entity.getRidingEntity() instanceof RocketTier1Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier3Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || entity.getRidingEntity() instanceof LanderEntity.CustomEntity || entity.getRidingEntity() instanceof RoverEntity.CustomEntity) {
                     event.setCanceled(true);
                 }
             }
@@ -44,7 +44,7 @@ public class OverlayEvents {
                         GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
                 RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.disableAlphaTest();
-                if ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
+                if ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
                     RenderSystem.color4f((float) Events.counter, (float) Events.counter, (float) Events.counter, (float) Events.counter);
                     // Plinken
                     Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/warning1.png"));
@@ -52,7 +52,7 @@ public class OverlayEvents {
                             event.getWindow().getScaledHeight(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight());
                 }
                 RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-                if ((entity.getRidingEntity()) instanceof LandingGearEntity.CustomEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
+                if ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
                     double speed = Math.round(100.0 * (entity.getRidingEntity()).getMotion().getY()) / 100.0;
                     double speedcheck = speed;
                     Minecraft.getInstance().fontRenderer.drawString(event.getMatrixStack(), "" + speedcheck + " Speed",

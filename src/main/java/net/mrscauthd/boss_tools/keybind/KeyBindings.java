@@ -12,6 +12,7 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.boss_tools.entity.*;
 import net.mrscauthd.boss_tools.events.ClientEventBusSubscriber;
+import net.mrscauthd.boss_tools.events.Events;
 import org.lwjgl.glfw.GLFW;
 
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -121,11 +122,12 @@ public class KeyBindings {
 		// security measure to prevent arbitrary chunk generation
 		if (!world.isBlockLoaded(new BlockPos(x, y, z)))
 			return;
+
 		//Type 0
 		if (type == 0) {
-			if (entity.getRidingEntity() instanceof LandingGearEntity.CustomEntity) {
-				if (entity.getRidingEntity().isOnGround() == (false)
-						&& entity.getRidingEntity().areEyesInFluid(FluidTags.WATER) == (false)) {
+			if (entity.getRidingEntity() instanceof LanderEntity.CustomEntity) {
+				if (entity.getRidingEntity().isOnGround() == false
+						&& entity.getRidingEntity().areEyesInFluid(FluidTags.WATER) == false) {
 					if (entity.getRidingEntity().getMotion().getY() <= -0.05) {
 						entity.getRidingEntity().setMotion(entity.getRidingEntity().getMotion().getX(), entity.getRidingEntity().getMotion().getY() * 0.85, entity.getRidingEntity().getMotion().getZ());
 					}
@@ -133,30 +135,32 @@ public class KeyBindings {
 					entity.getRidingEntity().getPersistentData().putDouble("Lander2", 1);
 				}
 			}
-			if (entity.getRidingEntity() instanceof LandingGearEntity.CustomEntity) {
+			if (entity.getRidingEntity() instanceof LanderEntity.CustomEntity) {
 				(entity.getRidingEntity()).fallDistance = (float) ((entity.getRidingEntity().getMotion().getY() * (-1)) * 4.5);
 			}
 		}
+
 		//Type 1
 		if (type == 1) {
-			if (entity.getRidingEntity() instanceof RocketTier1Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier3Entity.CustomEntity) {
+			if (Events.RocketCheckOr(entity.getRidingEntity())) {
 				if (entity.getRidingEntity().getPersistentData().getBoolean("Powup_trigger") == false) {
 					if (entity.getRidingEntity().getPersistentData().getDouble("fuel") == 400) {
 						if (world instanceof World && !world.isRemote()) {
-							((World) world).playSound(null, new BlockPos((int) x, (int) y, (int) z), (net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("boss_tools:rocketfly")), SoundCategory.NEUTRAL, (float) 3, (float) 1);
+							world.playSound(null, new BlockPos(x,y,z),ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("boss_tools:rocketfly")), SoundCategory.NEUTRAL, (float) 3, (float) 1);
 						} else {
-							((World) world).playSound(x, y, z, (net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("boss_tools:rocketfly")), SoundCategory.NEUTRAL, (float) 3, (float) 1, false);
+							world.playSound(x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("boss_tools:rocketfly")), SoundCategory.NEUTRAL, (float) 3, (float) 1, false);
 						}
 						entity.getRidingEntity().getPersistentData().putDouble("Powup", 1);
 						entity.getRidingEntity().getPersistentData().putBoolean("Powup_trigger", true);
 					} else {
 						if (entity instanceof PlayerEntity && !entity.world.isRemote()) {
-							((PlayerEntity) entity).sendStatusMessage(new StringTextComponent("\u00A7cNO FUEL! \u00A77Fill the Rocket with \u00A7cFuel\u00A77. (\u00A76Sneak and Right Click\u00A77)"), false);
+							entity.sendStatusMessage(new StringTextComponent("\u00A7cNO FUEL! \u00A77Fill the Rocket with \u00A7cFuel\u00A77. (\u00A76Sneak and Right Click\u00A77)"), false);
 						}
 					}
 				}
 			}
 		}
+
 		//Type 2
 		if (type == 2) {
 			//Rocket Rotation (Direction -1)
@@ -191,6 +195,7 @@ public class KeyBindings {
 				}
 			}
 		}
+
 		//Type 3
 		if (type == 3) {
 			//Rocket Rotation (Direction +1)
@@ -225,5 +230,6 @@ public class KeyBindings {
 				}
 			}
 		}
+
 	}
 }
