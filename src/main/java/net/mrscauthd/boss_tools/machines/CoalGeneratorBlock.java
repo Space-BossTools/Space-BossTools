@@ -49,6 +49,7 @@ import net.mrscauthd.boss_tools.machines.tile.PowerSystemFuelGeneratingRecipe;
 
 public class CoalGeneratorBlock {
 	public static final int SLOT_FUEL = 0;
+	public static final int FUEL_PER_TICK = 1;
 	public static final int ENERGY_PER_TICK = 2;
 
 	public static class CustomBlock extends Block {

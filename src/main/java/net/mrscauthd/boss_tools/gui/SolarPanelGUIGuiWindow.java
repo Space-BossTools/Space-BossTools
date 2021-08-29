@@ -2,6 +2,8 @@
 package net.mrscauthd.boss_tools.gui;
 
 import net.minecraftforge.energy.CapabilityEnergy;
+import net.mrscauthd.boss_tools.capability.EnergyStorageBasic;
+import net.mrscauthd.boss_tools.machines.SolarPanelBlock.CustomTileEntity;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
@@ -12,6 +14,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.Minecraft;
 
@@ -47,14 +50,9 @@ public class SolarPanelGUIGuiWindow extends ContainerScreen<SolarPanelGUIGui.Gui
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float partialTicks, int gx, int gy) {
-		RenderSystem.color4f(1, 1, 1, 1);
-		RenderSystem.enableBlend();
-		RenderSystem.defaultBlendFunc();
+		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		Minecraft.getInstance().getTextureManager().bindTexture(texture);
-		int k = (this.width - this.xSize) / 2;
-		int l = (this.height - this.ySize) / 2;
-		this.blit(ms, k, l, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
-		RenderSystem.disableBlend();
+		AbstractGui.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
 	}
 
 	@Override
@@ -73,22 +71,16 @@ public class SolarPanelGUIGuiWindow extends ContainerScreen<SolarPanelGUIGui.Gui
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
+		
+		CustomTileEntity tileEntity = (CustomTileEntity) this.world.getTileEntity(new BlockPos(this.x, this.y, this.z));
+		EnergyStorageBasic energyStorage = tileEntity.getEnergyStorage();
+		
 		this.font.drawString(ms, "Solar Panel", 58, 5, -13421773);
-		this.font.drawString(ms, "" + (new Object() {
-			public int getEnergyStored(BlockPos pos) {
-				AtomicInteger _retval = new AtomicInteger(0);
-				TileEntity _ent = world.getTileEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(CapabilityEnergy.ENERGY, null).ifPresent(capability -> _retval.set(capability.getEnergyStored()));
-				return _retval.get();
-			}
-		}.getEnergyStored(new BlockPos((int) x, (int) y, (int) z))) + " FE", 47, 26, -13421773);
+		this.font.drawString(ms, "Charge: " + energyStorage.getEnergyStored() + " FE", 7, 26, -12829636);
+		this.font.drawString(ms, "Capacity: " + energyStorage.getMaxEnergyStored() + " FE", 7, 38, -12829636);
+		this.font.drawString(ms, "Generation: " + tileEntity.getGeneratePerTick() + " FE/t" , 7, 50, -12829636);
+		
 		this.font.drawString(ms, "Inventory", 6, 73, -13421773);
-		this.font.drawString(ms, "Charge:", 7, 26, -12829636);
-		this.font.drawString(ms, "Capacity:", 7, 38, -12829636);
-		this.font.drawString(ms, "50,000 FE", 54, 38, -12829636);
-		this.font.drawString(ms, "Generation:", 7, 50, -12829636);
-		this.font.drawString(ms, "4 FE/t", 65, 50, -12829636);
 	}
 
 	@Override

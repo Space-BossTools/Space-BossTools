@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
 
 public class GuiHelper {
@@ -17,13 +18,21 @@ public class GuiHelper {
 	public static final int FIRE_HEIGHT = 14;
 	public static final int ARROW_WIDTH = 24;
 	public static final int ARROW_HEIGHT = 17;
-	public static final int OXYGEN_WIDTH = 15;
+	public static final int OXYGEN_WIDTH = 14;
 	public static final int OXYGEN_HEIGHT = 14;
 	public static final int ENERGY_WIDTH = 24;
 	public static final int ENERGY_HEIGHT = 48;
-	
+
+	public static void renderEnergyTooltip(MatrixStack matrixStack, int left, int top, Screen screen, int stored, int capacity) {
+		screen.renderTooltip(matrixStack, new StringTextComponent(stored + " FE / " + capacity + " FE"), left, top);
+	}
+
 	public static void renderEnergyTooltip(MatrixStack matrixStack, int left, int top, Screen screen, PowerSystem powerSystem) {
-		screen.renderTooltip(matrixStack, new StringTextComponent(powerSystem.getStored() + " FE / " + powerSystem.getCapacity() + " FE"), left, top);
+		renderEnergyTooltip(matrixStack, left, top, screen, powerSystem.getStored(), powerSystem.getCapacity());
+	}
+
+	public static void renderEnergyTooltip(MatrixStack matrixStack, int left, int top, Screen screen, IEnergyStorage energyStorage) {
+		renderEnergyTooltip(matrixStack, left, top, screen, energyStorage.getEnergyStored(), energyStorage.getMaxEnergyStored());
 	}
 
 	public static void drawArrow(MatrixStack matrixStack, int left, int top, double ratio) {
@@ -53,6 +62,10 @@ public class GuiHelper {
 		return new Rectangle2d(left, top, OXYGEN_WIDTH, OXYGEN_HEIGHT);
 	}
 
+	public static void drawEnergy(MatrixStack matrixStack, int left, int top, IEnergyStorage energyStorage) {
+		drawEnergy(matrixStack, left, top, (double) energyStorage.getEnergyStored() / (double) energyStorage.getMaxEnergyStored());
+	}
+
 	public static void drawEnergy(MatrixStack matrixStack, int left, int top, double ratio) {
 		ResourceLocation full = new ResourceLocation("boss_tools:textures/energy_full.png");
 		drawVertical(matrixStack, left, top, ENERGY_WIDTH, ENERGY_HEIGHT, full, ratio);
@@ -63,7 +76,7 @@ public class GuiHelper {
 	}
 
 	public static void drawVertical(MatrixStack matrixStack, int left, int top, int width, int height, ResourceLocation resource, double ratio) {
-		int ratioHeight = (int)Math.ceil(height * ratio);
+		int ratioHeight = (int) Math.ceil(height * ratio);
 		int remainHeight = height - ratioHeight;
 		TextureManager textureManager = Minecraft.getInstance().getTextureManager();
 		textureManager.bindTexture(resource);
@@ -71,7 +84,7 @@ public class GuiHelper {
 	}
 
 	public static void drawVerticalReverse(MatrixStack matrixStack, int left, int top, int width, int height, ResourceLocation resource, double ratio) {
-		int ratioHeight = (int)Math.ceil(height * ratio);
+		int ratioHeight = (int) Math.ceil(height * ratio);
 		int remainHeight = height - ratioHeight;
 		TextureManager textureManager = Minecraft.getInstance().getTextureManager();
 		textureManager.bindTexture(resource);
