@@ -44,9 +44,9 @@ import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipeType;
 import net.mrscauthd.boss_tools.gui.BlastFurnaceGUIGui;
-import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackTileEntity;
-import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystem;
-import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystemFuelVanilla;
+import net.mrscauthd.boss_tools.machines.tile.ItemStackToItemStackTileEntity;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystemFuelVanilla;
 
 public class BlastingFurnaceBlock {
 

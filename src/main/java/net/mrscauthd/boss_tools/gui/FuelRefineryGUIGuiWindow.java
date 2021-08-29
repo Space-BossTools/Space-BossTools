@@ -5,7 +5,7 @@ import org.lwjgl.opengl.GL11;
 
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.mrscauthd.boss_tools.machines.FuelRefineryBlock.CustomTileEntity;
-import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystem;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.api.distmarker.Dist;

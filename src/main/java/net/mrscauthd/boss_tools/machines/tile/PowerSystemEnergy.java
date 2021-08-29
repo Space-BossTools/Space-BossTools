@@ -1,7 +1,10 @@
-package net.mrscauthd.boss_tools.machines.machinetileentities;
+package net.mrscauthd.boss_tools.machines.tile;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.mrscauthd.boss_tools.capability.EnergyStorageDelegate;
+import net.mrscauthd.boss_tools.capability.IEnergyStorageDelegateHolder;
+import net.mrscauthd.boss_tools.capability.IEnergyStorageExtends;
 
 public abstract class PowerSystemEnergy extends PowerSystem implements IEnergyStorageDelegateHolder {
 	private final IEnergyStorageExtends energyStorage;

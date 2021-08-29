@@ -2,16 +2,15 @@
 package net.mrscauthd.boss_tools.machines;
 
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.armor.oxygensystem.CapabilityOxygen;
-import net.mrscauthd.boss_tools.armor.oxygensystem.IOxygenStorage;
+import net.mrscauthd.boss_tools.capability.CapabilityOxygen;
+import net.mrscauthd.boss_tools.capability.IOxygenStorage;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipe;
-import net.mrscauthd.boss_tools.machines.machinetileentities.AbstractMachineTileEntity;
-import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystem;
-import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystemCommonEnergy;
 import net.mrscauthd.boss_tools.gui.OxygenLoaderGuiGui;
-
+import net.mrscauthd.boss_tools.machines.tile.AbstractMachineTileEntity;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystemCommonEnergy;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.common.ToolType;
@@ -363,6 +362,11 @@ public class OxygenLoaderBlock {
 				this.getTileData().putInt(KEY_MAXACTIVATINGTIME, maxActivatingTime);
 				this.markDirty();
 			}
+		}
+		
+		@Override
+		protected BooleanProperty getBlockActivatedProperty() {
+			return CustomBlock.ACTIAVATED;
 		}
 
 	}

@@ -6,7 +6,7 @@ import org.lwjgl.opengl.GL11;
 
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.boss_tools.machines.OxygenLoaderBlock.CustomTileEntity;
-import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystem;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.World;

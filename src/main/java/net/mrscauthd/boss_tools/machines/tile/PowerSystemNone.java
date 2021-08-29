@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.machines.machinetileentities;
+package net.mrscauthd.boss_tools.machines.tile;
 
 public class PowerSystemNone extends PowerSystem {
 	public PowerSystemNone(AbstractMachineTileEntity tileEntity) {

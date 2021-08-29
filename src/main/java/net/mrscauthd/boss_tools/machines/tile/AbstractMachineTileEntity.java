@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.machines.machinetileentities;
+package net.mrscauthd.boss_tools.machines.tile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,6 +35,8 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
+import net.mrscauthd.boss_tools.capability.EnergyStorageBasic;
+import net.mrscauthd.boss_tools.capability.IEnergyStorageHolder;
 
 public abstract class AbstractMachineTileEntity extends LockableLootTileEntity implements ISidedInventory, ITickableTileEntity, IEnergyStorageHolder {
 

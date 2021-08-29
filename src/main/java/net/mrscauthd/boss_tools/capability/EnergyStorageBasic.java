@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.machines.machinetileentities;
+package net.mrscauthd.boss_tools.capability;
 
 import java.util.Optional;
 

@@ -55,9 +55,9 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.fluid.FuelFluid;
 import net.mrscauthd.boss_tools.gui.FuelRefineryGUIGui;
-import net.mrscauthd.boss_tools.machines.machinetileentities.AbstractMachineTileEntity;
-import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystem;
-import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystemCommonEnergy;
+import net.mrscauthd.boss_tools.machines.tile.AbstractMachineTileEntity;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystemCommonEnergy;
 
 public class FuelRefineryBlock {
 	public static final int BUCKET_SIZE = 1000;

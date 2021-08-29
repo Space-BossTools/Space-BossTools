@@ -27,16 +27,16 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.armor.oxygensystem.CapabilityOxygen;
-import net.mrscauthd.boss_tools.armor.oxygensystem.IOxygenStorage;
+import net.mrscauthd.boss_tools.capability.CapabilityOxygen;
+import net.mrscauthd.boss_tools.capability.IOxygenStorage;
 import net.mrscauthd.boss_tools.crafting.BlastingRecipe;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.CompressingRecipe;
 import net.mrscauthd.boss_tools.crafting.GeneratingRecipe;
 import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipe;
 import net.mrscauthd.boss_tools.machines.WorkbenchBlock;
+import net.mrscauthd.boss_tools.machines.tile.ItemStackToItemStackTileEntity;
 import net.mrscauthd.boss_tools.machines.CoalGeneratorBlock;
-import net.mrscauthd.boss_tools.machines.machinetileentities.ItemStackToItemStackTileEntity;
 import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock;
 import net.mrscauthd.boss_tools.machines.OxygenLoaderBlock;
 import net.mrscauthd.boss_tools.gui.*;
@@ -393,10 +393,12 @@ public class JeiPlugin implements IModPlugin {
         	IRecipeCategory.super.draw(recipe, matrixStack, mouseX, mouseY);
         	
         	int activaingTime = 200;
-        	
-			double ratio = (double)this.animation / activaingTime;
-        	this.activating_empty.draw(matrixStack, 43, 32);
-        	this.activating_full.draw(matrixStack, 43, 32, (int)(22 * ratio), 0, 0, 0);
+
+        	double ratio = (double)this.animation / activaingTime;
+        	int xOffset = 43;
+        	int yOffset = 32;
+        	this.activating_empty.draw(matrixStack, xOffset, yOffset);
+        	this.activating_full.draw(matrixStack, xOffset, yOffset, (int)(this.activating_full.getHeight() * ratio), 0, 0, 0);
         	this.animation++;
         	
         	if (this.animation > activaingTime) {

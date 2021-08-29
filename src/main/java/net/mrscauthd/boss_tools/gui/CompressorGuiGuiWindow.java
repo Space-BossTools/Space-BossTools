@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.boss_tools.machines.CompressorBlock.CustomTileEntity;
-import net.mrscauthd.boss_tools.machines.machinetileentities.PowerSystem;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
 
 @OnlyIn(Dist.CLIENT)
 public class CompressorGuiGuiWindow extends ContainerScreen<CompressorGuiGui.GuiContainerMod> {
