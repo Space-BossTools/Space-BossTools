@@ -11,4 +11,8 @@ public interface IOxygenStorage {
 	void setOxygenStored(int oxygen);
 
 	int getMaxOxygenStored();
+
+	public default double getOxygenStoredRatio() {
+		return (double) this.getOxygenStored() / (double) this.getMaxOxygenStored();
+	}
 }
