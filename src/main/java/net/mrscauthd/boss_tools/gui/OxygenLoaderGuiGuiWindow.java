@@ -37,6 +37,11 @@ public class OxygenLoaderGuiGuiWindow extends ContainerScreen<OxygenLoaderGuiGui
 		this.xSize = 176;
 		this.ySize = 167;
 	}
+	
+	public CustomTileEntity getTileEntity() {
+		return (CustomTileEntity) this.world.getTileEntity(new BlockPos(this.x, this.y, this.z));
+	}
+	
 	private static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/oxygen_loader_gui.png");
 	@Override
 	public void render(MatrixStack ms, int mouseX, int mouseY, float partialTicks) {
@@ -45,9 +50,7 @@ public class OxygenLoaderGuiGuiWindow extends ContainerScreen<OxygenLoaderGuiGui
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 		// tooltip Energy
 		if (mouseX > this.guiLeft + 143 && mouseX < this.guiLeft + 168 && mouseY > this.guiTop + 20 && mouseY < this.guiTop + 69) {
-			CustomTileEntity tileEntity = (CustomTileEntity) this.world.getTileEntity(new BlockPos(this.x, this.y, this.z));
-			PowerSystem powerSystem = tileEntity.getPowerSystem();
-			this.renderTooltip(ms, new StringTextComponent(powerSystem.getStored() + " FE / " + powerSystem.getCapacity() + " FE"), mouseX, mouseY);
+			GuiHelper.renderEnergyTooltip(ms, mouseX, mouseY, this, this.getTileEntity().getPowerSystem());
 		}
 	}
 

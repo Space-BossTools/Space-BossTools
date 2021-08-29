@@ -22,7 +22,6 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IRecipeTransferRegistration;
-import mezz.jei.config.Constants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Rectangle2d;
@@ -92,7 +91,7 @@ public class JeiPlugin implements IModPlugin {
 //    	registration.addRecipeClickArea(FuelRefineryGUIGuiWindow.class, 77, 61, 13, 13, FuelMakerJeiCategory.Uid, FuelMaker2JeiCategory.Uid);
         registration.addRecipeClickArea(BlastFurnaceGUIGuiWindow.class, BlastFurnaceGUIGuiWindow.ARROW_LEFT, BlastFurnaceGUIGuiWindow.AROOW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, BlastingFurnaceJeiCategory.Uid, VanillaRecipeCategoryUid.FUEL);
         registration.addRecipeClickArea(CompressorGuiGuiWindow.class, CompressorGuiGuiWindow.ARROW_LEFT, CompressorGuiGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, CompressorJeiCategory.Uid);
-        registration.addRecipeClickArea(OxygenLoaderGuiGuiWindow.class, 76, 42, 14, 12, OxygenMakingJeiCategory.Uid, OxygenLoadingJeiCategory.Uid);
+        registration.addGuiContainerHandler(OxygenLoaderGuiGuiWindow.class, new OxygenLoaderGuiContainerHandler());
         registration.addRecipeClickArea(OxygenBulletGeneratorGUIGuiWindow.class, 76, 30, 14, 12, OxygenGeneratorJeiCategory.Uid);
     }
 
@@ -348,7 +347,7 @@ public class JeiPlugin implements IModPlugin {
     }
 
     public static class OxygenLoadingJeiCategory implements IRecipeCategory<ItemStack> {
-        private static ResourceLocation Uid = new ResourceLocation("boss_tools", "oxygenloadingcategory");
+    	public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "oxygenloadingcategory");
         // ...
         private final String title;
         private final IDrawable background;
@@ -431,7 +430,7 @@ public class JeiPlugin implements IModPlugin {
     }
     
     public static class OxygenMakingJeiCategory implements IRecipeCategory<OxygenMakingRecipe> {
-        private static ResourceLocation Uid = new ResourceLocation("boss_tools", "oxygenmakingcategory");
+        public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "oxygenmakingcategory");
         // ...
         private final String title;
         private final IDrawable background;
