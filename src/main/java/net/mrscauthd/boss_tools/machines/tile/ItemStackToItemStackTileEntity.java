@@ -190,8 +190,12 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 		}
 	}
 
+	public double getTimerRatio() {
+		return (double)this.getTimer() / (double)this.getMaxTimer();
+	}
+	
 	public double getTimerPercentage() {
-		return this.getTimer() / (this.getMaxTimer() / 100.0D);
+		return this.getTimerRatio() / 100.0D;
 	}
 
 }

@@ -47,6 +47,8 @@ import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemCommonEnergy;
 
 public class CompressorBlock {
+	public static final int ENERGY_PER_TICK = 1;
+	
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 		public static final BooleanProperty ACTIAVATED = BlockStateProperties.LIT;
@@ -201,7 +203,7 @@ public class CompressorBlock {
 			return new PowerSystemCommonEnergy(this) {
 				@Override
 				public int getBasePowerForOperation() {
-					return 1;
+					return ENERGY_PER_TICK;
 				}
 			};
 		}
