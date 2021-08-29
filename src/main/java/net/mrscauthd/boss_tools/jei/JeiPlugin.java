@@ -87,7 +87,7 @@ public class JeiPlugin implements IModPlugin {
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
         registration.addRecipeClickArea(NasaWorkbenchGuiWindow.class, 108, 49, 14, 14, WorkbenchJeiCategory.Uid);
-        registration.addRecipeClickArea(GeneratorGUIGuiWindow.class, 78, 52, 13, 13, GeneratorJeiCategory.Uid);
+        registration.addGuiContainerHandler(GeneratorGUIGuiWindow.class, new CoalGeneratorGuiContainerHandler());
 //    	registration.addRecipeClickArea(FuelRefineryGUIGuiWindow.class, 77, 61, 13, 13, FuelMakerJeiCategory.Uid, FuelMaker2JeiCategory.Uid);
         registration.addRecipeClickArea(BlastFurnaceGUIGuiWindow.class, BlastFurnaceGUIGuiWindow.ARROW_LEFT, BlastFurnaceGUIGuiWindow.AROOW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, BlastingFurnaceJeiCategory.Uid, VanillaRecipeCategoryUid.FUEL);
         registration.addRecipeClickArea(CompressorGuiGuiWindow.class, CompressorGuiGuiWindow.ARROW_LEFT, CompressorGuiGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, CompressorJeiCategory.Uid);
@@ -348,21 +348,21 @@ public class JeiPlugin implements IModPlugin {
 
     public static class OxygenLoadingJeiCategory implements IRecipeCategory<ItemStack> {
     	public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "oxygenloadingcategory");
+        public static final int OXYGEN_LEFT = 44;
+        public static final int OXYGEN_TOP = 32;
+        public static final int ENERGY_LEFT = 103;
+        public static final int ENERGY_TOP = 15;
         // ...
         private final String title;
         private final IDrawable background;
-        private final IDrawableStatic activating_empty;
-        private final IDrawableStatic activating_full;
 
         //Animation nummber
         int animation = 1;
         
         public OxygenLoadingJeiCategory(IGuiHelper guiHelper) {
             this.title = "Oxygen Loading";
-            ResourceLocation path = new ResourceLocation("boss_tools", "textures/oxygen_loader_jei.png");
+            ResourceLocation path = new ResourceLocation("boss_tools", "textures/oxygen_loading_jei.png");
 			this.background = guiHelper.createDrawable(path, 0, 0, 144, 84);
-            this.activating_empty = (IDrawableStatic) guiHelper.createDrawable(path, 144, 0, 15, 14);
-            this.activating_full = (IDrawableStatic) guiHelper.createDrawable(path, 144, 14, 15, 14);
         }
 
         @Override
@@ -394,23 +394,41 @@ public class JeiPlugin implements IModPlugin {
         public void setIngredients(ItemStack recipe, IIngredients iIngredients) {
             iIngredients.setInput(VanillaTypes.ITEM, recipe);
         }
+        
+        @Override
+        public List<ITextComponent> getTooltipStrings(ItemStack recipe, double mouseX, double mouseY) {
+            if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
+                return Collections.singletonList(new TranslationTextComponent("Using: " + OxygenLoaderBlock.ENERGY_PER_TICK * CompressorBlock.ENERGY_PER_TICK + " FE/t"));
+            }
+            else if (this.getOxygenBounds().contains((int) mouseX, (int) mouseY)) {
+                return Collections.singletonList(new TranslationTextComponent("Using: " + OxygenLoaderBlock.OXYGEN_PER_TICK + " Oxygen/t"));
+            }
+            
+            return Collections.emptyList();
+        }
+
+        public Rectangle2d getOxygenBounds() {
+        	return GuiHelper.getEnergyBounds(OXYGEN_LEFT, OXYGEN_TOP);
+        }
+
+        public Rectangle2d getEnergyBounds() {
+        	return GuiHelper.getEnergyBounds(ENERGY_LEFT, ENERGY_TOP);
+        }
 
         @Override
         public void draw(ItemStack recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
         	IRecipeCategory.super.draw(recipe, matrixStack, mouseX, mouseY);
         	
         	int activaingTime = 200;
-
-        	double ratio = (double)this.animation / activaingTime;
-        	int xOffset = 43;
-        	int yOffset = 32;
-        	this.activating_empty.draw(matrixStack, xOffset, yOffset);
-        	this.activating_full.draw(matrixStack, xOffset, yOffset, (int)(this.activating_full.getHeight() * ratio), 0, 0, 0);
+			double ratio = 1.0D - ((double)this.animation / activaingTime);
+			GuiHelper.drawOxygen(matrixStack, OXYGEN_LEFT, OXYGEN_TOP, ratio);
         	this.animation++;
         	
         	if (this.animation > activaingTime) {
         		this.animation = 0;
         	}
+
+        	GuiHelper.drawEnergy(matrixStack, ENERGY_LEFT, ENERGY_TOP, ratio);
         	
         	IOxygenStorage oxygenStorage = recipe.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
         	
@@ -431,21 +449,19 @@ public class JeiPlugin implements IModPlugin {
     
     public static class OxygenMakingJeiCategory implements IRecipeCategory<OxygenMakingRecipe> {
         public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "oxygenmakingcategory");
+        public static final int OXYGEN_LEFT = 44;
+        public static final int OXYGEN_TOP = 32;
         // ...
         private final String title;
         private final IDrawable background;
-        private final IDrawableStatic activating_empty;
-        private final IDrawableStatic activating_full;
 
         //Animation nummber
         int animation = 1;
         
         public OxygenMakingJeiCategory(IGuiHelper guiHelper) {
             this.title = "Oxygen Making";
-            ResourceLocation path = new ResourceLocation("boss_tools", "textures/oxygen_loader_jei.png");
+            ResourceLocation path = new ResourceLocation("boss_tools", "textures/oxygen_making_jei.png");
 			this.background = guiHelper.createDrawable(path, 0, 0, 144, 84);
-            this.activating_empty = (IDrawableStatic) guiHelper.createDrawable(path, 144, 0, 15, 14);
-            this.activating_full = (IDrawableStatic) guiHelper.createDrawable(path, 144, 14, 15, 14);
         }
 
         @Override
@@ -484,11 +500,9 @@ public class JeiPlugin implements IModPlugin {
         	
         	FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
         	int activaingTime = recipe.getActivaingTime();
-			fontRenderer.drawString(matrixStack, "Oxygen : " + (activaingTime * OxygenLoaderBlock.OXYGEN_PER_TICK) , 60, 35, 0x555555);
+			fontRenderer.drawString(matrixStack, "Oxygen: " + (activaingTime * OxygenLoaderBlock.OXYGEN_PER_TICK) , 60, 35, 0x555555);
         	
-			double ratio = (double)this.animation / activaingTime;
-        	this.activating_empty.draw(matrixStack, 43, 32);
-        	this.activating_full.draw(matrixStack, 43, 32, (int)(22 * ratio), 0, 0, 0);
+			GuiHelper.drawOxygen(matrixStack, OXYGEN_LEFT, OXYGEN_TOP, (double)this.animation / activaingTime);
         	this.animation++;
         	
         	if (this.animation > activaingTime) {
@@ -572,69 +586,29 @@ public class JeiPlugin implements IModPlugin {
     }
     //Genrator
     public static class GeneratorJeiCategory implements IRecipeCategory<GeneratingRecipe> {
-        private static ResourceLocation Uid = new ResourceLocation("boss_tools", "generatorcategory");// muss klein geschrieben sein
+        public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "generatorcategory");// muss klein geschrieben sein
+        public static final int FIRE_LEFT = 45;
+        public static final int FIRE_TOP = 45;
+        public static final int ENERGY_LEFT = 103;
+        public static final int ENERGY_TOP = 15;
         
         // ...
         private final String title;
         private final IDrawable background;
-        private final IDrawable textureanimation1;
-        private final IDrawable textureanimation2;
-        private final IDrawable textureanimation3;
-        private final IDrawable textureanimation4;
-        private final IDrawable textureanimation5;
-        private final IDrawable textureanimation6;
-        private final IDrawable textureanimation7;
-        private final IDrawable textureanimation8;
-        private final IDrawable textureanimation9;
-        private final IDrawable textureanimation10;
-        private final IDrawable textureanimation11;
-        private final IDrawable textureanimation12;
-        private final IDrawable textureanimation13;
-        private final IDrawable textureanimation14;
-        private final IDrawable textureanimation15;
-        private final IDrawable textureanimation16;
-        private final IDrawable textureanimation17;
-        private final IDrawable textureanimation18;
-        private final IDrawable textureanimation19;
-        private final IDrawable textureanimation20;
-        private final IDrawable textureanimation21;
-        private final IDrawable textureanimation22;
-        private final IDrawable textureanimation23;
+        private final LoadingCache<Integer, IDrawableAnimated> fires;
 
         //Animation nummber
         int counter = 0;
+
         public GeneratorJeiCategory(IGuiHelper guiHelper) {
             this.title = "Coal Generator";
-            this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen0.png"), 0, 0, 144, 84);
-            //animation
-            this.textureanimation1 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen1.png"), 0, 0, 144, 84);
-            this.textureanimation2 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen2.png"), 0, 0, 144, 84);
-            this.textureanimation3 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen3.png"), 0, 0, 144, 84);
-            this.textureanimation4 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen4.png"), 0, 0, 144, 84);
-            this.textureanimation5 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen5.png"), 0, 0, 144, 84);
-            this.textureanimation6 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen6.png"), 0, 0, 144, 84);
-            this.textureanimation7 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen7.png"), 0, 0, 144, 84);
-            this.textureanimation8 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen8.png"), 0, 0, 144, 84);
-            this.textureanimation9 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen9.png"), 0, 0, 144, 84);
-            this.textureanimation10 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen10.png"), 0, 0, 144, 84);
-            this.textureanimation11 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen11.png"), 0, 0, 144, 84);
-            this.textureanimation12 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen12.png"), 0, 0, 144, 84);
-            this.textureanimation13 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen13.png"), 0, 0, 144, 84);
-            this.textureanimation14 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen14.png"), 0, 0, 144, 84);
-            this.textureanimation15 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen15.png"), 0, 0, 144, 84);
-            this.textureanimation16 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen16.png"), 0, 0, 144, 84);
-            this.textureanimation17 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen17.png"), 0, 0, 144, 84);
-            this.textureanimation18 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen18.png"), 0, 0, 144, 84);
-            this.textureanimation19 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen19.png"), 0, 0, 144, 84);
-            this.textureanimation20 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen20.png"), 0, 0, 144, 84);
-            this.textureanimation21 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen21.png"), 0, 0, 144, 84);
-            this.textureanimation22 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen22.png"), 0, 0, 144, 84);
-            this.textureanimation23 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/coal_generator_jei/coalgen23.png"), 0, 0, 144, 84);
+            this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/generator_gui_jei.png"), 0, 0, 144, 84);
+            this.fires = createFires(guiHelper);
         }
         @Override
         public List<ITextComponent> getTooltipStrings(GeneratingRecipe recipe, double mouseX, double mouseY) {
-            if (mouseX > 106 && mouseX < 131 && mouseY > 15 && mouseY < 64) {
-                return Collections.singletonList(new TranslationTextComponent(recipe.getBurnTime() * CoalGeneratorBlock.ENERGY_PER_TICK +" FE"));
+            if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
+                return Collections.singletonList(new TranslationTextComponent(recipe.getBurnTime() * CoalGeneratorBlock.ENERGY_PER_TICK + " FE"));
             }
             return Collections.emptyList();
         }
@@ -651,92 +625,24 @@ public class JeiPlugin implements IModPlugin {
 
         @Override
         public String getTitle() {
-            return title;
+            return this.title;
+        }
+        
+        public Rectangle2d getEnergyBounds() {
+        	return GuiHelper.getEnergyBounds(ENERGY_LEFT, ENERGY_TOP);
         }
 
         @Override
         public void draw(GeneratingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
         	IRecipeCategory.super.draw(recipe, matrixStack, mouseX, mouseY);
         	
-        	this.getImage(recipe.getBurnTime() * CoalGeneratorBlock.ENERGY_PER_TICK).draw(matrixStack);
+        	this.fires.getUnchecked(recipe.getBurnTime()).draw(matrixStack, FIRE_LEFT, FIRE_TOP);
+        	drawEnergyUsing(matrixStack, ENERGY_LEFT, ENERGY_TOP, recipe.getBurnTime() * CoalGeneratorBlock.ENERGY_PER_TICK);
         }
 
         @Override
         public IDrawable getBackground() {
         	return this.background;
-        }
-        
-        public IDrawable getImage(int counter) {
-            if (counter >= 360 && counter <= 720) {
-                return textureanimation1;
-            }
-            if (counter >= 720 && counter <= 1080) {
-                return textureanimation2;
-            }
-            if (counter >= 1080 && counter <= 1440) {
-                return textureanimation3;
-            }
-            if (counter >= 1440 && counter <= 1800) {
-                return textureanimation4;
-            }
-            if (counter >= 1800 && counter <= 2160) {
-                return textureanimation5;
-            }
-            if (counter >= 2160 && counter <= 2520) {
-                return textureanimation6;
-            }
-            if (counter >= 2520 && counter <= 2880) {
-                return textureanimation7;
-            }
-            if (counter >= 2880 && counter <= 3240) {
-                return textureanimation8;
-            }
-            if (counter >= 3240 && counter <= 3600) {
-                return textureanimation9;
-            }
-            if (counter >= 3600 && counter <= 3960) {
-                return textureanimation10;
-            }
-            if (counter >= 3960 && counter <= 4320) {
-                return textureanimation11;
-            }
-            if (counter >= 4320 && counter <= 4680) {
-                return textureanimation12;
-            }
-            if (counter >= 4680 && counter <= 5040) {
-                return textureanimation13;
-            }
-            if (counter >= 5040 && counter <= 5400) {
-                return textureanimation14;
-            }
-            if (counter >= 5040 && counter <= 5760) {
-                return textureanimation15;
-            }
-            if (counter >= 5760 && counter <= 6120) {
-                return textureanimation16;
-            }
-            if (counter >= 6120 && counter <= 6480) {
-                return textureanimation17;
-            }
-            if (counter >= 6480 && counter <= 6840) {
-                return textureanimation18;
-            }
-            if (counter >= 6840 && counter <= 7200) {
-                return textureanimation19;
-            }
-            if (counter >= 7200 && counter <= 7560) {
-                return textureanimation20;
-            }
-            if (counter >= 7560 && counter <= 8000) {
-                return textureanimation21;
-            }
-            if (counter >= 8000 && counter <= 8560) {
-                return textureanimation22;
-            }
-            if (counter >= 8560) {
-                return textureanimation23;
-            }
-            return background;
         }
 
         @Override
@@ -891,6 +797,16 @@ public class JeiPlugin implements IModPlugin {
     public static IDrawableAnimated createFireAnimated(IGuiHelper guiHelper, IDrawableStatic fireStatic, int ticks)
     {
     	return guiHelper.createAnimatedDrawable(fireStatic, ticks, IDrawableAnimated.StartDirection.TOP, true);
+    }
+
+    public static LoadingCache<Integer, IDrawableAnimated> createFires(IGuiHelper guiHelper)
+    {
+    	return CacheBuilder.newBuilder().build(new CacheLoader<Integer, IDrawableAnimated>() {
+			@Override
+			public IDrawableAnimated load(Integer cookTime) {
+				return guiHelper.drawableBuilder(Constants.RECIPE_GUI_VANILLA, 82, 114, 14, 14).buildAnimated(cookTime, IDrawableAnimated.StartDirection.TOP, true);
+			}
+		});
     }
     
     public static LoadingCache<Integer, IDrawableAnimated> createArrows(IGuiHelper guiHelper)
@@ -1168,7 +1084,7 @@ public class JeiPlugin implements IModPlugin {
         @Override
         public List<ITextComponent> getTooltipStrings(CompressingRecipe recipe, double mouseX, double mouseY) {
             if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
-                return Collections.singletonList(new TranslationTextComponent("Using " + recipe.getCookTime() * CompressorBlock.ENERGY_PER_TICK + " FE"));
+                return Collections.singletonList(new TranslationTextComponent("Using: " + recipe.getCookTime() * CompressorBlock.ENERGY_PER_TICK + " FE"));
             }
             
             return Collections.emptyList();

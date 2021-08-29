@@ -11,6 +11,8 @@ import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 public abstract class PowerSystemFuelAbstract extends PowerSystem {
+	public static final int FUEL_PER_TICK = 1;
+	
 	private final Lazy<IItemHandlerModifiable> itemHandler;
 	private final int slot;
 
@@ -65,7 +67,7 @@ public abstract class PowerSystemFuelAbstract extends PowerSystem {
 
 	@Override
 	public int getBasePowerPerTick() {
-		return 1;
+		return FUEL_PER_TICK;
 	}
 
 	@Override

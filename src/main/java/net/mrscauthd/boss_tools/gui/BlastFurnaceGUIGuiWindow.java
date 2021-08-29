@@ -50,7 +50,7 @@ public class BlastFurnaceGUIGuiWindow extends ContainerScreen<BlastFurnaceGUIGui
 		
 		if (this.getFireBounds().contains(mouseX, mouseY)) {
 			CustomTileEntity tileEntity = (CustomTileEntity) this.world.getTileEntity(new BlockPos(this.x, this.y, this.z));
-			this.renderTooltip(ms, new StringTextComponent("Fuel : " + tileEntity.getPowerSystem().getStored()), mouseX, mouseY);
+			this.renderTooltip(ms, new StringTextComponent("Fuel: " + tileEntity.getPowerSystem().getStored()), mouseX, mouseY);
 		}
 		
 	}

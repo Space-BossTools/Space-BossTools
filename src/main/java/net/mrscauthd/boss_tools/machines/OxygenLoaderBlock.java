@@ -58,6 +58,7 @@ public class OxygenLoaderBlock {
 	public static final int SLOT_ITEM = 0;
 	public static final int SLOT_ACTIVATING = 1;
 	
+	public static final int ENERGY_PER_TICK = 1;
 	public static final int OXYGEN_PER_TICK = 8;
 
 	public static final String KEY_ACTIVATINGTIME = "activatingTime";
@@ -275,7 +276,7 @@ public class OxygenLoaderBlock {
 			return new PowerSystemCommonEnergy(this) {
 				@Override
 				public int getBasePowerForOperation() {
-					return 1;
+					return ENERGY_PER_TICK;
 				}
 			};
 		}
