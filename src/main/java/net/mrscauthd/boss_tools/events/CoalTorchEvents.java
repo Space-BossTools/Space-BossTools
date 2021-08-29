@@ -35,7 +35,7 @@ public class CoalTorchEvents {
         IWorld world = event.getWorld();
 
         //Check Dim
-        if (Events.DimCheck((World) world) == false
+        if (Methodes.DimCheck((World) world) == false
                 && entity.getHeldItemMainhand().getItem() == Items.FLINT_AND_STEEL || entity.getHeldItemOffhand().getItem() == Items.FLINT_AND_STEEL
                 && entity.isSneaking() == false) {
 
@@ -68,7 +68,7 @@ public class CoalTorchEvents {
         double y = event.getPos().getY();
         double z = event.getPos().getZ();
         BlockPos pos = new BlockPos(x,y,z);
-        if (Events.DimCheck((World) world) == true) {
+        if (Methodes.DimCheck((World) world) == true) {
             //Remove Fire
             if (world.getBlockState(pos).getBlock() == Blocks.FIRE.getDefaultState().getBlock()) {
                 world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);

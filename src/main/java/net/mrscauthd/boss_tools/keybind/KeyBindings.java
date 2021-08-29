@@ -13,6 +13,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.boss_tools.entity.*;
 import net.mrscauthd.boss_tools.events.ClientEventBusSubscriber;
 import net.mrscauthd.boss_tools.events.Events;
+import net.mrscauthd.boss_tools.events.Methodes;
 import org.lwjgl.glfw.GLFW;
 
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -142,7 +143,7 @@ public class KeyBindings {
 
 		//Type 1
 		if (type == 1) {
-			if (Events.RocketCheckOr(entity.getRidingEntity())) {
+			if (Methodes.RocketCheckOr(entity.getRidingEntity())) {
 				if (entity.getRidingEntity().getPersistentData().getBoolean("Powup_trigger") == false) {
 					if (entity.getRidingEntity().getPersistentData().getDouble("fuel") == 400) {
 						if (world instanceof World && !world.isRemote()) {

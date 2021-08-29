@@ -7,14 +7,8 @@ import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.settings.PointOfView;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
-import net.minecraft.network.play.server.SChangeGameStatePacket;
-import net.minecraft.network.play.server.SPlayEntityEffectPacket;
-import net.minecraft.network.play.server.SPlayerAbilitiesPacket;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.potion.EffectInstance;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.*;
 import net.minecraft.util.math.EntityRayTraceResult;
@@ -23,7 +17,6 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
@@ -34,7 +27,6 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.*;
 import net.mrscauthd.boss_tools.item.RoverItemItem;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
@@ -50,7 +42,7 @@ public class Events {
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
-            Entity entity = event.player;
+            PlayerEntity entity = event.player;
             IWorld world = entity.world;
             double x = entity.getPosX();
             double y = entity.getPosY();
@@ -58,109 +50,19 @@ public class Events {
             //Venus Rain
             {
                 if (((World) world).getDimensionKey() == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))) {
-                    if (((PlayerEntity) entity).abilities.isCreativeMode == false && entity.isSpectator() == false) {
+                    if (entity.abilities.isCreativeMode == false && entity.isSpectator() == false) {
                         if (world.getWorldInfo().isRaining() == (true) && world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(x), (int) Math.floor(z)) <= Math.floor(y) + 1) {
-                            entity.attackEntityFrom(new DamageSource("venus.acid").setDamageBypassesArmor(), (float) 1);
+                            entity.attackEntityFrom(new DamageSource("venus.acid").setDamageBypassesArmor(), 1);
                         }
                     }
                 }
             }
+
             //Player orbit Fall Teleport
             {
-                if (entity.getPosY() <= 1 && !(entity.getRidingEntity() instanceof LanderEntity.CustomEntity)) {
-                    RegistryKey<World> world2 = ((World) world).getDimensionKey();
-                    //Overworld
-                    if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:overworld_orbit"))) {
-                        {
-                            Entity _ent = entity;
-                            if (!_ent.world.isRemote && _ent instanceof ServerPlayerEntity) {
-                                RegistryKey<World> destinationType = World.OVERWORLD;
-                                ServerWorld nextWorld = _ent.getServer().getWorld(destinationType);
-                                if (nextWorld != null) {
-                                    ((ServerPlayerEntity) _ent).connection.sendPacket(new SChangeGameStatePacket(SChangeGameStatePacket.field_241768_e_, 0));
-                                    ((ServerPlayerEntity) _ent).teleport(nextWorld, entity.getPosX(), 450, entity.getPosZ(), _ent.rotationYaw, _ent.rotationPitch);
-                                    ((ServerPlayerEntity) _ent).connection.sendPacket(new SPlayerAbilitiesPacket(((ServerPlayerEntity) _ent).abilities));
-                                    for (EffectInstance effectinstance : ((ServerPlayerEntity) _ent).getActivePotionEffects()) {
-                                        ((ServerPlayerEntity) _ent).connection.sendPacket(new SPlayEntityEffectPacket(_ent.getEntityId(), effectinstance));
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    //Moon
-                    if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon_orbit"))) {
-                        {
-                            Entity _ent = entity;
-                            if (!_ent.world.isRemote && _ent instanceof ServerPlayerEntity) {
-                                RegistryKey<World> destinationType = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon"));
-                                ServerWorld nextWorld = _ent.getServer().getWorld(destinationType);
-                                if (nextWorld != null) {
-                                    ((ServerPlayerEntity) _ent).connection.sendPacket(new SChangeGameStatePacket(SChangeGameStatePacket.field_241768_e_, 0));
-                                    ((ServerPlayerEntity) _ent).teleport(nextWorld, entity.getPosX(), 450, entity.getPosZ(), _ent.rotationYaw, _ent.rotationPitch);
-                                    ((ServerPlayerEntity) _ent).connection.sendPacket(new SPlayerAbilitiesPacket(((ServerPlayerEntity) _ent).abilities));
-                                    for (EffectInstance effectinstance : ((ServerPlayerEntity) _ent).getActivePotionEffects()) {
-                                        ((ServerPlayerEntity) _ent).connection.sendPacket(new SPlayEntityEffectPacket(_ent.getEntityId(), effectinstance));
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    //Mars
-                    if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars_orbit"))) {
-                        {
-                            Entity _ent = entity;
-                            if (!_ent.world.isRemote && _ent instanceof ServerPlayerEntity) {
-                                RegistryKey<World> destinationType = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars"));
-                                ServerWorld nextWorld = _ent.getServer().getWorld(destinationType);
-                                if (nextWorld != null) {
-                                    ((ServerPlayerEntity) _ent).connection.sendPacket(new SChangeGameStatePacket(SChangeGameStatePacket.field_241768_e_, 0));
-                                    ((ServerPlayerEntity) _ent).teleport(nextWorld, entity.getPosX(), 450, entity.getPosZ(), _ent.rotationYaw, _ent.rotationPitch);
-                                    ((ServerPlayerEntity) _ent).connection.sendPacket(new SPlayerAbilitiesPacket(((ServerPlayerEntity) _ent).abilities));
-                                    for (EffectInstance effectinstance : ((ServerPlayerEntity) _ent).getActivePotionEffects()) {
-                                        ((ServerPlayerEntity) _ent).connection.sendPacket(new SPlayEntityEffectPacket(_ent.getEntityId(), effectinstance));
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    //Mercury
-                    if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury_orbit"))) {
-                        {
-                            Entity _ent = entity;
-                            if (!_ent.world.isRemote && _ent instanceof ServerPlayerEntity) {
-                                RegistryKey<World> destinationType = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury"));
-                                ServerWorld nextWorld = _ent.getServer().getWorld(destinationType);
-                                if (nextWorld != null) {
-                                    ((ServerPlayerEntity) _ent).connection.sendPacket(new SChangeGameStatePacket(SChangeGameStatePacket.field_241768_e_, 0));
-                                    ((ServerPlayerEntity) _ent).teleport(nextWorld, entity.getPosX(), 450, entity.getPosZ(), _ent.rotationYaw, _ent.rotationPitch);
-                                    ((ServerPlayerEntity) _ent).connection.sendPacket(new SPlayerAbilitiesPacket(((ServerPlayerEntity) _ent).abilities));
-                                    for (EffectInstance effectinstance : ((ServerPlayerEntity) _ent).getActivePotionEffects()) {
-                                        ((ServerPlayerEntity) _ent).connection.sendPacket(new SPlayEntityEffectPacket(_ent.getEntityId(), effectinstance));
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    //Venus
-                    if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus_orbit"))) {
-                        {
-                            Entity _ent = entity;
-                            if (!_ent.world.isRemote && _ent instanceof ServerPlayerEntity) {
-                                RegistryKey<World> destinationType = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"));
-                                ServerWorld nextWorld = _ent.getServer().getWorld(destinationType);
-                                if (nextWorld != null) {
-                                    ((ServerPlayerEntity) _ent).connection.sendPacket(new SChangeGameStatePacket(SChangeGameStatePacket.field_241768_e_, 0));
-                                    ((ServerPlayerEntity) _ent).teleport(nextWorld, entity.getPosX(), 450, entity.getPosZ(), _ent.rotationYaw, _ent.rotationPitch);
-                                    ((ServerPlayerEntity) _ent).connection.sendPacket(new SPlayerAbilitiesPacket(((ServerPlayerEntity) _ent).abilities));
-                                    for (EffectInstance effectinstance : ((ServerPlayerEntity) _ent).getActivePotionEffects()) {
-                                        ((ServerPlayerEntity) _ent).connection.sendPacket(new SPlayEntityEffectPacket(_ent.getEntityId(), effectinstance));
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                Methodes.PlayerFallToPlanet(entity, (World) world);
             }
+
             //Lander Warning Overlay Tick
                 if (check == false) {
                     counter = counter - 0.025;
@@ -188,7 +90,7 @@ public class Events {
         double z = entity.getPosZ();
         if (Config.EntityOxygenSystem == true) {
             if (EntityTypeTags.getCollection().getTagByID(new ResourceLocation(("forge:entities/space").toLowerCase(java.util.Locale.ENGLISH))).contains(entity.getType())) {
-                if (DimCheck(world)) {
+                if (Methodes.DimCheck(world)) {
                     entity.getPersistentData().putDouble("tick", entity.getPersistentData().getDouble("tick") + 1);
                     if (entity.getPersistentData().getDouble("tick") >= 15) {
                         world.addParticle(ParticleTypes.SMOKE, x, (y + 1), z, 0, 0, 0);
@@ -231,7 +133,7 @@ public class Events {
         PlayerModel model = event.getModelPlayer();
         //Player Rocket Sit Rotations
         {
-            if (RocketCheckOr(player.getRidingEntity()) == true) {
+            if (Methodes.RocketCheckOr(player.getRidingEntity()) == true) {
                 model.bipedRightLeg.rotationPointY = (float) Math.toRadians(485F);
                 model.bipedLeftLeg.rotationPointY = (float) Math.toRadians(485F);
                 model.bipedRightLeg.rotateAngleX = (float) Math.toRadians(0F);
@@ -247,7 +149,7 @@ public class Events {
         }
         //Player Hold Vehicles Rotation
         {
-            if (RocketCheckAnd(player.getRidingEntity()) == false) {
+            if (Methodes.RocketCheckAnd(player.getRidingEntity()) == false) {
                 Item item1 = player.getHeldItemMainhand().getItem();
                 Item item2 = player.getHeldItemOffhand().getItem();
                 if (item1 == Tier1RocketItemItem.block
@@ -275,7 +177,7 @@ public class Events {
     @SubscribeEvent
     public static void ItemRender(RenderItemEvent.Held event) {
         Entity player = event.getEntity();
-        if (RocketCheckOr(player.getRidingEntity()) == true) {
+        if (Methodes.RocketCheckOr(player.getRidingEntity()) == true) {
             event.setCanceled(true);
         }
     }
@@ -309,7 +211,7 @@ public class Events {
         if (event != null && event.getEntity() instanceof PlayerEntity) {
             PlayerEntity entity = (PlayerEntity) event.getEntity();
 
-            Boolean armorCheck = Events.Nethrite_Space_Suit_Check(entity);
+            Boolean armorCheck = Methodes.Nethrite_Space_Suit_Check(entity);
 
             if (armorCheck == true) {
                 if (event.getSource().isFireDamage()) {
@@ -324,72 +226,10 @@ public class Events {
     public static void FishingBobberTick(ProjectileImpactEvent.FishingBobber event) {
         if (event.getRayTraceResult().getType() == RayTraceResult.Type.ENTITY) {
             Entity entity = ((EntityRayTraceResult) event.getRayTraceResult()).getEntity();
-            if (AllVehiclesOr(entity) == true) {
+            if (Methodes.AllVehiclesOr(entity) == true) {
                 event.setCanceled(true);
             }
         }
     }
     //Other Events
-
-    //Methodes
-    public static boolean Nethrite_Space_Suit_Check(PlayerEntity player) {
-        Boolean item3 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 3)).getItem() == ModInnet.NETHERITE_OXYGEN_MASK.get();
-        Boolean item2 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 2)).getItem() == ModInnet.NETHERITE_SPACE_SUIT.get();
-        Boolean item1 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 1)).getItem() == ModInnet.NETHERITE_SPACE_PANTS.get();
-        Boolean item0 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 0)).getItem() == ModInnet.NETHERITE_SPACE_BOOTS.get();
-
-        if (item0 && item1 && item2 && item3) {
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean Space_Suit_Check(PlayerEntity player) {
-        Boolean item3 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 3)).getItem() == ModInnet.OXYGEN_MASK.get();
-        Boolean item2 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 2)).getItem() == ModInnet.SPACE_SUIT.get();
-        Boolean item1 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 1)).getItem() == ModInnet.SPACE_PANTS.get();
-        Boolean item0 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 0)).getItem() == ModInnet.SPACE_BOOTS.get();
-
-        if (item0 && item1 && item2 && item3) {
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean DimCheck(World world) {
-        RegistryKey<World> world2 = world.getDimensionKey();
-        if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon"))
-                || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon_orbit"))
-                || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars"))
-                || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars_orbit"))
-                || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury"))
-                || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury_orbit"))
-                || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))
-                || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus_orbit"))
-                || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:overworld_orbit"))) {
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean RocketCheckAnd(Entity entity) {
-        if (entity instanceof RocketTier1Entity.CustomEntity && entity instanceof RocketTier2Entity.CustomEntity && entity instanceof RocketTier3Entity.CustomEntity) {
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean RocketCheckOr(Entity entity) {
-        if (entity instanceof RocketTier1Entity.CustomEntity || entity instanceof RocketTier2Entity.CustomEntity || entity instanceof RocketTier3Entity.CustomEntity) {
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean AllVehiclesOr(Entity entity) {
-        if (entity instanceof RocketTier1Entity.CustomEntity || entity instanceof RocketTier2Entity.CustomEntity || entity instanceof RocketTier3Entity.CustomEntity || entity instanceof LanderEntity.CustomEntity || entity instanceof RoverEntity.CustomEntity) {
-            return true;
-        }
-        return false;
-    }
 }

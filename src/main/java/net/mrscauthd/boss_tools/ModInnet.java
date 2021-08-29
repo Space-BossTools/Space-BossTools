@@ -137,7 +137,7 @@ public class ModInnet {
     public static final RegistryObject<TileEntityType<?>> COAL_GENERATOR = TILE_ENTITYS.register("coal_generator", () -> TileEntityType.Builder.create(CoalGeneratorBlock.CustomTileEntity::new,ModInnet.COAL_GENERATOR_BLOCK.get()).build(null));
     public static final RegistryObject<TileEntityType<?>> OXYGEN_LOADER = TILE_ENTITYS.register("oxygen_loader", () -> TileEntityType.Builder.create(OxygenLoaderBlock.CustomTileEntity::new,ModInnet.OXYGEN_LOADER_BLOCK.get()).build(null));
     public static final RegistryObject<TileEntityType<?>> SOLAR_PANEL = TILE_ENTITYS.register("solar_panel", () -> TileEntityType.Builder.create(SolarPanelBlock.CustomTileEntity::new,ModInnet.SOLAR_PANEL_BLOCK.get()).build(null));
-    
+
     //Blocks
     public static RegistryObject<Block> FUEL_REFINERY_BLOCK = BLOCKS.register("fuel_refinery",() -> new FuelRefineryBlock.CustomBlock());
     public static RegistryObject<Block> BLAST_FURNACE_BLOCK = BLOCKS.register("blast_furnace",() -> new BlastingFurnaceBlock.CustomBlock());
