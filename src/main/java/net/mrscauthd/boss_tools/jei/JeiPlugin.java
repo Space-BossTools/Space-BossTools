@@ -436,6 +436,8 @@ public class JeiPlugin implements IModPlugin {
         		if (oxygenStorage.receiveOxygen(OxygenLoaderBlock.OXYGEN_PER_TICK, false) == 0) {
         			oxygenStorage.setOxygenStored(0);
         		}
+        		
+            	drawTextTime(matrixStack, this.getBackground(), oxygenStorage.getMaxOxygenStored() / OxygenLoaderBlock.OXYGEN_PER_TICK);
         	}
         }
 
