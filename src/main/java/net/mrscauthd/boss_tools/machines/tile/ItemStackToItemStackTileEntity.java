@@ -55,8 +55,8 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 	public boolean canInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
 		if (super.canInsertItem(index, stack, direction)) {
 			return true;
-		} else if (index == SLOT_INGREDIENT && direction == Direction.UP) {
-			return true;
+		} else if (index == SLOT_INGREDIENT && this.nullOrMatch(direction, Direction.UP)) {
+			return this.getRecipeType().findFirst(this.getWorld(), r -> r.testIngredient(stack)) != null;
 		}
 		return false;
 	}
@@ -125,7 +125,7 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 
 	}
 
-	protected abstract ItemStackToItemStackRecipeType<?> getRecipeType();
+	public abstract ItemStackToItemStackRecipeType<?> getRecipeType();
 
 	protected void onCooking() {
 		this.setTimer(this.getTimer() + 1);
@@ -191,9 +191,9 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 	}
 
 	public double getTimerRatio() {
-		return (double)this.getTimer() / (double)this.getMaxTimer();
+		return (double) this.getTimer() / (double) this.getMaxTimer();
 	}
-	
+
 	public double getTimerPercentage() {
 		return this.getTimerRatio() / 100.0D;
 	}
