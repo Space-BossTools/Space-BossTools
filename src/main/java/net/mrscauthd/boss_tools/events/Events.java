@@ -56,11 +56,39 @@ public class Events {
                         }
                     }
                 }
+
             }
 
             //Player orbit Fall Teleport
             {
-                Methodes.PlayerFallToPlanet(entity, (World) world);
+                //Earth
+                RegistryKey<World> world2 = ((World) world).getDimensionKey();
+
+                if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:overworld_orbit"))) {
+                    ResourceLocation planet = new ResourceLocation("overworld");
+                    Methodes.PlayerFallToPlanet(entity, planet);
+                }
+
+                if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon_orbit"))) {
+                    ResourceLocation planet = new ResourceLocation("boss_tools:moon");
+                    Methodes.PlayerFallToPlanet(entity, planet);
+                }
+
+                if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars_orbit"))) {
+                    ResourceLocation planet = new ResourceLocation("boss_tools:mars");
+                    Methodes.PlayerFallToPlanet(entity, planet);
+                }
+
+                if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury_orbit"))) {
+                    ResourceLocation planet = new ResourceLocation("boss_tools:mercury");
+                    Methodes.PlayerFallToPlanet(entity, planet);
+                }
+
+                if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus_orbit"))) {
+                    ResourceLocation planet = new ResourceLocation("boss_tools:venus");
+                    Methodes.PlayerFallToPlanet(entity, planet);
+                }
+
             }
 
             //Lander Warning Overlay Tick
