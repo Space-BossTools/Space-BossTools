@@ -7,6 +7,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.network.play.server.SChangeGameStatePacket;
 import net.minecraft.network.play.server.SPlayEntityEffectPacket;
 import net.minecraft.network.play.server.SPlayerAbilitiesPacket;
+import net.minecraft.network.play.server.SStopSoundPacket;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
@@ -97,6 +98,15 @@ public class Methodes {
             world.playSound(null, pos, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("boss_tools:rocketfly")), SoundCategory.NEUTRAL,3,1);
         } else {
             world.playSound(pos.getX(), pos.getY(), pos.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("boss_tools:rocketfly")), SoundCategory.NEUTRAL, 3, 1, false);
+        }
+    }
+
+    public static void StopRocketSounds(ServerPlayerEntity sourceentity) {
+        SoundCategory soundCategory = SoundCategory.NEUTRAL;
+        SStopSoundPacket sstopsoundpacket = new SStopSoundPacket(new ResourceLocation("boss_tools:rocketfly"), soundCategory);
+
+        if (sourceentity instanceof ServerPlayerEntity) {
+            sourceentity.connection.sendPacket(sstopsoundpacket);
         }
     }
 }

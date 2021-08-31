@@ -12,6 +12,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.server.ServerWorld;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.block.RocketLaunchPadBlock;
+import net.mrscauthd.boss_tools.events.Methodes;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.gui.RocketTier1GUIFuelGui;
 
@@ -175,12 +176,7 @@ public class RocketTier1Entity extends CreatureEntity {
 
 		if (!source.isProjectile() && sourceentity != null && sourceentity.isSneaking() && !this.isBeingRidden()) {
 			//Stop Rocket Sound
-			SoundCategory soundCategory = SoundCategory.NEUTRAL;
-			SStopSoundPacket sstopsoundpacket = new SStopSoundPacket(new ResourceLocation("boss_tools:rocketfly"), soundCategory);
-
-			if (sourceentity instanceof ServerPlayerEntity) {
-				((ServerPlayerEntity) sourceentity).connection.sendPacket(sstopsoundpacket);
-			}
+			Methodes.StopRocketSounds((ServerPlayerEntity) sourceentity);
 
 			//Drop Rocket Item
 			if (!world.isRemote()) {
@@ -313,7 +309,16 @@ public class RocketTier1Entity extends CreatureEntity {
 				}
 			}
 
-			if (y > 625 && this.getPassengers() != null) {
+			if (y > 600 && this.getPassengers().isEmpty() == false) {
+				Entity pass = this.getPassengers().get(0);
+
+				pass.getPersistentData().putDouble("Tier_1_open_main_menu", 1); //TODO Remove it if you Reworked the GUI SYSTEM
+				pass.getPersistentData().putDouble("Player_movement", 1); //TODO Remove it if you Reworked the GUI SYSTEM
+
+				Methodes.StopRocketSounds((ServerPlayerEntity) pass);
+
+				this.remove();
+			} else if (y > 625 && this.getPassengers().isEmpty() == true)  {
 				this.remove();
 			}
 

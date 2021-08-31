@@ -118,43 +118,12 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 
 		public static void registerMessages() {
 			INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation("boss_tools", "rover_link"), () -> "100.0", s -> true, s -> true);
-			//		INSTANCE.registerMessage(nextID(), RotationSpinPacket.class, RotationSpinPacket::encode, RotationSpinPacket::decode,
-			//				RotationSpinPacket::handle);
 			// new animationpitch
 			INSTANCE.registerMessage(nextID(), WheelSpinPacket.class, WheelSpinPacket::encode, WheelSpinPacket::decode, WheelSpinPacket::handle);
 			// fuel
 			INSTANCE.registerMessage(nextID(), FuelSpinPacket.class, FuelSpinPacket::encode, FuelSpinPacket::decode, FuelSpinPacket::handle);
 		}
 	}
-
-	// First Animation
-/*	private static class RotationSpinPacket {
-		private double rotation;
-		private int entityId;
-		public RotationSpinPacket(int entityId, double rotation) {
-			this.rotation = rotation;
-			this.entityId = entityId;
-		}
-
-		public static void encode(RotationSpinPacket msg, PacketBuffer buf) {
-			buf.writeInt(msg.entityId);
-			buf.writeDouble(msg.rotation);
-		}
-
-		public static RotationSpinPacket decode(PacketBuffer buf) {
-			return new RotationSpinPacket(buf.readInt(), buf.readDouble());
-		}
-
-		public static void handle(RotationSpinPacket msg, Supplier<NetworkEvent.Context> ctx) {
-			ctx.get().enqueueWork(() -> {
-				Entity entity = Minecraft.getInstance().world.getEntityByID(msg.entityId);
-				if (entity instanceof LivingEntity) {
-					((LivingEntity) entity).getPersistentData().putDouble("Rotation", msg.rotation);
-				}
-			});
-			ctx.get().setPacketHandled(true);
-		}
-	}*/
 
 	// Wheel Animation
 	private static class WheelSpinPacket {
