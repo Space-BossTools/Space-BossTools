@@ -415,7 +415,7 @@ public class JeiPlugin implements IModPlugin {
         }
 
         public Rectangle2d getOxygenBounds() {
-        	return GuiHelper.getEnergyBounds(OXYGEN_LEFT, OXYGEN_TOP);
+        	return GuiHelper.getOxygenBounds(OXYGEN_LEFT, OXYGEN_TOP);
         }
 
         public Rectangle2d getEnergyBounds() {
@@ -959,31 +959,33 @@ public class JeiPlugin implements IModPlugin {
             // ...
         }
     }
+
     //RocketTier1Gui
     public static class Tier1RocketItemItemJeiCategory implements IRecipeCategory<Tier1RocketItemItemJeiCategory.Tier1RocketItemItemRecipeWrapper> {
-        private static ResourceLocation Uid = new ResourceLocation("boss_tools", "tier1rocketitemitemcategory");
+        private static ResourceLocation Uid = new ResourceLocation("boss_tools", "rocket_t_1_category");
         private static final int input1 = 0; // THE NUMBER = SLOTID
         // ...
         private final String title;
         private final IDrawable background;
         public Tier1RocketItemItemJeiCategory(IGuiHelper guiHelper) {
             this.title = "Tier 1 Rocket";
-            this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/rocket_gui_jui.png"), 0, 0, 128, 71);
+            this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/rocket_gui_jei.png"), 0, 0, 128, 71);
         }
+
         @Override
         public List<ITextComponent> getTooltipStrings(Tier1RocketItemItemRecipeWrapper recipe, double mouseX, double mouseY) {
             List<ITextComponent> fuel = new ArrayList<ITextComponent>();
             fuel.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Fuel"));
             fuel.add(ITextComponent.getTextComponentOrEmpty("100" + "%"));
-            //   counter = counter - 1;
-            //    if (counter <= 0){
-            //        counter = 9000;
-            // }
-            // animation = counter;
             if (mouseX > 64 && mouseX < 113 && mouseY > 10 && mouseY < 59) {
                 return Collections.synchronizedList(fuel);
             }
             return Collections.emptyList();
+        }
+
+        @Override
+        public void draw(Tier1RocketItemItemRecipeWrapper recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+            IRecipeCategory.super.draw(recipe, matrixStack, mouseX, mouseY);
         }
 
         @Override
@@ -1038,6 +1040,7 @@ public class JeiPlugin implements IModPlugin {
             }
         }
     }
+
     //RocketTier2Gui
     public static class Tier2RocketItemItemJeiCategory implements IRecipeCategory<Tier2RocketItemItemJeiCategory.Tier2RocketItemItemRecipeWrapper> {
         private static ResourceLocation Uid = new ResourceLocation("boss_tools", "tier2rocketitemitemcategory");
@@ -1047,7 +1050,7 @@ public class JeiPlugin implements IModPlugin {
         private final IDrawable background;
         public Tier2RocketItemItemJeiCategory(IGuiHelper guiHelper) {
             this.title = "Tier 2 Rocket";
-            this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/rocket_gui_jui.png"), 0, 0, 128, 71);
+            this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/rocket_gui_jei.png"), 0, 0, 128, 71);
         }
         @Override
         public List<ITextComponent> getTooltipStrings(Tier2RocketItemItemJeiCategory.Tier2RocketItemItemRecipeWrapper recipe, double mouseX, double mouseY) {
@@ -1216,7 +1219,7 @@ public class JeiPlugin implements IModPlugin {
         private final IDrawable background;
         public Tier3RocketItemItemJeiCategory(IGuiHelper guiHelper) {
             this.title = "Tier 3 Rocket";
-            this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/rocket_gui_jui.png"), 0, 0, 128, 71);
+            this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/rocket_gui_jei.png"), 0, 0, 128, 71);
         }
         @Override
         public List<ITextComponent> getTooltipStrings(Tier3RocketItemItemJeiCategory.Tier3RocketItemItemRecipeWrapper recipe, double mouseX, double mouseY) {
