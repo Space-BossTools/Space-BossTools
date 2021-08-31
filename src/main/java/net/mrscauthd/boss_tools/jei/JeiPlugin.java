@@ -403,9 +403,8 @@ public class JeiPlugin implements IModPlugin {
     		int capacity = recipe.getCapability(CapabilityOxygen.OXYGEN).map(i -> i.getMaxOxygenStored()).orElse(0);
         
             if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
-            	int speed = OxygenLoaderBlock.ENERGY_PER_TICK * CompressorBlock.ENERGY_PER_TICK;
-				list.add(new StringTextComponent("Using: " + speed + " FE/t"));
-        		list.add(new StringTextComponent("Total: " + (capacity / speed) + " FE"));
+				list.add(new StringTextComponent("Using: " + OxygenLoaderBlock.ENERGY_PER_TICK + " FE/t"));
+        		list.add(new StringTextComponent("Total: " + (capacity / OxygenLoaderBlock.OXYGEN_PER_TICK) + " FE"));
             }
             else if (this.getOxygenBounds().contains((int) mouseX, (int) mouseY)) {
 				list.add(new StringTextComponent("Using: " + OxygenLoaderBlock.OXYGEN_PER_TICK + " Oxygen/t"));
