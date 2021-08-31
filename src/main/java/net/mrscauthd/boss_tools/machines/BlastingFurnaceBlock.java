@@ -1,10 +1,8 @@
-
 package net.mrscauthd.boss_tools.machines;
 
 import java.util.Collections;
 import java.util.List;
 
-import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
@@ -21,7 +19,6 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.loot.LootContext;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
@@ -69,6 +66,7 @@ public class BlastingFurnaceBlock {
 			return state.with(FACING, rot.rotate(state.get(FACING)));
 		}
 
+		@SuppressWarnings("deprecation")
 		public BlockState mirror(BlockState state, Mirror mirrorIn) {
 			return state.rotate(mirrorIn.toRotation(state.get(FACING)));
 		}
@@ -85,10 +83,13 @@ public class BlastingFurnaceBlock {
 
 		@Override
 		public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+			@SuppressWarnings("deprecation")
 			List<ItemStack> dropsOriginal = super.getDrops(state, builder);
-			if (!dropsOriginal.isEmpty())
+			if (!dropsOriginal.isEmpty()) {
 				return dropsOriginal;
-			return Collections.singletonList(new ItemStack(this, 1));
+			} else {
+				return Collections.singletonList(new ItemStack(this));
+			}
 		}
 
 		@Override
@@ -103,21 +104,12 @@ public class BlastingFurnaceBlock {
 
 		@Override
 		public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity entity, Hand hand, BlockRayTraceResult hit) {
-			super.onBlockActivated(state, world, pos, entity, hand, hit);
 			if (entity instanceof ServerPlayerEntity) {
-				NetworkHooks.openGui((ServerPlayerEntity) entity, new INamedContainerProvider() {
-					@Override
-					public ITextComponent getDisplayName() {
-						return new StringTextComponent("Blast Furnace");
-					}
-
-					@Override
-					public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-						return new BlastFurnaceGUIGui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(pos));
-					}
-				}, pos);
+				NetworkHooks.openGui((ServerPlayerEntity) entity, this.getContainer(state, world, pos), pos);
+				return ActionResultType.CONSUME;
+			} else {
+				return ActionResultType.SUCCESS;
 			}
-			return ActionResultType.SUCCESS;
 		}
 
 		@Override
@@ -136,6 +128,7 @@ public class BlastingFurnaceBlock {
 			return new CustomTileEntity();
 		}
 
+		@SuppressWarnings("deprecation")
 		@Override
 		public boolean eventReceived(BlockState state, World world, BlockPos pos, int eventID, int eventParam) {
 			super.eventReceived(state, world, pos, eventID, eventParam);
@@ -143,14 +136,13 @@ public class BlastingFurnaceBlock {
 			return tileentity == null ? false : tileentity.receiveClientEvent(eventID, eventParam);
 		}
 
+		@SuppressWarnings("deprecation")
 		@Override
 		public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
 			if (state.getBlock() != newState.getBlock()) {
-				TileEntity tileentity = world.getTileEntity(pos);
-				if (tileentity instanceof CustomTileEntity) {
-					InventoryHelper.dropInventoryItems(world, pos, (CustomTileEntity) tileentity);
-					world.updateComparatorOutputLevel(pos, this);
-				}
+				CustomTileEntity tileentity = (CustomTileEntity) world.getTileEntity(pos);
+				InventoryHelper.dropInventoryItems(world, pos, (CustomTileEntity) tileentity);
+				world.updateComparatorOutputLevel(pos, this);
 				super.onReplaced(state, world, pos, newState, isMoving);
 			}
 		}
@@ -162,11 +154,8 @@ public class BlastingFurnaceBlock {
 
 		@Override
 		public int getComparatorInputOverride(BlockState blockState, World world, BlockPos pos) {
-			TileEntity tileentity = world.getTileEntity(pos);
-			if (tileentity instanceof CustomTileEntity)
-				return Container.calcRedstoneFromInventory((CustomTileEntity) tileentity);
-			else
-				return 0;
+			CustomTileEntity tileentity = (CustomTileEntity) world.getTileEntity(pos);
+			return Container.calcRedstoneFromInventory(tileentity);
 		}
 	}
 
@@ -182,7 +171,7 @@ public class BlastingFurnaceBlock {
 
 		@Override
 		public Container createMenu(int id, PlayerInventory player) {
-			return new BlastFurnaceGUIGui.GuiContainerMod(id, player, new PacketBuffer(Unpooled.buffer()).writeBlockPos(this.getPos()));
+			return new BlastFurnaceGUIGui.GuiContainerMod(id, player, this);
 		}
 
 		@Override
@@ -199,7 +188,7 @@ public class BlastingFurnaceBlock {
 		protected BooleanProperty getBlockActivatedProperty() {
 			return CustomBlock.ACTIAVATED;
 		}
-		
+
 		@Override
 		protected PowerSystem createPowerSystem() {
 			return new PowerSystemFuelVanilla(this, this::getItemHandler, SLOT_FUEL) {
