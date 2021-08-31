@@ -1,7 +1,6 @@
 
 package net.mrscauthd.boss_tools.gui;
 
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
@@ -32,9 +31,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.client.gui.ScreenManager;
-import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
 
-import java.util.UUID;
 import java.util.function.Supplier;
 import java.util.Map;
 import java.util.HashMap;
