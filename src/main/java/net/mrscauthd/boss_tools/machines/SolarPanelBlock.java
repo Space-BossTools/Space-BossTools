@@ -191,11 +191,9 @@ public class SolarPanelBlock {
 
 		@Override
 		protected void generateEnergy() {
-			double x = this.getPos().getX();
-			double y = this.getPos().getY();
-			double z = this.getPos().getZ();
-
-			if (this.getWorld().isDaytime() && this.getWorld().canBlockSeeSky(new BlockPos(x,y + 1,z))) {
+			World world = this.getWorld();
+			
+			if (world.isDaytime() && world.canBlockSeeSky(this.getPos().up())) {
 				this.getEnergyStorage().receiveEnergyInternal(this.getGeneratePerTick(), false);
 				this.setProcessedInThisTick();
 				this.markDirty();
