@@ -415,7 +415,7 @@ public class JeiPlugin implements IModPlugin {
         }
 
         public Rectangle2d getOxygenBounds() {
-        	return GuiHelper.getEnergyBounds(OXYGEN_LEFT, OXYGEN_TOP);
+        	return GuiHelper.getOxygenBounds(OXYGEN_LEFT, OXYGEN_TOP);
         }
 
         public Rectangle2d getEnergyBounds() {
