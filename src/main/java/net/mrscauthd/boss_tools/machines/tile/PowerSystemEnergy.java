@@ -1,22 +1,10 @@
 package net.mrscauthd.boss_tools.machines.tile;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.mrscauthd.boss_tools.capability.EnergyStorageDelegate;
-import net.mrscauthd.boss_tools.capability.IEnergyStorageDelegateHolder;
-import net.mrscauthd.boss_tools.capability.IEnergyStorageExtends;
+import net.mrscauthd.boss_tools.capability.EnergyStorageBasic;
 
-public abstract class PowerSystemEnergy extends PowerSystem implements IEnergyStorageDelegateHolder {
-	private final IEnergyStorageExtends energyStorage;
-
+public abstract class PowerSystemEnergy extends PowerSystem {
 	public PowerSystemEnergy(AbstractMachineTileEntity tileEntity) {
 		super(tileEntity);
-
-		this.energyStorage = this.createEnergyStorage();
-	}
-
-	public boolean canProvideCapability() {
-		return true;
 	}
 
 	@Override
@@ -39,35 +27,8 @@ public abstract class PowerSystemEnergy extends PowerSystem implements IEnergySt
 		return this.getEnergyStorage().extractEnergy(amount, simulate);
 	}
 
-	@Override
-	public void onEnergyChanged(IEnergyStorage energyStorage, int energyDelta) {
-		if (energyStorage == this.getEnergyStorage()) {
-			this.getTileEntity().markDirty();
-		}
-	}
-
-	@Override
-	public void read(CompoundNBT compound) {
-		super.read(compound);
-
-		this.getEnergyStorage().read(compound.getCompound("energyStorage"));
-	}
-
-	@Override
-	public CompoundNBT write() {
-		CompoundNBT compound = super.write();
-
-		compound.put("energyStorage", this.getEnergyStorage().write());
-
-		return compound;
-	}
-
-	protected IEnergyStorageExtends createEnergyStorage() {
-		return new EnergyStorageDelegate(this);
-	}
-
-	public final IEnergyStorageExtends getEnergyStorage() {
-		return this.energyStorage;
+	public final EnergyStorageBasic getEnergyStorage() {
+		return this.getTileEntity().getEnergyStorage();
 	}
 
 }

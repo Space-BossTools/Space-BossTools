@@ -15,6 +15,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.mrscauthd.boss_tools.gui.GeneratorGUIGuiWindow;
+import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 import net.mrscauthd.boss_tools.jei.JeiPlugin.GeneratorJeiCategory;
 
 public class CoalGeneratorGuiContainerHandler implements IGuiContainerHandler<GeneratorGUIGuiWindow> {
@@ -28,7 +29,7 @@ public class CoalGeneratorGuiContainerHandler implements IGuiContainerHandler<Ge
 		return Collections.singleton(new IGuiClickableArea() {
 			@Override
 			public Rectangle2d getArea() {
-				return new Rectangle2d(78, 52, 13, 13);
+				return GuiHelper.getFireBounds(GeneratorGUIGuiWindow.FIRE_LEFT, GeneratorGUIGuiWindow.FIRE_TOP);
 			}
 
 			@Override

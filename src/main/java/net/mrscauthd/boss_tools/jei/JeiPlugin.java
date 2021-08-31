@@ -1151,7 +1151,7 @@ public class JeiPlugin implements IModPlugin {
         }
 
 		private Rectangle2d getEnergyBounds() {
-			return new Rectangle2d(ENERGY_LEFT, ENERGY_TOP, GuiHelper.ENERGY_WIDTH, GuiHelper.ENERGY_HEIGHT);
+			return GuiHelper.getEnergyBounds(ENERGY_LEFT, ENERGY_TOP);
 		}
 
         @Override

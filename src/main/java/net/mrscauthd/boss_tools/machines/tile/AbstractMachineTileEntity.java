@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -94,7 +95,7 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		EnergyStorageBasic energyStorage = this.getEnergyStorage();
 
 		if (energyStorage != null) {
-			energyStorage.read(compound.getCompound("energyStorage"));
+			energyStorage.deserializeNBT(compound.getCompound("energyStorage"));
 		}
 
 	}
@@ -110,7 +111,7 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		EnergyStorageBasic energyStorage = this.getEnergyStorage();
 
 		if (energyStorage != null) {
-			compound.put("energyStorage", energyStorage.write());
+			compound.put("energyStorage", energyStorage.serializeNBT());
 		}
 
 		return compound;
@@ -178,22 +179,6 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 
 		if (energyStorage != null) {
 			return LazyOptional.of(() -> energyStorage).cast();
-		}
-
-		PowerSystem powerSystem = this.getPowerSystem();
-
-		if (powerSystem instanceof PowerSystemEnergy) {
-			PowerSystemEnergy powerSystemEnergy = (PowerSystemEnergy) powerSystem;
-
-			if (powerSystemEnergy.canProvideCapability()) {
-				IEnergyStorage powerEnergyStorage = powerSystemEnergy.getEnergyStorage();
-
-				if (powerEnergyStorage != null) {
-					return LazyOptional.of(() -> powerEnergyStorage).cast();
-				}
-
-			}
-
 		}
 
 		return null;
@@ -318,6 +303,7 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 
 	}
 
+	@Nonnull
 	protected abstract PowerSystem createPowerSystem();
 
 	public PowerSystem getPowerSystem() {
@@ -337,6 +323,14 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	@Nullable
 	protected EnergyStorageBasic createEnergyStorage() {
 		return null;
+	}
+	
+	protected EnergyStorageBasic createEnergyStorageCommonUsing() {
+		return new EnergyStorageBasic(this, 9000, 200, 200);
+	}
+	
+	protected EnergyStorageBasic createEnergyStorageCommonGenerating() {
+		return new EnergyStorageBasic(this, 9000, 0, 200);
 	}
 
 	@Nullable
