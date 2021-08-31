@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
@@ -22,7 +21,6 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
@@ -62,7 +60,7 @@ public class SolarPanelBlock {
 		@OnlyIn(Dist.CLIENT)
 		public void addInformation(ItemStack itemstack, IBlockReader world, List<ITextComponent> list, ITooltipFlag flag) {
 			super.addInformation(itemstack, world, list, flag);
-			list.add(new StringTextComponent("\u00A79Producing: \u00A77" + ENERGY_PER_TICK +" \u00A77FE/t"));
+			list.add(new StringTextComponent("\u00A79Producing: \u00A77" + ENERGY_PER_TICK + " \u00A77FE/t"));
 		}
 
 		@Override
@@ -79,6 +77,7 @@ public class SolarPanelBlock {
 			return state.with(FACING, rot.rotate(state.get(FACING)));
 		}
 
+		@SuppressWarnings("deprecation")
 		public BlockState mirror(BlockState state, Mirror mirrorIn) {
 			return state.rotate(mirrorIn.toRotation(state.get(FACING)));
 		}
@@ -95,29 +94,23 @@ public class SolarPanelBlock {
 
 		@Override
 		public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+			@SuppressWarnings("deprecation")
 			List<ItemStack> dropsOriginal = super.getDrops(state, builder);
-			if (!dropsOriginal.isEmpty())
+			if (!dropsOriginal.isEmpty()) {
 				return dropsOriginal;
-			return Collections.singletonList(new ItemStack(this, 1));
+			} else {
+				return Collections.singletonList(new ItemStack(this, 1));
+			}
 		}
 
 		@Override
 		public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity entity, Hand hand, BlockRayTraceResult hit) {
-			super.onBlockActivated(state, world, pos, entity, hand, hit);
 			if (entity instanceof ServerPlayerEntity) {
-				NetworkHooks.openGui((ServerPlayerEntity) entity, new INamedContainerProvider() {
-					@Override
-					public ITextComponent getDisplayName() {
-						return new StringTextComponent("Solar Panel");
-					}
-
-					@Override
-					public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-						return new SolarPanelGUIGui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(pos));
-					}
-				}, pos);
+				NetworkHooks.openGui((ServerPlayerEntity) entity, this.getContainer(state, world, pos), pos);
+				return ActionResultType.CONSUME;
+			} else {
+				return ActionResultType.SUCCESS;
 			}
-			return ActionResultType.SUCCESS;
 		}
 
 		@Override
@@ -136,14 +129,13 @@ public class SolarPanelBlock {
 			return new CustomTileEntity();
 		}
 
+		@SuppressWarnings("deprecation")
 		@Override
 		public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
 			if (state.getBlock() != newState.getBlock()) {
-				TileEntity tileentity = world.getTileEntity(pos);
-				if (tileentity instanceof CustomTileEntity) {
-					InventoryHelper.dropInventoryItems(world, pos, (CustomTileEntity) tileentity);
-					world.updateComparatorOutputLevel(pos, this);
-				}
+				CustomTileEntity tileentity = (CustomTileEntity) world.getTileEntity(pos);
+				InventoryHelper.dropInventoryItems(world, pos, (CustomTileEntity) tileentity);
+				world.updateComparatorOutputLevel(pos, this);
 				super.onReplaced(state, world, pos, newState, isMoving);
 			}
 		}
@@ -155,11 +147,8 @@ public class SolarPanelBlock {
 
 		@Override
 		public int getComparatorInputOverride(BlockState blockState, World world, BlockPos pos) {
-			TileEntity tileentity = world.getTileEntity(pos);
-			if (tileentity instanceof CustomTileEntity)
-				return Container.calcRedstoneFromInventory((CustomTileEntity) tileentity);
-			else
-				return 0;
+			CustomTileEntity tileentity = (CustomTileEntity) world.getTileEntity(pos);
+			return Container.calcRedstoneFromInventory(tileentity);
 		}
 
 	}
@@ -177,14 +166,14 @@ public class SolarPanelBlock {
 
 		@Override
 		public Container createMenu(int id, PlayerInventory player) {
-			return new SolarPanelGUIGui.GuiContainerMod(id, player, new PacketBuffer(Unpooled.buffer()).writeBlockPos(this.getPos()));
+			return new SolarPanelGUIGui.GuiContainerMod(id, player, this);
 		}
 
 		@Override
 		public ITextComponent getDisplayName() {
 			return new StringTextComponent("Solar Panel");
 		}
-		
+
 		public int getGeneratePerTick() {
 			return ENERGY_PER_TICK;
 		}
@@ -192,11 +181,10 @@ public class SolarPanelBlock {
 		@Override
 		protected void generateEnergy() {
 			World world = this.getWorld();
-			
+
 			if (world.isDaytime() && world.canBlockSeeSky(this.getPos().up())) {
 				this.generateEnergy(this.getGeneratePerTick());
 			}
-
 		}
 
 		@Override
@@ -215,6 +203,5 @@ public class SolarPanelBlock {
 		public boolean hasSpaceInOutput() {
 			return this.getEnergyStorage().receiveEnergyInternal(this.getGeneratePerTick(), true) > 0;
 		}
-
 	}
 }
