@@ -134,7 +134,7 @@ public class Events {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void CameraPos(EntityViewRenderEvent.CameraSetup event) {
-        if (event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier1Entity.CustomEntity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier2Entity.CustomEntity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier3Entity.CustomEntity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof LanderEntity.CustomEntity) {
+        if (event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier1Entity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier2Entity.CustomEntity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier3Entity.CustomEntity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof LanderEntity.CustomEntity) {
             if (Minecraft.getInstance().gameSettings.getPointOfView().equals(PointOfView.THIRD_PERSON_FRONT)) {
                 event.getInfo().movePosition(-event.getInfo().calcCameraDistance(8d), 0d, 0);
             }
@@ -177,7 +177,7 @@ public class Events {
         }
         //Player Hold Vehicles Rotation
         {
-            if (Methodes.RocketCheckAnd(player.getRidingEntity()) == false) {
+            if (Methodes.RocketCheckOr(player.getRidingEntity()) == false) {
                 Item item1 = player.getHeldItemMainhand().getItem();
                 Item item2 = player.getHeldItemOffhand().getItem();
                 if (item1 == Tier1RocketItemItem.block

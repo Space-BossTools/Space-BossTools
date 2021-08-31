@@ -50,7 +50,7 @@ public class LanderNBTProcedure {
 			return;
 		}
 		Entity entity = (Entity) dependencies.get("entity");
-		if (((entity.getRidingEntity()) instanceof RocketTier1Entity.CustomEntity)) {
+		if (((entity.getRidingEntity()) instanceof RocketTier1Entity)) {
 			if (((new Object() {
 				public ItemStack getItemStack(int sltid, Entity entity) {
 					AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);

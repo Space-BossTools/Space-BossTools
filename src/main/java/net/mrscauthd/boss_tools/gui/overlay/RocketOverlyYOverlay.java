@@ -70,7 +70,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 												.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus")))))) {
 											if ((!((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
 													.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_venus")))))) {
-												if ((((entity.getRidingEntity()) instanceof RocketTier1Entity.CustomEntity)
+												if ((((entity.getRidingEntity()) instanceof RocketTier1Entity)
 														|| (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)
 														|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
 														|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)))) {
@@ -90,7 +90,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 			}
 			if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
 					new ResourceLocation("boss_tools:moon"))))) {
-				if ((((entity.getRidingEntity()) instanceof RocketTier1Entity.CustomEntity)
+				if ((((entity.getRidingEntity()) instanceof RocketTier1Entity)
 						|| (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)
 						|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
 						|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)))) {
@@ -102,7 +102,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 			}
 			if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
 					new ResourceLocation("boss_tools:mars"))))) {
-				if ((((entity.getRidingEntity()) instanceof RocketTier1Entity.CustomEntity)
+				if ((((entity.getRidingEntity()) instanceof RocketTier1Entity)
 						|| (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)
 						|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
 						|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)))) {
@@ -114,7 +114,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 			}
 			if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
 					new ResourceLocation("boss_tools:mercury"))))) {
-				if ((((entity.getRidingEntity()) instanceof RocketTier1Entity.CustomEntity)
+				if ((((entity.getRidingEntity()) instanceof RocketTier1Entity)
 						|| (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)
 						|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
 						|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)))) {
@@ -126,7 +126,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 			}
 			if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
 					new ResourceLocation("boss_tools:venus"))))) {
-				if ((((entity.getRidingEntity()) instanceof RocketTier1Entity.CustomEntity)
+				if ((((entity.getRidingEntity()) instanceof RocketTier1Entity)
 						|| (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)
 						|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
 						|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)))) {
@@ -146,7 +146,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 					.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_mercury")))) ||
 					((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
 					.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_venus")))))))) {
-				if ((((entity.getRidingEntity()) instanceof RocketTier1Entity.CustomEntity)
+				if ((((entity.getRidingEntity()) instanceof RocketTier1Entity)
 						|| (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)
 						|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
 						|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)))) {
@@ -157,7 +157,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 				}
 			}
 			//Animations
-			if ((((entity.getRidingEntity()) instanceof RocketTier1Entity.CustomEntity)
+			if ((((entity.getRidingEntity()) instanceof RocketTier1Entity)
 					|| (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)
 					|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
 					|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)))) {

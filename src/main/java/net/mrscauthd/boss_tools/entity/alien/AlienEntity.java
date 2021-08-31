@@ -45,7 +45,7 @@ public class AlienEntity extends AgeableEntity implements IMerchant, INPC {
 	@Nullable
 	private MerchantOffers offers;
 	private final GossipManager gossip = new GossipManager();
-	private static final DataParameter<Integer> ALIEN_TYPE = EntityDataManager.createKey(AlienEntity.class, DataSerializers.VARINT);
+	public static final DataParameter<Integer> ALIEN_TYPE = EntityDataManager.createKey(AlienEntity.class, DataSerializers.VARINT);
 
 	private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.EMERALD);
 	public AlienJobs job;

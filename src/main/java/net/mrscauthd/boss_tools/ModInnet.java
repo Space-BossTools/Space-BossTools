@@ -37,10 +37,7 @@ import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.CompressingRecipeSerializer;
 import net.mrscauthd.boss_tools.crafting.GeneratingRecipeSerializer;
 import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipeSerializer;
-import net.mrscauthd.boss_tools.entity.AlienSpitEntity;
-import net.mrscauthd.boss_tools.entity.AlienZombieEntity;
-import net.mrscauthd.boss_tools.entity.MoglerEntity;
-import net.mrscauthd.boss_tools.entity.StarCrawlerEntity;
+import net.mrscauthd.boss_tools.entity.*;
 import net.mrscauthd.boss_tools.fluid.OilFluid;
 import net.mrscauthd.boss_tools.machines.*;
 import net.mrscauthd.boss_tools.spawneggs.ModSpawnEggs;
@@ -97,7 +94,11 @@ public class ModInnet {
     public static RegistryObject<EntityType<?>> MOGLER = ENTITYS.register("mogler", () -> EntityType.Builder.create(MoglerEntity::new, EntityClassification.MONSTER).size(1.4f, 1.4f).build(new ResourceLocation("boss_tools", "mogler").toString()));
     public static RegistryObject<EntityType<?>> ALIEN_ZOMBIE = ENTITYS.register("alien_zombie", () -> EntityType.Builder.create(AlienZombieEntity::new, EntityClassification.MONSTER).size(0.6f, 2.4f).build(new ResourceLocation("boss_tools", "alien_zombie").toString()));
     public static RegistryObject<EntityType<?>> STAR_CRAWLER = ENTITYS.register("star_crawler", () -> EntityType.Builder.create(StarCrawlerEntity::new, EntityClassification.MONSTER).size(1.3f, 1f).build(new ResourceLocation("boss_tools", "star_crawler").toString()));
-    
+
+    //Rockets
+    public static RegistryObject<EntityType<?>> TIER_1_ROCKET = ENTITYS.register("rocket_t1", () -> EntityType.Builder.create(RocketTier1Entity::new, EntityClassification.CREATURE).size(1f, 3f).immuneToFire().build(new ResourceLocation("boss_tools", "rocket_t1").toString()));
+
+
     //Alien Spit Entity
     public static RegistryObject<EntityType<? extends AlienSpitEntity>> ALIEN_SPIT_ENTITY = ENTITYS.register("alien_spit_entity", () -> EntityType.Builder.<AlienSpitEntity>create(AlienSpitEntity::new, EntityClassification.MISC).size(0.5f, 0.5f).build(new ResourceLocation("boss_tools", "alien_spit_entity").toString()));
 
@@ -424,6 +425,7 @@ public class ModInnet {
             GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) MOGLER.get(), MoglerEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) ALIEN_ZOMBIE.get(), AlienZombieEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) STAR_CRAWLER.get(), StarCrawlerEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) TIER_1_ROCKET.get(), RocketTier1Entity.setCustomAttributes().create());
         });
         event.enqueueWork(() -> {
 

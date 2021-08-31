@@ -129,7 +129,7 @@ public class FallGravityProcedure {
 				for (Entity entityiterator : _entfound) {
 					if ((!(entityiterator instanceof PlayerEntity))) {
 						if ((!(entityiterator instanceof LanderEntity.CustomEntity))) {
-							if ((!(entityiterator instanceof RocketTier1Entity.CustomEntity))) {
+							if ((!(entityiterator instanceof RocketTier1Entity))) {
 								if ((!(entityiterator instanceof RocketTier2Entity.CustomEntity))) {
 									if ((!(entityiterator instanceof RocketTier3Entity.CustomEntity))) {
 										if ((!(entityiterator instanceof RoverEntity.CustomEntity))) {
@@ -206,7 +206,7 @@ public class FallGravityProcedure {
 				for (Entity entityiterator : _entfound) {
 					if ((!(entityiterator instanceof PlayerEntity))) {
 						if ((!(entityiterator instanceof LanderEntity.CustomEntity))) {
-							if ((!(entityiterator instanceof RocketTier1Entity.CustomEntity))) {
+							if ((!(entityiterator instanceof RocketTier1Entity))) {
 								if ((!(entityiterator instanceof RocketTier2Entity.CustomEntity))) {
 									if ((!(entityiterator instanceof RocketTier3Entity.CustomEntity))) {
 										if ((!(entityiterator instanceof RoverEntity.CustomEntity))) {
@@ -277,7 +277,7 @@ public class FallGravityProcedure {
 				for (Entity entityiterator : _entfound) {
 					if ((!(entityiterator instanceof PlayerEntity))) {
 						if ((!(entityiterator instanceof LanderEntity.CustomEntity))) {
-							if ((!(entityiterator instanceof RocketTier1Entity.CustomEntity))) {
+							if ((!(entityiterator instanceof RocketTier1Entity))) {
 								if ((!(entityiterator instanceof RocketTier2Entity.CustomEntity))) {
 									if ((!(entityiterator instanceof RocketTier3Entity.CustomEntity))) {
 										if ((!(entityiterator instanceof RoverEntity.CustomEntity))) {

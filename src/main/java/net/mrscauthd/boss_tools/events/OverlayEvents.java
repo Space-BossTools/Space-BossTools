@@ -22,7 +22,7 @@ public class OverlayEvents {
         {
             if (event.getType() == RenderGameOverlayEvent.ElementType.HEALTHMOUNT) {
                 PlayerEntity entity = Minecraft.getInstance().player;
-                if (entity.getRidingEntity() instanceof RocketTier1Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier3Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || entity.getRidingEntity() instanceof LanderEntity.CustomEntity || entity.getRidingEntity() instanceof RoverEntity.CustomEntity) {
+                if (entity.getRidingEntity() instanceof RocketTier1Entity || entity.getRidingEntity() instanceof RocketTier3Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || entity.getRidingEntity() instanceof LanderEntity.CustomEntity || entity.getRidingEntity() instanceof RoverEntity.CustomEntity) {
                     event.setCanceled(true);
                 }
             }

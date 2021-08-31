@@ -10,15 +10,18 @@ import net.minecraft.network.play.server.SPlayerAbilitiesPacket;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.*;
 
 public class Methodes {
     public static void PlayerFallToPlanet(PlayerEntity entity, ResourceLocation Planet) {
-        if (entity.getPosY() <= 1 && !(entity.getRidingEntity() instanceof LanderEntity.CustomEntity) && !entity.world.isRemote && entity instanceof ServerPlayerEntity) {
+        if (entity.getPosY() <= 1 && !(entity.getRidingEntity() instanceof LanderEntity.CustomEntity) && !entity.world.isRemote) {
 
             RegistryKey<World> destinationType = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, Planet);
             ServerWorld nextWorld = entity.getServer().getWorld(destinationType);
@@ -75,24 +78,25 @@ public class Methodes {
         return false;
     }
 
-    public static boolean RocketCheckAnd(Entity entity) {
-        if (entity instanceof RocketTier1Entity.CustomEntity && entity instanceof RocketTier2Entity.CustomEntity && entity instanceof RocketTier3Entity.CustomEntity) {
-            return true;
-        }
-        return false;
-    }
-
     public static boolean RocketCheckOr(Entity entity) {
-        if (entity instanceof RocketTier1Entity.CustomEntity || entity instanceof RocketTier2Entity.CustomEntity || entity instanceof RocketTier3Entity.CustomEntity) {
+        if (entity instanceof RocketTier1Entity || entity instanceof RocketTier2Entity.CustomEntity || entity instanceof RocketTier3Entity.CustomEntity) {
             return true;
         }
         return false;
     }
 
     public static boolean AllVehiclesOr(Entity entity) {
-        if (entity instanceof RocketTier1Entity.CustomEntity || entity instanceof RocketTier2Entity.CustomEntity || entity instanceof RocketTier3Entity.CustomEntity || entity instanceof LanderEntity.CustomEntity || entity instanceof RoverEntity.CustomEntity) {
+        if (entity instanceof RocketTier1Entity || entity instanceof RocketTier2Entity.CustomEntity || entity instanceof RocketTier3Entity.CustomEntity || entity instanceof LanderEntity.CustomEntity || entity instanceof RoverEntity.CustomEntity) {
             return true;
         }
         return false;
+    }
+
+    public static void RocketSounds(World world, BlockPos pos) {
+        if (!world.isRemote()) {
+            world.playSound(null, pos, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("boss_tools:rocketfly")), SoundCategory.NEUTRAL,3,1);
+        } else {
+            world.playSound(pos.getX(), pos.getY(), pos.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("boss_tools:rocketfly")), SoundCategory.NEUTRAL, 3, 1, false);
+        }
     }
 }

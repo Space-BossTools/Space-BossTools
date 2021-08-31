@@ -75,7 +75,7 @@ public class RocketHighCheckProcedure {
 		double y = dependencies.get("y") instanceof Integer ? (int) dependencies.get("y") : (double) dependencies.get("y");
 		double z = dependencies.get("z") instanceof Integer ? (int) dependencies.get("z") : (double) dependencies.get("z");
 		IWorld world = (IWorld) dependencies.get("world");
-		if ((((entity.getRidingEntity()) instanceof RocketTier1Entity.CustomEntity) == (true))) {
+		if ((((entity.getRidingEntity()) instanceof RocketTier1Entity) == (true))) {
 			if ((((entity.getRidingEntity()).getPosY()) >= 600)) {
 				if ((((entity.getRidingEntity()).getPersistentData().getDouble("Powup_trigger")) == 1)) {
 					if (world instanceof ServerWorld) {

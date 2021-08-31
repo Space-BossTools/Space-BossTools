@@ -1,6 +1,7 @@
 
 package net.mrscauthd.boss_tools.gui;
 
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
@@ -31,7 +32,9 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.client.gui.ScreenManager;
+import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
 
+import java.util.UUID;
 import java.util.function.Supplier;
 import java.util.Map;
 import java.util.HashMap;
@@ -55,6 +58,7 @@ public class RocketTier1GUIFuelGui extends BossToolsModElements.ModElement {
 			event.getRegistry().register(containerType.setRegistryName("rocket_tier_1_gui_fuel"));
 		}
 	}
+
 	@OnlyIn(Dist.CLIENT)
 	public void initElements() {
 		DeferredWorkQueue.runLater(() -> ScreenManager.registerFactory(containerType, RocketTier1GUIFuelGuiWindow::new));
@@ -68,6 +72,7 @@ public class RocketTier1GUIFuelGui extends BossToolsModElements.ModElement {
 	public static class GuiContainerMod extends Container implements Supplier<Map<Integer, Slot>> {
 		World world;
 		PlayerEntity entity;
+		Entity rocket;
 		int x, y, z;
 		private IItemHandler internal;
 		private Map<Integer, Slot> customSlots = new HashMap<>();
@@ -103,6 +108,7 @@ public class RocketTier1GUIFuelGui extends BossToolsModElements.ModElement {
 						entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
 							this.internal = capability;
 							this.bound = true;
+							this.rocket = entity;
 						});
 				} else { // might be bound to block
 					TileEntity ent = inv.player != null ? inv.player.world.getTileEntity(pos) : null;

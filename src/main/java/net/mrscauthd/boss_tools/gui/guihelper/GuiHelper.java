@@ -22,6 +22,8 @@ public class GuiHelper {
 	public static final int OXYGEN_HEIGHT = 14;
 	public static final int ENERGY_WIDTH = 24;
 	public static final int ENERGY_HEIGHT = 48;
+	public static final int FUEL_WIDTH = 48;
+	public static final int FUEL_HEIGHT = 48;
 
 	public static void renderEnergyTooltip(MatrixStack matrixStack, int left, int top, Screen screen, int stored, int capacity) {
 		screen.renderTooltip(matrixStack, new StringTextComponent(stored + " FE / " + capacity + " FE"), left, top);
@@ -69,6 +71,11 @@ public class GuiHelper {
 	public static void drawEnergy(MatrixStack matrixStack, int left, int top, double ratio) {
 		ResourceLocation full = new ResourceLocation("boss_tools:textures/energy_full.png");
 		drawVertical(matrixStack, left, top, ENERGY_WIDTH, ENERGY_HEIGHT, full, ratio);
+	}
+
+	public static void drawFuel(MatrixStack matrixStack, int left, int top, double ratio) {
+		ResourceLocation full = new ResourceLocation("boss_tools:textures/rocket_fuel_bar_full.png");
+		drawVertical(matrixStack, left, top, FUEL_WIDTH, FUEL_HEIGHT, full, ratio);
 	}
 
 	public static Rectangle2d getEnergyBounds(int left, int top) {

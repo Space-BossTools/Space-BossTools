@@ -12,7 +12,6 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.boss_tools.entity.*;
 import net.mrscauthd.boss_tools.events.ClientEventBusSubscriber;
-import net.mrscauthd.boss_tools.events.Events;
 import net.mrscauthd.boss_tools.events.Methodes;
 import org.lwjgl.glfw.GLFW;
 
@@ -144,28 +143,22 @@ public class KeyBindings {
 		//Type 1
 		if (type == 1) {
 			if (Methodes.RocketCheckOr(entity.getRidingEntity())) {
-				if (entity.getRidingEntity().getPersistentData().getBoolean("Powup_trigger") == false) {
-					if (entity.getRidingEntity().getPersistentData().getDouble("fuel") == 400) {
-						if (world instanceof World && !world.isRemote()) {
-							world.playSound(null, new BlockPos(x,y,z),ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("boss_tools:rocketfly")), SoundCategory.NEUTRAL, (float) 3, (float) 1);
-						} else {
-							world.playSound(x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("boss_tools:rocketfly")), SoundCategory.NEUTRAL, (float) 3, (float) 1, false);
-						}
-						entity.getRidingEntity().getPersistentData().putDouble("Powup", 1);
-						entity.getRidingEntity().getPersistentData().putBoolean("Powup_trigger", true);
-					} else {
-						if (entity instanceof PlayerEntity && !entity.world.isRemote()) {
-							entity.sendStatusMessage(new StringTextComponent("\u00A7cNO FUEL! \u00A77Fill the Rocket with \u00A7cFuel\u00A77. (\u00A76Sneak and Right Click\u00A77)"), false);
-						}
+				if (entity.getRidingEntity().getDataManager().get(RocketTier1Entity.FUEL) == 300) {
+					entity.getRidingEntity().getDataManager().set(RocketTier1Entity.ROCKET_START, true);
+					Methodes.RocketSounds(world, new BlockPos(x,y,z));
+				} else {
+					if (!entity.world.isRemote()) {
+						entity.sendStatusMessage(new StringTextComponent("\u00A7cNO FUEL! \u00A77Fill the Rocket with \u00A7cFuel\u00A77. (\u00A76Sneak and Right Click\u00A77)"), false);
 					}
 				}
 			}
+
 		}
 
 		//Type 2
 		if (type == 2) {
 			//Rocket Rotation (Direction -1)
-			if (entity.getRidingEntity() instanceof RocketTier1Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier3Entity.CustomEntity) {
+			if (entity.getRidingEntity() instanceof RocketTier1Entity || entity.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier3Entity.CustomEntity) {
 				(entity.getRidingEntity()).rotationYaw = (float) ((((entity.getRidingEntity()).rotationYaw) - 1));
 				(entity.getRidingEntity()).setRenderYawOffset((entity.getRidingEntity()).rotationYaw);
 				(entity.getRidingEntity()).prevRotationYaw = (entity.getRidingEntity()).rotationYaw;
@@ -200,7 +193,7 @@ public class KeyBindings {
 		//Type 3
 		if (type == 3) {
 			//Rocket Rotation (Direction +1)
-			if (entity.getRidingEntity() instanceof RocketTier1Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier3Entity.CustomEntity) {
+			if (entity.getRidingEntity() instanceof RocketTier1Entity || entity.getRidingEntity() instanceof RocketTier2Entity.CustomEntity || entity.getRidingEntity() instanceof RocketTier3Entity.CustomEntity) {
 				(entity.getRidingEntity()).rotationYaw = (float) ((((entity.getRidingEntity()).rotationYaw) + 1));
 				(entity.getRidingEntity()).setRenderYawOffset((entity.getRidingEntity()).rotationYaw);
 				(entity.getRidingEntity()).prevRotationYaw = (entity.getRidingEntity()).rotationYaw;
