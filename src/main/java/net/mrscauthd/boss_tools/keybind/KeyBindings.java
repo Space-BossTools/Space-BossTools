@@ -49,6 +49,7 @@ public class KeyBindings {
 	@SubscribeEvent
 	public static void onKeyInput1(TickEvent.ClientTickEvent event) {
 		if (event.phase == TickEvent.Phase.END) {
+
 			//Key Space
 			if (InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_SPACE)) {
 				if (Minecraft.getInstance().currentScreen == null) {
@@ -56,6 +57,7 @@ public class KeyBindings {
 					pressAction(Minecraft.getInstance().player, 0, 0);
 				}
 			}
+
 			//Key A
 			if ((InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_A))) {
 				if (Minecraft.getInstance().currentScreen == null) {
@@ -63,6 +65,7 @@ public class KeyBindings {
 					pressAction(Minecraft.getInstance().player, 2, 0);
 				}
 			}
+
 			//Key D
 			if ((InputMappings.isKeyDown(Minecraft.getInstance().getMainWindow().getHandle(), GLFW.GLFW_KEY_D))) {
 				if (Minecraft.getInstance().currentScreen == null) {
@@ -70,6 +73,7 @@ public class KeyBindings {
 					pressAction(Minecraft.getInstance().player, 3, 0);
 				}
 			}
+
 		}
 	}
 
