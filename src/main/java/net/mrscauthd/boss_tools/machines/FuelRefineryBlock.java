@@ -53,6 +53,7 @@ import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.capability.EnergyStorageBasic;
 import net.mrscauthd.boss_tools.fluid.FuelFluid;
 import net.mrscauthd.boss_tools.gui.FuelRefineryGUIGui;
 import net.mrscauthd.boss_tools.machines.tile.AbstractMachineTileEntity;
@@ -200,6 +201,11 @@ public class FuelRefineryBlock {
 
 		public CustomTileEntity() {
 			super(ModInnet.FUEL_REFINERY.get());
+		}
+		
+		@Override
+		protected EnergyStorageBasic createEnergyStorage() {
+			return this.createEnergyStorageCommonUsing();
 		}
 
 		@Override

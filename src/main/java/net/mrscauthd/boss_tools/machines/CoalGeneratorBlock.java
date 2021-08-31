@@ -201,9 +201,7 @@ public class CoalGeneratorBlock {
 		@Override
 		protected void generateEnergy() {
 			if (this.isPowerEnoughAndConsume()) {
-				this.getEnergyStorage().receiveEnergyInternal(this.getGeneratePerTick(), false);
-				this.setProcessedInThisTick();
-				this.markDirty();
+				this.generateEnergy(this.getGeneratePerTick());
 			}
 
 		}

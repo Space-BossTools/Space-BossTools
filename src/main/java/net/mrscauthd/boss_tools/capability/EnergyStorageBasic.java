@@ -3,11 +3,13 @@ package net.mrscauthd.boss_tools.capability;
 import java.util.Optional;
 
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.energy.EnergyStorage;
 
-public class EnergyStorageBasic extends EnergyStorage implements IEnergyStorageExtends {
-	private final IEnergyStorageHolder holder;
+public class EnergyStorageBasic extends EnergyStorage implements INBTSerializable<CompoundNBT> {
 
+	private final IEnergyStorageHolder holder;
+	
 	public EnergyStorageBasic(IEnergyStorageHolder holder, int capacity, int maxReceive, int maxExtract, int energy) {
 		super(capacity, maxReceive, maxExtract, energy);
 		this.holder = holder;
@@ -29,7 +31,7 @@ public class EnergyStorageBasic extends EnergyStorage implements IEnergyStorageE
 	}
 
 	public int receiveEnergyInternal(int maxReceive, boolean simulate) {
-		int energyReceived = Math.min(this.capacity - this.energy, maxReceive);
+		int energyReceived = Math.min(this.getMaxEnergyStored() - this.getEnergyStored(), maxReceive);
 		if (!simulate && energyReceived > 0) {
 			this.energy += energyReceived;
 			Optional.ofNullable(this.getHolder()).ifPresent(h -> h.onEnergyChanged(this, +energyReceived));
@@ -39,7 +41,7 @@ public class EnergyStorageBasic extends EnergyStorage implements IEnergyStorageE
 	}
 
 	public int extractEnergyInternal(int maxExtract, boolean simulate) {
-		int energyExtracted = Math.min(this.energy, maxExtract);
+		int energyExtracted = Math.min(this.getEnergyStored(), maxExtract);
 		if (!simulate && energyExtracted > 0) {
 			this.energy -= energyExtracted;
 			Optional.ofNullable(this.getHolder()).ifPresent(h -> h.onEnergyChanged(this, -energyExtracted));
@@ -50,24 +52,38 @@ public class EnergyStorageBasic extends EnergyStorage implements IEnergyStorageE
 
 	@Override
 	public int receiveEnergy(int maxReceive, boolean simulate) {
-		int energyReceived = super.receiveEnergy(maxReceive, simulate);
-
-		if (!simulate && energyReceived > 0) {
-			Optional.ofNullable(this.getHolder()).ifPresent(h -> h.onEnergyChanged(this, +energyReceived));
+		if (!this.canReceive()) {
+			return 0;
+		} else {
+			return this.receiveEnergyInternal(Math.min(this.getMaxReceive(), maxReceive), simulate);
 		}
-
-		return energyReceived;
 	}
 
 	@Override
 	public int extractEnergy(int maxExtract, boolean simulate) {
-		int energyExtracted = super.extractEnergy(maxExtract, simulate);
-
-		if (!simulate && energyExtracted > 0) {
-			Optional.ofNullable(this.getHolder()).ifPresent(h -> h.onEnergyChanged(this, -energyExtracted));
+		if (!this.canExtract()) {
+			return 0;
+		} else {
+			return this.extractEnergyInternal(Math.min(this.getMaxExtract(), maxExtract), simulate);
 		}
+	}
 
-		return energyExtracted;
+	public int getMaxExtract() {
+		return this.maxExtract;
+	}
+
+	@Override
+	public boolean canExtract() {
+		return this.getMaxExtract() > 0;
+	}
+
+	public int getMaxReceive() {
+		return this.maxReceive;
+	}
+
+	@Override
+	public boolean canReceive() {
+		return this.getMaxReceive() > 0;
 	}
 
 	public IEnergyStorageHolder getHolder() {
@@ -75,13 +91,15 @@ public class EnergyStorageBasic extends EnergyStorage implements IEnergyStorageE
 	}
 
 	@Override
-	public void read(CompoundNBT compound) {
-		this.energy = compound.getInt("energy");
+	public CompoundNBT serializeNBT() {
+		CompoundNBT compound = new CompoundNBT();
+		compound.putInt("energy", this.energy);
+		return compound;
 	}
 
 	@Override
-	public void write(CompoundNBT compound) {
-		compound.putInt("energy", this.energy);
+	public void deserializeNBT(CompoundNBT compound) {
+		this.energy = compound.getInt("energy");
 	}
 
 }
