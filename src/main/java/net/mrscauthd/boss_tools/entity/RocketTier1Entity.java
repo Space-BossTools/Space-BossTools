@@ -1,4 +1,3 @@
-
 package net.mrscauthd.boss_tools.entity;
 
 import net.minecraft.block.BlockState;
@@ -16,7 +15,6 @@ import net.mrscauthd.boss_tools.block.RocketLaunchPadBlock;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.gui.RocketTier1GUIFuelGui;
 
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.items.wrapper.EntityHandsInvWrapper;
 import net.minecraftforge.items.wrapper.EntityArmorInvWrapper;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
@@ -133,12 +131,12 @@ public class RocketTier1Entity extends CreatureEntity {
 
 	@Override
 	public net.minecraft.util.SoundEvent getHurtSound(DamageSource ds) {
-		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(""));
+		return null;
 	}
 
 	@Override
 	public net.minecraft.util.SoundEvent getDeathSound() {
-		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(""));
+		return null;
 	}
 
 	@Override
@@ -207,20 +205,20 @@ public class RocketTier1Entity extends CreatureEntity {
 		return false;
 	}
 
-	private final ItemStackHandler inventory = new ItemStackHandler(9) {
+	private final ItemStackHandler inventory = new ItemStackHandler(1) {
 		@Override
 		public int getSlotLimit(int slot) {
 			return 64;
 		}
 	};
 
-	private final CombinedInvWrapper combined = new CombinedInvWrapper(inventory, new EntityHandsInvWrapper(this),
-			new EntityArmorInvWrapper(this));
+	private final CombinedInvWrapper combined = new CombinedInvWrapper(inventory, new EntityHandsInvWrapper(this), new EntityArmorInvWrapper(this));
 
 	@Override
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
-		if (this.isAlive() && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side == null)
+		if (this.isAlive() && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side == null) {
 			return LazyOptional.of(() -> combined).cast();
+		}
 		return super.getCapability(capability, side);
 	}
 
@@ -239,8 +237,9 @@ public class RocketTier1Entity extends CreatureEntity {
 	public void readAdditional(CompoundNBT compound) {
 		super.readAdditional(compound);
 		INBT inventoryCustom = compound.get("InventoryCustom");
-		if (inventoryCustom instanceof CompoundNBT)
+		if (inventoryCustom instanceof CompoundNBT) {
 			inventory.deserializeNBT((CompoundNBT) inventoryCustom);
+		}
 
 		this.dataManager.set(ROCKET_START, compound.getBoolean("rocket_start"));
 		this.dataManager.set(BUCKET, compound.getBoolean("bucket"));
@@ -250,32 +249,33 @@ public class RocketTier1Entity extends CreatureEntity {
 
 	@Override
 	public ActionResultType func_230254_b_(PlayerEntity sourceentity, Hand hand) {
-		ActionResultType retval = ActionResultType.func_233537_a_(this.world.isRemote());
-		if (sourceentity.isSecondaryUseActive()) {
-			if (sourceentity instanceof ServerPlayerEntity) {
-				NetworkHooks.openGui((ServerPlayerEntity) sourceentity, new INamedContainerProvider() {
-					@Override
-					public ITextComponent getDisplayName() {
-						return new StringTextComponent("Tier 1 Rocket");
-					}
-
-					@Override
-					public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-						PacketBuffer packetBuffer = new PacketBuffer(Unpooled.buffer());
-						packetBuffer.writeBlockPos(new BlockPos(sourceentity.getPosition()));
-						packetBuffer.writeByte(0);
-						packetBuffer.writeVarInt(RocketTier1Entity.this.getEntityId());
-						return new RocketTier1GUIFuelGui.GuiContainerMod(id, inventory, packetBuffer);
-					}
-				}, buf -> {
-					buf.writeBlockPos(new BlockPos(sourceentity.getPosition()));
-					buf.writeByte(0);
-					buf.writeVarInt(this.getEntityId());
-				});
-			}
-			return ActionResultType.func_233537_a_(this.world.isRemote());
-		}
 		super.func_230254_b_(sourceentity, hand);
+		ActionResultType retval = ActionResultType.func_233537_a_(this.world.isRemote());
+
+		if (sourceentity instanceof ServerPlayerEntity && sourceentity.isSneaking()) {
+			NetworkHooks.openGui((ServerPlayerEntity) sourceentity, new INamedContainerProvider() {
+				@Override
+				public ITextComponent getDisplayName() {
+					return new StringTextComponent("Tier 1 Rocket");
+				}
+
+				@Override
+				public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+					PacketBuffer packetBuffer = new PacketBuffer(Unpooled.buffer());
+					packetBuffer.writeBlockPos(new BlockPos(sourceentity.getPosition()));
+					packetBuffer.writeByte(0);
+					packetBuffer.writeVarInt(RocketTier1Entity.this.getEntityId());
+					return new RocketTier1GUIFuelGui.GuiContainerMod(id, inventory, packetBuffer);
+				}
+			}, buf -> {
+				buf.writeBlockPos(new BlockPos(sourceentity.getPosition()));
+				buf.writeByte(0);
+				buf.writeVarInt(this.getEntityId());
+			});
+
+			return retval;
+		}
+
 		sourceentity.startRiding(this);
 		return retval;
 	}
@@ -287,7 +287,6 @@ public class RocketTier1Entity extends CreatureEntity {
 		double y = this.getPosY();
 		double z = this.getPosZ();
 
-		//TODO Add Timer Overlay
 		if (this.dataManager.get(ROCKET_START) == true) {
 
 			//Rocket Animation
@@ -301,7 +300,6 @@ public class RocketTier1Entity extends CreatureEntity {
 				ay = 0;
 				ap = 0;
 			}
-
 
 			if (this.dataManager.get(START_TIMER) < 200) {
 				this.dataManager.set(START_TIMER, this.dataManager.get(START_TIMER) + 1);

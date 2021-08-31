@@ -46,8 +46,6 @@ public class BossToolsMod {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
 		//SyncEvent Registers
-		SyncEvents.FuelGuiSyncEvent.registerMessages();
-		SyncEvents.FuelSyncEvent.registerMessages();
 		SyncEvents.OxygenBulletGeneratorSyncEvent.NetworkLoader.registerMessages();
 		SyncEvents.PlayerMovementSyncEvent.NetworkLoader.registerMessages();
 

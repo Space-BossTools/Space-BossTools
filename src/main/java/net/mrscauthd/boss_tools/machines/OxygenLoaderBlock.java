@@ -39,6 +39,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.capability.CapabilityOxygen;
+import net.mrscauthd.boss_tools.capability.EnergyStorageBasic;
 import net.mrscauthd.boss_tools.capability.IOxygenStorage;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
@@ -251,6 +252,11 @@ public class OxygenLoaderBlock {
 					}
 				}
 			}
+		}
+
+		@Override
+		protected EnergyStorageBasic createEnergyStorage() {
+			return this.createEnergyStorageCommonUsing();
 		}
 
 		@Override

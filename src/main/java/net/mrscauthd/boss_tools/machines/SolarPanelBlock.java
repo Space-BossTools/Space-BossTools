@@ -183,9 +183,7 @@ public class SolarPanelBlock {
 			World world = this.getWorld();
 
 			if (world.isDaytime() && world.canBlockSeeSky(this.getPos().up())) {
-				this.getEnergyStorage().receiveEnergyInternal(this.getGeneratePerTick(), false);
-				this.setProcessedInThisTick();
-				this.markDirty();
+				this.generateEnergy(this.getGeneratePerTick());
 			}
 		}
 
