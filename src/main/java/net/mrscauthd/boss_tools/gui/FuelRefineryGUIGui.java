@@ -2,6 +2,7 @@
 package net.mrscauthd.boss_tools.gui;
 
 import net.mrscauthd.boss_tools.BossToolsModElements;
+import net.mrscauthd.boss_tools.machines.FuelRefineryBlock.CustomTileEntity;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
 import net.minecraftforge.items.SlotItemHandler;
@@ -113,9 +114,20 @@ public class FuelRefineryGUIGui extends BossToolsModElements.ModElement {
 					}
 				}
 			}
+
+			CustomTileEntity tileEntity = (CustomTileEntity) this.world.getTileEntity(new BlockPos(this.x, this.y, this.z));
+			
 			this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 76, 40) {
+				@Override
+				public boolean isItemValid(ItemStack stack) {
+					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
+				}
 			}));
 			this.customSlots.put(1, this.addSlot(new SlotItemHandler(internal, 1, 8, 60) {
+				@Override
+				public boolean isItemValid(ItemStack stack) {
+					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
+				}
 			}));
 			int si;
 			int sj;

@@ -46,9 +46,13 @@ public abstract class ItemStackToItemStackRecipe extends BossToolsRecipe {
 		buffer.writeInt(this.getCookTime());
 	}
 
+	public boolean testIngredient(ItemStack stack) {
+		return this.ingredient.test(stack);
+	}
+
 	@Override
 	public boolean matches(IInventory inventory, World world) {
-		if (!this.ingredient.test(inventory.getStackInSlot(this.getIngredientSlot(inventory, world))))
+		if (!this.testIngredient(inventory.getStackInSlot(this.getIngredientSlot(inventory, world))))
 			return false;
 
 		return true;

@@ -78,10 +78,14 @@ public class GeneratingRecipe extends BossToolsRecipe {
 	public int getFuelSlot(IInventory inventory, World world) {
 		return SLOT_FUEL;
 	}
+	
+	public boolean testIngredient(ItemStack ingredient) {
+		return this.ingredient.test(ingredient);
+	}
 
 	@Override
 	public boolean matches(IInventory inventory, World world) {
-		if (!this.ingredient.test(inventory.getStackInSlot(this.getFuelSlot(inventory, world))))
+		if (!this.testIngredient(inventory.getStackInSlot(this.getFuelSlot(inventory, world))))
 			return false;
 
 		return true;

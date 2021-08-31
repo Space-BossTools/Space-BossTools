@@ -189,7 +189,7 @@ public class CompressorBlock {
 		}
 
 		@Override
-		protected ItemStackToItemStackRecipeType<?> getRecipeType() {
+		public ItemStackToItemStackRecipeType<?> getRecipeType() {
 			return BossToolsRecipeTypes.COMPRESSING;
 		}
 

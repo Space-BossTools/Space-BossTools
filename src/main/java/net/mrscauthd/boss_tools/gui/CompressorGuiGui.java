@@ -32,6 +32,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.BossToolsModElements;
+import net.mrscauthd.boss_tools.machines.CompressorBlock.CustomTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.ItemStackToItemStackTileEntity;
 
 @BossToolsModElements.ModElement.Tag
@@ -112,12 +113,19 @@ public class CompressorGuiGui extends BossToolsModElements.ModElement {
 					}
 				}
 			}
-			this.customSlots.put(ItemStackToItemStackTileEntity.SLOT_INGREDIENT, this.addSlot(new SlotItemHandler(internal, ItemStackToItemStackTileEntity.SLOT_INGREDIENT, 40, 37) {
+			
+			CustomTileEntity tileEntity = (CustomTileEntity) this.world.getTileEntity(new BlockPos(this.x, this.y, this.z));
+			
+			this.customSlots.put(CustomTileEntity.SLOT_INGREDIENT, this.addSlot(new SlotItemHandler(internal, CustomTileEntity.SLOT_INGREDIENT, 40, 37) {
+				@Override
+				public boolean isItemValid(ItemStack stack) {
+					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
+				}
 			}));
 			this.customSlots.put(ItemStackToItemStackTileEntity.SLOT_OUTPUT, this.addSlot(new SlotItemHandler(internal,ItemStackToItemStackTileEntity.SLOT_OUTPUT, 92, 36) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
-					return false;
+					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
 				}
 			}));
 			int si;

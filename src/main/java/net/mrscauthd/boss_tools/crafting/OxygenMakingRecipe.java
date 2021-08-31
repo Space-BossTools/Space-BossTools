@@ -79,9 +79,13 @@ public class OxygenMakingRecipe extends BossToolsRecipe {
 		return SLOT_INGREDIENT;
 	}
 
+	public boolean testIngredient(ItemStack itemStack) {
+		return this.ingredient.test(itemStack);
+	}
+
 	@Override
 	public boolean matches(IInventory inventory, World world) {
-		if (!this.ingredient.test(inventory.getStackInSlot(this.getIngredientSlot(inventory, world))))
+		if (!this.testIngredient(inventory.getStackInSlot(this.getIngredientSlot(inventory, world))))
 			return false;
 
 		return true;

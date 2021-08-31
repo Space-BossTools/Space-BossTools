@@ -191,7 +191,7 @@ public class BlastingFurnaceBlock {
 		}
 
 		@Override
-		protected ItemStackToItemStackRecipeType<?> getRecipeType() {
+		public ItemStackToItemStackRecipeType<?> getRecipeType() {
 			return BossToolsRecipeTypes.BLASTING;
 		}
 
