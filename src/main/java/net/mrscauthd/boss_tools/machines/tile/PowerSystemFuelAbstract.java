@@ -124,7 +124,7 @@ public abstract class PowerSystemFuelAbstract extends PowerSystem {
 	}
 
 	public boolean matchDirection(Direction direction) {
-		return direction != Direction.UP && direction != Direction.DOWN;
+		return direction == null || (direction != Direction.UP && direction != Direction.DOWN);
 	}
 
 	@Override

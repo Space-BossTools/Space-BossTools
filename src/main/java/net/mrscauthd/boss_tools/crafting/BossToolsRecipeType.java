@@ -1,6 +1,7 @@
 package net.mrscauthd.boss_tools.crafting;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.crafting.IRecipe;
@@ -22,7 +23,11 @@ public class BossToolsRecipeType<T extends IRecipe<IInventory>> implements IReci
 	}
 
 	public T findFirst(World world, IInventory inventory) {
-		return this.getRecipes(world).stream().filter(t -> t.matches(inventory, world)).findFirst().orElse(null);
+		return this.findFirst(world, f -> f.matches(inventory, world));
+	}
+
+	public T findFirst(World world, Predicate<T> filter) {
+		return this.getRecipes(world).stream().filter(filter).findFirst().orElse(null);
 	}
 
 	public List<T> getRecipes(World world) {

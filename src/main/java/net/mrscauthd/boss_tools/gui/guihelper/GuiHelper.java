@@ -14,12 +14,16 @@ import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
 
 public class GuiHelper {
 
+	public static final ResourceLocation FIRE_PATH = new ResourceLocation("boss_tools:textures/fire_on.png");
 	public static final int FIRE_WIDTH = 14;
 	public static final int FIRE_HEIGHT = 14;
+	public static final ResourceLocation ARROW_PATH = new ResourceLocation("boss_tools:textures/animated_arrow_full.png");
 	public static final int ARROW_WIDTH = 24;
 	public static final int ARROW_HEIGHT = 17;
+	public static final ResourceLocation OXYGEN_PATH = new ResourceLocation("boss_tools:textures/oxygen_full.png");
 	public static final int OXYGEN_WIDTH = 14;
 	public static final int OXYGEN_HEIGHT = 14;
+	public static final ResourceLocation ENERGY_PATH = new ResourceLocation("boss_tools:textures/energy_full.png");
 	public static final int ENERGY_WIDTH = 24;
 	public static final int ENERGY_HEIGHT = 48;
 	public static final int FUEL_WIDTH = 48;
@@ -38,8 +42,7 @@ public class GuiHelper {
 	}
 
 	public static void drawArrow(MatrixStack matrixStack, int left, int top, double ratio) {
-		ResourceLocation full = new ResourceLocation("boss_tools:textures/animated_arrow_full.png");
-		GuiHelper.drawHorizontal(matrixStack, left, top, ARROW_WIDTH, ARROW_HEIGHT, full, ratio);
+		GuiHelper.drawHorizontal(matrixStack, left, top, ARROW_WIDTH, ARROW_HEIGHT, ARROW_PATH, ratio);
 	}
 
 	public static Rectangle2d getArrorBounds(int left, int top) {
@@ -47,8 +50,7 @@ public class GuiHelper {
 	}
 
 	public static void drawFire(MatrixStack matrixStack, int left, int top, double ratio) {
-		ResourceLocation full = new ResourceLocation("boss_tools:textures/fire_on.png");
-		drawVertical(matrixStack, left, top, FIRE_WIDTH, FIRE_HEIGHT, full, ratio);
+		drawVertical(matrixStack, left, top, FIRE_WIDTH, FIRE_HEIGHT, FIRE_PATH, ratio);
 	}
 
 	public static Rectangle2d getFireBounds(int left, int top) {
@@ -56,8 +58,7 @@ public class GuiHelper {
 	}
 
 	public static void drawOxygen(MatrixStack matrixStack, int left, int top, double ratio) {
-		ResourceLocation full = new ResourceLocation("boss_tools:textures/oxygen_full.png");
-		drawVertical(matrixStack, left, top, OXYGEN_WIDTH, OXYGEN_HEIGHT, full, ratio);
+		drawVertical(matrixStack, left, top, OXYGEN_WIDTH, OXYGEN_HEIGHT, OXYGEN_PATH, ratio);
 	}
 
 	public static Rectangle2d getOxygenBounds(int left, int top) {
@@ -69,8 +70,7 @@ public class GuiHelper {
 	}
 
 	public static void drawEnergy(MatrixStack matrixStack, int left, int top, double ratio) {
-		ResourceLocation full = new ResourceLocation("boss_tools:textures/energy_full.png");
-		drawVertical(matrixStack, left, top, ENERGY_WIDTH, ENERGY_HEIGHT, full, ratio);
+		drawVertical(matrixStack, left, top, ENERGY_WIDTH, ENERGY_HEIGHT, ENERGY_PATH, ratio);
 	}
 
 	public static void drawFuel(MatrixStack matrixStack, int left, int top, double ratio) {

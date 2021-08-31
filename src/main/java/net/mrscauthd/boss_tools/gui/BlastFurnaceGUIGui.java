@@ -32,7 +32,9 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.BossToolsModElements;
+import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock.CustomTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.ItemStackToItemStackTileEntity;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystemFuelAbstract;
 
 @BossToolsModElements.ModElement.Tag
 public class BlastFurnaceGUIGui extends BossToolsModElements.ModElement {
@@ -115,15 +117,26 @@ public class BlastFurnaceGUIGui extends BossToolsModElements.ModElement {
 					}
 				}
 			}
+			
+			CustomTileEntity tileEntity = (CustomTileEntity) this.world.getTileEntity(new BlockPos(this.x, this.y, this.z));
+			
 			this.customSlots.put(ItemStackToItemStackTileEntity.SLOT_INGREDIENT, this.addSlot(new SlotItemHandler(internal, ItemStackToItemStackTileEntity.SLOT_INGREDIENT, 53, 19) {
+				@Override
+				public boolean isItemValid(ItemStack stack) {
+					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
+				}
 			}));
 			this.customSlots.put(ItemStackToItemStackTileEntity.SLOT_OUTPUT, this.addSlot(new SlotItemHandler(internal, ItemStackToItemStackTileEntity.SLOT_OUTPUT, 104, 38) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
-					return false;
+					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
 				}
 			}));
 			this.customSlots.put(ItemStackToItemStackTileEntity.SLOT_FUEL, this.addSlot(new SlotItemHandler(internal, ItemStackToItemStackTileEntity.SLOT_FUEL, 53, 56) {
+				@Override
+				public boolean isItemValid(ItemStack stack) {
+					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
+				}
 			}));
 			int si;
 			int sj;

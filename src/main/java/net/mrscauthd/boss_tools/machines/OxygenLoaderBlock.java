@@ -211,7 +211,7 @@ public class OxygenLoaderBlock {
 			return new StringTextComponent("Oxygen Loader");
 		}
 		
-		public BossToolsRecipeType<? extends OxygenMakingRecipe> getRecipeType() {
+		public BossToolsRecipeType<? extends OxygenMakingRecipe> getOxygenMakingRecipeType() {
 			return BossToolsRecipeTypes.OXYGENMAKING;
 		}
 		
@@ -220,11 +220,7 @@ public class OxygenLoaderBlock {
 				return -1;
 			}
 			
-			int recipeSlot = OxygenMakingRecipe.SLOT_INGREDIENT;
-			Inventory virtualInventory = new Inventory(recipeSlot + 1);
-			virtualInventory.setInventorySlotContents(recipeSlot, itemStack);
-
-			OxygenMakingRecipe recipe = this.getRecipeType().findFirst(this.getTileEntity().getWorld(), virtualInventory);
+			OxygenMakingRecipe recipe = this.getOxygenMakingRecipeType().findFirst(this.getTileEntity().getWorld(), r -> r.testIngredient(itemStack));
 			return recipe != null ? recipe.getActivaingTime() : -1;
 		}
 		

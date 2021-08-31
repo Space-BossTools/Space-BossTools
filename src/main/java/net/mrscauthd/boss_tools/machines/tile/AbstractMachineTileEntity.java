@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import com.google.common.primitives.Ints;
 
 import net.minecraft.block.BlockState;
@@ -399,5 +401,10 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	}
 
 	public abstract boolean hasSpaceInOutput();
+
+	public boolean nullOrMatch(@Nullable Direction direction, Direction... matches)
+	{
+		return direction == null || ArrayUtils.contains(matches, direction); 
+	}
 
 }
