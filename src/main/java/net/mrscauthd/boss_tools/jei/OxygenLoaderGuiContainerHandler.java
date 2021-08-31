@@ -15,6 +15,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.mrscauthd.boss_tools.gui.OxygenLoaderGuiGuiWindow;
+import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 import net.mrscauthd.boss_tools.jei.JeiPlugin.OxygenLoadingJeiCategory;
 import net.mrscauthd.boss_tools.jei.JeiPlugin.OxygenMakingJeiCategory;
 import net.mrscauthd.boss_tools.machines.OxygenLoaderBlock;
@@ -30,7 +31,7 @@ public class OxygenLoaderGuiContainerHandler implements IGuiContainerHandler<Oxy
 		return Collections.singleton(new IGuiClickableArea() {
 			@Override
 			public Rectangle2d getArea() {
-				return new Rectangle2d(76, 42, 14, 12);
+				return GuiHelper.getOxygenBounds(OxygenLoaderGuiGuiWindow.OXYGEN_LEFT, OxygenLoaderGuiGuiWindow.OXYGEN_TOP);
 			}
 
 			@Override

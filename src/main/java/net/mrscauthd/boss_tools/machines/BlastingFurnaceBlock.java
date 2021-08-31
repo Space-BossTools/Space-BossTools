@@ -1,4 +1,3 @@
-
 package net.mrscauthd.boss_tools.machines;
 
 import java.util.Collections;

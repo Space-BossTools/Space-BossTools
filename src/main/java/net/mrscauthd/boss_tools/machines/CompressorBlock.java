@@ -39,6 +39,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.capability.EnergyStorageBasic;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipeType;
 import net.mrscauthd.boss_tools.gui.CompressorGuiGui;
@@ -196,6 +197,11 @@ public class CompressorBlock {
 		@Override
 		protected BooleanProperty getBlockActivatedProperty() {
 			return CustomBlock.ACTIAVATED;
+		}
+		
+		@Override
+		protected EnergyStorageBasic createEnergyStorage() {
+			return this.createEnergyStorageCommonUsing();
 		}
 
 		@Override
