@@ -42,8 +42,8 @@ import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipeType;
 import net.mrscauthd.boss_tools.gui.BlastFurnaceGUIGui;
 import net.mrscauthd.boss_tools.machines.tile.ItemStackToItemStackTileEntity;
-import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
-import net.mrscauthd.boss_tools.machines.tile.PowerSystemFuelVanilla;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystemFuelBurnTimeVanilla;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystemMap;
 
 public class BlastingFurnaceBlock {
 
@@ -160,6 +160,8 @@ public class BlastingFurnaceBlock {
 	}
 
 	public static class CustomTileEntity extends ItemStackToItemStackTileEntity {
+		private PowerSystemFuelBurnTimeVanilla powerSystemBurnTime;
+
 		public CustomTileEntity() {
 			super(ModInnet.BLAST_FURNACE.get());
 		}
@@ -190,13 +192,19 @@ public class BlastingFurnaceBlock {
 		}
 
 		@Override
-		protected PowerSystem createPowerSystem() {
-			return new PowerSystemFuelVanilla(this, this::getItemHandler, SLOT_FUEL) {
+		protected void createPowerSystems(PowerSystemMap map) {
+			super.createPowerSystems(map);
+
+			map.put(this.powerSystemBurnTime = new PowerSystemFuelBurnTimeVanilla(this, SLOT_FUEL) {
 				@Override
 				public IRecipeType<?> getRecipeType() {
 					return CustomTileEntity.this.getRecipeType();
 				}
-			};
+			});
+		}
+		
+		public PowerSystemFuelBurnTimeVanilla getPowerSystemBurnTime() {
+			return this.powerSystemBurnTime;
 		}
 
 	}

@@ -57,8 +57,8 @@ import net.mrscauthd.boss_tools.capability.EnergyStorageBasic;
 import net.mrscauthd.boss_tools.fluid.FuelFluid;
 import net.mrscauthd.boss_tools.gui.FuelRefineryGUIGui;
 import net.mrscauthd.boss_tools.machines.tile.AbstractMachineTileEntity;
-import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemCommonEnergy;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystemMap;
 
 public class FuelRefineryBlock {
 	public static final int BUCKET_SIZE = 1000;
@@ -202,20 +202,21 @@ public class FuelRefineryBlock {
 		public CustomTileEntity() {
 			super(ModInnet.FUEL_REFINERY.get());
 		}
-		
+
 		@Override
 		protected EnergyStorageBasic createEnergyStorage() {
 			return this.createEnergyStorageCommonUsing();
 		}
 
 		@Override
-		protected PowerSystem createPowerSystem() {
-			return new PowerSystemCommonEnergy(this) {
+		protected void createPowerSystems(PowerSystemMap map) {
+			super.createPowerSystems(map);
+			map.put(new PowerSystemCommonEnergy(this) {
 				@Override
 				public int getBasePowerForOperation() {
 					return 1;
 				}
-			};
+			});
 		}
 
 		@Override
@@ -348,7 +349,7 @@ public class FuelRefineryBlock {
 			IItemHandlerModifiable itemHandler = this.getItemHandler();
 			ItemStack ingredient = itemHandler.getStackInSlot(SLOT_INGREDIENT);
 
-			if (this.hasSpaceInOutput() && this.getPowerSystem().getStored() >= this.getPowerForOperation() && ingredient.getItem() == ModInnet.OIL_BUCKET.get() && ingredient.getCount() == 1) {
+			if (this.hasSpaceInOutput() && this.isPowerEnoughForOperation() && ingredient.getItem() == ModInnet.OIL_BUCKET.get() && ingredient.getCount() == 1) {
 				int fuel = this.getFuel();
 
 				if (fuel < FUEL_CONSUME_PER_TICK) {
@@ -368,7 +369,7 @@ public class FuelRefineryBlock {
 			if (this.hasSpaceInOutput()) {
 				int fuel = this.getFuel();
 
-				if (fuel >= FUEL_CONSUME_PER_TICK && this.isPowerEnoughAndConsume()) {
+				if (fuel >= FUEL_CONSUME_PER_TICK && this.consumePowerForOperation() != null) {
 					this.setFuel(fuel - FUEL_CONSUME_PER_TICK);
 					this.getFluidTank().fill(new FluidStack(ModInnet.FUEL_STILL.get(), FLUID_PER_FUEL * FUEL_CONSUME_PER_TICK), FluidAction.EXECUTE);
 					this.setProcessedInThisTick();

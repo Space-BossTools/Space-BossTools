@@ -42,8 +42,8 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.gui.GeneratorGUIGui;
 import net.mrscauthd.boss_tools.machines.tile.GeneratorTileEntity;
-import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemFuelGeneratingRecipe;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystemMap;
 
 public class CoalGeneratorBlock {
 	public static final int SLOT_FUEL = 0;
@@ -171,6 +171,8 @@ public class CoalGeneratorBlock {
 
 	public static class CustomTileEntity extends GeneratorTileEntity {
 
+		private PowerSystemFuelGeneratingRecipe powerSystemGenerating;
+
 		public CustomTileEntity() {
 			super(ModInnet.COAL_GENERATOR.get());
 		}
@@ -195,11 +197,13 @@ public class CoalGeneratorBlock {
 		}
 
 		@Override
-		protected void generateEnergy() {
-			if (this.isPowerEnoughAndConsume()) {
-				this.generateEnergy(this.getGeneratePerTick());
-			}
+		protected boolean canGenerateEnergy() {
+			return true;
+		}
 
+		@Override
+		protected void generateEnergy() {
+			this.generateEnergy(this.getGeneratePerTick());
 		}
 
 		@Override
@@ -211,14 +215,13 @@ public class CoalGeneratorBlock {
 		}
 
 		@Override
-		protected PowerSystem createPowerSystem() {
-			return new PowerSystemFuelGeneratingRecipe(this, this::getItemHandler, SLOT_FUEL);
+		protected void createPowerSystems(PowerSystemMap map) {
+			super.createPowerSystems(map);
+			map.put(this.powerSystemGenerating = new PowerSystemFuelGeneratingRecipe(this, SLOT_FUEL));
 		}
-
-		@Override
-		public boolean hasSpaceInOutput() {
-			return this.getEnergyStorage().receiveEnergyInternal(this.getGeneratePerTick(), true) > 0;
+		
+		public PowerSystemFuelGeneratingRecipe getPowerSystemGenerating() {
+			return this.powerSystemGenerating;
 		}
-
 	}
 }

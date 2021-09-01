@@ -15,6 +15,28 @@ public abstract class PowerSystem {
 		this.tileEntity = tileEntity;
 	}
 
+	public int getPowerPerTick() {
+		int base = this.getBasePowerPerTick();
+		return this.getTileEntity().getPowerPerTick(this, base);
+	}
+
+	public int getPowerForOperation() {
+		int base = this.getBasePowerForOperation();
+		return this.getTileEntity().getPowerForOperation(this, base);
+	}
+
+	public boolean isPowerEnoughForOperation() {
+		return this.getStored() >= this.getPowerPerTick() + this.getPowerForOperation();
+	}
+
+	public int consumeForOperation() {
+		if (this.isPowerEnoughForOperation()) {
+			return this.consume(this.getPowerForOperation());
+		} else {
+			return 0;
+		}
+	}
+
 	public int getUsingSlots() {
 		return 0;
 	}
@@ -30,10 +52,6 @@ public abstract class PowerSystem {
 	public double getStoredRatio() {
 		int capacity = this.getCapacity();
 		return capacity > 0 ? ((double) this.getStored() / (double) capacity) : 0;
-	}
-
-	public double getStoredPercentage() {
-		return this.getStoredRatio() * 100.0D;
 	}
 
 	public abstract int receive(int amount, boolean simulate);
@@ -52,7 +70,7 @@ public abstract class PowerSystem {
 	 * 
 	 * @return complete extract energy for operation
 	 */
-	public boolean consume(int amount) {
+	public int consume(int amount) {
 		while (true) {
 			if (this.extract(amount, true) == amount) {
 				this.extract(amount, false);
@@ -61,9 +79,9 @@ public abstract class PowerSystem {
 					this.feed(true);
 				}
 
-				return true;
+				return amount;
 			} else if (!this.feed(false)) {
-				return false;
+				return 0;
 			}
 		}
 	}
@@ -87,5 +105,20 @@ public abstract class PowerSystem {
 	public final AbstractMachineTileEntity getTileEntity() {
 		return this.tileEntity;
 	}
+
+	public void update() {
+		int powerPerTick = this.getPowerPerTick();
+
+		if (powerPerTick > 0) {
+			this.consume(powerPerTick);
+		}
+
+		if (!this.isPowerEnoughForOperation()) {
+			this.feed(true);
+		}
+
+	}
+
+	public abstract String getName();
 
 }
