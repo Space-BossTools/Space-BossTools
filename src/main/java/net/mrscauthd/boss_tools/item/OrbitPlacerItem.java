@@ -43,5 +43,6 @@ public class OrbitPlacerItem extends BossToolsModElements.ModElement {
 		public float getDestroySpeed(ItemStack par1ItemStack, BlockState par2Block) {
 			return 1F;
 		}
+		
 	}
 }
