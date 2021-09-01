@@ -40,7 +40,7 @@ public class BlastFurnaceGUIGuiWindow extends ContainerScreen<BlastFurnaceGUIGui
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 
 		if (this.getFireBounds().contains(mouseX, mouseY)) {
-			this.renderTooltip(ms, new StringTextComponent("Burn Time: " + this.getTileEntity().getPowerSystem().getStored()), mouseX, mouseY);
+			this.renderTooltip(ms, new StringTextComponent("Burn Time: " + this.getTileEntity().getPowerSystemBurnTime().getStored()), mouseX, mouseY);
 		}
 	}
 
@@ -51,7 +51,7 @@ public class BlastFurnaceGUIGuiWindow extends ContainerScreen<BlastFurnaceGUIGui
 
 		this.minecraft.getTextureManager().bindTexture(TEXTURE);
 		AbstractGui.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
-		GuiHelper.drawFire(ms, this.guiLeft + FIRE_LEFT, this.guiTop + FIRE_TOP, tileEntity.getPowerSystem().getStoredRatio());
+		GuiHelper.drawFire(ms, this.guiLeft + FIRE_LEFT, this.guiTop + FIRE_TOP, tileEntity.getPowerSystemBurnTime().getStoredRatio());
 		GuiHelper.drawArrow(ms, this.guiLeft + ARROW_LEFT, this.guiTop + AROOW_TOP, tileEntity.getTimerRatio());
 	}
 

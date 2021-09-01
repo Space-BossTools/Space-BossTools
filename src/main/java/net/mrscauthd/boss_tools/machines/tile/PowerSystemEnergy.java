@@ -31,4 +31,8 @@ public abstract class PowerSystemEnergy extends PowerSystem {
 		return this.getTileEntity().getEnergyStorage();
 	}
 
+	@Override
+	public String getName() {
+		return "Energy";
+	}
 }

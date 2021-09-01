@@ -43,7 +43,7 @@ import net.mrscauthd.boss_tools.gui.OxygenLoaderGuiGui;
 import net.mrscauthd.boss_tools.machines.tile.OxygenUsingTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemCommonEnergy;
-import net.mrscauthd.boss_tools.machines.tile.PowerSystemFuelOxygen;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystemMap;
 
 public class OxygenLoaderBlock {
 	public static final int SLOT_ITEM = 0;
@@ -195,6 +195,11 @@ public class OxygenLoaderBlock {
 			return SLOT_ITEM;
 		}
 
+		@Override
+		public int getBaseOxygenForOperation() {
+			return OXYGEN_PER_TICK;
+		}
+
 		public int getActivatingSlot() {
 			return SLOT_ACTIVATING;
 		}
@@ -205,27 +210,17 @@ public class OxygenLoaderBlock {
 		}
 
 		@Override
-		protected void onUsingMaking() {
+		protected void onUsingMaking(int consumedOxygen) {
 			IOxygenStorage oxygenStorage = this.getItemOxygenStorage();
 
 			if (oxygenStorage != null) {
-				oxygenStorage.receiveOxygen(this.getOxygenPowerSystem().getPowerForOperation(), false);
+				oxygenStorage.receiveOxygen(consumedOxygen, false);
 			}
 		}
 
 		@Override
 		protected EnergyStorageBasic createEnergyStorage() {
 			return this.createEnergyStorageCommonUsing();
-		}
-
-		@Override
-		protected PowerSystem createPowerSystem() {
-			return new PowerSystemCommonEnergy(this) {
-				@Override
-				public int getBasePowerForOperation() {
-					return ENERGY_PER_TICK;
-				}
-			};
 		}
 
 		@Override
@@ -250,7 +245,8 @@ public class OxygenLoaderBlock {
 		@Override
 		public int getPowerForOperation(PowerSystem powerSystem, int base) {
 			if (powerSystem == this.getOxygenPowerSystem()) {
-				return this.getItemOxygenStorage().receiveOxygen(base, true);
+				IOxygenStorage oxygenStorage = this.getItemOxygenStorage();
+				return oxygenStorage != null ? oxygenStorage.receiveOxygen(base, true) : 0;
 			}
 
 			return super.getPowerForOperation(powerSystem, base);
@@ -288,13 +284,15 @@ public class OxygenLoaderBlock {
 		}
 
 		@Override
-		protected PowerSystemFuelOxygen createOxygenPowerSystem() {
-			return new PowerSystemFuelOxygen(this, this::getItemHandler, this.getActivatingSlot()) {
+		protected void createPowerSystems(PowerSystemMap map) {
+			super.createPowerSystems(map);
+
+			map.put(new PowerSystemCommonEnergy(this) {
 				@Override
 				public int getBasePowerForOperation() {
-					return OXYGEN_PER_TICK;
+					return ENERGY_PER_TICK;
 				}
-			};
+			});
 		}
 	}
 }

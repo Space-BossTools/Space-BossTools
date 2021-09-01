@@ -143,7 +143,7 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 			ItemStack recipeOutput = recipe.getCraftingResult(this);
 
 			if (this.hasSpaceInOutput(recipeOutput)) {
-				if (this.getPowerSystem().consumeForOperation()) {
+				if (this.consumePowerForOperation() != null) {
 					this.onCooking();
 
 					if (this.getTimer() >= this.getMaxTimer()) {

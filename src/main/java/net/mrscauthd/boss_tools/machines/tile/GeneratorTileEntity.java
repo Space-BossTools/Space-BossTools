@@ -22,7 +22,7 @@ public abstract class GeneratorTileEntity extends AbstractMachineTileEntity {
 
 	@Override
 	protected void tickProcessing() {
-		if (this.canGenerateEnergy() && this.hasSpaceInOutput() && this.getPowerSystem().consumeForOperation()) {
+		if (this.canGenerateEnergy() && this.hasSpaceInOutput() && this.consumePowerForOperation() != null) {
 			this.generateEnergy();
 		}
 

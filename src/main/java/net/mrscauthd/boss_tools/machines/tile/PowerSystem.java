@@ -26,21 +26,15 @@ public abstract class PowerSystem {
 	}
 
 	public boolean isPowerEnoughForOperation() {
-		while (true) {
-			if (this.getStored() >= this.getPowerPerTick() + this.getPowerForOperation()) {
-				return true;
-			} else if (!this.feed(false)) {
-				return false;
-			}
-		}
+		return this.getStored() >= this.getPowerPerTick() + this.getPowerForOperation();
 	}
 
-	/**
-	 * 
-	 * @return is power enough for operation and success consume power
-	 */
-	public boolean consumeForOperation() {
-		return this.isPowerEnoughForOperation() && this.consume(this.getPowerForOperation());
+	public int consumeForOperation() {
+		if (this.isPowerEnoughForOperation()) {
+			return this.consume(this.getPowerForOperation());
+		} else {
+			return 0;
+		}
 	}
 
 	public int getUsingSlots() {
@@ -76,7 +70,7 @@ public abstract class PowerSystem {
 	 * 
 	 * @return complete extract energy for operation
 	 */
-	public boolean consume(int amount) {
+	public int consume(int amount) {
 		while (true) {
 			if (this.extract(amount, true) == amount) {
 				this.extract(amount, false);
@@ -85,9 +79,9 @@ public abstract class PowerSystem {
 					this.feed(true);
 				}
 
-				return true;
+				return amount;
 			} else if (!this.feed(false)) {
-				return false;
+				return 0;
 			}
 		}
 	}
@@ -117,10 +111,14 @@ public abstract class PowerSystem {
 
 		if (powerPerTick > 0) {
 			this.consume(powerPerTick);
-
-			if (!this.isPowerEnoughForOperation()) {
-				this.feed(true);
-			}
 		}
+
+		if (!this.isPowerEnoughForOperation()) {
+			this.feed(true);
+		}
+
 	}
+
+	public abstract String getName();
+
 }

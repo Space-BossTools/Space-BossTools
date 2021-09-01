@@ -7,21 +7,18 @@ import javax.annotation.Nullable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
-import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 public abstract class PowerSystemFuel extends PowerSystem {
-	
-	private final Lazy<IItemHandlerModifiable> itemHandler;
+
 	private final int slot;
 
 	private int fuel;
 	private int maxFuel;
 
-	public PowerSystemFuel(AbstractMachineTileEntity tileEntity, Lazy<IItemHandlerModifiable> itemHandler, int slot) {
+	public PowerSystemFuel(AbstractMachineTileEntity tileEntity, int slot) {
 		super(tileEntity);
 
-		this.itemHandler = itemHandler;
 		this.slot = slot;
 	}
 
@@ -96,15 +93,15 @@ public abstract class PowerSystemFuel extends PowerSystem {
 
 		IItemHandlerModifiable itemHandler = this.getItemHandler();
 		int slot = this.getSlot();
-		ItemStack fuel = itemHandler.getStackInSlot(slot);
+		ItemStack fuelItemStack = itemHandler.getStackInSlot(slot);
 
-		if (!fuel.isEmpty() && this.canFeed(spareForNextTick, fuel)) {
-			int burnTime = this.getFuel(fuel);
+		if (!fuelItemStack.isEmpty() && this.canFeed(spareForNextTick, fuelItemStack)) {
+			int fuel = this.getFuel(fuelItemStack);
 
-			if (burnTime > 0) {
+			if (fuel > 0) {
 				itemHandler.extractItem(slot, 1, false);
-				this.maxFuel = this.getStored() + burnTime;
-				this.receive(burnTime, false);
+				this.maxFuel = this.getStored() + fuel;
+				this.receive(fuel, false);
 				return true;
 			}
 		}
@@ -129,11 +126,15 @@ public abstract class PowerSystemFuel extends PowerSystem {
 	}
 
 	public IItemHandlerModifiable getItemHandler() {
-		return this.itemHandler.get();
+		return this.getTileEntity().getItemHandler();
 	}
 
 	public int getSlot() {
 		return this.slot;
 	}
 
+	@Override
+	public String getName() {
+		return "Fuel";
+	}
 }

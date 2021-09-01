@@ -1,16 +1,14 @@
 package net.mrscauthd.boss_tools.machines.tile;
 
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.util.Lazy;
-import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipe;
 
 public abstract class PowerSystemFuelOxygen extends PowerSystemFuel {
 
-	public PowerSystemFuelOxygen(AbstractMachineTileEntity tileEntity, Lazy<IItemHandlerModifiable> itemHandler, int slot) {
-		super(tileEntity, itemHandler, slot);
+	public PowerSystemFuelOxygen(AbstractMachineTileEntity tileEntity, int slot) {
+		super(tileEntity, slot);
 	}
 
 	public BossToolsRecipeType<? extends OxygenMakingRecipe> getRecipeType() {
@@ -32,4 +30,9 @@ public abstract class PowerSystemFuelOxygen extends PowerSystemFuel {
 		return 0;
 	}
 
+	@Override
+	public String getName() {
+		return "FuelOxygen";
+	}
+	
 }

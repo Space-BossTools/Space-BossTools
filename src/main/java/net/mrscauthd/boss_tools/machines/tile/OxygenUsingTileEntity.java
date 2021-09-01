@@ -1,12 +1,9 @@
 package net.mrscauthd.boss_tools.machines.tile;
 
-import java.util.List;
+import java.util.Map;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
 import net.mrscauthd.boss_tools.capability.CapabilityOxygen;
 import net.mrscauthd.boss_tools.capability.IOxygenStorage;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
@@ -19,43 +16,9 @@ public abstract class OxygenUsingTileEntity extends AbstractMachineTileEntity {
 
 	public OxygenUsingTileEntity(TileEntityType<?> type) {
 		super(type);
-
-		this.oxygenPowerSystem = this.createOxygenPowerSystem();
 	}
-
-	@Override
-	public void read(BlockState blockState, CompoundNBT compound) {
-		super.read(blockState, compound);
-
-		this.getOxygenPowerSystem().read(compound.getCompound("oxygen"));
-	}
-
-	@Override
-	public CompoundNBT write(CompoundNBT compound) {
-		super.write(compound);
-
-		compound.put("oxygen", this.getOxygenPowerSystem().write());
-
-		return compound;
-	}
-
-	@Override
-	protected void updatePowerSystem() {
-		super.updatePowerSystem();
-
-		this.getOxygenPowerSystem().update();
-	}
-
-	protected abstract PowerSystemFuelOxygen createOxygenPowerSystem();
-
-	public PowerSystemFuelOxygen getOxygenPowerSystem() {
-		return this.oxygenPowerSystem;
-	}
-
-	@Override
-	protected int getInitialInventorySize() {
-		return super.getInitialInventorySize() + this.getOxygenPowerSystem().getUsingSlots();
-	}
+	
+	public abstract int getBaseOxygenForOperation();
 
 	public BossToolsRecipeType<? extends OxygenMakingRecipe> getOxygenMakingRecipeType() {
 		return BossToolsRecipeTypes.OXYGENMAKING;
@@ -65,12 +28,13 @@ public abstract class OxygenUsingTileEntity extends AbstractMachineTileEntity {
 
 	@Override
 	protected void tickProcessing() {
-		PowerSystem powerSystem = this.getPowerSystem();
-		PowerSystemFuelOxygen oxygenPowerSystem = this.getOxygenPowerSystem();
+		if (this.canUsingOxygen() && this.hasSpaceInOutput()) {
+			Map<PowerSystem, Integer> consumes = this.consumePowerForOperation();
 
-		if (this.canUsingOxygen() && this.hasSpaceInOutput() && powerSystem.isPowerEnoughForOperation() && oxygenPowerSystem.isPowerEnoughForOperation()) {
-			if (powerSystem.consumeForOperation() && oxygenPowerSystem.consumeForOperation()) {
-				this.onUsingMaking();
+			if (consumes != null) {
+				int consumedOxygen = consumes.get(this.oxygenPowerSystem).intValue();
+
+				this.onUsingMaking(consumedOxygen);
 				this.markDirty();
 				this.setProcessedInThisTick();
 			}
@@ -79,40 +43,7 @@ public abstract class OxygenUsingTileEntity extends AbstractMachineTileEntity {
 
 	protected abstract boolean canUsingOxygen();
 
-	protected abstract void onUsingMaking();
-
-	@Override
-	protected void getSlotsForFace(Direction direction, List<Integer> slots) {
-		super.getSlotsForFace(direction, slots);
-
-		this.getOxygenPowerSystem().getSlotsForFace(direction, slots);
-	}
-
-	@Override
-	public boolean canInsertItem(int index, ItemStack stack, Direction direction) {
-		if (super.canInsertItem(index, stack, direction)) {
-			return true;
-		}
-
-		if (this.getOxygenPowerSystem().canInsertItem(direction, index, stack)) {
-			return true;
-		}
-
-		return false;
-	}
-
-	@Override
-	public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-		if (super.canExtractItem(index, stack, direction)) {
-			return true;
-		}
-
-		if (this.getOxygenPowerSystem().canExtractItem(direction, index, stack)) {
-			return true;
-		}
-
-		return false;
-	}
+	protected abstract void onUsingMaking(int consumedOxygen);
 
 	public boolean hasSpaceInOutput(IOxygenStorage oxygenStorage) {
 		return oxygenStorage != null ? oxygenStorage.getOxygenStored() < oxygenStorage.getMaxOxygenStored() : false;
@@ -121,4 +52,20 @@ public abstract class OxygenUsingTileEntity extends AbstractMachineTileEntity {
 	public IOxygenStorage getItemOxygenStorage(ItemStack itemStack) {
 		return !itemStack.isEmpty() ? itemStack.getCapability(CapabilityOxygen.OXYGEN).orElse(null) : null;
 	}
+
+	@Override
+	protected void createPowerSystems(PowerSystemMap map) {
+		super.createPowerSystems(map);
+		map.put(this.oxygenPowerSystem = new PowerSystemFuelOxygen(this, this.getActivatingSlot()) {
+			@Override
+			public int getBasePowerForOperation() {
+				return OxygenUsingTileEntity.this.getBaseOxygenForOperation();
+			}
+		});
+	}
+
+	public PowerSystemFuelOxygen getOxygenPowerSystem() {
+		return this.oxygenPowerSystem;
+	}
+
 }

@@ -42,8 +42,6 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.gui.SolarPanelGUIGui;
 import net.mrscauthd.boss_tools.machines.tile.GeneratorTileEntity;
-import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
-import net.mrscauthd.boss_tools.machines.tile.PowerSystemNone;
 
 public class SolarPanelBlock {
 	public static final int ENERGY_PER_TICK = 4;
@@ -195,11 +193,5 @@ public class SolarPanelBlock {
 			list.addAll(Arrays.stream(Direction.values()).filter(d -> d != Direction.UP).collect(Collectors.toList()));
 			return list;
 		}
-
-		@Override
-		protected PowerSystem createPowerSystem() {
-			return new PowerSystemNone(this);
-		}
-
 	}
 }

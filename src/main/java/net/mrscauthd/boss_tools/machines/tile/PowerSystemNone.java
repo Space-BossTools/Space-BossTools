@@ -35,4 +35,8 @@ public class PowerSystemNone extends PowerSystem {
 		return 0;
 	}
 
+	@Override
+	public String getName() {
+		return "None";
+	}
 }

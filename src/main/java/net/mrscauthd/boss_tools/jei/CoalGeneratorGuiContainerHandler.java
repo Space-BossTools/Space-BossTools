@@ -40,7 +40,7 @@ public class CoalGeneratorGuiContainerHandler implements IGuiContainerHandler<Ge
 			@Override
 			public List<ITextComponent> getTooltipStrings() {
 				List<ITextComponent> list = new ArrayList<>();
-				list.add(new StringTextComponent("Burn Time: " + containerScreen.getTileEntity().getPowerSystem().getStored()));
+				list.add(new StringTextComponent("Burn Time: " + containerScreen.getTileEntity().getPowerSystemGenerating().getStored()));
 				list.add(new TranslationTextComponent("jei.tooltip.show.recipes"));
 				return list;
 			}

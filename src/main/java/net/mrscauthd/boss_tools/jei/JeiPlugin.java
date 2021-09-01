@@ -97,7 +97,7 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipeClickArea(BlastFurnaceGUIGuiWindow.class, BlastFurnaceGUIGuiWindow.ARROW_LEFT, BlastFurnaceGUIGuiWindow.AROOW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, BlastingFurnaceJeiCategory.Uid, VanillaRecipeCategoryUid.FUEL);
         registration.addRecipeClickArea(CompressorGuiGuiWindow.class, CompressorGuiGuiWindow.ARROW_LEFT, CompressorGuiGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, CompressorJeiCategory.Uid);
         registration.addGuiContainerHandler(OxygenLoaderGuiGuiWindow.class, new OxygenLoaderGuiContainerHandler());
-        registration.addRecipeClickArea(OxygenBulletGeneratorGUIGuiWindow.class, OxygenBulletGeneratorGUIGuiWindow.OXYGEN_LEFT, OxygenBulletGeneratorGUIGuiWindow.OXYGEN_TOP, GuiHelper.OXYGEN_WIDTH, GuiHelper.OXYGEN_HEIGHT, OxygenMakingJeiCategory.Uid);
+        registration.addGuiContainerHandler(OxygenBulletGeneratorGUIGuiWindow.class, new OxygenGeneratorGuiContainerHandler());
     }
 
     @Override
