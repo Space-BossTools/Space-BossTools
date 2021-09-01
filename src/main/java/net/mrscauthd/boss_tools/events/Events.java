@@ -48,47 +48,40 @@ public class Events {
             double y = entity.getPosY();
             double z = entity.getPosZ();
             //Venus Rain
-            {
-                if (((World) world).getDimensionKey() == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))) {
-                    if (entity.abilities.isCreativeMode == false && entity.isSpectator() == false) {
-                        if (world.getWorldInfo().isRaining() == (true) && world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(x), (int) Math.floor(z)) <= Math.floor(y) + 1) {
-                            entity.attackEntityFrom(new DamageSource("venus.acid").setDamageBypassesArmor(), 1);
-                        }
+            if (((World) world).getDimensionKey() == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))) {
+                if (entity.abilities.isCreativeMode == false && entity.isSpectator() == false) {
+                    if (world.getWorldInfo().isRaining() == (true) && world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(x), (int) Math.floor(z)) <= Math.floor(y) + 1) {
+                        entity.attackEntityFrom(new DamageSource("venus.acid").setDamageBypassesArmor(), 1);
                     }
                 }
-
             }
 
             //Player orbit Fall Teleport
-            {
-                //Earth
-                RegistryKey<World> world2 = ((World) world).getDimensionKey();
+            RegistryKey<World> world2 = ((World) world).getDimensionKey();
 
-                if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:overworld_orbit"))) {
-                    ResourceLocation planet = new ResourceLocation("overworld");
-                    Methodes.PlayerFallToPlanet(entity, planet);
-                }
+            if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:overworld_orbit"))) {
+                ResourceLocation planet = new ResourceLocation("overworld");
+                Methodes.PlayerFallToPlanet(entity, planet);
+            }
 
-                if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon_orbit"))) {
-                    ResourceLocation planet = new ResourceLocation("boss_tools:moon");
-                    Methodes.PlayerFallToPlanet(entity, planet);
-                }
+            if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon_orbit"))) {
+                ResourceLocation planet = new ResourceLocation("boss_tools:moon");
+                Methodes.PlayerFallToPlanet(entity, planet);
+            }
 
-                if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars_orbit"))) {
-                    ResourceLocation planet = new ResourceLocation("boss_tools:mars");
-                    Methodes.PlayerFallToPlanet(entity, planet);
-                }
+            if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars_orbit"))) {
+                ResourceLocation planet = new ResourceLocation("boss_tools:mars");
+                Methodes.PlayerFallToPlanet(entity, planet);
+            }
 
-                if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury_orbit"))) {
-                    ResourceLocation planet = new ResourceLocation("boss_tools:mercury");
-                    Methodes.PlayerFallToPlanet(entity, planet);
-                }
+            if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury_orbit"))) {
+                ResourceLocation planet = new ResourceLocation("boss_tools:mercury");
+                Methodes.PlayerFallToPlanet(entity, planet);
+            }
 
-                if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus_orbit"))) {
-                    ResourceLocation planet = new ResourceLocation("boss_tools:venus");
-                    Methodes.PlayerFallToPlanet(entity, planet);
-                }
-
+            if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus_orbit"))) {
+                ResourceLocation planet = new ResourceLocation("boss_tools:venus");
+                Methodes.PlayerFallToPlanet(entity, planet);
             }
 
             //Lander Warning Overlay Tick
@@ -134,7 +127,7 @@ public class Events {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void CameraPos(EntityViewRenderEvent.CameraSetup event) {
-        if (event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier1Entity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier2Entity.CustomEntity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier3Entity.CustomEntity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof LanderEntity.CustomEntity) {
+        if (event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier1Entity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier2Entity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier3Entity.CustomEntity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof LanderEntity.CustomEntity) {
             if (Minecraft.getInstance().gameSettings.getPointOfView().equals(PointOfView.THIRD_PERSON_FRONT)) {
                 event.getInfo().movePosition(-event.getInfo().calcCameraDistance(8d), 0d, 0);
             }
@@ -160,42 +153,39 @@ public class Events {
         PlayerEntity player = event.getPlayer();
         PlayerModel model = event.getModelPlayer();
         //Player Rocket Sit Rotations
-        {
-            if (Methodes.RocketCheckOr(player.getRidingEntity()) == true) {
-                model.bipedRightLeg.rotationPointY = (float) Math.toRadians(485F);
-                model.bipedLeftLeg.rotationPointY = (float) Math.toRadians(485F);
-                model.bipedRightLeg.rotateAngleX = (float) Math.toRadians(0F);
-                model.bipedLeftLeg.rotateAngleX = (float) Math.toRadians(0F);
-                model.bipedLeftLeg.rotateAngleY = (float) Math.toRadians(3F);
-                model.bipedRightLeg.rotateAngleY = (float) Math.toRadians(3F);
-                // Arms
-                model.bipedRightArm.rotationPointX = (float) Math.toRadians(-250F);// -200
-                model.bipedLeftArm.rotationPointX = (float) Math.toRadians(250F);
-                model.bipedLeftArm.rotateAngleX = -0.07f;
-                model.bipedRightArm.rotateAngleX = -0.07f;
-            }
+        if (Methodes.RocketCheckOr(player.getRidingEntity()) == true) {
+            model.bipedRightLeg.rotationPointY = (float) Math.toRadians(485F);
+            model.bipedLeftLeg.rotationPointY = (float) Math.toRadians(485F);
+            model.bipedRightLeg.rotateAngleX = (float) Math.toRadians(0F);
+            model.bipedLeftLeg.rotateAngleX = (float) Math.toRadians(0F);
+            model.bipedLeftLeg.rotateAngleY = (float) Math.toRadians(3F);
+            model.bipedRightLeg.rotateAngleY = (float) Math.toRadians(3F);
+            // Arms
+            model.bipedRightArm.rotationPointX = (float) Math.toRadians(-250F);// -200
+            model.bipedLeftArm.rotationPointX = (float) Math.toRadians(250F);
+            model.bipedLeftArm.rotateAngleX = -0.07f;
+            model.bipedRightArm.rotateAngleX = -0.07f;
         }
+
         //Player Hold Vehicles Rotation
-        {
-            if (Methodes.RocketCheckOr(player.getRidingEntity()) == false) {
-                Item item1 = player.getHeldItemMainhand().getItem();
-                Item item2 = player.getHeldItemOffhand().getItem();
-                if (item1 == Tier1RocketItemItem.block
-                        || item1 == Tier2RocketItemItem.block
-                        || item1 == Tier3RocketItemItem.block
-                        || item1 == RoverItemItem.block
-                        //Off Hand
-                        || item2 == Tier1RocketItemItem.block
-                        || item2 == Tier2RocketItemItem.block
-                        || item2 == Tier3RocketItemItem.block
-                        || item2 == RoverItemItem.block) {
-                    model.bipedRightArm.rotateAngleX = 10;
-                    model.bipedLeftArm.rotateAngleX = 10;
-                    model.bipedLeftArm.rotateAngleZ = 0;
-                    model.bipedRightArm.rotateAngleZ = 0;
-                    model.bipedRightArm.rotateAngleY =  0;
-                    model.bipedLeftArm.rotateAngleY = 0;
-                }
+        if (Methodes.RocketCheckOr(player.getRidingEntity()) == false) {
+            Item item1 = player.getHeldItemMainhand().getItem();
+            Item item2 = player.getHeldItemOffhand().getItem();
+            if (item1 == Tier1RocketItemItem.block
+                    || item1 == Tier2RocketItemItem.block
+                    || item1 == Tier3RocketItemItem.block
+                    || item1 == RoverItemItem.block
+                    //Off Hand
+                    || item2 == Tier1RocketItemItem.block
+                    || item2 == Tier2RocketItemItem.block
+                    || item2 == Tier3RocketItemItem.block
+                    || item2 == RoverItemItem.block) {
+                model.bipedRightArm.rotateAngleX = 10;
+                model.bipedLeftArm.rotateAngleX = 10;
+                model.bipedLeftArm.rotateAngleZ = 0;
+                model.bipedRightArm.rotateAngleZ = 0;
+                model.bipedRightArm.rotateAngleY =  0;
+                model.bipedLeftArm.rotateAngleY = 0;
             }
         }
     }

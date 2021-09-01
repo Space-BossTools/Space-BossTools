@@ -68,6 +68,7 @@ public class RocketTier2GuiFuelGui extends BossToolsModElements.ModElement {
 	public static class GuiContainerMod extends Container implements Supplier<Map<Integer, Slot>> {
 		World world;
 		PlayerEntity entity;
+		Entity rocket;
 		int x, y, z;
 		private IItemHandler internal;
 		private Map<Integer, Slot> customSlots = new HashMap<>();
@@ -103,6 +104,7 @@ public class RocketTier2GuiFuelGui extends BossToolsModElements.ModElement {
 						entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
 							this.internal = capability;
 							this.bound = true;
+							this.rocket = entity;
 						});
 				} else { // might be bound to block
 					TileEntity ent = inv.player != null ? inv.player.world.getTileEntity(pos) : null;
@@ -117,7 +119,7 @@ public class RocketTier2GuiFuelGui extends BossToolsModElements.ModElement {
 			this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 46, 22) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
-					return (new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1)).getItem() == stack.getItem());
+					return (new ItemStack(ModInnet.FUEL_BUCKET.get(), (int) (1)).getItem() == stack.getItem());
 				}
 			}));
 			int si;

@@ -85,7 +85,7 @@ public class LanderNBTProcedure {
 				entity.getPersistentData().putDouble("Bucket", 2);
 			}
 		}
-		if (((entity.getRidingEntity()) instanceof RocketTier2Entity.CustomEntity)) {
+		if (((entity.getRidingEntity()) instanceof RocketTier2Entity)) {
 			if (((new Object() {
 				public ItemStack getItemStack(int sltid, Entity entity) {
 					AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);

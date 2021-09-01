@@ -28,138 +28,139 @@ public class OverlayEvents {
     public static void Overlay(RenderGameOverlayEvent event) {
 
         //Disable Food Overlay
-        {
-            if (event.getType() == RenderGameOverlayEvent.ElementType.HEALTHMOUNT) {
-                PlayerEntity entity = Minecraft.getInstance().player;
-                if (Methodes.AllVehiclesOr(entity.getRidingEntity())) {
-                    event.setCanceled(true);
-                }
+        if (event.getType() == RenderGameOverlayEvent.ElementType.HEALTHMOUNT) {
+            PlayerEntity entity = Minecraft.getInstance().player;
+            if (Methodes.AllVehiclesOr(entity.getRidingEntity())) {
+                event.setCanceled(true);
             }
         }
 
+
         //Lander Warning Overlay
-        {
-            if (!event.isCancelable() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
-                PlayerEntity entity = Minecraft.getInstance().player;
-                RenderSystem.disableDepthTest();
-                RenderSystem.depthMask(false);
-                RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-                RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-                RenderSystem.disableAlphaTest();
-                if (entity.getRidingEntity() instanceof LanderEntity.CustomEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
-                    RenderSystem.color4f((float) Events.counter, (float) Events.counter, (float) Events.counter, (float) Events.counter);
-                    // Plinken
-                    Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/warning1.png"));
-                    Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight());
-                }
-                RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-                if (entity.getRidingEntity() instanceof LanderEntity.CustomEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
-                    double speed = Math.round(100.0 * (entity.getRidingEntity()).getMotion().getY()) / 100.0;
-                    double speedcheck = speed;
-                    Minecraft.getInstance().fontRenderer.drawString(event.getMatrixStack(), "" + speedcheck + " Speed", event.getWindow().getScaledWidth() / 2 - 29, event.getWindow().getScaledHeight() / 2 / 2.3f, -3407872);
-                }
-                RenderSystem.depthMask(true);
-                RenderSystem.enableDepthTest();
-                RenderSystem.enableAlphaTest();
-                RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        if (!event.isCancelable() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
+            PlayerEntity entity = Minecraft.getInstance().player;
+            RenderSystem.disableDepthTest();
+            RenderSystem.depthMask(false);
+            RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            RenderSystem.disableAlphaTest();
+            if (entity.getRidingEntity() instanceof LanderEntity.CustomEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
+                RenderSystem.color4f((float) Events.counter, (float) Events.counter, (float) Events.counter, (float) Events.counter);
+                // Plinken
+                Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/warning1.png"));
+                Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight());
             }
+            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            if (entity.getRidingEntity() instanceof LanderEntity.CustomEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
+                double speed = Math.round(100.0 * (entity.getRidingEntity()).getMotion().getY()) / 100.0;
+                double speedcheck = speed;
+                Minecraft.getInstance().fontRenderer.drawString(event.getMatrixStack(), "" + speedcheck + " Speed", event.getWindow().getScaledWidth() / 2 - 29, event.getWindow().getScaledHeight() / 2 / 2.3f, -3407872);
+            }
+            RenderSystem.depthMask(true);
+            RenderSystem.enableDepthTest();
+            RenderSystem.enableAlphaTest();
+            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         }
 
         //Rocket Timer
-        {
-            if (!event.isCancelable() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
-                PlayerEntity entity = Minecraft.getInstance().player;
-                RenderSystem.disableDepthTest();
-                RenderSystem.depthMask(false);
-                RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-                RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-                RenderSystem.disableAlphaTest();
+        if (!event.isCancelable() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
+            PlayerEntity entity = Minecraft.getInstance().player;
+            RenderSystem.disableDepthTest();
+            RenderSystem.depthMask(false);
+            RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            RenderSystem.disableAlphaTest();
+
+            if (Methodes.RocketCheckOr(entity.getRidingEntity())) {
+                int timer = 0;
 
                 if (entity.getRidingEntity() instanceof RocketTier1Entity) {
-                    int timer = entity.getRidingEntity().getDataManager().get(RocketTier1Entity.START_TIMER);
-
-                    int width = event.getWindow().getScaledWidth() / 2 - 31;
-                    int high = event.getWindow().getScaledHeight() / 2 / 2;
-
-                    IngameGui mc = Minecraft.getInstance().ingameGUI;
-                    TextureManager manager = Minecraft.getInstance().textureManager;
-
-                    if (timer > -1 && timer < 20) {
-                        manager.bindTexture(new ResourceLocation("boss_tools:textures/timer/timer10.png"));
-                        mc.blit(event.getMatrixStack(), width, high, 0, 0, 60, 38, 60, 38);
-                    }
-                    if (timer > 20 && timer < 40) {
-                        manager.bindTexture(new ResourceLocation("boss_tools:textures/timer/timer9.png"));
-                        mc.blit(event.getMatrixStack(), width, high, 0, 0, 60, 38, 60, 38);
-                    }
-                    if (timer > 40 && timer < 60) {
-                        manager.bindTexture(new ResourceLocation("boss_tools:textures/timer/timer8.png"));
-                        mc.blit(event.getMatrixStack(), width, high, 0, 0, 60, 38, 60, 38);
-                    }
-                    if (timer > 60 && timer < 80) {
-                        manager.bindTexture(new ResourceLocation("boss_tools:textures/timer/timer7.png"));
-                        mc.blit(event.getMatrixStack(), width, high, 0, 0, 60, 38, 60, 38);
-                    }
-                    if (timer > 80 && timer < 100) {
-                        manager.bindTexture(new ResourceLocation("boss_tools:textures/timer/timer6.png"));
-                        mc.blit(event.getMatrixStack(), width, high, 0, 0, 60, 38, 60, 38);
-                    }
-                    if (timer > 100 && timer < 120) {
-                        manager.bindTexture(new ResourceLocation("boss_tools:textures/timer/timer5.png"));
-                        mc.blit(event.getMatrixStack(), width, high, 0, 0, 60, 38, 60, 38);
-                    }
-                    if (timer > 120 && timer < 140) {
-                        manager.bindTexture(new ResourceLocation("boss_tools:textures/timer/timer4.png"));
-                        mc.blit(event.getMatrixStack(), width, high, 0, 0, 60, 38, 60, 38);
-                    }
-                    if (timer > 140 && timer < 160) {
-                        manager.bindTexture(new ResourceLocation("boss_tools:textures/timer/timer3.png"));
-                        mc.blit(event.getMatrixStack(), width, high, 0, 0, 60, 38, 60, 38);
-                    }
-                    if (timer > 160 && timer < 180) {
-                        manager.bindTexture(new ResourceLocation("boss_tools:textures/timer/timer2.png"));
-                        mc.blit(event.getMatrixStack(), width, high, 0, 0, 60, 38, 60, 38);
-                    }
-                    if (timer > 180 && timer < 200) {
-                        manager.bindTexture(new ResourceLocation("boss_tools:textures/timer/timer1.png"));
-                        mc.blit(event.getMatrixStack(), width, high, 0, 0, 60, 38, 60, 38);
-                    }
-
+                    timer = entity.getRidingEntity().getDataManager().get(RocketTier1Entity.START_TIMER);
                 }
-                RenderSystem.depthMask(true);
-                RenderSystem.enableDepthTest();
-                RenderSystem.enableAlphaTest();
-                RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+
+                if (entity.getRidingEntity() instanceof RocketTier2Entity) {
+                    timer = entity.getRidingEntity().getDataManager().get(RocketTier2Entity.START_TIMER);
+                }
+
+                int width = event.getWindow().getScaledWidth() / 2 - 31;
+                int high = event.getWindow().getScaledHeight() / 2 / 2;
+
+                IngameGui mc = Minecraft.getInstance().ingameGUI;
+                TextureManager manager = Minecraft.getInstance().textureManager;
+
+                if (timer > -1 && timer < 20) {
+                    manager.bindTexture(new ResourceLocation("boss_tools:textures/timer/timer10.png"));
+                    mc.blit(event.getMatrixStack(), width, high, 0, 0, 60, 38, 60, 38);
+                }
+                if (timer > 20 && timer < 40) {
+                    manager.bindTexture(new ResourceLocation("boss_tools:textures/timer/timer9.png"));
+                    mc.blit(event.getMatrixStack(), width, high, 0, 0, 60, 38, 60, 38);
+                }
+                if (timer > 40 && timer < 60) {
+                    manager.bindTexture(new ResourceLocation("boss_tools:textures/timer/timer8.png"));
+                    mc.blit(event.getMatrixStack(), width, high, 0, 0, 60, 38, 60, 38);
+                }
+                if (timer > 60 && timer < 80) {
+                    manager.bindTexture(new ResourceLocation("boss_tools:textures/timer/timer7.png"));
+                    mc.blit(event.getMatrixStack(), width, high, 0, 0, 60, 38, 60, 38);
+                }
+                if (timer > 80 && timer < 100) {
+                    manager.bindTexture(new ResourceLocation("boss_tools:textures/timer/timer6.png"));
+                    mc.blit(event.getMatrixStack(), width, high, 0, 0, 60, 38, 60, 38);
+                }
+                if (timer > 100 && timer < 120) {
+                    manager.bindTexture(new ResourceLocation("boss_tools:textures/timer/timer5.png"));
+                    mc.blit(event.getMatrixStack(), width, high, 0, 0, 60, 38, 60, 38);
+                }
+                if (timer > 120 && timer < 140) {
+                    manager.bindTexture(new ResourceLocation("boss_tools:textures/timer/timer4.png"));
+                    mc.blit(event.getMatrixStack(), width, high, 0, 0, 60, 38, 60, 38);
+                }
+                if (timer > 140 && timer < 160) {
+                    manager.bindTexture(new ResourceLocation("boss_tools:textures/timer/timer3.png"));
+                    mc.blit(event.getMatrixStack(), width, high, 0, 0, 60, 38, 60, 38);
+                }
+                if (timer > 160 && timer < 180) {
+                    manager.bindTexture(new ResourceLocation("boss_tools:textures/timer/timer2.png"));
+                    mc.blit(event.getMatrixStack(), width, high, 0, 0, 60, 38, 60, 38);
+                }
+                if (timer > 180 && timer < 200) {
+                    manager.bindTexture(new ResourceLocation("boss_tools:textures/timer/timer1.png"));
+                    mc.blit(event.getMatrixStack(), width, high, 0, 0, 60, 38, 60, 38);
+                }
+
             }
+            RenderSystem.depthMask(true);
+            RenderSystem.enableDepthTest();
+            RenderSystem.enableAlphaTest();
+            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         }
 
         //Oxygen Tank Overlay
-        {
-            if (!event.isCancelable() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
-                RenderSystem.disableDepthTest();
-                RenderSystem.depthMask(false);
-                RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-                RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-                RenderSystem.disableAlphaTest();
+        if (!event.isCancelable() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
+            RenderSystem.disableDepthTest();
+            RenderSystem.depthMask(false);
+            RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            RenderSystem.disableAlphaTest();
 
-                PlayerEntity entity = Minecraft.getInstance().player;
-                ItemStack chest = entity.getItemStackFromSlot(EquipmentSlotType.CHEST);
-                Item chestItem = chest.getItem();
+            PlayerEntity entity = Minecraft.getInstance().player;
+            ItemStack chest = entity.getItemStackFromSlot(EquipmentSlotType.CHEST);
+            Item chestItem = chest.getItem();
 
-                if (chestItem == ModInnet.SPACE_SUIT.get() || chestItem == ModInnet.NETHERITE_SPACE_SUIT.get()) {
-                    double oxygenStoredRatio = chest.getCapability(CapabilityOxygen.OXYGEN).map(s -> s.getOxygenStoredRatio()).orElse(0.0D);
-                    ResourceLocation empty = new ResourceLocation("boss_tools:textures/oxygentankcheck_empty.png");
-                    ResourceLocation full = new ResourceLocation("boss_tools:textures/oxygentankcheck_full.png");
-                    double scale = event.getWindow().getScaledWidth() / 1280.0D;
-                    GuiHelper.drawVerticalReverse(event.getMatrixStack(), 5, 5, (int) (124 * scale), (int) (104 * scale), empty, oxygenStoredRatio);
-                    GuiHelper.drawVertical(event.getMatrixStack(), 5, 5, (int) (124 * scale), (int) (104 * scale), full, oxygenStoredRatio);
-                }
-
-                RenderSystem.depthMask(true);
-                RenderSystem.enableDepthTest();
-                RenderSystem.enableAlphaTest();
-                RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            if (chestItem == ModInnet.SPACE_SUIT.get() || chestItem == ModInnet.NETHERITE_SPACE_SUIT.get()) {
+                double oxygenStoredRatio = chest.getCapability(CapabilityOxygen.OXYGEN).map(s -> s.getOxygenStoredRatio()).orElse(0.0D);
+                ResourceLocation empty = new ResourceLocation("boss_tools:textures/oxygentankcheck_empty.png");
+                ResourceLocation full = new ResourceLocation("boss_tools:textures/oxygentankcheck_full.png");
+                double scale = event.getWindow().getScaledWidth() / 1280.0D;
+                GuiHelper.drawVerticalReverse(event.getMatrixStack(), 5, 5, (int) (124 * scale), (int) (104 * scale), empty, oxygenStoredRatio);
+                GuiHelper.drawVertical(event.getMatrixStack(), 5, 5, (int) (124 * scale), (int) (104 * scale), full, oxygenStoredRatio);
             }
+
+            RenderSystem.depthMask(true);
+            RenderSystem.enableDepthTest();
+            RenderSystem.enableAlphaTest();
+            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         }
 
     }
