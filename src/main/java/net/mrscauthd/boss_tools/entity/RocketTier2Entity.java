@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.entity;
 
+import com.google.common.collect.Sets;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.item.Items;
@@ -7,7 +8,10 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.block.RocketLaunchPadBlock;
@@ -49,13 +53,16 @@ import javax.annotation.Nonnull;
 import io.netty.buffer.Unpooled;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
 
+import java.util.Collections;
+import java.util.Set;
+
 public class RocketTier2Entity extends CreatureEntity {
 	public double ar = 0;
 	public double ay = 0;
 	public double ap = 0;
 
 	public static final DataParameter<Boolean> ROCKET_START = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.BOOLEAN);
-	public static final DataParameter<Boolean> BUCKET = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.BOOLEAN);
+	public static final DataParameter<Integer> BUCKETS = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.VARINT);
 	public static final DataParameter<Integer> FUEL = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.VARINT);
 	public static final DataParameter<Integer> START_TIMER = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.VARINT);
 
@@ -63,7 +70,7 @@ public class RocketTier2Entity extends CreatureEntity {
 	public RocketTier2Entity(EntityType type, World world) {
 		super(type, world);
 		this.dataManager.register(ROCKET_START, false);
-		this.dataManager.register(BUCKET, false);
+		this.dataManager.register(BUCKETS, 0);
 		this.dataManager.register(FUEL, 0);
 		this.dataManager.register(START_TIMER, 0);
 		enablePersistence();
@@ -137,6 +144,44 @@ public class RocketTier2Entity extends CreatureEntity {
 	@Override
 	public net.minecraft.util.SoundEvent getDeathSound() {
 		return null;
+	}
+
+	//Save Entity Dismount
+	@Override
+	public Vector3d func_230268_c_(LivingEntity livingEntity) {
+		Vector3d[] avector3d = new Vector3d[]{func_233559_a_((double)this.getWidth(), (double)livingEntity.getWidth(), livingEntity.rotationYaw), func_233559_a_((double)this.getWidth(), (double)livingEntity.getWidth(), livingEntity.rotationYaw - 22.5F), func_233559_a_((double)this.getWidth(), (double)livingEntity.getWidth(), livingEntity.rotationYaw + 22.5F), func_233559_a_((double)this.getWidth(), (double)livingEntity.getWidth(), livingEntity.rotationYaw - 45.0F), func_233559_a_((double)this.getWidth(), (double)livingEntity.getWidth(), livingEntity.rotationYaw + 45.0F)};
+		Set<BlockPos> set = Sets.newLinkedHashSet();
+		double d0 = this.getBoundingBox().maxY;
+		double d1 = this.getBoundingBox().minY - 0.5D;
+		BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
+
+		for(Vector3d vector3d : avector3d) {
+			blockpos$mutable.setPos(this.getPosX() + vector3d.x, d0, this.getPosZ() + vector3d.z);
+
+			for(double d2 = d0; d2 > d1; --d2) {
+				set.add(blockpos$mutable.toImmutable());
+				blockpos$mutable.move(Direction.DOWN);
+			}
+		}
+
+		for(BlockPos blockpos : set) {
+			if (!this.world.getFluidState(blockpos).isTagged(FluidTags.LAVA)) {
+				double d3 = this.world.func_242403_h(blockpos);
+				if (TransportationHelper.func_234630_a_(d3)) {
+					Vector3d vector3d1 = Vector3d.copyCenteredWithVerticalOffset(blockpos, d3);
+
+					for(Pose pose : livingEntity.getAvailablePoses()) {
+						AxisAlignedBB axisalignedbb = livingEntity.getPoseAABB(pose);
+						if (TransportationHelper.func_234631_a_(this.world, livingEntity, axisalignedbb.offset(vector3d1))) {
+							livingEntity.setPose(pose);
+							return vector3d1;
+						}
+					}
+				}
+			}
+		}
+
+		return new Vector3d(this.getPosX(), this.getBoundingBox().maxY, this.getPosZ());
 	}
 
 	@Override
@@ -225,7 +270,7 @@ public class RocketTier2Entity extends CreatureEntity {
 		compound.put("InventoryCustom", inventory.serializeNBT());
 
 		compound.putBoolean("rocket_start", this.dataManager.get(ROCKET_START));
-		compound.putBoolean("bucket", this.dataManager.get(BUCKET));
+		compound.putInt("buckets", this.dataManager.get(BUCKETS));
 		compound.putInt("fuel", this.dataManager.get(FUEL));
 		compound.putInt("start_timer", this.dataManager.get(START_TIMER));
 	}
@@ -239,7 +284,7 @@ public class RocketTier2Entity extends CreatureEntity {
 		}
 
 		this.dataManager.set(ROCKET_START, compound.getBoolean("rocket_start"));
-		this.dataManager.set(BUCKET, compound.getBoolean("bucket"));
+		this.dataManager.set(BUCKETS, compound.getInt("buckets"));
 		this.dataManager.set(FUEL, compound.getInt("fuel"));
 		this.dataManager.set(START_TIMER, compound.getInt("start_timer"));
 	}
@@ -343,12 +388,19 @@ public class RocketTier2Entity extends CreatureEntity {
 
 		}
 
-		if (this.inventory.getStackInSlot(0).getItem() == ModInnet.FUEL_BUCKET.get() && this.dataManager.get(BUCKET) == false) {
+		//Fuel Load up
+		if (this.inventory.getStackInSlot(0).getItem() == ModInnet.FUEL_BUCKET.get() && this.dataManager.get(BUCKETS) < 3) {
 			this.inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));
-			this.getDataManager().set(BUCKET, true);
+			this.getDataManager().set(BUCKETS, this.getDataManager().get(BUCKETS) + 1);
 		}
 
-		if (this.dataManager.get(BUCKET) == true && this.dataManager.get(FUEL) < 300) {
+		if (this.dataManager.get(BUCKETS) == 1 && this.dataManager.get(FUEL) < 100) {
+			this.getDataManager().set(FUEL, this.dataManager.get(FUEL) + 1);
+
+		} else if (this.dataManager.get(BUCKETS) == 2 && this.dataManager.get(FUEL) < 200) {
+			this.getDataManager().set(FUEL, this.dataManager.get(FUEL) + 1);
+
+		} else if (this.dataManager.get(BUCKETS) == 3 && this.dataManager.get(FUEL) < 300) {
 			this.getDataManager().set(FUEL, this.dataManager.get(FUEL) + 1);
 		}
 

@@ -43,7 +43,7 @@ public class RocketDismountProcedure {
 			return;
 		}
 		Entity entity = (Entity) dependencies.get("entity");
-		if (((entity.getPersistentData().getBoolean("dismount")) == (true))) {
+	/*	if (((entity.getPersistentData().getBoolean("dismount")) == (true))) {
 			{
 				Entity _ent = entity;
 				_ent.setPositionAndUpdate((entity.getPosX()), ((entity.getPosY()) - 0.5), (entity.getPosZ()));
@@ -53,6 +53,6 @@ public class RocketDismountProcedure {
 				}
 			}
 			entity.getPersistentData().putBoolean("dismount", (false));
-		}
+		}*/
 	}
 }
