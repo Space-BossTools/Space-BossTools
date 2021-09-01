@@ -438,8 +438,8 @@ public class JeiPlugin implements IModPlugin {
     
     public static class OxygenMakingJeiCategory implements IRecipeCategory<OxygenMakingRecipe> {
         public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "oxygenmakingcategory");
-        public static final int OXYGEN_LEFT = 44;
-        public static final int OXYGEN_TOP = 32;
+        public static final int OXYGEN_LEFT = 32;
+        public static final int OXYGEN_TOP = 25;
         // ...
         private final String title;
         private final IDrawable background;
@@ -494,13 +494,13 @@ public class JeiPlugin implements IModPlugin {
         	this.cachedOxygens.getUnchecked(activaingTime).draw(matrixStack, OXYGEN_LEFT, OXYGEN_TOP);
         	
         	FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
-			fontRenderer.drawString(matrixStack, "Oxygen: " + recipe.getOxygen() , 60, 35, 0x808080);
+			fontRenderer.drawString(matrixStack, "Oxygen: " + recipe.getOxygen(), 54, 35, 0x808080);
         }
 
         @Override
         public void setRecipe(IRecipeLayout iRecipeLayout, OxygenMakingRecipe recipe, IIngredients iIngredients) {
             IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
-            stacks.init(OxygenLoaderBlock.SLOT_ACTIVATING, true, 42, 47);
+            stacks.init(OxygenLoaderBlock.SLOT_ACTIVATING, true, 30, 42);
             stacks.set(OxygenLoaderBlock.SLOT_ACTIVATING, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
         }
     }
