@@ -6,7 +6,6 @@ import net.minecraft.item.Items;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.network.play.server.SStopSoundPacket;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.*;
 import net.minecraft.world.server.ServerWorld;
@@ -127,7 +126,7 @@ public class RocketTier1Entity extends CreatureEntity {
 
 	@Override
 	public double getMountedYOffset() {
-		return super.getMountedYOffset() + -1.7;
+		return super.getMountedYOffset() -1.7;
 	}
 
 	@Override
@@ -176,7 +175,9 @@ public class RocketTier1Entity extends CreatureEntity {
 
 		if (!source.isProjectile() && sourceentity != null && sourceentity.isSneaking() && !this.isBeingRidden()) {
 			//Stop Rocket Sound
-			Methodes.StopRocketSounds((ServerPlayerEntity) sourceentity);
+			if (sourceentity instanceof ServerPlayerEntity) {
+				Methodes.StopRocketSounds((ServerPlayerEntity) sourceentity);
+			}
 
 			//Drop Rocket Item
 			if (!world.isRemote()) {
@@ -315,10 +316,12 @@ public class RocketTier1Entity extends CreatureEntity {
 				pass.getPersistentData().putDouble("Tier_1_open_main_menu", 1); //TODO Remove it if you Reworked the GUI SYSTEM
 				pass.getPersistentData().putDouble("Player_movement", 1); //TODO Remove it if you Reworked the GUI SYSTEM
 
-				Methodes.StopRocketSounds((ServerPlayerEntity) pass);
+				if (this.getPassengers().get(0) instanceof ServerPlayerEntity) {
+					Methodes.StopRocketSounds((ServerPlayerEntity) pass);
+				}
 
 				this.remove();
-			} else if (y > 625 && this.getPassengers().isEmpty() == true)  {
+			} else if (y > 600 && this.getPassengers().isEmpty() == true)  {
 				this.remove();
 			}
 

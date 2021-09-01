@@ -115,7 +115,7 @@ public class Tier3RocketItemItem extends BossToolsModElements.ModElement {
 										}
 									}.compareDistOf((Math.floor(x)), (Math.floor(y)), (Math.floor(z)))).collect(Collectors.toList());
 							for (Entity entityiterator : _entfound) {
-								if (entityiterator instanceof RocketTier1Entity || entityiterator instanceof RocketTier2Entity.CustomEntity
+								if (entityiterator instanceof RocketTier1Entity || entityiterator instanceof RocketTier2Entity
 										|| entityiterator instanceof RocketTier3Entity.CustomEntity
 										|| entityiterator instanceof LanderEntity.CustomEntity) {
 									entityblock = true;

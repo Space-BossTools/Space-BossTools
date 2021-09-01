@@ -1,6 +1,9 @@
 
 package net.mrscauthd.boss_tools.gui;
 
+import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
+import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
+import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -35,20 +38,27 @@ public class RocketTier2GuiFuelGuiWindow extends ContainerScreen<RocketTier2GuiF
 		this.ySize = 167;
 	}
 	private static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/rocket_tier_2_gui_fuel.png");
+	private static final ResourceLocation fuel_bar = new ResourceLocation("boss_tools:textures/rocket_fuel_bar.png");
 	@Override
 	public void render(MatrixStack ms, int mouseX, int mouseY, float partialTicks) {
 		this.renderBackground(ms);
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
-		int fuel = (int) (entity.getPersistentData().getDouble("fuelgui"));
+
+		int fuel = 0;
+		if(container.rocket != null) {
+			fuel = container.rocket.getDataManager().get(RocketTier2Entity.FUEL) / 3;
+		}
+
 		List<ITextComponent> fuel2 = new ArrayList<ITextComponent>();
+
 		if (mouseX > guiLeft + 65 && mouseX < guiLeft + 114 && mouseY > guiTop + 20 && mouseY < guiTop + 69) {
 			if (fuel >= 1) {
 				fuel2.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Fuel"));
 			} else {
 				fuel2.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Empty"));
 			}
-			fuel2.add(ITextComponent.getTextComponentOrEmpty(String.valueOf(fuel) + "%"));
+			fuel2.add(ITextComponent.getTextComponentOrEmpty(fuel + "%"));
 			this.func_243308_b(ms, fuel2, mouseX, mouseY);
 		}
 	}
@@ -60,103 +70,18 @@ public class RocketTier2GuiFuelGuiWindow extends ContainerScreen<RocketTier2GuiF
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
 		this.blit(ms, k, l, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
+
 		// Tank
-		double tank = ((entity.getPersistentData().getDouble("fuel")));
+		int tank = 0;
+		if(container.rocket != null) {
+			tank = container.rocket.getDataManager().get(RocketTier2Entity.FUEL);
+		}
+
 		// Textures
-		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettank.png"));
+		Minecraft.getInstance().getTextureManager().bindTexture(fuel_bar);
 		this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		if (tank >= 17) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull1.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
-		if (tank >= 37) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull2.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
-		if (tank >= 51) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull3.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
-		if (tank >= 68) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull4.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
-		if (tank >= 85) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull5.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
-		if (tank >= 102) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull6.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
-		if (tank >= 119) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull7.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
-		if (tank >= 136) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull8.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
-		if (tank >= 153) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull9.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
-		if (tank >= 170) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull10.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
-		if (tank >= 187) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull11.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
-		if (tank >= 204) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull12.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
-		if (tank >= 221) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull13.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
-		if (tank >= 238) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull14.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
-		if (tank >= 255) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull15.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
-		if (tank >= 272) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull16.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
-		if (tank >= 289) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull17.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
-		if (tank >= 306) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull18.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
-		if (tank >= 323) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull19.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
-		if (tank >= 340) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull20.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
-		if (tank >= 357) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull21.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
-		if (tank >= 374) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull22.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
-		if (tank >= 400) {
-			Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rockettankfull23.png"));
-			this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-		}
+
+		GuiHelper.drawFuel(ms, this.guiLeft + 66, this.guiTop + 21, (double) tank / 300);
 	}
 
 	@Override
