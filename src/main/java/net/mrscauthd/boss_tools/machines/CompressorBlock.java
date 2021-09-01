@@ -42,8 +42,8 @@ import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipeType;
 import net.mrscauthd.boss_tools.gui.CompressorGuiGui;
 import net.mrscauthd.boss_tools.machines.tile.ItemStackToItemStackTileEntity;
-import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemCommonEnergy;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystemMap;
 
 public class CompressorBlock {
 	public static final int ENERGY_PER_TICK = 1;
@@ -188,22 +188,22 @@ public class CompressorBlock {
 		protected BooleanProperty getBlockActivatedProperty() {
 			return CustomBlock.ACTIAVATED;
 		}
-		
+
 		@Override
 		protected EnergyStorageBasic createEnergyStorage() {
 			return this.createEnergyStorageCommonUsing();
 		}
 
 		@Override
-		protected PowerSystem createPowerSystem() {
-			return new PowerSystemCommonEnergy(this) {
+		protected void createPowerSystems(PowerSystemMap map) {
+			super.createPowerSystems(map);
+			map.put(new PowerSystemCommonEnergy(this) {
 				@Override
 				public int getBasePowerForOperation() {
 					return ENERGY_PER_TICK;
 				}
-			};
+			});
 		}
-
 	}
 
 }

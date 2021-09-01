@@ -9,7 +9,7 @@ import net.minecraftforge.energy.EnergyStorage;
 public class EnergyStorageBasic extends EnergyStorage implements INBTSerializable<CompoundNBT> {
 
 	private final IEnergyStorageHolder holder;
-	
+
 	public EnergyStorageBasic(IEnergyStorageHolder holder, int capacity, int maxReceive, int maxExtract, int energy) {
 		super(capacity, maxReceive, maxExtract, energy);
 		this.holder = holder;
@@ -88,6 +88,10 @@ public class EnergyStorageBasic extends EnergyStorage implements INBTSerializabl
 
 	public IEnergyStorageHolder getHolder() {
 		return this.holder;
+	}
+
+	public double getStoredRatio() {
+		return (double) this.getEnergyStored() / (double) this.getMaxEnergyStored();
 	}
 
 	@Override

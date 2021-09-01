@@ -1,30 +1,28 @@
 
 package net.mrscauthd.boss_tools.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.lwjgl.opengl.GL11;
 
-import net.minecraftforge.fluids.capability.templates.FluidTank;
-import net.mrscauthd.boss_tools.machines.FuelRefineryBlock.CustomTileEntity;
-import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.energy.EnergyStorage;
-import net.minecraftforge.api.distmarker.Dist;
+import com.mojang.blaze3d.matrix.MatrixStack;
 
-import net.minecraft.world.World;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.Minecraft;
-
-import java.util.List;
-import java.util.ArrayList;
-
-import com.mojang.blaze3d.matrix.MatrixStack;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.mrscauthd.boss_tools.capability.EnergyStorageBasic;
+import net.mrscauthd.boss_tools.machines.FuelRefineryBlock.CustomTileEntity;
 
 @OnlyIn(Dist.CLIENT)
 public class FuelRefineryGUIGuiWindow extends ContainerScreen<FuelRefineryGUIGui.GuiContainerMod> {
@@ -50,7 +48,7 @@ public class FuelRefineryGUIGuiWindow extends ContainerScreen<FuelRefineryGUIGui
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 
 		CustomTileEntity tileEntity = (CustomTileEntity) this.world.getTileEntity(this.blockPos);
-		PowerSystem powerSystem = tileEntity.getPowerSystem();
+		EnergyStorageBasic energyStorage = tileEntity.getEnergyStorage();
 		FluidTank fluidTank = tileEntity.getFluidTank();
 		int fuel = fluidTank.getFluidAmount();
 
@@ -68,7 +66,7 @@ public class FuelRefineryGUIGuiWindow extends ContainerScreen<FuelRefineryGUIGui
 		// ToolTip Ende
 		// toolTipStart Energy
 		if (mouseX > guiLeft + 143 && mouseX < guiLeft + 168 && mouseY > guiTop + 20 && mouseY < guiTop + 69) {
-			this.renderTooltip(ms, new StringTextComponent(powerSystem.getStored() + " FE / " + powerSystem.getCapacity() + " FE"), mouseX, mouseY);
+			this.renderTooltip(ms, new StringTextComponent(energyStorage.getEnergyStored() + " FE / " + energyStorage.getMaxEnergyStored() + " FE"), mouseX, mouseY);
 		}
 	}
 
@@ -83,7 +81,7 @@ public class FuelRefineryGUIGuiWindow extends ContainerScreen<FuelRefineryGUIGui
 		// Energy NBT
 
 		CustomTileEntity tileEntity = (CustomTileEntity) this.world.getTileEntity(this.blockPos);
-		int energyanimation = tileEntity.getPowerSystem().getStored();
+		int energyanimation = tileEntity.getEnergyStorage().getEnergyStored();
 
 		// Fuel Tank
 		int lavaanimation = tileEntity.getFluidTank().getFluidAmount();

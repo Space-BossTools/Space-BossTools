@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
 
 public class GuiHelper {
 
@@ -31,10 +30,6 @@ public class GuiHelper {
 
 	public static void renderEnergyTooltip(MatrixStack matrixStack, int left, int top, Screen screen, int stored, int capacity) {
 		screen.renderTooltip(matrixStack, new StringTextComponent(stored + " FE / " + capacity + " FE"), left, top);
-	}
-
-	public static void renderEnergyTooltip(MatrixStack matrixStack, int left, int top, Screen screen, PowerSystem powerSystem) {
-		renderEnergyTooltip(matrixStack, left, top, screen, powerSystem.getStored(), powerSystem.getCapacity());
 	}
 
 	public static void renderEnergyTooltip(MatrixStack matrixStack, int left, int top, Screen screen, IEnergyStorage energyStorage) {
@@ -63,10 +58,6 @@ public class GuiHelper {
 
 	public static Rectangle2d getOxygenBounds(int left, int top) {
 		return new Rectangle2d(left, top, OXYGEN_WIDTH, OXYGEN_HEIGHT);
-	}
-
-	public static void drawEnergy(MatrixStack matrixStack, int left, int top, IEnergyStorage energyStorage) {
-		drawEnergy(matrixStack, left, top, (double) energyStorage.getEnergyStored() / (double) energyStorage.getMaxEnergyStored());
 	}
 
 	public static void drawEnergy(MatrixStack matrixStack, int left, int top, double ratio) {

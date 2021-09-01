@@ -40,7 +40,7 @@ public class OxygenLoaderGuiGuiWindow extends ContainerScreen<OxygenLoaderGuiGui
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 
 		if (this.getEnergyBounds().contains(mouseX, mouseY)) {
-			GuiHelper.renderEnergyTooltip(ms, mouseX, mouseY, this, this.getTileEntity().getPowerSystem());
+			GuiHelper.renderEnergyTooltip(ms, mouseX, mouseY, this, this.getTileEntity().getEnergyStorage());
 		}
 	}
 
@@ -51,8 +51,8 @@ public class OxygenLoaderGuiGuiWindow extends ContainerScreen<OxygenLoaderGuiGui
 
 		Minecraft.getInstance().getTextureManager().bindTexture(texture);
 		AbstractGui.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
-		GuiHelper.drawOxygen(ms, this.guiLeft + OXYGEN_LEFT, this.guiTop + OXYGEN_TOP, (double) tileEntity.getActivatingTime() / (double) tileEntity.getMaxActivatingTime());
-		GuiHelper.drawEnergy(ms, this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP, tileEntity.getPowerSystem().getStoredRatio());
+		GuiHelper.drawOxygen(ms, this.guiLeft + OXYGEN_LEFT, this.guiTop + OXYGEN_TOP, tileEntity.getOxygenPowerSystem().getStoredRatio());
+		GuiHelper.drawEnergy(ms, this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP, tileEntity.getEnergyStorage().getStoredRatio());
 	}
 
 	@Override

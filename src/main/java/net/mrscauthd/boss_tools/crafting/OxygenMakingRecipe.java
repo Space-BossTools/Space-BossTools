@@ -19,27 +19,27 @@ public class OxygenMakingRecipe extends BossToolsRecipe {
 	public static final int SLOT_INGREDIENT = 0;
 
 	private final Ingredient ingredient;
-	private final int activaingTime;
+	private final int oxygen;
 
 	public OxygenMakingRecipe(ResourceLocation id, JsonObject json) {
 		super(id, json);
 		JsonObject inputJson = JSONUtils.getJsonObject(json, "input");
 		this.ingredient = Ingredient.deserialize(JSONUtils.getJsonObject(inputJson, "ingredient"));
-		this.activaingTime = JSONUtils.getInt(json, "activaingTime");
+		this.oxygen = JSONUtils.getInt(json, "oxygen");
 	}
 
 	public OxygenMakingRecipe(ResourceLocation id, PacketBuffer buffer) {
 		super(id, buffer);
 
 		this.ingredient = Ingredient.read(buffer);
-		this.activaingTime = buffer.readInt();
+		this.oxygen = buffer.readInt();
 
 	}
 
-	public OxygenMakingRecipe(ResourceLocation id, Ingredient ingredient, int activaingTime) {
+	public OxygenMakingRecipe(ResourceLocation id, Ingredient ingredient, int oxygen) {
 		super(id);
 		this.ingredient = ingredient;
-		this.activaingTime = activaingTime;
+		this.oxygen = oxygen;
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class OxygenMakingRecipe extends BossToolsRecipe {
 		super.write(buffer);
 
 		this.getIngredient().write(buffer);
-		buffer.writeInt(this.getActivaingTime());
+		buffer.writeInt(this.getOxygen());
 	}
 
 	@Override
@@ -102,8 +102,8 @@ public class OxygenMakingRecipe extends BossToolsRecipe {
 		return list;
 	}
 
-	public int getActivaingTime() {
-		return this.activaingTime;
+	public int getOxygen() {
+		return this.oxygen;
 	}
 
 }

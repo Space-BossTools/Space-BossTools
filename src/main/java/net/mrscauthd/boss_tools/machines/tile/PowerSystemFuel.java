@@ -7,22 +7,18 @@ import javax.annotation.Nullable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
-import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
-public abstract class PowerSystemFuelAbstract extends PowerSystem {
-	public static final int FUEL_PER_TICK = 1;
-	
-	private final Lazy<IItemHandlerModifiable> itemHandler;
+public abstract class PowerSystemFuel extends PowerSystem {
+
 	private final int slot;
 
 	private int fuel;
 	private int maxFuel;
 
-	public PowerSystemFuelAbstract(AbstractMachineTileEntity tileEntity, Lazy<IItemHandlerModifiable> itemHandler, int slot) {
+	public PowerSystemFuel(AbstractMachineTileEntity tileEntity, int slot) {
 		super(tileEntity);
 
-		this.itemHandler = itemHandler;
 		this.slot = slot;
 	}
 
@@ -65,16 +61,6 @@ public abstract class PowerSystemFuelAbstract extends PowerSystem {
 		return this.maxFuel;
 	}
 
-	@Override
-	public int getBasePowerPerTick() {
-		return FUEL_PER_TICK;
-	}
-
-	@Override
-	public int getBasePowerForOperation() {
-		return 0;
-	}
-
 	public boolean canFeed(boolean spareForNextTick, ItemStack fuel) {
 		return this.getTileEntity().hasSpaceInOutput();
 	}
@@ -97,7 +83,7 @@ public abstract class PowerSystemFuelAbstract extends PowerSystem {
 		return compound;
 	}
 
-	public abstract int getBurnTime(ItemStack fuel);
+	public abstract int getFuel(ItemStack fuel);
 
 	@Override
 	public boolean feed(boolean spareForNextTick) {
@@ -107,20 +93,31 @@ public abstract class PowerSystemFuelAbstract extends PowerSystem {
 
 		IItemHandlerModifiable itemHandler = this.getItemHandler();
 		int slot = this.getSlot();
-		ItemStack fuel = itemHandler.getStackInSlot(slot);
+		ItemStack fuelItemStack = itemHandler.getStackInSlot(slot);
 
-		if (!fuel.isEmpty() && this.canFeed(spareForNextTick, fuel)) {
-			int burnTime = this.getBurnTime(fuel);
+		if (!fuelItemStack.isEmpty() && this.canFeed(spareForNextTick, fuelItemStack)) {
+			int fuel = this.getFuel(fuelItemStack);
 
-			if (burnTime > 0) {
+			if (fuel > 0) {
 				itemHandler.extractItem(slot, 1, false);
-				this.maxFuel = this.getStored() + burnTime;
-				this.receive(burnTime, false);
+				this.addFuel(fuel);
 				return true;
 			}
 		}
 
 		return false;
+	}
+
+	public void setFuel(int fuel) {
+		fuel = Math.max(fuel, 0);
+		this.maxFuel = fuel;
+		this.receive(fuel, false);
+	}
+
+	public void addFuel(int fuel) {
+		fuel = Math.max(fuel, 0);
+		this.maxFuel = this.getStored() + fuel;
+		this.receive(fuel, false);
 	}
 
 	public boolean matchDirection(Direction direction) {
@@ -136,15 +133,19 @@ public abstract class PowerSystemFuelAbstract extends PowerSystem {
 
 	@Override
 	public boolean canInsertItem(@Nullable Direction direction, int index, ItemStack stack) {
-		return this.matchDirection(direction) && index == this.getSlot() && this.getBurnTime(stack) > 0;
+		return this.matchDirection(direction) && index == this.getSlot() && this.getFuel(stack) > 0;
 	}
 
 	public IItemHandlerModifiable getItemHandler() {
-		return this.itemHandler.get();
+		return this.getTileEntity().getItemHandler();
 	}
 
 	public int getSlot() {
 		return this.slot;
 	}
 
+	@Override
+	public String getName() {
+		return "Fuel";
+	}
 }

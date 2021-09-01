@@ -42,8 +42,6 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.gui.SolarPanelGUIGui;
 import net.mrscauthd.boss_tools.machines.tile.GeneratorTileEntity;
-import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
-import net.mrscauthd.boss_tools.machines.tile.PowerSystemNone;
 
 public class SolarPanelBlock {
 	public static final int ENERGY_PER_TICK = 4;
@@ -179,12 +177,14 @@ public class SolarPanelBlock {
 		}
 
 		@Override
-		protected void generateEnergy() {
+		protected boolean canGenerateEnergy() {
 			World world = this.getWorld();
+			return world.isDaytime() && world.canBlockSeeSky(this.getPos().up());
+		}
 
-			if (world.isDaytime() && world.canBlockSeeSky(this.getPos().up())) {
-				this.generateEnergy(this.getGeneratePerTick());
-			}
+		@Override
+		protected void generateEnergy() {
+			this.generateEnergy(this.getGeneratePerTick());
 		}
 
 		@Override
@@ -192,16 +192,6 @@ public class SolarPanelBlock {
 			List<Direction> list = super.getEjectDirections();
 			list.addAll(Arrays.stream(Direction.values()).filter(d -> d != Direction.UP).collect(Collectors.toList()));
 			return list;
-		}
-
-		@Override
-		protected PowerSystem createPowerSystem() {
-			return new PowerSystemNone(this);
-		}
-
-		@Override
-		public boolean hasSpaceInOutput() {
-			return this.getEnergyStorage().receiveEnergyInternal(this.getGeneratePerTick(), true) > 0;
 		}
 	}
 }

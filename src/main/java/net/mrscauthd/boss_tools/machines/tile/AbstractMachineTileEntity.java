@@ -2,13 +2,18 @@ package net.mrscauthd.boss_tools.machines.tile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
 
 import net.minecraft.block.BlockState;
@@ -45,42 +50,55 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 
 	public static final String KEY_ACTIVATED = "activated";
 
-	private PowerSystem powerSystem = null;
-	private IFluidHandler fluidHandler = null;
-	private final LazyOptional<? extends IItemHandler>[] itemHandlers;
-	private NonNullList<ItemStack> stacks = null;
 	private EnergyStorageBasic energyStorage = null;
+	private IFluidHandler fluidHandler = null;
+	private final Map<String, PowerSystem> powerSystems;
+	private NonNullList<ItemStack> stacks = null;
+	private final LazyOptional<? extends IItemHandler>[] itemHandlers;
 
 	private boolean processedInThisTick = false;
 
 	public AbstractMachineTileEntity(TileEntityType<?> type) {
 		super(type);
 
-		this.powerSystem = this.createPowerSystem();
+		this.energyStorage = this.createEnergyStorage();
 		this.fluidHandler = this.createFluidHandler();
+
+		PowerSystemMap powerSystemMap = new PowerSystemMap();
+		this.createPowerSystems(powerSystemMap);
+		this.powerSystems = Collections.unmodifiableMap(powerSystemMap);
 		this.itemHandlers = SidedInvWrapper.create(this, Direction.values());
 		this.stacks = NonNullList.<ItemStack>withSize(this.getInitialInventorySize(), ItemStack.EMPTY);
-		this.energyStorage = this.createEnergyStorage();
-	}
-
-	protected int getInitialInventorySize() {
-		return this.getPowerSystem().getUsingSlots();
-	}
-
-	public int getPowerPerTick() {
-		return this.getPowerSystem().getBasePowerPerTick();
-	}
-
-	public int getPowerForOperation() {
-		return this.getPowerSystem().getBasePowerForOperation();
 	}
 
 	public boolean isPowerEnoughForOperation() {
-		return this.getPowerSystem().getStored() >= this.getPowerPerTick() + this.getPowerForOperation();
+		return this.getPowerSystems().values().stream().allMatch(ps -> ps.isPowerEnoughForOperation());
 	}
 
-	protected boolean isPowerEnoughAndConsume() {
-		return this.isPowerEnoughForOperation() && this.getPowerSystem().consume(this.getPowerForOperation());
+	/**
+	 * 
+	 * @return null : fail on consume from any PowerSystem
+	 * <br>nonnull : each PowerSystem's consumed power 
+	 */
+	@Nullable
+	public Map<PowerSystem, Integer> consumePowerForOperation() {
+		if (this.isPowerEnoughForOperation()) {
+			return this.getPowerSystems().values().stream().collect(Collectors.toMap(ps -> ps, ps -> ps.consumeForOperation()));
+		} else {
+			return null;
+		}
+	}
+
+	public int getPowerPerTick(PowerSystem powerSystem, int base) {
+		return base;
+	}
+
+	public int getPowerForOperation(PowerSystem powerSystem, int base) {
+		return base;
+	}
+
+	protected int getInitialInventorySize() {
+		return this.getPowerSystems().values().stream().collect(Collectors.summingInt(ps -> ps.getUsingSlots()));
 	}
 
 	@Override
@@ -90,7 +108,12 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 			this.stacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
 		}
 		ItemStackHelper.loadAllItems(compound, this.stacks);
-		this.getPowerSystem().read(compound.getCompound("powerSystem"));
+
+		CompoundNBT powerSystemCompound = compound.getCompound("powerSystem");
+
+		for (Entry<String, PowerSystem> entry : this.getPowerSystems().entrySet()) {
+			entry.getValue().read(powerSystemCompound.getCompound(entry.getKey()));
+		}
 
 		EnergyStorageBasic energyStorage = this.getEnergyStorage();
 
@@ -106,7 +129,14 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		if (!this.checkLootAndWrite(compound)) {
 			ItemStackHelper.saveAllItems(compound, this.stacks);
 		}
-		compound.put("powerSystem", this.getPowerSystem().write());
+
+		CompoundNBT powerSystemCompound = new CompoundNBT();
+
+		for (Entry<String, PowerSystem> entry : this.getPowerSystems().entrySet()) {
+			powerSystemCompound.put(entry.getKey(), entry.getValue().write());
+		}
+
+		compound.put("powerSystem", powerSystemCompound);
 
 		EnergyStorageBasic energyStorage = this.getEnergyStorage();
 
@@ -138,7 +168,7 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	}
 
 	protected void getSlotsForFace(Direction direction, List<Integer> slots) {
-		this.getPowerSystem().getSlotsForFace(direction, slots);
+		this.getPowerSystems().values().stream().forEach(ps -> ps.getSlotsForFace(direction, slots));
 	}
 
 	@Override
@@ -150,15 +180,16 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 
 	@Override
 	public boolean canInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
-		if (this.getPowerSystem().canInsertItem(direction, index, stack)) {
+		if (this.getPowerSystems().values().stream().anyMatch(ps -> ps.canInsertItem(direction, index, stack))) {
 			return true;
 		}
+
 		return false;
 	}
 
 	@Override
 	public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-		if (this.getPowerSystem().canExtractItem(direction, index, stack)) {
+		if (this.getPowerSystems().values().stream().anyMatch(ps -> ps.canExtractItem(direction, index, stack))) {
 			return true;
 		}
 		return false;
@@ -234,7 +265,11 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		}
 
 		this.onTickProcessingPre();
-		this.tickProcessing();
+
+		if (this.canTickProcessing()) {
+			this.tickProcessing();
+		}
+
 		this.onTickProcessingPost();
 
 		this.updatePowerSystem();
@@ -244,18 +279,7 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	}
 
 	protected void updatePowerSystem() {
-		int eft = this.getPowerPerTick();
-		PowerSystem powerSystem = this.getPowerSystem();
-
-		if (eft > 0) {
-			powerSystem.consume(eft);
-
-			if (!this.isPowerEnoughForOperation()) {
-				powerSystem.feed(true);
-			}
-
-		}
-
+		this.getPowerSystems().values().forEach(ps -> ps.update());
 	}
 
 	protected BooleanProperty getBlockActivatedProperty() {
@@ -283,31 +307,45 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		this.processedInThisTick = false;
 	}
 
+	protected boolean canTickProcessing() {
+		return true;
+	}
+
 	protected abstract void tickProcessing();
 
 	protected void onTickProcessingPost() {
 
 	}
 
-	public boolean updateActivated() {
+	public void updateActivated() {
 		this.setActivated(this.canActivated());
-		return true;
 	}
 
 	protected boolean canActivated() {
-		if (this.getPowerSystem() instanceof PowerSystemFuelAbstract) {
-			return this.isPowerEnoughForOperation();
-		} else {
-			return this.processedInThisTick;
-		}
+		List<Entry<String, PowerSystem>> powerSystems = Lists.newArrayList(this.getPowerSystems().entrySet());
 
+		if (powerSystems.size() == 1) {
+			PowerSystem primary = powerSystems.get(0).getValue();
+
+			if (primary instanceof PowerSystemFuel) {
+				return primary.isPowerEnoughForOperation();
+			}
+		}
+		return this.processedInThisTick;
 	}
 
 	@Nonnull
-	protected abstract PowerSystem createPowerSystem();
+	protected void createPowerSystems(PowerSystemMap map) {
 
-	public PowerSystem getPowerSystem() {
-		return this.powerSystem;
+	}
+
+	public Map<String, PowerSystem> getPowerSystems() {
+		return this.powerSystems;
+	}
+
+	@SuppressWarnings("unchecked")
+	public <T extends PowerSystem> T getPowerSystem(Class<T> clazz) {
+		return (T) this.getPowerSystems().values().stream().filter(ps -> clazz.isAssignableFrom(ps.getClass())).findFirst().orElse(null);
 	}
 
 	@Nullable
@@ -324,11 +362,11 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	protected EnergyStorageBasic createEnergyStorage() {
 		return null;
 	}
-	
+
 	protected EnergyStorageBasic createEnergyStorageCommonUsing() {
 		return new EnergyStorageBasic(this, 9000, 200, 200);
 	}
-	
+
 	protected EnergyStorageBasic createEnergyStorageCommonGenerating() {
 		return new EnergyStorageBasic(this, 9000, 0, 200);
 	}
@@ -396,9 +434,7 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 
 	public abstract boolean hasSpaceInOutput();
 
-	public boolean nullOrMatch(@Nullable Direction direction, Direction... matches)
-	{
-		return direction == null || ArrayUtils.contains(matches, direction); 
+	public boolean nullOrMatch(@Nullable Direction direction, Direction... matches) {
+		return direction == null || ArrayUtils.contains(matches, direction);
 	}
-
 }
