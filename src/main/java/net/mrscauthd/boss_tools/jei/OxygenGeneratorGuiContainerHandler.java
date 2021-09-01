@@ -14,28 +14,27 @@ import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.mrscauthd.boss_tools.gui.OxygenLoaderGuiGuiWindow;
+import net.mrscauthd.boss_tools.gui.OxygenBulletGeneratorGUIGuiWindow;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
-import net.mrscauthd.boss_tools.jei.JeiPlugin.OxygenLoadingJeiCategory;
 import net.mrscauthd.boss_tools.jei.JeiPlugin.OxygenMakingJeiCategory;
 
-public class OxygenLoaderGuiContainerHandler implements IGuiContainerHandler<OxygenLoaderGuiGuiWindow> {
+public class OxygenGeneratorGuiContainerHandler implements IGuiContainerHandler<OxygenBulletGeneratorGUIGuiWindow> {
 
-	public OxygenLoaderGuiContainerHandler() {
+	public OxygenGeneratorGuiContainerHandler() {
 
 	}
 
 	@Override
-	public Collection<IGuiClickableArea> getGuiClickableAreas(OxygenLoaderGuiGuiWindow containerScreen, double mouseX, double mouseY) {
+	public Collection<IGuiClickableArea> getGuiClickableAreas(OxygenBulletGeneratorGUIGuiWindow containerScreen, double mouseX, double mouseY) {
 		return Collections.singleton(new IGuiClickableArea() {
 			@Override
 			public Rectangle2d getArea() {
-				return GuiHelper.getOxygenBounds(OxygenLoaderGuiGuiWindow.OXYGEN_LEFT, OxygenLoaderGuiGuiWindow.OXYGEN_TOP);
+				return GuiHelper.getOxygenBounds(OxygenBulletGeneratorGUIGuiWindow.OXYGEN_LEFT, OxygenBulletGeneratorGUIGuiWindow.OXYGEN_TOP);
 			}
 
 			@Override
 			public void onClick(IFocusFactory focusFactory, IRecipesGui recipesGui) {
-				recipesGui.showCategories(Arrays.asList(OxygenMakingJeiCategory.Uid, OxygenLoadingJeiCategory.Uid));
+				recipesGui.showCategories(Arrays.asList(OxygenMakingJeiCategory.Uid));
 			}
 
 			@Override

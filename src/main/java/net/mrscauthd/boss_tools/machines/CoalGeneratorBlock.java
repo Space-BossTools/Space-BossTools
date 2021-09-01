@@ -195,11 +195,13 @@ public class CoalGeneratorBlock {
 		}
 
 		@Override
-		protected void generateEnergy() {
-			if (this.isPowerEnoughAndConsume()) {
-				this.generateEnergy(this.getGeneratePerTick());
-			}
+		protected boolean canGenerateEnergy() {
+			return true;
+		}
 
+		@Override
+		protected void generateEnergy() {
+			this.generateEnergy(this.getGeneratePerTick());
 		}
 
 		@Override
@@ -214,11 +216,5 @@ public class CoalGeneratorBlock {
 		protected PowerSystem createPowerSystem() {
 			return new PowerSystemFuelGeneratingRecipe(this, this::getItemHandler, SLOT_FUEL);
 		}
-
-		@Override
-		public boolean hasSpaceInOutput() {
-			return this.getEnergyStorage().receiveEnergyInternal(this.getGeneratePerTick(), true) > 0;
-		}
-
 	}
 }

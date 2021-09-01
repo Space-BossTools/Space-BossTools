@@ -7,7 +7,7 @@ import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.GeneratingRecipe;
 
-public class PowerSystemFuelGeneratingRecipe extends PowerSystemFuelAbstract {
+public class PowerSystemFuelGeneratingRecipe extends PowerSystemFuelBurnTime {
 
 	public PowerSystemFuelGeneratingRecipe(AbstractMachineTileEntity tileEntity, Lazy<IItemHandlerModifiable> itemHandler, int slot) {
 		super(tileEntity, itemHandler, slot);
@@ -18,7 +18,7 @@ public class PowerSystemFuelGeneratingRecipe extends PowerSystemFuelAbstract {
 	}
 
 	@Override
-	public int getBurnTime(ItemStack fuel) {
+	public int getFuel(ItemStack fuel) {
 		if (fuel == null || fuel.isEmpty()) {
 			return -1;
 		}

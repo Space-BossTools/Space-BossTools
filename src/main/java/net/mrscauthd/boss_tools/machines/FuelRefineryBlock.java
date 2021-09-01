@@ -348,7 +348,7 @@ public class FuelRefineryBlock {
 			IItemHandlerModifiable itemHandler = this.getItemHandler();
 			ItemStack ingredient = itemHandler.getStackInSlot(SLOT_INGREDIENT);
 
-			if (this.hasSpaceInOutput() && this.getPowerSystem().getStored() >= this.getPowerForOperation() && ingredient.getItem() == ModInnet.OIL_BUCKET.get() && ingredient.getCount() == 1) {
+			if (this.hasSpaceInOutput() && this.getPowerSystem().isPowerEnoughForOperation() && ingredient.getItem() == ModInnet.OIL_BUCKET.get() && ingredient.getCount() == 1) {
 				int fuel = this.getFuel();
 
 				if (fuel < FUEL_CONSUME_PER_TICK) {
@@ -368,7 +368,7 @@ public class FuelRefineryBlock {
 			if (this.hasSpaceInOutput()) {
 				int fuel = this.getFuel();
 
-				if (fuel >= FUEL_CONSUME_PER_TICK && this.isPowerEnoughAndConsume()) {
+				if (fuel >= FUEL_CONSUME_PER_TICK && this.getPowerSystem().consumeForOperation()) {
 					this.setFuel(fuel - FUEL_CONSUME_PER_TICK);
 					this.getFluidTank().fill(new FluidStack(ModInnet.FUEL_STILL.get(), FLUID_PER_FUEL * FUEL_CONSUME_PER_TICK), FluidAction.EXECUTE);
 					this.setProcessedInThisTick();

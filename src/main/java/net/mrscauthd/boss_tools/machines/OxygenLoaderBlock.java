@@ -36,18 +36,14 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.network.NetworkHooks;
-import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.capability.CapabilityOxygen;
 import net.mrscauthd.boss_tools.capability.EnergyStorageBasic;
 import net.mrscauthd.boss_tools.capability.IOxygenStorage;
-import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
-import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
-import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipe;
 import net.mrscauthd.boss_tools.gui.OxygenLoaderGuiGui;
-import net.mrscauthd.boss_tools.machines.tile.AbstractMachineTileEntity;
+import net.mrscauthd.boss_tools.machines.tile.OxygenUsingTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemCommonEnergy;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystemFuelOxygen;
 
 public class OxygenLoaderBlock {
 	public static final int SLOT_ITEM = 0;
@@ -55,9 +51,6 @@ public class OxygenLoaderBlock {
 
 	public static final int ENERGY_PER_TICK = 1;
 	public static final int OXYGEN_PER_TICK = 8;
-
-	public static final String KEY_ACTIVATINGTIME = "activatingTime";
-	public static final String KEY_MAXACTIVATINGTIME = "maxActivatingTime";
 
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
@@ -172,7 +165,7 @@ public class OxygenLoaderBlock {
 		}
 	}
 
-	public static class CustomTileEntity extends AbstractMachineTileEntity {
+	public static class CustomTileEntity extends OxygenUsingTileEntity {
 
 		public CustomTileEntity() {
 			super(ModInnet.OXYGEN_LOADER.get());
@@ -180,7 +173,7 @@ public class OxygenLoaderBlock {
 
 		@Override
 		protected int getInitialInventorySize() {
-			return super.getInitialInventorySize() + 2;
+			return super.getInitialInventorySize() + 1;
 		}
 
 		@Override
@@ -198,19 +191,6 @@ public class OxygenLoaderBlock {
 			return new StringTextComponent("Oxygen Loader");
 		}
 
-		public BossToolsRecipeType<? extends OxygenMakingRecipe> getOxygenMakingRecipeType() {
-			return BossToolsRecipeTypes.OXYGENMAKING;
-		}
-
-		public int getActivatingTime(ItemStack itemStack) {
-			if (itemStack == null || itemStack.isEmpty()) {
-				return -1;
-			}
-
-			OxygenMakingRecipe recipe = this.getOxygenMakingRecipeType().findFirst(this.getTileEntity().getWorld(), r -> r.testIngredient(itemStack));
-			return recipe != null ? recipe.getActivaingTime() : -1;
-		}
-
 		public int getItemSlot() {
 			return SLOT_ITEM;
 		}
@@ -219,38 +199,17 @@ public class OxygenLoaderBlock {
 			return SLOT_ACTIVATING;
 		}
 
-		public int getOxygenPerTick() {
-			return OXYGEN_PER_TICK;
+		@Override
+		protected boolean canUsingOxygen() {
+			return true;
 		}
 
 		@Override
-		protected void tickProcessing() {
-			int activatingTime = this.getActivatingTime();
-			int activatingSlot = this.getActivatingSlot();
+		protected void onUsingMaking() {
 			IOxygenStorage oxygenStorage = this.getItemOxygenStorage();
 
-			if (activatingTime >= 1 && this.hasSpaceInOutput(oxygenStorage) && this.isPowerEnoughAndConsume()) {
-				activatingTime--;
-				oxygenStorage.receiveOxygen(this.getOxygenPerTick(), false);
-				this.setActivatingTime(activatingTime);
-				this.markDirty();
-				this.setProcessedInThisTick();
-			}
-
-			if (activatingTime < 1 && this.hasSpaceInOutput(oxygenStorage) && this.isPowerEnoughForOperation()) {
-				IItemHandlerModifiable itemHandler = this.getItemHandler();
-				ItemStack extra = itemHandler.getStackInSlot(activatingSlot);
-
-				if (!extra.isEmpty()) {
-					int newActivatingTime = this.getActivatingTime(extra);
-
-					if (newActivatingTime > 0) {
-						itemHandler.extractItem(activatingSlot, 1, false);
-						this.setMaxActivatingTime(activatingTime + newActivatingTime);
-						this.setActivatingTime(this.getMaxActivatingTime());
-						this.markDirty();
-					}
-				}
+			if (oxygenStorage != null) {
+				oxygenStorage.receiveOxygen(this.getOxygenPowerSystem().getPowerForOperation(), false);
 			}
 		}
 
@@ -273,7 +232,6 @@ public class OxygenLoaderBlock {
 		protected void getSlotsForFace(Direction direction, List<Integer> slots) {
 			super.getSlotsForFace(direction, slots);
 			slots.add(this.getItemSlot());
-			slots.add(this.getActivatingSlot());
 		}
 
 		@Override
@@ -284,11 +242,18 @@ public class OxygenLoaderBlock {
 
 			if (index == this.getItemSlot()) {
 				return this.getItemOxygenStorage(stack) != null;
-			} else if (index == this.getActivatingSlot()) {
-				return this.getActivatingTime(stack) > 0;
 			}
 
 			return false;
+		}
+
+		@Override
+		public int getPowerForOperation(PowerSystem powerSystem, int base) {
+			if (powerSystem == this.getOxygenPowerSystem()) {
+				return this.getItemOxygenStorage().receiveOxygen(base, true);
+			}
+
+			return super.getPowerForOperation(powerSystem, base);
 		}
 
 		@Override
@@ -301,20 +266,15 @@ public class OxygenLoaderBlock {
 				IOxygenStorage oxygenStorage = this.getItemOxygenStorage(stack);
 
 				if (oxygenStorage != null) {
-					return oxygenStorage.receiveOxygen(this.getOxygenPerTick(), true) == 0;
+					return oxygenStorage.receiveOxygen(1, true) == 0;
 				}
 			}
 
 			return false;
 		}
 
-		public IOxygenStorage getItemOxygenStorage(ItemStack itemStack) {
-			return !itemStack.isEmpty() ? itemStack.getCapability(CapabilityOxygen.OXYGEN).orElse(null) : null;
-		}
-
 		public IOxygenStorage getItemOxygenStorage() {
-			ItemStack itemStack = this.getItemHandler().getStackInSlot(this.getItemSlot());
-			return !itemStack.isEmpty() ? itemStack.getCapability(CapabilityOxygen.OXYGEN).orElse(null) : null;
+			return this.getItemOxygenStorage(this.getItemHandler().getStackInSlot(this.getItemSlot()));
 		}
 
 		@Override
@@ -322,41 +282,19 @@ public class OxygenLoaderBlock {
 			return this.hasSpaceInOutput(this.getItemOxygenStorage());
 		}
 
-		public boolean hasSpaceInOutput(IOxygenStorage oxygenStorage) {
-			return oxygenStorage != null ? oxygenStorage.getOxygenStored() < oxygenStorage.getMaxOxygenStored() : false;
-		}
-
-		public int getActivatingTime() {
-			return this.getTileData().getInt(KEY_ACTIVATINGTIME);
-		}
-
-		public void setActivatingTime(int activatingTime) {
-			activatingTime = Math.max(Math.min(activatingTime, this.getMaxActivatingTime()), 0);
-
-			if (this.getActivatingTime() != activatingTime) {
-				this.getTileData().putInt(KEY_ACTIVATINGTIME, activatingTime);
-				this.markDirty();
-			}
-		}
-
-		public int getMaxActivatingTime() {
-			return this.getTileData().getInt(KEY_MAXACTIVATINGTIME);
-		}
-
-		public void setMaxActivatingTime(int maxActivatingTime) {
-			maxActivatingTime = Math.max(maxActivatingTime, 0);
-
-			if (this.getMaxActivatingTime() != maxActivatingTime) {
-				this.getTileData().putInt(KEY_MAXACTIVATINGTIME, maxActivatingTime);
-				this.markDirty();
-			}
-		}
-
 		@Override
 		protected BooleanProperty getBlockActivatedProperty() {
 			return CustomBlock.ACTIAVATED;
 		}
 
+		@Override
+		protected PowerSystemFuelOxygen createOxygenPowerSystem() {
+			return new PowerSystemFuelOxygen(this, this::getItemHandler, this.getActivatingSlot()) {
+				@Override
+				public int getBasePowerForOperation() {
+					return OXYGEN_PER_TICK;
+				}
+			};
+		}
 	}
-
 }

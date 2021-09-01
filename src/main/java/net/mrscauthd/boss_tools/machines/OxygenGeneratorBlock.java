@@ -1,83 +1,69 @@
 package net.mrscauthd.boss_tools.machines;
 
-import net.minecraft.world.IWorld;
-import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
-import net.mrscauthd.boss_tools.procedures.OxygenGeneratortickProcedure;
-import net.mrscauthd.boss_tools.gui.OxygenBulletGeneratorGUIGui;
-import net.mrscauthd.boss_tools.BossToolsModElements;
-
-import net.minecraftforge.registries.ObjectHolder;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.fml.network.NetworkHooks;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.energy.EnergyStorage;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.ToolType;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.api.distmarker.Dist;
-
-import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.World;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.LockableLootTileEntity;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.loot.LootContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Item;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.BlockItem;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.block.material.PushReaction;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.HorizontalBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Block;
-
-import javax.annotation.Nullable;
-
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.IntStream;
-import java.util.Random;
-import java.util.Map;
-import java.util.List;
-import java.util.HashMap;
 import java.util.Collections;
+import java.util.List;
+import java.util.function.Supplier;
 
-import io.netty.buffer.Unpooled;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.HorizontalBlock;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.material.PushReaction;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootContext;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.DirectionProperty;
+import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Mirror;
+import net.minecraft.util.Rotation;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.ToolType;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fml.network.NetworkEvent.Context;
+import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.registries.ObjectHolder;
+import net.mrscauthd.boss_tools.BossToolsMod;
+import net.mrscauthd.boss_tools.BossToolsModElements;
+import net.mrscauthd.boss_tools.capability.EnergyStorageBasic;
+import net.mrscauthd.boss_tools.gui.OxygenBulletGeneratorGUIGui;
+import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
+import net.mrscauthd.boss_tools.machines.tile.OxygenUsingTileEntity;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystemCommonEnergy;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystemFuelOxygen;
 
 @BossToolsModElements.ModElement.Tag
 public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
@@ -85,32 +71,43 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 	public static final Block block = null;
 	@ObjectHolder("boss_tools:oxygen_bullet_generator")
 	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
+
+	public static final int SLOT_ACTIVATING = 0;
+	public static final int ENERGY_PER_TICK = 1;
+	public static final int OXYGEN_PER_TICK = 8;
+	public static final String KEY_TIMER = "timer";
+	public static final String KEY_LARGE = "large";
+
+	/**
+	 * Interval Ticks, 2 = every 2 ticks
+	 */
+	public static final int MAX_TIMER = 2;
+
 	public OxygenGeneratorBlock(BossToolsModElements instance) {
 		super(instance, 76);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new TileEntityRegisterHandler());
+		BossToolsMod.addNetworkMessage(SetLargeMessage.class, SetLargeMessage::encode, SetLargeMessage::decode, SetLargeMessage::handle);
 	}
 
 	@Override
 	public void initElements() {
 		elements.blocks.add(() -> new CustomBlock());
-		elements.items.add(() -> new BlockItem(block, new Item.Properties().group(BossToolsItemGroups.tab_machines))
-				.setRegistryName(block.getRegistryName()));
+		elements.items.add(() -> new BlockItem(block, new Item.Properties().group(BossToolsItemGroups.tab_machines)).setRegistryName(block.getRegistryName()));
 	}
+
 	private static class TileEntityRegisterHandler {
 		@SubscribeEvent
 		public void registerTileEntity(RegistryEvent.Register<TileEntityType<?>> event) {
-			event.getRegistry()
-					.register(TileEntityType.Builder.create(CustomTileEntity::new, block).build(null).setRegistryName("oxygen_bullet_generator"));
+			event.getRegistry().register(TileEntityType.Builder.create(CustomTileEntity::new, block).build(null).setRegistryName("oxygen_bullet_generator"));
 		}
 	}
 
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 		public static final BooleanProperty ACTIAVATED = BlockStateProperties.LIT;
-		public static double energy = 0;
+
 		public CustomBlock() {
-			super(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 1f).setLightLevel(s -> 0).harvestLevel(1)
-					.harvestTool(ToolType.PICKAXE).setRequiresTool());
+			super(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 1f).setLightLevel(s -> 0).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool());
 			this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(ACTIAVATED, Boolean.valueOf(false)));
 			setRegistryName("oxygen_bullet_generator");
 		}
@@ -131,13 +128,13 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 			return state.with(FACING, rot.rotate(state.get(FACING)));
 		}
 
+		@SuppressWarnings("deprecation")
 		public BlockState mirror(BlockState state, Mirror mirrorIn) {
 			return state.rotate(mirrorIn.toRotation(state.get(FACING)));
 		}
 
 		@Override
 		public BlockState getStateForPlacement(BlockItemUseContext context) {
-			;
 			return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
 		}
 
@@ -148,98 +145,33 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+			@SuppressWarnings("deprecation")
 			List<ItemStack> dropsOriginal = super.getDrops(state, builder);
-			if (!dropsOriginal.isEmpty())
+			if (!dropsOriginal.isEmpty()) {
 				return dropsOriginal;
-			return Collections.singletonList(new ItemStack(this, 1));
-		}
-
-		@Override
-		public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean moving) {
-			super.onBlockAdded(state, world, pos, oldState, moving);
-			int x = pos.getX();
-			int y = pos.getY();
-			int z = pos.getZ();
-			world.getPendingBlockTicks().scheduleTick(new BlockPos(x, y, z), this, 1);
-		}
-
-		@Override
-		public void tick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-			int x = pos.getX();
-			int y = pos.getY();
-			int z = pos.getZ();
-
-			//energy
-			energy = (new Object() {
-				public int getEnergyStored(IWorld world, BlockPos pos) {
-					AtomicInteger _retval = new AtomicInteger(0);
-					TileEntity _ent = world.getTileEntity(pos);
-					if (_ent != null)
-						_ent.getCapability(CapabilityEnergy.ENERGY, null).ifPresent(capability -> _retval.set(capability.getEnergyStored()));
-					return _retval.get();
-				}
-			}.getEnergyStored(world, new BlockPos((int) x, (int) y, (int) z)));
-
-			if (((new Object() {
-				public boolean getValue(BlockPos pos, String tag) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity != null)
-						return tileEntity.getTileData().getBoolean(tag);
-					return false;
-				}
-			}.getValue(new BlockPos((int) x, (int) y, (int) z), "activated")) == (true)) && energy >= 1) {
-				world.setBlockState(pos, state.with(ACTIAVATED, Boolean.valueOf(true)), 3);
 			} else {
-				world.setBlockState(pos, state.with(ACTIAVATED, Boolean.valueOf(false)), 3);
+				return Collections.singletonList(new ItemStack(this, 1));
 			}
-			super.tick(state, world, pos, random);
-			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
-				$_dependencies.put("world", world);
-				OxygenGeneratortickProcedure.executeProcedure($_dependencies);
-			}
-			world.getPendingBlockTicks().scheduleTick(new BlockPos(x, y, z), this, 1);
 		}
 
 		@Override
 		public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos) {
-			if (state.get(ACTIAVATED) == true)
-				return 12;
-			return 0;
+			return state.get(ACTIAVATED) ? 12 : 0;
 		}
 
 		@Override
 		public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
-			if (state.get(ACTIAVATED) == true)
-				return 12;
-			return 0;
+			return state.get(ACTIAVATED) ? 12 : 0;
 		}
 
 		@Override
-		public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity entity, Hand hand,
-												 BlockRayTraceResult hit) {
-			super.onBlockActivated(state, world, pos, entity, hand, hit);
-			int x = pos.getX();
-			int y = pos.getY();
-			int z = pos.getZ();
+		public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity entity, Hand hand, BlockRayTraceResult hit) {
 			if (entity instanceof ServerPlayerEntity) {
-				NetworkHooks.openGui((ServerPlayerEntity) entity, new INamedContainerProvider() {
-					@Override
-					public ITextComponent getDisplayName() {
-						return new StringTextComponent("Oxygen Bullet Generator");
-					}
-
-					@Override
-					public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-						return new OxygenBulletGeneratorGUIGui.GuiContainerMod(id, inventory,
-								new PacketBuffer(Unpooled.buffer()).writeBlockPos(new BlockPos(x, y, z)));
-					}
-				}, new BlockPos(x, y, z));
+				NetworkHooks.openGui((ServerPlayerEntity) entity, this.getContainer(state, world, pos), pos);
+				return ActionResultType.CONSUME;
+			} else {
+				return ActionResultType.SUCCESS;
 			}
-			return ActionResultType.SUCCESS;
 		}
 
 		@Override
@@ -258,6 +190,7 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 			return new CustomTileEntity();
 		}
 
+		@SuppressWarnings("deprecation")
 		@Override
 		public boolean eventReceived(BlockState state, World world, BlockPos pos, int eventID, int eventParam) {
 			super.eventReceived(state, world, pos, eventID, eventParam);
@@ -265,14 +198,13 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 			return tileentity == null ? false : tileentity.receiveClientEvent(eventID, eventParam);
 		}
 
+		@SuppressWarnings("deprecation")
 		@Override
 		public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
 			if (state.getBlock() != newState.getBlock()) {
-				TileEntity tileentity = world.getTileEntity(pos);
-				if (tileentity instanceof CustomTileEntity) {
-					InventoryHelper.dropInventoryItems(world, pos, (CustomTileEntity) tileentity);
-					world.updateComparatorOutputLevel(pos, this);
-				}
+				CustomTileEntity tileentity = (CustomTileEntity) world.getTileEntity(pos);
+				InventoryHelper.dropInventoryItems(world, pos, (CustomTileEntity) tileentity);
+				world.updateComparatorOutputLevel(pos, this);
 				super.onReplaced(state, world, pos, newState, isMoving);
 			}
 		}
@@ -284,67 +216,15 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public int getComparatorInputOverride(BlockState blockState, World world, BlockPos pos) {
-			TileEntity tileentity = world.getTileEntity(pos);
-			if (tileentity instanceof CustomTileEntity)
-				return Container.calcRedstoneFromInventory((CustomTileEntity) tileentity);
-			else
-				return 0;
+			CustomTileEntity tileentity = (CustomTileEntity) world.getTileEntity(pos);
+			return Container.calcRedstoneFromInventory(tileentity);
 		}
 	}
 
-	public static class CustomTileEntity extends LockableLootTileEntity implements ISidedInventory {
-		private NonNullList<ItemStack> stacks = NonNullList.<ItemStack>withSize(9, ItemStack.EMPTY);
+	public static class CustomTileEntity extends OxygenUsingTileEntity {
+
 		protected CustomTileEntity() {
 			super(tileEntityType);
-		}
-
-		@Override
-		public void read(BlockState blockState, CompoundNBT compound) {
-			super.read(blockState, compound);
-			if (!this.checkLootAndRead(compound)) {
-				this.stacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
-			}
-			ItemStackHelper.loadAllItems(compound, this.stacks);
-			if (compound.get("energyStorage") != null)
-				CapabilityEnergy.ENERGY.readNBT(energyStorage, null, compound.get("energyStorage"));
-		}
-
-		@Override
-		public CompoundNBT write(CompoundNBT compound) {
-			super.write(compound);
-			if (!this.checkLootAndWrite(compound)) {
-				ItemStackHelper.saveAllItems(compound, this.stacks);
-			}
-			compound.put("energyStorage", CapabilityEnergy.ENERGY.writeNBT(energyStorage, null));
-			return compound;
-		}
-
-		@Override
-		public SUpdateTileEntityPacket getUpdatePacket() {
-			return new SUpdateTileEntityPacket(this.pos, 0, this.getUpdateTag());
-		}
-
-		@Override
-		public CompoundNBT getUpdateTag() {
-			return this.write(new CompoundNBT());
-		}
-
-		@Override
-		public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-			this.read(this.getBlockState(), pkt.getNbtCompound());
-		}
-
-		@Override
-		public int getSizeInventory() {
-			return stacks.size();
-		}
-
-		@Override
-		public boolean isEmpty() {
-			for (ItemStack itemstack : this.stacks)
-				if (!itemstack.isEmpty())
-					return false;
-			return true;
 		}
 
 		@Override
@@ -353,13 +233,8 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 		}
 
 		@Override
-		public int getInventoryStackLimit() {
-			return 64;
-		}
-
-		@Override
 		public Container createMenu(int id, PlayerInventory player) {
-			return new OxygenBulletGeneratorGUIGui.GuiContainerMod(id, player, new PacketBuffer(Unpooled.buffer()).writeBlockPos(this.getPos()));
+			return new OxygenBulletGeneratorGUIGui.GuiContainerMod(id, player, this);
 		}
 
 		@Override
@@ -368,89 +243,161 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 		}
 
 		@Override
-		protected NonNullList<ItemStack> getItems() {
-			return this.stacks;
+		protected EnergyStorageBasic createEnergyStorage() {
+			return this.createEnergyStorageCommonUsing();
 		}
 
 		@Override
-		protected void setItems(NonNullList<ItemStack> stacks) {
-			this.stacks = stacks;
+		protected PowerSystem createPowerSystem() {
+			return new PowerSystemCommonEnergy(this) {
+				@Override
+				public int getBasePowerForOperation() {
+					return ENERGY_PER_TICK;
+				}
+			};
 		}
 
 		@Override
-		public boolean isItemValidForSlot(int index, ItemStack stack) {
-			if (index == 1)
-				return false;
-			if (index == 2)
-				return false;
-			if (index == 3)
-				return false;
-			if (index == 4)
-				return false;
-			if (index == 5)
-				return false;
-			if (index == 6)
-				return false;
-			if (index == 7)
-				return false;
-			if (index == 8)
-				return false;
-			if (index == 9)
-				return false;
+		protected void tickProcessing() {
+			super.tickProcessing();
+
+			this.setTimer(this.getTimer() + 1);
+		}
+
+		@Override
+		public int getActivatingSlot() {
+			return SLOT_ACTIVATING;
+		}
+
+		/**
+		 * timer will 0, 1, 0, 1
+		 */
+		@Override
+		protected boolean canUsingOxygen() {
+			return (this.getTimer() + 1) >= MAX_TIMER;
+		}
+
+		@Override
+		protected void onUsingMaking() {
+			this.setTimer(0);
+
+			World world = this.getWorld();
+			BlockPos pos = this.getPos();
+			double range = this.getRange();
+			List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(pos).grow(range), null);
+
+			for (PlayerEntity player : players) {
+				CompoundNBT persistentData = player.getPersistentData();
+				persistentData.putBoolean("Oxygen_Bullet_Generator", true);
+				persistentData.putDouble("timer_oxygen", 0);
+			}
+
+			if (world instanceof ServerWorld) {
+				ServerWorld serverWorld = (ServerWorld) world;
+				Vector3d center = new AxisAlignedBB(pos).getCenter();
+				serverWorld.spawnParticle(ParticleTypes.CLOUD, center.x, center.y + 0.5D, center.z, 1, 0.1D, 0.1D, 0.1D, 0.001D);
+			}
+
+		}
+
+		@Override
+		public boolean hasSpaceInOutput() {
 			return true;
 		}
 
-		@Override
-		public int[] getSlotsForFace(Direction side) {
-			return IntStream.range(0, this.getSizeInventory()).toArray();
+		public int getTimer() {
+			return this.getTileData().getInt(KEY_TIMER);
 		}
 
-		@Override
-		public boolean canInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
-			return this.isItemValidForSlot(index, stack);
-		}
+		public void setTimer(int timer) {
+			timer = Math.max(timer, 0);
 
-		@Override
-		public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-			return false;
-			// FIX
-		}
-		private final LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.values());
-		private final EnergyStorage energyStorage = new EnergyStorage(9000, 200, 200, 0) {
-			@Override
-			public int receiveEnergy(int maxReceive, boolean simulate) {
-				int retval = super.receiveEnergy(maxReceive, simulate);
-				if (!simulate) {
-					markDirty();
-					world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
-				}
-				return retval;
+			if (this.getTimer() != timer) {
+				this.getTileData().putInt(KEY_TIMER, timer);
+				this.markDirty();
 			}
+		}
 
-			@Override
-			public int extractEnergy(int maxExtract, boolean simulate) {
-				int retval = super.extractEnergy(maxExtract, simulate);
-				if (!simulate) {
-					markDirty();
-					world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
-				}
-				return retval;
+		public double getRange() {
+			return this.isLarge() ? 6.0D : 3.0D;
+		}
+
+		public boolean isLarge() {
+			return this.getTileData().getBoolean(KEY_LARGE);
+		}
+
+		public void setLarge(boolean large) {
+			if (this.isLarge() != large) {
+				this.getTileData().putBoolean(KEY_LARGE, large);
+				this.markDirty();
 			}
-		};
+		}
+		
 		@Override
-		public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-			if (!this.removed && facing != null && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-				return handlers[facing.ordinal()].cast();
-			if (!this.removed && capability == CapabilityEnergy.ENERGY)
-				return LazyOptional.of(() -> energyStorage).cast();
-			return super.getCapability(capability, facing);
+		protected BooleanProperty getBlockActivatedProperty() {
+			return CustomBlock.ACTIAVATED;
 		}
 
 		@Override
-		public void remove() {
-			super.remove();
-			for (LazyOptional<? extends IItemHandler> handler : handlers)
-				handler.invalidate();
+		protected PowerSystemFuelOxygen createOxygenPowerSystem() {
+			return new PowerSystemFuelOxygen(this, this::getItemHandler, this.getActivatingSlot()) {
+				@Override
+				public int getBasePowerForOperation() {
+					return OXYGEN_PER_TICK;
+				}
+			};
+		}
+	}
+
+	public static class SetLargeMessage {
+
+		private BlockPos blockPos = BlockPos.ZERO;
+		private boolean large = false;
+
+		public SetLargeMessage() {
+
+		}
+
+		public SetLargeMessage(BlockPos pos, boolean large) {
+			this.setBlockPos(pos);
+			this.setLarge(large);
+		}
+
+		public SetLargeMessage(PacketBuffer buffer) {
+			this.setBlockPos(buffer.readBlockPos());
+			this.setLarge(buffer.readBoolean());
+		}
+
+		public BlockPos getBlockPos() {
+			return this.blockPos;
+		}
+
+		public void setBlockPos(BlockPos blockPos) {
+			this.blockPos = blockPos;
+		}
+
+		public boolean isLarge() {
+			return this.large;
+		}
+
+		public void setLarge(boolean large) {
+			this.large = large;
+		}
+
+		public static SetLargeMessage decode(PacketBuffer buffer) {
+			return new SetLargeMessage(buffer);
+		}
+
+		public static void encode(SetLargeMessage message, PacketBuffer buffer) {
+			buffer.writeBlockPos(message.getBlockPos());
+			buffer.writeBoolean(message.isLarge());
+		}
+
+		public static void handle(SetLargeMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
+			Context context = contextSupplier.get();
+			CustomTileEntity tileEntity = (CustomTileEntity) context.getSender().getServerWorld().getTileEntity(message.getBlockPos());
+			tileEntity.setLarge(message.isLarge());
+			context.setPacketHandled(true);
 		}
 	}
 }

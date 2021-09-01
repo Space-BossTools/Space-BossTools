@@ -22,9 +22,14 @@ public abstract class GeneratorTileEntity extends AbstractMachineTileEntity {
 
 	@Override
 	protected void tickProcessing() {
-		this.generateEnergy();
+		if (this.canGenerateEnergy() && this.hasSpaceInOutput() && this.getPowerSystem().consumeForOperation()) {
+			this.generateEnergy();
+		}
+
 		this.ejectEnergy();
 	}
+
+	protected abstract boolean canGenerateEnergy();
 
 	protected abstract void generateEnergy();
 
@@ -33,7 +38,7 @@ public abstract class GeneratorTileEntity extends AbstractMachineTileEntity {
 		this.setProcessedInThisTick();
 		this.markDirty();
 	}
-	
+
 	@Override
 	protected EnergyStorageBasic createEnergyStorage() {
 		return this.createEnergyStorageCommonGenerating();
@@ -78,6 +83,11 @@ public abstract class GeneratorTileEntity extends AbstractMachineTileEntity {
 	@Override
 	public <T> LazyOptional<T> getCapabilityEnergy(Capability<T> capability, Direction facing) {
 		return LazyOptional.of(() -> this.getEnergyStorage()).cast();
+	}
+
+	@Override
+	public boolean hasSpaceInOutput() {
+		return this.getEnergyStorage().receiveEnergyInternal(1, true) > 0;
 	}
 
 }
