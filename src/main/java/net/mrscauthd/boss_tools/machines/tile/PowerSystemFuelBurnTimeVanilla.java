@@ -6,16 +6,16 @@ import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
-public abstract class PowerSystemFuelVanilla extends PowerSystemFuelAbstract {
+public abstract class PowerSystemFuelBurnTimeVanilla extends PowerSystemFuelBurnTime {
 
-	public PowerSystemFuelVanilla(AbstractMachineTileEntity tileEntity, Lazy<IItemHandlerModifiable> itemHandler, int slot) {
+	public PowerSystemFuelBurnTimeVanilla(AbstractMachineTileEntity tileEntity, Lazy<IItemHandlerModifiable> itemHandler, int slot) {
 		super(tileEntity, itemHandler, slot);
 	}
 
 	public abstract IRecipeType<?> getRecipeType();
 
 	@Override
-	public int getBurnTime(ItemStack fuel) {
+	public int getFuel(ItemStack fuel) {
 		return ForgeHooks.getBurnTime(fuel, this.getRecipeType());
 	}
 

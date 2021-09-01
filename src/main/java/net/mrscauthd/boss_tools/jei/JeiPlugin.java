@@ -76,6 +76,8 @@ public class JeiPlugin implements IModPlugin {
     	int oxygenLoaderInventoryStartIndex = OxygenLoaderBlock.SLOT_ACTIVATING + 1;
 		registration.addRecipeTransferHandler(OxygenLoaderGuiGui.GuiContainerMod.class, OxygenMakingJeiCategory.Uid, OxygenLoaderBlock.SLOT_ACTIVATING, 1, oxygenLoaderInventoryStartIndex, inventorySlotCount);
 		registration.addRecipeTransferHandler(OxygenLoaderGuiGui.GuiContainerMod.class, OxygenLoadingJeiCategory.Uid, OxygenLoaderBlock.SLOT_ITEM, 1, oxygenLoaderInventoryStartIndex, inventorySlotCount);
+		// OxygenBulletGenerator
+		registration.addRecipeTransferHandler(OxygenBulletGeneratorGUIGui.GuiContainerMod.class, OxygenMakingJeiCategory.Uid, OxygenGeneratorBlock.SLOT_ACTIVATING, 1, OxygenGeneratorBlock.SLOT_ACTIVATING + 1, inventorySlotCount);
     	// Generator
     	registration.addRecipeTransferHandler(GeneratorGUIGui.GuiContainerMod.class, GeneratorJeiCategory.Uid, CoalGeneratorBlock.SLOT_FUEL, 1, CoalGeneratorBlock.SLOT_FUEL + 1, inventorySlotCount);
     	// BlastFurnace
@@ -84,6 +86,7 @@ public class JeiPlugin implements IModPlugin {
     	registration.addRecipeTransferHandler(BlastFurnaceGUIGui.GuiContainerMod.class, VanillaRecipeCategoryUid.FUEL, ItemStackToItemStackTileEntity.SLOT_FUEL, 1, blastInventoryStartIndex, inventorySlotCount);
     	// Compressor
     	registration.addRecipeTransferHandler(CompressorGuiGui.GuiContainerMod.class, CompressorJeiCategory.Uid, ItemStackToItemStackTileEntity.SLOT_INGREDIENT, 1, ItemStackToItemStackTileEntity.SLOT_OUTPUT + 1, inventorySlotCount);
+    	
     }
     
     @Override
@@ -94,7 +97,7 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipeClickArea(BlastFurnaceGUIGuiWindow.class, BlastFurnaceGUIGuiWindow.ARROW_LEFT, BlastFurnaceGUIGuiWindow.AROOW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, BlastingFurnaceJeiCategory.Uid, VanillaRecipeCategoryUid.FUEL);
         registration.addRecipeClickArea(CompressorGuiGuiWindow.class, CompressorGuiGuiWindow.ARROW_LEFT, CompressorGuiGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, CompressorJeiCategory.Uid);
         registration.addGuiContainerHandler(OxygenLoaderGuiGuiWindow.class, new OxygenLoaderGuiContainerHandler());
-        registration.addRecipeClickArea(OxygenBulletGeneratorGUIGuiWindow.class, 76, 30, 14, 12, OxygenGeneratorJeiCategory.Uid);
+        registration.addRecipeClickArea(OxygenBulletGeneratorGUIGuiWindow.class, OxygenBulletGeneratorGUIGuiWindow.OXYGEN_LEFT, OxygenBulletGeneratorGUIGuiWindow.OXYGEN_TOP, GuiHelper.OXYGEN_WIDTH, GuiHelper.OXYGEN_HEIGHT, OxygenMakingJeiCategory.Uid);
     }
 
     @Override
@@ -102,8 +105,6 @@ public class JeiPlugin implements IModPlugin {
         jeiHelper = registration.getJeiHelpers();
         registration.addRecipeCategories(new OxygenMakingJeiCategory(jeiHelper.getGuiHelper()));
         registration.addRecipeCategories(new OxygenLoadingJeiCategory(jeiHelper.getGuiHelper()));
-        //Neue maschine
-        registration.addRecipeCategories(new OxygenGeneratorJeiCategory(jeiHelper.getGuiHelper()));
         //Genrator
         registration.addRecipeCategories(new GeneratorJeiCategory(jeiHelper.getGuiHelper()));
         //workbench
@@ -130,8 +131,6 @@ public class JeiPlugin implements IModPlugin {
     	//OxygenMaking
         registration.addRecipes(generateOxygenMakingRecipes(), OxygenMakingJeiCategory.Uid);
         registration.addRecipes(generateOxygenLoadingRecipes(), OxygenLoadingJeiCategory.Uid);
-        //Neue maschine
-        registration.addRecipes(generateOxygenGeneratorRecipes(), OxygenGeneratorJeiCategory.Uid);
         //Generator
         registration.addRecipes(generateGeneratorRecipes(), GeneratorJeiCategory.Uid);
         //workbench
@@ -167,16 +166,6 @@ public class JeiPlugin implements IModPlugin {
 
     private List<ItemStack> generateOxygenLoadingRecipes() {
     	return ForgeRegistries.ITEMS.getValues().stream().map(i -> new ItemStack(i)).filter(is -> is.getCapability(CapabilityOxygen.OXYGEN).orElse(null) != null).collect(Collectors.toList());
-    }
-    
-    //New Maschine
-    private List<OxygenGeneratorJeiCategory.OxygenGeneratorRecipeWrapper> generateOxygenGeneratorRecipes() {
-        List<OxygenGeneratorJeiCategory.OxygenGeneratorRecipeWrapper> recipes = new ArrayList<>();
-        ArrayList<ItemStack> inputs = new ArrayList<>();
-        inputs.add(new ItemStack(Items.OAK_LEAVES));
-        // ...
-        recipes.add(new OxygenGeneratorJeiCategory.OxygenGeneratorRecipeWrapper(inputs));
-        return recipes;
     }
     //Generator
     private List<GeneratingRecipe> generateGeneratorRecipes() {
@@ -325,7 +314,7 @@ public class JeiPlugin implements IModPlugin {
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(ModInnet.OXYGEN_LOADER_BLOCK.get()), OxygenMakingJeiCategory.Uid, OxygenLoadingJeiCategory.Uid);
         //Neue maschine
-        registration.addRecipeCatalyst(new ItemStack(OxygenGeneratorBlock.block), OxygenGeneratorJeiCategory.Uid);
+        registration.addRecipeCatalyst(new ItemStack(OxygenGeneratorBlock.block), OxygenMakingJeiCategory.Uid);
         //Genrator
         registration.addRecipeCatalyst(new ItemStack(ModInnet.COAL_GENERATOR_BLOCK.get()), GeneratorJeiCategory.Uid);
         //workbench
@@ -404,9 +393,8 @@ public class JeiPlugin implements IModPlugin {
         
             if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
 				list.add(new StringTextComponent("Using: " + OxygenLoaderBlock.ENERGY_PER_TICK + " FE/t"));
-        		list.add(new StringTextComponent("Total: " + (capacity / OxygenLoaderBlock.OXYGEN_PER_TICK) + " FE"));
-            }
-            else if (this.getOxygenBounds().contains((int) mouseX, (int) mouseY)) {
+        		list.add(new StringTextComponent("Total: " + (int)Math.ceil((double)capacity / OxygenLoaderBlock.OXYGEN_PER_TICK) + " FE"));
+            } else if (this.getOxygenBounds().contains((int) mouseX, (int) mouseY)) {
 				list.add(new StringTextComponent("Using: " + OxygenLoaderBlock.OXYGEN_PER_TICK + " Oxygen/t"));
             }
 
@@ -494,15 +482,6 @@ public class JeiPlugin implements IModPlugin {
             iIngredients.setInputIngredients(recipe.getIngredients());
         }
         
-        @Override
-        public List<ITextComponent> getTooltipStrings(OxygenMakingRecipe recipe, double mouseX, double mouseY) {
-        	if (this.getOxygenBounds().contains((int) mouseX, (int) mouseY)) {
-        		return Collections.singletonList(new StringTextComponent("Activating Time: " + recipe.getActivaingTime()));
-        	}
-        	
-        	return IRecipeCategory.super.getTooltipStrings(recipe, mouseX, mouseY);
-        }
-        
         public Rectangle2d getOxygenBounds(){
         	return GuiHelper.getOxygenBounds(OXYGEN_LEFT, OXYGEN_TOP);
         }
@@ -511,11 +490,11 @@ public class JeiPlugin implements IModPlugin {
         public void draw(OxygenMakingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
         	IRecipeCategory.super.draw(recipe, matrixStack, mouseX, mouseY);
         	
-        	int activaingTime = recipe.getActivaingTime();
+        	int activaingTime = 200;
         	this.cachedOxygens.getUnchecked(activaingTime).draw(matrixStack, OXYGEN_LEFT, OXYGEN_TOP);
         	
         	FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
-			fontRenderer.drawString(matrixStack, "Oxygen: " + (activaingTime * OxygenLoaderBlock.OXYGEN_PER_TICK) , 60, 35, 0x808080);
+			fontRenderer.drawString(matrixStack, "Oxygen: " + recipe.getOxygen() , 60, 35, 0x808080);
         }
 
         @Override
@@ -523,72 +502,6 @@ public class JeiPlugin implements IModPlugin {
             IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
             stacks.init(OxygenLoaderBlock.SLOT_ACTIVATING, true, 42, 47);
             stacks.set(OxygenLoaderBlock.SLOT_ACTIVATING, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
-        }
-    }
-
-    //New Maschine
-    public static class OxygenGeneratorJeiCategory implements IRecipeCategory<OxygenGeneratorJeiCategory.OxygenGeneratorRecipeWrapper> {
-        private static ResourceLocation Uid = new ResourceLocation("boss_tools", "oxygengeneratorcategory");// muss klein geschrieben sein
-        private static final int input1 = 0; // THE NUMBER = SLOTID
-        // ...
-        private final String title;
-        private final IDrawable background;
-        public OxygenGeneratorJeiCategory(IGuiHelper guiHelper) {
-            this.title = "Oxygen Bullet Generator | 3x6";
-            this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_geneartor_gui.png"), 0, 0, 144, 84);
-        }
-
-        @Override
-        public ResourceLocation getUid() {
-            return Uid;
-        }
-
-        @Override
-        public Class<? extends OxygenGeneratorRecipeWrapper> getRecipeClass() {
-            return OxygenGeneratorJeiCategory.OxygenGeneratorRecipeWrapper.class;
-        }
-
-        @Override
-        public String getTitle() {
-            return title;
-        }
-
-        @Override
-        public IDrawable getBackground() {
-            return background;
-        }
-
-        @Override
-        public IDrawable getIcon() {
-            return null;
-        }
-
-        @Override
-        public void setIngredients(OxygenGeneratorRecipeWrapper recipeWrapper, IIngredients iIngredients) {
-            iIngredients.setInputs(VanillaTypes.ITEM, recipeWrapper.getInput());
-        }
-
-        @Override
-        public void setRecipe(IRecipeLayout iRecipeLayout, OxygenGeneratorRecipeWrapper recipeWrapper, IIngredients iIngredients) {
-            IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
-            stacks.init(input1, true, 38, 40);//Numern wie im GUI
-            // ...
-
-            stacks.set(input1, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
-            // ...
-        }
-        public static class OxygenGeneratorRecipeWrapper {
-            private ArrayList input;
-            private ArrayList output;
-
-            public OxygenGeneratorRecipeWrapper(ArrayList input) {
-                this.input = input;
-            }
-
-
-            public ArrayList getInput() {
-                return input;
-            }
         }
     }
     //Genrator

@@ -63,24 +63,16 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		this.energyStorage = this.createEnergyStorage();
 	}
 
+	public int getPowerPerTick(PowerSystem powerSystem, int base) {
+		return base;
+	}
+
+	public int getPowerForOperation(PowerSystem powerSystem, int base) {
+		return base;
+	}
+
 	protected int getInitialInventorySize() {
 		return this.getPowerSystem().getUsingSlots();
-	}
-
-	public int getPowerPerTick() {
-		return this.getPowerSystem().getBasePowerPerTick();
-	}
-
-	public int getPowerForOperation() {
-		return this.getPowerSystem().getBasePowerForOperation();
-	}
-
-	public boolean isPowerEnoughForOperation() {
-		return this.getPowerSystem().getStored() >= this.getPowerPerTick() + this.getPowerForOperation();
-	}
-
-	protected boolean isPowerEnoughAndConsume() {
-		return this.isPowerEnoughForOperation() && this.getPowerSystem().consume(this.getPowerForOperation());
 	}
 
 	@Override
@@ -234,7 +226,11 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		}
 
 		this.onTickProcessingPre();
-		this.tickProcessing();
+
+		if (this.canTickProcessing()) {
+			this.tickProcessing();
+		}
+
 		this.onTickProcessingPost();
 
 		this.updatePowerSystem();
@@ -244,18 +240,7 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	}
 
 	protected void updatePowerSystem() {
-		int eft = this.getPowerPerTick();
-		PowerSystem powerSystem = this.getPowerSystem();
-
-		if (eft > 0) {
-			powerSystem.consume(eft);
-
-			if (!this.isPowerEnoughForOperation()) {
-				powerSystem.feed(true);
-			}
-
-		}
-
+		this.getPowerSystem().update();
 	}
 
 	protected BooleanProperty getBlockActivatedProperty() {
@@ -283,6 +268,10 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		this.processedInThisTick = false;
 	}
 
+	protected boolean canTickProcessing() {
+		return true;
+	}
+
 	protected abstract void tickProcessing();
 
 	protected void onTickProcessingPost() {
@@ -295,12 +284,13 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	}
 
 	protected boolean canActivated() {
-		if (this.getPowerSystem() instanceof PowerSystemFuelAbstract) {
-			return this.isPowerEnoughForOperation();
+		PowerSystemFuel powerSystem = (PowerSystemFuel) this.getPowerSystem();
+
+		if (powerSystem instanceof PowerSystemFuel) {
+			return powerSystem.isPowerEnoughForOperation();
 		} else {
 			return this.processedInThisTick;
 		}
-
 	}
 
 	@Nonnull
@@ -324,11 +314,11 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	protected EnergyStorageBasic createEnergyStorage() {
 		return null;
 	}
-	
+
 	protected EnergyStorageBasic createEnergyStorageCommonUsing() {
 		return new EnergyStorageBasic(this, 9000, 200, 200);
 	}
-	
+
 	protected EnergyStorageBasic createEnergyStorageCommonGenerating() {
 		return new EnergyStorageBasic(this, 9000, 0, 200);
 	}
@@ -396,9 +386,7 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 
 	public abstract boolean hasSpaceInOutput();
 
-	public boolean nullOrMatch(@Nullable Direction direction, Direction... matches)
-	{
-		return direction == null || ArrayUtils.contains(matches, direction); 
+	public boolean nullOrMatch(@Nullable Direction direction, Direction... matches) {
+		return direction == null || ArrayUtils.contains(matches, direction);
 	}
-
 }

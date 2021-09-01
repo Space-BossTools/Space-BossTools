@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
@@ -23,10 +24,13 @@ import net.minecraftforge.common.MinecraftForge;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.entity.EntityType;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.block.Block;
 
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @Mod("boss_tools")
@@ -35,6 +39,7 @@ public class BossToolsMod {
 	private static final String PROTOCOL_VERSION = "1";
 	public static final SimpleChannel PACKET_HANDLER = NetworkRegistry.newSimpleChannel(new ResourceLocation("boss_tools", "boss_tools"),
 			() -> PROTOCOL_VERSION, PROTOCOL_VERSION::equals, PROTOCOL_VERSION::equals);
+	private static int messageID;
 	public BossToolsModElements elements;
 	public BossToolsMod() {
 		elements = new BossToolsModElements();
@@ -118,4 +123,10 @@ public class BossToolsMod {
 			this.parent.elements.getElements().forEach(element -> element.serverLoad(event));
 		}
 	}
+	
+	public static <T> void addNetworkMessage(Class<T> messageType, BiConsumer<T, PacketBuffer> encoder, Function<PacketBuffer, T> decoder, BiConsumer<T, Supplier<NetworkEvent.Context>> messageConsumer) {
+		PACKET_HANDLER.registerMessage(messageID, messageType, encoder, decoder, messageConsumer);
+		messageID++;
+	}
+
 }

@@ -51,7 +51,7 @@ public class GeneratorGUIGuiWindow extends ContainerScreen<GeneratorGUIGui.GuiCo
 		this.minecraft.getTextureManager().bindTexture(TEXTURE);
 		AbstractGui.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
 		GuiHelper.drawFire(ms, this.guiLeft + FIRE_LEFT, this.guiTop + FIRE_TOP, tileEntity.getPowerSystem().getStoredRatio());
-		GuiHelper.drawEnergy(ms, this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP, tileEntity.getEnergyStorage());
+		GuiHelper.drawEnergy(ms, this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP, tileEntity.getPowerSystem().getStoredRatio());
 	}
 
 	@Override

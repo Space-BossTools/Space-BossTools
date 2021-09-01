@@ -15,6 +15,34 @@ public abstract class PowerSystem {
 		this.tileEntity = tileEntity;
 	}
 
+	public int getPowerPerTick() {
+		int base = this.getBasePowerPerTick();
+		return this.getTileEntity().getPowerPerTick(this, base);
+	}
+
+	public int getPowerForOperation() {
+		int base = this.getBasePowerForOperation();
+		return this.getTileEntity().getPowerForOperation(this, base);
+	}
+
+	public boolean isPowerEnoughForOperation() {
+		while (true) {
+			if (this.getStored() >= this.getPowerPerTick() + this.getPowerForOperation()) {
+				return true;
+			} else if (!this.feed(false)) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * @return is power enough for operation and success consume power
+	 */
+	public boolean consumeForOperation() {
+		return this.isPowerEnoughForOperation() && this.consume(this.getPowerForOperation());
+	}
+
 	public int getUsingSlots() {
 		return 0;
 	}
@@ -30,10 +58,6 @@ public abstract class PowerSystem {
 	public double getStoredRatio() {
 		int capacity = this.getCapacity();
 		return capacity > 0 ? ((double) this.getStored() / (double) capacity) : 0;
-	}
-
-	public double getStoredPercentage() {
-		return this.getStoredRatio() * 100.0D;
 	}
 
 	public abstract int receive(int amount, boolean simulate);
@@ -88,4 +112,15 @@ public abstract class PowerSystem {
 		return this.tileEntity;
 	}
 
+	public void update() {
+		int powerPerTick = this.getPowerPerTick();
+
+		if (powerPerTick > 0) {
+			this.consume(powerPerTick);
+
+			if (!this.isPowerEnoughForOperation()) {
+				this.feed(true);
+			}
+		}
+	}
 }

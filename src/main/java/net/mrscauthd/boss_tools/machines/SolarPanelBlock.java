@@ -179,12 +179,14 @@ public class SolarPanelBlock {
 		}
 
 		@Override
-		protected void generateEnergy() {
+		protected boolean canGenerateEnergy() {
 			World world = this.getWorld();
+			return world.isDaytime() && world.canBlockSeeSky(this.getPos().up());
+		}
 
-			if (world.isDaytime() && world.canBlockSeeSky(this.getPos().up())) {
-				this.generateEnergy(this.getGeneratePerTick());
-			}
+		@Override
+		protected void generateEnergy() {
+			this.generateEnergy(this.getGeneratePerTick());
 		}
 
 		@Override
@@ -199,9 +201,5 @@ public class SolarPanelBlock {
 			return new PowerSystemNone(this);
 		}
 
-		@Override
-		public boolean hasSpaceInOutput() {
-			return this.getEnergyStorage().receiveEnergyInternal(this.getGeneratePerTick(), true) > 0;
-		}
 	}
 }

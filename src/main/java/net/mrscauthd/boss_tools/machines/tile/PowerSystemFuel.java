@@ -10,8 +10,7 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
-public abstract class PowerSystemFuelAbstract extends PowerSystem {
-	public static final int FUEL_PER_TICK = 1;
+public abstract class PowerSystemFuel extends PowerSystem {
 	
 	private final Lazy<IItemHandlerModifiable> itemHandler;
 	private final int slot;
@@ -19,7 +18,7 @@ public abstract class PowerSystemFuelAbstract extends PowerSystem {
 	private int fuel;
 	private int maxFuel;
 
-	public PowerSystemFuelAbstract(AbstractMachineTileEntity tileEntity, Lazy<IItemHandlerModifiable> itemHandler, int slot) {
+	public PowerSystemFuel(AbstractMachineTileEntity tileEntity, Lazy<IItemHandlerModifiable> itemHandler, int slot) {
 		super(tileEntity);
 
 		this.itemHandler = itemHandler;
@@ -65,16 +64,6 @@ public abstract class PowerSystemFuelAbstract extends PowerSystem {
 		return this.maxFuel;
 	}
 
-	@Override
-	public int getBasePowerPerTick() {
-		return FUEL_PER_TICK;
-	}
-
-	@Override
-	public int getBasePowerForOperation() {
-		return 0;
-	}
-
 	public boolean canFeed(boolean spareForNextTick, ItemStack fuel) {
 		return this.getTileEntity().hasSpaceInOutput();
 	}
@@ -97,7 +86,7 @@ public abstract class PowerSystemFuelAbstract extends PowerSystem {
 		return compound;
 	}
 
-	public abstract int getBurnTime(ItemStack fuel);
+	public abstract int getFuel(ItemStack fuel);
 
 	@Override
 	public boolean feed(boolean spareForNextTick) {
@@ -110,7 +99,7 @@ public abstract class PowerSystemFuelAbstract extends PowerSystem {
 		ItemStack fuel = itemHandler.getStackInSlot(slot);
 
 		if (!fuel.isEmpty() && this.canFeed(spareForNextTick, fuel)) {
-			int burnTime = this.getBurnTime(fuel);
+			int burnTime = this.getFuel(fuel);
 
 			if (burnTime > 0) {
 				itemHandler.extractItem(slot, 1, false);
@@ -136,7 +125,7 @@ public abstract class PowerSystemFuelAbstract extends PowerSystem {
 
 	@Override
 	public boolean canInsertItem(@Nullable Direction direction, int index, ItemStack stack) {
-		return this.matchDirection(direction) && index == this.getSlot() && this.getBurnTime(stack) > 0;
+		return this.matchDirection(direction) && index == this.getSlot() && this.getFuel(stack) > 0;
 	}
 
 	public IItemHandlerModifiable getItemHandler() {
