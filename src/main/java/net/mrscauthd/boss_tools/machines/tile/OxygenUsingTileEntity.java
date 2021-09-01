@@ -17,7 +17,7 @@ public abstract class OxygenUsingTileEntity extends AbstractMachineTileEntity {
 	public OxygenUsingTileEntity(TileEntityType<?> type) {
 		super(type);
 	}
-	
+
 	public abstract int getBaseOxygenForOperation();
 
 	public BossToolsRecipeType<? extends OxygenMakingRecipe> getOxygenMakingRecipeType() {
@@ -34,8 +34,7 @@ public abstract class OxygenUsingTileEntity extends AbstractMachineTileEntity {
 			if (consumes != null) {
 				int consumedOxygen = consumes.get(this.oxygenPowerSystem).intValue();
 
-				this.onUsingMaking(consumedOxygen);
-				this.markDirty();
+				this.onUsingOxygen(consumedOxygen);
 				this.setProcessedInThisTick();
 			}
 		}
@@ -43,7 +42,7 @@ public abstract class OxygenUsingTileEntity extends AbstractMachineTileEntity {
 
 	protected abstract boolean canUsingOxygen();
 
-	protected abstract void onUsingMaking(int consumedOxygen);
+	protected abstract void onUsingOxygen(int consumedOxygen);
 
 	public boolean hasSpaceInOutput(IOxygenStorage oxygenStorage) {
 		return oxygenStorage != null ? oxygenStorage.getOxygenStored() < oxygenStorage.getMaxOxygenStored() : false;

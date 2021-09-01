@@ -75,6 +75,12 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		return this.getPowerSystems().values().stream().allMatch(ps -> ps.isPowerEnoughForOperation());
 	}
 
+	/**
+	 * 
+	 * @return null : fail on consume from any PowerSystem
+	 * <br>nonnull : each PowerSystem's consumed power 
+	 */
+	@Nullable
 	public Map<PowerSystem, Integer> consumePowerForOperation() {
 		if (this.isPowerEnoughForOperation()) {
 			return this.getPowerSystems().values().stream().collect(Collectors.toMap(ps -> ps, ps -> ps.consumeForOperation()));
@@ -317,11 +323,8 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 
 	protected boolean canActivated() {
 		List<Entry<String, PowerSystem>> powerSystems = Lists.newArrayList(this.getPowerSystems().entrySet());
-		int size = powerSystems.size();
 
-		if (size == 0) {
-			return this.processedInThisTick;
-		} else if (size == 1) {
+		if (powerSystems.size() == 1) {
 			PowerSystem primary = powerSystems.get(0).getValue();
 
 			if (primary instanceof PowerSystemFuel) {

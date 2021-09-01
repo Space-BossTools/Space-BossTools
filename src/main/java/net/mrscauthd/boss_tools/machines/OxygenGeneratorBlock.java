@@ -267,7 +267,7 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 		}
 
 		@Override
-		protected void onUsingMaking(int consumed) {
+		protected void onUsingOxygen(int consumed) {
 			this.setTimer(0);
 
 			World world = this.getWorld();

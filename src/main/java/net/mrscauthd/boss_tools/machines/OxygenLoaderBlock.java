@@ -30,6 +30,7 @@ import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
@@ -206,11 +207,11 @@ public class OxygenLoaderBlock {
 
 		@Override
 		protected boolean canUsingOxygen() {
-			return true;
+			return this.getOxygenPowerSystem().getPowerForOperation() > 0;
 		}
 
 		@Override
-		protected void onUsingMaking(int consumedOxygen) {
+		protected void onUsingOxygen(int consumedOxygen) {
 			IOxygenStorage oxygenStorage = this.getItemOxygenStorage();
 
 			if (oxygenStorage != null) {
@@ -246,7 +247,13 @@ public class OxygenLoaderBlock {
 		public int getPowerForOperation(PowerSystem powerSystem, int base) {
 			if (powerSystem == this.getOxygenPowerSystem()) {
 				IOxygenStorage oxygenStorage = this.getItemOxygenStorage();
-				return oxygenStorage != null ? oxygenStorage.receiveOxygen(base, true) : 0;
+
+				if (oxygenStorage == null) {
+					return 0;
+				} else {
+					int storageRecivable = oxygenStorage.receiveOxygen(base, true);
+					return MathHelper.clamp(powerSystem.getStored(), 1, storageRecivable);
+				}
 			}
 
 			return super.getPowerForOperation(powerSystem, base);

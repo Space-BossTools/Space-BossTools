@@ -100,13 +100,24 @@ public abstract class PowerSystemFuel extends PowerSystem {
 
 			if (fuel > 0) {
 				itemHandler.extractItem(slot, 1, false);
-				this.maxFuel = this.getStored() + fuel;
-				this.receive(fuel, false);
+				this.addFuel(fuel);
 				return true;
 			}
 		}
 
 		return false;
+	}
+
+	public void setFuel(int fuel) {
+		fuel = Math.max(fuel, 0);
+		this.maxFuel = fuel;
+		this.receive(fuel, false);
+	}
+
+	public void addFuel(int fuel) {
+		fuel = Math.max(fuel, 0);
+		this.maxFuel = this.getStored() + fuel;
+		this.receive(fuel, false);
 	}
 
 	public boolean matchDirection(Direction direction) {

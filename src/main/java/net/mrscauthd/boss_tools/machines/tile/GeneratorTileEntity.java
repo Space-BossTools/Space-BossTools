@@ -36,7 +36,6 @@ public abstract class GeneratorTileEntity extends AbstractMachineTileEntity {
 	protected void generateEnergy(int energy) {
 		this.getEnergyStorage().receiveEnergyInternal(energy, false);
 		this.setProcessedInThisTick();
-		this.markDirty();
 	}
 
 	@Override
