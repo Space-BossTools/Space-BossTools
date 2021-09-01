@@ -62,7 +62,7 @@ public class RocketTier2Entity extends CreatureEntity {
 	public double ap = 0;
 
 	public static final DataParameter<Boolean> ROCKET_START = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.BOOLEAN);
-	public static final DataParameter<Boolean> BUCKET = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.BOOLEAN);
+	public static final DataParameter<Integer> BUCKETS = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.VARINT);
 	public static final DataParameter<Integer> FUEL = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.VARINT);
 	public static final DataParameter<Integer> START_TIMER = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.VARINT);
 
@@ -70,7 +70,7 @@ public class RocketTier2Entity extends CreatureEntity {
 	public RocketTier2Entity(EntityType type, World world) {
 		super(type, world);
 		this.dataManager.register(ROCKET_START, false);
-		this.dataManager.register(BUCKET, false);
+		this.dataManager.register(BUCKETS, 0);
 		this.dataManager.register(FUEL, 0);
 		this.dataManager.register(START_TIMER, 0);
 		enablePersistence();
@@ -270,7 +270,7 @@ public class RocketTier2Entity extends CreatureEntity {
 		compound.put("InventoryCustom", inventory.serializeNBT());
 
 		compound.putBoolean("rocket_start", this.dataManager.get(ROCKET_START));
-		compound.putBoolean("bucket", this.dataManager.get(BUCKET));
+		compound.putInt("buckets", this.dataManager.get(BUCKETS));
 		compound.putInt("fuel", this.dataManager.get(FUEL));
 		compound.putInt("start_timer", this.dataManager.get(START_TIMER));
 	}
@@ -284,7 +284,7 @@ public class RocketTier2Entity extends CreatureEntity {
 		}
 
 		this.dataManager.set(ROCKET_START, compound.getBoolean("rocket_start"));
-		this.dataManager.set(BUCKET, compound.getBoolean("bucket"));
+		this.dataManager.set(BUCKETS, compound.getInt("buckets"));
 		this.dataManager.set(FUEL, compound.getInt("fuel"));
 		this.dataManager.set(START_TIMER, compound.getInt("start_timer"));
 	}
@@ -388,12 +388,19 @@ public class RocketTier2Entity extends CreatureEntity {
 
 		}
 
-		if (this.inventory.getStackInSlot(0).getItem() == ModInnet.FUEL_BUCKET.get() && this.dataManager.get(BUCKET) == false) {
+		//Fuel Load up
+		if (this.inventory.getStackInSlot(0).getItem() == ModInnet.FUEL_BUCKET.get() && this.dataManager.get(BUCKETS) < 3) {
 			this.inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));
-			this.getDataManager().set(BUCKET, true);
+			this.getDataManager().set(BUCKETS, this.getDataManager().get(BUCKETS) + 1);
 		}
 
-		if (this.dataManager.get(BUCKET) == true && this.dataManager.get(FUEL) < 300) {
+		if (this.dataManager.get(BUCKETS) == 1 && this.dataManager.get(FUEL) < 100) {
+			this.getDataManager().set(FUEL, this.dataManager.get(FUEL) + 1);
+
+		} else if (this.dataManager.get(BUCKETS) == 2 && this.dataManager.get(FUEL) < 200) {
+			this.getDataManager().set(FUEL, this.dataManager.get(FUEL) + 1);
+
+		} else if (this.dataManager.get(BUCKETS) == 3 && this.dataManager.get(FUEL) < 300) {
 			this.getDataManager().set(FUEL, this.dataManager.get(FUEL) + 1);
 		}
 
