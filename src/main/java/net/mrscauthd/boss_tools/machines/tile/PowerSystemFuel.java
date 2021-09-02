@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 public abstract class PowerSystemFuel extends PowerSystem {
 
@@ -15,6 +16,9 @@ public abstract class PowerSystemFuel extends PowerSystem {
 
 	private int fuel;
 	private int maxFuel;
+
+	private ItemStack lastFuelItemStack;
+	private int lastFuel;
 
 	public PowerSystemFuel(AbstractMachineTileEntity tileEntity, int slot) {
 		super(tileEntity);
@@ -83,7 +87,18 @@ public abstract class PowerSystemFuel extends PowerSystem {
 		return compound;
 	}
 
-	public abstract int getFuel(ItemStack fuel);
+	protected abstract int getFuelInternal(ItemStack fuel);
+
+	public final int getFuel(ItemStack fuel) {
+		if (fuel == null || fuel.isEmpty()) {
+			this.lastFuelItemStack = fuel;
+			this.lastFuel = -1;
+		} else if (this.lastFuelItemStack == null || !ItemHandlerHelper.canItemStacksStack(this.lastFuelItemStack, lastFuelItemStack)) {
+			this.lastFuelItemStack = fuel;
+			this.lastFuel = this.getFuelInternal(fuel);
+		}
+		return this.lastFuel;
+	}
 
 	@Override
 	public boolean feed(boolean spareForNextTick) {

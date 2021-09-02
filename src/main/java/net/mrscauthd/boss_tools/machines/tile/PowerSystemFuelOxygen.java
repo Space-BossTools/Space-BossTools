@@ -16,7 +16,7 @@ public abstract class PowerSystemFuelOxygen extends PowerSystemFuel {
 	}
 
 	@Override
-	public int getFuel(ItemStack fuel) {
+	protected int getFuelInternal(ItemStack fuel) {
 		if (fuel == null || fuel.isEmpty()) {
 			return -1;
 		}
