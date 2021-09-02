@@ -17,7 +17,7 @@ import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.block.RocketLaunchPadBlock;
 import net.mrscauthd.boss_tools.events.Methodes;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
-import net.mrscauthd.boss_tools.gui.RocketTier1GUIFuelGui;
+import net.mrscauthd.boss_tools.gui.screens.RocketGUI;
 
 import net.minecraftforge.items.wrapper.EntityHandsInvWrapper;
 import net.minecraftforge.items.wrapper.EntityArmorInvWrapper;
@@ -306,7 +306,7 @@ public class RocketTier1Entity extends CreatureEntity {
 					packetBuffer.writeBlockPos(new BlockPos(sourceentity.getPosition()));
 					packetBuffer.writeByte(0);
 					packetBuffer.writeVarInt(RocketTier1Entity.this.getEntityId());
-					return new RocketTier1GUIFuelGui.GuiContainerMod(id, inventory, packetBuffer);
+					return new RocketGUI.GuiContainerMod(id, inventory, packetBuffer);
 				}
 			}, buf -> {
 				buf.writeBlockPos(new BlockPos(sourceentity.getPosition()));

@@ -1,10 +1,9 @@
 
-package net.mrscauthd.boss_tools.gui;
+package net.mrscauthd.boss_tools.gui.screens;
 
-import net.minecraft.entity.Entity;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
+import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
+import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 import org.lwjgl.opengl.GL11;
 
@@ -25,11 +24,11 @@ import java.util.ArrayList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 @OnlyIn(Dist.CLIENT)
-public class RocketTier1GUIFuelGuiWindow extends ContainerScreen<RocketTier1GUIFuelGui.GuiContainerMod> {
+public class RocketGUIWindow extends ContainerScreen<RocketGUI.GuiContainerMod> {
 	private World world;
 	private int x, y, z;
 	private PlayerEntity entity;
-	public RocketTier1GUIFuelGuiWindow(RocketTier1GUIFuelGui.GuiContainerMod container, PlayerInventory inventory, ITextComponent text) {
+	public RocketGUIWindow(RocketGUI.GuiContainerMod container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
 		this.world = container.world;
 		this.x = container.x;
@@ -50,8 +49,15 @@ public class RocketTier1GUIFuelGuiWindow extends ContainerScreen<RocketTier1GUIF
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 
 		int fuel = 0;
-		if(container.rocket != null) {
+
+		if (container.rocket instanceof RocketTier1Entity) {
 			fuel = container.rocket.getDataManager().get(RocketTier1Entity.FUEL) / 3;
+		}
+		if (container.rocket instanceof RocketTier2Entity) {
+			fuel = container.rocket.getDataManager().get(RocketTier2Entity.FUEL) / 3;
+		}
+		if (container.rocket instanceof RocketTier3Entity) {
+			fuel = container.rocket.getDataManager().get(RocketTier3Entity.FUEL) / 3;
 		}
 
 		List<ITextComponent> fuel2 = new ArrayList<ITextComponent>();
@@ -77,8 +83,15 @@ public class RocketTier1GUIFuelGuiWindow extends ContainerScreen<RocketTier1GUIF
 
 		// Tank
 		int tank = 0;
-		if(container.rocket != null) {
+
+		if (container.rocket instanceof RocketTier1Entity) {
 			tank = container.rocket.getDataManager().get(RocketTier1Entity.FUEL);
+		}
+		if (container.rocket instanceof RocketTier2Entity) {
+			tank = container.rocket.getDataManager().get(RocketTier2Entity.FUEL);
+		}
+		if (container.rocket instanceof RocketTier3Entity) {
+			tank = container.rocket.getDataManager().get(RocketTier3Entity.FUEL);
 		}
 
 		// Textures
@@ -98,13 +111,17 @@ public class RocketTier1GUIFuelGuiWindow extends ContainerScreen<RocketTier1GUIF
 	}
 
 	@Override
-	public void tick() {
-		super.tick();
-	}
-
-	@Override
 	protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
-		this.font.drawString(ms, "Tier 1 Rocket", 56, 5, -13421773);
+		if (container.rocket instanceof RocketTier1Entity) {
+			this.font.drawString(ms, "Tier 1 Rocket", 56, 5, -13421773);
+		}
+		if (container.rocket instanceof RocketTier2Entity) {
+			this.font.drawString(ms, "Tier 2 Rocket", 56, 5, -13421773);
+		}
+		if (container.rocket instanceof RocketTier3Entity) {
+			this.font.drawString(ms, "Tier 3 Rocket", 56, 5, -13421773);
+		}
+
 		this.font.drawString(ms, "Inventory", 6, 72, -13421773);
 	}
 

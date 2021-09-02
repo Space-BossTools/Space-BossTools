@@ -80,14 +80,14 @@ public class Methodes {
     }
 
     public static boolean RocketCheckOr(Entity entity) {
-        if (entity instanceof RocketTier1Entity || entity instanceof RocketTier2Entity || entity instanceof RocketTier3Entity.CustomEntity) {
+        if (entity instanceof RocketTier1Entity || entity instanceof RocketTier2Entity || entity instanceof RocketTier3Entity) {
             return true;
         }
         return false;
     }
 
     public static boolean AllVehiclesOr(Entity entity) {
-        if (entity instanceof RocketTier1Entity || entity instanceof RocketTier2Entity || entity instanceof RocketTier3Entity.CustomEntity || entity instanceof LanderEntity.CustomEntity || entity instanceof RoverEntity.CustomEntity) {
+        if (entity instanceof RocketTier1Entity || entity instanceof RocketTier2Entity || entity instanceof RocketTier3Entity || entity instanceof LanderEntity.CustomEntity || entity instanceof RoverEntity.CustomEntity) {
             return true;
         }
         return false;

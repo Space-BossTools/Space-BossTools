@@ -185,56 +185,6 @@ public class LandingGearEntityIsHurtProcedure {
 						world.addEntity(entityToSpawn);
 					}
 				}
-				if (((new Object() {
-					public ItemStack getItemStack(int sltid, Entity entity) {
-						AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
-						entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-							_retval.set(capability.getStackInSlot(sltid).copy());
-						});
-						return _retval.get();
-					}
-				}.getItemStack((int) (1), entity)).getItem() == new ItemStack(ModInnet.BARREL.get(), (int) (1)).getItem())) {
-					{
-						final ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
-						final int _sltid = (int) (1);
-						_setstack.setCount((int) 1);
-						entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-							if (capability instanceof IItemHandlerModifiable) {
-								((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-							}
-						});
-					}
-					if (world instanceof World && !world.isRemote()) {
-						ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(ModInnet.BARREL.get(), (int) (1)));
-						entityToSpawn.setPickupDelay((int) 10);
-						world.addEntity(entityToSpawn);
-					}
-				}
-				if (((new Object() {
-					public ItemStack getItemStack(int sltid, Entity entity) {
-						AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
-						entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-							_retval.set(capability.getStackInSlot(sltid).copy());
-						});
-						return _retval.get();
-					}
-				}.getItemStack((int) (1), entity)).getItem() == new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1)).getItem())) {
-					{
-						final ItemStack _setstack = new ItemStack(Blocks.AIR, (int) (1));
-						final int _sltid = (int) (1);
-						_setstack.setCount((int) 1);
-						entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-							if (capability instanceof IItemHandlerModifiable) {
-								((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-							}
-						});
-					}
-					if (world instanceof World && !world.isRemote()) {
-						ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1)));
-						entityToSpawn.setPickupDelay((int) 10);
-						world.addEntity(entityToSpawn);
-					}
-				}
 				if (!entity.world.isRemote())
 					entity.remove();
 			}

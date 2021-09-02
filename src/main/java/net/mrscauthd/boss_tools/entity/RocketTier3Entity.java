@@ -1,29 +1,28 @@
-
 package net.mrscauthd.boss_tools.entity;
 
-import net.mrscauthd.boss_tools.procedures.Rockethurtentity3Procedure;
-import net.mrscauthd.boss_tools.procedures.RocketOnEntityTickTier3Procedure;
-import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
-import net.mrscauthd.boss_tools.gui.RocketTier3GuiFuelGui;
-import net.mrscauthd.boss_tools.entity.renderer.RocketTier3Renderer;
-import net.mrscauthd.boss_tools.BossToolsModElements;
+import com.google.common.collect.Sets;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.*;
+import net.minecraft.item.Items;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.server.ServerWorld;
+import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.block.RocketLaunchPadBlock;
+import net.mrscauthd.boss_tools.events.Methodes;
 
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.items.wrapper.EntityHandsInvWrapper;
 import net.minecraftforge.items.wrapper.EntityArmorInvWrapper;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
-import net.minecraftforge.fml.network.PacketDistributor;
-import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.NetworkHooks;
-import net.minecraftforge.fml.network.NetworkEvent;
-import net.minecraftforge.fml.network.FMLPlayMessages;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.capabilities.Capability;
 
@@ -32,11 +31,6 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Direction;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.IPacket;
 import net.minecraft.nbt.INBT;
@@ -44,381 +38,401 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.item.ItemStack;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.entity.projectile.PotionEntity;
-import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.client.Minecraft;
 
 import javax.annotation.Nullable;
 import javax.annotation.Nonnull;
 
-import java.util.function.Supplier;
-import java.util.Map;
-import java.util.HashMap;
-
 import io.netty.buffer.Unpooled;
+import net.mrscauthd.boss_tools.gui.screens.RocketGUI;
+import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 
-@BossToolsModElements.ModElement.Tag
-public class RocketTier3Entity extends BossToolsModElements.ModElement {
-	public static EntityType entity = null;
-	public RocketTier3Entity(BossToolsModElements instance) {
-		super(instance, 12);
-		FMLJavaModLoadingContext.get().getModEventBus().register(new RocketTier3Renderer.ModelRegisterHandler());
-		FMLJavaModLoadingContext.get().getModEventBus().register(new EntityAttributesRegisterHandler());
-		NetworkLoader.registerMessages();
+import java.util.Set;
+
+public class RocketTier3Entity extends CreatureEntity {
+	public double ar = 0;
+	public double ay = 0;
+	public double ap = 0;
+
+	public static final DataParameter<Boolean> ROCKET_START = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.BOOLEAN);
+	public static final DataParameter<Integer> BUCKETS = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.VARINT);
+	public static final DataParameter<Integer> FUEL = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.VARINT);
+	public static final DataParameter<Integer> START_TIMER = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.VARINT);
+
+
+	public RocketTier3Entity(EntityType type, World world) {
+		super(type, world);
+		this.dataManager.register(ROCKET_START, false);
+		this.dataManager.register(BUCKETS, 0);
+		this.dataManager.register(FUEL, 0);
+		this.dataManager.register(START_TIMER, 0);
+		enablePersistence();
+	}
+
+	public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
+		return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 20);
 	}
 
 	@Override
-	public void initElements() {
-		entity = (EntityType.Builder.<CustomEntity>create(CustomEntity::new, EntityClassification.CREATURE).setShouldReceiveVelocityUpdates(true)
-				.setTrackingRange(100).setUpdateInterval(3).setCustomClientFactory(CustomEntity::new).immuneToFire().size(1f, 4f))
-				.build("rocket_t3").setRegistryName("rocket_t3");
-		elements.entities.add(() -> entity);
+	public IPacket<?> createSpawnPacket() {
+		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 	@Override
-	public void init(FMLCommonSetupEvent event) {
-	}
-	private static class EntityAttributesRegisterHandler {
-		@SubscribeEvent
-		public void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
-			AttributeModifierMap.MutableAttribute ammma = MobEntity.func_233666_p_();
-			ammma = ammma.createMutableAttribute(Attributes.MOVEMENT_SPEED, 0);
-			ammma = ammma.createMutableAttribute(Attributes.MAX_HEALTH, 20);
-			ammma = ammma.createMutableAttribute(Attributes.ARMOR, 0);
-			ammma = ammma.createMutableAttribute(Attributes.ATTACK_DAMAGE, 0);
-			event.put(entity, ammma.create());
-		}
+	public boolean canBeLeashedTo(PlayerEntity player) {
+		return false;
 	}
 
-	public static class CustomEntity extends CreatureEntity {
-		public double ar = 0;
-		public double ay = 0;
-		public double ap = 0;
-		public CustomEntity(FMLPlayMessages.SpawnEntity packet, World world) {
-			this(entity, world);
+	public boolean canBePushed() {
+		return false;
+	}
+
+	@Override
+	protected void collideWithEntity(Entity p_82167_1_) {
+	}
+
+	@Override
+	public void applyEntityCollision(Entity entityIn) {
+	}
+
+	public boolean canBeHitWithPotion() {
+		return false;
+	}
+
+	@Override
+	protected boolean canTriggerWalking() {
+		return false;
+	}
+
+	@Override
+	protected void registerGoals() {
+		super.registerGoals();
+	}
+
+	@Override
+	public CreatureAttribute getCreatureAttribute() {
+		return CreatureAttribute.UNDEFINED;
+	}
+
+	@Override
+	public boolean canDespawn(double distanceToClosestPlayer) {
+		return false;
+	}
+
+	@Override
+	public ItemStack getPickedResult(RayTraceResult target) {
+		return new ItemStack(Tier3RocketItemItem.block);
+	}
+
+	@Override
+	public double getMountedYOffset() {
+		return super.getMountedYOffset() -2.1;
+	}
+
+	@Override
+	public net.minecraft.util.SoundEvent getHurtSound(DamageSource ds) {
+		return null;
+	}
+
+	@Override
+	public net.minecraft.util.SoundEvent getDeathSound() {
+		return null;
+	}
+
+	//Save Entity Dismount
+	@Override
+	public Vector3d func_230268_c_(LivingEntity livingEntity) {
+		Vector3d[] avector3d = new Vector3d[]{func_233559_a_((double)this.getWidth(), (double)livingEntity.getWidth(), livingEntity.rotationYaw), func_233559_a_((double)this.getWidth(), (double)livingEntity.getWidth(), livingEntity.rotationYaw - 22.5F), func_233559_a_((double)this.getWidth(), (double)livingEntity.getWidth(), livingEntity.rotationYaw + 22.5F), func_233559_a_((double)this.getWidth(), (double)livingEntity.getWidth(), livingEntity.rotationYaw - 45.0F), func_233559_a_((double)this.getWidth(), (double)livingEntity.getWidth(), livingEntity.rotationYaw + 45.0F)};
+		Set<BlockPos> set = Sets.newLinkedHashSet();
+		double d0 = this.getBoundingBox().maxY;
+		double d1 = this.getBoundingBox().minY - 0.5D;
+		BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
+
+		for(Vector3d vector3d : avector3d) {
+			blockpos$mutable.setPos(this.getPosX() + vector3d.x, d0, this.getPosZ() + vector3d.z);
+
+			for(double d2 = d0; d2 > d1; --d2) {
+				set.add(blockpos$mutable.toImmutable());
+				blockpos$mutable.move(Direction.DOWN);
+			}
 		}
 
-		public CustomEntity(EntityType<CustomEntity> type, World world) {
-			super(type, world);
-			experienceValue = 5;
-			setNoAI(false);
-			enablePersistence();
-		}
+		for(BlockPos blockpos : set) {
+			if (!this.world.getFluidState(blockpos).isTagged(FluidTags.LAVA)) {
+				double d3 = this.world.func_242403_h(blockpos);
+				if (TransportationHelper.func_234630_a_(d3)) {
+					Vector3d vector3d1 = Vector3d.copyCenteredWithVerticalOffset(blockpos, d3);
 
-		@Override
-		public IPacket<?> createSpawnPacket() {
-			return NetworkHooks.getEntitySpawningPacket(this);
-		}
-
-		@Override
-		protected void registerGoals() {
-			super.registerGoals();
-		}
-
-		// Lead FIX
-		@Override
-		public boolean canBeLeashedTo(PlayerEntity player) {
-			return false;
-		}
-
-		// Hit Box FIX
-		public boolean canBePushed() {
-			return false;
-		}
-
-		@Override
-		protected void collideWithEntity(Entity p_82167_1_) {
-		}
-
-		@Override
-		public void applyEntityCollision(Entity entityIn) {
-		}
-
-		public boolean canBeHitWithPotion() {
-			return false;
-		}
-
-		@Override
-		protected boolean canTriggerWalking() {
-			return false;
-		}
-
-		@Override
-		public ItemStack getPickedResult(RayTraceResult target) {
-			return new ItemStack(Tier3RocketItemItem.block);
-		}
-
-		@Override
-		public CreatureAttribute getCreatureAttribute() {
-			return CreatureAttribute.UNDEFINED;
-		}
-
-		@Override
-		public boolean canDespawn(double distanceToClosestPlayer) {
-			return false;
-		}
-
-		@Override
-		public double getMountedYOffset() {
-			return super.getMountedYOffset() + -2.1;
-		}
-
-		@Override
-		protected void removePassenger(Entity passenger) {
-			if (passenger.isSneaking() && !passenger.world.isRemote) {
-				if (passenger instanceof ServerPlayerEntity) {
-					ServerPlayerEntity playerEntity = (ServerPlayerEntity) passenger;
-					playerEntity.getPersistentData().putBoolean("dismount", true);
+					for(Pose pose : livingEntity.getAvailablePoses()) {
+						AxisAlignedBB axisalignedbb = livingEntity.getPoseAABB(pose);
+						if (TransportationHelper.func_234631_a_(this.world, livingEntity, axisalignedbb.offset(vector3d1))) {
+							livingEntity.setPose(pose);
+							return vector3d1;
+						}
+					}
 				}
 			}
-			super.removePassenger(passenger);
 		}
 
-		@Override
-		public net.minecraft.util.SoundEvent getHurtSound(DamageSource ds) {
-			return (net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(""));
+		return new Vector3d(this.getPosX(), this.getBoundingBox().maxY, this.getPosZ());
+	}
+
+	@Override
+	public void onKillCommand() {
+		double x = this.getPosX();
+		double y = this.getPosY();
+		double z = this.getPosZ();
+
+		//Drop Inv
+		for (int i = 0; i < inventory.getSlots(); ++i) {
+			ItemStack itemstack = inventory.getStackInSlot(i);
+			if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
+				this.entityDropItem(itemstack);
+			}
 		}
 
-		@Override
-		public net.minecraft.util.SoundEvent getDeathSound() {
-			return (net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(""));
+		//Spawn Rocket Item
+		ItemStack item = new ItemStack(Tier3RocketItemItem.block,1);
+
+		if (world instanceof World && !world.isRemote()) {
+			ItemEntity entityToSpawn = new ItemEntity(world, x, y, z, item);
+			entityToSpawn.setPickupDelay(10);
+			world.addEntity(entityToSpawn);
 		}
 
-		@Override
-		public void onKillCommand() {
-			Entity entity = this;
-			double x = this.getPosX();
-			double y = this.getPosY();
-			double z = this.getPosZ();
+		this.remove();
+		super.onKillCommand();
+	}
+
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float amount) {
+		double x = this.getPosX();
+		double y = this.getPosY();
+		double z = this.getPosZ();
+		Entity sourceentity = source.getTrueSource();
+
+		if (!source.isProjectile() && sourceentity != null && sourceentity.isSneaking() && !this.isBeingRidden()) {
+			//Stop Rocket Sound
+			if (sourceentity instanceof ServerPlayerEntity) {
+				Methodes.StopRocketSounds((ServerPlayerEntity) sourceentity);
+			}
+
+			//Drop Rocket Item
+			if (!world.isRemote()) {
+				ItemEntity entityToSpawn = new ItemEntity(world, x, y, z, new ItemStack(Tier3RocketItemItem.block, 1));
+				entityToSpawn.setPickupDelay(10);
+				world.addEntity(entityToSpawn);
+			}
+
+			//Drop Inv
 			for (int i = 0; i < inventory.getSlots(); ++i) {
 				ItemStack itemstack = inventory.getStackInSlot(i);
 				if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
 					this.entityDropItem(itemstack);
 				}
 			}
-			ItemStack itemfuel = ItemStack.EMPTY;
-			itemfuel = new ItemStack(Tier3RocketItemItem.block, (int) (1));
-			(itemfuel).getOrCreateTag().putDouble("Rocketfuel", (entity.getPersistentData().getDouble("Rocketfuel")));
-			(itemfuel).getOrCreateTag().putDouble("fuel", (entity.getPersistentData().getDouble("fuel")));
-			(itemfuel).getOrCreateTag().putDouble("fuelgui", ((entity.getPersistentData().getDouble("fuel")) / 4));
-			if (world instanceof World && !world.isRemote()) {
-				ItemEntity entityToSpawn = new ItemEntity((World) world, x, y, z, (itemfuel));
-				entityToSpawn.setPickupDelay((int) 10);
-				world.addEntity(entityToSpawn);
-			}
-			this.remove();
-			super.onKillCommand();
+
+			//Remove Entity
+			if (!this.world.isRemote())
+				this.remove();
+
+		}
+		return false;
+	}
+
+	private final ItemStackHandler inventory = new ItemStackHandler(1) {
+		@Override
+		public int getSlotLimit(int slot) {
+			return 64;
+		}
+	};
+
+	private final CombinedInvWrapper combined = new CombinedInvWrapper(inventory, new EntityHandsInvWrapper(this), new EntityArmorInvWrapper(this));
+
+	@Override
+	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
+		if (this.isAlive() && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side == null) {
+			return LazyOptional.of(() -> combined).cast();
+		}
+		return super.getCapability(capability, side);
+	}
+
+	@Override
+	public void writeAdditional(CompoundNBT compound) {
+		super.writeAdditional(compound);
+		compound.put("InventoryCustom", inventory.serializeNBT());
+
+		compound.putBoolean("rocket_start", this.dataManager.get(ROCKET_START));
+		compound.putInt("buckets", this.dataManager.get(BUCKETS));
+		compound.putInt("fuel", this.dataManager.get(FUEL));
+		compound.putInt("start_timer", this.dataManager.get(START_TIMER));
+	}
+
+	@Override
+	public void readAdditional(CompoundNBT compound) {
+		super.readAdditional(compound);
+		INBT inventoryCustom = compound.get("InventoryCustom");
+		if (inventoryCustom instanceof CompoundNBT) {
+			inventory.deserializeNBT((CompoundNBT) inventoryCustom);
 		}
 
-		@Override
-		public boolean attackEntityFrom(DamageSource source, float amount) {
-			double x = this.getPosX();
-			double y = this.getPosY();
-			double z = this.getPosZ();
-			Entity entity = this;
-			Entity sourceentity = source.getTrueSource();
-			if (!source.isProjectile()) {
-				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("entity", entity);
-				$_dependencies.put("sourceentity", sourceentity);
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
-				$_dependencies.put("world", world);
-				Rockethurtentity3Procedure.executeProcedure($_dependencies);
-			}
-			if (source.getImmediateSource() instanceof ArrowEntity)
-				return false;
-			if (source.getImmediateSource() instanceof PlayerEntity)
-				return false;
-			if (source.getImmediateSource() instanceof PotionEntity)
-				return false;
-			if (source == DamageSource.FALL)
-				return false;
-			if (source == DamageSource.CACTUS)
-				return false;
-			if (source == DamageSource.DROWN)
-				return false;
-			if (source == DamageSource.LIGHTNING_BOLT)
-				return false;
-			if (source.isExplosion())
-				return false;
-			if (source.getDamageType().equals("trident"))
-				return false;
-			if (source == DamageSource.ANVIL)
-				return false;
-			if (source == DamageSource.DRAGON_BREATH)
-				return false;
-			if (source == DamageSource.WITHER)
-				return false;
-			if (source.getDamageType().equals("witherSkull"))
-				return false;
-			// super.attackEntityFrom(source, amount);
-			// return super.attackEntityFrom(source, amount);
-			return false;
-		}
-		private final ItemStackHandler inventory = new ItemStackHandler(9) {
-			@Override
-			public int getSlotLimit(int slot) {
-				return 64;
-			}
-		};
-		private final CombinedInvWrapper combined = new CombinedInvWrapper(inventory, new EntityHandsInvWrapper(this),
-				new EntityArmorInvWrapper(this));
-		@Override
-		public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
-			if (this.isAlive() && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side == null)
-				return LazyOptional.of(() -> combined).cast();
-			return super.getCapability(capability, side);
-		}
+		this.dataManager.set(ROCKET_START, compound.getBoolean("rocket_start"));
+		this.dataManager.set(BUCKETS, compound.getInt("buckets"));
+		this.dataManager.set(FUEL, compound.getInt("fuel"));
+		this.dataManager.set(START_TIMER, compound.getInt("start_timer"));
+	}
 
-		/*
-		 * @Override protected void dropInventory() { super.dropInventory(); for (int i
-		 * = 0; i < inventory.getSlots(); ++i) { ItemStack itemstack =
-		 * inventory.getStackInSlot(i); if (!itemstack.isEmpty() &&
-		 * !EnchantmentHelper.hasVanishingCurse(itemstack)) {
-		 * this.entityDropItem(itemstack); } } }
-		 */
-		@Override
-		public void writeAdditional(CompoundNBT compound) {
-			super.writeAdditional(compound);
-			compound.put("InventoryCustom", inventory.serializeNBT());
-		}
+	@Override
+	public ActionResultType func_230254_b_(PlayerEntity sourceentity, Hand hand) {
+		super.func_230254_b_(sourceentity, hand);
+		ActionResultType retval = ActionResultType.func_233537_a_(this.world.isRemote());
 
-		@Override
-		public void readAdditional(CompoundNBT compound) {
-			super.readAdditional(compound);
-			INBT inventoryCustom = compound.get("InventoryCustom");
-			if (inventoryCustom instanceof CompoundNBT)
-				inventory.deserializeNBT((CompoundNBT) inventoryCustom);
-		}
-
-		@Override
-		public ActionResultType func_230254_b_(PlayerEntity sourceentity, Hand hand) {
-			ItemStack itemstack = sourceentity.getHeldItem(hand);
-			ActionResultType retval = ActionResultType.func_233537_a_(this.world.isRemote());
-			if (sourceentity.isSecondaryUseActive()) {
-				if (sourceentity instanceof ServerPlayerEntity) {
-					NetworkHooks.openGui((ServerPlayerEntity) sourceentity, new INamedContainerProvider() {
-						@Override
-						public ITextComponent getDisplayName() {
-							return new StringTextComponent("Rocket");
-						}
-
-						@Override
-						public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-							PacketBuffer packetBuffer = new PacketBuffer(Unpooled.buffer());
-							packetBuffer.writeBlockPos(new BlockPos(sourceentity.getPosition()));
-							packetBuffer.writeByte(0);
-							packetBuffer.writeVarInt(CustomEntity.this.getEntityId());
-							return new RocketTier3GuiFuelGui.GuiContainerMod(id, inventory, packetBuffer);
-						}
-					}, buf -> {
-						buf.writeBlockPos(new BlockPos(sourceentity.getPosition()));
-						buf.writeByte(0);
-						buf.writeVarInt(this.getEntityId());
-					});
+		if (sourceentity instanceof ServerPlayerEntity && sourceentity.isSneaking()) {
+			NetworkHooks.openGui((ServerPlayerEntity) sourceentity, new INamedContainerProvider() {
+				@Override
+				public ITextComponent getDisplayName() {
+					return new StringTextComponent("Tier 3 Rocket");
 				}
-				return ActionResultType.func_233537_a_(this.world.isRemote());
-			}
-			super.func_230254_b_(sourceentity, hand);
-			sourceentity.startRiding(this);
-			double x = this.getPosX();
-			double y = this.getPosY();
-			double z = this.getPosZ();
-			Entity entity = this;
+
+				@Override
+				public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+					PacketBuffer packetBuffer = new PacketBuffer(Unpooled.buffer());
+					packetBuffer.writeBlockPos(new BlockPos(sourceentity.getPosition()));
+					packetBuffer.writeByte(0);
+					packetBuffer.writeVarInt(RocketTier3Entity.this.getEntityId());
+					return new RocketGUI.GuiContainerMod(id, inventory, packetBuffer);
+				}
+			}, buf -> {
+				buf.writeBlockPos(new BlockPos(sourceentity.getPosition()));
+				buf.writeByte(0);
+				buf.writeVarInt(this.getEntityId());
+			});
+
 			return retval;
 		}
 
-		@Override
-		public void baseTick() {
-			super.baseTick();
-			double x = this.getPosX();
-			double y = this.getPosY();
-			double z = this.getPosZ();
-			Entity entity = this;
-			// Animation Tick
-			if (entity.getPersistentData().getDouble("Powup") == 1) {
-				ar = ar + 1;
-				if (ar == 1) {
-					ay = ay + 0.006;
-					ap = ap + 0.006;
-				}
-				if (ar == 2) {
-					ar = 0;
-					ay = 0;
-					ap = 0;
-				}
-			}
-			// Animation End
-			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("entity", entity);
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
-				$_dependencies.put("world", world);
-				RocketOnEntityTickTier3Procedure.executeProcedure($_dependencies);
-			}
-			if (!this.world.isRemote)
-				NetworkLoader.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> this),
-						new RocketSpinPacket(this.getEntityId(), this.getPersistentData().getDouble("Powup")));
-		}
-	}
-	// packages System
-	private static class NetworkLoader {
-		public static SimpleChannel INSTANCE;
-		private static int id = 1;
-		public static int nextID() {
-			return id++;
-		}
-
-		public static void registerMessages() {
-			INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation("boss_tools", "rocket_link3"), () -> "1.0", s -> true, s -> true);
-			INSTANCE.registerMessage(nextID(), RocketSpinPacket.class, RocketSpinPacket::encode, RocketSpinPacket::decode, RocketSpinPacket::handle);
-		}
+		sourceentity.startRiding(this);
+		return retval;
 	}
 
-	// First Animation (take off)
-	private static class RocketSpinPacket {
-		private double animation;
-		private int entityId;
-		public RocketSpinPacket(int entityId, double animation) {
-			this.animation = animation;
-			this.entityId = entityId;
-		}
+	@Override
+	public void baseTick() {
+		super.baseTick();
+		double x = this.getPosX();
+		double y = this.getPosY();
+		double z = this.getPosZ();
 
-		public static void encode(RocketSpinPacket msg, PacketBuffer buf) {
-			buf.writeInt(msg.entityId);
-			buf.writeDouble(msg.animation);
-		}
+		if (this.dataManager.get(ROCKET_START) == true) {
 
-		public static RocketSpinPacket decode(PacketBuffer buf) {
-			return new RocketSpinPacket(buf.readInt(), buf.readDouble());
-		}
+			//Rocket Animation
+			ar = ar + 1;
+			if (ar == 1) {
+				ay = ay + 0.006;
+				ap = ap + 0.006;
+			}
+			if (ar == 2) {
+				ar = 0;
+				ay = 0;
+				ap = 0;
+			}
 
-		public static void handle(RocketSpinPacket msg, Supplier<NetworkEvent.Context> ctx) {
-			ctx.get().enqueueWork(() -> {
-				Entity entity = Minecraft.getInstance().world.getEntityByID(msg.entityId);
-				if (entity instanceof LivingEntity) {
-					((LivingEntity) entity).getPersistentData().putDouble("Powup", msg.animation);
+			if (this.dataManager.get(START_TIMER) < 200) {
+				this.dataManager.set(START_TIMER, this.dataManager.get(START_TIMER) + 1);
+			}
+
+			if (this.dataManager.get(START_TIMER) == 200) {
+				if (this.getMotion().getY() < 0.5) {
+					this.setMotion(this.getMotion().getX(), this.getMotion().getY() + 0.1, this.getMotion().getZ()); //TODO Make Tier 2, Tier 3 Speeder
+				} else {
+					this.setMotion(this.getMotion().getX(), 0.63, this.getMotion().getZ());
 				}
-			});
-			ctx.get().setPacketHandled(true);
+			}
+
+			if (y > 600 && this.getPassengers().isEmpty() == false) {
+				Entity pass = this.getPassengers().get(0);
+
+				pass.getPersistentData().putDouble("Tier_3_open_main_menu", 1); //TODO Remove it if you Reworked the GUI SYSTEM
+				pass.getPersistentData().putDouble("Player_movement", 1); //TODO Remove it if you Reworked the GUI SYSTEM
+
+				if (this.getPassengers().get(0) instanceof ServerPlayerEntity) {
+					Methodes.StopRocketSounds((ServerPlayerEntity) pass);
+				}
+
+				this.remove();
+			} else if (y > 600 && this.getPassengers().isEmpty() == true)  {
+				this.remove();
+			}
+
+			//Particle Spawn
+			if (this.dataManager.get(START_TIMER) == 200) {
+				if (world instanceof ServerWorld) {
+					for (ServerPlayerEntity p : ((ServerWorld) world).getPlayers()) {
+						((ServerWorld) world).spawnParticle(p, ParticleTypes.FLAME, true, this.getPosX(), this.getPosY() - 2.2, this.getPosZ(), 100, 0.1, 0.1, 0.1, 0.001);
+						((ServerWorld) world).spawnParticle(p, ParticleTypes.SMOKE, true, this.getPosX(), this.getPosY() - 3.2, this.getPosZ(), 50, 0.1, 0.1, 0.1, 0.04);
+					}
+				}
+			} else {
+				if (world instanceof ServerWorld) {
+					for (ServerPlayerEntity p : ((ServerWorld) world).getPlayers()) {
+						((ServerWorld) world).spawnParticle(p, ParticleTypes.CAMPFIRE_COSY_SMOKE, true, this.getPosX(), this.getPosY() - 0.5, this.getPosZ(), 6, 0.1, 0.1, 0.1, 0.013);
+					}
+				}
+			}
+
 		}
+
+		//Fuel Load up
+		if (this.inventory.getStackInSlot(0).getItem() == ModInnet.FUEL_BUCKET.get() && this.dataManager.get(BUCKETS) < 3) {
+			this.inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));
+			this.getDataManager().set(BUCKETS, this.getDataManager().get(BUCKETS) + 1);
+		}
+
+		if (this.dataManager.get(BUCKETS) == 1 && this.dataManager.get(FUEL) < 100) {
+			this.getDataManager().set(FUEL, this.dataManager.get(FUEL) + 1);
+
+		} else if (this.dataManager.get(BUCKETS) == 2 && this.dataManager.get(FUEL) < 200) {
+			this.getDataManager().set(FUEL, this.dataManager.get(FUEL) + 1);
+
+		} else if (this.dataManager.get(BUCKETS) == 3 && this.dataManager.get(FUEL) < 300) {
+			this.getDataManager().set(FUEL, this.dataManager.get(FUEL) + 1);
+		}
+
+		if (this.isOnGround() || this.isInWater()) {
+
+			BlockState state = world.getBlockState(new BlockPos(Math.floor(x), y - 0.1, Math.floor(z)));
+
+			if (!world.isAirBlock(new BlockPos(Math.floor(x), y - 0.01, Math.floor(z)))
+					&& state.getBlock() instanceof RocketLaunchPadBlock.CustomBlock
+					&& state.get(RocketLaunchPadBlock.CustomBlock.STAGE) == false
+					|| world.getBlockState(new BlockPos(Math.floor(x), Math.floor(y), Math.floor(z))).getBlock() != RocketLaunchPadBlock.block.getDefaultState().getBlock()) {
+
+				//Drop Inv
+				for (int i = 0; i < inventory.getSlots(); ++i) {
+					ItemStack itemstack = inventory.getStackInSlot(i);
+					if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
+						this.entityDropItem(itemstack);
+					}
+				}
+
+				//Spawn Rocket Item //TODO In Future add FUEL SYSTEM
+				ItemStack item = new ItemStack(Tier3RocketItemItem.block,1);
+
+				if (world instanceof World && !world.isRemote()) {
+					ItemEntity entityToSpawn = new ItemEntity(world, x, y, z, item);
+					entityToSpawn.setPickupDelay(10);
+					world.addEntity(entityToSpawn);
+				}
+				this.remove();
+
+			}
+
+		}
+
 	}
 }

@@ -82,6 +82,10 @@ public class OverlayEvents {
                     timer = entity.getRidingEntity().getDataManager().get(RocketTier2Entity.START_TIMER);
                 }
 
+                if (entity.getRidingEntity() instanceof RocketTier3Entity) {
+                    timer = entity.getRidingEntity().getDataManager().get(RocketTier3Entity.START_TIMER);
+                }
+
                 int width = event.getWindow().getScaledWidth() / 2 - 31;
                 int high = event.getWindow().getScaledHeight() / 2 / 2;
 

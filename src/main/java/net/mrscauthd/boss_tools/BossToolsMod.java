@@ -65,7 +65,7 @@ public class BossToolsMod {
 		ModInnet.SENSOR.register(bus);
 		ModInnet.FLUIDS.register(bus);
 		ModInnet.RECIPE_SERIALIZERS.register(bus);
-		bus.addListener(ModInnet::setup2);
+		bus.addListener(ModInnet::setup);
 		forgeBus.addListener(EventPriority.NORMAL, ModInnet::addDimensionalSpacing);
 		forgeBus.addListener(EventPriority.HIGH, ModInnet::biomeModification);
 		//Structures
