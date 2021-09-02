@@ -80,6 +80,7 @@ public class BossToolsMod {
 		KeyBindings.registerMessages();
 	}
 
+	//Todo Remove MCreator mod base System in future
 	private void init(FMLCommonSetupEvent event) {
 		elements.getElements().forEach(element -> element.init(event));
 	}
