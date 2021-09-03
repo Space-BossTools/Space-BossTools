@@ -72,7 +72,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 													.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_venus")))))) {
 												if ((((entity.getRidingEntity()) instanceof RocketTier1Entity)
 														|| (((entity.getRidingEntity()) instanceof RocketTier2Entity)
-														|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
+														|| ((entity.getRidingEntity()) instanceof RocketTier3Entity)
 														|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)))) {
 													//Rocket Y
 													Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_y_main_1.png"));
@@ -92,7 +92,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 					new ResourceLocation("boss_tools:moon"))))) {
 				if ((((entity.getRidingEntity()) instanceof RocketTier1Entity)
 						|| (((entity.getRidingEntity()) instanceof RocketTier2Entity)
-						|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
+						|| ((entity.getRidingEntity()) instanceof RocketTier3Entity)
 						|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)))) {
 					//Rocket Y
 					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_y_main_moon.png"));
@@ -104,7 +104,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 					new ResourceLocation("boss_tools:mars"))))) {
 				if ((((entity.getRidingEntity()) instanceof RocketTier1Entity)
 						|| (((entity.getRidingEntity()) instanceof RocketTier2Entity)
-						|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
+						|| ((entity.getRidingEntity()) instanceof RocketTier3Entity)
 						|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)))) {
 					//Rocket Y
 					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_y_main_mars.png"));
@@ -116,7 +116,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 					new ResourceLocation("boss_tools:mercury"))))) {
 				if ((((entity.getRidingEntity()) instanceof RocketTier1Entity)
 						|| (((entity.getRidingEntity()) instanceof RocketTier2Entity)
-						|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
+						|| ((entity.getRidingEntity()) instanceof RocketTier3Entity)
 						|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)))) {
 					//Rocket Y
 					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_y_main_mercury.png"));
@@ -128,7 +128,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 					new ResourceLocation("boss_tools:venus"))))) {
 				if ((((entity.getRidingEntity()) instanceof RocketTier1Entity)
 						|| (((entity.getRidingEntity()) instanceof RocketTier2Entity)
-						|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
+						|| ((entity.getRidingEntity()) instanceof RocketTier3Entity)
 						|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)))) {
 					//Rocket Y
 					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_y_main_venus.png"));
@@ -148,7 +148,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 					.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_venus")))))))) {
 				if ((((entity.getRidingEntity()) instanceof RocketTier1Entity)
 						|| (((entity.getRidingEntity()) instanceof RocketTier2Entity)
-						|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
+						|| ((entity.getRidingEntity()) instanceof RocketTier3Entity)
 						|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)))) {
 					//Rocket Y
 					Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_y_main_orbit.png"));
@@ -159,7 +159,7 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 			//Animations
 			if ((((entity.getRidingEntity()) instanceof RocketTier1Entity)
 					|| (((entity.getRidingEntity()) instanceof RocketTier2Entity)
-					|| ((entity.getRidingEntity()) instanceof RocketTier3Entity.CustomEntity)
+					|| ((entity.getRidingEntity()) instanceof RocketTier3Entity)
 					|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)))) {
 				//Check
 				if ((((entity.getPosY()) >= 0) && (!((entity.getPosY()) >= 10)))) {

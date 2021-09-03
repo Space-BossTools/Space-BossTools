@@ -131,7 +131,7 @@ public class FallGravityProcedure {
 						if ((!(entityiterator instanceof LanderEntity.CustomEntity))) {
 							if ((!(entityiterator instanceof RocketTier1Entity))) {
 								if ((!(entityiterator instanceof RocketTier2Entity))) {
-									if ((!(entityiterator instanceof RocketTier3Entity.CustomEntity))) {
+									if ((!(entityiterator instanceof RocketTier3Entity))) {
 										if ((!(entityiterator instanceof RoverEntity.CustomEntity))) {
 											if ((((entityiterator instanceof LivingEntity) ? (entityiterator.hasNoGravity()) : false) == (false))) {
 												if (((entityiterator.getMotion().getY()) <= (-0.1))) {
@@ -208,7 +208,7 @@ public class FallGravityProcedure {
 						if ((!(entityiterator instanceof LanderEntity.CustomEntity))) {
 							if ((!(entityiterator instanceof RocketTier1Entity))) {
 								if ((!(entityiterator instanceof RocketTier2Entity))) {
-									if ((!(entityiterator instanceof RocketTier3Entity.CustomEntity))) {
+									if ((!(entityiterator instanceof RocketTier3Entity))) {
 										if ((!(entityiterator instanceof RoverEntity.CustomEntity))) {
 											if ((((entityiterator instanceof LivingEntity) ? (entityiterator.hasNoGravity()) : false) == (false))) {
 												if (((entityiterator.getMotion().getY()) <= (-0.1))) {
@@ -279,7 +279,7 @@ public class FallGravityProcedure {
 						if ((!(entityiterator instanceof LanderEntity.CustomEntity))) {
 							if ((!(entityiterator instanceof RocketTier1Entity))) {
 								if ((!(entityiterator instanceof RocketTier2Entity))) {
-									if ((!(entityiterator instanceof RocketTier3Entity.CustomEntity))) {
+									if ((!(entityiterator instanceof RocketTier3Entity))) {
 										if ((!(entityiterator instanceof RoverEntity.CustomEntity))) {
 											if ((((entityiterator instanceof LivingEntity) ? (entityiterator.hasNoGravity()) : false) == (false))) {
 												if (((entityiterator.getMotion().getY()) <= (-0.1))) {

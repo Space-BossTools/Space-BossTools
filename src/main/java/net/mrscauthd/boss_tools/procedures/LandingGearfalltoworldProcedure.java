@@ -170,32 +170,6 @@ public class LandingGearfalltoworldProcedure {
 			}
 		}
 		if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
-			if (((new Object() {
-				public ItemStack getItemStack(int sltid, Entity entity) {
-					AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
-					entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-						_retval.set(capability.getStackInSlot(sltid).copy());
-					});
-					return _retval.get();
-				}
-			}.getItemStack((int) (1), (entity.getRidingEntity()))).getItem() == new ItemStack(ModInnet.BARREL.get(), (int) (1)).getItem())) {
-				entity.getPersistentData().putDouble("Bucket", 3);
-			}
-		}
-		if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
-			if (((new Object() {
-				public ItemStack getItemStack(int sltid, Entity entity) {
-					AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
-					entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-						_retval.set(capability.getStackInSlot(sltid).copy());
-					});
-					return _retval.get();
-				}
-			}.getItemStack((int) (1), (entity.getRidingEntity()))).getItem() == new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1)).getItem())) {
-				entity.getPersistentData().putDouble("Bucket", 4);
-			}
-		}
-		if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
 			if (((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
 					new ResourceLocation("boss_tools:orbit_overworld"))))) {
 				if ((((entity.getRidingEntity()).getPosY()) <= 1)) {
@@ -311,38 +285,6 @@ public class LandingGearfalltoworldProcedure {
 						if (((entity.getPersistentData().getDouble("Bucket")) == 2)) {
 							{
 								final ItemStack _setstack = new ItemStack(ModInnet.FUEL_BUCKET.get(), (int) (1));
-								final int _sltid = (int) (1);
-								_setstack.setCount((int) 1);
-								(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
-										.ifPresent(capability -> {
-											if (capability instanceof IItemHandlerModifiable) {
-												((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-											}
-										});
-							}
-							entity.getPersistentData().putDouble("Bucket", 0);
-						}
-					}
-					if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
-						if (((entity.getPersistentData().getDouble("Bucket")) == 3)) {
-							{
-								final ItemStack _setstack = new ItemStack(ModInnet.BARREL.get(), (int) (1));
-								final int _sltid = (int) (1);
-								_setstack.setCount((int) 1);
-								(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
-										.ifPresent(capability -> {
-											if (capability instanceof IItemHandlerModifiable) {
-												((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-											}
-										});
-							}
-							entity.getPersistentData().putDouble("Bucket", 0);
-						}
-					}
-					if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
-						if (((entity.getPersistentData().getDouble("Bucket")) == 4)) {
-							{
-								final ItemStack _setstack = new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1));
 								final int _sltid = (int) (1);
 								_setstack.setCount((int) 1);
 								(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
@@ -493,38 +435,6 @@ public class LandingGearfalltoworldProcedure {
 							entity.getPersistentData().putDouble("Bucket", 0);
 						}
 					}
-					if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
-						if (((entity.getPersistentData().getDouble("Bucket")) == 3)) {
-							{
-								final ItemStack _setstack = new ItemStack(ModInnet.BARREL.get(), (int) (1));
-								final int _sltid = (int) (1);
-								_setstack.setCount((int) 1);
-								(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
-										.ifPresent(capability -> {
-											if (capability instanceof IItemHandlerModifiable) {
-												((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-											}
-										});
-							}
-							entity.getPersistentData().putDouble("Bucket", 0);
-						}
-					}
-					if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
-						if (((entity.getPersistentData().getDouble("Bucket")) == 4)) {
-							{
-								final ItemStack _setstack = new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1));
-								final int _sltid = (int) (1);
-								_setstack.setCount((int) 1);
-								(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
-										.ifPresent(capability -> {
-											if (capability instanceof IItemHandlerModifiable) {
-												((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-											}
-										});
-							}
-							entity.getPersistentData().putDouble("Bucket", 0);
-						}
-					}
 					if (((entity.getPersistentData().getDouble("Landerfly")) == 1)) {
 						if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
 							(entity.getRidingEntity()).getPersistentData().putDouble("Lander1", 1);
@@ -651,38 +561,6 @@ public class LandingGearfalltoworldProcedure {
 						if (((entity.getPersistentData().getDouble("Bucket")) == 2)) {
 							{
 								final ItemStack _setstack = new ItemStack(ModInnet.FUEL_BUCKET.get(), (int) (1));
-								final int _sltid = (int) (1);
-								_setstack.setCount((int) 1);
-								(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
-										.ifPresent(capability -> {
-											if (capability instanceof IItemHandlerModifiable) {
-												((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-											}
-										});
-							}
-							entity.getPersistentData().putDouble("Bucket", 0);
-						}
-					}
-					if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
-						if (((entity.getPersistentData().getDouble("Bucket")) == 3)) {
-							{
-								final ItemStack _setstack = new ItemStack(ModInnet.BARREL.get(), (int) (1));
-								final int _sltid = (int) (1);
-								_setstack.setCount((int) 1);
-								(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
-										.ifPresent(capability -> {
-											if (capability instanceof IItemHandlerModifiable) {
-												((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-											}
-										});
-							}
-							entity.getPersistentData().putDouble("Bucket", 0);
-						}
-					}
-					if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
-						if (((entity.getPersistentData().getDouble("Bucket")) == 4)) {
-							{
-								final ItemStack _setstack = new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1));
 								final int _sltid = (int) (1);
 								_setstack.setCount((int) 1);
 								(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
@@ -833,38 +711,6 @@ public class LandingGearfalltoworldProcedure {
 							entity.getPersistentData().putDouble("Bucket", 0);
 						}
 					}
-					if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
-						if (((entity.getPersistentData().getDouble("Bucket")) == 3)) {
-							{
-								final ItemStack _setstack = new ItemStack(ModInnet.BARREL.get(), (int) (1));
-								final int _sltid = (int) (1);
-								_setstack.setCount((int) 1);
-								(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
-										.ifPresent(capability -> {
-											if (capability instanceof IItemHandlerModifiable) {
-												((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-											}
-										});
-							}
-							entity.getPersistentData().putDouble("Bucket", 0);
-						}
-					}
-					if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
-						if (((entity.getPersistentData().getDouble("Bucket")) == 4)) {
-							{
-								final ItemStack _setstack = new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1));
-								final int _sltid = (int) (1);
-								_setstack.setCount((int) 1);
-								(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
-										.ifPresent(capability -> {
-											if (capability instanceof IItemHandlerModifiable) {
-												((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-											}
-										});
-							}
-							entity.getPersistentData().putDouble("Bucket", 0);
-						}
-					}
 					if (((entity.getPersistentData().getDouble("Landerfly")) == 1)) {
 						if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
 							(entity.getRidingEntity()).getPersistentData().putDouble("Lander1", 1);
@@ -991,38 +837,6 @@ public class LandingGearfalltoworldProcedure {
 						if (((entity.getPersistentData().getDouble("Bucket")) == 2)) {
 							{
 								final ItemStack _setstack = new ItemStack(ModInnet.FUEL_BUCKET.get(), (int) (1));
-								final int _sltid = (int) (1);
-								_setstack.setCount((int) 1);
-								(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
-										.ifPresent(capability -> {
-											if (capability instanceof IItemHandlerModifiable) {
-												((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-											}
-										});
-							}
-							entity.getPersistentData().putDouble("Bucket", 0);
-						}
-					}
-					if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
-						if (((entity.getPersistentData().getDouble("Bucket")) == 3)) {
-							{
-								final ItemStack _setstack = new ItemStack(ModInnet.BARREL.get(), (int) (1));
-								final int _sltid = (int) (1);
-								_setstack.setCount((int) 1);
-								(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
-										.ifPresent(capability -> {
-											if (capability instanceof IItemHandlerModifiable) {
-												((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-											}
-										});
-							}
-							entity.getPersistentData().putDouble("Bucket", 0);
-						}
-					}
-					if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
-						if (((entity.getPersistentData().getDouble("Bucket")) == 4)) {
-							{
-								final ItemStack _setstack = new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1));
 								final int _sltid = (int) (1);
 								_setstack.setCount((int) 1);
 								(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)

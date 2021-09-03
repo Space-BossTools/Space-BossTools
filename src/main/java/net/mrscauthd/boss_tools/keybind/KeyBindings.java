@@ -128,7 +128,7 @@ public class KeyBindings {
 			return;
 
 		//Type 0
-		if (type == 0) {
+		if (type == 0) { //TODO REWORK
 			if (entity.getRidingEntity() instanceof LanderEntity.CustomEntity) {
 				if (entity.getRidingEntity().isOnGround() == false
 						&& entity.getRidingEntity().areEyesInFluid(FluidTags.WATER) == false) {
@@ -157,6 +157,11 @@ public class KeyBindings {
 					entity.getRidingEntity().getDataManager().set(RocketTier2Entity.ROCKET_START, true);
 					Methodes.RocketSounds(world, new BlockPos(x,y,z));
 
+				} else if (entity.getRidingEntity() instanceof RocketTier3Entity && entity.getRidingEntity().getDataManager().get(RocketTier3Entity.FUEL) == 300) {
+
+					entity.getRidingEntity().getDataManager().set(RocketTier3Entity.ROCKET_START, true);
+					Methodes.RocketSounds(world, new BlockPos(x,y,z));
+
 				} else {
 					if (!entity.world.isRemote()) {
 						entity.sendStatusMessage(new StringTextComponent("\u00A7cNO FUEL! \u00A77Fill the Rocket with \u00A7cFuel\u00A77. (\u00A76Sneak and Right Click\u00A77)"), false);
@@ -166,10 +171,10 @@ public class KeyBindings {
 
 		}
 
-		//Type 2
+		//Type 2 //TODO REWORK
 		if (type == 2) {
 			//Rocket Rotation (Direction -1)
-			if (entity.getRidingEntity() instanceof RocketTier1Entity || entity.getRidingEntity() instanceof RocketTier2Entity || entity.getRidingEntity() instanceof RocketTier3Entity.CustomEntity) {
+			if (entity.getRidingEntity() instanceof RocketTier1Entity || entity.getRidingEntity() instanceof RocketTier2Entity || entity.getRidingEntity() instanceof RocketTier3Entity) {
 				(entity.getRidingEntity()).rotationYaw = (float) ((((entity.getRidingEntity()).rotationYaw) - 1));
 				(entity.getRidingEntity()).setRenderYawOffset((entity.getRidingEntity()).rotationYaw);
 				(entity.getRidingEntity()).prevRotationYaw = (entity.getRidingEntity()).rotationYaw;
@@ -201,10 +206,10 @@ public class KeyBindings {
 			}
 		}
 
-		//Type 3
+		//Type 3 //TODO REWORK
 		if (type == 3) {
 			//Rocket Rotation (Direction +1)
-			if (entity.getRidingEntity() instanceof RocketTier1Entity || entity.getRidingEntity() instanceof RocketTier2Entity || entity.getRidingEntity() instanceof RocketTier3Entity.CustomEntity) {
+			if (entity.getRidingEntity() instanceof RocketTier1Entity || entity.getRidingEntity() instanceof RocketTier2Entity || entity.getRidingEntity() instanceof RocketTier3Entity) {
 				(entity.getRidingEntity()).rotationYaw = (float) ((((entity.getRidingEntity()).rotationYaw) + 1));
 				(entity.getRidingEntity()).setRenderYawOffset((entity.getRidingEntity()).rotationYaw);
 				(entity.getRidingEntity()).prevRotationYaw = (entity.getRidingEntity()).rotationYaw;

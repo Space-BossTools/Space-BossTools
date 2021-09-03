@@ -16,7 +16,6 @@ import net.minecraft.world.server.ServerWorld;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.block.RocketLaunchPadBlock;
 import net.mrscauthd.boss_tools.events.Methodes;
-import net.mrscauthd.boss_tools.gui.RocketTier2GuiFuelGui;
 
 import net.minecraftforge.items.wrapper.EntityHandsInvWrapper;
 import net.minecraftforge.items.wrapper.EntityArmorInvWrapper;
@@ -51,9 +50,9 @@ import javax.annotation.Nullable;
 import javax.annotation.Nonnull;
 
 import io.netty.buffer.Unpooled;
+import net.mrscauthd.boss_tools.gui.screens.RocketGUI;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
 
-import java.util.Collections;
 import java.util.Set;
 
 public class RocketTier2Entity extends CreatureEntity {
@@ -307,7 +306,7 @@ public class RocketTier2Entity extends CreatureEntity {
 					packetBuffer.writeBlockPos(new BlockPos(sourceentity.getPosition()));
 					packetBuffer.writeByte(0);
 					packetBuffer.writeVarInt(RocketTier2Entity.this.getEntityId());
-					return new RocketTier2GuiFuelGui.GuiContainerMod(id, inventory, packetBuffer); //TODO Change that in future just to 1 Rocket Fuel GUI For all Rocket Entitys
+					return new RocketGUI.GuiContainerMod(id, inventory, packetBuffer);
 				}
 			}, buf -> {
 				buf.writeBlockPos(new BlockPos(sourceentity.getPosition()));
@@ -421,7 +420,7 @@ public class RocketTier2Entity extends CreatureEntity {
 					}
 				}
 
-				//Spawn Rocket Item
+				//Spawn Rocket Item //TODO In Future add FUEL SYSTEM
 				ItemStack item = new ItemStack(Tier2RocketItemItem.block,1);
 
 				if (world instanceof World && !world.isRemote()) {

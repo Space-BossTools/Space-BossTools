@@ -1,6 +1,6 @@
+package net.mrscauthd.boss_tools.gui.screens;
 
-package net.mrscauthd.boss_tools.gui;
-
+import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.BossToolsMod;
 
@@ -30,18 +30,17 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.client.gui.ScreenManager;
-import net.mrscauthd.boss_tools.ModInnet;
 
 import java.util.function.Supplier;
 import java.util.Map;
 import java.util.HashMap;
 
 @BossToolsModElements.ModElement.Tag
-public class RocketTier3GuiFuelGui extends BossToolsModElements.ModElement {
+public class RocketGUI extends BossToolsModElements.ModElement {
 	public static HashMap guistate = new HashMap();
 	private static ContainerType<GuiContainerMod> containerType = null;
-	public RocketTier3GuiFuelGui(BossToolsModElements instance) {
-		super(instance, 343);
+	public RocketGUI(BossToolsModElements instance) {
+		super(instance, 142);
 		elements.addNetworkMessage(ButtonPressedMessage.class, ButtonPressedMessage::buffer, ButtonPressedMessage::new,
 				ButtonPressedMessage::handler);
 		elements.addNetworkMessage(GUISlotChangedMessage.class, GUISlotChangedMessage::buffer, GUISlotChangedMessage::new,
@@ -52,12 +51,13 @@ public class RocketTier3GuiFuelGui extends BossToolsModElements.ModElement {
 	private static class ContainerRegisterHandler {
 		@SubscribeEvent
 		public void registerContainer(RegistryEvent.Register<ContainerType<?>> event) {
-			event.getRegistry().register(containerType.setRegistryName("rocket_tier_3_gui_fuel"));
+			event.getRegistry().register(containerType.setRegistryName("rocket_tier_1_gui_fuel"));
 		}
 	}
+
 	@OnlyIn(Dist.CLIENT)
 	public void initElements() {
-		DeferredWorkQueue.runLater(() -> ScreenManager.registerFactory(containerType, RocketTier3GuiFuelGuiWindow::new));
+		DeferredWorkQueue.runLater(() -> ScreenManager.registerFactory(containerType, RocketGUIWindow::new));
 	}
 	public static class GuiContainerModFactory implements IContainerFactory {
 		public GuiContainerMod create(int id, PlayerInventory inv, PacketBuffer extraData) {
@@ -68,6 +68,7 @@ public class RocketTier3GuiFuelGui extends BossToolsModElements.ModElement {
 	public static class GuiContainerMod extends Container implements Supplier<Map<Integer, Slot>> {
 		World world;
 		PlayerEntity entity;
+		Entity rocket;
 		int x, y, z;
 		private IItemHandler internal;
 		private Map<Integer, Slot> customSlots = new HashMap<>();
@@ -103,6 +104,7 @@ public class RocketTier3GuiFuelGui extends BossToolsModElements.ModElement {
 						entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
 							this.internal = capability;
 							this.bound = true;
+							this.rocket = entity;
 						});
 				} else { // might be bound to block
 					TileEntity ent = inv.player != null ? inv.player.world.getTileEntity(pos) : null;
@@ -117,7 +119,7 @@ public class RocketTier3GuiFuelGui extends BossToolsModElements.ModElement {
 			this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 46, 22) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
-					return (new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1)).getItem() == stack.getItem());
+					return new ItemStack(ModInnet.FUEL_BUCKET.get(),1).getItem() == stack.getItem();
 				}
 			}));
 			int si;
@@ -175,12 +177,7 @@ public class RocketTier3GuiFuelGui extends BossToolsModElements.ModElement {
 			return itemstack;
 		}
 
-		@Override /**
-					 * Merges provided ItemStack with the first avaliable one in the
-					 * container/player inventor between minIndex (included) and maxIndex
-					 * (excluded). Args : stack, minIndex, maxIndex, negativDirection. /!\ the
-					 * Container implementation do not check if the item is valid for the slot
-					 */
+		@Override
 		protected boolean mergeItemStack(ItemStack stack, int startIndex, int endIndex, boolean reverseDirection) {
 			boolean flag = false;
 			int i = startIndex;

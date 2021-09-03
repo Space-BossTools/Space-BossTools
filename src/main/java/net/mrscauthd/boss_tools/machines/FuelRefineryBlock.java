@@ -272,7 +272,7 @@ public class FuelRefineryBlock {
 		}
 
 		public boolean isFuelFillableItem(Item item) {
-			return item == Items.BUCKET || item == ModInnet.BARREL.get();
+			return item == Items.BUCKET;
 		}
 
 		public boolean isIngredientItem(Item item) {
@@ -384,8 +384,6 @@ public class FuelRefineryBlock {
 
 		public boolean fillOutput() {
 			if (this.tryFillOutput(Items.BUCKET, BUCKET_SIZE, ModInnet.FUEL_BUCKET.get())) {
-				return true;
-			} else if (this.tryFillOutput(ModInnet.BARREL.get(), BARREL_SIZE, ModInnet.FUEL_BARREL.get())) {
 				return true;
 			}
 

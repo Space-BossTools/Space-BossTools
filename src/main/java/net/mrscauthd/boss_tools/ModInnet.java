@@ -99,6 +99,7 @@ public class ModInnet {
     //Rockets
     public static RegistryObject<EntityType<?>> TIER_1_ROCKET = ENTITYS.register("rocket_t1", () -> EntityType.Builder.create(RocketTier1Entity::new, EntityClassification.CREATURE).size(1f, 3f).immuneToFire().build(new ResourceLocation("boss_tools", "rocket_t1").toString()));
     public static RegistryObject<EntityType<?>> TIER_2_ROCKET = ENTITYS.register("rocket_t2", () -> EntityType.Builder.create(RocketTier2Entity::new, EntityClassification.CREATURE).size(1f, 4f).immuneToFire().build(new ResourceLocation("boss_tools", "rocket_t2").toString()));
+    public static RegistryObject<EntityType<?>> TIER_3_ROCKET = ENTITYS.register("rocket_t3", () -> EntityType.Builder.create(RocketTier3Entity::new, EntityClassification.CREATURE).size(1f, 4f).immuneToFire().build(new ResourceLocation("boss_tools", "rocket_t3").toString()));
 
 
     //Alien Spit Entity
@@ -181,8 +182,6 @@ public class ModInnet {
     public static final RegistryObject<ModSpawnEggs> STAR_CRAWLER_SPAWN_EGG = ITEMS.register("star_crawler_spawn_egg",() -> new ModSpawnEggs(STAR_CRAWLER, -13421773, -16724788, new Item.Properties().group(BossToolsItemGroups.tab_spawn_eggs)));
 
 
-    public static final RegistryObject<Item> BARREL = ITEMS.register("barrel", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(8)));
-    public static final RegistryObject<Item> FUEL_BARREL = ITEMS.register("fuel_barrel", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1)));
     public static final RegistryObject<Item> CHESE = ITEMS.register("chesse", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_normal).food((new Food.Builder()).hunger(4).saturation(3f).build())));
     public static final RegistryObject<Item> COMPRESSED_DESH = ITEMS.register("compressed_desh", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_materials)));
     public static final RegistryObject<Item> COMPRESSED_SILICON = ITEMS.register("compressed_silicon", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_materials)));
@@ -313,8 +312,7 @@ public class ModInnet {
     }
 
     @SubscribeEvent
-    public static void setup2(final FMLCommonSetupEvent event)
-    {
+    public static void setup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             STStructures.setupStructures();
             STStructures2.setupStructures();
@@ -430,6 +428,7 @@ public class ModInnet {
             GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) STAR_CRAWLER.get(), StarCrawlerEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) TIER_1_ROCKET.get(), RocketTier1Entity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) TIER_2_ROCKET.get(), RocketTier2Entity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) TIER_3_ROCKET.get(), RocketTier3Entity.setCustomAttributes().create());
         });
         event.enqueueWork(() -> {
 

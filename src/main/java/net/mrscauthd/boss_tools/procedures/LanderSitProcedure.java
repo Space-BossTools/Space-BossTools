@@ -133,34 +133,6 @@ public class LanderSitProcedure {
 						});
 					}
 				}
-				if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
-					if (((entity.getPersistentData().getDouble("Bucket")) == 1)) {
-						{
-							final ItemStack _setstack = new ItemStack(ModInnet.BARREL.get(), (int) (1));
-							final int _sltid = (int) (1);
-							_setstack.setCount((int) 1);
-							(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-								if (capability instanceof IItemHandlerModifiable) {
-									((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-								}
-							});
-						}
-					}
-				}
-				if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
-					if (((entity.getPersistentData().getDouble("Bucket")) == 2)) {
-						{
-							final ItemStack _setstack = new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1));
-							final int _sltid = (int) (1);
-							_setstack.setCount((int) 1);
-							(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-								if (capability instanceof IItemHandlerModifiable) {
-									((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-								}
-							});
-						}
-					}
-				}
 			}
 		}
 		if (((entity.getPersistentData().getDouble("Landersit")) == 3)) {
@@ -187,34 +159,6 @@ public class LanderSitProcedure {
 								((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
 							}
 						});
-					}
-				}
-				if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
-					if (((entity.getPersistentData().getDouble("Bucket")) == 1)) {
-						{
-							final ItemStack _setstack = new ItemStack(ModInnet.BARREL.get(), (int) (1));
-							final int _sltid = (int) (1);
-							_setstack.setCount((int) 1);
-							(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-								if (capability instanceof IItemHandlerModifiable) {
-									((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-								}
-							});
-						}
-					}
-				}
-				if (((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)) {
-					if (((entity.getPersistentData().getDouble("Bucket")) == 2)) {
-						{
-							final ItemStack _setstack = new ItemStack(ModInnet.FUEL_BARREL.get(), (int) (1));
-							final int _sltid = (int) (1);
-							_setstack.setCount((int) 1);
-							(entity.getRidingEntity()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
-								if (capability instanceof IItemHandlerModifiable) {
-									((IItemHandlerModifiable) capability).setStackInSlot(_sltid, _setstack);
-								}
-							});
-						}
 					}
 				}
 			}
