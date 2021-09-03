@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.settings.PointOfView;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.particles.ParticleTypes;
@@ -47,6 +48,10 @@ public class Events {
             double x = entity.getPosX();
             double y = entity.getPosY();
             double z = entity.getPosZ();
+
+            //Gravity Methode Call
+            Gravity.Gravity(entity, "player", (World) world);
+
             //Venus Rain
             if (((World) world).getDimensionKey() == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))) {
                 if (entity.abilities.isCreativeMode == false && entity.isSpectator() == false) {
@@ -104,7 +109,7 @@ public class Events {
     //OnEntityTick Event
     @SubscribeEvent
     public static void onEntityTick(LivingEvent.LivingUpdateEvent event) {
-        Entity entity = event.getEntityLiving();
+        LivingEntity entity = event.getEntityLiving();
         World world = entity.world;
         double x = entity.getPosX();
         double y = entity.getPosY();
@@ -121,6 +126,10 @@ public class Events {
                 }
             }
         }
+
+        //Gravity Methode Call
+        Gravity.Gravity(entity, "living", world);
+
     }
 
     //Camera Event
