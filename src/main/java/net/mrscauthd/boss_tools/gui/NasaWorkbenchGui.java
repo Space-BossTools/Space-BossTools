@@ -2,10 +2,12 @@
 package net.mrscauthd.boss_tools.gui;
 
 import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.client.gui.screen.inventory.CraftingScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.api.distmarker.Dist;
@@ -62,13 +64,7 @@ public class NasaWorkbenchGui extends BossToolsModElements.ModElement {
 			super(containerType, id);
 			this.tileEntity = tileEntity;
 
-			IItemHandlerModifiable internal = tileEntity.getItemHandler();
-			this.addSlot(new SlotItemHandler(internal, WorkbenchBlock.SLOT_OUTPUT, 133, 74) {
-				@Override
-				public boolean isItemValid(ItemStack stack) {
-					return false;
-				}
-			});
+			this.addSlot(new NasaWorkbenchingResultSlot(tileEntity, tileEntity.getOutputSlot(), 133, 74));
 
 			RocketPartsItemHandler partsItemHandler = tileEntity.getPartsItemHandler();
 			GridPlacer placer = new GridPlacer();
@@ -93,7 +89,27 @@ public class NasaWorkbenchGui extends BossToolsModElements.ModElement {
 
 		@Override
 		public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
-			return ContainerHelper.transferStackInSlot(this, playerIn, index, this.getTileEntity(), this::mergeItemStack);
+			Slot slot = this.getSlot(index);
+			ItemStack prev = slot.getStack().copy();
+			this.getTileEntity().onTransferStackInSlot(index, prev);
+
+			if (index == this.getTileEntity().getOutputSlot()) {
+				ItemStack itemStack = ContainerHelper.transferStackInSlot(this, playerIn, index, this.getTileEntity(), this::mergeItemStack);
+				ItemStack next = slot.getStack().copy();
+
+				if (!prev.isEmpty()) {
+					int nextSize = next.isEmpty() ? 0 : next.getCount();
+
+					if (nextSize > 0) {
+						playerIn.dropItem(next, false);
+						slot.putStack(ItemStack.EMPTY);
+					}
+				}
+
+				return itemStack;
+			} else {
+				return ContainerHelper.transferStackInSlot(this, playerIn, index, this.getTileEntity(), this::mergeItemStack);
+			}
 		}
 	}
 }

@@ -322,6 +322,31 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 		}
 
 		@Override
+		public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
+			super.setInventorySlotContents(p_70299_1_, p_70299_2_);
+			this.cacheRecipes();
+		}
+
+		public void onTransferStackInSlot(int index, ItemStack stack) {
+			if (index == this.getOutputSlot() && !stack.isEmpty()) {
+				this.consumeIngredient();
+			}
+
+		}
+		
+		@Override
+		public ItemStack decrStackSize(int slot, int amount) {
+			ItemStack stack = super.decrStackSize(slot, amount);
+
+			this.onTransferStackInSlot(slot, stack);
+			if (slot == this.getOutputSlot() && !stack.isEmpty()) {
+				this.consumeIngredient();
+			}
+
+			return stack;
+		}
+
+		@Override
 		public Container createMenu(int id, PlayerInventory player) {
 			return new NasaWorkbenchGui.GuiContainerMod(id, player, this);
 		}
@@ -419,6 +444,12 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 				recipeType.filter(this.getWorld(), r -> r.test(partsItemHandler, true)).forEach(this.possibleRecipes::add);
 
 				this.invalidCache.clear();
+
+				if (this.cachedRecipe != null) {
+					this.setInventorySlotContents(this.getOutputSlot(), this.cachedRecipe.getOutput());
+				} else {
+					this.setInventorySlotContents(this.getOutputSlot(), ItemStack.EMPTY);
+				}
 			}
 
 			return this.cachedRecipe;
@@ -430,7 +461,6 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		protected void tickProcessing() {
-			this.craftRocket();
 			this.spawnParticles();
 		}
 
@@ -447,11 +477,11 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 			}
 		}
 
-		protected void craftRocket() {
+		protected boolean consumeIngredient() {
 			WorkbenchingRecipe recipe = this.cacheRecipes();
 
-			if (recipe == null || !this.hasSpaceInOutput(recipe.getOutput())) {
-				return;
+			if (recipe == null) {
+				return false;
 			}
 
 			RocketPartsItemHandler partsItemHandler = this.getPartsItemHandler();
@@ -476,6 +506,7 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 				serverWorld.spawnParticle(ParticleTypes.TOTEM_OF_UNDYING, pos.getX() + 0.5D, pos.getY() + 1.5D, pos.getZ() + 0.5D, 100, 0.1D, 0.1D, 0.1D, 0.7D);
 			}
 
+			return true;
 		}
 
 		@Override
@@ -487,5 +518,6 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 		public boolean hasSpaceInOutput(ItemStack recipeOutput) {
 			return this.hasSpaceInOutput(recipeOutput, this.getStackInSlot(this.getOutputSlot()));
 		}
+
 	}
 }
