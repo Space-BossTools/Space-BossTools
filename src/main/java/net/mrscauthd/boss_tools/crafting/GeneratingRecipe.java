@@ -57,11 +57,6 @@ public class GeneratingRecipe extends BossToolsRecipe implements Predicate<ItemS
 	}
 
 	@Override
-	public ItemStack getRecipeOutput() {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
 	public IRecipeSerializer<?> getSerializer() {
 		return ModInnet.RECIPE_SERIALIZER_GENERATING.get();
 	}

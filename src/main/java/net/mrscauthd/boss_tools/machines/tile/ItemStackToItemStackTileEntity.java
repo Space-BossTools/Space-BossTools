@@ -99,7 +99,7 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 	@Override
 	public boolean hasSpaceInOutput() {
 		IRecipe<IInventory> cacheRecipe = this.cacheRecipe();
-		return cacheRecipe != null && this.hasSpaceInOutput(cacheRecipe.getRecipeOutput());
+		return cacheRecipe != null && this.hasSpaceInOutput(cacheRecipe.getOutput());
 	}
 
 	public boolean hasSpaceInOutput(ItemStack recipeOutput) {
@@ -132,7 +132,7 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 		ItemStackToItemStackRecipe recipe = this.cacheRecipe();
 
 		if (recipe != null) {
-			ItemStack recipeOutput = recipe.getRecipeOutput();
+			ItemStack recipeOutput = recipe.getOutput();
 
 			if (this.hasSpaceInOutput(recipeOutput)) {
 				if (this.consumePowerForOperation() != null) {

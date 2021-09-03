@@ -58,11 +58,6 @@ public class OxygenMakingRecipe extends BossToolsRecipe implements Predicate<Ite
 	}
 
 	@Override
-	public ItemStack getRecipeOutput() {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
 	public IRecipeSerializer<?> getSerializer() {
 		return ModInnet.RECIPE_SERIALIZER_OXYGENMAKING.get();
 	}

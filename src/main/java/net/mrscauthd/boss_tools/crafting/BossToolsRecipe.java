@@ -48,6 +48,16 @@ public abstract class BossToolsRecipe implements IRecipe<IInventory> {
 		// Don't use this
 		return ItemStack.EMPTY;
 	}
+
+	/**
+	 * Don't use this
+	 */
+	@Override
+	@Deprecated
+	public ItemStack getRecipeOutput() {
+		// Don't use this
+		return ItemStack.EMPTY;
+	}
 	
 	/**
 	 * Don't use this

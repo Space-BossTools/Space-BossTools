@@ -449,7 +449,7 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 		protected void craftRocket() {
 			WorkbenchingRecipe recipe = this.cacheRecipes();
 
-			if (recipe == null || !this.hasSpaceInOutput(recipe.getRecipeOutput())) {
+			if (recipe == null || !this.hasSpaceInOutput(recipe.getOutput())) {
 				return;
 			}
 
@@ -463,7 +463,7 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 				}
 			}
 
-			this.getItemHandler().insertItem(this.getOutputSlot(), recipe.getRecipeOutput(), false);
+			this.getItemHandler().insertItem(this.getOutputSlot(), recipe.getOutput(), false);
 
 			World world = this.getWorld();
 
@@ -480,7 +480,7 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 		@Override
 		public boolean hasSpaceInOutput() {
 			WorkbenchingRecipe recipe = this.cacheRecipes();
-			return recipe != null && this.hasSpaceInOutput(recipe.getRecipeOutput());
+			return recipe != null && this.hasSpaceInOutput(recipe.getOutput());
 		}
 
 		public boolean hasSpaceInOutput(ItemStack recipeOutput) {

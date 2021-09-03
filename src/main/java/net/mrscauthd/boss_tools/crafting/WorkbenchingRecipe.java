@@ -111,8 +111,7 @@ public class WorkbenchingRecipe extends BossToolsRecipe implements BiPredicate<R
 		return false;
 	}
 
-	@Override
-	public ItemStack getRecipeOutput() {
+	public ItemStack getOutput() {
 		return this.output.copy();
 	}
 

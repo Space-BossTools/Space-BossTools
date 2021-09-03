@@ -584,7 +584,7 @@ public class JeiPlugin implements IModPlugin {
 		@Override
 		public void setIngredients(WorkbenchingRecipe recipe, IIngredients iIngredients) {
 			iIngredients.setInputIngredients(recipe.getIngredients());
-			iIngredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
+			iIngredients.setOutput(VanillaTypes.ITEM, recipe.getOutput());
 		}
 
 		@Override
@@ -753,7 +753,7 @@ public class JeiPlugin implements IModPlugin {
 		@Override
 		public void setIngredients(BlastingRecipe recipe, IIngredients iIngredients) {
 			iIngredients.setInputIngredients(recipe.getIngredients());
-			iIngredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
+			iIngredients.setOutput(VanillaTypes.ITEM, recipe.getOutput());
 		}
 
 		@Override
@@ -1008,7 +1008,7 @@ public class JeiPlugin implements IModPlugin {
 		@Override
 		public void setIngredients(CompressingRecipe recipe, IIngredients iIngredients) {
 			iIngredients.setInputIngredients(recipe.getIngredients());
-			iIngredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
+			iIngredients.setOutput(VanillaTypes.ITEM, recipe.getOutput());
 		}
 
 		@Override

@@ -44,7 +44,7 @@ public abstract class ItemStackToItemStackRecipe extends BossToolsRecipe impleme
 
 	public void write(PacketBuffer buffer) {
 		this.getIngredient().write(buffer);
-		buffer.writeItemStack(this.getRecipeOutput());
+		buffer.writeItemStack(this.getOutput());
 		buffer.writeInt(this.getCookTime());
 	}
 
@@ -57,9 +57,8 @@ public abstract class ItemStackToItemStackRecipe extends BossToolsRecipe impleme
 	public boolean canFit(int var1, int var2) {
 		return true;
 	}
-
-	@Override
-	public ItemStack getRecipeOutput() {
+	
+	public ItemStack getOutput() {
 		return this.output.copy();
 	}
 
