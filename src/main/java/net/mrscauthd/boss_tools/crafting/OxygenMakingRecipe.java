@@ -1,5 +1,7 @@
 package net.mrscauthd.boss_tools.crafting;
 
+import java.util.function.Predicate;
+
 import com.google.gson.JsonObject;
 
 import net.minecraft.inventory.IInventory;
@@ -14,7 +16,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.mrscauthd.boss_tools.ModInnet;
 
-public class OxygenMakingRecipe extends BossToolsRecipe {
+public class OxygenMakingRecipe extends BossToolsRecipe implements Predicate<ItemStack> {
 
 	public static final int SLOT_INGREDIENT = 0;
 
@@ -56,11 +58,6 @@ public class OxygenMakingRecipe extends BossToolsRecipe {
 	}
 
 	@Override
-	public ItemStack getCraftingResult(IInventory var1) {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
 	public ItemStack getRecipeOutput() {
 		return ItemStack.EMPTY;
 	}
@@ -79,16 +76,9 @@ public class OxygenMakingRecipe extends BossToolsRecipe {
 		return SLOT_INGREDIENT;
 	}
 
-	public boolean testIngredient(ItemStack itemStack) {
-		return this.ingredient.test(itemStack);
-	}
-
 	@Override
-	public boolean matches(IInventory inventory, World world) {
-		if (!this.testIngredient(inventory.getStackInSlot(this.getIngredientSlot(inventory, world))))
-			return false;
-
-		return true;
+	public boolean test(ItemStack itemStack) {
+		return this.ingredient.test(itemStack);
 	}
 
 	public Ingredient getIngredient() {

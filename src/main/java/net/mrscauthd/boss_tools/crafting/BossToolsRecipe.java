@@ -3,9 +3,11 @@ package net.mrscauthd.boss_tools.crafting;
 import com.google.gson.JsonObject;
 
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 
 public abstract class BossToolsRecipe implements IRecipe<IInventory> {
 
@@ -35,6 +37,26 @@ public abstract class BossToolsRecipe implements IRecipe<IInventory> {
 	@Override
 	public String getGroup() {
 		return this.getSerializer().getRegistryType().toString();
+	}
+
+	/**
+	 * Don't use this
+	 */
+	@Override
+	@Deprecated
+	public ItemStack getCraftingResult(IInventory var1) {
+		// Don't use this
+		return ItemStack.EMPTY;
+	}
+	
+	/**
+	 * Don't use this
+	 */
+	@Override
+	@Deprecated
+	public boolean matches(IInventory var1, World var2) {
+		// Don't use this
+		return true;
 	}
 
 }

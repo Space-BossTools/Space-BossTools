@@ -1,40 +1,38 @@
 
 package net.mrscauthd.boss_tools.gui;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
+
+import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.inventory.container.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DeferredWorkQueue;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.network.IContainerFactory;
+import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.SlotItemHandler;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.machines.FuelRefineryBlock.CustomTileEntity;
-import net.mrscauthd.boss_tools.BossToolsMod;
-
-import net.minecraftforge.items.SlotItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.fml.network.NetworkEvent;
-import net.minecraftforge.fml.network.IContainerFactory;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.DeferredWorkQueue;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.api.distmarker.Dist;
-
-import net.minecraft.world.World;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.client.gui.ScreenManager;
-
-import java.util.function.Supplier;
-import java.util.Map;
-import java.util.HashMap;
 
 @BossToolsModElements.ModElement.Tag
 public class FuelRefineryGUIGui extends BossToolsModElements.ModElement {
@@ -129,13 +127,8 @@ public class FuelRefineryGUIGui extends BossToolsModElements.ModElement {
 					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
 				}
 			}));
-			int si;
-			int sj;
-			for (si = 0; si < 3; ++si)
-				for (sj = 0; sj < 9; ++sj)
-					this.addSlot(new Slot(inv, sj + (si + 1) * 9, 0 + 8 + sj * 18, 6 + 84 + si * 18));
-			for (si = 0; si < 9; ++si)
-				this.addSlot(new Slot(inv, si, 0 + 8 + si * 18, 6 + 142));
+
+			ContainerHelper.addInventorySlots(this, inv, 8, 90, 148, this::addSlot);
 		}
 
 		public Map<Integer, Slot> get() {

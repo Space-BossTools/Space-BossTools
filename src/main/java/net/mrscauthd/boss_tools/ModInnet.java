@@ -36,6 +36,7 @@ import net.mrscauthd.boss_tools.crafting.BlastingRecipeSerializer;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.CompressingRecipeSerializer;
 import net.mrscauthd.boss_tools.crafting.GeneratingRecipeSerializer;
+import net.mrscauthd.boss_tools.crafting.WorkbenchingRecipeSerializer;
 import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipeSerializer;
 import net.mrscauthd.boss_tools.entity.*;
 import net.mrscauthd.boss_tools.fluid.OilFluid;
@@ -286,7 +287,8 @@ public class ModInnet {
     public static final RegistryObject<IRecipeSerializer<?>> RECIPE_SERIALIZER_COMPRESSING = RECIPE_SERIALIZERS.register("compressing", () -> new CompressingRecipeSerializer());
     public static final RegistryObject<IRecipeSerializer<?>> RECIPE_SERIALIZER_GENERATING = RECIPE_SERIALIZERS.register("generating", () -> new GeneratingRecipeSerializer());
     public static final RegistryObject<IRecipeSerializer<?>> RECIPE_SERIALIZER_OXYGENMAKING = RECIPE_SERIALIZERS.register("oxygenmaking", () -> new OxygenMakingRecipeSerializer());
-
+    public static final RegistryObject<IRecipeSerializer<?>> RECIPE_SERIALIZER_WORKBENCHING = RECIPE_SERIALIZERS.register("workbenching", () -> new WorkbenchingRecipeSerializer());
+    
     //Wrold Gen Things
     public static ConfiguredFeature<?, ?> ICE_SPIKE;
     public static MarsIceSpikeFeature MARS_ICE_SPIKE;

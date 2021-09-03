@@ -21,7 +21,7 @@ public abstract class PowerSystemFuelOxygen extends PowerSystemFuel {
 			return -1;
 		}
 
-		OxygenMakingRecipe recipe = this.getRecipeType().findFirst(this.getTileEntity().getWorld(), f -> f.testIngredient(fuel));
+		OxygenMakingRecipe recipe = this.getRecipeType().findFirst(this.getTileEntity().getWorld(), f -> f.test(fuel));
 		return recipe != null ? recipe.getOxygen() : -1;
 	}
 

@@ -1,5 +1,7 @@
 package net.mrscauthd.boss_tools.crafting;
 
+import java.util.function.Predicate;
+
 import com.google.gson.JsonObject;
 
 import net.minecraft.inventory.IInventory;
@@ -13,7 +15,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.mrscauthd.boss_tools.machines.tile.ItemStackToItemStackTileEntity;
 
-public abstract class ItemStackToItemStackRecipe extends BossToolsRecipe {
+public abstract class ItemStackToItemStackRecipe extends BossToolsRecipe implements Predicate<ItemStack> {
 	private final Ingredient ingredient;
 	private final ItemStack output;
 	private final int cookTime;
@@ -36,31 +38,19 @@ public abstract class ItemStackToItemStackRecipe extends BossToolsRecipe {
 	public ItemStackToItemStackRecipe(ResourceLocation id, Ingredient ingredient, ItemStack output, int cookTime) {
 		super(id);
 		this.ingredient = ingredient;
-		this.output = output;
+		this.output = output.copy();
 		this.cookTime = cookTime;
 	}
 
 	public void write(PacketBuffer buffer) {
 		this.getIngredient().write(buffer);
-		buffer.writeItemStack(this.getOutput());
+		buffer.writeItemStack(this.getRecipeOutput());
 		buffer.writeInt(this.getCookTime());
 	}
 
-	public boolean testIngredient(ItemStack stack) {
+	@Override
+	public boolean test(ItemStack stack) {
 		return this.ingredient.test(stack);
-	}
-
-	@Override
-	public boolean matches(IInventory inventory, World world) {
-		if (!this.testIngredient(inventory.getStackInSlot(this.getIngredientSlot(inventory, world))))
-			return false;
-
-		return true;
-	}
-
-	@Override
-	public ItemStack getCraftingResult(IInventory var1) {
-		return this.output.copy();
 	}
 
 	@Override
@@ -86,10 +76,6 @@ public abstract class ItemStackToItemStackRecipe extends BossToolsRecipe {
 
 	public Ingredient getIngredient() {
 		return this.ingredient;
-	}
-
-	public ItemStack getOutput() {
-		return this.output;
 	}
 
 	public int getCookTime() {

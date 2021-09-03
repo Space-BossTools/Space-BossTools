@@ -21,7 +21,7 @@ public class PowerSystemFuelGeneratingRecipe extends PowerSystemFuelBurnTime {
 			return -1;
 		}
 
-		GeneratingRecipe recipe = this.getRecipeType().findFirst(this.getTileEntity().getWorld(), f -> f.testIngredient(fuel));
+		GeneratingRecipe recipe = this.getRecipeType().findFirst(this.getTileEntity().getWorld(), f -> f.test(fuel));
 		return recipe != null ? recipe.getBurnTime() : -1;
 	}
 

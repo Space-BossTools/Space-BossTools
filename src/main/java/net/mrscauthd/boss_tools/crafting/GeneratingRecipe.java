@@ -1,5 +1,7 @@
 package net.mrscauthd.boss_tools.crafting;
 
+import java.util.function.Predicate;
+
 import com.google.gson.JsonObject;
 
 import net.minecraft.inventory.IInventory;
@@ -14,7 +16,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.mrscauthd.boss_tools.ModInnet;
 
-public class GeneratingRecipe extends BossToolsRecipe {
+public class GeneratingRecipe extends BossToolsRecipe implements Predicate<ItemStack> {
 
 	public static final int SLOT_FUEL = 0;
 
@@ -33,7 +35,6 @@ public class GeneratingRecipe extends BossToolsRecipe {
 
 		this.ingredient = Ingredient.read(buffer);
 		this.burnTime = buffer.readInt();
-
 	}
 
 	public GeneratingRecipe(ResourceLocation id, Ingredient ingredient, int burnTime) {
@@ -56,11 +57,6 @@ public class GeneratingRecipe extends BossToolsRecipe {
 	}
 
 	@Override
-	public ItemStack getCraftingResult(IInventory var1) {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
 	public ItemStack getRecipeOutput() {
 		return ItemStack.EMPTY;
 	}
@@ -78,17 +74,10 @@ public class GeneratingRecipe extends BossToolsRecipe {
 	public int getFuelSlot(IInventory inventory, World world) {
 		return SLOT_FUEL;
 	}
-	
-	public boolean testIngredient(ItemStack ingredient) {
-		return this.ingredient.test(ingredient);
-	}
 
 	@Override
-	public boolean matches(IInventory inventory, World world) {
-		if (!this.testIngredient(inventory.getStackInSlot(this.getFuelSlot(inventory, world))))
-			return false;
-
-		return true;
+	public boolean test(ItemStack ingredient) {
+		return this.ingredient.test(ingredient);
 	}
 
 	public Ingredient getIngredient() {
