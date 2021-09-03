@@ -4,9 +4,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -98,7 +96,7 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 
 	@Override
 	public boolean hasSpaceInOutput() {
-		IRecipe<IInventory> cacheRecipe = this.cacheRecipe();
+		ItemStackToItemStackRecipe cacheRecipe = this.cacheRecipe();
 		return cacheRecipe != null && this.hasSpaceInOutput(cacheRecipe.getOutput());
 	}
 
