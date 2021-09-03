@@ -1,21 +1,20 @@
 package net.mrscauthd.boss_tools.crafting;
 
-public enum RocketPart {
-	NOSE(1),
-	BODY(6),
-	TANK(2),
-	FIN_LEFT(2),
-	FIN_RIGHT(2),
-	ENGINE(1),
-	// EOL
-	;
+import javax.annotation.Nonnull;
 
-	private int slots;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 
-	private RocketPart(int slots) {
+public class RocketPart extends ForgeRegistryEntry<RocketPart> {
+
+    @Nonnull
+    public static final RocketPart EMPTY = new RocketPart(0);
+    
+	private final int slots;
+
+	public RocketPart(int slots) {
 		this.slots = slots;
 	}
-	
+
 	public int getSlots() {
 		return this.slots;
 	}

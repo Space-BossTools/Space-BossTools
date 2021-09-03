@@ -2,12 +2,12 @@
    "type":"boss_tools:workbenching",
    "input":{
       "parts":{
-         "nose":[
+         "boss_tools:nose":[
             {
                "item":"boss_tools:rocket_nose_cone"
             }
          ],
-         "body":[
+         "boss_tools:body":[
             {
                "item":"boss_tools:compressed_silicon"
             },
@@ -27,7 +27,7 @@
                "item":"boss_tools:compressed_silicon"
             }
          ],
-         "tank":[
+         "boss_tools:tank":[
             {
                "item":"boss_tools:diamond_tank"
             },
@@ -35,7 +35,7 @@
                "item":"boss_tools:diamond_tank"
             }
          ],
-         "fin_left":[
+         "boss_tools:fin_left":[
             {
                "item":"boss_tools:oxygen_tank"
             },
@@ -43,7 +43,7 @@
                "item":"boss_tools:rocket_fin"
             }
          ],
-         "fin_right":[
+         "boss_tools:fin_right":[
             {
                "item":"boss_tools:oxygen_tank"
             },
@@ -51,7 +51,7 @@
                "item":"boss_tools:rocket_fin"
             }
          ],
-         "engine":[
+         "boss_tools:engine":[
             {
                "item":"boss_tools:diamond_engine"
             }

@@ -9,8 +9,6 @@ import java.util.Map.Entry;
 import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.EnumUtils;
-
 import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -42,7 +40,7 @@ public class WorkbenchingRecipe extends BossToolsRecipe implements BiPredicate<R
 		Map<RocketPart, List<Ingredient>> map = new HashMap<>();
 
 		for (Entry<String, JsonElement> entry : partsJson.entrySet()) {
-			RocketPart part = EnumUtils.getEnumIgnoreCase(RocketPart.class, entry.getKey());
+			RocketPart part = ModInnet.ROCKET_PARTS_REGISTRY.getValue(new ResourceLocation(entry.getKey()));
 			JsonArray slotsJson = entry.getValue().getAsJsonArray();
 			List<Ingredient> ingredients = Lists.newArrayList(slotsJson).stream().map(js -> Ingredient.deserialize(js)).collect(Collectors.toList());
 			map.put(part, Collections.unmodifiableList(ingredients));
@@ -59,7 +57,7 @@ public class WorkbenchingRecipe extends BossToolsRecipe implements BiPredicate<R
 		Map<RocketPart, List<Ingredient>> map = new HashMap<>();
 
 		for (int i = 0; i < partsSize; i++) {
-			RocketPart part = EnumUtils.getEnumIgnoreCase(RocketPart.class, buffer.readString());
+			RocketPart part = buffer.readRegistryId();
 			int ingredientsSize = buffer.readInt();
 			List<Ingredient> ingredients = Arrays.stream(new Ingredient[ingredientsSize]).map(e -> Ingredient.read(buffer)).collect(Collectors.toList());
 			map.put(part, Collections.unmodifiableList(ingredients));
@@ -89,7 +87,7 @@ public class WorkbenchingRecipe extends BossToolsRecipe implements BiPredicate<R
 		buffer.writeInt(this.parts.size());
 
 		for (Entry<RocketPart, List<Ingredient>> entry : this.parts.entrySet()) {
-			buffer.writeString(entry.getKey().name());
+			buffer.writeRegistryId(entry.getKey());
 
 			List<Ingredient> ingredients = entry.getValue();
 			buffer.writeInt(ingredients.size());
@@ -161,7 +159,7 @@ public class WorkbenchingRecipe extends BossToolsRecipe implements BiPredicate<R
 				Ingredient ingredient = ingredients.get(i);
 
 				if (ignoreAir && stack.isEmpty()) {
-
+					continue;
 				} else if (!ingredient.test(stack)) {
 					return false;
 				}

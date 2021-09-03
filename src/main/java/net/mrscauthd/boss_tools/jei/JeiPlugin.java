@@ -42,7 +42,6 @@ import net.mrscauthd.boss_tools.crafting.CompressingRecipe;
 import net.mrscauthd.boss_tools.crafting.GeneratingRecipe;
 import net.mrscauthd.boss_tools.crafting.WorkbenchingRecipe;
 import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipe;
-import net.mrscauthd.boss_tools.crafting.RocketPart;
 import net.mrscauthd.boss_tools.machines.WorkbenchBlock;
 import net.mrscauthd.boss_tools.machines.tile.ItemStackToItemStackTileEntity;
 import net.mrscauthd.boss_tools.machines.CoalGeneratorBlock;
@@ -580,12 +579,12 @@ public class JeiPlugin implements IModPlugin {
 
 			int slots = WorkbenchBlock.SLOT_PARTS;
 			GridPlacer placer = new GridPlacer();
-			slots = RocketPartGridPlacer.placeJEI(slots, 38, 7, 1, placer::placeBottom, RocketPart.NOSE, iRecipeLayout, recipe);
-			slots = RocketPartGridPlacer.placeJEI(slots, 29, 25, 2, placer::placeBottom, RocketPart.BODY, iRecipeLayout, recipe);
-			slots = RocketPartGridPlacer.placeJEI(slots, 29, 79, 1, placer::placeRight, RocketPart.TANK, iRecipeLayout, recipe);
-			slots = RocketPartGridPlacer.placeJEI(slots, 11, 79, 1, placer::placeBottom, RocketPart.FIN_LEFT, iRecipeLayout, recipe);
-			slots = RocketPartGridPlacer.placeJEI(slots, 65, 79, 1, placer::placeBottom, RocketPart.FIN_RIGHT, iRecipeLayout, recipe);
-			slots = RocketPartGridPlacer.placeJEI(slots, 38, 97, 1, placer::placeBottom, RocketPart.ENGINE, iRecipeLayout, recipe);
+			slots = RocketPartGridPlacer.placeJEI(slots, 38, 7, 1, placer::placeBottom, ModInnet.ROCKET_PART_NOSE.get(), iRecipeLayout, recipe);
+			slots = RocketPartGridPlacer.placeJEI(slots, 29, 25, 2, placer::placeBottom, ModInnet.ROCKET_PART_BODY.get(), iRecipeLayout, recipe);
+			slots = RocketPartGridPlacer.placeJEI(slots, 29, 79, 1, placer::placeRight, ModInnet.ROCKET_PART_TANK.get(), iRecipeLayout, recipe);
+			slots = RocketPartGridPlacer.placeJEI(slots, 11, 79, 1, placer::placeBottom, ModInnet.ROCKET_PART_FIN_LEFT.get(), iRecipeLayout, recipe);
+			slots = RocketPartGridPlacer.placeJEI(slots, 65, 79, 1, placer::placeBottom, ModInnet.ROCKET_PART_FIN_RIGHT.get(), iRecipeLayout, recipe);
+			slots = RocketPartGridPlacer.placeJEI(slots, 38, 97, 1, placer::placeBottom, ModInnet.ROCKET_PART_ENGINE.get(), iRecipeLayout, recipe);
 		}
 	}
 

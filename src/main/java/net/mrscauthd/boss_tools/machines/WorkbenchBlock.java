@@ -70,6 +70,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ObjectHolder;
 import net.mrscauthd.boss_tools.BossToolsModElements;
+import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.RocketPart;
@@ -93,12 +94,12 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 
 	public static List<RocketPart> getBasicPartOrders() {
 		List<RocketPart> parts = new ArrayList<>();
-		parts.add(RocketPart.NOSE);
-		parts.add(RocketPart.BODY);
-		parts.add(RocketPart.TANK);
-		parts.add(RocketPart.FIN_LEFT);
-		parts.add(RocketPart.FIN_RIGHT);
-		parts.add(RocketPart.ENGINE);
+		parts.add(ModInnet.ROCKET_PART_NOSE.get());
+		parts.add(ModInnet.ROCKET_PART_BODY.get());
+		parts.add(ModInnet.ROCKET_PART_TANK.get());
+		parts.add(ModInnet.ROCKET_PART_FIN_LEFT.get());
+		parts.add(ModInnet.ROCKET_PART_FIN_RIGHT.get());
+		parts.add(ModInnet.ROCKET_PART_ENGINE.get());
 		return parts;
 	}
 

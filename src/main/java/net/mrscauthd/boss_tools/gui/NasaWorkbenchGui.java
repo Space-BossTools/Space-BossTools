@@ -18,7 +18,7 @@ import net.minecraftforge.fml.network.IContainerFactory;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.SlotItemHandler;
 import net.mrscauthd.boss_tools.BossToolsModElements;
-import net.mrscauthd.boss_tools.crafting.RocketPart;
+import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.gui.guihelper.GridPlacer;
 import net.mrscauthd.boss_tools.gui.guihelper.RocketPartGridPlacer;
 import net.mrscauthd.boss_tools.inventory.RocketPartsItemHandler;
@@ -69,20 +69,19 @@ public class NasaWorkbenchGui extends BossToolsModElements.ModElement {
 					return false;
 				}
 			});
-			
 
 			RocketPartsItemHandler partsItemHandler = tileEntity.getPartsItemHandler();
 			GridPlacer placer = new GridPlacer();
-			RocketPartGridPlacer.placeContainer(40, 18, 1, placer::placeBottom, RocketPart.NOSE, partsItemHandler, this::addSlot);
-			RocketPartGridPlacer.placeContainer(31, 36, 2, placer::placeBottom, RocketPart.BODY, partsItemHandler, this::addSlot);
-			RocketPartGridPlacer.placeContainer(31, 90, 1, placer::placeRight, RocketPart.TANK, partsItemHandler, this::addSlot);
-			RocketPartGridPlacer.placeContainer(13, 90, 1, placer::placeBottom, RocketPart.FIN_LEFT, partsItemHandler, this::addSlot);
-			RocketPartGridPlacer.placeContainer(67, 90, 1, placer::placeBottom, RocketPart.FIN_RIGHT, partsItemHandler, this::addSlot);
-			RocketPartGridPlacer.placeContainer(40, 108, 1, placer::placeBottom, RocketPart.ENGINE, partsItemHandler, this::addSlot);
+			RocketPartGridPlacer.placeContainer(40, 18, 1, placer::placeBottom, ModInnet.ROCKET_PART_NOSE.get(), partsItemHandler, this::addSlot);
+			RocketPartGridPlacer.placeContainer(31, 36, 2, placer::placeBottom, ModInnet.ROCKET_PART_BODY.get(), partsItemHandler, this::addSlot);
+			RocketPartGridPlacer.placeContainer(31, 90, 1, placer::placeRight, ModInnet.ROCKET_PART_TANK.get(), partsItemHandler, this::addSlot);
+			RocketPartGridPlacer.placeContainer(13, 90, 1, placer::placeBottom, ModInnet.ROCKET_PART_FIN_LEFT.get(), partsItemHandler, this::addSlot);
+			RocketPartGridPlacer.placeContainer(67, 90, 1, placer::placeBottom, ModInnet.ROCKET_PART_FIN_RIGHT.get(), partsItemHandler, this::addSlot);
+			RocketPartGridPlacer.placeContainer(40, 108, 1, placer::placeBottom, ModInnet.ROCKET_PART_ENGINE.get(), partsItemHandler, this::addSlot);
 
 			ContainerHelper.addInventorySlots(this, inv, 8, 142, 200, this::addSlot);
 		}
-		
+
 		public CustomTileEntity getTileEntity() {
 			return this.tileEntity;
 		}
