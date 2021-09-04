@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.common.collect.Lists;
+
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -17,7 +19,7 @@ public class ItemStackCacher {
 	}
 
 	public boolean test(ItemStack stack) {
-		return this.test(List.of(stack));
+		return this.test(Lists.newArrayList(stack));
 	}
 
 	public boolean test(Collection<ItemStack> stacks) {
