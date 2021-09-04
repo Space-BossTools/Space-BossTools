@@ -179,5 +179,16 @@
   "job.boss_tools.job10": "Toolsmith",
   "job.boss_tools.job11": "Butcher",
   "job.boss_tools.job12": "Leatherworker",
-  "job.boss_tools.job13": "Mason"
+  "job.boss_tools.job13": "Mason",
+  
+  "block.boss_tools.molten_desh_fluid": "Molten Desh",
+  "fluid.boss_tools.molten_desh": "Molten Desh",
+  "fluid.boss_tools.flowing_molten_desh": "Flowing Molten Desh",
+  "item.boss_tools.molten_desh_bucket": "Molten Desh Bucket",
+  "block.boss_tools.molten_silicon_fluid": "Molten Silicon",
+  "fluid.boss_tools.molten_silicon": "Molten Silicon",
+  "fluid.boss_tools.flowing_molten_silicon": "Flowing Molten Silicon",
+  "item.boss_tools.molten_silicon_bucket": "Molten Silicon Bucket",
+  
+  "_eof": "eof"
 }
