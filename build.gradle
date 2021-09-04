@@ -71,7 +71,14 @@ minecraft {
 
 dependencies {
   minecraft 'net.minecraftforge:forge:1.16.5-36.2.0'
+
+  //Mixin
+  annotationProcessor 'org.spongepowered:mixin:0.8.2:processor'
+
+  //Obfuscate
   compile fg.deobf("curse.maven:obfuscate-289380:3067472")
+
+  //JEI
   compileOnly fg.deobf("mezz.jei:jei-1.16.4:7.6.0.62:api")
   runtimeOnly fg.deobf("mezz.jei:jei-1.16.4:7.6.0.62")
   
