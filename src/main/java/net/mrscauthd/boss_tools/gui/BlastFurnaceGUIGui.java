@@ -88,7 +88,7 @@ public class BlastFurnaceGUIGui extends BossToolsModElements.ModElement {
 
 		@Override
 		public boolean canInteractWith(PlayerEntity player) {
-			return true;
+			return !this.getTileEntity().isRemoved();
 		}
 
 		@Override
