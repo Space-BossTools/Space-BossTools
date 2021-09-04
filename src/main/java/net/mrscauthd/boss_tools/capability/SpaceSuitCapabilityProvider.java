@@ -38,7 +38,7 @@ public class SpaceSuitCapabilityProvider implements ICapabilityProvider, IOxygen
 			return LazyOptional.of(this::getOxygenStorage).cast();
 		}
 
-		return null;
+		return LazyOptional.empty();
 	}
 
 	@Override
