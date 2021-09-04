@@ -35,3 +35,10 @@ Fly to Other Planets!
     versionRange="[0.5.0,)"
     ordering="NONE"
     side="BOTH"
+    
+[[dependencies.boss_tools]]
+    modId="tconstruct"
+    mandatory=false
+    versionRange="[0.5.0,)"
+    ordering="NONE"
+    side="BOTH"
