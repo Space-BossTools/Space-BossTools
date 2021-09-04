@@ -59,6 +59,8 @@ public class NasaWorkbenchGui extends BossToolsModElements.ModElement {
 		private CustomTileEntity tileEntity;
 		private CraftResultInventory resultInventory;
 		private Slot resultSlot;
+		private int partSlotStart = 0;
+		private int partSlotEnd = 0;
 
 		public GuiContainerMod(int id, PlayerInventory inv, CustomTileEntity tileEntity) {
 			super(containerType, id);
@@ -81,6 +83,7 @@ public class NasaWorkbenchGui extends BossToolsModElements.ModElement {
 			};
 			this.resultSlot = this.addSlot(new NasaWorkbenchingResultSlot(this.resultInventory, 0, 133, 74, tileEntity));
 
+			this.partSlotStart = this.inventorySlots.size();
 			RocketPartsItemHandler partsItemHandler = tileEntity.getPartsItemHandler();
 			GridPlacer placer = new GridPlacer();
 			RocketPartGridPlacer.placeContainer(40, 18, 1, placer::placeBottom, ModInnet.ROCKET_PART_NOSE.get(), partsItemHandler, this::addSlot);
@@ -89,6 +92,7 @@ public class NasaWorkbenchGui extends BossToolsModElements.ModElement {
 			RocketPartGridPlacer.placeContainer(13, 90, 1, placer::placeBottom, ModInnet.ROCKET_PART_FIN_LEFT.get(), partsItemHandler, this::addSlot);
 			RocketPartGridPlacer.placeContainer(67, 90, 1, placer::placeBottom, ModInnet.ROCKET_PART_FIN_RIGHT.get(), partsItemHandler, this::addSlot);
 			RocketPartGridPlacer.placeContainer(40, 108, 1, placer::placeBottom, ModInnet.ROCKET_PART_ENGINE.get(), partsItemHandler, this::addSlot);
+			this.partSlotEnd = this.inventorySlots.size();
 
 			ContainerHelper.addInventorySlots(this, inv, 8, 142, 200, this::addSlot);
 		}
@@ -116,26 +120,31 @@ public class NasaWorkbenchGui extends BossToolsModElements.ModElement {
 
 		@Override
 		public ItemStack transferStackInSlot(PlayerEntity playerIn, int slotNumber) {
-			Slot slot = this.getSlot(slotNumber);
-			ItemStack prev = slot.getStack().copy();
-			ItemStack itemStack = ContainerHelper.transferStackInSlot(this, playerIn, slotNumber, this.getTileEntity(), this::mergeItemStack);
+			if (this.partSlotStart <= slotNumber && slotNumber < this.partSlotEnd) {
+				return ContainerHelper.transferStackInSlot(this, playerIn, slotNumber, slotNumber - this.partSlotStart, this.getTileEntity(), this::mergeItemStack);
+			} else if (slotNumber == this.resultSlot.slotNumber) {
+				Slot slot = this.getSlot(slotNumber);
+				ItemStack prev = slot.getStack().copy();
+				ItemStack itemStack = ContainerHelper.transferStackInSlot(this, playerIn, slotNumber, this.getTileEntity(), this::mergeItemStack);
 
-			if (slotNumber == this.resultSlot.slotNumber) {
-				ItemStack next = slot.getStack().copy();
+				if (slotNumber == this.resultSlot.slotNumber) {
+					ItemStack next = slot.getStack().copy();
 
-				if (!prev.isEmpty()) {
-					int nextSize = next.isEmpty() ? 0 : next.getCount();
+					if (!prev.isEmpty()) {
+						int nextSize = next.isEmpty() ? 0 : next.getCount();
 
-					if (nextSize > 0) {
-						playerIn.dropItem(next, false);
-						slot.putStack(ItemStack.EMPTY);
+						if (nextSize > 0) {
+							playerIn.dropItem(next, false);
+							slot.putStack(ItemStack.EMPTY);
+						}
 					}
+					this.onExtractResult(prev);
 				}
 
-				this.onExtractResult(prev);
+				return itemStack;
+			} else {
+				return ContainerHelper.transferStackInSlot(this, playerIn, slotNumber, this.getTileEntity(), this::mergeItemStack);
 			}
-
-			return itemStack;
 		}
 
 		public CustomTileEntity getTileEntity() {

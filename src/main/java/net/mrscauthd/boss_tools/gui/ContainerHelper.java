@@ -29,20 +29,20 @@ public class ContainerHelper {
 		}
 	}
 
-	public static ItemStack transferStackInSlot(Container container, PlayerEntity player, int index, IInventory tileEntity, IMergeItemStack mergeItemStack) {
+	public static ItemStack transferStackInSlot(Container container, PlayerEntity player, int slotNumber, int inventoryIndex, IInventory inventory, IMergeItemStack mergeItemStack) {
 		ItemStack itemStack = ItemStack.EMPTY;
 		List<Slot> inventorySlots = container.inventorySlots;
-		Slot slot = inventorySlots.get(index);
+		Slot slot = inventorySlots.get(slotNumber);
 
 		if (slot != null && slot.getHasStack()) {
 			ItemStack slotStack = slot.getStack();
 			itemStack = slotStack.copy();
 
-			if (index < tileEntity.getSizeInventory()) {
-				if (!mergeItemStack.mergeItemStack(slotStack, tileEntity.getSizeInventory(), inventorySlots.size(), true)) {
+			if (inventoryIndex < inventory.getSizeInventory()) {
+				if (!mergeItemStack.mergeItemStack(slotStack, inventory.getSizeInventory(), inventorySlots.size(), true)) {
 					return ItemStack.EMPTY;
 				}
-			} else if (!mergeItemStack.mergeItemStack(slotStack, 0, tileEntity.getSizeInventory(), false)) {
+			} else if (!mergeItemStack.mergeItemStack(slotStack, 0, inventory.getSizeInventory(), false)) {
 				return ItemStack.EMPTY;
 			}
 
@@ -54,6 +54,10 @@ public class ContainerHelper {
 		}
 
 		return itemStack;
+	}
+
+	public static ItemStack transferStackInSlot(Container container, PlayerEntity player, int slotNumber, IInventory inventory, IMergeItemStack mergeItemStack) {
+		return transferStackInSlot(container, player, slotNumber, slotNumber, inventory, mergeItemStack);
 	}
 
 }
