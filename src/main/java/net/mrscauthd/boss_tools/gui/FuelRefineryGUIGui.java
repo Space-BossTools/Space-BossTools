@@ -32,6 +32,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.BossToolsModElements;
+import net.mrscauthd.boss_tools.machines.FuelRefineryBlock;
 import net.mrscauthd.boss_tools.machines.FuelRefineryBlock.CustomTileEntity;
 
 @BossToolsModElements.ModElement.Tag
@@ -137,7 +138,7 @@ public class FuelRefineryGUIGui extends BossToolsModElements.ModElement {
 
 		@Override
 		public boolean canInteractWith(PlayerEntity player) {
-			return true;
+			return this.world.getTileEntity(new BlockPos(this.x, this.y, this.z)) instanceof FuelRefineryBlock.CustomTileEntity;
 		}
 
 		@Override
