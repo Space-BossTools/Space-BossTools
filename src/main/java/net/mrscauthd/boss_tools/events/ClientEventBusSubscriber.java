@@ -57,6 +57,9 @@ public class ClientEventBusSubscriber {
 		//Fluid Translucent Renderer
 		RenderTypeLookup.setRenderLayer(ModInnet.FLOWING_FUEL.get(), RenderType.getTranslucent());
 		RenderTypeLookup.setRenderLayer(ModInnet.FUEL_STILL.get(), RenderType.getTranslucent());
+
+		//Block Translucent Renderer
+		RenderTypeLookup.setRenderLayer(ModInnet.COAL_LANTERN_BLOCK.get(), RenderType.getTranslucent());
 	}
 
 	@SubscribeEvent

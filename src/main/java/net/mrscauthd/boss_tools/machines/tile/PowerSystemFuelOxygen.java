@@ -16,12 +16,12 @@ public abstract class PowerSystemFuelOxygen extends PowerSystemFuel {
 	}
 
 	@Override
-	public int getFuel(ItemStack fuel) {
+	protected int getFuelInternal(ItemStack fuel) {
 		if (fuel == null || fuel.isEmpty()) {
 			return -1;
 		}
 
-		OxygenMakingRecipe recipe = this.getRecipeType().findFirst(this.getTileEntity().getWorld(), f -> f.testIngredient(fuel));
+		OxygenMakingRecipe recipe = this.getRecipeType().findFirst(this.getTileEntity().getWorld(), f -> f.test(fuel));
 		return recipe != null ? recipe.getOxygen() : -1;
 	}
 

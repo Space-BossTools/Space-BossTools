@@ -42,6 +42,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import net.mrscauthd.boss_tools.capability.EnergyStorageBasic;
 import net.mrscauthd.boss_tools.capability.IEnergyStorageHolder;
@@ -68,7 +69,12 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		this.createPowerSystems(powerSystemMap);
 		this.powerSystems = Collections.unmodifiableMap(powerSystemMap);
 		this.itemHandlers = SidedInvWrapper.create(this, Direction.values());
+		this.createItemHandlers();
 		this.stacks = NonNullList.<ItemStack>withSize(this.getInitialInventorySize(), ItemStack.EMPTY);
+	}
+
+	protected void createItemHandlers() {
+
 	}
 
 	public boolean isPowerEnoughForOperation() {
@@ -77,8 +83,8 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 
 	/**
 	 * 
-	 * @return null : fail on consume from any PowerSystem
-	 * <br>nonnull : each PowerSystem's consumed power 
+	 * @return null : fail on consume from any PowerSystem <br>
+	 *         nonNull : each PowerSystem's consumed power
 	 */
 	@Nullable
 	public Map<PowerSystem, Integer> consumePowerForOperation() {
@@ -437,4 +443,16 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	public boolean nullOrMatch(@Nullable Direction direction, Direction... matches) {
 		return direction == null || ArrayUtils.contains(matches, direction);
 	}
+
+	public boolean hasSpaceInOutput(ItemStack recipeOutput, ItemStack output) {
+		if (output.isEmpty()) {
+			return true;
+		} else if (ItemHandlerHelper.canItemStacksStack(output, recipeOutput)) {
+			int limit = Math.min(recipeOutput.getMaxStackSize(), this.getInventoryStackLimit());
+			return (output.getCount() + recipeOutput.getCount()) <= limit;
+		}
+
+		return false;
+	}
+
 }

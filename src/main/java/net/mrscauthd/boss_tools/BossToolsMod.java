@@ -4,14 +4,17 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.mrscauthd.boss_tools.world.biomes.BiomeRegisrtyEvents;
 import net.mrscauthd.boss_tools.compat.tinkers.TinkersCompat;
+import net.mrscauthd.boss_tools.crafting.RocketPart;
 import net.mrscauthd.boss_tools.events.SyncEvents;
 import net.mrscauthd.boss_tools.keybind.KeyBindings;
 import net.mrscauthd.boss_tools.world.structure.configuration.STStructures;
 import net.mrscauthd.boss_tools.world.structure.configuration.STStructures2;
 import org.apache.logging.log4j.Logger;
+import org.apache.http.config.RegistryBuilder;
 import org.apache.logging.log4j.LogManager;
 
 import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraftforge.registries.GameData;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -20,6 +23,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -67,6 +71,8 @@ public class BossToolsMod {
 		ModInnet.SENSOR.register(bus);
 		ModInnet.FLUIDS.register(bus);
 		ModInnet.RECIPE_SERIALIZERS.register(bus);
+		ModInnet.ROCKET_PARTS.register(bus);
+        
 		bus.addListener(ModInnet::setup);
 		forgeBus.addListener(EventPriority.NORMAL, ModInnet::addDimensionalSpacing);
 		forgeBus.addListener(EventPriority.HIGH, ModInnet::biomeModification);

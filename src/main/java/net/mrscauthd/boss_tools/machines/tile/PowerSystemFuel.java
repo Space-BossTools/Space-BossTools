@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import net.mrscauthd.boss_tools.inventory.ItemStackCacher;
 
 public abstract class PowerSystemFuel extends PowerSystem {
 
@@ -16,10 +17,19 @@ public abstract class PowerSystemFuel extends PowerSystem {
 	private int fuel;
 	private int maxFuel;
 
+	private ItemStackCacher itemStackCacher;
+	private int cachedFuel;
+
 	public PowerSystemFuel(AbstractMachineTileEntity tileEntity, int slot) {
 		super(tileEntity);
 
 		this.slot = slot;
+
+		this.fuel = 0;
+		this.maxFuel = 0;
+
+		this.itemStackCacher = new ItemStackCacher();
+		this.cachedFuel = 0;
 	}
 
 	@Override
@@ -83,7 +93,18 @@ public abstract class PowerSystemFuel extends PowerSystem {
 		return compound;
 	}
 
-	public abstract int getFuel(ItemStack fuel);
+	protected abstract int getFuelInternal(ItemStack fuel);
+
+	public final int getFuel(ItemStack fuel) {
+		if (fuel == null || fuel.isEmpty()) {
+			this.itemStackCacher.set(fuel);
+			this.cachedFuel = -1;
+		} else if (!this.itemStackCacher.test(fuel)) {
+			this.itemStackCacher.set(fuel);
+			this.cachedFuel = this.getFuelInternal(fuel);
+		}
+		return this.cachedFuel;
+	}
 
 	@Override
 	public boolean feed(boolean spareForNextTick) {
