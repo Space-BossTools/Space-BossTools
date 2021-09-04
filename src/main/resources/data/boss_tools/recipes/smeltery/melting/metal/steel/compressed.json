@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "boss_tools:compressed_steel"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_steel",
+    "amount": 144
+  },
+  "temperature": 950,
+  "time": 65
+}
