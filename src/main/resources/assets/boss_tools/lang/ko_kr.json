@@ -60,6 +60,7 @@
   "itemGroup.tab_spawn_eggs": "Space-Bosstools: 생성 알",
   "itemGroup.tab_materials": "Space-Bosstools: 재료",
 
+  "block.boss_tools.coal_lantern": "Coal Lantern",
   "block.boss_tools.oxygen_bullet_generator": "산소 탄 생성기",
   "block.boss_tools.block_of_blue_iron_plating": "청금 철 판 블록",
   "block.boss_tools.mercury_iron_ore": "수성 철 광석",
