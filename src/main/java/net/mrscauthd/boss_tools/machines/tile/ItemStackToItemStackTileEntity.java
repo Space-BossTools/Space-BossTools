@@ -4,16 +4,14 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.ItemHandlerHelper;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipe;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipeType;
+import net.mrscauthd.boss_tools.inventory.ItemStackCacher;
 
 public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTileEntity {
 
@@ -24,11 +22,14 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 	public static final String KEY_TIMER = "timer";
 	public static final String KEY_MAXTIMER = "maxTimer";
 
-	private ItemStack lastRecipeItemStack = null;
-	private ItemStackToItemStackRecipe lastRecipe = null;
+	private ItemStackCacher itemStackCacher;
+	private ItemStackToItemStackRecipe cachedRecipe = null;
 
 	public ItemStackToItemStackTileEntity(TileEntityType<?> type) {
 		super(type);
+
+		this.itemStackCacher = new ItemStackCacher();
+		this.cachedRecipe = null;
 	}
 
 	@Override
@@ -56,7 +57,7 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 		if (super.canInsertItem(index, stack, direction)) {
 			return true;
 		} else if (index == SLOT_INGREDIENT && this.nullOrMatch(direction, Direction.UP)) {
-			return this.getRecipeType().findFirst(this.getWorld(), r -> r.testIngredient(stack)) != null;
+			return this.getRecipeType().findFirst(this.getWorld(), r -> r.test(stack)) != null;
 		}
 		return false;
 	}
@@ -80,39 +81,28 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 		ItemStack itemStack = this.getStackInSlot(SLOT_INGREDIENT);
 
 		if (itemStack == null || itemStack.isEmpty()) {
-			this.lastRecipeItemStack = itemStack;
-			this.lastRecipe = null;
-		} else if (this.lastRecipeItemStack == null || !ItemHandlerHelper.canItemStacksStack(this.lastRecipeItemStack, itemStack)) {
-			this.lastRecipeItemStack = itemStack;
-			this.lastRecipe = this.getRecipeType().findFirst(this.getWorld(), this);
+			this.itemStackCacher.set(itemStack);
+			this.cachedRecipe = null;
+		} else if (!this.itemStackCacher.test(itemStack)) {
+			this.itemStackCacher.set(itemStack);
+			this.cachedRecipe = this.getRecipeType().findFirst(this.getWorld(), r -> r.test(itemStack));
 
-			if (this.lastRecipe != null) {
-				this.setMaxTimer(this.lastRecipe.getCookTime());
+			if (this.cachedRecipe != null) {
+				this.setMaxTimer(this.cachedRecipe.getCookTime());
 			}
 		}
-		return this.lastRecipe;
+		return this.cachedRecipe;
 	}
 
 	@Override
 	public boolean hasSpaceInOutput() {
-		IRecipe<IInventory> cacheRecipe = this.cacheRecipe();
-		return cacheRecipe != null && this.hasSpaceInOutput(cacheRecipe.getRecipeOutput());
+		ItemStackToItemStackRecipe cacheRecipe = this.cacheRecipe();
+		return cacheRecipe != null && this.hasSpaceInOutput(cacheRecipe.getOutput());
 	}
 
 	public boolean hasSpaceInOutput(ItemStack recipeOutput) {
 		ItemStack output = this.getItemHandler().getStackInSlot(SLOT_OUTPUT);
 		return hasSpaceInOutput(recipeOutput, output);
-	}
-
-	public boolean hasSpaceInOutput(ItemStack recipeOutput, ItemStack output) {
-		if (output.isEmpty()) {
-			return true;
-		} else if (ItemHandlerHelper.canItemStacksStack(output, recipeOutput)) {
-			int limit = Math.min(recipeOutput.getMaxStackSize(), this.getInventoryStackLimit());
-			return (output.getCount() + recipeOutput.getCount()) <= limit;
-		}
-
-		return false;
 	}
 
 	protected boolean resetTimer() {
@@ -140,7 +130,7 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 		ItemStackToItemStackRecipe recipe = this.cacheRecipe();
 
 		if (recipe != null) {
-			ItemStack recipeOutput = recipe.getCraftingResult(this);
+			ItemStack recipeOutput = recipe.getOutput();
 
 			if (this.hasSpaceInOutput(recipeOutput)) {
 				if (this.consumePowerForOperation() != null) {

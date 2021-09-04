@@ -16,12 +16,12 @@ public class PowerSystemFuelGeneratingRecipe extends PowerSystemFuelBurnTime {
 	}
 
 	@Override
-	public int getFuel(ItemStack fuel) {
+	protected int getFuelInternal(ItemStack fuel) {
 		if (fuel == null || fuel.isEmpty()) {
 			return -1;
 		}
 
-		GeneratingRecipe recipe = this.getRecipeType().findFirst(this.getTileEntity().getWorld(), f -> f.testIngredient(fuel));
+		GeneratingRecipe recipe = this.getRecipeType().findFirst(this.getTileEntity().getWorld(), f -> f.test(fuel));
 		return recipe != null ? recipe.getBurnTime() : -1;
 	}
 
