@@ -47,7 +47,7 @@ public class ItemStackCacher {
 	}
 
 	public void set(ItemStack stack) {
-		this.set(List.of(stack));
+		this.set(Lists.newArrayList(stack));
 	}
 
 	public void set(Collection<ItemStack> stacks) {
