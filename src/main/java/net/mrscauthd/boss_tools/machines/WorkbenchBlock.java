@@ -65,6 +65,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -89,8 +91,7 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:nasa_workbench")
 	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
 
-	public static final int SLOT_OUTPUT = 0;
-	public static final int SLOT_PARTS = 1;
+	public static final int SLOT_PARTS = 0;
 
 	public static List<RocketPart> getBasicPartOrders() {
 		List<RocketPart> parts = new ArrayList<>();
@@ -261,7 +262,7 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 		@Override
 		public int getComparatorInputOverride(BlockState blockState, World world, BlockPos pos) {
 			CustomTileEntity tileentity = (CustomTileEntity) world.getTileEntity(pos);
-			return Container.calcRedstoneFromInventory(tileentity);
+			return tileentity.cacheRecipes() != null ? 15 : 0;
 		}
 	}
 
@@ -272,6 +273,9 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 		private List<WorkbenchingRecipe> possibleRecipes;
 		private Set<ItemStack> invalidCache;
 
+		private int prevRedstone;
+		private int currRedstone;
+
 		private RocketPartsItemHandler partsItemHandler;
 
 		protected CustomTileEntity() {
@@ -281,6 +285,9 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 			this.cachedRecipe = null;
 			this.possibleRecipes = new ArrayList<>();
 			this.invalidCache = new HashSet<>();
+
+			this.prevRedstone = 0;
+			this.currRedstone = 0;
 		}
 
 		public RocketPartsItemHandler getPartsItemHandler() {
@@ -289,10 +296,6 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 
 		public List<RocketPart> getPartOrders() {
 			return getBasicPartOrders();
-		}
-
-		public int getOutputSlot() {
-			return SLOT_OUTPUT;
 		}
 
 		public int getPartsSlot() {
@@ -308,7 +311,7 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		protected int getInitialInventorySize() {
-			return super.getInitialInventorySize() + 1 + this.getPartsItemHandler().getSlots();
+			return super.getInitialInventorySize() + this.getPartsItemHandler().getSlots();
 		}
 
 		@Override
@@ -327,25 +330,6 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 			this.cacheRecipes();
 		}
 
-		public void onTransferStackInSlot(int index, ItemStack stack) {
-			if (index == this.getOutputSlot() && !stack.isEmpty()) {
-				this.consumeIngredient();
-			}
-
-		}
-		
-		@Override
-		public ItemStack decrStackSize(int slot, int amount) {
-			ItemStack stack = super.decrStackSize(slot, amount);
-
-			this.onTransferStackInSlot(slot, stack);
-			if (slot == this.getOutputSlot() && !stack.isEmpty()) {
-				this.consumeIngredient();
-			}
-
-			return stack;
-		}
-
 		@Override
 		public Container createMenu(int id, PlayerInventory player) {
 			return new NasaWorkbenchGui.GuiContainerMod(id, player, this);
@@ -359,7 +343,6 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 		@Override
 		protected void getSlotsForFace(Direction direction, List<Integer> slots) {
 			super.getSlotsForFace(direction, slots);
-			slots.add(this.getOutputSlot());
 
 			RocketPartsItemHandler partsItemHandler = this.getPartsItemHandler();
 
@@ -376,17 +359,6 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 
 			int find = this.findAvailableSlot(stack);
 			return find == index;
-		}
-
-		@Override
-		public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-			if (super.canExtractItem(index, stack, direction)) {
-				return true;
-			} else if (index == this.getOutputSlot()) {
-				return true;
-			}
-
-			return false;
 		}
 
 		public int findAvailableSlot(ItemStack itemStack) {
@@ -431,7 +403,7 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 			return -1;
 		}
 
-		protected WorkbenchingRecipe cacheRecipes() {
+		public WorkbenchingRecipe cacheRecipes() {
 			RocketPartsItemHandler partsItemHandler = this.getPartsItemHandler();
 			List<ItemStack> stacks = ItemHandlerHelper2.getStacks(partsItemHandler);
 
@@ -444,12 +416,6 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 				recipeType.filter(this.getWorld(), r -> r.test(partsItemHandler, true)).forEach(this.possibleRecipes::add);
 
 				this.invalidCache.clear();
-
-				if (this.cachedRecipe != null) {
-					this.setInventorySlotContents(this.getOutputSlot(), this.cachedRecipe.getOutput());
-				} else {
-					this.setInventorySlotContents(this.getOutputSlot(), ItemStack.EMPTY);
-				}
 			}
 
 			return this.cachedRecipe;
@@ -462,6 +428,50 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 		@Override
 		protected void tickProcessing() {
 			this.spawnParticles();
+
+			this.updateRedstoneState();
+
+			if (this.prevRedstone == 0 && this.currRedstone > 0) {
+				this.outputToBottom();
+			}
+
+		}
+
+		protected void updateRedstoneState() {
+			this.prevRedstone = this.currRedstone;
+			this.currRedstone = this.getWorld().getRedstonePowerFromNeighbors(this.getPos());
+		}
+
+		protected void outputToBottom() {
+
+			WorkbenchingRecipe recipe = this.cacheRecipes();
+
+			if (recipe == null) {
+				return;
+			}
+
+			IItemHandler bottomItemHandler = this.getBottomTileEntityItemHandler();
+
+			if (bottomItemHandler == null) {
+				return;
+			}
+
+			ItemStack output = recipe.getOutput();
+
+			if (ItemHandlerHelper.insertItem(bottomItemHandler, output, true).isEmpty()) {
+				ItemHandlerHelper.insertItem(bottomItemHandler, output, false);
+				this.consumeIngredient();
+			}
+		}
+
+		private IItemHandler getBottomTileEntityItemHandler() {
+			TileEntity bottomTileEntity = this.getWorld().getTileEntity(this.getPos().down());
+
+			if (bottomTileEntity != null) {
+				return bottomTileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null);
+			} else {
+				return null;
+			}
 		}
 
 		protected void spawnParticles() {
@@ -477,7 +487,7 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 			}
 		}
 
-		protected boolean consumeIngredient() {
+		public boolean consumeIngredient() {
 			WorkbenchingRecipe recipe = this.cacheRecipes();
 
 			if (recipe == null) {
@@ -494,15 +504,13 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 				}
 			}
 
-			this.getItemHandler().insertItem(this.getOutputSlot(), recipe.getOutput(), false);
-
 			World world = this.getWorld();
 
 			if (world instanceof ServerWorld) {
 				ServerWorld serverWorld = (ServerWorld) world;
 				BlockPos pos = this.getPos();
 
-				serverWorld.playSound(pos.getX(), pos.getY(), pos.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("item.totem.use")), SoundCategory.NEUTRAL, 1.0F, 1.0F, false);
+				serverWorld.playSound(null, pos, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("item.totem.use")), SoundCategory.NEUTRAL, 1.0F, 1.0F);
 				serverWorld.spawnParticle(ParticleTypes.TOTEM_OF_UNDYING, pos.getX() + 0.5D, pos.getY() + 1.5D, pos.getZ() + 0.5D, 100, 0.1D, 0.1D, 0.1D, 0.7D);
 			}
 
@@ -511,12 +519,7 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 
 		@Override
 		public boolean hasSpaceInOutput() {
-			WorkbenchingRecipe recipe = this.cacheRecipes();
-			return recipe != null && this.hasSpaceInOutput(recipe.getOutput());
-		}
-
-		public boolean hasSpaceInOutput(ItemStack recipeOutput) {
-			return this.hasSpaceInOutput(recipeOutput, this.getStackInSlot(this.getOutputSlot()));
+			return true;
 		}
 
 	}

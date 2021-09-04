@@ -90,7 +90,7 @@ public class JeiPlugin implements IModPlugin {
 		// Compressor
 		registration.addRecipeTransferHandler(CompressorGuiGui.GuiContainerMod.class, CompressorJeiCategory.Uid, ItemStackToItemStackTileEntity.SLOT_INGREDIENT, 1, ItemStackToItemStackTileEntity.SLOT_OUTPUT + 1, inventorySlotCount);
 		// WorkBench
-		int workbenchPartSlotStart = WorkbenchBlock.SLOT_PARTS;
+		int workbenchPartSlotStart = 1 + WorkbenchBlock.SLOT_PARTS;
 		int workbenchPartSlotCount = WorkbenchBlock.getBasicPartSlots();
 		registration.addRecipeTransferHandler(NasaWorkbenchGui.GuiContainerMod.class, WorkbenchJeiCategory.Uid, workbenchPartSlotStart, workbenchPartSlotCount, workbenchPartSlotStart + workbenchPartSlotCount, inventorySlotCount);
 	}
@@ -573,9 +573,6 @@ public class JeiPlugin implements IModPlugin {
 			IDrawable background = this.getBackground();
 			iRecipeLayout.moveRecipeTransferButton(background.getWidth() - 20, background.getHeight() - 20);
 
-			IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
-			stacks.init(WorkbenchBlock.SLOT_OUTPUT, false, 126, 72);
-			stacks.set(WorkbenchBlock.SLOT_OUTPUT, iIngredients.getOutputs(VanillaTypes.ITEM).get(0));
 
 			int slots = WorkbenchBlock.SLOT_PARTS;
 			GridPlacer placer = new GridPlacer();
@@ -585,6 +582,11 @@ public class JeiPlugin implements IModPlugin {
 			slots = RocketPartGridPlacer.placeJEI(slots, 11, 79, 1, placer::placeBottom, ModInnet.ROCKET_PART_FIN_LEFT.get(), iRecipeLayout, recipe);
 			slots = RocketPartGridPlacer.placeJEI(slots, 65, 79, 1, placer::placeBottom, ModInnet.ROCKET_PART_FIN_RIGHT.get(), iRecipeLayout, recipe);
 			slots = RocketPartGridPlacer.placeJEI(slots, 38, 97, 1, placer::placeBottom, ModInnet.ROCKET_PART_ENGINE.get(), iRecipeLayout, recipe);
+
+			IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
+			stacks.init(slots, false, 126, 72);
+			stacks.set(slots, iIngredients.getOutputs(VanillaTypes.ITEM).get(0));
+			slots++;
 		}
 	}
 
