@@ -5,7 +5,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
@@ -57,13 +56,7 @@ public class SolarPanelGUIGui extends BossToolsModElements.ModElement {
 			super(containerType, id);
 			this.tileEntity = tileEntity;
 
-			int si;
-			int sj;
-			for (si = 0; si < 3; ++si)
-				for (sj = 0; sj < 9; ++sj)
-					this.addSlot(new Slot(inv, sj + (si + 1) * 9, 0 + 8 + sj * 18, 0 + 84 + si * 18));
-			for (si = 0; si < 9; ++si)
-				this.addSlot(new Slot(inv, si, 0 + 8 + si * 18, 0 + 142));
+			ContainerHelper.addInventorySlots(this, inv, 8, 84, 142, this::addSlot);
 		}
 
 		public CustomTileEntity getTileEntity() {
@@ -77,7 +70,7 @@ public class SolarPanelGUIGui extends BossToolsModElements.ModElement {
 
 		@Override
 		public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
-			return ContainerHelper.transferStackInSlot(playerIn, index, this, this.getTileEntity(), this::mergeItemStack);
+			return ContainerHelper.transferStackInSlot(this, playerIn, index, this.getTileEntity(), this::mergeItemStack);
 		}
 	}
 }

@@ -13,7 +13,7 @@ public abstract class PowerSystemFuelBurnTimeVanilla extends PowerSystemFuelBurn
 	public abstract IRecipeType<?> getRecipeType();
 
 	@Override
-	public int getFuel(ItemStack fuel) {
+	protected int getFuelInternal(ItemStack fuel) {
 		return ForgeHooks.getBurnTime(fuel, this.getRecipeType());
 	}
 

@@ -8,6 +8,7 @@ public class BossToolsRecipeTypes {
 	public static final ItemStackToItemStackRecipeType<CompressingRecipe> COMPRESSING = create(new ItemStackToItemStackRecipeType<>("compressing"));
 	public static final BossToolsRecipeType<GeneratingRecipe> GENERATING = create(new BossToolsRecipeType<>("generating"));
 	public static final BossToolsRecipeType<OxygenMakingRecipe> OXYGENMAKING = create(new BossToolsRecipeType<>("oxygenmaking"));
+	public static final BossToolsRecipeType<WorkbenchingRecipe> WORKBENCHING = create(new BossToolsRecipeType<>("workbenching"));
 
 	/**
 	 * for initialize static final fields
