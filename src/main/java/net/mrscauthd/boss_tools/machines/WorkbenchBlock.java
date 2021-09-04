@@ -320,11 +320,6 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 		}
 
 		@Override
-		public int getInventoryStackLimit() {
-			return 1;
-		}
-
-		@Override
 		public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
 			super.setInventorySlotContents(p_70299_1_, p_70299_2_);
 			this.cacheRecipes();
