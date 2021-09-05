@@ -52,14 +52,8 @@ public class Events {
             //Gravity Methode Call
             Gravity.Gravity(entity, "player", (World) world);
 
-            //Venus Rain
-            if (((World) world).getDimensionKey() == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))) {
-                if (entity.abilities.isCreativeMode == false && entity.isSpectator() == false) {
-                    if (world.getWorldInfo().isRaining() == (true) && world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(x), (int) Math.floor(z)) <= Math.floor(y) + 1) {
-                        entity.attackEntityFrom(new DamageSource("venus.acid").setDamageBypassesArmor(), 1);
-                    }
-                }
-            }
+            //Drop Off Hand Item
+            Methodes.DropRocket(entity);
 
             //Player orbit Fall Teleport
             RegistryKey<World> world2 = ((World) world).getDimensionKey();
@@ -111,24 +105,15 @@ public class Events {
     public static void onEntityTick(LivingEvent.LivingUpdateEvent event) {
         LivingEntity entity = event.getEntityLiving();
         World world = entity.world;
-        double x = entity.getPosX();
-        double y = entity.getPosY();
-        double z = entity.getPosZ();
-        if (Config.EntityOxygenSystem == true) {
-            if (EntityTypeTags.getCollection().getTagByID(new ResourceLocation(("forge:entities/space").toLowerCase(java.util.Locale.ENGLISH))).contains(entity.getType())) {
-                if (Methodes.DimCheck(world)) {
-                    entity.getPersistentData().putDouble("tick", entity.getPersistentData().getDouble("tick") + 1);
-                    if (entity.getPersistentData().getDouble("tick") >= 15) {
-                        world.addParticle(ParticleTypes.SMOKE, x, (y + 1), z, 0, 0, 0);
-                        entity.attackEntityFrom(new DamageSource("space").setDamageBypassesArmor(),1);
-                        entity.getPersistentData().putDouble("tick", 0);
-                    }
-                }
-            }
-        }
+
+        //Entity Oxygen //Todo rework this with the New Oxygen System
+        Methodes.EntityOxygen(entity,world);
 
         //Gravity Methode Call
         Gravity.Gravity(entity, "living", world);
+
+        //Venus Rain
+        Methodes.VenusRain(entity, new ResourceLocation("boss_tools:venus"));
 
     }
 
