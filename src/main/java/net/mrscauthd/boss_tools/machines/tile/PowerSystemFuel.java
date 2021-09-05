@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import net.mrscauthd.boss_tools.inventory.ItemStackCacher;
+import net.mrscauthd.boss_tools.inventory.StackCacher;
 
 public abstract class PowerSystemFuel extends PowerSystem {
 
@@ -17,7 +17,7 @@ public abstract class PowerSystemFuel extends PowerSystem {
 	private int fuel;
 	private int maxFuel;
 
-	private ItemStackCacher itemStackCacher;
+	private StackCacher itemStackCacher;
 	private int cachedFuel;
 
 	public PowerSystemFuel(AbstractMachineTileEntity tileEntity, int slot) {
@@ -28,7 +28,7 @@ public abstract class PowerSystemFuel extends PowerSystem {
 		this.fuel = 0;
 		this.maxFuel = 0;
 
-		this.itemStackCacher = new ItemStackCacher();
+		this.itemStackCacher = new StackCacher();
 		this.cachedFuel = 0;
 	}
 

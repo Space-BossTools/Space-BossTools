@@ -11,7 +11,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipe;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipeType;
-import net.mrscauthd.boss_tools.inventory.ItemStackCacher;
+import net.mrscauthd.boss_tools.inventory.StackCacher;
 
 public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTileEntity {
 
@@ -22,13 +22,13 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 	public static final String KEY_TIMER = "timer";
 	public static final String KEY_MAXTIMER = "maxTimer";
 
-	private ItemStackCacher itemStackCacher;
+	private StackCacher itemStackCacher;
 	private ItemStackToItemStackRecipe cachedRecipe = null;
 
 	public ItemStackToItemStackTileEntity(TileEntityType<?> type) {
 		super(type);
 
-		this.itemStackCacher = new ItemStackCacher();
+		this.itemStackCacher = new StackCacher();
 		this.cachedRecipe = null;
 	}
 

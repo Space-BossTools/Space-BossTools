@@ -4,9 +4,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import javax.annotation.Nullable;
+import com.google.common.collect.Lists;
 
-import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
@@ -16,6 +15,7 @@ import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
@@ -25,7 +25,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootContext;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
@@ -43,33 +42,37 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.capability.EnergyStorageBasic;
-import net.mrscauthd.boss_tools.fluid.FuelFluid;
+import net.mrscauthd.boss_tools.capability.MultiFluidHandler;
+import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
+import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
+import net.mrscauthd.boss_tools.crafting.FluidIngredient;
+import net.mrscauthd.boss_tools.crafting.FuelRefiningRecipe;
+import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 import net.mrscauthd.boss_tools.gui.FuelRefineryGUIGui;
+import net.mrscauthd.boss_tools.inventory.StackCacher;
 import net.mrscauthd.boss_tools.machines.tile.AbstractMachineTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemCommonEnergy;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemMap;
 
 public class FuelRefineryBlock {
-	public static final int BUCKET_SIZE = 1000;
-	public static final int BARREL_SIZE = 3000;
-	public static final int LAVA_TO_FUEL = 100;
-	public static final int FUEL_CONSUME_PER_TICK = 1;
-	public static final int FLUID_PER_FUEL = 10;
-	public static final int SLOT_INGREDIENT = 0;
-	public static final int SLOT_OUTPUT = 1;
-
-	public static final String KEY_FUEL = "fuel";
+	public static final int ENERGY_PER_TICK = 1;
+	public static final int TANK_INPUT = 0;
+	public static final int TANK_OUTPUT = 1;
+	public static final int SLOT_INPUT_SOURCE = 0;
+	public static final int SLOT_INPUT_SINK = 1;
+	public static final int SLOT_OUTPUT_SOURCE = 2;
+	public static final int SLOT_OUTPUT_SINK = 3;
 
 	// Fuel Refinery Block
 	public static class CustomBlock extends Block {
@@ -90,6 +93,7 @@ public class FuelRefineryBlock {
 			return state.with(FACING, rot.rotate(state.get(FACING)));
 		}
 
+		@SuppressWarnings("deprecation")
 		public BlockState mirror(BlockState state, Mirror mirrorIn) {
 			return state.rotate(mirrorIn.toRotation(state.get(FACING)));
 		}
@@ -106,10 +110,13 @@ public class FuelRefineryBlock {
 
 		@Override
 		public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+			@SuppressWarnings("deprecation")
 			List<ItemStack> dropsOriginal = super.getDrops(state, builder);
-			if (!dropsOriginal.isEmpty())
+			if (!dropsOriginal.isEmpty()) {
 				return dropsOriginal;
-			return Collections.singletonList(new ItemStack(this, 1));
+			} else {
+				return Collections.singletonList(new ItemStack(this, 1));
+			}
 		}
 
 		@Override
@@ -124,24 +131,12 @@ public class FuelRefineryBlock {
 
 		@Override
 		public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity entity, Hand hand, BlockRayTraceResult hit) {
-			super.onBlockActivated(state, world, pos, entity, hand, hit);
-			int x = pos.getX();
-			int y = pos.getY();
-			int z = pos.getZ();
 			if (entity instanceof ServerPlayerEntity) {
-				NetworkHooks.openGui((ServerPlayerEntity) entity, new INamedContainerProvider() {
-					@Override
-					public ITextComponent getDisplayName() {
-						return new StringTextComponent("Fuel Refinery");
-					}
-
-					@Override
-					public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-						return new FuelRefineryGUIGui.GuiContainerMod(id, inventory, new PacketBuffer(Unpooled.buffer()).writeBlockPos(new BlockPos(x, y, z)));
-					}
-				}, new BlockPos(x, y, z));
+				NetworkHooks.openGui((ServerPlayerEntity) entity, this.getContainer(state, world, pos), pos);
+				return ActionResultType.CONSUME;
+			} else {
+				return ActionResultType.SUCCESS;
 			}
-			return ActionResultType.SUCCESS;
 		}
 
 		@Override
@@ -160,6 +155,7 @@ public class FuelRefineryBlock {
 			return new CustomTileEntity();
 		}
 
+		@SuppressWarnings("deprecation")
 		@Override
 		public boolean eventReceived(BlockState state, World world, BlockPos pos, int eventID, int eventParam) {
 			super.eventReceived(state, world, pos, eventID, eventParam);
@@ -167,14 +163,13 @@ public class FuelRefineryBlock {
 			return tileentity == null ? false : tileentity.receiveClientEvent(eventID, eventParam);
 		}
 
+		@SuppressWarnings("deprecation")
 		@Override
 		public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
 			if (state.getBlock() != newState.getBlock()) {
-				TileEntity tileentity = world.getTileEntity(pos);
-				if (tileentity instanceof CustomTileEntity) {
-					InventoryHelper.dropInventoryItems(world, pos, (CustomTileEntity) tileentity);
-					world.updateComparatorOutputLevel(pos, this);
-				}
+				CustomTileEntity tileentity = (CustomTileEntity) world.getTileEntity(pos);
+				InventoryHelper.dropInventoryItems(world, pos, (CustomTileEntity) tileentity);
+				world.updateComparatorOutputLevel(pos, this);
 				super.onReplaced(state, world, pos, newState, isMoving);
 			}
 		}
@@ -186,21 +181,24 @@ public class FuelRefineryBlock {
 
 		@Override
 		public int getComparatorInputOverride(BlockState blockState, World world, BlockPos pos) {
-			TileEntity tileentity = world.getTileEntity(pos);
-			if (tileentity instanceof CustomTileEntity)
-				return Container.calcRedstoneFromInventory((CustomTileEntity) tileentity);
-			else
-				return 0;
+			CustomTileEntity tileentity = (CustomTileEntity) world.getTileEntity(pos);
+			return Container.calcRedstoneFromInventory(tileentity);
 		}
 
 	}
 
 	// Fuel Refinery Tile Entity
 	public static class CustomTileEntity extends AbstractMachineTileEntity {
-		private FluidTank fluidTank;
+		private MultiFluidHandler fluidTank;
+
+		private StackCacher recipeCacher;
+		private FuelRefiningRecipe cachedRecipe;
 
 		public CustomTileEntity() {
 			super(ModInnet.FUEL_REFINERY.get());
+
+			this.recipeCacher = new StackCacher();
+			this.cachedRecipe = null;
 		}
 
 		@Override
@@ -214,14 +212,14 @@ public class FuelRefineryBlock {
 			map.put(new PowerSystemCommonEnergy(this) {
 				@Override
 				public int getBasePowerForOperation() {
-					return 1;
+					return ENERGY_PER_TICK;
 				}
 			});
 		}
 
 		@Override
 		protected IFluidHandler createFluidHandler() {
-			this.fluidTank = new FluidTank(3000, fs -> fs.getFluid() instanceof FuelFluid) {
+			this.fluidTank = new MultiFluidHandler(this.getTankableFluids(), 3000) {
 				@Override
 				protected void onContentsChanged() {
 					super.onContentsChanged();
@@ -235,14 +233,14 @@ public class FuelRefineryBlock {
 		public void read(BlockState blockState, CompoundNBT compound) {
 			super.read(blockState, compound);
 
-			CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.readNBT(this.fluidTank, null, compound.get("fluidTank"));
+			this.fluidTank.deserializeNBT(compound.getCompound("fluidTank"));
 		}
 
 		@Override
 		public CompoundNBT write(CompoundNBT compound) {
 			super.write(compound);
 
-			compound.put("fluidTank", CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.writeNBT(this.fluidTank, null));
+			compound.put("fluidTank", this.fluidTank.serializeNBT());
 
 			return compound;
 		}
@@ -259,7 +257,7 @@ public class FuelRefineryBlock {
 
 		@Override
 		public Container createMenu(int id, PlayerInventory player) {
-			return new FuelRefineryGUIGui.GuiContainerMod(id, player, new PacketBuffer(Unpooled.buffer()).writeBlockPos(this.getPos()));
+			return new FuelRefineryGUIGui.GuiContainerMod(id, player, this);
 		}
 
 		@Override
@@ -267,38 +265,182 @@ public class FuelRefineryBlock {
 			return new StringTextComponent("Fuel Refinery");
 		}
 
-		public int[] getSlotsForFace(Direction side) {
-			return IntStream.range(0, this.getSizeInventory()).toArray();
+		@Override
+		protected void tickProcessing() {
+			this.drainSources();
+			this.consumeIngredients();
+			this.fillSinks();
 		}
 
-		public boolean isFuelFillableItem(Item item) {
-			return item == Items.BUCKET;
+		public boolean consumeIngredients() {
+			FuelRefiningRecipe recipe = this.cacheRecipe();
+
+			if (recipe != null) {
+				FluidIngredient recipeOutput = recipe.getOutput();
+
+				if (this.hasSpaceInOutput(recipeOutput)) {
+					if (this.consumePowerForOperation() != null) {
+						MultiFluidHandler tanks = this.getFluidTanks();
+						tanks.getTank(this.getInputTank()).drain(recipe.getInput().getAmount(), FluidAction.EXECUTE);
+						tanks.getTank(this.getOutputTank()).fill(recipeOutput.toStack(), FluidAction.EXECUTE);
+						this.setProcessedInThisTick();
+						return true;
+					}
+				}
+			}
+
+			return false;
 		}
 
-		public boolean isIngredientItem(Item item) {
-			return item == ModInnet.OIL_BUCKET.get();
+		protected void drainSources() {
+			this.drainSource(this.getInputSourceSlot(), this.getInputTank());
+			this.drainSource(this.getOutputSourceSlot(), this.getOutputTank());
 		}
 
-		public boolean isSpentItem(Item item) {
-			return item == Items.BUCKET;
+		protected void fillSinks() {
+			this.fillSink(this.getInputSinkSlot(), this.getInputTank());
+			this.fillSink(this.getOutputSinkSlot(), this.getOutputTank());
+		}
+
+		protected boolean fillSink(int itemSlot, int tankIndex) {
+			IItemHandlerModifiable itemHandler = this.getItemHandler();
+			ItemStack stack = itemHandler.getStackInSlot(itemSlot);
+			FluidTank tank = this.getFluidTanks().getTank(tankIndex);
+
+			if (this.fillSinkBucket(itemSlot, tank, stack)) {
+				return true;
+			} else if (this.fillSinkCapability(itemSlot, tank, stack)) {
+				return true;
+			}
+
+			return false;
+		}
+
+		protected boolean fillSinkBucket(int itemSlot, FluidTank tank, ItemStack itemStack) {
+			if (itemStack.getItem() == Items.BUCKET) {
+				int size = FluidUtil2.BUCKET_SIZE;
+				FluidStack fluidStack = tank.drain(size, FluidAction.SIMULATE);
+
+				if (fluidStack.getAmount() == size) {
+					tank.drain(size, FluidAction.EXECUTE);
+					this.getItemHandler().setStackInSlot(itemSlot, new ItemStack(fluidStack.getFluid().getFilledBucket()));
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		protected boolean fillSinkCapability(int slot, FluidTank ownTank, ItemStack itemStack) {
+			IFluidHandlerItem fluidHandlerItem = itemStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).orElse(null);
+
+			if (fluidHandlerItem != null) {
+				return this.fillSinkCapability(ownTank, fluidHandlerItem);
+			} else {
+				return false;
+			}
+
+		}
+
+		protected boolean fillSinkCapability(FluidTank ownTank, IFluidHandler fluidHandler) {
+			boolean accepted = false;
+
+			if (fluidHandler != null) {
+				for (int i = 0; i < fluidHandler.getTanks(); i++) {
+					FluidStack fluidStack = ownTank.getFluid();
+					FluidStack theriFilled = FluidUtil.tryFluidTransfer(fluidHandler, ownTank, fluidStack, true);
+
+					if (theriFilled.isEmpty()) {
+						accepted = true;
+					}
+				}
+			}
+
+			return accepted;
+		}
+
+		protected boolean drainSource(int itemSlot, int tankIndex) {
+			IItemHandlerModifiable itemHandler = this.getItemHandler();
+			ItemStack stack = itemHandler.getStackInSlot(itemSlot);
+			FluidTank tank = this.getFluidTanks().getTank(tankIndex);
+
+			if (this.drainSourceBucket(itemSlot, tank, stack)) {
+				return true;
+			} else if (this.drainSourceCapability(itemSlot, tank, stack)) {
+				return true;
+			}
+
+			return false;
+		}
+
+		protected boolean drainSourceBucket(int slot, FluidTank ownTank, ItemStack itemStack) {
+			Item item = itemStack.getItem();
+			Fluid fluid = FluidUtil2.findBucketFluid(item);
+
+			if (fluid != null) {
+				FluidStack fluidStack = new FluidStack(fluid, FluidUtil2.BUCKET_SIZE);
+
+				if (ownTank.fill(fluidStack, FluidAction.SIMULATE) == fluidStack.getAmount()) {
+					ownTank.fill(fluidStack, FluidAction.EXECUTE);
+					this.getItemHandler().setStackInSlot(slot, new ItemStack(Items.BUCKET));
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		protected boolean drainSourceCapability(int slot, FluidTank ownTank, ItemStack itemStack) {
+			IFluidHandlerItem fluidHandlerItem = itemStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).orElse(null);
+
+			if (fluidHandlerItem != null) {
+				return this.drainSourceCapability(ownTank, fluidHandlerItem);
+			} else {
+				return false;
+			}
+
+		}
+
+		protected boolean drainSourceCapability(FluidTank ownTank, IFluidHandler fluidHandler) {
+			boolean accepted = false;
+
+			if (fluidHandler != null) {
+				for (int i = 0; i < fluidHandler.getTanks(); i++) {
+					FluidStack fluidStack = fluidHandler.getFluidInTank(i);
+					FluidStack theriDrained = FluidUtil.tryFluidTransfer(ownTank, fluidHandler, fluidStack, true);
+
+					if (theriDrained.isEmpty()) {
+						accepted = true;
+					}
+				}
+			}
+
+			return accepted;
 		}
 
 		@Override
-		public boolean canInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
+		protected void getSlotsForFace(Direction direction, List<Integer> slots) {
+			IntStream.range(0, this.getSizeInventory()).forEach(slots::add);
+		}
+
+		@Override
+		public boolean canInsertItem(int index, ItemStack stack, Direction direction) {
 			if (super.canInsertItem(index, stack, direction)) {
 				return true;
 			}
 
-			ItemStack stackInSlot = this.getStackInSlot(index);
-
-			if (stackInSlot.isEmpty() == true) {
-				Item item = stack != null ? stack.getItem() : null;
-
-				if (index == SLOT_INGREDIENT) {
-					return this.isIngredientItem(item); // Inject lava bucket
-				} else if (index == SLOT_OUTPUT) {
-					return this.isFuelFillableItem(item); // Wait for fill
-				}
+			if (index == this.getInputSourceSlot()) {
+				FluidTank tank = this.getFluidTanks().getTank(this.getInputTank());
+				return FluidUtil2.getFluidStack(stack).stream().filter(tank::isFluidValid).findFirst().isPresent();
+			} else if (index == this.getOutputSourceSlot()) {
+				FluidTank tank = this.getFluidTanks().getTank(this.getOutputTank());
+				return FluidUtil2.getFluidStack(stack).stream().filter(tank::isFluidValid).findFirst().isPresent();
+			} else if (index == this.getInputSinkSlot()) {
+				FluidStack fluidStack = this.getFluidTanks().getFluidInTank(this.getInputTank());
+				return FluidUtil2.canAccept(stack, fluidStack) > 0;
+			} else if (index == this.getOutputSinkSlot()) {
+				FluidStack fluidStack = this.getFluidTanks().getFluidInTank(this.getOutputTank());
+				return FluidUtil2.canAccept(stack, fluidStack) > 0;
 			}
 
 			return false;
@@ -306,125 +448,79 @@ public class FuelRefineryBlock {
 
 		@Override
 		public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-			if (super.canExtractItem(index, stack, direction)) {
-				return true;
-			}
-
-			Item item = stack != null ? stack.getItem() : null;
-
-			if (index == SLOT_INGREDIENT) {
-				return this.isSpentItem(item); // Eject empty bucket
-			} else if (index == SLOT_OUTPUT) {
-				return !this.isFuelFillableItem(item); // Wait for fill
-			}
-
-			return false;
-		}
-
-		@Override
-		public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-			if (!this.removed && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-				return LazyOptional.of(() -> this.fluidTank).cast();
-			}
-
-			return super.getCapability(capability, facing);
-		}
-
-		@Override
-		protected void tickProcessing() {
-			this.consumeIngredient();
-			this.burnFuel();
-			this.fillOutput();
+			return super.canExtractItem(index, stack, direction);
 		}
 
 		@Override
 		public boolean hasSpaceInOutput() {
-			FluidTank fluidTank = this.getFluidTank();
-			int fluidAmount = fluidTank.getFluidAmount();
-			int fluidCapacity = fluidTank.getCapacity();
-			return fluidAmount < fluidCapacity;
+			FuelRefiningRecipe recipe = this.cacheRecipe();
+			return recipe != null && this.hasSpaceInOutput(recipe.getOutput());
 		}
 
-		public boolean consumeIngredient() {
-			IItemHandlerModifiable itemHandler = this.getItemHandler();
-			ItemStack ingredient = itemHandler.getStackInSlot(SLOT_INGREDIENT);
+		public boolean hasSpaceInOutput(FluidIngredient recipeOutput) {
+			FluidTank tank = this.getFluidTanks().getTank(this.getOutputTank());
+			return hasSpaceInOutput(recipeOutput, tank);
+		}
 
-			if (this.hasSpaceInOutput() && this.isPowerEnoughForOperation() && ingredient.getItem() == ModInnet.OIL_BUCKET.get() && ingredient.getCount() == 1) {
-				int fuel = this.getFuel();
+		public FuelRefiningRecipe cacheRecipe() {
+			FluidStack fluidStack = this.getFluidTanks().getFluidInTank(this.getInputTank());
 
-				if (fuel < FUEL_CONSUME_PER_TICK) {
-					itemHandler.setStackInSlot(SLOT_INGREDIENT, new ItemStack(Items.BUCKET));
-					this.setFuel(fuel + LAVA_TO_FUEL);
-					this.markDirty();
-					return true;
-				}
-
+			if (fluidStack.isEmpty()) {
+				this.recipeCacher.set(fluidStack);
+				this.cachedRecipe = null;
+			} else if (!this.recipeCacher.test(fluidStack)) {
+				this.recipeCacher.set(fluidStack);
+				this.cachedRecipe = this.getRecipeType().findFirst(this.getWorld(), r -> r.test(fluidStack));
 			}
 
-			return false;
+			return this.cachedRecipe;
 		}
 
-		public boolean burnFuel() {
-
-			if (this.hasSpaceInOutput()) {
-				int fuel = this.getFuel();
-
-				if (fuel >= FUEL_CONSUME_PER_TICK && this.consumePowerForOperation() != null) {
-					this.setFuel(fuel - FUEL_CONSUME_PER_TICK);
-					this.getFluidTank().fill(new FluidStack(ModInnet.FUEL_STILL.get(), FLUID_PER_FUEL * FUEL_CONSUME_PER_TICK), FluidAction.EXECUTE);
-					this.setProcessedInThisTick();
-					this.markDirty();
-					return true;
-				}
-
-			}
-
-			return false;
+		public BossToolsRecipeType<? extends FuelRefiningRecipe> getRecipeType() {
+			return BossToolsRecipeTypes.FUELREFINING;
 		}
 
-		public boolean fillOutput() {
-			if (this.tryFillOutput(Items.BUCKET, BUCKET_SIZE, ModInnet.FUEL_BUCKET.get())) {
-				return true;
-			}
-
-			return false;
-		}
-
-		public boolean tryFillOutput(Item inputItem, int requireSize, Item outputItem) {
-			FluidTank fluidTank = this.getFluidTank();
-			IItemHandlerModifiable itemHandler = this.getItemHandler();
-			ItemStack output = itemHandler.getStackInSlot(SLOT_OUTPUT);
-
-			if (output.getItem() == inputItem && output.getCount() == 1 && fluidTank.getFluidAmount() >= requireSize) {
-				itemHandler.setStackInSlot(SLOT_OUTPUT, new ItemStack(outputItem));
-				fluidTank.drain(requireSize, IFluidHandler.FluidAction.EXECUTE).getAmount();
-				this.markDirty();
-				return true;
-			}
-
-			return false;
-		}
-
-		public FluidTank getFluidTank() {
+		public MultiFluidHandler getFluidTanks() {
 			return this.fluidTank;
 		}
 
-		public int getFuel() {
-			return this.getTileData().getInt(KEY_FUEL);
-		}
-
-		public void setFuel(int fuel) {
-			fuel = Math.max(fuel, 0);
-
-			if (this.getFuel() != fuel) {
-				this.getTileData().putInt(KEY_FUEL, fuel);
-				this.markDirty();
-			}
+		@Override
+		public IFluidHandler getFluidHandler() {
+			return this.fluidTank;
 		}
 
 		@Override
 		protected int getInitialInventorySize() {
-			return 2;
+			return 4;
 		}
+
+		public int getInputSourceSlot() {
+			return SLOT_INPUT_SOURCE;
+		}
+
+		public int getInputSinkSlot() {
+			return SLOT_INPUT_SINK;
+		}
+
+		public int getOutputSourceSlot() {
+			return SLOT_OUTPUT_SOURCE;
+		}
+
+		public int getOutputSinkSlot() {
+			return SLOT_OUTPUT_SINK;
+		}
+
+		protected List<Fluid> getTankableFluids() {
+			return Lists.newArrayList(ModInnet.OIL_STILL.get(), ModInnet.FUEL_STILL.get());
+		}
+
+		public int getInputTank() {
+			return TANK_INPUT;
+		}
+
+		public int getOutputTank() {
+			return TANK_OUTPUT;
+		}
+
 	}
 }

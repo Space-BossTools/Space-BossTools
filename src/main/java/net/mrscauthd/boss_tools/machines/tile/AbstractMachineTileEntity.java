@@ -37,6 +37,8 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -46,6 +48,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import net.mrscauthd.boss_tools.capability.EnergyStorageBasic;
 import net.mrscauthd.boss_tools.capability.IEnergyStorageHolder;
+import net.mrscauthd.boss_tools.crafting.FluidIngredient;
 
 public abstract class AbstractMachineTileEntity extends LockableLootTileEntity implements ISidedInventory, ITickableTileEntity, IEnergyStorageHolder {
 
@@ -450,6 +453,20 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		} else if (ItemHandlerHelper.canItemStacksStack(output, recipeOutput)) {
 			int limit = Math.min(recipeOutput.getMaxStackSize(), this.getInventoryStackLimit());
 			return (output.getCount() + recipeOutput.getCount()) <= limit;
+		}
+
+		return false;
+	}
+
+	public boolean hasSpaceInOutput(FluidIngredient recipeOutput, IFluidTank tank) {
+		return this.hasSpaceInOutput(recipeOutput, tank.getFluid(), tank.getCapacity());
+	}
+
+	public boolean hasSpaceInOutput(FluidIngredient recipeOutput, FluidStack output, int capacity) {
+		if (output.isEmpty()) {
+			return true;
+		} else if (recipeOutput.testFluid(output.getFluid())) {
+			return (output.getAmount() + recipeOutput.getAmount()) <= capacity;
 		}
 
 		return false;
