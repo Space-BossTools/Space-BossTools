@@ -42,6 +42,8 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -67,6 +69,7 @@ import net.mrscauthd.boss_tools.machines.tile.PowerSystemMap;
 
 public class FuelRefineryBlock {
 	public static final int ENERGY_PER_TICK = 1;
+	public static final int TANK_CAPACITY = 3000;
 	public static final int TANK_INPUT = 0;
 	public static final int TANK_OUTPUT = 1;
 	public static final int SLOT_INPUT_SOURCE = 0;
@@ -219,7 +222,7 @@ public class FuelRefineryBlock {
 
 		@Override
 		protected IFluidHandler createFluidHandler() {
-			this.fluidTank = new MultiFluidHandler(this.getTankableFluids(), 3000) {
+			this.fluidTank = new MultiFluidHandler(this.getTankableFluids(), TANK_CAPACITY) {
 				@Override
 				protected void onContentsChanged() {
 					super.onContentsChanged();
@@ -419,35 +422,57 @@ public class FuelRefineryBlock {
 		}
 
 		@Override
+		public <T> LazyOptional<T> getCapabilityFluidHandler(Capability<T> capability, Direction facing) {
+			if (facing == Direction.DOWN) {
+				return LazyOptional.of(() -> this.getFluidTanks().getTank(this.getOutputTank())).cast();
+			} else {
+				return LazyOptional.of(() -> this.getFluidTanks().getTank(this.getInputTank())).cast();
+			}
+		}
+
+		@Override
 		protected void getSlotsForFace(Direction direction, List<Integer> slots) {
 			IntStream.range(0, this.getSizeInventory()).forEach(slots::add);
 		}
 
 		@Override
 		public boolean canInsertItem(int index, ItemStack stack, Direction direction) {
-			if (super.canInsertItem(index, stack, direction)) {
-				return true;
-			}
-
 			if (index == this.getInputSourceSlot()) {
 				FluidTank tank = this.getFluidTanks().getTank(this.getInputTank());
-				return FluidUtil2.getFluidStack(stack).stream().filter(tank::isFluidValid).findFirst().isPresent();
+				return FluidUtil2.getFluidStacks(stack).stream().filter(tank::isFluidValid).findFirst().isPresent();
 			} else if (index == this.getOutputSourceSlot()) {
 				FluidTank tank = this.getFluidTanks().getTank(this.getOutputTank());
-				return FluidUtil2.getFluidStack(stack).stream().filter(tank::isFluidValid).findFirst().isPresent();
+				return FluidUtil2.getFluidStacks(stack).stream().filter(tank::isFluidValid).findFirst().isPresent();
 			} else if (index == this.getInputSinkSlot()) {
 				FluidStack fluidStack = this.getFluidTanks().getFluidInTank(this.getInputTank());
-				return FluidUtil2.canAccept(stack, fluidStack) > 0;
+				return FluidUtil2.canFeel(stack, fluidStack) > 0;
 			} else if (index == this.getOutputSinkSlot()) {
 				FluidStack fluidStack = this.getFluidTanks().getFluidInTank(this.getOutputTank());
-				return FluidUtil2.canAccept(stack, fluidStack) > 0;
+				return FluidUtil2.canFeel(stack, fluidStack) > 0;
 			}
 
-			return false;
+			return super.canInsertItem(index, stack, direction);
 		}
 
 		@Override
 		public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
+			if (index == this.getInputSourceSlot() || index == this.getOutputSourceSlot()) {
+				return FluidUtil2.isEmpty(stack);
+			} else if (index == this.getInputSinkSlot()) {
+				FluidStack fluidStack = this.getFluidTanks().getFluidInTank(this.getInputTank());
+
+				if (!fluidStack.isEmpty()) {
+					return FluidUtil2.canFeel(stack, fluidStack) == 0;
+				}
+			} else if (index == this.getOutputSinkSlot()) {
+				FluidStack fluidStack = this.getFluidTanks().getFluidInTank(this.getOutputTank());
+
+				if (!fluidStack.isEmpty()) {
+					return FluidUtil2.canFeel(stack, fluidStack) == 0;
+				}
+
+			}
+
 			return super.canExtractItem(index, stack, direction);
 		}
 

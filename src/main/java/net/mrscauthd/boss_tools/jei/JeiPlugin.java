@@ -13,9 +13,11 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.drawable.IDrawableBuilder;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
+import mezz.jei.api.gui.ingredient.IGuiFluidStackGroup;
 import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
+import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
@@ -23,15 +25,14 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IRecipeTransferRegistration;
+import mezz.jei.gui.elements.DrawableBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.capability.CapabilityOxygen;
@@ -39,6 +40,7 @@ import net.mrscauthd.boss_tools.capability.IOxygenStorage;
 import net.mrscauthd.boss_tools.crafting.BlastingRecipe;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.CompressingRecipe;
+import net.mrscauthd.boss_tools.crafting.FuelRefiningRecipe;
 import net.mrscauthd.boss_tools.crafting.GeneratingRecipe;
 import net.mrscauthd.boss_tools.crafting.WorkbenchingRecipe;
 import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipe;
@@ -46,6 +48,7 @@ import net.mrscauthd.boss_tools.machines.WorkbenchBlock;
 import net.mrscauthd.boss_tools.machines.tile.ItemStackToItemStackTileEntity;
 import net.mrscauthd.boss_tools.machines.CoalGeneratorBlock;
 import net.mrscauthd.boss_tools.machines.CompressorBlock;
+import net.mrscauthd.boss_tools.machines.FuelRefineryBlock;
 import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock;
 import net.mrscauthd.boss_tools.machines.OxygenLoaderBlock;
 import net.mrscauthd.boss_tools.gui.*;
@@ -99,7 +102,7 @@ public class JeiPlugin implements IModPlugin {
 	public void registerGuiHandlers(IGuiHandlerRegistration registration) {
 		registration.addRecipeClickArea(NasaWorkbenchGuiWindow.class, 108, 49, 14, 14, WorkbenchJeiCategory.Uid);
 		registration.addGuiContainerHandler(GeneratorGUIGuiWindow.class, new CoalGeneratorGuiContainerHandler());
-//    	registration.addRecipeClickArea(FuelRefineryGUIGuiWindow.class, 77, 61, 13, 13, FuelMakerJeiCategory.Uid, FuelMaker2JeiCategory.Uid);
+		registration.addRecipeClickArea(FuelRefineryGUIGuiWindow.class, FuelRefineryGUIGuiWindow.ARROW_LEFT, FuelRefineryGUIGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, FuelMakerJeiCategory.Uid);
 		registration.addRecipeClickArea(BlastFurnaceGUIGuiWindow.class, BlastFurnaceGUIGuiWindow.ARROW_LEFT, BlastFurnaceGUIGuiWindow.AROOW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, BlastingFurnaceJeiCategory.Uid, VanillaRecipeCategoryUid.FUEL);
 		registration.addRecipeClickArea(CompressorGuiGuiWindow.class, CompressorGuiGuiWindow.ARROW_LEFT, CompressorGuiGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, CompressorJeiCategory.Uid);
 		registration.addGuiContainerHandler(OxygenLoaderGuiGuiWindow.class, new OxygenLoaderGuiContainerHandler());
@@ -188,15 +191,8 @@ public class JeiPlugin implements IModPlugin {
 	}
 
 	// Fuel Maker
-	private List<FuelMakerJeiCategory.FuelMakerRecipeWrapper> generateFuelMakerRecipes() {
-		List<FuelMakerJeiCategory.FuelMakerRecipeWrapper> recipes = new ArrayList<>();
-		ArrayList<ItemStack> inputs = new ArrayList<>();
-		ArrayList<ItemStack> outputs = new ArrayList<>();
-		inputs.add(new ItemStack(Items.LAVA_BUCKET));
-		outputs.add(new ItemStack(ModInnet.FUEL_BUCKET.get()));// FuelBuckedItem.block //FuelBlock.FuelBucket
-		// ...
-		recipes.add(new FuelMakerJeiCategory.FuelMakerRecipeWrapper(inputs, outputs));
-		return recipes;
+	private List<FuelRefiningRecipe> generateFuelMakerRecipes() {
+		return BossToolsRecipeTypes.FUELREFINING.getRecipes(Minecraft.getInstance().world);
 	}
 
 	// Rockettier1Gui
@@ -572,7 +568,6 @@ public class JeiPlugin implements IModPlugin {
 		public void setRecipe(IRecipeLayout iRecipeLayout, WorkbenchingRecipe recipe, IIngredients iIngredients) {
 			IDrawable background = this.getBackground();
 			iRecipeLayout.moveRecipeTransferButton(background.getWidth() - 20, background.getHeight() - 20);
-
 
 			int slots = WorkbenchBlock.SLOT_PARTS;
 			GridPlacer placer = new GridPlacer();
@@ -1090,86 +1085,34 @@ public class JeiPlugin implements IModPlugin {
 	}
 
 	// FuelMaker
-	public static class FuelMakerJeiCategory implements IRecipeCategory<FuelMakerJeiCategory.FuelMakerRecipeWrapper> {
-		private static ResourceLocation Uid = new ResourceLocation("boss_tools", "fuelmakercategory");
-		private static final int input1 = 0; // THE NUMBER = SLOTID
-		private static final int output1 = 2; // THE NUMBER = SLOTID
-		// ...
+	public static class FuelMakerJeiCategory implements IRecipeCategory<FuelRefiningRecipe> {
+		public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "fuelmakercategory");
+		public static final int INPUT_TANK_LEFT = 8;
+		public static final int INPUT_TANK_TOP = 8;
+		public static final int OUTPUT_TANK_LEFT = 74;
+		public static final int OUTPUT_TANK_TOP = 8;
+		public static final int ENERGY_LEFT = 114;
+		public static final int ENERGY_TOP = 8;
+
 		private final String title;
 		private final IDrawable background;
-		private final IDrawable textureanimation1;
-		private final IDrawable textureanimation2;
-		private final IDrawable textureanimation3;
-		private final IDrawable textureanimation4;
-		private final IDrawable textureanimation5;
-		private final IDrawable textureanimation6;
-		private final IDrawable textureanimation7;
-		private final IDrawable textureanimation8;
-		private final IDrawable textureanimation9;
-		private final IDrawable textureanimation10;
-		private final IDrawable textureanimation11;
-		private final IDrawable textureanimation12;
-		private final IDrawable textureanimation13;
-		private final IDrawable textureanimation14;
-		private final IDrawable textureanimation15;
-		private final IDrawable textureanimation16;
-		private final IDrawable textureanimation17;
-		private final IDrawable textureanimation18;
-		private final IDrawable textureanimation19;
-		private final IDrawable textureanimation20;
-		private final IDrawable textureanimation21;
-		private final IDrawable textureanimation22;
-		private final IDrawable textureanimation23;
-
-		// Animation nummber
-		int counter = 9000;
-		int animation = 1;
+		private final IDrawable fluidOverlay;
+		private final LoadingCache<Integer, IDrawableAnimated> cachedEnergies;
 
 		public FuelMakerJeiCategory(IGuiHelper guiHelper) {
 			this.title = "Fuel Refinery";
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine0.png"), 0, 0, 144, 84);
-			// animation
-			this.textureanimation1 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine1.png"), 0, 0, 144, 84);
-			this.textureanimation2 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine2.png"), 0, 0, 144, 84);
-			this.textureanimation3 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine3.png"), 0, 0, 144, 84);
-			this.textureanimation4 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine4.png"), 0, 0, 144, 84);
-			this.textureanimation5 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine5.png"), 0, 0, 144, 84);
-			this.textureanimation6 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine6.png"), 0, 0, 144, 84);
-			this.textureanimation7 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine7.png"), 0, 0, 144, 84);
-			this.textureanimation8 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine8.png"), 0, 0, 144, 84);
-			this.textureanimation9 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine9.png"), 0, 0, 144, 84);
-			this.textureanimation10 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine10.png"), 0, 0, 144, 84);
-			this.textureanimation11 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine11.png"), 0, 0, 144, 84);
-			this.textureanimation12 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine12.png"), 0, 0, 144, 84);
-			this.textureanimation13 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine13.png"), 0, 0, 144, 84);
-			this.textureanimation14 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine14.png"), 0, 0, 144, 84);
-			this.textureanimation15 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine15.png"), 0, 0, 144, 84);
-			this.textureanimation16 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine16.png"), 0, 0, 144, 84);
-			this.textureanimation17 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine17.png"), 0, 0, 144, 84);
-			this.textureanimation18 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine18.png"), 0, 0, 144, 84);
-			this.textureanimation19 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine19.png"), 0, 0, 144, 84);
-			this.textureanimation20 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine20.png"), 0, 0, 144, 84);
-			this.textureanimation21 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine21.png"), 0, 0, 144, 84);
-			this.textureanimation22 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine22.png"), 0, 0, 144, 84);
-			this.textureanimation23 = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refine_jei/fuel_refine23.png"), 0, 0, 144, 84);
+			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refinery_jei.png"), 0, 0, 148, 64);
+			this.fluidOverlay = new DrawableBuilder(GuiHelper.FLUID_TANK_PATH, 0, 0, GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).setTextureSize(GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).build();
+			this.cachedEnergies = createUsingEnergies(guiHelper);
 		}
 
 		@Override
-		public List<ITextComponent> getTooltipStrings(FuelMakerRecipeWrapper recipe, double mouseX, double mouseY) {
-			List<ITextComponent> fuel = new ArrayList<ITextComponent>();
-			fuel.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Fuel"));
-			fuel.add(ITextComponent.getTextComponentOrEmpty("1000.0" + " mb / 3000.0 mb"));
-			// counter = counter - 1;
-			// if (counter <= 0){
-			// counter = 9000;
-			// }
-			// animation = counter;
-			if (mouseX > 102 && mouseX < 127 && mouseY > 16 && mouseY < 65) {
-				return Collections.singletonList(new TranslationTextComponent(animation + " FE / 9000.0 FE"));
+		public List<ITextComponent> getTooltipStrings(FuelRefiningRecipe recipe, double mouseX, double mouseY) {
+
+			if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
+				return Collections.singletonList(new StringTextComponent("Using: " + FuelRefineryBlock.ENERGY_PER_TICK + " FE/t"));
 			}
-			if (mouseX > 8 && mouseX < 23 && mouseY > 7 && mouseY < 56) {
-				return Collections.synchronizedList(fuel);
-			}
+
 			return Collections.emptyList();
 		}
 
@@ -1179,135 +1122,65 @@ public class JeiPlugin implements IModPlugin {
 		}
 
 		@Override
-		public Class<? extends FuelMakerRecipeWrapper> getRecipeClass() {
-			return FuelMakerJeiCategory.FuelMakerRecipeWrapper.class;
+		public Class<? extends FuelRefiningRecipe> getRecipeClass() {
+			return FuelRefiningRecipe.class;
 		}
 
 		@Override
 		public String getTitle() {
-			return title;
+			return this.title;
 		}
 
 		@Override
 		public IDrawable getBackground() {
-			// animation tick
-			counter = counter - 1;
-			if (counter <= 0) {
-				counter = 9000;
-			}
-			animation = counter;
-			// animation tick
-			if (counter >= 360 && counter <= 720) {
-				return textureanimation1;
-			}
-			if (counter >= 720 && counter <= 1080) {
-				return textureanimation2;
-			}
-			if (counter >= 1080 && counter <= 1440) {
-				return textureanimation3;
-			}
-			if (counter >= 1440 && counter <= 1800) {
-				return textureanimation4;
-			}
-			if (counter >= 1800 && counter <= 2160) {
-				return textureanimation5;
-			}
-			if (counter >= 2160 && counter <= 2520) {
-				return textureanimation6;
-			}
-			if (counter >= 2520 && counter <= 2880) {
-				return textureanimation7;
-			}
-			if (counter >= 2880 && counter <= 3240) {
-				return textureanimation8;
-			}
-			if (counter >= 3240 && counter <= 3600) {
-				return textureanimation9;
-			}
-			if (counter >= 3600 && counter <= 3960) {
-				return textureanimation10;
-			}
-			if (counter >= 3960 && counter <= 4320) {
-				return textureanimation11;
-			}
-			if (counter >= 4320 && counter <= 4680) {
-				return textureanimation12;
-			}
-			if (counter >= 4680 && counter <= 5040) {
-				return textureanimation13;
-			}
-			if (counter >= 5040 && counter <= 5400) {
-				return textureanimation14;
-			}
-			if (counter >= 5040 && counter <= 5760) {
-				return textureanimation15;
-			}
-			if (counter >= 5760 && counter <= 6120) {
-				return textureanimation16;
-			}
-			if (counter >= 6120 && counter <= 6480) {
-				return textureanimation17;
-			}
-			if (counter >= 6480 && counter <= 6840) {
-				return textureanimation18;
-			}
-			if (counter >= 6840 && counter <= 7200) {
-				return textureanimation19;
-			}
-			if (counter >= 7200 && counter <= 7560) {
-				return textureanimation20;
-			}
-			if (counter >= 7560 && counter <= 8000) {
-				return textureanimation21;
-			}
-			if (counter >= 8000 && counter <= 8560) {
-				return textureanimation22;
-			}
-			if (counter >= 8560 && counter <= 9000) {
-				return textureanimation23;
-			}
-			return background;
+			return this.background;
 		}
 
 		@Override
 		public IDrawable getIcon() {
 			return null;
 		}
-
+		
 		@Override
-		public void setIngredients(FuelMakerRecipeWrapper recipeWrapper, IIngredients iIngredients) {
-			iIngredients.setInputs(VanillaTypes.ITEM, recipeWrapper.getInput());
-			iIngredients.setOutputs(VanillaTypes.ITEM, recipeWrapper.getOutput());
+		public void draw(FuelRefiningRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+			IRecipeCategory.super.draw(recipe, matrixStack, mouseX, mouseY);
+			
+			this.cachedEnergies.getUnchecked(200).draw(matrixStack, ENERGY_LEFT, ENERGY_TOP);
 		}
 
 		@Override
-		public void setRecipe(IRecipeLayout iRecipeLayout, FuelMakerRecipeWrapper recipeWrapper, IIngredients iIngredients) {
-			IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
-			stacks.init(input1, true, 52, 34);
-			stacks.init(output1, false, 7, 56);// 64, 10
-			// ...
+		public void setIngredients(FuelRefiningRecipe recipe, IIngredients iIngredients) {
+			iIngredients.setInputs(VanillaTypes.FLUID, recipe.getInput().toStacks());
+			iIngredients.setOutputs(VanillaTypes.FLUID, recipe.getOutput().toStacks());
+		}
 
-			stacks.set(input1, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
-			stacks.set(output1, iIngredients.getOutputs(VanillaTypes.ITEM).get(0));
+		@Override
+		public void setRecipe(IRecipeLayout iRecipeLayout, FuelRefiningRecipe recipe, IIngredients iIngredients) {
+			IGuiItemStackGroup itemStacks = iRecipeLayout.getItemStacks();
+			itemStacks.init(FuelRefineryBlock.SLOT_INPUT_SOURCE, true, 25, 21);
+			itemStacks.init(FuelRefineryBlock.SLOT_INPUT_SINK, false, 25, 51);
+			itemStacks.init(FuelRefineryBlock.SLOT_OUTPUT_SOURCE, false, 91, 21);
+			itemStacks.init(FuelRefineryBlock.SLOT_OUTPUT_SINK, false, 91, 51);
+
+			IGuiFluidStackGroup fluidStacks = iRecipeLayout.getFluidStacks();
+			fluidStacks.init(FuelRefineryBlock.TANK_INPUT, false, INPUT_TANK_LEFT, INPUT_TANK_TOP, GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT, 1, false, this.fluidOverlay);
+			fluidStacks.init(FuelRefineryBlock.TANK_OUTPUT, true, OUTPUT_TANK_LEFT, OUTPUT_TANK_TOP, GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT, 1, false, this.fluidOverlay);
+
+			fluidStacks.set(FuelRefineryBlock.TANK_INPUT, iIngredients.getInputs(VanillaTypes.FLUID).get(0));
+			fluidStacks.set(FuelRefineryBlock.TANK_OUTPUT, iIngredients.getOutputs(VanillaTypes.FLUID).get(0));
 			// ...
 		}
 
-		public static class FuelMakerRecipeWrapper {
-			private ArrayList input;
-			private ArrayList output;
+		public Rectangle2d getInputTankBounds() {
+			return GuiHelper.getFluidTankBounds(INPUT_TANK_LEFT, INPUT_TANK_TOP);
+		}
 
-			public FuelMakerRecipeWrapper(ArrayList input, ArrayList output) {
-				this.input = input;
-				this.output = output;
-			}
+		public Rectangle2d getOutputTankBounds() {
+			return GuiHelper.getFluidTankBounds(OUTPUT_TANK_LEFT, OUTPUT_TANK_TOP);
+		}
 
-			public ArrayList getInput() {
-				return input;
-			}
-
-			public ArrayList getOutput() {
-				return output;
-			}
+		public Rectangle2d getEnergyBounds() {
+			return GuiHelper.getEnergyBounds(ENERGY_LEFT, ENERGY_TOP);
 		}
 	}
 

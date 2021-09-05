@@ -49,7 +49,7 @@ public abstract class OxygenUsingTileEntity extends AbstractMachineTileEntity {
 	}
 
 	public IOxygenStorage getItemOxygenStorage(ItemStack itemStack) {
-		return !itemStack.isEmpty() ? itemStack.getCapability(CapabilityOxygen.OXYGEN).orElse(null) : null;
+		return itemStack.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
 	}
 
 	@Override

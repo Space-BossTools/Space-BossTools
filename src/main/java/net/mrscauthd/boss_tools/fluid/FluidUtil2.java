@@ -33,43 +33,54 @@ public class FluidUtil2 {
 
 	/**
 	 * 
-	 * @param itemStack
+	 * @param toItemStack
 	 * @param fluidStack
 	 * @return filled amount
 	 */
-	public static int canAccept(ItemStack itemStack, FluidStack fluidStack) {
-		if (itemStack.isEmpty()) {
+	public static int canFeel(ItemStack toItemStack, FluidStack fluidStack) {
+		if (toItemStack.isEmpty()) {
 			return 0;
 		}
 
-		Item item = itemStack.getItem();
-
-		if (item == Items.BUCKET) {
-			return fluidStack.getAmount() >= BUCKET_SIZE ? BUCKET_SIZE : 0;
+		if (toItemStack.getItem() == Items.BUCKET) {
+			return BUCKET_SIZE;
 		} else {
-			IFluidHandlerItem fluidHandlerItem = itemStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).orElse(null);
-			return fluidHandlerItem.fill(fluidStack, FluidAction.SIMULATE);
+			IFluidHandlerItem fluidHandlerItem = toItemStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).orElse(null);
+			return fluidHandlerItem != null ? fluidHandlerItem.fill(fluidStack, FluidAction.SIMULATE) : 0;
 		}
 	}
 
-	public static List<FluidStack> getFluidStack(ItemStack itemStack) {
+	public static boolean isEmpty(ItemStack itemStack) {
+		for (FluidStack fluidStack : getFluidStacks(itemStack)) {
+			if (!fluidStack.isEmpty()) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public static List<FluidStack> getFluidStacks(ItemStack itemStack) {
 		List<FluidStack> fluidStacks = new ArrayList<>();
 
 		if (itemStack.isEmpty()) {
 			return fluidStacks;
 		}
 
-		Item item = itemStack.getItem();
-		Fluid fluid = findBucketFluid(item);
+		Fluid fluid = findBucketFluid(itemStack.getItem());
 
 		if (fluid != null) {
 			fluidStacks.add(new FluidStack(fluid, BUCKET_SIZE));
 		} else {
 			IFluidHandlerItem fluidHandlerItem = itemStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).orElse(null);
 
-			for (int i = 0; i < fluidHandlerItem.getTanks(); i++) {
-				fluidStacks.add(fluidHandlerItem.getFluidInTank(i));
+			if (fluidHandlerItem != null) {
+				for (int i = 0; i < fluidHandlerItem.getTanks(); i++) {
+					fluidStacks.add(fluidHandlerItem.getFluidInTank(i));
+				}
+
 			}
+
 		}
 
 		return fluidStacks;

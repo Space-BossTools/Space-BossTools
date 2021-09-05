@@ -18,6 +18,7 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.energy.IEnergyStorage;
@@ -57,12 +58,20 @@ public class GuiHelper {
 		renderFluidTooltip(matrixStack, left, top, screen, tank.getFluid(), tank.getCapacity());
 	}
 
+	public static ITextComponent getFluidTooltip(FluidStack stack, int capacity) {
+		return new TranslationTextComponent("%s: " + stack.getAmount() + " mb / " + capacity + " mb", stack.getDisplayName());
+	}
+
+	public static ITextComponent getFluidTooltip(Fluid fluid, int amount, int capacity) {
+		return getFluidTooltip(new FluidStack(fluid, amount), capacity);
+	}
+	
 	public static void renderFluidTooltip(MatrixStack matrixStack, int left, int top, Screen screen, FluidStack stack, int capacity) {
-		screen.renderTooltip(matrixStack, new TranslationTextComponent("%s: " + stack.getAmount() + " mb / " + capacity + " mb", stack.getDisplayName()), left, top);
+		screen.renderTooltip(matrixStack, getFluidTooltip(stack, capacity), left, top);
 	}
 
 	public static void renderFluidTooltip(MatrixStack matrixStack, int left, int top, Screen screen, Fluid fluid, int amount, int capacity) {
-		screen.renderTooltip(matrixStack, new TranslationTextComponent("%s: " + amount + " mb / " + capacity + " mb", new TranslationTextComponent(fluid.getAttributes().getTranslationKey())), left, top);
+		screen.renderTooltip(matrixStack, getFluidTooltip(fluid, amount, capacity), left, top);
 	}
 
 	public static void drawArrow(MatrixStack matrixStack, int left, int top, double ratio) {
@@ -114,7 +123,10 @@ public class GuiHelper {
 			drawFluid(matrixStack, left, top + offset, FLUID_TANK_WIDTH, scaledHeight, stack);
 		}
 
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		drawFluidTankOverlay(matrixStack, left, top);
+	}
+
+	public static void drawFluidTankOverlay(MatrixStack matrixStack, int left, int top) {
 		drawVertical(matrixStack, left, top, FLUID_TANK_WIDTH, FLUID_TANK_HEIGHT, FLUID_TANK_PATH, 1.0D);
 	}
 
@@ -163,6 +175,8 @@ public class GuiHelper {
 				}
 			}
 		}
+
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 	}
 
 	private static void drawTextureWithMasking(Matrix4f matrix, float left, float top, TextureAtlasSprite textureSprite, int maskTop, int maskRight, float zLevel) {

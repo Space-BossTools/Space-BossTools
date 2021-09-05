@@ -1,4 +1,3 @@
-
 package net.mrscauthd.boss_tools.gui;
 
 import org.lwjgl.opengl.GL11;
@@ -34,6 +33,8 @@ public class FuelRefineryGUIGuiWindow extends ContainerScreen<FuelRefineryGUIGui
 	public static final int OUTPUT_SINK_TOP = 21;
 	public static final int ENERGY_LEFT = 144;
 	public static final int ENERGY_TOP = 21;
+	public static final int ARROW_LEFT = 48;
+	public static final int ARROW_TOP = 36;
 
 	private final CustomTileEntity tileEntity;
 

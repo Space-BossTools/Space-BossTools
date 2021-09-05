@@ -46,6 +46,10 @@ public abstract class FluidIngredient implements Predicate<FluidStack> {
 		return this.cachedFluids;
 	}
 
+	public List<FluidStack> toStacks() {
+		return this.getFluids().stream().map(f-> new FluidStack(f, this.getAmount())).collect(Collectors.toList());
+	}
+
 	public FluidStack toStack() {
 		List<Fluid> fluids = this.getFluids();
 		return fluids.size() == 0 ? FluidStack.EMPTY : new FluidStack(fluids.get(0), this.getAmount());
