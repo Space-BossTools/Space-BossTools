@@ -113,7 +113,7 @@ public class ModInnet {
     public static final RegistryObject<SensorType<PygroMobsSensor>> PYGRO_SENSOR = SENSOR.register("pygro_sensor", ()->new SensorType<>(PygroMobsSensor::new));
 
     //Sounds
-    public static RegistryObject<SoundEvent> ROCKET_SOUND = SOUNDS.register("rocketfly",() -> new SoundEvent(new ResourceLocation("boss_tools", "rocketfly")));
+    public static RegistryObject<SoundEvent> ROCKET_SOUND = SOUNDS.register("rocket_fly",() -> new SoundEvent(new ResourceLocation("boss_tools", "rocket_fly")));
 
     //Blocks
     public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, "boss_tools");

@@ -108,7 +108,7 @@ public class Methodes {
     }
 
     public static void RocketSounds(Entity entity, World world) {
-        world.playMovingSound(null, entity, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("boss_tools:rocketfly")), SoundCategory.NEUTRAL,3,1);
+        world.playMovingSound(null, entity, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("boss_tools:rocket_fly")), SoundCategory.NEUTRAL,1,1);
     }
 
     public static void DropRocket(PlayerEntity player) {
