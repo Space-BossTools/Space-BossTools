@@ -48,6 +48,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -57,12 +58,12 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ObjectHolder;
 import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.BossToolsModElements;
-import net.mrscauthd.boss_tools.capability.EnergyStorageBasic;
 import net.mrscauthd.boss_tools.gui.OxygenBulletGeneratorGUIGui;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
+import net.mrscauthd.boss_tools.machines.tile.NamedComponentRegistry;
 import net.mrscauthd.boss_tools.machines.tile.OxygenUsingTileEntity;
-import net.mrscauthd.boss_tools.machines.tile.PowerSystemCommonEnergy;
-import net.mrscauthd.boss_tools.machines.tile.PowerSystemMap;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystemEnergyCommon;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystemRegistry;
 
 @BossToolsModElements.ModElement.Tag
 public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
@@ -242,8 +243,9 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 		}
 
 		@Override
-		protected EnergyStorageBasic createEnergyStorage() {
-			return this.createEnergyStorageCommonUsing();
+		protected void createEnergyStorages(NamedComponentRegistry<IEnergyStorage> registry) {
+			super.createEnergyStorages(registry);
+			registry.put(this.createEnergyStorageCommon());
 		}
 
 		@Override
@@ -288,7 +290,7 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 			}
 
 		}
-		
+
 		@Override
 		protected boolean canActivated() {
 			return this.isPowerEnoughForOperation();
@@ -333,15 +335,19 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 		}
 
 		@Override
-		protected void createPowerSystems(PowerSystemMap map) {
+		protected void createPowerSystems(PowerSystemRegistry map) {
 			super.createPowerSystems(map);
 
-			map.put(new PowerSystemCommonEnergy(this) {
+			map.put(new PowerSystemEnergyCommon(this) {
 				@Override
 				public int getBasePowerForOperation() {
-					return ENERGY_PER_TICK;
+					return CustomTileEntity.this.getBasePowerForOperation();
 				}
 			});
+		}
+
+		public int getBasePowerForOperation() {
+			return ENERGY_PER_TICK;
 		}
 
 		@Override

@@ -79,7 +79,7 @@ import net.mrscauthd.boss_tools.crafting.RocketPart;
 import net.mrscauthd.boss_tools.crafting.WorkbenchingRecipe;
 import net.mrscauthd.boss_tools.gui.NasaWorkbenchGui;
 import net.mrscauthd.boss_tools.inventory.ItemHandlerHelper2;
-import net.mrscauthd.boss_tools.inventory.ItemStackCacher;
+import net.mrscauthd.boss_tools.inventory.StackCacher;
 import net.mrscauthd.boss_tools.inventory.RocketPartsItemHandler;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 import net.mrscauthd.boss_tools.machines.tile.AbstractMachineTileEntity;
@@ -268,7 +268,7 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 
 	public static class CustomTileEntity extends AbstractMachineTileEntity {
 
-		private ItemStackCacher itemStackCacher;
+		private StackCacher itemStackCacher;
 		private WorkbenchingRecipe cachedRecipe;
 		private List<WorkbenchingRecipe> possibleRecipes;
 		private Set<ItemStack> invalidCache;
@@ -281,7 +281,7 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 		protected CustomTileEntity() {
 			super(tileEntityType);
 
-			this.itemStackCacher = new ItemStackCacher();
+			this.itemStackCacher = new StackCacher();
 			this.cachedRecipe = null;
 			this.possibleRecipes = new ArrayList<>();
 			this.invalidCache = new HashSet<>();
@@ -347,13 +347,14 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 		}
 
 		@Override
-		public boolean canInsertItem(int index, ItemStack stack, Direction direction) {
-			if (super.canInsertItem(index, stack, direction)) {
+		protected boolean onCanInsertItem(int index, ItemStack stack, Direction direction) {
+			int find = this.findAvailableSlot(stack);
+
+			if (find == index) {
 				return true;
 			}
 
-			int find = this.findAvailableSlot(stack);
-			return find == index;
+			return super.onCanInsertItem(index, stack, direction);
 		}
 
 		public int findAvailableSlot(ItemStack itemStack) {

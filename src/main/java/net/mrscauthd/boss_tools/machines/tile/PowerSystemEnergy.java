@@ -1,10 +1,18 @@
 package net.mrscauthd.boss_tools.machines.tile;
 
-import net.mrscauthd.boss_tools.capability.EnergyStorageBasic;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.energy.IEnergyStorage;
 
 public abstract class PowerSystemEnergy extends PowerSystem {
+	private final IEnergyStorage energyStorage;
+
 	public PowerSystemEnergy(AbstractMachineTileEntity tileEntity) {
+		this(tileEntity, tileEntity.getPrimaryEnergyStorage());
+	}
+
+	public PowerSystemEnergy(AbstractMachineTileEntity tileEntity, IEnergyStorage energyStorage) {
 		super(tileEntity);
+		this.energyStorage = energyStorage;
 	}
 
 	@Override
@@ -27,12 +35,12 @@ public abstract class PowerSystemEnergy extends PowerSystem {
 		return this.getEnergyStorage().extractEnergy(amount, simulate);
 	}
 
-	public final EnergyStorageBasic getEnergyStorage() {
-		return this.getTileEntity().getEnergyStorage();
+	public final IEnergyStorage getEnergyStorage() {
+		return this.energyStorage;
 	}
 
 	@Override
-	public String getName() {
-		return "Energy";
+	public ResourceLocation getName() {
+		return new ResourceLocation("boss_tools", "energy");
 	}
 }

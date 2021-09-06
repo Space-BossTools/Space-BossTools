@@ -9,6 +9,7 @@ public class BossToolsRecipeTypes {
 	public static final BossToolsRecipeType<GeneratingRecipe> GENERATING = create(new BossToolsRecipeType<>("generating"));
 	public static final BossToolsRecipeType<OxygenMakingRecipe> OXYGENMAKING = create(new BossToolsRecipeType<>("oxygenmaking"));
 	public static final BossToolsRecipeType<WorkbenchingRecipe> WORKBENCHING = create(new BossToolsRecipeType<>("workbenching"));
+	public static final BossToolsRecipeType<FuelRefiningRecipe> FUELREFINING = create(new BossToolsRecipeType<>("fuelrefining"));
 
 	/**
 	 * for initialize static final fields

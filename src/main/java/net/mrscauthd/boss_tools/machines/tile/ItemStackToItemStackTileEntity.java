@@ -7,34 +7,27 @@ import javax.annotation.Nullable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipe;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipeType;
-import net.mrscauthd.boss_tools.inventory.ItemStackCacher;
+import net.mrscauthd.boss_tools.inventory.StackCacher;
 
 public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTileEntity {
 
 	public static final int SLOT_INGREDIENT = 0;
 	public static final int SLOT_OUTPUT = 1;
-	public static final int SLOT_FUEL = 2;
 
 	public static final String KEY_TIMER = "timer";
 	public static final String KEY_MAXTIMER = "maxTimer";
 
-	private ItemStackCacher itemStackCacher;
+	private StackCacher itemStackCacher;
 	private ItemStackToItemStackRecipe cachedRecipe = null;
 
 	public ItemStackToItemStackTileEntity(TileEntityType<?> type) {
 		super(type);
 
-		this.itemStackCacher = new ItemStackCacher();
+		this.itemStackCacher = new StackCacher();
 		this.cachedRecipe = null;
-	}
-
-	@Override
-	protected IFluidHandler createFluidHandler() {
-		return null;
 	}
 
 	@Override
@@ -53,23 +46,21 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 	}
 
 	@Override
-	public boolean canInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
-		if (super.canInsertItem(index, stack, direction)) {
-			return true;
-		} else if (index == SLOT_INGREDIENT && this.nullOrMatch(direction, Direction.UP)) {
+	protected boolean onCanInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
+		if (index == SLOT_INGREDIENT && this.nullOrMatch(direction, Direction.UP)) {
 			return this.getRecipeType().findFirst(this.getWorld(), r -> r.test(stack)) != null;
 		}
-		return false;
+
+		return super.onCanInsertItem(index, stack, direction);
 	}
 
 	@Override
 	public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-		if (super.canExtractItem(index, stack, direction)) {
-			return true;
-		} else if (index == SLOT_OUTPUT && direction == Direction.DOWN) {
+		if (index == SLOT_OUTPUT && direction == Direction.DOWN) {
 			return true;
 		}
-		return false;
+
+		return super.canExtractItem(index, stack, direction);
 	}
 
 	@Override
@@ -91,6 +82,7 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 				this.setMaxTimer(this.cachedRecipe.getCookTime());
 			}
 		}
+
 		return this.cachedRecipe;
 	}
 
@@ -112,7 +104,6 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 		} else {
 			return false;
 		}
-
 	}
 
 	public abstract ItemStackToItemStackRecipeType<?> getRecipeType();
@@ -151,7 +142,6 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 		} else {
 			this.resetTimer();
 		}
-
 	}
 
 	public int getTimer() {
@@ -183,9 +173,4 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 	public double getTimerRatio() {
 		return (double) this.getTimer() / (double) this.getMaxTimer();
 	}
-
-	public double getTimerPercentage() {
-		return this.getTimerRatio() / 100.0D;
-	}
-
 }

@@ -1,6 +1,7 @@
 package net.mrscauthd.boss_tools.machines.tile;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.GeneratingRecipe;
@@ -26,8 +27,9 @@ public class PowerSystemFuelGeneratingRecipe extends PowerSystemFuelBurnTime {
 	}
 
 	@Override
-	public String getName() {
-		return "FuelBurnTimeGenerating";
+	public ResourceLocation getName() {
+		ResourceLocation name = super.getName();
+		return new ResourceLocation(name.getNamespace(), name.getPath() + "/generating");
 	}
 	
 }

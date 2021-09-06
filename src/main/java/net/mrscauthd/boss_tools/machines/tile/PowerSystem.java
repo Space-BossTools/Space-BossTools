@@ -7,8 +7,10 @@ import javax.annotation.Nullable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.util.INBTSerializable;
 
-public abstract class PowerSystem {
+public abstract class PowerSystem implements INBTSerializable<CompoundNBT> {
 	private final AbstractMachineTileEntity tileEntity;
 
 	public PowerSystem(AbstractMachineTileEntity tileEntity) {
@@ -58,11 +60,13 @@ public abstract class PowerSystem {
 
 	public abstract int extract(int amount, boolean simulate);
 
-	public void read(CompoundNBT compound) {
+	@Override
+	public void deserializeNBT(CompoundNBT compound) {
 
 	}
 
-	public CompoundNBT write() {
+	@Override
+	public CompoundNBT serializeNBT() {
 		return new CompoundNBT();
 	}
 
@@ -71,18 +75,10 @@ public abstract class PowerSystem {
 	 * @return complete extract energy for operation
 	 */
 	public int consume(int amount) {
-		while (true) {
-			if (this.extract(amount, true) == amount) {
-				this.extract(amount, false);
-
-				if (this.extract(amount, true) < amount) {
-					this.feed(true);
-				}
-
-				return amount;
-			} else if (!this.feed(false)) {
-				return 0;
-			}
+		if (this.extract(amount, true) == amount) {
+			return this.extract(amount, false);
+		} else {
+			return 0;
 		}
 	}
 
@@ -119,6 +115,6 @@ public abstract class PowerSystem {
 
 	}
 
-	public abstract String getName();
+	public abstract ResourceLocation getName();
 
 }

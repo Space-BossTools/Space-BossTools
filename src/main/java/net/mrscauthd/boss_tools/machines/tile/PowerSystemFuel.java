@@ -7,8 +7,9 @@ import javax.annotation.Nullable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import net.mrscauthd.boss_tools.inventory.ItemStackCacher;
+import net.mrscauthd.boss_tools.inventory.StackCacher;
 
 public abstract class PowerSystemFuel extends PowerSystem {
 
@@ -17,7 +18,7 @@ public abstract class PowerSystemFuel extends PowerSystem {
 	private int fuel;
 	private int maxFuel;
 
-	private ItemStackCacher itemStackCacher;
+	private StackCacher itemStackCacher;
 	private int cachedFuel;
 
 	public PowerSystemFuel(AbstractMachineTileEntity tileEntity, int slot) {
@@ -28,13 +29,13 @@ public abstract class PowerSystemFuel extends PowerSystem {
 		this.fuel = 0;
 		this.maxFuel = 0;
 
-		this.itemStackCacher = new ItemStackCacher();
+		this.itemStackCacher = new StackCacher();
 		this.cachedFuel = 0;
 	}
 
 	@Override
 	public int getUsingSlots() {
-		return 1;
+		return this.getSlot() == -1 ? 0 : 1;
 	}
 
 	@Override
@@ -76,16 +77,16 @@ public abstract class PowerSystemFuel extends PowerSystem {
 	}
 
 	@Override
-	public void read(CompoundNBT compound) {
-		super.read(compound);
+	public void deserializeNBT(CompoundNBT compound) {
+		super.deserializeNBT(compound);
 
 		this.fuel = compound.getInt("fuel");
 		this.maxFuel = compound.getInt("maxFuel");
 	}
 
 	@Override
-	public CompoundNBT write() {
-		CompoundNBT compound = super.write();
+	public CompoundNBT serializeNBT() {
+		CompoundNBT compound = super.serializeNBT();
 
 		compound.putInt("fuel", this.fuel);
 		compound.putInt("maxFuel", this.maxFuel);
@@ -112,8 +113,13 @@ public abstract class PowerSystemFuel extends PowerSystem {
 			return false;
 		}
 
-		IItemHandlerModifiable itemHandler = this.getItemHandler();
 		int slot = this.getSlot();
+
+		if (slot == -1) {
+			return false;
+		}
+
+		IItemHandlerModifiable itemHandler = this.getItemHandler();
 		ItemStack fuelItemStack = itemHandler.getStackInSlot(slot);
 
 		if (!fuelItemStack.isEmpty() && this.canFeed(spareForNextTick, fuelItemStack)) {
@@ -166,7 +172,7 @@ public abstract class PowerSystemFuel extends PowerSystem {
 	}
 
 	@Override
-	public String getName() {
-		return "Fuel";
+	public ResourceLocation getName() {
+		return new ResourceLocation("boss_tools", "fuel");
 	}
 }

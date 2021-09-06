@@ -1,5 +1,7 @@
 package net.mrscauthd.boss_tools.machines.tile;
 
+import net.minecraft.util.ResourceLocation;
+
 public class PowerSystemNone extends PowerSystem {
 	public PowerSystemNone(AbstractMachineTileEntity tileEntity) {
 		super(tileEntity);
@@ -36,7 +38,7 @@ public class PowerSystemNone extends PowerSystem {
 	}
 
 	@Override
-	public String getName() {
-		return "None";
+	public ResourceLocation getName() {
+		return new ResourceLocation("boss_tools", "none");
 	}
 }
