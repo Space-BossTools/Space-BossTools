@@ -224,7 +224,7 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		return null;
 	}
 
-	public <T> LazyOptional<T> getCapabilityFluidHandler(Capability<T> capability, Direction facing) {
+	public <T> LazyOptional<T> getCapabilityFluidHandler(Capability<T> capability, @Nullable Direction facing) {
 		IFluidHandler fluidHandler = this.getFluidHandler();
 
 		if (fluidHandler != null) {

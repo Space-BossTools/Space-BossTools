@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import javax.annotation.Nullable;
+
 import com.google.common.collect.Lists;
 
 import net.minecraft.block.Block;
@@ -422,8 +424,8 @@ public class FuelRefineryBlock {
 		}
 
 		@Override
-		public <T> LazyOptional<T> getCapabilityFluidHandler(Capability<T> capability, Direction facing) {
-			if (facing == Direction.DOWN) {
+		public <T> LazyOptional<T> getCapabilityFluidHandler(Capability<T> capability, @Nullable Direction facing) {
+			if (facing == Direction.DOWN || facing == null) {
 				return LazyOptional.of(() -> this.getFluidTanks().getTank(this.getOutputTank())).cast();
 			} else {
 				return LazyOptional.of(() -> this.getFluidTanks().getTank(this.getInputTank())).cast();
