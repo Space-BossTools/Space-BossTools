@@ -33,6 +33,24 @@ public class FluidUtil2 {
 		return ForgeRegistries.FLUIDS.getValues().stream().filter(f -> f.isSource(null) && f.getFilledBucket() == item).findFirst().orElse(null);
 	}
 
+	public static boolean isEquivalentTo(FluidStack left, Fluid right) {
+		if (left.isEmpty())
+			return right == Fluids.EMPTY;
+		else if (right == Fluids.EMPTY)
+			return false;
+
+		return left.getFluid().isEquivalentTo(right);
+	}
+
+	public static boolean isEquivalentTo(FluidStack left, FluidStack right) {
+		if (left.isEmpty())
+			return right.isEmpty();
+		else if (right.isEmpty())
+			return false;
+
+		return left.getFluid().isEquivalentTo(right.getFluid()) && FluidStack.areFluidStackTagsEqual(left, right);
+	}
+
 	/**
 	 * 
 	 * @param itemStack

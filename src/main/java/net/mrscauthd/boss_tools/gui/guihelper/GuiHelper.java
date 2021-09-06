@@ -24,7 +24,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.minecraftforge.fluids.IFluidTank;
 
 public class GuiHelper {
 
@@ -54,7 +54,7 @@ public class GuiHelper {
 		renderEnergyTooltip(matrixStack, left, top, screen, energyStorage.getEnergyStored(), energyStorage.getMaxEnergyStored());
 	}
 
-	public static void renderFluidTooltip(MatrixStack matrixStack, int left, int top, Screen screen, FluidTank tank) {
+	public static void renderFluidTooltip(MatrixStack matrixStack, int left, int top, Screen screen, IFluidTank tank) {
 		renderFluidTooltip(matrixStack, left, top, screen, tank.getFluid(), tank.getCapacity());
 	}
 
@@ -65,7 +65,7 @@ public class GuiHelper {
 	public static ITextComponent getFluidTooltip(Fluid fluid, int amount, int capacity) {
 		return getFluidTooltip(new FluidStack(fluid, amount), capacity);
 	}
-	
+
 	public static void renderFluidTooltip(MatrixStack matrixStack, int left, int top, Screen screen, FluidStack stack, int capacity) {
 		screen.renderTooltip(matrixStack, getFluidTooltip(stack, capacity), left, top);
 	}
@@ -98,6 +98,10 @@ public class GuiHelper {
 		return new Rectangle2d(left, top, OXYGEN_WIDTH, OXYGEN_HEIGHT);
 	}
 
+	public static void drawEnergy(MatrixStack matrixStack, int left, int top, IEnergyStorage energyStorage) {
+		drawEnergy(matrixStack, left, top, (double) energyStorage.getEnergyStored() / (double) energyStorage.getMaxEnergyStored());
+	}
+
 	public static void drawEnergy(MatrixStack matrixStack, int left, int top, double ratio) {
 		drawVertical(matrixStack, left, top, ENERGY_WIDTH, ENERGY_HEIGHT, ENERGY_PATH, ratio);
 	}
@@ -111,7 +115,7 @@ public class GuiHelper {
 		return new Rectangle2d(left, top, ENERGY_WIDTH, ENERGY_HEIGHT);
 	}
 
-	public static void drawFluidTank(MatrixStack matrixStack, int left, int top, FluidTank tank) {
+	public static void drawFluidTank(MatrixStack matrixStack, int left, int top, IFluidTank tank) {
 		drawFluidTank(matrixStack, left, top, tank.getFluid(), tank.getCapacity());
 	}
 

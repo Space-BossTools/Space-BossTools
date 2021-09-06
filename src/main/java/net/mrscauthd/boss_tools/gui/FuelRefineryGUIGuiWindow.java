@@ -12,7 +12,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.boss_tools.capability.MultiFluidHandler;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 import net.mrscauthd.boss_tools.machines.FuelRefineryBlock.CustomTileEntity;
 
@@ -64,14 +63,13 @@ public class FuelRefineryGUIGuiWindow extends ContainerScreen<FuelRefineryGUIGui
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 
 		CustomTileEntity tileEntity = (CustomTileEntity) this.getTileEntity();
-		MultiFluidHandler fluidTank = tileEntity.getFluidTanks();
 
 		if (this.getInputTankBounds().contains(mouseX, mouseY)) {
-			GuiHelper.renderFluidTooltip(ms, mouseX, mouseY, this, fluidTank.getTank(tileEntity.getInputTank()));
+			GuiHelper.renderFluidTooltip(ms, mouseX, mouseY, this, tileEntity.getInputTank());
 		} else if (this.getOutputTankBounds().contains(mouseX, mouseY)) {
-			GuiHelper.renderFluidTooltip(ms, mouseX, mouseY, this, fluidTank.getTank(tileEntity.getOutputTank()));
+			GuiHelper.renderFluidTooltip(ms, mouseX, mouseY, this, tileEntity.getOutputTank());
 		} else if (this.getEnergyBounds().contains(mouseX, mouseY)) {
-			GuiHelper.renderEnergyTooltip(ms, mouseX, mouseY, this, tileEntity.getEnergyStorage());
+			GuiHelper.renderEnergyTooltip(ms, mouseX, mouseY, this, tileEntity.getPrimaryEnergyStorage());
 		}
 	}
 
@@ -82,9 +80,9 @@ public class FuelRefineryGUIGuiWindow extends ContainerScreen<FuelRefineryGUIGui
 
 		this.minecraft.getTextureManager().bindTexture(texture);
 		AbstractGui.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
-		GuiHelper.drawEnergy(ms, this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP, tileEntity.getEnergyStorage().getStoredRatio());
-		GuiHelper.drawFluidTank(ms, this.guiLeft + INPUT_TANK_LEFT, this.guiTop + INPUT_TANK_TOP, tileEntity.getFluidTanks().getTank(tileEntity.getInputTank()));
-		GuiHelper.drawFluidTank(ms, this.guiLeft + OUTPUT_TANK_LEFT, this.guiTop + OUTPUT_TANK_TOP, tileEntity.getFluidTanks().getTank(tileEntity.getOutputTank()));
+		GuiHelper.drawEnergy(ms, this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP, tileEntity.getPrimaryEnergyStorage());
+		GuiHelper.drawFluidTank(ms, this.guiLeft + INPUT_TANK_LEFT, this.guiTop + INPUT_TANK_TOP, tileEntity.getInputTank());
+		GuiHelper.drawFluidTank(ms, this.guiLeft + OUTPUT_TANK_LEFT, this.guiTop + OUTPUT_TANK_TOP, tileEntity.getOutputTank());
 	}
 
 	@Override

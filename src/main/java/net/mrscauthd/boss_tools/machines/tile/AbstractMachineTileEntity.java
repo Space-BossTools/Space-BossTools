@@ -21,6 +21,7 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.state.BooleanProperty;
@@ -30,17 +31,21 @@ import net.minecraft.tileentity.LockableLootTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -54,9 +59,9 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 
 	public static final String KEY_ACTIVATED = "activated";
 
-	private EnergyStorageBasic energyStorage = null;
-	private IFluidHandler fluidHandler = null;
-	private final Map<String, PowerSystem> powerSystems;
+	private Map<ResourceLocation, IEnergyStorage> energyStorages;
+	private final Map<ResourceLocation, IFluidHandler> fluidHandlers;
+	private final Map<ResourceLocation, PowerSystem> powerSystems;
 	private NonNullList<ItemStack> stacks = null;
 	private final LazyOptional<? extends IItemHandler>[] itemHandlers;
 
@@ -65,10 +70,15 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	public AbstractMachineTileEntity(TileEntityType<?> type) {
 		super(type);
 
-		this.energyStorage = this.createEnergyStorage();
-		this.fluidHandler = this.createFluidHandler();
+		NamedComponentRegistry<IEnergyStorage> energyRegistry = new NamedComponentRegistry<>();
+		this.createEnergyStorages(energyRegistry);
+		this.energyStorages = Collections.unmodifiableMap(energyRegistry);
 
-		PowerSystemMap powerSystemMap = new PowerSystemMap();
+		NamedComponentRegistry<IFluidHandler> fluidRegistry = new NamedComponentRegistry<>();
+		this.createFluidHandlers(fluidRegistry);
+		this.fluidHandlers = Collections.unmodifiableMap(fluidRegistry);
+
+		PowerSystemRegistry powerSystemMap = new PowerSystemRegistry();
 		this.createPowerSystems(powerSystemMap);
 		this.powerSystems = Collections.unmodifiableMap(powerSystemMap);
 		this.itemHandlers = SidedInvWrapper.create(this, Direction.values());
@@ -113,21 +123,32 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	@Override
 	public void read(BlockState blockState, CompoundNBT compound) {
 		super.read(blockState, compound);
+
 		if (!this.checkLootAndRead(compound)) {
 			this.stacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
 		}
+
 		ItemStackHelper.loadAllItems(compound, this.stacks);
 
-		CompoundNBT powerSystemCompound = compound.getCompound("powerSystem");
+		this.deserializeCompoents(this.getEnergyStorages(), compound.getCompound("energyStorages"));
+		this.deserializeCompoents(this.getFluidHandlers(), compound.getCompound("fluidHandlers"));
+		this.deserializeCompoents(this.getPowerSystems(), compound.getCompound("powerSystems"));
+	}
 
-		for (Entry<String, PowerSystem> entry : this.getPowerSystems().entrySet()) {
-			entry.getValue().read(powerSystemCompound.getCompound(entry.getKey()));
+	public <T> void deserializeCompoents(Map<ResourceLocation, T> registry, CompoundNBT compound) {
+		for (Entry<ResourceLocation, T> entry : registry.entrySet()) {
+			this.deserializeComponent(entry.getKey(), entry.getValue(), compound.get(entry.getKey().toString()));
 		}
+	}
 
-		EnergyStorageBasic energyStorage = this.getEnergyStorage();
-
-		if (energyStorage != null) {
-			energyStorage.deserializeNBT(compound.getCompound("energyStorage"));
+	@SuppressWarnings("unchecked")
+	public <T> void deserializeComponent(ResourceLocation name, T component, INBT nbt) {
+		if (component instanceof INBTSerializable<?>) {
+			((INBTSerializable<INBT>) component).deserializeNBT(nbt);
+		} else if (component instanceof EnergyStorage) {
+			CapabilityEnergy.ENERGY.readNBT((EnergyStorage) component, null, nbt);
+		} else if (component instanceof FluidTank) {
+			CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.readNBT((FluidTank) component, null, nbt);
 		}
 
 	}
@@ -135,35 +156,44 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	@Override
 	public CompoundNBT write(CompoundNBT compound) {
 		super.write(compound);
+
 		if (!this.checkLootAndWrite(compound)) {
 			ItemStackHelper.saveAllItems(compound, this.stacks);
 		}
 
-		CompoundNBT powerSystemCompound = new CompoundNBT();
+		compound.put("energyStorages", this.serializeComponents(this.getEnergyStorages()));
+		compound.put("fluidHandlers", this.serializeComponents(this.getFluidHandlers()));
+		compound.put("powerSystems", this.serializeComponents(this.getPowerSystems()));
 
-		for (Entry<String, PowerSystem> entry : this.getPowerSystems().entrySet()) {
-			powerSystemCompound.put(entry.getKey(), entry.getValue().write());
-		}
+		return compound;
+	}
 
-		compound.put("powerSystem", powerSystemCompound);
+	public <T> CompoundNBT serializeComponents(Map<ResourceLocation, T> registry) {
+		CompoundNBT compound = new CompoundNBT();
 
-		EnergyStorageBasic energyStorage = this.getEnergyStorage();
-
-		if (energyStorage != null) {
-			compound.put("energyStorage", energyStorage.serializeNBT());
+		for (Entry<ResourceLocation, T> entry : registry.entrySet()) {
+			compound.put(entry.getKey().toString(), this.serializeComponent(entry.getKey(), entry.getValue()));
 		}
 
 		return compound;
 	}
 
-	@Override
-	public int getSizeInventory() {
-		return stacks.size();
+	@SuppressWarnings("unchecked")
+	public <T> INBT serializeComponent(ResourceLocation name, T component) {
+		if (component instanceof INBTSerializable<?>) {
+			return ((INBTSerializable<INBT>) component).serializeNBT();
+		} else if (component instanceof EnergyStorage) {
+			return CapabilityEnergy.ENERGY.writeNBT((EnergyStorage) component, null);
+		} else if (component instanceof FluidTank) {
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.writeNBT((FluidTank) component, null);
+		}
+
+		return null;
 	}
 
 	@Override
-	public boolean isEmpty() {
-		return this.getItems().stream().allMatch(ItemStack::isEmpty);
+	public int getSizeInventory() {
+		return stacks.size();
 	}
 
 	@Override
@@ -189,19 +219,12 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 
 	@Override
 	public boolean canInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
-		if (this.getPowerSystems().values().stream().anyMatch(ps -> ps.canInsertItem(direction, index, stack))) {
-			return true;
-		}
-
-		return false;
+		return this.getPowerSystems().values().stream().anyMatch(ps -> ps.canInsertItem(direction, index, stack));
 	}
 
 	@Override
 	public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-		if (this.getPowerSystems().values().stream().anyMatch(ps -> ps.canExtractItem(direction, index, stack))) {
-			return true;
-		}
-		return false;
+		return this.getPowerSystems().values().stream().anyMatch(ps -> ps.canExtractItem(direction, index, stack));
 	}
 
 	public <T> LazyOptional<T> getCapabilityItemHandler(Capability<T> capability, @Nullable Direction facing) {
@@ -214,8 +237,7 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	}
 
 	public <T> LazyOptional<T> getCapabilityEnergy(Capability<T> capability, @Nullable Direction facing) {
-
-		EnergyStorageBasic energyStorage = this.getEnergyStorage();
+		IEnergyStorage energyStorage = this.getPrimaryEnergyStorage();
 
 		if (energyStorage != null) {
 			return LazyOptional.of(() -> energyStorage).cast();
@@ -225,7 +247,7 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	}
 
 	public <T> LazyOptional<T> getCapabilityFluidHandler(Capability<T> capability, @Nullable Direction facing) {
-		IFluidHandler fluidHandler = this.getFluidHandler();
+		IFluidHandler fluidHandler = this.getPrimaryFluidHandler();
 
 		if (fluidHandler != null) {
 			return LazyOptional.of(() -> fluidHandler).cast();
@@ -236,7 +258,6 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 
 	@Override
 	public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-
 		if (!this.removed) {
 			if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 				LazyOptional<T> optional = this.getCapabilityItemHandler(capability, facing);
@@ -331,58 +352,66 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	}
 
 	protected boolean canActivated() {
-		List<Entry<String, PowerSystem>> powerSystems = Lists.newArrayList(this.getPowerSystems().entrySet());
+		List<PowerSystem> powerSystems = Lists.newArrayList(this.getPowerSystems().values());
 
 		if (powerSystems.size() == 1) {
-			PowerSystem primary = powerSystems.get(0).getValue();
+			PowerSystem primary = powerSystems.get(0);
 
 			if (primary instanceof PowerSystemFuel) {
 				return primary.isPowerEnoughForOperation();
 			}
 		}
+
 		return this.processedInThisTick;
 	}
 
 	@Nonnull
-	protected void createPowerSystems(PowerSystemMap map) {
+	protected void createPowerSystems(PowerSystemRegistry map) {
 
 	}
 
-	public Map<String, PowerSystem> getPowerSystems() {
+	public Map<ResourceLocation, PowerSystem> getPowerSystems() {
 		return this.powerSystems;
 	}
 
-	@SuppressWarnings("unchecked")
-	public <T extends PowerSystem> T getPowerSystem(Class<T> clazz) {
-		return (T) this.getPowerSystems().values().stream().filter(ps -> clazz.isAssignableFrom(ps.getClass())).findFirst().orElse(null);
+	@Nullable
+	protected void createFluidHandlers(NamedComponentRegistry<IFluidHandler> registry) {
+
+	}
+
+	public Map<ResourceLocation, IFluidHandler> getFluidHandlers() {
+		return this.fluidHandlers;
+	}
+
+	public IFluidHandler getPrimaryFluidHandler() {
+		return this.getPrimaryComponent(this.getFluidHandlers());
 	}
 
 	@Nullable
-	protected IFluidHandler createFluidHandler() {
-		return null;
+	protected void createEnergyStorages(NamedComponentRegistry<IEnergyStorage> registry) {
+
+	}
+
+	public Map<ResourceLocation, IEnergyStorage> getEnergyStorages() {
+		return this.energyStorages;
 	}
 
 	@Nullable
-	public IFluidHandler getFluidHandler() {
-		return this.fluidHandler;
+	public IEnergyStorage getPrimaryEnergyStorage() {
+		return this.getPrimaryComponent(this.getEnergyStorages());
 	}
 
-	@Nullable
-	protected EnergyStorageBasic createEnergyStorage() {
-		return null;
-	}
-
-	protected EnergyStorageBasic createEnergyStorageCommonUsing() {
+	protected IEnergyStorage createEnergyStorageCommon() {
 		return new EnergyStorageBasic(this, 9000, 200, 200);
 	}
 
-	protected EnergyStorageBasic createEnergyStorageCommonGenerating() {
-		return new EnergyStorageBasic(this, 9000, 0, 200);
-	}
-
-	@Nullable
-	public EnergyStorageBasic getEnergyStorage() {
-		return this.energyStorage;
+	@Nonnull
+	public <T> T getPrimaryComponent(Map<ResourceLocation, T> map) {
+		if (map.containsKey(NamedComponentRegistry.UNNAMED)) {
+			return map.get(NamedComponentRegistry.UNNAMED);
+		} else {
+			return map.values().stream().findFirst().orElse(null);
+		}
 	}
 
 	public IItemHandlerModifiable getItemHandler() {
@@ -428,9 +457,7 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 
 	@Override
 	public void onEnergyChanged(IEnergyStorage energyStorage, int energyDelta) {
-		if (energyStorage == this.getEnergyStorage()) {
-			this.markDirty();
-		}
+		this.markDirty();
 	}
 
 	protected boolean isProcessedInThisTick() {

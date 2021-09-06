@@ -2,11 +2,13 @@ package net.mrscauthd.boss_tools.machines.tile;
 
 import java.util.HashMap;
 
-public class PowerSystemMap extends HashMap<String, PowerSystem> {
+import net.minecraft.util.ResourceLocation;
+
+public class PowerSystemRegistry extends HashMap<ResourceLocation, PowerSystem> {
 
 	private static final long serialVersionUID = 1L;
 
-	public PowerSystemMap() {
+	public PowerSystemRegistry() {
 
 	}
 

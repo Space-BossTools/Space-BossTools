@@ -53,7 +53,7 @@ public abstract class OxygenUsingTileEntity extends AbstractMachineTileEntity {
 	}
 
 	@Override
-	protected void createPowerSystems(PowerSystemMap map) {
+	protected void createPowerSystems(PowerSystemRegistry map) {
 		super.createPowerSystems(map);
 		map.put(this.oxygenPowerSystem = new PowerSystemFuelOxygen(this, this.getActivatingSlot()) {
 			@Override

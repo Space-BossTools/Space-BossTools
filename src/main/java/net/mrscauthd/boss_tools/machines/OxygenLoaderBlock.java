@@ -36,15 +36,16 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.capability.EnergyStorageBasic;
 import net.mrscauthd.boss_tools.capability.IOxygenStorage;
 import net.mrscauthd.boss_tools.gui.OxygenLoaderGuiGui;
+import net.mrscauthd.boss_tools.machines.tile.NamedComponentRegistry;
 import net.mrscauthd.boss_tools.machines.tile.OxygenUsingTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
-import net.mrscauthd.boss_tools.machines.tile.PowerSystemCommonEnergy;
-import net.mrscauthd.boss_tools.machines.tile.PowerSystemMap;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystemEnergyCommon;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystemRegistry;
 
 public class OxygenLoaderBlock {
 	public static final int SLOT_ITEM = 0;
@@ -220,8 +221,9 @@ public class OxygenLoaderBlock {
 		}
 
 		@Override
-		protected EnergyStorageBasic createEnergyStorage() {
-			return this.createEnergyStorageCommonUsing();
+		protected void createEnergyStorages(NamedComponentRegistry<IEnergyStorage> registry) {
+			super.createEnergyStorages(registry);
+			registry.put(this.createEnergyStorageCommon());
 		}
 
 		@Override
@@ -232,15 +234,11 @@ public class OxygenLoaderBlock {
 
 		@Override
 		public boolean canInsertItem(int index, ItemStack stack, Direction direction) {
-			if (super.canInsertItem(index, stack, direction)) {
-				return true;
-			}
-
 			if (index == this.getItemSlot()) {
 				return this.getItemOxygenStorage(stack) != null;
 			}
 
-			return false;
+			return super.canInsertItem(index, stack, direction);
 		}
 
 		@Override
@@ -261,10 +259,6 @@ public class OxygenLoaderBlock {
 
 		@Override
 		public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-			if (super.canExtractItem(index, stack, direction)) {
-				return true;
-			}
-
 			if (index == this.getItemSlot()) {
 				IOxygenStorage oxygenStorage = this.getItemOxygenStorage(stack);
 
@@ -273,7 +267,7 @@ public class OxygenLoaderBlock {
 				}
 			}
 
-			return false;
+			return super.canExtractItem(index, stack, direction);
 		}
 
 		public IOxygenStorage getItemOxygenStorage() {
@@ -291,15 +285,19 @@ public class OxygenLoaderBlock {
 		}
 
 		@Override
-		protected void createPowerSystems(PowerSystemMap map) {
+		protected void createPowerSystems(PowerSystemRegistry map) {
 			super.createPowerSystems(map);
 
-			map.put(new PowerSystemCommonEnergy(this) {
+			map.put(new PowerSystemEnergyCommon(this) {
 				@Override
 				public int getBasePowerForOperation() {
-					return ENERGY_PER_TICK;
+					return CustomTileEntity.this.getBasePowerForOperation();
 				}
 			});
+		}
+
+		public int getBasePowerForOperation() {
+			return ENERGY_PER_TICK;
 		}
 	}
 }

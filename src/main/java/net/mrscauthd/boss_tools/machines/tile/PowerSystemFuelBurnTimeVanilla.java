@@ -2,6 +2,7 @@ package net.mrscauthd.boss_tools.machines.tile;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeHooks;
 
 public abstract class PowerSystemFuelBurnTimeVanilla extends PowerSystemFuelBurnTime {
@@ -18,8 +19,9 @@ public abstract class PowerSystemFuelBurnTimeVanilla extends PowerSystemFuelBurn
 	}
 
 	@Override
-	public String getName() {
-		return "FuelBurnTimeVanilla";
+	public ResourceLocation getName() {
+		ResourceLocation name = super.getName();
+		return new ResourceLocation(name.getNamespace(), name.getPath() + "/vanilla");
 	}
-	
+
 }

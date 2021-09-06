@@ -18,6 +18,7 @@ import net.minecraftforge.fml.network.IContainerFactory;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.SlotItemHandler;
 import net.mrscauthd.boss_tools.BossToolsModElements;
+import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock;
 import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock.CustomTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.ItemStackToItemStackTileEntity;
 
@@ -72,7 +73,7 @@ public class BlastFurnaceGUIGui extends BossToolsModElements.ModElement {
 					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
 				}
 			});
-			this.addSlot(new SlotItemHandler(itemHandler, ItemStackToItemStackTileEntity.SLOT_FUEL, 53, 56) {
+			this.addSlot(new SlotItemHandler(itemHandler, BlastingFurnaceBlock.SLOT_FUEL, 53, 56) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
 					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
