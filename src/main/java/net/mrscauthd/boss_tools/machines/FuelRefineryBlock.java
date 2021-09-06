@@ -74,9 +74,9 @@ public class FuelRefineryBlock {
 	public static final ResourceLocation TANK_INPUT = new ResourceLocation("boss_tools", "input");
 	public static final ResourceLocation TANK_OUTPUT = new ResourceLocation("boss_tools", "output");
 	public static final int SLOT_INPUT_SOURCE = 0;
-	public static final int SLOT_INPUT_SINK = 1;
-	public static final int SLOT_OUTPUT_SOURCE = 2;
-	public static final int SLOT_OUTPUT_SINK = 3;
+	public static final int SLOT_OUTPUT_SINK = 1;
+	public static final int SLOT_INPUT_SINK = 2;
+	public static final int SLOT_OUTPUT_SOURCE = 3;
 
 	// Fuel Refinery Block
 	public static class CustomBlock extends Block {

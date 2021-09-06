@@ -65,6 +65,12 @@ public class FuelRefineryGUIGui extends BossToolsModElements.ModElement {
 					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
 				}
 			});
+			this.addSlot(new SlotItemHandler(internal, FuelRefineryBlock.SLOT_OUTPUT_SINK, 92, 52) {
+				@Override
+				public boolean isItemValid(ItemStack stack) {
+					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
+				}
+			});
 			this.addSlot(new SlotItemHandler(internal, FuelRefineryBlock.SLOT_INPUT_SINK, 26, 52) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
@@ -72,12 +78,6 @@ public class FuelRefineryGUIGui extends BossToolsModElements.ModElement {
 				}
 			});
 			this.addSlot(new SlotItemHandler(internal, FuelRefineryBlock.SLOT_OUTPUT_SOURCE, 92, 22) {
-				@Override
-				public boolean isItemValid(ItemStack stack) {
-					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
-				}
-			});
-			this.addSlot(new SlotItemHandler(internal, FuelRefineryBlock.SLOT_OUTPUT_SINK, 92, 52) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
 					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
