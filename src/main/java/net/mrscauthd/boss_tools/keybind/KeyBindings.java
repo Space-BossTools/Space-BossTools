@@ -150,17 +150,17 @@ public class KeyBindings {
 				if (entity.getRidingEntity() instanceof RocketTier1Entity && entity.getRidingEntity().getDataManager().get(RocketTier1Entity.FUEL) == 300) {
 
 					entity.getRidingEntity().getDataManager().set(RocketTier1Entity.ROCKET_START, true);
-					Methodes.RocketSounds(world, new BlockPos(x,y,z));
+					Methodes.RocketSounds(entity.getRidingEntity(), world);
 
 				} else if (entity.getRidingEntity() instanceof RocketTier2Entity && entity.getRidingEntity().getDataManager().get(RocketTier2Entity.FUEL) == 300) {
 
 					entity.getRidingEntity().getDataManager().set(RocketTier2Entity.ROCKET_START, true);
-					Methodes.RocketSounds(world, new BlockPos(x,y,z));
+					Methodes.RocketSounds(entity.getRidingEntity(), world);
 
 				} else if (entity.getRidingEntity() instanceof RocketTier3Entity && entity.getRidingEntity().getDataManager().get(RocketTier3Entity.FUEL) == 300) {
 
 					entity.getRidingEntity().getDataManager().set(RocketTier3Entity.ROCKET_START, true);
-					Methodes.RocketSounds(world, new BlockPos(x,y,z));
+					Methodes.RocketSounds(entity.getRidingEntity(), world);
 
 				} else {
 					if (!entity.world.isRemote()) {

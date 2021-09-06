@@ -218,10 +218,6 @@ public class RocketTier3Entity extends CreatureEntity {
 		Entity sourceentity = source.getTrueSource();
 
 		if (!source.isProjectile() && sourceentity != null && sourceentity.isSneaking() && !this.isBeingRidden()) {
-			//Stop Rocket Sound
-			if (sourceentity instanceof ServerPlayerEntity) {
-				Methodes.StopRocketSounds((ServerPlayerEntity) sourceentity);
-			}
 
 			//Drop Rocket Item
 			if (!world.isRemote()) {
@@ -359,10 +355,6 @@ public class RocketTier3Entity extends CreatureEntity {
 
 				pass.getPersistentData().putDouble("Tier_3_open_main_menu", 1); //TODO Remove it if you Reworked the GUI SYSTEM
 				pass.getPersistentData().putDouble("Player_movement", 1); //TODO Remove it if you Reworked the GUI SYSTEM
-
-				if (this.getPassengers().get(0) instanceof ServerPlayerEntity) {
-					Methodes.StopRocketSounds((ServerPlayerEntity) pass);
-				}
 
 				this.remove();
 			} else if (y > 600 && this.getPassengers().isEmpty() == true)  {
