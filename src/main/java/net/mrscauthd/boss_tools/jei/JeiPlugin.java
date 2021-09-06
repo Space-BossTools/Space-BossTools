@@ -32,6 +32,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.capability.CapabilityOxygen;
@@ -163,7 +164,8 @@ public class JeiPlugin implements IModPlugin {
 		// Rover
 		registration.addRecipes(generateRoverRecipes(), RoverJeiCategory.Uid);
 		// Oil
-		registration.addIngredientInfo(new ItemStack(ModInnet.OIL_BUCKET.get()), registration.getIngredientManager().getIngredientType(ItemStack.class), "  You can find Oil in the Ocean");
+		registration.addIngredientInfo(new ItemStack(ModInnet.OIL_BUCKET.get(), 1), VanillaTypes.ITEM, "  You can find Oil in the Ocean");
+		registration.addIngredientInfo(new FluidStack(ModInnet.OIL_STILL.get(), 1000), VanillaTypes.FLUID, "  You can find Oil in the Ocean");
 		// ...
 	}
 
@@ -1164,8 +1166,8 @@ public class JeiPlugin implements IModPlugin {
 
 		@Override
 		public void setIngredients(FuelRefiningRecipe recipe, IIngredients iIngredients) {
-			iIngredients.setInputs(VanillaTypes.ITEM, this.plugin.fuelFullItemStacks);
-			iIngredients.setOutputs(VanillaTypes.ITEM, this.plugin.oilFullItemStacks);
+			iIngredients.setInputs(VanillaTypes.ITEM, this.plugin.oilFullItemStacks);
+			iIngredients.setOutputs(VanillaTypes.ITEM, this.plugin.fuelFullItemStacks);
 			
 			iIngredients.setInputs(VanillaTypes.FLUID, recipe.getInput().toStacks());
 			iIngredients.setOutputs(VanillaTypes.FLUID, recipe.getOutput().toStacks());
@@ -1176,8 +1178,8 @@ public class JeiPlugin implements IModPlugin {
 			IGuiItemStackGroup itemStacks = iRecipeLayout.getItemStacks();
 			itemStacks.init(FuelRefineryBlock.SLOT_INPUT_SOURCE, true, 24, 8);
 			itemStacks.init(FuelRefineryBlock.SLOT_INPUT_SINK, false, 24, 38);
-			itemStacks.init(FuelRefineryBlock.SLOT_OUTPUT_SOURCE, true, 90, 8);
-			itemStacks.init(FuelRefineryBlock.SLOT_OUTPUT_SINK, false, 90, 38);
+			itemStacks.init(FuelRefineryBlock.SLOT_OUTPUT_SOURCE, false, 90, 8);
+			itemStacks.init(FuelRefineryBlock.SLOT_OUTPUT_SINK, true, 90, 38);
 			
 			itemStacks.set(FuelRefineryBlock.SLOT_INPUT_SOURCE, iIngredients.getInputs(VanillaTypes.ITEM).stream().flatMap(i -> i.stream()).collect(Collectors.toList()));
 			itemStacks.set(FuelRefineryBlock.SLOT_OUTPUT_SINK, iIngredients.getOutputs(VanillaTypes.ITEM).stream().flatMap(i -> i.stream()).collect(Collectors.toList()));
