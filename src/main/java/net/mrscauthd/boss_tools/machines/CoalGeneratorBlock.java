@@ -43,11 +43,10 @@ import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.gui.GeneratorGUIGui;
 import net.mrscauthd.boss_tools.machines.tile.GeneratorTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemFuelGeneratingRecipe;
-import net.mrscauthd.boss_tools.machines.tile.PowerSystemMap;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystemRegistry;
 
 public class CoalGeneratorBlock {
 	public static final int SLOT_FUEL = 0;
-	public static final int FUEL_PER_TICK = 1;
 	public static final int ENERGY_PER_TICK = 2;
 
 	public static class CustomBlock extends Block {
@@ -215,13 +214,17 @@ public class CoalGeneratorBlock {
 		}
 
 		@Override
-		protected void createPowerSystems(PowerSystemMap map) {
+		protected void createPowerSystems(PowerSystemRegistry map) {
 			super.createPowerSystems(map);
-			map.put(this.powerSystemGenerating = new PowerSystemFuelGeneratingRecipe(this, SLOT_FUEL));
+			map.put(this.powerSystemGenerating = new PowerSystemFuelGeneratingRecipe(this, this.getFuelSlot()));
 		}
-		
+
 		public PowerSystemFuelGeneratingRecipe getPowerSystemGenerating() {
 			return this.powerSystemGenerating;
+		}
+
+		public int getFuelSlot() {
+			return SLOT_FUEL;
 		}
 	}
 }

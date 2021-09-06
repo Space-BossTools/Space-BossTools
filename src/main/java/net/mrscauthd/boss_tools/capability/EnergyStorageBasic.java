@@ -30,32 +30,18 @@ public class EnergyStorageBasic extends EnergyStorage implements INBTSerializabl
 		this.holder = holder;
 	}
 
-	public int receiveEnergyInternal(int maxReceive, boolean simulate) {
-		int energyReceived = Math.min(this.getMaxEnergyStored() - this.getEnergyStored(), maxReceive);
-		if (!simulate && energyReceived > 0) {
-			this.energy += energyReceived;
-			Optional.ofNullable(this.getHolder()).ifPresent(h -> h.onEnergyChanged(this, +energyReceived));
-		}
-
-		return energyReceived;
-	}
-
-	public int extractEnergyInternal(int maxExtract, boolean simulate) {
-		int energyExtracted = Math.min(this.getEnergyStored(), maxExtract);
-		if (!simulate && energyExtracted > 0) {
-			this.energy -= energyExtracted;
-			Optional.ofNullable(this.getHolder()).ifPresent(h -> h.onEnergyChanged(this, -energyExtracted));
-		}
-
-		return energyExtracted;
-	}
-
 	@Override
 	public int receiveEnergy(int maxReceive, boolean simulate) {
 		if (!this.canReceive()) {
 			return 0;
 		} else {
-			return this.receiveEnergyInternal(Math.min(this.getMaxReceive(), maxReceive), simulate);
+			int energyReceived = Math.min(this.getMaxEnergyStored() - this.getEnergyStored(), maxReceive);
+			if (!simulate && energyReceived > 0) {
+				this.energy += energyReceived;
+				Optional.ofNullable(this.getHolder()).ifPresent(h -> h.onEnergyChanged(this, +energyReceived));
+			}
+
+			return energyReceived;
 		}
 	}
 
@@ -64,7 +50,13 @@ public class EnergyStorageBasic extends EnergyStorage implements INBTSerializabl
 		if (!this.canExtract()) {
 			return 0;
 		} else {
-			return this.extractEnergyInternal(Math.min(this.getMaxExtract(), maxExtract), simulate);
+			int energyExtracted = Math.min(this.getEnergyStored(), maxExtract);
+			if (!simulate && energyExtracted > 0) {
+				this.energy -= energyExtracted;
+				Optional.ofNullable(this.getHolder()).ifPresent(h -> h.onEnergyChanged(this, -energyExtracted));
+			}
+
+			return energyExtracted;
 		}
 	}
 
@@ -88,10 +80,6 @@ public class EnergyStorageBasic extends EnergyStorage implements INBTSerializabl
 
 	public IEnergyStorageHolder getHolder() {
 		return this.holder;
-	}
-
-	public double getStoredRatio() {
-		return (double) this.getEnergyStored() / (double) this.getMaxEnergyStored();
 	}
 
 	@Override

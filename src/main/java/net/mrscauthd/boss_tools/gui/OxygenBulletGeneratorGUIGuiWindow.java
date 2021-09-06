@@ -47,7 +47,7 @@ public class OxygenBulletGeneratorGUIGuiWindow extends ContainerScreen<OxygenBul
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 
 		if (this.getEnergyBounds().contains(mouseX, mouseY)) {
-			GuiHelper.renderEnergyTooltip(ms, mouseX, mouseY, this, this.getTileEntity().getEnergyStorage());
+			GuiHelper.renderEnergyTooltip(ms, mouseX, mouseY, this, this.getTileEntity().getPrimaryEnergyStorage());
 		}
 	}
 
@@ -59,7 +59,7 @@ public class OxygenBulletGeneratorGUIGuiWindow extends ContainerScreen<OxygenBul
 		this.minecraft.getTextureManager().bindTexture(texture);
 		AbstractGui.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
 
-		GuiHelper.drawEnergy(ms, this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP, tileEntity.getEnergyStorage().getStoredRatio());
+		GuiHelper.drawEnergy(ms, this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP, tileEntity.getPrimaryEnergyStorage());
 		GuiHelper.drawOxygen(ms, this.guiLeft + OXYGEN_LEFT, this.guiTop + OXYGEN_TOP, tileEntity.getOxygenPowerSystem().getStoredRatio());
 
 		this.minecraft.getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenlarge6.png"));
@@ -73,10 +73,9 @@ public class OxygenBulletGeneratorGUIGuiWindow extends ContainerScreen<OxygenBul
 		numberInstance.setMaximumFractionDigits(2);
 		String rangeToString = numberInstance.format(range);
 
-		
 		String oxygenText = "Using: " + tileEntity.getOxygenPowerSystem().getPowerForOperation() + " Oxygen/t";
 		int oxygenWidth = this.font.getStringWidth(oxygenText);
-		
+
 		this.font.drawString(ms, "Oxygen Generator", 37, 5, 0x333333);
 		this.font.drawString(ms, "Inventory", 6, 74, 0x333333);
 		this.font.drawString(ms, String.format("%sx%s", rangeToString, rangeToString), 12, -8, 0x339900);

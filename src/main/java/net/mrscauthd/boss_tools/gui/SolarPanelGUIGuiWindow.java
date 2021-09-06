@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.boss_tools.capability.EnergyStorageBasic;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.mrscauthd.boss_tools.machines.SolarPanelBlock.CustomTileEntity;
 
 @OnlyIn(Dist.CLIENT)
@@ -45,7 +45,7 @@ public class SolarPanelGUIGuiWindow extends ContainerScreen<SolarPanelGUIGui.Gui
 	protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
 
 		CustomTileEntity tileEntity = this.getTileEntity();
-		EnergyStorageBasic energyStorage = tileEntity.getEnergyStorage();
+		IEnergyStorage energyStorage = tileEntity.getPrimaryEnergyStorage();
 
 		this.font.drawString(ms, "Solar Panel", 58, 5, 0x333333);
 		this.font.drawString(ms, "Charge: " + energyStorage.getEnergyStored() + " FE", 7, 26, 0x3C3C3C);

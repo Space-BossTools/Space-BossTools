@@ -49,11 +49,11 @@ public abstract class OxygenUsingTileEntity extends AbstractMachineTileEntity {
 	}
 
 	public IOxygenStorage getItemOxygenStorage(ItemStack itemStack) {
-		return !itemStack.isEmpty() ? itemStack.getCapability(CapabilityOxygen.OXYGEN).orElse(null) : null;
+		return itemStack.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
 	}
 
 	@Override
-	protected void createPowerSystems(PowerSystemMap map) {
+	protected void createPowerSystems(PowerSystemRegistry map) {
 		super.createPowerSystems(map);
 		map.put(this.oxygenPowerSystem = new PowerSystemFuelOxygen(this, this.getActivatingSlot()) {
 			@Override

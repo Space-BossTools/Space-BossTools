@@ -43,9 +43,11 @@ import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipeType;
 import net.mrscauthd.boss_tools.gui.BlastFurnaceGUIGui;
 import net.mrscauthd.boss_tools.machines.tile.ItemStackToItemStackTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemFuelBurnTimeVanilla;
-import net.mrscauthd.boss_tools.machines.tile.PowerSystemMap;
+import net.mrscauthd.boss_tools.machines.tile.PowerSystemRegistry;
 
 public class BlastingFurnaceBlock {
+
+	public static final int SLOT_FUEL = 2;
 
 	// Blast Furnace Block
 	public static class CustomBlock extends Block {
@@ -192,21 +194,23 @@ public class BlastingFurnaceBlock {
 		}
 
 		@Override
-		protected void createPowerSystems(PowerSystemMap map) {
+		protected void createPowerSystems(PowerSystemRegistry map) {
 			super.createPowerSystems(map);
 
-			map.put(this.powerSystemBurnTime = new PowerSystemFuelBurnTimeVanilla(this, SLOT_FUEL) {
+			map.put(this.powerSystemBurnTime = new PowerSystemFuelBurnTimeVanilla(this, this.getFuelSlot()) {
 				@Override
 				public IRecipeType<?> getRecipeType() {
 					return CustomTileEntity.this.getRecipeType();
 				}
 			});
 		}
-		
+
 		public PowerSystemFuelBurnTimeVanilla getPowerSystemBurnTime() {
 			return this.powerSystemBurnTime;
 		}
 
+		public int getFuelSlot() {
+			return SLOT_FUEL;
+		}
 	}
-
 }

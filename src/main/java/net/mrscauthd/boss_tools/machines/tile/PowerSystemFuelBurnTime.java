@@ -1,5 +1,7 @@
 package net.mrscauthd.boss_tools.machines.tile;
 
+import net.minecraft.util.ResourceLocation;
+
 public abstract class PowerSystemFuelBurnTime extends PowerSystemFuel {
 
 	public static final int FUEL_PER_TICK = 1;
@@ -19,7 +21,8 @@ public abstract class PowerSystemFuelBurnTime extends PowerSystemFuel {
 	}
 
 	@Override
-	public String getName() {
-		return "FuelBurnTime";
+	public ResourceLocation getName() {
+		ResourceLocation name = super.getName();
+		return new ResourceLocation(name.getNamespace(), name.getPath() + "/burntime");
 	}
 }
