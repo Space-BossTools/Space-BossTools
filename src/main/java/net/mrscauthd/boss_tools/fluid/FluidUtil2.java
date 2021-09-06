@@ -51,6 +51,25 @@ public class FluidUtil2 {
 		return left.getFluid().isEquivalentTo(right.getFluid()) && FluidStack.areFluidStackTagsEqual(left, right);
 	}
 
+
+	public static boolean canFill(ItemStack itemStack) {
+		if (itemStack.isEmpty()) {
+			return false;
+		}
+
+		if (itemStack.getItem() == Items.BUCKET) {
+			return true;
+		}
+
+		IFluidHandlerItem fluidHandlerItem = itemStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).orElse(null);
+
+		if (fluidHandlerItem != null) {
+			return true;
+		}
+
+		return false;
+	}
+	
 	/**
 	 * 
 	 * @param itemStack

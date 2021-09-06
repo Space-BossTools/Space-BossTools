@@ -224,11 +224,11 @@ public class FuelRefineryBlock {
 		}
 
 		protected Predicate<FluidStack> getInitialTankValidator(ResourceLocation name) {
-			Fluid fluid = this.getInitialTankFluid(name);
+			Fluid fluid = this.getTankFluid(name);
 			return fluid != null ? fs -> FluidUtil2.isEquivalentTo(fs, fluid) : null;
 		}
 
-		protected Fluid getInitialTankFluid(ResourceLocation name) {
+		protected Fluid getTankFluid(ResourceLocation name) {
 			if (name.equals(this.getInputTankName())) {
 				return ModInnet.OIL_STILL.get();
 			} else if (name.equals(this.getOutputTankName())) {
@@ -258,7 +258,7 @@ public class FuelRefineryBlock {
 				}
 			});
 		}
-		
+
 		public int getBasePowerForOperation() {
 			return ENERGY_PER_TICK;
 		}
@@ -359,7 +359,7 @@ public class FuelRefineryBlock {
 
 		protected boolean fillSinkCapability(IFluidHandler ownHandler, IFluidHandler fluidHandler) {
 			if (fluidHandler != null) {
-				return !FluidUtil.tryFluidTransfer(ownHandler, fluidHandler, this.getTransferPerTick(), true).isEmpty();
+				return !FluidUtil.tryFluidTransfer(fluidHandler, ownHandler, this.getTransferPerTick(), true).isEmpty();
 			} else {
 				return false;
 			}
@@ -431,40 +431,40 @@ public class FuelRefineryBlock {
 		}
 
 		@Override
-		public boolean canInsertItem(int index, ItemStack stack, Direction direction) {
+		protected boolean onCanInsertItem(int index, ItemStack stack, Direction direction) {
 			if (this.isSourceSlot(index)) {
-				return this.canInsertSource(this.slotToTank(index), stack);
+				return this.canInsertSource(this.slotToTankName(index), this.slotToTank(index), stack);
 			} else if (this.isSinkSlot(index)) {
-				return this.canInsertSink(this.slotToTank(index), stack);
+				return this.canInsertSink(this.slotToTankName(index), this.slotToTank(index), stack);
 			}
 
-			return super.canInsertItem(index, stack, direction);
+			return super.onCanInsertItem(index, stack, direction);
 		}
 
-		public boolean canInsertSource(FluidTank tank, ItemStack itemStack) {
+		public boolean canInsertSource(ResourceLocation tankName, FluidTank tank, ItemStack itemStack) {
 			return FluidUtil2.getFluidStacks(itemStack).stream().filter(tank::isFluidValid).findFirst().isPresent();
 		}
 
-		public boolean canInsertSink(FluidTank tank, ItemStack itemStack) {
-			return FluidUtil2.canFill(itemStack, tank.getFluid().getFluid());
+		public boolean canInsertSink(ResourceLocation tankName, FluidTank tank, ItemStack itemStack) {
+			return FluidUtil2.canFill(itemStack, this.getTankFluid(tankName));
 		}
 
 		@Override
 		public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
 			if (this.isSourceSlot(index)) {
-				return this.canExtractSource(this.slotToTank(index), stack);
+				return this.canExtractSource(this.slotToTankName(index), this.slotToTank(index), stack);
 			} else if (this.isSinkSlot(index)) {
-				return this.canExtractSink(this.slotToTank(index), stack);
+				return this.canExtractSink(this.slotToTankName(index), this.slotToTank(index), stack);
 			}
 
 			return super.canExtractItem(index, stack, direction);
 		}
 
-		public boolean canExtractSource(FluidTank tank, ItemStack itemStack) {
+		public boolean canExtractSource(ResourceLocation tankName, FluidTank tank, ItemStack itemStack) {
 			return FluidUtil2.isEmpty(itemStack);
 		}
 
-		public boolean canExtractSink(FluidTank tank, ItemStack itemStack) {
+		public boolean canExtractSink(ResourceLocation tankName, FluidTank tank, ItemStack itemStack) {
 			return !FluidUtil2.canFill(itemStack, tank.getFluid().getFluid());
 		}
 
@@ -530,6 +530,16 @@ public class FuelRefineryBlock {
 				return this.getInputTank();
 			} else if (slot == this.getOutputSourceSlot() || slot == this.getOutputSinkSlot()) {
 				return this.getOutputTank();
+			} else {
+				return null;
+			}
+		}
+
+		public ResourceLocation slotToTankName(int slot) {
+			if (slot == this.getInputSourceSlot() || slot == this.getInputSinkSlot()) {
+				return this.getInputTankName();
+			} else if (slot == this.getOutputSourceSlot() || slot == this.getOutputSinkSlot()) {
+				return this.getOutputTankName();
 			} else {
 				return null;
 			}

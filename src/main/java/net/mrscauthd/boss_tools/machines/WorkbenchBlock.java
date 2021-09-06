@@ -347,14 +347,14 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 		}
 
 		@Override
-		public boolean canInsertItem(int index, ItemStack stack, Direction direction) {
+		protected boolean onCanInsertItem(int index, ItemStack stack, Direction direction) {
 			int find = this.findAvailableSlot(stack);
 
 			if (find == index) {
 				return true;
 			}
 
-			return super.canInsertItem(index, stack, direction);
+			return super.onCanInsertItem(index, stack, direction);
 		}
 
 		public int findAvailableSlot(ItemStack itemStack) {

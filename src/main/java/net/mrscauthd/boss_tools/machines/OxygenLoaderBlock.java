@@ -233,12 +233,12 @@ public class OxygenLoaderBlock {
 		}
 
 		@Override
-		public boolean canInsertItem(int index, ItemStack stack, Direction direction) {
+		protected boolean onCanInsertItem(int index, ItemStack stack, Direction direction) {
 			if (index == this.getItemSlot()) {
 				return this.getItemOxygenStorage(stack) != null;
 			}
 
-			return super.canInsertItem(index, stack, direction);
+			return super.onCanInsertItem(index, stack, direction);
 		}
 
 		@Override

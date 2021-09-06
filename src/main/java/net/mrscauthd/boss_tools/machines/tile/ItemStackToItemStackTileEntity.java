@@ -46,12 +46,12 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 	}
 
 	@Override
-	public boolean canInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
+	protected boolean onCanInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
 		if (index == SLOT_INGREDIENT && this.nullOrMatch(direction, Direction.UP)) {
 			return this.getRecipeType().findFirst(this.getWorld(), r -> r.test(stack)) != null;
 		}
 
-		return super.canInsertItem(index, stack, direction);
+		return super.onCanInsertItem(index, stack, direction);
 	}
 
 	@Override

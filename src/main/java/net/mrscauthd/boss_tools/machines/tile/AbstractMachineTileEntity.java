@@ -218,7 +218,24 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	}
 
 	@Override
-	public boolean canInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
+	public final boolean canInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
+		boolean result = this.onCanInsertItem(index, stack, direction);
+
+		if (result == true) {
+			ItemStack stackInSlot = this.getStackInSlot(index);
+
+			if (!stackInSlot.isEmpty() && ItemHandlerHelper.canItemStacksStack(stackInSlot, stack)) {
+				int limit = Math.min(stack.getMaxStackSize(), this.getInventoryStackLimit());
+				if (stackInSlot.getCount() + stack.getCount() > limit) {
+					return false;
+				}
+			}
+		}
+
+		return result;
+	}
+
+	protected boolean onCanInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
 		return this.getPowerSystems().values().stream().anyMatch(ps -> ps.canInsertItem(direction, index, stack));
 	}
 

@@ -15,8 +15,8 @@ import net.mrscauthd.boss_tools.capability.EnergyStorageExtractaOnly;
 
 public abstract class GeneratorTileEntity extends AbstractMachineTileEntity {
 
-	private IEnergyStorage internalEnergyStorage = null;
-	private IEnergyStorage energyStorage = null;
+	private IEnergyStorage internalEnergyStorage;
+	private IEnergyStorage energyStorage;
 
 	protected GeneratorTileEntity(TileEntityType<?> type) {
 		super(type);
@@ -46,7 +46,7 @@ public abstract class GeneratorTileEntity extends AbstractMachineTileEntity {
 
 		this.internalEnergyStorage = this.createGeneratingEnergyStorage();
 		this.energyStorage = new EnergyStorageExtractaOnly(this.internalEnergyStorage, this.internalEnergyStorage.getMaxEnergyStored());
-		registry.put(this.energyStorage);
+		registry.put(this.internalEnergyStorage);
 	}
 
 	protected IEnergyStorage createGeneratingEnergyStorage() {
@@ -92,6 +92,11 @@ public abstract class GeneratorTileEntity extends AbstractMachineTileEntity {
 	@Override
 	public boolean hasSpaceInOutput() {
 		return this.getInternalEnergyStorage().receiveEnergy(1, true) > 0;
+	}
+
+	@Override
+	public IEnergyStorage getPrimaryEnergyStorage() {
+		return this.getGeneratingEnergyStorage();
 	}
 
 	protected IEnergyStorage getInternalEnergyStorage() {
