@@ -17,7 +17,6 @@ import mezz.jei.api.gui.ingredient.IGuiFluidStackGroup;
 import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
-import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
@@ -25,10 +24,10 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IRecipeTransferRegistration;
-import mezz.jei.gui.elements.DrawableBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Rectangle2d;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -43,6 +42,7 @@ import net.mrscauthd.boss_tools.crafting.CompressingRecipe;
 import net.mrscauthd.boss_tools.crafting.FuelRefiningRecipe;
 import net.mrscauthd.boss_tools.crafting.GeneratingRecipe;
 import net.mrscauthd.boss_tools.crafting.WorkbenchingRecipe;
+import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipe;
 import net.mrscauthd.boss_tools.machines.WorkbenchBlock;
 import net.mrscauthd.boss_tools.machines.tile.ItemStackToItemStackTileEntity;
@@ -69,6 +69,9 @@ import java.util.stream.Collectors;
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
 	public static IJeiHelpers jeiHelper;
+	
+	private List<ItemStack> oilFullItemStacks;
+	private List<ItemStack> fuelFullItemStacks;
 
 	@Override
 	public ResourceLocation getPluginUid() {
@@ -129,7 +132,7 @@ public class JeiPlugin implements IModPlugin {
 		// Compressor
 		registration.addRecipeCategories(new CompressorJeiCategory(jeiHelper.getGuiHelper()));
 		// Fuel Maker
-		registration.addRecipeCategories(new FuelMakerJeiCategory(jeiHelper.getGuiHelper()));
+		registration.addRecipeCategories(new FuelMakerJeiCategory(this, jeiHelper.getGuiHelper()));
 		// Rover
 		registration.addRecipeCategories(new RoverJeiCategory(jeiHelper.getGuiHelper()));
 	}
@@ -154,6 +157,8 @@ public class JeiPlugin implements IModPlugin {
 		// Compressor
 		registration.addRecipes(generateCompressingRecipes(), CompressorJeiCategory.Uid);
 		// Fuel Maker
+		this.fuelFullItemStacks = this.generateFluidFullIngredients(ModInnet.FUEL_STILL.get());
+		this.oilFullItemStacks = this.generateFluidFullIngredients(ModInnet.OIL_STILL.get());
 		registration.addRecipes(generateFuelMakerRecipes(), FuelMakerJeiCategory.Uid);
 		// Rover
 		registration.addRecipes(generateRoverRecipes(), RoverJeiCategory.Uid);
@@ -191,6 +196,14 @@ public class JeiPlugin implements IModPlugin {
 	}
 
 	// Fuel Maker
+	private List<ItemStack> generateFluidEmptyIngredients(Fluid fluid){
+		return ForgeRegistries.ITEMS.getValues().stream().map(i -> new ItemStack(i)).filter(is -> FluidUtil2.canFill(is, fluid)).collect(Collectors.toList());
+	}
+
+	private List<ItemStack> generateFluidFullIngredients(Fluid fluid){
+		return ForgeRegistries.ITEMS.getValues().stream().map(i -> new ItemStack(i)).filter(is -> FluidUtil2.canFill(is, fluid)).map(is -> FluidUtil2.makeFull(is, fluid)).collect(Collectors.toList());
+	}
+	
 	private List<FuelRefiningRecipe> generateFuelMakerRecipes() {
 		return BossToolsRecipeTypes.FUELREFINING.getRecipes(Minecraft.getInstance().world);
 	}
@@ -1094,21 +1107,22 @@ public class JeiPlugin implements IModPlugin {
 		public static final int ENERGY_LEFT = 114;
 		public static final int ENERGY_TOP = 8;
 
+		private final JeiPlugin plugin;
 		private final String title;
 		private final IDrawable background;
 		private final IDrawable fluidOverlay;
 		private final LoadingCache<Integer, IDrawableAnimated> cachedEnergies;
 
-		public FuelMakerJeiCategory(IGuiHelper guiHelper) {
+		public FuelMakerJeiCategory(JeiPlugin plugin, IGuiHelper guiHelper) {
+			this.plugin = plugin;
 			this.title = "Fuel Refinery";
 			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refinery_jei.png"), 0, 0, 148, 64);
-			this.fluidOverlay = new DrawableBuilder(GuiHelper.FLUID_TANK_PATH, 0, 0, GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).setTextureSize(GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).build();
+			this.fluidOverlay = guiHelper.drawableBuilder(GuiHelper.FLUID_TANK_PATH, 0, 0, GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).setTextureSize(GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).build();
 			this.cachedEnergies = createUsingEnergies(guiHelper);
 		}
 
 		@Override
 		public List<ITextComponent> getTooltipStrings(FuelRefiningRecipe recipe, double mouseX, double mouseY) {
-
 			if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
 				return Collections.singletonList(new StringTextComponent("Using: " + FuelRefineryBlock.ENERGY_PER_TICK + " FE/t"));
 			}
@@ -1150,6 +1164,9 @@ public class JeiPlugin implements IModPlugin {
 
 		@Override
 		public void setIngredients(FuelRefiningRecipe recipe, IIngredients iIngredients) {
+			iIngredients.setInputs(VanillaTypes.ITEM, this.plugin.fuelFullItemStacks);
+			iIngredients.setOutputs(VanillaTypes.ITEM, this.plugin.oilFullItemStacks);
+			
 			iIngredients.setInputs(VanillaTypes.FLUID, recipe.getInput().toStacks());
 			iIngredients.setOutputs(VanillaTypes.FLUID, recipe.getOutput().toStacks());
 		}
@@ -1157,18 +1174,20 @@ public class JeiPlugin implements IModPlugin {
 		@Override
 		public void setRecipe(IRecipeLayout iRecipeLayout, FuelRefiningRecipe recipe, IIngredients iIngredients) {
 			IGuiItemStackGroup itemStacks = iRecipeLayout.getItemStacks();
-			itemStacks.init(FuelRefineryBlock.SLOT_INPUT_SOURCE, true, 25, 21);
-			itemStacks.init(FuelRefineryBlock.SLOT_INPUT_SINK, false, 25, 51);
-			itemStacks.init(FuelRefineryBlock.SLOT_OUTPUT_SOURCE, false, 91, 21);
-			itemStacks.init(FuelRefineryBlock.SLOT_OUTPUT_SINK, false, 91, 51);
+			itemStacks.init(FuelRefineryBlock.SLOT_INPUT_SOURCE, true, 24, 8);
+			itemStacks.init(FuelRefineryBlock.SLOT_INPUT_SINK, false, 24, 38);
+			itemStacks.init(FuelRefineryBlock.SLOT_OUTPUT_SOURCE, true, 90, 8);
+			itemStacks.init(FuelRefineryBlock.SLOT_OUTPUT_SINK, false, 90, 38);
+			
+			itemStacks.set(FuelRefineryBlock.SLOT_INPUT_SOURCE, iIngredients.getInputs(VanillaTypes.ITEM).stream().flatMap(i -> i.stream()).collect(Collectors.toList()));
+			itemStacks.set(FuelRefineryBlock.SLOT_OUTPUT_SINK, iIngredients.getOutputs(VanillaTypes.ITEM).stream().flatMap(i -> i.stream()).collect(Collectors.toList()));
 
 			IGuiFluidStackGroup fluidStacks = iRecipeLayout.getFluidStacks();
-			fluidStacks.init(FuelRefineryBlock.TANK_INPUT, false, INPUT_TANK_LEFT, INPUT_TANK_TOP, GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT, 1, false, this.fluidOverlay);
-			fluidStacks.init(FuelRefineryBlock.TANK_OUTPUT, true, OUTPUT_TANK_LEFT, OUTPUT_TANK_TOP, GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT, 1, false, this.fluidOverlay);
+			fluidStacks.init(FuelRefineryBlock.TANK_INPUT, true, INPUT_TANK_LEFT, INPUT_TANK_TOP, GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT, 1, false, this.fluidOverlay);
+			fluidStacks.init(FuelRefineryBlock.TANK_OUTPUT, false, OUTPUT_TANK_LEFT, OUTPUT_TANK_TOP, GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT, 1, false, this.fluidOverlay);
 
 			fluidStacks.set(FuelRefineryBlock.TANK_INPUT, iIngredients.getInputs(VanillaTypes.FLUID).get(0));
 			fluidStacks.set(FuelRefineryBlock.TANK_OUTPUT, iIngredients.getOutputs(VanillaTypes.FLUID).get(0));
-			// ...
 		}
 
 		public Rectangle2d getInputTankBounds() {

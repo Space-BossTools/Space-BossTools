@@ -437,43 +437,43 @@ public class FuelRefineryBlock {
 
 		@Override
 		public boolean canInsertItem(int index, ItemStack stack, Direction direction) {
-			if (index == this.getInputSourceSlot()) {
-				FluidTank tank = this.getFluidTanks().getTank(this.getInputTank());
-				return FluidUtil2.getFluidStacks(stack).stream().filter(tank::isFluidValid).findFirst().isPresent();
-			} else if (index == this.getOutputSourceSlot()) {
-				FluidTank tank = this.getFluidTanks().getTank(this.getOutputTank());
-				return FluidUtil2.getFluidStacks(stack).stream().filter(tank::isFluidValid).findFirst().isPresent();
-			} else if (index == this.getInputSinkSlot()) {
-				FluidStack fluidStack = this.getFluidTanks().getFluidInTank(this.getInputTank());
-				return FluidUtil2.canFeel(stack, fluidStack) > 0;
-			} else if (index == this.getOutputSinkSlot()) {
-				FluidStack fluidStack = this.getFluidTanks().getFluidInTank(this.getOutputTank());
-				return FluidUtil2.canFeel(stack, fluidStack) > 0;
+			if (this.isSourceSlot(index)) {
+				return this.canInsertSource(this.slotToTank(index), stack);
+			} else if (this.isSinkSlot(index)) {
+				return this.canInsertSink(this.slotToTank(index), stack);
 			}
 
 			return super.canInsertItem(index, stack, direction);
 		}
 
+		public boolean canInsertSource(int tankIndex, ItemStack itemStack) {
+			FluidTank tank = this.getFluidTanks().getTank(tankIndex);
+			return FluidUtil2.getFluidStacks(itemStack).stream().filter(tank::isFluidValid).findFirst().isPresent();
+		}
+
+		public boolean canInsertSink(int tankIndex, ItemStack itemStack) {
+			FluidTank tank = this.getFluidTanks().getTank(tankIndex);
+			return FluidUtil2.canFill(itemStack, tank.getFluid().getFluid());
+		}
+
 		@Override
 		public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-			if (index == this.getInputSourceSlot() || index == this.getOutputSourceSlot()) {
-				return FluidUtil2.isEmpty(stack);
-			} else if (index == this.getInputSinkSlot()) {
-				FluidStack fluidStack = this.getFluidTanks().getFluidInTank(this.getInputTank());
-
-				if (!fluidStack.isEmpty()) {
-					return FluidUtil2.canFeel(stack, fluidStack) == 0;
-				}
-			} else if (index == this.getOutputSinkSlot()) {
-				FluidStack fluidStack = this.getFluidTanks().getFluidInTank(this.getOutputTank());
-
-				if (!fluidStack.isEmpty()) {
-					return FluidUtil2.canFeel(stack, fluidStack) == 0;
-				}
-
+			if (this.isSourceSlot(index)) {
+				return this.canExtractSource(this.slotToTank(index), stack);
+			} else if (this.isSinkSlot(index)) {
+				return this.canExtractSink(this.slotToTank(index), stack);
 			}
 
 			return super.canExtractItem(index, stack, direction);
+		}
+
+		public boolean canExtractSource(int tankIndex, ItemStack itemStack) {
+			return FluidUtil2.isEmpty(itemStack);
+		}
+
+		public boolean canExtractSink(int tankIndex, ItemStack itemStack) {
+			FluidStack fluidStack = this.getFluidTanks().getFluidInTank(tankIndex);
+			return !FluidUtil2.canFill(itemStack, fluidStack.getFluid());
 		}
 
 		@Override
@@ -533,6 +533,24 @@ public class FuelRefineryBlock {
 
 		public int getOutputSinkSlot() {
 			return SLOT_OUTPUT_SINK;
+		}
+
+		public boolean isSourceSlot(int slot) {
+			return slot == this.getInputSourceSlot() || slot == this.getOutputSourceSlot();
+		}
+
+		public boolean isSinkSlot(int slot) {
+			return slot == this.getInputSinkSlot() || slot == this.getOutputSinkSlot();
+		}
+
+		public int slotToTank(int slot) {
+			if (slot == this.getInputSourceSlot() || slot == this.getInputSinkSlot()) {
+				return this.getInputTank();
+			} else if (slot == this.getOutputSourceSlot() || slot == this.getOutputSinkSlot()) {
+				return this.getOutputTank();
+			}
+
+			return -1;
 		}
 
 		protected List<Fluid> getTankableFluids() {

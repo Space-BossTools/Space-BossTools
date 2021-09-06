@@ -23,6 +23,7 @@ public abstract class FluidIngredient implements Predicate<FluidStack> {
 	public static final FluidIngredient EMPTY = new Empty();
 
 	public static final int MINAMOUNT = 1;
+	public static final String KEY_AMOUNT = "amount";
 	public static final String KEY_TAG = "tag";
 	public static final String KEY_NAME = "name";
 	public static final String KEY_NAMES = "names";
@@ -40,14 +41,14 @@ public abstract class FluidIngredient implements Predicate<FluidStack> {
 
 	public List<Fluid> getFluids() {
 		if (this.cachedFluids == null) {
-			this.cachedFluids = ForgeRegistries.FLUIDS.getValues().stream().filter(this::testFluid).collect(Collectors.toUnmodifiableList());
+			this.cachedFluids = Collections.unmodifiableList(ForgeRegistries.FLUIDS.getValues().stream().filter(this::testFluid).collect(Collectors.toList()));
 		}
 
 		return this.cachedFluids;
 	}
 
 	public List<FluidStack> toStacks() {
-		return this.getFluids().stream().map(f-> new FluidStack(f, this.getAmount())).collect(Collectors.toList());
+		return this.getFluids().stream().map(f -> new FluidStack(f, this.getAmount())).collect(Collectors.toList());
 	}
 
 	public FluidStack toStack() {
@@ -72,7 +73,7 @@ public abstract class FluidIngredient implements Predicate<FluidStack> {
 	}
 
 	public static FluidIngredient deserialize(JsonObject json) {
-		int amount = JSONUtils.getInt(json, "amount");
+		int amount = JSONUtils.getInt(json, KEY_AMOUNT);
 
 		if (json.has(KEY_TAG)) {
 			String tagName = JSONUtils.getString(json, KEY_TAG);
