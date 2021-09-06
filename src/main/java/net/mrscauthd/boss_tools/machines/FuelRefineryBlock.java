@@ -465,7 +465,7 @@ public class FuelRefineryBlock {
 		}
 
 		public boolean canExtractSink(ResourceLocation tankName, FluidTank tank, ItemStack itemStack) {
-			return !FluidUtil2.canFill(itemStack, tank.getFluid().getFluid());
+			return !FluidUtil2.canFill(itemStack, this.getTankFluid(tankName));
 		}
 
 		@Override
