@@ -64,27 +64,32 @@ public class TileEntityBoxRenderer extends TileEntityRenderer<OxygenGeneratorBlo
 
         int topY = 10;
 
-        int r = 255; //255 is default
+        //255 is default
+        int rl = 78;
+        int gl = 197;
+        int bl = 231;
+
+        int r = 255;
         int g = 255;
         int b = 255;
 
         //Bottom frame
-        drawShapeOutline(builder, matrix4f, normal, startX, botY, startZ,   endX, botY, startZ, r, g, b);
-        drawShapeOutline(builder, matrix4f, normal, startX, botY,   endZ,   endX, botY,   endZ, r, g, b);
-        drawShapeOutline(builder, matrix4f, normal, startX, botY, startZ, startX, botY,   endZ, r, g, b);
-        drawShapeOutline(builder, matrix4f, normal,   endX, botY, startZ,   endX, botY,   endZ, r, g, b);
+        drawShapeOutline(builder, matrix4f, normal, startX, botY, startZ,   endX, botY, startZ, rl, gl, bl);
+        drawShapeOutline(builder, matrix4f, normal, startX, botY,   endZ,   endX, botY,   endZ, rl, gl, bl);
+        drawShapeOutline(builder, matrix4f, normal, startX, botY, startZ, startX, botY,   endZ, rl, gl, bl);
+        drawShapeOutline(builder, matrix4f, normal,   endX, botY, startZ,   endX, botY,   endZ, rl, gl, bl);
 
         //Top frame
-        drawShapeOutline(builder, matrix4f, normal, startX, topY, startZ,   endX, topY, startZ, r, g, b);
-        drawShapeOutline(builder, matrix4f, normal, startX, topY,   endZ,   endX, topY,   endZ, r, g, b);
-        drawShapeOutline(builder, matrix4f, normal, startX, topY, startZ, startX, topY,   endZ, r, g, b);
-        drawShapeOutline(builder, matrix4f, normal,   endX, topY, startZ,   endX, topY,   endZ, r, g, b);
+        drawShapeOutline(builder, matrix4f, normal, startX, topY, startZ,   endX, topY, startZ, rl, gl, bl);
+        drawShapeOutline(builder, matrix4f, normal, startX, topY,   endZ,   endX, topY,   endZ, rl, gl, bl);
+        drawShapeOutline(builder, matrix4f, normal, startX, topY, startZ, startX, topY,   endZ, rl, gl, bl);
+        drawShapeOutline(builder, matrix4f, normal,   endX, topY, startZ,   endX, topY,   endZ, rl, gl, bl);
 
         //Vertical lines
-        drawShapeOutline(builder, matrix4f, normal, startX, botY, startZ, startX, topY, startZ, r, g, b);
-        drawShapeOutline(builder, matrix4f, normal, startX, botY,   endZ, startX, topY,   endZ, r, g, b);
-        drawShapeOutline(builder, matrix4f, normal,   endX, botY, startZ,   endX, topY, startZ, r, g, b);
-        drawShapeOutline(builder, matrix4f, normal,   endX, botY,   endZ,   endX, topY,   endZ, r, g, b);
+        drawShapeOutline(builder, matrix4f, normal, startX, botY, startZ, startX, topY, startZ, rl, gl, bl);
+        drawShapeOutline(builder, matrix4f, normal, startX, botY,   endZ, startX, topY,   endZ, rl, gl, bl);
+        drawShapeOutline(builder, matrix4f, normal,   endX, botY, startZ,   endX, topY, startZ, rl, gl, bl);
+        drawShapeOutline(builder, matrix4f, normal,   endX, botY,   endZ,   endX, topY,   endZ, rl, gl, bl);
 
         drawSurfaces(bufferIn,matrix4f, normal, startX, startZ, endX, endZ, botY, topY,r,g,b);
     }
@@ -115,8 +120,8 @@ public class TileEntityBoxRenderer extends TileEntityRenderer<OxygenGeneratorBlo
         float maxV = atlass.getMaxV();
         float minV = atlass.getMinV();
 
-
-        builder.pos(matrix, startX, botY, startZ).color(r, g, b, 0xAA).tex(maxU, minV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 0, -1, 0).endVertex();
+        //Down
+        builder.pos(matrix, startX, botY, startZ).color(r, g, b, 0xAA).tex(minU, minV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 0, -1, 0).endVertex();
         builder.pos(matrix,   endX, botY, startZ).color(r, g, b, 0xAA).tex(maxU, minV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 0, -1, 0).endVertex();
         builder.pos(matrix,   endX, botY,   endZ).color(r, g, b, 0xAA).tex(maxU, maxV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 0, -1, 0).endVertex();
         builder.pos(matrix, startX, botY,   endZ).color(r, g, b, 0xAA).tex(minU, maxV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 0, -1, 0).endVertex();

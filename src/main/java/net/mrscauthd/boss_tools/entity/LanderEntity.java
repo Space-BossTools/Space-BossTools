@@ -1,6 +1,7 @@
 
 package net.mrscauthd.boss_tools.entity;
 
+import net.minecraft.util.math.AxisAlignedBB;
 import net.mrscauthd.boss_tools.procedures.LandingGearOnEntityTickUpdateProcedure;
 import net.mrscauthd.boss_tools.procedures.LandingGearEntityIsHurtProcedure;
 import net.mrscauthd.boss_tools.gui.LandinggearGuiGui;

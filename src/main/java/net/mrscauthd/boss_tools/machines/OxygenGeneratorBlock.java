@@ -227,10 +227,10 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 			super(tileEntityType);
 		}
 
-	/*	@Override
+		@Override
 		public AxisAlignedBB getRenderBoundingBox() {
-			return new AxisAlignedBB(0, 0, 0, 10, 10, 10);
-		}*/
+			return new AxisAlignedBB(-160, -160, -160, 160, 160, 160);
+		}
 
 		@Override
 		public ITextComponent getDefaultName() {
