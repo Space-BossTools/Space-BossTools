@@ -4,7 +4,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import net.mrscauthd.boss_tools.machines.WorkbenchBlock.CustomTileEntity;
+import net.mrscauthd.boss_tools.machines.NASAWorkbenchBlock.CustomTileEntity;
 
 public class NasaWorkbenchingResultSlot extends Slot {
 

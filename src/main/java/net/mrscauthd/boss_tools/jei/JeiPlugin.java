@@ -45,7 +45,7 @@ import net.mrscauthd.boss_tools.crafting.GeneratingRecipe;
 import net.mrscauthd.boss_tools.crafting.WorkbenchingRecipe;
 import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipe;
-import net.mrscauthd.boss_tools.machines.WorkbenchBlock;
+import net.mrscauthd.boss_tools.machines.NASAWorkbenchBlock;
 import net.mrscauthd.boss_tools.machines.tile.ItemStackToItemStackTileEntity;
 import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock;
 import net.mrscauthd.boss_tools.machines.CoalGeneratorBlock;
@@ -75,6 +75,8 @@ public class JeiPlugin implements IModPlugin {
 	private List<ItemStack> oilFullItemStacks;
 	private List<ItemStack> fuelFullItemStacks;
 
+	//TODO: Rework Fluid Bar in Rockets,Rover
+
 	@Override
 	public ResourceLocation getPluginUid() {
 		return new ResourceLocation("boss_tools", "default");
@@ -98,8 +100,8 @@ public class JeiPlugin implements IModPlugin {
 		// Compressor
 		registration.addRecipeTransferHandler(CompressorGuiGui.GuiContainerMod.class, CompressorJeiCategory.Uid, ItemStackToItemStackTileEntity.SLOT_INGREDIENT, 1, ItemStackToItemStackTileEntity.SLOT_OUTPUT + 1, inventorySlotCount);
 		// WorkBench
-		int workbenchPartSlotStart = 1 + WorkbenchBlock.SLOT_PARTS;
-		int workbenchPartSlotCount = WorkbenchBlock.getBasicPartSlots();
+		int workbenchPartSlotStart = 1 + NASAWorkbenchBlock.SLOT_PARTS;
+		int workbenchPartSlotCount = NASAWorkbenchBlock.getBasicPartSlots();
 		registration.addRecipeTransferHandler(NasaWorkbenchGui.GuiContainerMod.class, WorkbenchJeiCategory.Uid, workbenchPartSlotStart, workbenchPartSlotCount, workbenchPartSlotStart + workbenchPartSlotCount, inventorySlotCount);
 	}
 
@@ -259,7 +261,7 @@ public class JeiPlugin implements IModPlugin {
 		// Genrator
 		registration.addRecipeCatalyst(new ItemStack(ModInnet.COAL_GENERATOR_BLOCK.get()), GeneratorJeiCategory.Uid);
 		// workbench
-		registration.addRecipeCatalyst(new ItemStack(WorkbenchBlock.block), WorkbenchJeiCategory.Uid);
+		registration.addRecipeCatalyst(new ItemStack(NASAWorkbenchBlock.block), WorkbenchJeiCategory.Uid);
 		// BlastingFurnace
 		registration.addRecipeCatalyst(new ItemStack(ModInnet.BLAST_FURNACE_BLOCK.get()), BlastingFurnaceJeiCategory.Uid, VanillaRecipeCategoryUid.FUEL);
 		// RocketTier1Gui
@@ -585,7 +587,7 @@ public class JeiPlugin implements IModPlugin {
 			IDrawable background = this.getBackground();
 			iRecipeLayout.moveRecipeTransferButton(background.getWidth() - 20, background.getHeight() - 20);
 
-			int slots = WorkbenchBlock.SLOT_PARTS;
+			int slots = NASAWorkbenchBlock.SLOT_PARTS;
 			GridPlacer placer = new GridPlacer();
 			slots = RocketPartGridPlacer.placeJEI(slots, 38, 7, 1, placer::placeBottom, ModInnet.ROCKET_PART_NOSE.get(), iRecipeLayout, recipe);
 			slots = RocketPartGridPlacer.placeJEI(slots, 29, 25, 2, placer::placeBottom, ModInnet.ROCKET_PART_BODY.get(), iRecipeLayout, recipe);

@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.boss_tools.machines.WorkbenchBlock.CustomTileEntity;
+import net.mrscauthd.boss_tools.machines.NASAWorkbenchBlock.CustomTileEntity;
 
 @OnlyIn(Dist.CLIENT)
 public class NasaWorkbenchGuiWindow extends ContainerScreen<NasaWorkbenchGui.GuiContainerMod> {

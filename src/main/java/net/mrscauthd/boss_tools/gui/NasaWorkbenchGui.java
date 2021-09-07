@@ -23,7 +23,7 @@ import net.mrscauthd.boss_tools.crafting.WorkbenchingRecipe;
 import net.mrscauthd.boss_tools.gui.guihelper.GridPlacer;
 import net.mrscauthd.boss_tools.gui.guihelper.RocketPartGridPlacer;
 import net.mrscauthd.boss_tools.inventory.RocketPartsItemHandler;
-import net.mrscauthd.boss_tools.machines.WorkbenchBlock.CustomTileEntity;
+import net.mrscauthd.boss_tools.machines.NASAWorkbenchBlock.CustomTileEntity;
 
 @BossToolsModElements.ModElement.Tag
 public class NasaWorkbenchGui extends BossToolsModElements.ModElement {
