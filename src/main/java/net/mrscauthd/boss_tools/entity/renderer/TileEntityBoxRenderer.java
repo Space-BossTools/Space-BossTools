@@ -1,80 +1,155 @@
 package net.mrscauthd.boss_tools.entity.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import com.mojang.blaze3d.vertex.IVertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.inventory.container.PlayerContainer;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Matrix3f;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock;
 
-import java.awt.*;
-
-@OnlyIn(Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = "boss_tools", value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class TileEntityBoxRenderer extends TileEntityRenderer<OxygenGeneratorBlock.CustomTileEntity> {
 
     private Minecraft mc = Minecraft.getInstance();
-    World world = mc.world;
+    private World world = mc.world;
+
+    public static TextureAtlasSprite atlass = null;
 
     public TileEntityBoxRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
         super(rendererDispatcherIn);
     }
 
+    @SubscribeEvent
+    public static void AtlasEvent(TextureStitchEvent.Pre event) {
+        System.out.println("boss_tools_work");
+        event.addSprite(new ResourceLocation("boss_tools", "blocks/flag_light_blue"));
+    }
+
     @Override
-    public void render(OxygenGeneratorBlock.CustomTileEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
-        BlockPos blockpos = tileEntityIn.getPos();
-        BlockState blockstate = Minecraft.getInstance().world.getBlockState(blockpos);
-        if (blockstate.isAir(Minecraft.getInstance().world, blockpos) || !Minecraft.getInstance().world.getWorldBorder().contains(blockpos)) return;
-
-        final Color SHAPE_COLOR = Color.BLUE;
-        final Color RENDERSHAPE_COLOR = Color.BLUE;
-        final Color COLLISIONSHAPE_COLOR = Color.BLUE;
-        final Color RAYTRACESHAPE_COLOR = Color.BLUE;
-
-
-        ActiveRenderInfo activeRenderInfo = renderDispatcher.renderInfo;
-        ISelectionContext iSelectionContext = ISelectionContext.forEntity(activeRenderInfo.getRenderViewEntity());
-        IRenderTypeBuffer renderTypeBuffers = bufferIn;
-        MatrixStack matrixStack = matrixStackIn;
-
-        VoxelShape shape = Block.makeCuboidShape(64, 64, 64, -32, -32, -32);
-
-        drawSelectionBox(renderTypeBuffers, matrixStack, blockpos, activeRenderInfo, shape, SHAPE_COLOR);
-        shape = blockstate.getRenderShape(world, blockpos);
-        drawSelectionBox(renderTypeBuffers, matrixStack, blockpos, activeRenderInfo, shape, RENDERSHAPE_COLOR);
-        shape = blockstate.getCollisionShape(world, blockpos, iSelectionContext);
-        drawSelectionBox(renderTypeBuffers, matrixStack, blockpos, activeRenderInfo, shape, COLLISIONSHAPE_COLOR);
-        shape = blockstate.getRaytraceShape(world, blockpos, iSelectionContext);
-        drawSelectionBox( renderTypeBuffers, matrixStack, blockpos, activeRenderInfo, shape, RAYTRACESHAPE_COLOR);
+    public boolean isGlobalRenderer(OxygenGeneratorBlock.CustomTileEntity te) {
+        return true;
     }
 
-    private static void drawSelectionBox(IRenderTypeBuffer renderTypeBuffers, MatrixStack matrixStack, BlockPos blockPos, ActiveRenderInfo activeRenderInfo, VoxelShape shape, Color color) {
-        RenderType renderType = RenderType.getLines();
-        IVertexBuilder vertexBuilder = renderTypeBuffers.getBuffer(renderType);
+    @Override
+    public void render(OxygenGeneratorBlock.CustomTileEntity tileEntityIn, float partialTicks, MatrixStack matrix, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
 
-        double eyeX = activeRenderInfo.getProjectedView().getX();
-        double eyeY = activeRenderInfo.getProjectedView().getY();
-        double eyeZ = activeRenderInfo.getProjectedView().getZ();
-        final float ALPHA = 0.5f;
-        drawShapeOutline(matrixStack, vertexBuilder, shape, blockPos.getX() - eyeX, blockPos.getY() - eyeY, blockPos.getZ() - eyeZ, color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, ALPHA);
+        int x = 0;
+        int y = 0;
+        int z = 0;
+
+        IVertexConsumer builder = (IVertexConsumer) bufferIn.getBuffer(RenderType.getLines());
+
+        Matrix3f normal = matrix.getLast().getNormal();
+        Matrix4f matrix4f = matrix.getLast().getMatrix();
+
+        int startX = x;
+        int botY = y;
+        int startZ = z;
+
+        int endX = -10;
+        int endZ = -10;
+
+        int topY = 10;
+
+        int r = 255; //255 is default
+        int g = 255;
+        int b = 255;
+
+        //Bottom frame
+        drawShapeOutline(builder, matrix4f, normal, startX, botY, startZ,   endX, botY, startZ, r, g, b);
+        drawShapeOutline(builder, matrix4f, normal, startX, botY,   endZ,   endX, botY,   endZ, r, g, b);
+        drawShapeOutline(builder, matrix4f, normal, startX, botY, startZ, startX, botY,   endZ, r, g, b);
+        drawShapeOutline(builder, matrix4f, normal,   endX, botY, startZ,   endX, botY,   endZ, r, g, b);
+
+        //Top frame
+        drawShapeOutline(builder, matrix4f, normal, startX, topY, startZ,   endX, topY, startZ, r, g, b);
+        drawShapeOutline(builder, matrix4f, normal, startX, topY,   endZ,   endX, topY,   endZ, r, g, b);
+        drawShapeOutline(builder, matrix4f, normal, startX, topY, startZ, startX, topY,   endZ, r, g, b);
+        drawShapeOutline(builder, matrix4f, normal,   endX, topY, startZ,   endX, topY,   endZ, r, g, b);
+
+        //Vertical lines
+        drawShapeOutline(builder, matrix4f, normal, startX, botY, startZ, startX, topY, startZ, r, g, b);
+        drawShapeOutline(builder, matrix4f, normal, startX, botY,   endZ, startX, topY,   endZ, r, g, b);
+        drawShapeOutline(builder, matrix4f, normal,   endX, botY, startZ,   endX, topY, startZ, r, g, b);
+        drawShapeOutline(builder, matrix4f, normal,   endX, botY,   endZ,   endX, topY,   endZ, r, g, b);
+
+        drawSurfaces(bufferIn,matrix4f, normal, startX, startZ, endX, endZ, botY, topY,r,g,b);
     }
 
-    private static void drawShapeOutline(MatrixStack matrixStack, IVertexBuilder vertexBuilder, VoxelShape voxelShape, double originX, double originY, double originZ, float red, float green, float blue, float alpha) {
-        Matrix4f matrix4f = matrixStack.getLast().getMatrix();
-        voxelShape.forEachEdge((x0, y0, z0, x1, y1, z1) -> {
-            vertexBuilder.pos(matrix4f, (float)(x0 + originX), (float)(y0 + originY), (float)(z0 + originZ)).color(red, green, blue, alpha).endVertex();
-            vertexBuilder.pos(matrix4f, (float)(x1 + originX), (float)(y1 + originY), (float)(z1 + originZ)).color(red, green, blue, alpha).endVertex();
-        });
+    private void drawShapeOutline(IVertexConsumer builder, Matrix4f matrix, Matrix3f normal, int x1, int y1, int z1, int x2, int y2, int z2, int r, int g, int b) {
+        float nX = (float)(x2 - x1);
+        float nY = (float)(y2 - y1);
+        float nZ = (float)(z2 - z1);
+        float sqrt = (float) Math.sqrt(nX * nX + nY * nY + nZ * nZ);
+        nX = nX / sqrt;
+        nY = nY / sqrt;
+        nZ = nZ / sqrt;
+
+        builder.pos(matrix, x1, y1, z1).color(r, g, b, 0xFF).normal(normal, nX, nY, nZ).endVertex();
+        builder.pos(matrix, x2, y2, z2).color(r, g, b, 0xFF).normal(normal, nX, nY, nZ).endVertex();
+    }
+
+
+    private void drawSurfaces(IRenderTypeBuffer buffer, Matrix4f matrix, Matrix3f normal, int startX, int startZ, int endX, int endZ, int botY, int topY, int r, int g, int b) {
+        IVertexConsumer builder = (IVertexConsumer) buffer.getBuffer(Atlases.getTranslucentCullBlockType());
+
+        if (atlass == null) {
+            atlass = Minecraft.getInstance().getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE).apply(new ResourceLocation("boss_tools", "blocks/flag_light_blue"));
+        }
+
+        float maxU = atlass.getMaxU();
+        float minU = atlass.getMinU();
+        float maxV = atlass.getMaxV();
+        float minV = atlass.getMinV();
+
+
+        builder.pos(matrix, startX, botY, startZ).color(r, g, b, 0xAA).tex(maxU, minV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 0, -1, 0).endVertex();
+        builder.pos(matrix,   endX, botY, startZ).color(r, g, b, 0xAA).tex(maxU, minV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 0, -1, 0).endVertex();
+        builder.pos(matrix,   endX, botY,   endZ).color(r, g, b, 0xAA).tex(maxU, maxV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 0, -1, 0).endVertex();
+        builder.pos(matrix, startX, botY,   endZ).color(r, g, b, 0xAA).tex(minU, maxV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 0, -1, 0).endVertex();
+
+        //Top
+        builder.pos(matrix,   endX, topY, startZ).color(r, g, b, 0xAA).tex(minU, minV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 0, 1, 0).endVertex();
+        builder.pos(matrix, startX, topY, startZ).color(r, g, b, 0xAA).tex(maxU, minV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 0, 1, 0).endVertex();
+        builder.pos(matrix, startX, topY,   endZ).color(r, g, b, 0xAA).tex(maxU, maxV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 0, 1, 0).endVertex();
+        builder.pos(matrix,   endX, topY,   endZ).color(r, g, b, 0xAA).tex(minU, maxV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 0, 1, 0).endVertex();
+
+        //North
+        builder.pos(matrix, startX, botY, startZ).color(r, g, b, 0xAA).tex(minU, minV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 0, 0, -1).endVertex();
+        builder.pos(matrix, startX, topY, startZ).color(r, g, b, 0xAA).tex(minU, maxV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 0, 0, -1).endVertex();
+        builder.pos(matrix,   endX, topY, startZ).color(r, g, b, 0xAA).tex(maxU, maxV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 0, 0, -1).endVertex();
+        builder.pos(matrix,   endX, botY, startZ).color(r, g, b, 0xAA).tex(maxU, minV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 0, 0, -1).endVertex();
+
+        //South
+        builder.pos(matrix,   endX, botY,   endZ).color(r, g, b, 0xAA).tex(minU, minV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 0, 0, 1).endVertex();
+        builder.pos(matrix,   endX, topY,   endZ).color(r, g, b, 0xAA).tex(minU, maxV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 0, 0, 1).endVertex();
+        builder.pos(matrix, startX, topY,   endZ).color(r, g, b, 0xAA).tex(maxU, maxV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 0, 0, 1).endVertex();
+        builder.pos(matrix, startX, botY,   endZ).color(r, g, b, 0xAA).tex(maxU, minV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 0, 0, 1).endVertex();
+
+        //West
+        builder.pos(matrix, startX, botY,   endZ).color(r, g, b, 0xAA).tex(minU, minV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, -1, 0, 0).endVertex();
+        builder.pos(matrix, startX, topY,   endZ).color(r, g, b, 0xAA).tex(minU, maxV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, -1, 0, 0).endVertex();
+        builder.pos(matrix, startX, topY, startZ).color(r, g, b, 0xAA).tex(maxU, maxV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, -1, 0, 0).endVertex();
+        builder.pos(matrix, startX, botY, startZ).color(r, g, b, 0xAA).tex(maxU, minV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, -1, 0, 0).endVertex();
+
+        //East
+        builder.pos(matrix,   endX, botY, startZ).color(r, g, b, 0xAA).tex(minU, minV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 1, 0, 0).endVertex();
+        builder.pos(matrix,   endX, topY, startZ).color(r, g, b, 0xAA).tex(minU, maxV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 1, 0, 0).endVertex();
+        builder.pos(matrix,   endX, topY,   endZ).color(r, g, b, 0xAA).tex(maxU, maxV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 1, 0, 0).endVertex();
+        builder.pos(matrix,   endX, botY,   endZ).color(r, g, b, 0xAA).tex(maxU, minV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 1, 0, 0).endVertex();
     }
 
 }

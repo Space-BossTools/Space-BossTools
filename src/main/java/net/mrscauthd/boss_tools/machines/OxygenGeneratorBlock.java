@@ -227,6 +227,11 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 			super(tileEntityType);
 		}
 
+	/*	@Override
+		public AxisAlignedBB getRenderBoundingBox() {
+			return new AxisAlignedBB(0, 0, 0, 10, 10, 10);
+		}*/
+
 		@Override
 		public ITextComponent getDefaultName() {
 			return new StringTextComponent("oxygen_bullet_generator");
