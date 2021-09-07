@@ -227,9 +227,10 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 			super(tileEntityType);
 		}
 
+		//Todo can make problems (fix that if you have time)
 		@Override
 		public AxisAlignedBB getRenderBoundingBox() {
-			return new AxisAlignedBB(-160, -160, -160, 160, 160, 160);
+			return new AxisAlignedBB(160, 160, 160, -160, -160, -160);
 		}
 
 		@Override
