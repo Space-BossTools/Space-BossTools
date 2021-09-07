@@ -10,6 +10,8 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipe;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipeType;
+import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
+import net.mrscauthd.boss_tools.gauge.IGaugeValue;
 import net.mrscauthd.boss_tools.inventory.StackCacher;
 
 public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTileEntity {
@@ -28,6 +30,21 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 
 		this.itemStackCacher = new StackCacher();
 		this.cachedRecipe = null;
+	}
+
+	@Override
+	public List<IGaugeValue> getGaugeValues() {
+		List<IGaugeValue> gaugeValues = super.getGaugeValues();
+
+		if (this.cachedRecipe != null) {
+			gaugeValues.add(this.getCookTimeGaugeValue());
+		}
+
+		return gaugeValues;
+	}
+
+	public IGaugeValue getCookTimeGaugeValue() {
+		return GaugeValueHelper.getCookTime(this.getTimer(), this.getMaxTimer());
 	}
 
 	@Override

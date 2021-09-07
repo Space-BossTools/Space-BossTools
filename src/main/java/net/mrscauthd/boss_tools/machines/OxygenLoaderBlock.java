@@ -27,6 +27,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Mirror;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -40,6 +41,9 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.capability.IOxygenStorage;
+import net.mrscauthd.boss_tools.gauge.GaugeValueFormat;
+import net.mrscauthd.boss_tools.gauge.IGaugeValue;
+import net.mrscauthd.boss_tools.gauge.SimpleGaugeValue;
 import net.mrscauthd.boss_tools.gui.OxygenLoaderGuiGui;
 import net.mrscauthd.boss_tools.machines.tile.NamedComponentRegistry;
 import net.mrscauthd.boss_tools.machines.tile.OxygenUsingTileEntity;
@@ -171,6 +175,19 @@ public class OxygenLoaderBlock {
 
 		public CustomTileEntity() {
 			super(ModInnet.OXYGEN_LOADER.get());
+		}
+
+		@Override
+		public List<IGaugeValue> getGaugeValues() {
+			List<IGaugeValue> gaugeValues = super.getGaugeValues();
+
+			IOxygenStorage itemOxygenStorage = this.getItemOxygenStorage();
+
+			if (itemOxygenStorage != null) {
+				gaugeValues.add(new SimpleGaugeValue(new ResourceLocation("boss_tools", "loading"), itemOxygenStorage.getOxygenStored(), itemOxygenStorage.getMaxOxygenStored()).format(new GaugeValueFormat(true, true)).displayeName("Loading"));
+			}
+
+			return gaugeValues;
 		}
 
 		@Override

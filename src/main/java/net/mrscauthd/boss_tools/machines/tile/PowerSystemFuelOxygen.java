@@ -5,11 +5,18 @@ import net.minecraft.util.ResourceLocation;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipe;
+import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
+import net.mrscauthd.boss_tools.gauge.IGaugeValue;
 
 public abstract class PowerSystemFuelOxygen extends PowerSystemFuel {
 
 	public PowerSystemFuelOxygen(AbstractMachineTileEntity tileEntity, int slot) {
 		super(tileEntity, slot);
+	}
+
+	@Override
+	public IGaugeValue getGaugeValue() {
+		return GaugeValueHelper.getOxygen(this);
 	}
 
 	public BossToolsRecipeType<? extends OxygenMakingRecipe> getRecipeType() {
@@ -36,5 +43,5 @@ public abstract class PowerSystemFuelOxygen extends PowerSystemFuel {
 		ResourceLocation name = super.getName();
 		return new ResourceLocation(name.getNamespace(), name.getPath() + "/oxygen");
 	}
-	
+
 }

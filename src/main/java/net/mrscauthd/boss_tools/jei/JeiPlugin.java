@@ -3,6 +3,7 @@ package net.mrscauthd.boss_tools.jei;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import mezz.jei.api.IModPlugin;
@@ -29,6 +30,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -45,6 +47,7 @@ import net.mrscauthd.boss_tools.crafting.GeneratingRecipe;
 import net.mrscauthd.boss_tools.crafting.WorkbenchingRecipe;
 import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipe;
+import net.mrscauthd.boss_tools.crafting.RocketPart;
 import net.mrscauthd.boss_tools.machines.WorkbenchBlock;
 import net.mrscauthd.boss_tools.machines.tile.ItemStackToItemStackTileEntity;
 import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock;
@@ -56,6 +59,7 @@ import net.mrscauthd.boss_tools.machines.OxygenLoaderBlock;
 import net.mrscauthd.boss_tools.gui.*;
 import net.mrscauthd.boss_tools.gui.guihelper.GridPlacer;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
+import net.mrscauthd.boss_tools.gui.guihelper.IPlacer;
 import net.mrscauthd.boss_tools.gui.guihelper.RocketPartGridPlacer;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
@@ -108,8 +112,8 @@ public class JeiPlugin implements IModPlugin {
 		registration.addRecipeClickArea(NasaWorkbenchGuiWindow.class, 108, 49, 14, 14, WorkbenchJeiCategory.Uid);
 		registration.addGuiContainerHandler(GeneratorGUIGuiWindow.class, new CoalGeneratorGuiContainerHandler());
 		registration.addRecipeClickArea(FuelRefineryGUIGuiWindow.class, FuelRefineryGUIGuiWindow.ARROW_LEFT, FuelRefineryGUIGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, FuelMakerJeiCategory.Uid);
-		registration.addRecipeClickArea(BlastFurnaceGUIGuiWindow.class, BlastFurnaceGUIGuiWindow.ARROW_LEFT, BlastFurnaceGUIGuiWindow.AROOW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, BlastingFurnaceJeiCategory.Uid, VanillaRecipeCategoryUid.FUEL);
-		registration.addRecipeClickArea(CompressorGuiGuiWindow.class, CompressorGuiGuiWindow.ARROW_LEFT, CompressorGuiGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, CompressorJeiCategory.Uid);
+		registration.addGuiContainerHandler(BlastFurnaceGUIGuiWindow.class, new BlastFurnaceGuiContainerHandler());
+		registration.addGuiContainerHandler(CompressorGuiGuiWindow.class, new CompressorGuiContainerHandler());
 		registration.addGuiContainerHandler(OxygenLoaderGuiGuiWindow.class, new OxygenLoaderGuiContainerHandler());
 		registration.addGuiContainerHandler(OxygenBulletGeneratorGUIGuiWindow.class, new OxygenGeneratorGuiContainerHandler());
 	}
@@ -587,18 +591,29 @@ public class JeiPlugin implements IModPlugin {
 
 			int slots = WorkbenchBlock.SLOT_PARTS;
 			GridPlacer placer = new GridPlacer();
-			slots = RocketPartGridPlacer.placeJEI(slots, 38, 7, 1, placer::placeBottom, ModInnet.ROCKET_PART_NOSE.get(), iRecipeLayout, recipe);
-			slots = RocketPartGridPlacer.placeJEI(slots, 29, 25, 2, placer::placeBottom, ModInnet.ROCKET_PART_BODY.get(), iRecipeLayout, recipe);
-			slots = RocketPartGridPlacer.placeJEI(slots, 29, 79, 1, placer::placeRight, ModInnet.ROCKET_PART_TANK.get(), iRecipeLayout, recipe);
-			slots = RocketPartGridPlacer.placeJEI(slots, 11, 79, 1, placer::placeBottom, ModInnet.ROCKET_PART_FIN_LEFT.get(), iRecipeLayout, recipe);
-			slots = RocketPartGridPlacer.placeJEI(slots, 65, 79, 1, placer::placeBottom, ModInnet.ROCKET_PART_FIN_RIGHT.get(), iRecipeLayout, recipe);
-			slots = RocketPartGridPlacer.placeJEI(slots, 38, 97, 1, placer::placeBottom, ModInnet.ROCKET_PART_ENGINE.get(), iRecipeLayout, recipe);
+			slots = placeRcketParts(slots, 38, 7, 1, placer::placeBottom, ModInnet.ROCKET_PART_NOSE.get(), iRecipeLayout, recipe);
+			slots = placeRcketParts(slots, 29, 25, 2, placer::placeBottom, ModInnet.ROCKET_PART_BODY.get(), iRecipeLayout, recipe);
+			slots = placeRcketParts(slots, 29, 79, 1, placer::placeRight, ModInnet.ROCKET_PART_TANK.get(), iRecipeLayout, recipe);
+			slots = placeRcketParts(slots, 11, 79, 1, placer::placeBottom, ModInnet.ROCKET_PART_FIN_LEFT.get(), iRecipeLayout, recipe);
+			slots = placeRcketParts(slots, 65, 79, 1, placer::placeBottom, ModInnet.ROCKET_PART_FIN_RIGHT.get(), iRecipeLayout, recipe);
+			slots = placeRcketParts(slots, 38, 97, 1, placer::placeBottom, ModInnet.ROCKET_PART_ENGINE.get(), iRecipeLayout, recipe);
 
 			IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
 			stacks.init(slots, false, 126, 72);
 			stacks.set(slots, iIngredients.getOutputs(VanillaTypes.ITEM).get(0));
 			slots++;
 		}
+	}
+
+	public static int placeRcketParts(int slot, int left, int top, int mod, IPlacer placer, RocketPart part, IRecipeLayout iRecipeLayout, WorkbenchingRecipe recipe) {
+		IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
+		List<Ingredient> ingredients = recipe.getParts().get(part);
+
+		return RocketPartGridPlacer.place(slot, left, top, mod, placer, part, (i, s, bounds) -> {
+			Ingredient ingredient = (ingredients != null && i < ingredients.size()) ? ingredients.get(i) : Ingredient.EMPTY;
+			stacks.init(s, true, bounds.getX(), bounds.getY());
+			stacks.set(s, Lists.newArrayList(ingredient.getMatchingStacks()));
+		});
 	}
 
 	public static IDrawableStatic createFireStatic(IGuiHelper guiHelper) {
@@ -930,7 +945,7 @@ public class JeiPlugin implements IModPlugin {
 	// Compressor
 	public static class CompressorJeiCategory implements IRecipeCategory<CompressingRecipe> {
 
-		private static ResourceLocation Uid = new ResourceLocation("boss_tools", "compressorcategory");
+		public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "compressorcategory");
 		public static final int ARROW_LEFT = 36;
 		public static final int ARROW_TOP = 29;
 		public static final int ENERGY_LEFT = 103;

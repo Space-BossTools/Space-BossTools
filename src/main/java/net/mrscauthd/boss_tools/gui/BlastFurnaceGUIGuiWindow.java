@@ -10,9 +10,9 @@ import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock.CustomTileEntity;
 
@@ -22,7 +22,7 @@ public class BlastFurnaceGUIGuiWindow extends ContainerScreen<BlastFurnaceGUIGui
 	public static final int FIRE_LEFT = 53;
 	public static final int FIRE_TOP = 39;
 	public static final int ARROW_LEFT = 74;
-	public static final int AROOW_TOP = 37;
+	public static final int ARROW_TOP = 37;
 
 	private CustomTileEntity tileEntity;
 
@@ -40,7 +40,7 @@ public class BlastFurnaceGUIGuiWindow extends ContainerScreen<BlastFurnaceGUIGui
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 
 		if (this.getFireBounds().contains(mouseX, mouseY)) {
-			this.renderTooltip(ms, new StringTextComponent("Burn Time: " + this.getTileEntity().getPowerSystemBurnTime().getStored()), mouseX, mouseY);
+			this.renderTooltip(ms, GaugeValueHelper.getBurnTime(this.getTileEntity().getPowerSystemBurnTime()).getText(), mouseX, mouseY);
 		}
 	}
 
@@ -52,7 +52,7 @@ public class BlastFurnaceGUIGuiWindow extends ContainerScreen<BlastFurnaceGUIGui
 		this.minecraft.getTextureManager().bindTexture(TEXTURE);
 		AbstractGui.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
 		GuiHelper.drawFire(ms, this.guiLeft + FIRE_LEFT, this.guiTop + FIRE_TOP, tileEntity.getPowerSystemBurnTime().getStoredRatio());
-		GuiHelper.drawArrow(ms, this.guiLeft + ARROW_LEFT, this.guiTop + AROOW_TOP, tileEntity.getTimerRatio());
+		GuiHelper.drawArrow(ms, this.guiLeft + ARROW_LEFT, this.guiTop + ARROW_TOP, tileEntity.getTimerRatio());
 	}
 
 	@Override

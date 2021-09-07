@@ -9,12 +9,17 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
+import net.mrscauthd.boss_tools.gauge.IGaugeValue;
 
 public abstract class PowerSystem implements INBTSerializable<CompoundNBT> {
 	private final AbstractMachineTileEntity tileEntity;
 
 	public PowerSystem(AbstractMachineTileEntity tileEntity) {
 		this.tileEntity = tileEntity;
+	}
+	
+	public IGaugeValue getGaugeValue(){
+		return null;
 	}
 
 	public int getPowerPerTick() {
@@ -116,5 +121,10 @@ public abstract class PowerSystem implements INBTSerializable<CompoundNBT> {
 	}
 
 	public abstract ResourceLocation getName();
+
+	public List<IGaugeValue> getGaugeValues() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

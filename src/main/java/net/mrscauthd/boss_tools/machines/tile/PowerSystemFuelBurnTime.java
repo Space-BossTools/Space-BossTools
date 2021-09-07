@@ -1,6 +1,8 @@
 package net.mrscauthd.boss_tools.machines.tile;
 
 import net.minecraft.util.ResourceLocation;
+import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
+import net.mrscauthd.boss_tools.gauge.IGaugeValue;
 
 public abstract class PowerSystemFuelBurnTime extends PowerSystemFuel {
 
@@ -8,6 +10,11 @@ public abstract class PowerSystemFuelBurnTime extends PowerSystemFuel {
 
 	public PowerSystemFuelBurnTime(AbstractMachineTileEntity tileEntity, int slot) {
 		super(tileEntity, slot);
+	}
+
+	@Override
+	public IGaugeValue getGaugeValue() {
+		return GaugeValueHelper.getBurnTime(this);
 	}
 
 	@Override

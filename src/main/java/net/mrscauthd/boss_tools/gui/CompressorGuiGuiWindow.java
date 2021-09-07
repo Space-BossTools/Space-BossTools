@@ -12,6 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 import net.mrscauthd.boss_tools.machines.CompressorBlock.CustomTileEntity;
 
@@ -39,7 +40,7 @@ public class CompressorGuiGuiWindow extends ContainerScreen<CompressorGuiGui.Gui
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 
 		if (this.getEnergyBounds().contains(mouseX, mouseY)) {
-			GuiHelper.renderEnergyTooltip(ms, mouseX, mouseY, this, this.getTileEntity().getPrimaryEnergyStorage());
+			this.renderTooltip(ms, GaugeValueHelper.getEnergy(this.getTileEntity()).getText(), mouseX, mouseY);
 		}
 	}
 

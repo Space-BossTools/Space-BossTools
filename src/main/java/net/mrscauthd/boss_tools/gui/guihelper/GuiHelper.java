@@ -7,7 +7,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.client.renderer.Tessellator;
@@ -18,13 +17,11 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
+import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 
 public class GuiHelper {
 
@@ -46,39 +43,11 @@ public class GuiHelper {
 	public static final int FLUID_TANK_WIDTH = 14;
 	public static final int FLUID_TANK_HEIGHT = 48;
 
-	public static void renderEnergyTooltip(MatrixStack matrixStack, int left, int top, Screen screen, int stored, int capacity) {
-		screen.renderTooltip(matrixStack, new StringTextComponent(stored + " FE / " + capacity + " FE"), left, top);
-	}
-
-	public static void renderEnergyTooltip(MatrixStack matrixStack, int left, int top, Screen screen, IEnergyStorage energyStorage) {
-		renderEnergyTooltip(matrixStack, left, top, screen, energyStorage.getEnergyStored(), energyStorage.getMaxEnergyStored());
-	}
-
-	public static void renderFluidTooltip(MatrixStack matrixStack, int left, int top, Screen screen, IFluidTank tank) {
-		renderFluidTooltip(matrixStack, left, top, screen, tank.getFluid(), tank.getCapacity());
-	}
-
-	public static ITextComponent getFluidTooltip(FluidStack stack, int capacity) {
-		return new TranslationTextComponent("%s: " + stack.getAmount() + " mb / " + capacity + " mb", stack.getDisplayName());
-	}
-
-	public static ITextComponent getFluidTooltip(Fluid fluid, int amount, int capacity) {
-		return getFluidTooltip(new FluidStack(fluid, amount), capacity);
-	}
-
-	public static void renderFluidTooltip(MatrixStack matrixStack, int left, int top, Screen screen, FluidStack stack, int capacity) {
-		screen.renderTooltip(matrixStack, getFluidTooltip(stack, capacity), left, top);
-	}
-
-	public static void renderFluidTooltip(MatrixStack matrixStack, int left, int top, Screen screen, Fluid fluid, int amount, int capacity) {
-		screen.renderTooltip(matrixStack, getFluidTooltip(fluid, amount, capacity), left, top);
-	}
-
 	public static void drawArrow(MatrixStack matrixStack, int left, int top, double ratio) {
 		GuiHelper.drawHorizontal(matrixStack, left, top, ARROW_WIDTH, ARROW_HEIGHT, ARROW_PATH, ratio);
 	}
 
-	public static Rectangle2d getArrorBounds(int left, int top) {
+	public static Rectangle2d getArrowBounds(int left, int top) {
 		return new Rectangle2d(left, top, ARROW_WIDTH, ARROW_HEIGHT);
 	}
 
@@ -135,11 +104,7 @@ public class GuiHelper {
 	}
 
 	public static void drawFluid(MatrixStack matrixStack, int left, int top, int width, int height, FluidStack stack) {
-		if (stack == null) {
-			return;
-		}
-
-		Fluid fluid = stack.getFluid();
+		Fluid fluid = FluidUtil2.getFluid(stack);
 
 		if (fluid == null) {
 			return;
@@ -148,34 +113,58 @@ public class GuiHelper {
 		TextureAtlasSprite fluidStillSprite = getStillFluidSprite(stack);
 		FluidAttributes attributes = fluid.getAttributes();
 		int fluidColor = attributes.getColor(stack);
-		drawTiledSprite(matrixStack, left, top, width, height, fluidColor, 0, fluidStillSprite);
+		drawTiledSprite(matrixStack, left, top, width, height, fluidColor, fluidStillSprite, 16, 16);
 	}
 
-	private static void drawTiledSprite(MatrixStack matrixStack, final int xPosition, final int yPosition, final int tiledWidth, final int tiledHeight, int color, int scaledAmount, TextureAtlasSprite sprite) {
+	public static void drawFluidHorizontal(MatrixStack matrixStack, int left, int top, int width, int height, FluidStack stack, int capacity) {
+		Fluid fluid = FluidUtil2.getFluid(stack);
+
+		if (fluid == null) {
+			return;
+		}
+
+		double ratio = (double) stack.getAmount() / (double) capacity;
+		drawFluid(matrixStack, left, top, (int) Math.ceil(width * ratio), height, stack);
+	}
+
+	public static void drawFluidVertical(MatrixStack matrixStack, int left, int top, int width, int height, FluidStack stack, int capacity) {
+		Fluid fluid = FluidUtil2.getFluid(stack);
+
+		if (fluid == null) {
+			return;
+		}
+
+		double ratio = (double) stack.getAmount() / (double) capacity;
+		int scaledHeight = (int) Math.ceil(height * ratio);
+		int offset = height - scaledHeight;
+		drawFluid(matrixStack, left, top + offset, scaledHeight, height, stack);
+	}
+
+	public static void drawTiledSprite(MatrixStack matrixStack, int left, int top, int width, int height, int color, TextureAtlasSprite sprite, int tileWidth, int tileHeight) {
 		Minecraft minecraft = Minecraft.getInstance();
 		minecraft.getTextureManager().bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
 		Matrix4f matrix = matrixStack.getLast().getMatrix();
 		setGLColorFromInt(color);
 
-		final int xTileCount = tiledWidth / 16;
-		final int xRemainder = tiledWidth - (xTileCount * 16);
-		final int yTileCount = tiledHeight / 16;
-		final int yRemainder = tiledHeight - (yTileCount * 16);
+		final int xTileCount = width / tileWidth;
+		final int xRemainder = width - (xTileCount * tileWidth);
+		final int yTileCount = height / tileWidth;
+		final int yRemainder = height - (yTileCount * tileWidth);
 
-		final int yStart = yPosition + tiledHeight;
+		final int yStart = top + height;
 
 		for (int xTile = 0; xTile <= xTileCount; xTile++) {
 			for (int yTile = 0; yTile <= yTileCount; yTile++) {
-				int width = (xTile == xTileCount) ? xRemainder : 16;
-				int height = (yTile == yTileCount) ? yRemainder : 16;
-				int x = xPosition + (xTile * 16);
-				int y = yStart - ((yTile + 1) * 16);
+				int tiledWidth = (xTile == xTileCount) ? xRemainder : tileWidth;
+				int tiledHeight = (yTile == yTileCount) ? yRemainder : tileWidth;
+				int x = left + (xTile * tileWidth);
+				int y = yStart - ((yTile + 1) * tileHeight);
 
-				if (width > 0 && height > 0) {
-					int maskTop = 16 - height;
-					int maskRight = 16 - width;
+				if (tiledWidth > 0 && tiledHeight > 0) {
+					int maskRight = tileWidth - tiledWidth;
+					int maskTop = tileHeight - tiledHeight;
 
-					drawTextureWithMasking(matrix, x, y, sprite, maskTop, maskRight, 100);
+					drawTextureWithMasking(matrix, x, y, sprite, tileWidth, tileHeight, maskTop, maskRight, 0);
 				}
 			}
 		}
@@ -183,21 +172,21 @@ public class GuiHelper {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 	}
 
-	private static void drawTextureWithMasking(Matrix4f matrix, float left, float top, TextureAtlasSprite textureSprite, int maskTop, int maskRight, float zLevel) {
+	private static void drawTextureWithMasking(Matrix4f matrix, float left, float top, TextureAtlasSprite textureSprite, float tileWidth, float tileHeight, int maskTop, int maskRight, float zLevel) {
 		float uMin = textureSprite.getMinU();
 		float uMax = textureSprite.getMaxU();
 		float vMin = textureSprite.getMinV();
 		float vMax = textureSprite.getMaxV();
 
-		uMax = uMax - (maskRight / 16.0F * (uMax - uMin));
-		vMax = vMax - (maskTop / 16.0F * (vMax - vMin));
+		uMax = uMax - (maskRight / tileWidth * (uMax - uMin));
+		vMax = vMax - (maskTop / tileHeight * (vMax - vMin));
 
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferBuilder = tessellator.getBuffer();
-		bufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-		bufferBuilder.pos(matrix, left, top + 16.0F, zLevel).tex(uMin, vMax).endVertex();
-		bufferBuilder.pos(matrix, left + 16.0F - maskRight, top + 16.0F, zLevel).tex(uMax, vMax).endVertex();
-		bufferBuilder.pos(matrix, left + 16.0F - maskRight, top + maskTop, zLevel).tex(uMax, vMin).endVertex();
+		bufferBuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		bufferBuilder.pos(matrix, left, top + tileHeight, zLevel).tex(uMin, vMax).endVertex();
+		bufferBuilder.pos(matrix, left + tileWidth - maskRight, top + tileHeight, zLevel).tex(uMax, vMax).endVertex();
+		bufferBuilder.pos(matrix, left + tileWidth - maskRight, top + maskTop, zLevel).tex(uMax, vMin).endVertex();
 		bufferBuilder.pos(matrix, left, top + maskTop, zLevel).tex(uMin, vMin).endVertex();
 		tessellator.draw();
 	}

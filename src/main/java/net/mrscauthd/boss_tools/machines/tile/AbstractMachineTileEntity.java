@@ -3,6 +3,7 @@ package net.mrscauthd.boss_tools.machines.tile;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -54,11 +55,13 @@ import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import net.mrscauthd.boss_tools.capability.EnergyStorageBasic;
 import net.mrscauthd.boss_tools.capability.IEnergyStorageHolder;
 import net.mrscauthd.boss_tools.crafting.FluidIngredient;
+import net.mrscauthd.boss_tools.gauge.IGaugeValue;
 
 public abstract class AbstractMachineTileEntity extends LockableLootTileEntity implements ISidedInventory, ITickableTileEntity, IEnergyStorageHolder {
 
 	public static final String KEY_ACTIVATED = "activated";
 
+	private Map<Object, Object> selectedPrimaries;
 	private Map<ResourceLocation, IEnergyStorage> energyStorages;
 	private final Map<ResourceLocation, IFluidHandler> fluidHandlers;
 	private final Map<ResourceLocation, PowerSystem> powerSystems;
@@ -69,6 +72,8 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 
 	public AbstractMachineTileEntity(TileEntityType<?> type) {
 		super(type);
+
+		this.selectedPrimaries = new HashMap<>();
 
 		NamedComponentRegistry<IEnergyStorage> energyRegistry = new NamedComponentRegistry<>();
 		this.createEnergyStorages(energyRegistry);
@@ -422,8 +427,13 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		return new EnergyStorageBasic(this, 9000, 200, 200);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Nonnull
 	public <T> T getPrimaryComponent(Map<ResourceLocation, T> map) {
+		return (T) this.selectedPrimaries.computeIfAbsent(map, k -> this.selectPrimaryComponent((Map<ResourceLocation, T>) k));
+	}
+
+	protected <T> T selectPrimaryComponent(Map<ResourceLocation, T> map) {
 		if (map.containsKey(NamedComponentRegistry.UNNAMED)) {
 			return map.get(NamedComponentRegistry.UNNAMED);
 		} else {
@@ -514,6 +524,10 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		}
 
 		return false;
+	}
+
+	public List<IGaugeValue> getGaugeValues() {
+		return new ArrayList<>();
 	}
 
 }
