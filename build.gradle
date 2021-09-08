@@ -88,6 +88,9 @@ dependencies {
   
   //The One Probe
   compile fg.deobf("curse.maven:the-one-probe-245211:3319255")
+  
+  //Hwyla
+  compile fg.deobf("curse.maven:hwyla-253449:3033593")
 }
 
 mixin {

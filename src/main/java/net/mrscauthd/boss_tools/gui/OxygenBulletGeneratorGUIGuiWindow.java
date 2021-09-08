@@ -19,7 +19,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.boss_tools.BossToolsMod;
-import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
+import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock;
 import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock.CustomTileEntity;
@@ -48,7 +48,7 @@ public class OxygenBulletGeneratorGUIGuiWindow extends ContainerScreen<OxygenBul
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 
 		if (this.getEnergyBounds().contains(mouseX, mouseY)) {
-			this.renderTooltip(ms, GaugeValueHelper.getEnergy(this.getTileEntity()).getText(), mouseX, mouseY);
+			this.renderTooltip(ms, GaugeDataHelper.getEnergy(this.getTileEntity()).getText(), mouseX, mouseY);
 		}
 	}
 

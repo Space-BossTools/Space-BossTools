@@ -1,8 +1,10 @@
 package net.mrscauthd.boss_tools.machines.tile;
 
+import java.util.List;
+
 import net.minecraft.util.ResourceLocation;
-import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
-import net.mrscauthd.boss_tools.gauge.IGaugeValue;
+import net.mrscauthd.boss_tools.gauge.GaugeData;
+import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
 
 public abstract class PowerSystemFuelBurnTime extends PowerSystemFuel {
 
@@ -13,8 +15,10 @@ public abstract class PowerSystemFuelBurnTime extends PowerSystemFuel {
 	}
 
 	@Override
-	public IGaugeValue getGaugeValue() {
-		return GaugeValueHelper.getBurnTime(this);
+	public List<GaugeData> getGaugeDataList() {
+		List<GaugeData> list = super.getGaugeDataList();
+		list.add(GaugeDataHelper.getBurnTime(this));
+		return list;
 	}
 
 	@Override

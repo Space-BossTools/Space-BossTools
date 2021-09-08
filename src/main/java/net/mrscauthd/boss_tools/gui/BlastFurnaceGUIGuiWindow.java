@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
+import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock.CustomTileEntity;
 
@@ -40,7 +40,7 @@ public class BlastFurnaceGUIGuiWindow extends ContainerScreen<BlastFurnaceGUIGui
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 
 		if (this.getFireBounds().contains(mouseX, mouseY)) {
-			this.renderTooltip(ms, GaugeValueHelper.getBurnTime(this.getTileEntity().getPowerSystemBurnTime()).getText(), mouseX, mouseY);
+			this.renderTooltip(ms, GaugeDataHelper.getBurnTime(this.getTileEntity().getPowerSystemBurnTime()).getText(), mouseX, mouseY);
 		}
 	}
 

@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
+import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 import net.mrscauthd.boss_tools.machines.FuelRefineryBlock.CustomTileEntity;
 
@@ -66,11 +66,11 @@ public class FuelRefineryGUIGuiWindow extends ContainerScreen<FuelRefineryGUIGui
 		CustomTileEntity tileEntity = (CustomTileEntity) this.getTileEntity();
 
 		if (this.getInputTankBounds().contains(mouseX, mouseY)) {
-			this.renderTooltip(ms, GaugeValueHelper.getFluid(tileEntity.getInputTank()).getText(), mouseX, mouseY);
+			this.renderTooltip(ms, GaugeDataHelper.getFluid(tileEntity.getInputTank()).getText(), mouseX, mouseY);
 		} else if (this.getOutputTankBounds().contains(mouseX, mouseY)) {
-			this.renderTooltip(ms, GaugeValueHelper.getFluid(tileEntity.getOutputTank()).getText(), mouseX, mouseY);
+			this.renderTooltip(ms, GaugeDataHelper.getFluid(tileEntity.getOutputTank()).getText(), mouseX, mouseY);
 		} else if (this.getEnergyBounds().contains(mouseX, mouseY)) {
-			this.renderTooltip(ms, GaugeValueHelper.getEnergy(tileEntity).getText(), mouseX, mouseY);
+			this.renderTooltip(ms, GaugeDataHelper.getEnergy(tileEntity).getText(), mouseX, mouseY);
 		}
 	}
 

@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.machines.tile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -9,7 +10,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
-import net.mrscauthd.boss_tools.gauge.IGaugeValue;
+import net.mrscauthd.boss_tools.gauge.GaugeData;
 
 public abstract class PowerSystem implements INBTSerializable<CompoundNBT> {
 	private final AbstractMachineTileEntity tileEntity;
@@ -18,8 +19,8 @@ public abstract class PowerSystem implements INBTSerializable<CompoundNBT> {
 		this.tileEntity = tileEntity;
 	}
 	
-	public IGaugeValue getGaugeValue(){
-		return null;
+	public List<GaugeData> getGaugeDataList(){
+		return new ArrayList<>();
 	}
 
 	public int getPowerPerTick() {
@@ -121,10 +122,4 @@ public abstract class PowerSystem implements INBTSerializable<CompoundNBT> {
 	}
 
 	public abstract ResourceLocation getName();
-
-	public List<IGaugeValue> getGaugeValues() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

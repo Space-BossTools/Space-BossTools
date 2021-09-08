@@ -1,12 +1,14 @@
 package net.mrscauthd.boss_tools.machines.tile;
 
+import java.util.List;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipe;
-import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
-import net.mrscauthd.boss_tools.gauge.IGaugeValue;
+import net.mrscauthd.boss_tools.gauge.GaugeData;
+import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
 
 public abstract class PowerSystemFuelOxygen extends PowerSystemFuel {
 
@@ -15,8 +17,10 @@ public abstract class PowerSystemFuelOxygen extends PowerSystemFuel {
 	}
 
 	@Override
-	public IGaugeValue getGaugeValue() {
-		return GaugeValueHelper.getOxygen(this);
+	public List<GaugeData> getGaugeDataList() {
+		List<GaugeData> list = super.getGaugeDataList();
+		list.add(GaugeDataHelper.getOxygen(this));
+		return list;
 	}
 
 	public BossToolsRecipeType<? extends OxygenMakingRecipe> getRecipeType() {

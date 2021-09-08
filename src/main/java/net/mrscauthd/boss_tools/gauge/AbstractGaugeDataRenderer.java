@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.compat.theoneprobe;
+package net.mrscauthd.boss_tools.gauge;
 
 import javax.annotation.Nullable;
 
@@ -8,7 +8,6 @@ import org.lwjgl.opengl.GL11;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import mcjty.theoneprobe.api.IElement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.FontRenderer;
@@ -16,27 +15,20 @@ import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
-import net.mrscauthd.boss_tools.gauge.IGaugeValue;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 
-public abstract class GaugeElement implements IElement {
+public abstract class AbstractGaugeDataRenderer {
 
-	private IGaugeValue gaugeValue;
+	private final IGaugeData data;
 
-	public GaugeElement(IGaugeValue gaugeValue) {
-		this.gaugeValue = gaugeValue;
+	public AbstractGaugeDataRenderer(IGaugeData data) {
+		this.data = data;
 	}
 
-	public GaugeElement(PacketBuffer buffer) {
-
-	}
-
-	@Override
 	public void toBytes(PacketBuffer buffer) {
-		this.gaugeValue.write(buffer);
+		this.getData().write(buffer);
 	}
 
-	@Override
 	public void render(MatrixStack matrixStack, int left, int top) {
 		this.drawBorder(matrixStack, left, top);
 
@@ -55,7 +47,7 @@ public abstract class GaugeElement implements IElement {
 
 	@Nullable
 	public String getGaugeText() {
-		return this.getGaugeValue().getText().getString();
+		return this.getData().getText().getString();
 	}
 
 	protected void drawGaugeText(MatrixStack matrixStack, Rectangle2d innerBounds) {
@@ -91,7 +83,7 @@ public abstract class GaugeElement implements IElement {
 
 	protected void drawBackground(MatrixStack matrixStack, Rectangle2d innerBounds) {
 		int tileColor = this.getBackgroundColor();
-		double displayRatio = this.getGaugeValue().getDisplayRatio();
+		double displayRatio = this.getData().getDisplayRatio();
 
 		try {
 			RenderSystem.enableBlend();
@@ -167,18 +159,16 @@ public abstract class GaugeElement implements IElement {
 		return 0xFF000000;
 	}
 
-	@Override
 	public int getWidth() {
 		return 100;
 	}
 
-	@Override
 	public int getHeight() {
 		return 13;
 	}
 
-	public IGaugeValue getGaugeValue() {
-		return this.gaugeValue;
+	public IGaugeData getData() {
+		return this.data;
 	}
 
 }

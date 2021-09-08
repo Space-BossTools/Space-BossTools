@@ -39,7 +39,7 @@ public class CompressorGuiContainerHandler implements IGuiContainerHandler<Compr
 			@Override
 			public List<ITextComponent> getTooltipStrings() {
 				List<ITextComponent> list = new ArrayList<>();
-				list.add(containerScreen.getTileEntity().getCookTimeGaugeValue().getText());
+				list.add(containerScreen.getTileEntity().getCookTimeGaugeData().getText());
 				list.add(new TranslationTextComponent("jei.tooltip.show.recipes"));
 				return list;
 			}
