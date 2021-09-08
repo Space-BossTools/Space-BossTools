@@ -3,6 +3,7 @@ package net.mrscauthd.boss_tools.compat.theoneprobe;
 import javax.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
+import org.lwjgl.opengl.GL11;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -14,6 +15,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.ResourceLocation;
 import net.mrscauthd.boss_tools.gauge.IGaugeValue;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 
@@ -42,7 +44,7 @@ public abstract class GaugeElement implements IElement {
 		int height = this.getHeight();
 		int padding = this.getBorderWidth();
 		Rectangle2d innerBounds = new Rectangle2d(left + padding, top + padding, width - padding * 2, height - padding * 2);
-		this.drawGaugeTileTexture(matrixStack, innerBounds);
+		this.drawBackground(matrixStack, innerBounds);
 		this.drawContents(matrixStack, innerBounds);
 		this.drawGaugeText(matrixStack, innerBounds);
 	}
@@ -50,7 +52,7 @@ public abstract class GaugeElement implements IElement {
 	protected void drawContents(MatrixStack matrixStack, Rectangle2d innerBounds) {
 
 	}
-	
+
 	@Nullable
 	public String getGaugeText() {
 		return this.getGaugeValue().getText().getString();
@@ -87,22 +89,36 @@ public abstract class GaugeElement implements IElement {
 		matrixStack.pop();
 	}
 
-	protected void drawGaugeTileTexture(MatrixStack matrixStack, Rectangle2d innerBounds) {
-		TextureAtlasSprite tileTexture = this.getTileTexture();
+	protected void drawBackground(MatrixStack matrixStack, Rectangle2d innerBounds) {
+		int tileColor = this.getBackgroundColor();
+		double displayRatio = this.getGaugeValue().getDisplayRatio();
 
-		if (tileTexture == null) {
-			return;
+		try {
+			RenderSystem.enableBlend();
+			RenderSystem.enableAlphaTest();
+			GuiHelper.setGLColorFromInt(tileColor);
+
+			TextureAtlasSprite tileTexture = this.getBackgroundTileTexture();
+
+			if (tileTexture != null) {
+				int tileWidth = this.getBackgroundTileWidth();
+				int tileHeight = this.getBackgroundTileHeight();
+				int ratioWidth = (int) Math.ceil(innerBounds.getWidth() * displayRatio);
+				GuiHelper.drawTiledSprite(matrixStack, innerBounds.getX(), innerBounds.getY(), ratioWidth, innerBounds.getHeight(), tileTexture, tileWidth, tileHeight);
+			}
+
+			ResourceLocation texture = this.getBackgroundTexture();
+
+			if (texture != null) {
+				GuiHelper.drawHorizontal(matrixStack, innerBounds.getX(), innerBounds.getY(), innerBounds.getWidth(), innerBounds.getHeight(), texture, displayRatio);
+			}
+
+		} finally {
+			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+			RenderSystem.disableAlphaTest();
+			RenderSystem.disableBlend();
 		}
 
-		RenderSystem.enableBlend();
-		RenderSystem.enableAlphaTest();
-		int tileColor = this.getTileColor();
-		int tileWidth = this.getTileWidth();
-		int tileHeight = this.getTileHeight();
-		int ratioWidth = (int) Math.ceil(innerBounds.getWidth() * this.getGaugeValue().getDisplayRatio());
-		GuiHelper.drawTiledSprite(matrixStack, innerBounds.getX(), innerBounds.getY(), ratioWidth, innerBounds.getHeight(), tileColor, tileTexture, tileWidth, tileHeight);
-		RenderSystem.disableAlphaTest();
-		RenderSystem.disableBlend();
 	}
 
 	protected void drawBorder(MatrixStack matrixStack, int left, int top) {
@@ -122,17 +138,24 @@ public abstract class GaugeElement implements IElement {
 	}
 
 	@Nullable
-	public abstract TextureAtlasSprite getTileTexture();
+	public TextureAtlasSprite getBackgroundTileTexture() {
+		return null;
+	}
 
-	public int getTileColor() {
+	@Nullable
+	public ResourceLocation getBackgroundTexture() {
+		return null;
+	}
+
+	public int getBackgroundColor() {
 		return 0xFFFFFFFF;
 	}
 
-	public int getTileWidth() {
+	public int getBackgroundTileWidth() {
 		return 16;
 	}
 
-	public int getTileHeight() {
+	public int getBackgroundTileHeight() {
 		return 16;
 	}
 

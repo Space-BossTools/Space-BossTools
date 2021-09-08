@@ -42,7 +42,7 @@ public class GaugeValueHelper {
 	}
 
 	public static IGaugeValue getOxygen(int amount, int capacity) {
-		return new SimpleGaugeValue(OXYGEN_NAME, amount, capacity, new GaugeValueFormat(true, false)).displayeName("Oxygen");
+		return new SimpleGaugeValue(OXYGEN_NAME, amount, capacity, new GaugeValueFormat(true, false)).displayeName("Oxygen").color(0xA000FFFF);
 	}
 
 	public static IGaugeValue getOxygen(IOxygenStorage oxygenStorage) {
@@ -54,7 +54,7 @@ public class GaugeValueHelper {
 	}
 
 	public static IGaugeValue getBurnTime(int amount, int capacity) {
-		return new SimpleGaugeValue(BURNTIME_NAME, amount, capacity, new GaugeValueFormat(true, false)).displayeName("Burn Time");
+		return new SimpleGaugeValue(BURNTIME_NAME, amount, capacity, new GaugeValueFormat(true, false)).displayeName("Burn Time").color(0xA0FF3F00);
 	}
 
 	public static IGaugeValue getBurnTime(PowerSystemFuelBurnTime fuelPowerSystem) {

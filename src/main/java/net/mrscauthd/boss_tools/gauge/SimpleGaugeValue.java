@@ -32,7 +32,7 @@ public class SimpleGaugeValue implements IGaugeValue {
 	}
 
 	public SimpleGaugeValue(@Nonnull ResourceLocation name, int stored, int capacity, @Nonnull GaugeValueFormat format, @Nonnull String displayeName, @Nonnull String unit) {
-		this(name, stored, capacity, format, displayeName, unit, 0xFFFFFFFF);
+		this(name, stored, capacity, format, displayeName, unit, 0xA0FFFFFF);
 	}
 	
 	public SimpleGaugeValue(@Nonnull ResourceLocation name, int stored, int capacity, @Nonnull GaugeValueFormat format, @Nonnull String displayeName, @Nonnull String unit, int color) {

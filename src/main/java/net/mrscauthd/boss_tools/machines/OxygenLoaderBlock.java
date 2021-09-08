@@ -184,7 +184,7 @@ public class OxygenLoaderBlock {
 			IOxygenStorage itemOxygenStorage = this.getItemOxygenStorage();
 
 			if (itemOxygenStorage != null) {
-				gaugeValues.add(new SimpleGaugeValue(new ResourceLocation("boss_tools", "loading"), itemOxygenStorage.getOxygenStored(), itemOxygenStorage.getMaxOxygenStored()).format(new GaugeValueFormat(true, true)).displayeName("Loading"));
+				gaugeValues.add(new SimpleGaugeValue(new ResourceLocation("boss_tools", "loading"), itemOxygenStorage.getOxygenStored(), itemOxygenStorage.getMaxOxygenStored()).format(new GaugeValueFormat(true, false)).displayeName("Loading"));
 			}
 
 			return gaugeValues;

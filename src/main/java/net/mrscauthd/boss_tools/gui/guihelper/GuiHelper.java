@@ -112,8 +112,8 @@ public class GuiHelper {
 
 		TextureAtlasSprite fluidStillSprite = getStillFluidSprite(stack);
 		FluidAttributes attributes = fluid.getAttributes();
-		int fluidColor = attributes.getColor(stack);
-		drawTiledSprite(matrixStack, left, top, width, height, fluidColor, fluidStillSprite, 16, 16);
+		setGLColorFromInt(attributes.getColor(stack));
+		drawTiledSprite(matrixStack, left, top, width, height, fluidStillSprite, 16, 16);
 	}
 
 	public static void drawFluidHorizontal(MatrixStack matrixStack, int left, int top, int width, int height, FluidStack stack, int capacity) {
@@ -140,11 +140,10 @@ public class GuiHelper {
 		drawFluid(matrixStack, left, top + offset, scaledHeight, height, stack);
 	}
 
-	public static void drawTiledSprite(MatrixStack matrixStack, int left, int top, int width, int height, int color, TextureAtlasSprite sprite, int tileWidth, int tileHeight) {
+	public static void drawTiledSprite(MatrixStack matrixStack, int left, int top, int width, int height, TextureAtlasSprite sprite, int tileWidth, int tileHeight) {
 		Minecraft minecraft = Minecraft.getInstance();
 		minecraft.getTextureManager().bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
 		Matrix4f matrix = matrixStack.getLast().getMatrix();
-		setGLColorFromInt(color);
 
 		final int xTileCount = width / tileWidth;
 		final int xRemainder = width - (xTileCount * tileWidth);
@@ -169,7 +168,6 @@ public class GuiHelper {
 			}
 		}
 
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 	}
 
 	private static void drawTextureWithMasking(Matrix4f matrix, float left, float top, TextureAtlasSprite textureSprite, float tileWidth, float tileHeight, int maskTop, int maskRight, float zLevel) {
@@ -191,7 +189,7 @@ public class GuiHelper {
 		tessellator.draw();
 	}
 
-	private static void setGLColorFromInt(int color) {
+	public static void setGLColorFromInt(int color) {
 		float red = (color >> 16 & 0xFF) / 255.0F;
 		float green = (color >> 8 & 0xFF) / 255.0F;
 		float blue = (color & 0xFF) / 255.0F;

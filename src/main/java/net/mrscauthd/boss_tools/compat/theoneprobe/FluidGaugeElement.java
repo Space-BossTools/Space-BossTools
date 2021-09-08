@@ -16,7 +16,7 @@ public class FluidGaugeElement extends GaugeElement {
 	}
 
 	@Override
-	public TextureAtlasSprite getTileTexture() {
+	public TextureAtlasSprite getBackgroundTileTexture() {
 		return GuiHelper.getStillFluidSprite(this.getGaugeValue().getStack());
 	}
 

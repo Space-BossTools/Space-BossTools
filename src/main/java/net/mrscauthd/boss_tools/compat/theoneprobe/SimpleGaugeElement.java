@@ -1,13 +1,12 @@
 package net.mrscauthd.boss_tools.compat.theoneprobe;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.mrscauthd.boss_tools.gauge.SimpleGaugeValue;
 
 public class SimpleGaugeElement extends GaugeElement {
+
+	public static final ResourceLocation DEFAULT_TEXTURE = new ResourceLocation("boss_tools", "textures/simplegaugevalue.png");
 
 	public SimpleGaugeElement(SimpleGaugeValue gaugeValue) {
 		super(gaugeValue);
@@ -18,14 +17,12 @@ public class SimpleGaugeElement extends GaugeElement {
 	}
 
 	@Override
-	public TextureAtlasSprite getTileTexture() {
-		TextureAtlasSprite apply = Minecraft.getInstance().getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE).apply(new ResourceLocation("boss_tools", "blocks/simplegaugevalue"));
-		System.out.println(apply);
-		return apply;
+	public ResourceLocation getBackgroundTexture() {
+		return new ResourceLocation("boss_tools", "textures/simplegaugevalue.png");
 	}
 
 	@Override
-	public int getTileColor() {
+	public int getBackgroundColor() {
 		return this.getGaugeValue().getColor();
 	}
 
