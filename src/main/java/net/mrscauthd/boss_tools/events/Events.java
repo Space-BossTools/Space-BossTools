@@ -22,6 +22,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
@@ -39,6 +40,7 @@ import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 public class Events {
     public static double counter = 1;
     public static boolean check = false;
+
     //Player Tick
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {

@@ -3,7 +3,7 @@ package net.mrscauthd.boss_tools.itemgroup;
 
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.block.MoonoreironBlock;
-import net.mrscauthd.boss_tools.machines.WorkbenchBlock;
+import net.mrscauthd.boss_tools.machines.NASAWorkbenchBlock;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -31,7 +31,7 @@ public class BossToolsItemGroups {
 		@OnlyIn(Dist.CLIENT)
 		@Override
 		public ItemStack createIcon() {
-			return new ItemStack(WorkbenchBlock.block, (int) (1));
+			return new ItemStack(NASAWorkbenchBlock.block, (int) (1));
 		}
 
 		@OnlyIn(Dist.CLIENT)

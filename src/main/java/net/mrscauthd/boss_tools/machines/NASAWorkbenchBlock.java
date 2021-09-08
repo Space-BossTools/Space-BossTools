@@ -85,7 +85,7 @@ import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 import net.mrscauthd.boss_tools.machines.tile.AbstractMachineTileEntity;
 
 @BossToolsModElements.ModElement.Tag
-public class WorkbenchBlock extends BossToolsModElements.ModElement {
+public class NASAWorkbenchBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:nasa_workbench")
 	public static final Block block = null;
 	@ObjectHolder("boss_tools:nasa_workbench")
@@ -108,7 +108,7 @@ public class WorkbenchBlock extends BossToolsModElements.ModElement {
 		return getBasicPartOrders().stream().collect(Collectors.summingInt(p -> p.getSlots()));
 	}
 
-	public WorkbenchBlock(BossToolsModElements instance) {
+	public NASAWorkbenchBlock(BossToolsModElements instance) {
 		super(instance, 69);
 		FMLJavaModLoadingContext.get().getModEventBus().register(new TileEntityRegisterHandler());
 	}
