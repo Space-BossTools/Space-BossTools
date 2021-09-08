@@ -2,20 +2,27 @@ package net.mrscauthd.boss_tools.flag;
 
 import javax.annotation.Nullable;
 
+import com.mojang.authlib.GameProfile;
 import net.minecraft.block.*;
 import net.minecraft.block.material.PushReaction;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.NBTUtil;
+import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.DoubleBlockHalf;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
@@ -31,6 +38,9 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.UUID;
 
 public class FlagBlock extends Block implements IWaterLoggable {
 	public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
@@ -117,8 +127,52 @@ public class FlagBlock extends Block implements IWaterLoggable {
 		}
 	}
 
+	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
 		worldIn.setBlockState(pos.up(), state.with(HALF, DoubleBlockHalf.UPPER), 3);
+
+		TileEntity tileentity = worldIn.getTileEntity(new BlockPos(pos.getX(),pos.getY() + 1,pos.getZ()));
+		if (tileentity instanceof FlagTileEntity) {
+			FlagTileEntity flagtileentity = (FlagTileEntity) tileentity;
+
+			CompoundNBT compoundnbt = new CompoundNBT();
+			NBTUtil.writeGameProfile(compoundnbt, new GameProfile(placer.getUniqueID(), placer.getName().getString()));
+			flagtileentity.getTileData().putString("SkullOwner", placer.getName().getString());
+
+			if (placer instanceof PlayerEntity) {
+				PlayerEntity player = (PlayerEntity) placer;
+
+				flagtileentity.setPlayerProfile(player.getGameProfile());
+			}
+		}
+	}
+
+	@Override
+	public boolean hasTileEntity(BlockState state) {
+		return true;
+	}
+
+	@Override
+	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+		return new FlagTileEntity();
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	public FlagBlock.ISkullType getSkullType() {
+		return FlagBlock.Types.PLAYER;
+	}
+
+
+	public interface ISkullType {
+	}
+
+	public static enum Types implements FlagBlock.ISkullType {
+		PLAYER
+	}
+
+	public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+		return false;
 	}
 
 	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
