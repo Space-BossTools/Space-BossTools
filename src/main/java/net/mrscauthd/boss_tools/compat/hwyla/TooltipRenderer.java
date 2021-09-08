@@ -19,6 +19,8 @@ import net.mrscauthd.boss_tools.gauge.GaugeDataRenderer;
 
 public class TooltipRenderer implements IComponentProvider, ITooltipRenderer {
 
+	public static final TooltipRenderer INSTANCE = new TooltipRenderer();
+
 	@Override
 	public void appendBody(List<ITextComponent> tooltip, IDataAccessor accessor, IPluginConfig config) {
 		IComponentProvider.super.appendBody(tooltip, accessor, config);

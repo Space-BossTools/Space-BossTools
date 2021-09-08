@@ -14,11 +14,8 @@ public class HwylaPlugin implements IWailaPlugin {
 
 	@Override
 	public void register(IRegistrar registrar) {
-		ServerDataProvider dataProvider = new ServerDataProvider();
-		TooltipRenderer dataProvider2 = new TooltipRenderer();
-
-		registrar.registerBlockDataProvider(dataProvider, TileEntity.class);
-		registrar.registerComponentProvider(dataProvider2, TooltipPosition.BODY, TileEntity.class);
-		registrar.registerTooltipRenderer(TOOLTIP, dataProvider2);
+		registrar.registerBlockDataProvider(ServerDataProvider.INSTANCE, TileEntity.class);
+		registrar.registerComponentProvider(TooltipRenderer.INSTANCE, TooltipPosition.BODY, TileEntity.class);
+		registrar.registerTooltipRenderer(TOOLTIP, TooltipRenderer.INSTANCE);
 	}
 }

@@ -19,6 +19,7 @@ import net.mrscauthd.boss_tools.machines.tile.AbstractMachineTileEntity;
 public class ServerDataProvider implements IServerDataProvider<TileEntity> {
 
 	public static final ResourceLocation DATA_KEY = new ResourceLocation("boss_tools", "datakey");
+	public static final ServerDataProvider INSTANCE = new ServerDataProvider();
 
 	public static ListNBT write(List<GaugeData> list) {
 		ListNBT nbt = new ListNBT();
