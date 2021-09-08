@@ -91,12 +91,15 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 		if (itemStack == null || itemStack.isEmpty()) {
 			this.itemStackCacher.set(itemStack);
 			this.cachedRecipe = null;
+			this.setMaxTimer(0);
 		} else if (!this.itemStackCacher.test(itemStack)) {
 			this.itemStackCacher.set(itemStack);
 			this.cachedRecipe = this.getRecipeType().findFirst(this.getWorld(), r -> r.test(itemStack));
 
 			if (this.cachedRecipe != null) {
 				this.setMaxTimer(this.cachedRecipe.getCookTime());
+			} else {
+				this.setMaxTimer(0);
 			}
 		}
 
