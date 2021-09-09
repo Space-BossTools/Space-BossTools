@@ -36,6 +36,14 @@ public class FuelRefiningRecipe extends BossToolsRecipe implements Predicate<Flu
 		this.input = input;
 		this.output = output;
 	}
+	
+	@Override
+	public void write(PacketBuffer buffer) {
+		super.write(buffer);
+
+		this.input.write(buffer);
+		this.output.write(buffer);
+	}
 
 	@Override
 	public boolean test(FluidStack stack) {
