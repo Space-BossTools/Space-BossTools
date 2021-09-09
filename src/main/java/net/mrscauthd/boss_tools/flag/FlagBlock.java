@@ -12,6 +12,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.BooleanProperty;
@@ -113,6 +114,7 @@ public class FlagBlock extends Block implements IWaterLoggable {
 	@Nullable
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
 		BlockPos blockpos = context.getPos();
+
 		if (blockpos.getY() < 255 && context.getWorld().getBlockState(blockpos.up()).isReplaceable(context)) {
 			World world = context.getWorld();
 			boolean flag = context.getWorld().getFluidState(context.getPos()).getFluid() == Fluids.WATER;
@@ -128,17 +130,19 @@ public class FlagBlock extends Block implements IWaterLoggable {
 		worldIn.setBlockState(pos.up(), state.with(HALF, DoubleBlockHalf.UPPER), 3);
 
 		TileEntity tileentity = worldIn.getTileEntity(new BlockPos(pos.getX(),pos.getY() + 1,pos.getZ()));
+
 		if (tileentity instanceof FlagTileEntity) {
 			FlagTileEntity flagtileentity = (FlagTileEntity) tileentity;
 
-			/*
 			CompoundNBT compoundnbt = new CompoundNBT();
 			NBTUtil.writeGameProfile(compoundnbt, new GameProfile(placer.getUniqueID(), placer.getName().getString()));
-			flagtileentity.getTileData().putString("FlagOwner", placer.getName().getString());*/
+			flagtileentity.getTileData().put("FlagOwner", compoundnbt);
 
-			PlayerEntity player = (PlayerEntity) placer;
+			if (placer instanceof PlayerEntity) {
+				PlayerEntity player = (PlayerEntity) placer;
 
-			flagtileentity.setPlayerProfile(player.getGameProfile());
+				flagtileentity.setPlayerProfile(player.getGameProfile());
+			}
 		}
 	}
 
@@ -165,6 +169,7 @@ public class FlagBlock extends Block implements IWaterLoggable {
 		PLAYER
 	}
 
+	@Override
 	public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
 		return false;
 	}
