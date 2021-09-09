@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import net.mrscauthd.boss_tools.compat.hwyla.HwylaCompat;
 import net.mrscauthd.boss_tools.compat.theoneprobe.TOPCompat;
 import net.mrscauthd.boss_tools.compat.tinkers.TinkersCompat;
 
@@ -12,11 +13,13 @@ public class CompatibleManager {
 	public static final List<CompatibleMod> MODS;
 	public static final TinkersCompat TINKERS;
 	public static final TOPCompat TOP;
+	public static final HwylaCompat HWYLA;
 
 	static {
 		List<CompatibleMod> mods = new ArrayList<>();
 		mods.add(TINKERS = new TinkersCompat());
 		mods.add(TOP = new TOPCompat());
+		mods.add(HWYLA = new HwylaCompat());
 
 		MODS = Collections.unmodifiableList(mods);
 	}
