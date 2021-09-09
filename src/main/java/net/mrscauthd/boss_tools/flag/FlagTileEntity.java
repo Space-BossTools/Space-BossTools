@@ -64,6 +64,7 @@ public class FlagTileEntity extends TileEntity implements ITickableTileEntity {
 
     @Override
     public void tick() {
+
     }
 
     @Nullable
@@ -84,7 +85,7 @@ public class FlagTileEntity extends TileEntity implements ITickableTileEntity {
     public void setPlayerProfile(@Nullable GameProfile p_195485_1_) {
         playerProfile = p_195485_1_;
         this.updatePlayerProfile();
-        System.out.println(playerProfile);
+        //System.out.println(playerProfile);
     }
 
     private void updatePlayerProfile() {

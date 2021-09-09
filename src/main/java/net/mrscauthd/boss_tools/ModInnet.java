@@ -150,6 +150,19 @@ public class ModInnet {
 
     //Tile Entitys Flags
     public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG = TILE_ENTITYS.register("flag", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAGB_BLUE = TILE_ENTITYS.register("flag_blue", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_BROWN = TILE_ENTITYS.register("flag_brown", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_CYAN = TILE_ENTITYS.register("flag_cyan", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_GRAY = TILE_ENTITYS.register("flag_gray", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_GREEN = TILE_ENTITYS.register("flag_green", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_LIGHT_BLUE = TILE_ENTITYS.register("flag_light_blue", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_LIME = TILE_ENTITYS.register("flag_lime", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_MAGENTA = TILE_ENTITYS.register("flag_magenta", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_ORANGE = TILE_ENTITYS.register("flag_orange", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_PINK = TILE_ENTITYS.register("flag_pink", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_PURPLE = TILE_ENTITYS.register("flag_purple", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_RED = TILE_ENTITYS.register("flag_red", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_YELLOW = TILE_ENTITYS.register("flag_yellow", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
 
 
     //Blocks
