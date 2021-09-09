@@ -12,6 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 import net.mrscauthd.boss_tools.machines.CoalGeneratorBlock.CustomTileEntity;
 
@@ -39,7 +40,7 @@ public class GeneratorGUIGuiWindow extends ContainerScreen<GeneratorGUIGui.GuiCo
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 
 		if (this.getEnergyBounds().contains(mouseX, mouseY)) {
-			GuiHelper.renderEnergyTooltip(ms, mouseX, mouseY, this, this.getTileEntity().getGeneratingEnergyStorage());
+			this.renderTooltip(ms, GaugeDataHelper.getEnergy(this.getTileEntity().getGeneratingEnergyStorage()).getText(), mouseX, mouseY);
 		}
 	}
 

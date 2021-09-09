@@ -10,6 +10,8 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipe;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipeType;
+import net.mrscauthd.boss_tools.gauge.GaugeData;
+import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
 import net.mrscauthd.boss_tools.inventory.StackCacher;
 
 public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTileEntity {
@@ -28,6 +30,21 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 
 		this.itemStackCacher = new StackCacher();
 		this.cachedRecipe = null;
+	}
+
+	@Override
+	public List<GaugeData> getGaugeDataList() {
+		List<GaugeData> list = super.getGaugeDataList();
+
+		if (this.cachedRecipe != null) {
+			list.add(this.getCookTimeGaugeData());
+		}
+
+		return list;
+	}
+
+	public GaugeData getCookTimeGaugeData() {
+		return GaugeDataHelper.getCookTime(this.getTimer(), this.getMaxTimer());
 	}
 
 	@Override
@@ -74,12 +91,15 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 		if (itemStack == null || itemStack.isEmpty()) {
 			this.itemStackCacher.set(itemStack);
 			this.cachedRecipe = null;
+			this.setMaxTimer(0);
 		} else if (!this.itemStackCacher.test(itemStack)) {
 			this.itemStackCacher.set(itemStack);
 			this.cachedRecipe = this.getRecipeType().findFirst(this.getWorld(), r -> r.test(itemStack));
 
 			if (this.cachedRecipe != null) {
 				this.setMaxTimer(this.cachedRecipe.getCookTime());
+			} else {
+				this.setMaxTimer(0);
 			}
 		}
 

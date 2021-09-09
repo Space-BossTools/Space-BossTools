@@ -82,9 +82,15 @@ dependencies {
   compileOnly fg.deobf("mezz.jei:jei-1.16.4:7.6.0.62:api")
   runtimeOnly fg.deobf("mezz.jei:jei-1.16.4:7.6.0.62")
   
-  // TConstruct
+  //TConstruct
   compile fg.deobf("curse.maven:mantle-74924:3439180")
   compile fg.deobf("curse.maven:tinkers-construct-74072:3439200")
+  
+  //The One Probe
+  compile fg.deobf("curse.maven:the-one-probe-245211:3319255")
+  
+  //Hwyla
+  compile fg.deobf("curse.maven:hwyla-253449:3033593")
 }
 
 mixin {

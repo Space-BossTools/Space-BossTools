@@ -40,6 +40,8 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.capability.IOxygenStorage;
+import net.mrscauthd.boss_tools.gauge.GaugeData;
+import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
 import net.mrscauthd.boss_tools.gui.OxygenLoaderGuiGui;
 import net.mrscauthd.boss_tools.machines.tile.NamedComponentRegistry;
 import net.mrscauthd.boss_tools.machines.tile.OxygenUsingTileEntity;
@@ -171,6 +173,18 @@ public class OxygenLoaderBlock {
 
 		public CustomTileEntity() {
 			super(ModInnet.OXYGEN_LOADER.get());
+		}
+
+		@Override
+		public List<GaugeData> getGaugeDataList() {
+			List<GaugeData> list = super.getGaugeDataList();
+			IOxygenStorage itemOxygenStorage = this.getItemOxygenStorage();
+
+			if (itemOxygenStorage != null) {
+				list.add(GaugeDataHelper.getOxygenLoading(itemOxygenStorage));
+			}
+
+			return list;
 		}
 
 		@Override

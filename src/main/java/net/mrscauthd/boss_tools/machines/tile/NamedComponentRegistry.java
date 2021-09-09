@@ -1,10 +1,10 @@
 package net.mrscauthd.boss_tools.machines.tile;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import net.minecraft.util.ResourceLocation;
 
-public class NamedComponentRegistry<T> extends HashMap<ResourceLocation, T> {
+public class NamedComponentRegistry<T> extends LinkedHashMap<ResourceLocation, T> {
 	public static final ResourceLocation UNNAMED = new ResourceLocation("boss_tools", "unnmaed");
 	private static final long serialVersionUID = 1L;
 

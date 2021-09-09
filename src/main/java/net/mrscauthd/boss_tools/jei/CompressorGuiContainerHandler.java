@@ -13,34 +13,33 @@ import mezz.jei.api.runtime.IRecipesGui;
 import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
-import net.mrscauthd.boss_tools.gui.OxygenBulletGeneratorGUIGuiWindow;
+import net.mrscauthd.boss_tools.gui.CompressorGuiGuiWindow;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
-import net.mrscauthd.boss_tools.jei.JeiPlugin.OxygenMakingJeiCategory;
+import net.mrscauthd.boss_tools.jei.JeiPlugin.CompressorJeiCategory;
 
-public class OxygenGeneratorGuiContainerHandler implements IGuiContainerHandler<OxygenBulletGeneratorGUIGuiWindow> {
+public class CompressorGuiContainerHandler implements IGuiContainerHandler<CompressorGuiGuiWindow> {
 
-	public OxygenGeneratorGuiContainerHandler() {
+	public CompressorGuiContainerHandler() {
 
 	}
 
 	@Override
-	public Collection<IGuiClickableArea> getGuiClickableAreas(OxygenBulletGeneratorGUIGuiWindow containerScreen, double mouseX, double mouseY) {
+	public Collection<IGuiClickableArea> getGuiClickableAreas(CompressorGuiGuiWindow containerScreen, double mouseX, double mouseY) {
 		return Collections.singleton(new IGuiClickableArea() {
 			@Override
 			public Rectangle2d getArea() {
-				return GuiHelper.getOxygenBounds(OxygenBulletGeneratorGUIGuiWindow.OXYGEN_LEFT, OxygenBulletGeneratorGUIGuiWindow.OXYGEN_TOP);
+				return GuiHelper.getArrowBounds(CompressorGuiGuiWindow.ARROW_LEFT, CompressorGuiGuiWindow.ARROW_TOP);
 			}
 
 			@Override
 			public void onClick(IFocusFactory focusFactory, IRecipesGui recipesGui) {
-				recipesGui.showCategories(Arrays.asList(OxygenMakingJeiCategory.Uid));
+				recipesGui.showCategories(Arrays.asList(CompressorJeiCategory.Uid));
 			}
 
 			@Override
 			public List<ITextComponent> getTooltipStrings() {
 				List<ITextComponent> list = new ArrayList<>();
-				list.add(GaugeDataHelper.getOxygen(containerScreen.getTileEntity().getOxygenPowerSystem()).getText());
+				list.add(containerScreen.getTileEntity().getCookTimeGaugeData().getText());
 				list.add(new TranslationTextComponent("jei.tooltip.show.recipes"));
 				return list;
 			}

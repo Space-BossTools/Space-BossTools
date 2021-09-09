@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
+import javax.annotation.Nullable;
 
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
@@ -51,6 +54,10 @@ public class FluidUtil2 {
 		return left.getFluid().isEquivalentTo(right.getFluid()) && FluidStack.areFluidStackTagsEqual(left, right);
 	}
 
+	@Nullable
+	public static Fluid getFluid(FluidStack stack) {
+		return Optional.ofNullable(stack).map(fs -> fs.getFluid()).orElse(null);
+	}
 
 	public static boolean canFill(ItemStack itemStack) {
 		if (itemStack.isEmpty()) {
@@ -69,7 +76,7 @@ public class FluidUtil2 {
 
 		return false;
 	}
-	
+
 	/**
 	 * 
 	 * @param itemStack

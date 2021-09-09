@@ -12,8 +12,8 @@ import mezz.jei.api.recipe.IFocusFactory;
 import mezz.jei.api.runtime.IRecipesGui;
 import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
 import net.mrscauthd.boss_tools.gui.GeneratorGUIGuiWindow;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 import net.mrscauthd.boss_tools.jei.JeiPlugin.GeneratorJeiCategory;
@@ -40,7 +40,7 @@ public class CoalGeneratorGuiContainerHandler implements IGuiContainerHandler<Ge
 			@Override
 			public List<ITextComponent> getTooltipStrings() {
 				List<ITextComponent> list = new ArrayList<>();
-				list.add(new StringTextComponent("Burn Time: " + containerScreen.getTileEntity().getPowerSystemGenerating().getStored()));
+				list.add(GaugeDataHelper.getBurnTime(containerScreen.getTileEntity().getPowerSystemGenerating()).getText());
 				list.add(new TranslationTextComponent("jei.tooltip.show.recipes"));
 				return list;
 			}
