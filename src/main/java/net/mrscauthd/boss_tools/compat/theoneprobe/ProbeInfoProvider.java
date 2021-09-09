@@ -12,7 +12,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.mrscauthd.boss_tools.gauge.GaugeData;
 import net.mrscauthd.boss_tools.machines.tile.AbstractMachineTileEntity;
 
 public class ProbeInfoProvider implements IProbeInfoProvider, Function<ITheOneProbe, Void> {
@@ -38,17 +37,12 @@ public class ProbeInfoProvider implements IProbeInfoProvider, Function<ITheOnePr
 
 		if (tileEntity instanceof AbstractMachineTileEntity) {
 			AbstractMachineTileEntity machineTileEntity = (AbstractMachineTileEntity) tileEntity;
-			machineTileEntity.getGaugeDataList().forEach(g -> this.elementGauge(probeInfo, g));
+			machineTileEntity.getGaugeDataList().forEach(g -> probeInfo.element(new GaugeDataElement(g)));
 		}
-	}
-
-	private void elementGauge(IProbeInfo probeInfo, GaugeData data) {
-		probeInfo.element(new GaugeDataElement(data));
 	}
 
 	@Override
 	public String getID() {
 		return new ResourceLocation("boss_tools", "top").toString();
 	}
-
 }

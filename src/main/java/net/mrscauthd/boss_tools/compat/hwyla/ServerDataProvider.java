@@ -11,6 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.mrscauthd.boss_tools.gauge.GaugeData;
 import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
@@ -47,7 +48,7 @@ public class ServerDataProvider implements IServerDataProvider<TileEntity> {
 			AbstractMachineTileEntity machineTileEntity = (AbstractMachineTileEntity) t;
 
 			List<GaugeData> list = machineTileEntity.getGaugeDataList();
-			IEnergyStorage energyStorage = machineTileEntity.getPrimaryEnergyStorage();
+			IEnergyStorage energyStorage = machineTileEntity.getCapability(CapabilityEnergy.ENERGY).orElse(null);
 
 			if (energyStorage != null) {
 				list.add(0, GaugeDataHelper.getEnergy(energyStorage));

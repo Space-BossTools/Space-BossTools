@@ -28,5 +28,4 @@ public class TOPCompat extends CompatibleMod {
 	private void imcQueue(InterModEnqueueEvent event) {
 		InterModComms.sendTo(MODID, "getTheOneProbe", ProbeInfoProvider::new);
 	}
-
 }
