@@ -30,7 +30,6 @@ import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
@@ -264,7 +263,7 @@ public class OxygenLoaderBlock {
 					return 0;
 				} else {
 					int storageRecivable = oxygenStorage.receiveOxygen(base, true);
-					return MathHelper.clamp(powerSystem.getStored(), 1, storageRecivable);
+					return Math.max(powerSystem.extract(storageRecivable, true), 1);
 				}
 			}
 
