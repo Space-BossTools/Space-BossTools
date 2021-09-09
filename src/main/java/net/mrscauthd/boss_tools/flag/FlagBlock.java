@@ -5,8 +5,6 @@ import javax.annotation.Nullable;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.block.*;
 import net.minecraft.block.material.PushReaction;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
@@ -38,9 +36,6 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.UUID;
 
 public class FlagBlock extends Block implements IWaterLoggable {
 	public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
@@ -136,15 +131,14 @@ public class FlagBlock extends Block implements IWaterLoggable {
 		if (tileentity instanceof FlagTileEntity) {
 			FlagTileEntity flagtileentity = (FlagTileEntity) tileentity;
 
+			/*
 			CompoundNBT compoundnbt = new CompoundNBT();
 			NBTUtil.writeGameProfile(compoundnbt, new GameProfile(placer.getUniqueID(), placer.getName().getString()));
-			flagtileentity.getTileData().putString("SkullOwner", placer.getName().getString());
+			flagtileentity.getTileData().putString("FlagOwner", placer.getName().getString());*/
 
-			if (placer instanceof PlayerEntity) {
-				PlayerEntity player = (PlayerEntity) placer;
+			PlayerEntity player = (PlayerEntity) placer;
 
-				flagtileentity.setPlayerProfile(player.getGameProfile());
-			}
+			flagtileentity.setPlayerProfile(player.getGameProfile());
 		}
 	}
 

@@ -69,6 +69,7 @@ import net.mrscauthd.boss_tools.machines.tile.PowerSystemRegistry;
 public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 	@ObjectHolder("boss_tools:oxygen_bullet_generator")
 	public static final Block block = null;
+
 	@ObjectHolder("boss_tools:oxygen_bullet_generator")
 	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
 

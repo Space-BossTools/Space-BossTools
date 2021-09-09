@@ -17,7 +17,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.client.Minecraft;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.renderer.TileEntityBoxRenderer;
-import net.mrscauthd.boss_tools.entity.renderer.HeadRenderer.TileEntityHeadRenderer;
+import net.mrscauthd.boss_tools.entity.renderer.flagtileentity.TileEntityHeadRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.alienzombie.AlienZombieRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.rockettier1.RocketTier1Renderer;
 import net.mrscauthd.boss_tools.entity.renderer.rockettier2.RocketTier2Renderer;

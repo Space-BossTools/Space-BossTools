@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.entity.renderer.HeadRenderer;
+package net.mrscauthd.boss_tools.entity.renderer.flagtileentity;
 
 import com.google.common.collect.Maps;
 import com.mojang.authlib.GameProfile;
