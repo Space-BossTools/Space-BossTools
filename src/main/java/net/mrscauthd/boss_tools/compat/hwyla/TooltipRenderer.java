@@ -50,7 +50,7 @@ public class TooltipRenderer implements IComponentProvider, ITooltipRenderer {
 			GaugeData data = new GaugeData(list.getCompound(i));
 			GaugeDataRenderer renderer = new GaugeDataRenderer(data);
 			renderer.render(matrix, x, y);
-			y += renderer.getHeight();
+			y += renderer.getHeight() + 2;
 		}
 	}
 }

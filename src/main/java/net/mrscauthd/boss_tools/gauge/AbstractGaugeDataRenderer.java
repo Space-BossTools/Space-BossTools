@@ -156,7 +156,7 @@ public abstract class AbstractGaugeDataRenderer {
 	}
 
 	public int getBorderColor() {
-		return 0xFF000000;
+		return 0xFF555555;
 	}
 
 	public int getWidth() {
