@@ -43,7 +43,7 @@ public class FlagTileEntity extends TileEntity implements ITickableTileEntity {
         if (this.playerProfile != null) {
             CompoundNBT compoundnbt = new CompoundNBT();
             NBTUtil.writeGameProfile(compoundnbt, this.playerProfile);
-            compound.put("SkullOwner", compoundnbt);
+            compound.put("FlagOwner", compoundnbt);
         }
 
         return compound;
@@ -51,8 +51,8 @@ public class FlagTileEntity extends TileEntity implements ITickableTileEntity {
 
     public void read(BlockState state, CompoundNBT nbt) {
         super.read(state, nbt);
-        if (nbt.contains("SkullOwner", 10)) {
-            this.setPlayerProfile(NBTUtil.readGameProfile(nbt.getCompound("SkullOwner")));
+        if (nbt.contains("FlagOwner", 10)) {
+            this.setPlayerProfile(NBTUtil.readGameProfile(nbt.getCompound("FlagOwner")));
         } else if (nbt.contains("ExtraType", 8)) {
             String s = nbt.getString("ExtraType");
             if (!StringUtils.isNullOrEmpty(s)) {
@@ -85,7 +85,6 @@ public class FlagTileEntity extends TileEntity implements ITickableTileEntity {
     public void setPlayerProfile(@Nullable GameProfile p_195485_1_) {
         playerProfile = p_195485_1_;
         this.updatePlayerProfile();
-        //System.out.println(playerProfile);
     }
 
     private void updatePlayerProfile() {

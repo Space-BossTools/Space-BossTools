@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.entity.renderer.HeadRenderer;
+package net.mrscauthd.boss_tools.entity.renderer.flagtileentity;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;

@@ -41,6 +41,7 @@ import net.mrscauthd.boss_tools.crafting.WorkbenchingRecipeSerializer;
 import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipeSerializer;
 import net.mrscauthd.boss_tools.crafting.RocketPart;
 import net.mrscauthd.boss_tools.entity.*;
+import net.mrscauthd.boss_tools.flag.FlagTileEntity;
 import net.mrscauthd.boss_tools.fluid.OilFluid;
 import net.mrscauthd.boss_tools.machines.*;
 import net.mrscauthd.boss_tools.spawneggs.ModSpawnEggs;
@@ -126,7 +127,7 @@ public class ModInnet {
 
     //Flag Blocks
     public static RegistryObject<Block> FLAG_BLOCK = BLOCKS.register("flag",() -> new FlagBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.STONE).notSolid().setLightLevel(s -> 1).setOpaque((bs, br, bp) -> false).harvestTool(ToolType.PICKAXE)));
-    public static RegistryObject<Block> FLAGB_BLUE_BLOCK = BLOCKS.register("flag_blue",() -> new FlagBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.STONE).notSolid().setLightLevel(s -> 1).setOpaque((bs, br, bp) -> false).harvestTool(ToolType.PICKAXE)));
+    public static RegistryObject<Block> FLAG_BLUE_BLOCK = BLOCKS.register("flag_blue",() -> new FlagBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.STONE).notSolid().setLightLevel(s -> 1).setOpaque((bs, br, bp) -> false).harvestTool(ToolType.PICKAXE)));
     public static RegistryObject<Block> FLAG_BROWN_BLOCK = BLOCKS.register("flag_brown",() -> new FlagBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.STONE).notSolid().setLightLevel(s -> 1).setOpaque((bs, br, bp) -> false).harvestTool(ToolType.PICKAXE)));
     public static RegistryObject<Block> FLAG_CYAN_BLOCK = BLOCKS.register("flag_cyan",() -> new FlagBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.STONE).notSolid().setLightLevel(s -> 1).setOpaque((bs, br, bp) -> false).harvestTool(ToolType.PICKAXE)));
     public static RegistryObject<Block> FLAG_GRAY_BLOCK = BLOCKS.register("flag_gray",() -> new FlagBlock(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.STONE).notSolid().setLightLevel(s -> 1).setOpaque((bs, br, bp) -> false).harvestTool(ToolType.PICKAXE)));
@@ -149,21 +150,7 @@ public class ModInnet {
     public static final RegistryObject<TileEntityType<?>> SOLAR_PANEL = TILE_ENTITYS.register("solar_panel", () -> TileEntityType.Builder.create(SolarPanelBlock.CustomTileEntity::new,ModInnet.SOLAR_PANEL_BLOCK.get()).build(null));
 
     //Tile Entitys Flags
-    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG = TILE_ENTITYS.register("flag", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
-    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAGB_BLUE = TILE_ENTITYS.register("flag_blue", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
-    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_BROWN = TILE_ENTITYS.register("flag_brown", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
-    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_CYAN = TILE_ENTITYS.register("flag_cyan", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
-    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_GRAY = TILE_ENTITYS.register("flag_gray", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
-    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_GREEN = TILE_ENTITYS.register("flag_green", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
-    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_LIGHT_BLUE = TILE_ENTITYS.register("flag_light_blue", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
-    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_LIME = TILE_ENTITYS.register("flag_lime", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
-    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_MAGENTA = TILE_ENTITYS.register("flag_magenta", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
-    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_ORANGE = TILE_ENTITYS.register("flag_orange", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
-    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_PINK = TILE_ENTITYS.register("flag_pink", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
-    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_PURPLE = TILE_ENTITYS.register("flag_purple", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
-    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_RED = TILE_ENTITYS.register("flag_red", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
-    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG_YELLOW = TILE_ENTITYS.register("flag_yellow", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get()).build(null));
-
+    public static final RegistryObject<TileEntityType<FlagTileEntity>> FLAG = TILE_ENTITYS.register("flag", () -> TileEntityType.Builder.create(FlagTileEntity::new,ModInnet.FLAG_BLOCK.get(), ModInnet.FLAG_BLUE_BLOCK.get(), ModInnet.FLAG_BROWN_BLOCK.get(), ModInnet.FLAG_CYAN_BLOCK.get(),ModInnet.FLAG_GRAY_BLOCK.get(),ModInnet.FLAG_GRAY_BLOCK.get(),ModInnet.FLAG_GREEN_BLOCK.get(),ModInnet.FLAG_LIGHT_BLUE_BLOCK.get(),ModInnet.FLAG_LIME_BLOCK.get(),ModInnet.FLAG_MAGENTA_BLOCk.get(),ModInnet.FLAG_ORANGE_BLOCK.get(),ModInnet.FLAG_PINK_BLOCK.get(),ModInnet.FLAG_PURPLE_BLOCK.get(),ModInnet.FLAG_RED_BLOCK.get(),ModInnet.FLAG_YELLOW_BLOCK.get()).build(null));
 
     //Blocks
     public static RegistryObject<Block> FUEL_REFINERY_BLOCK = BLOCKS.register("fuel_refinery",() -> new FuelRefineryBlock.CustomBlock());
@@ -290,7 +277,7 @@ public class ModInnet {
 
     //Flag Items
     public static final RegistryObject<Item> FLAG_ITEM = ITEMS.register("flag", () -> new TallBlockItem(FLAG_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
-    public static final RegistryObject<Item> FLAG_BLUE_ITEM = ITEMS.register("flag_blue", () -> new TallBlockItem(FLAGB_BLUE_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
+    public static final RegistryObject<Item> FLAG_BLUE_ITEM = ITEMS.register("flag_blue", () -> new TallBlockItem(FLAG_BLUE_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
     public static final RegistryObject<Item> FLAG_BROWN_ITEM = ITEMS.register("flag_brown", () -> new TallBlockItem(FLAG_BROWN_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
     public static final RegistryObject<Item> FLAG_CYAN_ITEM = ITEMS.register("flag_cyan", () -> new TallBlockItem(FLAG_CYAN_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
     public static final RegistryObject<Item> FLAG_GRAY_ITEM = ITEMS.register("flag_gray", () -> new TallBlockItem(FLAG_GRAY_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
