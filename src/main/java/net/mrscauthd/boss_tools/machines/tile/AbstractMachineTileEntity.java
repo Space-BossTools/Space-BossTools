@@ -266,7 +266,7 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 			return LazyOptional.of(() -> energyStorage).cast();
 		}
 
-		return null;
+		return LazyOptional.empty();
 	}
 
 	public <T> LazyOptional<T> getCapabilityFluidHandler(Capability<T> capability, @Nullable Direction facing) {
@@ -276,7 +276,7 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 			return LazyOptional.of(() -> fluidHandler).cast();
 		}
 
-		return null;
+		return LazyOptional.empty();
 	}
 
 	@Override
@@ -284,17 +284,24 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		if (!this.removed) {
 			if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 				LazyOptional<T> optional = this.getCapabilityItemHandler(capability, facing);
-				if (optional != null) {
+				if (optional != null && optional.isPresent()) {
 					return optional;
 				}
 			} else if (capability == CapabilityEnergy.ENERGY) {
 				LazyOptional<T> optional = this.getCapabilityEnergy(capability, facing);
-				if (optional != null) {
+				if (optional != null && optional.isPresent()) {
 					return optional;
 				}
 			} else if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 				LazyOptional<T> optional = this.getCapabilityFluidHandler(capability, facing);
-				if (optional != null) {
+				if (optional != null && optional.isPresent()) {
+					return optional;
+				}
+			}
+
+			for (PowerSystem powerSystem : this.getPowerSystems().values()) {
+				LazyOptional<T> optional = powerSystem.getCapability(capability, facing);
+				if (optional != null && optional.isPresent()) {
 					return optional;
 				}
 			}
