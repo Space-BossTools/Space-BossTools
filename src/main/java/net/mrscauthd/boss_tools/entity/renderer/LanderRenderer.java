@@ -18,7 +18,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 @OnlyIn(Dist.CLIENT)
-public class LandingGearRenderer {
+public class LanderRenderer {
 	public static class ModelRegisterHandler {
 		@SubscribeEvent
 		@OnlyIn(Dist.CLIENT)

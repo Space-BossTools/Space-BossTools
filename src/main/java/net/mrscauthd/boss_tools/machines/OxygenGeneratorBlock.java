@@ -227,6 +227,12 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 			super(tileEntityType);
 		}
 
+		@OnlyIn(Dist.CLIENT)
+		@Override
+		public double getMaxRenderDistanceSquared() {
+			return 256.0D;
+		}
+
 		@Override
 		public AxisAlignedBB getRenderBoundingBox() {
 			return new AxisAlignedBB(360, 360, 360, -360, -360, -360);

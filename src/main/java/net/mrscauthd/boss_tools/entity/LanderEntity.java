@@ -1,11 +1,10 @@
 
 package net.mrscauthd.boss_tools.entity;
 
-import net.minecraft.util.math.AxisAlignedBB;
 import net.mrscauthd.boss_tools.procedures.LandingGearOnEntityTickUpdateProcedure;
 import net.mrscauthd.boss_tools.procedures.LandingGearEntityIsHurtProcedure;
 import net.mrscauthd.boss_tools.gui.LandinggearGuiGui;
-import net.mrscauthd.boss_tools.entity.renderer.LandingGearRenderer;
+import net.mrscauthd.boss_tools.entity.renderer.LanderRenderer;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ForgeRegistries;
@@ -74,7 +73,7 @@ public class LanderEntity extends BossToolsModElements.ModElement {
 			.size(0.6f, 2f)).build("lander").setRegistryName("lander");
 	public LanderEntity(BossToolsModElements instance) {
 		super(instance, 92);
-		FMLJavaModLoadingContext.get().getModEventBus().register(new LandingGearRenderer.ModelRegisterHandler());
+		FMLJavaModLoadingContext.get().getModEventBus().register(new LanderRenderer.ModelRegisterHandler());
 		FMLJavaModLoadingContext.get().getModEventBus().register(new EntityAttributesRegisterHandler());
 	}
 

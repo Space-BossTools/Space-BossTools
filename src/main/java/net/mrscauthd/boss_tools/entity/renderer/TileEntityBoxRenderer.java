@@ -15,12 +15,10 @@ import net.minecraft.util.math.vector.Matrix3f;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock;
 
-@Mod.EventBusSubscriber(modid = "boss_tools", value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+@OnlyIn(Dist.CLIENT)
 public class TileEntityBoxRenderer extends TileEntityRenderer<OxygenGeneratorBlock.CustomTileEntity> {
 
     private Minecraft mc = Minecraft.getInstance();
@@ -30,12 +28,6 @@ public class TileEntityBoxRenderer extends TileEntityRenderer<OxygenGeneratorBlo
 
     public TileEntityBoxRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
         super(rendererDispatcherIn);
-    }
-
-    @SubscribeEvent
-    public static void AtlasEvent(TextureStitchEvent.Pre event) {
-        System.out.println("boss_tools_work");
-        event.addSprite(new ResourceLocation("boss_tools", "entities/tile_entity_box_oxygen_generator"));
     }
 
     @Override
