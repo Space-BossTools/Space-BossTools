@@ -2,7 +2,6 @@ package net.mrscauthd.boss_tools.gauge;
 
 import javax.annotation.Nullable;
 
-import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.opengl.GL11;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -15,6 +14,7 @@ import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 
 public abstract class AbstractGaugeDataRenderer {
@@ -46,28 +46,29 @@ public abstract class AbstractGaugeDataRenderer {
 	}
 
 	@Nullable
-	public String getGaugeText() {
-		return this.getData().getText().getString();
+	public ITextComponent getGaugeText() {
+		return this.getData().getText();
 	}
 
 	protected void drawGaugeText(MatrixStack matrixStack, Rectangle2d innerBounds) {
-		String text = this.getGaugeText();
+		ITextComponent text = this.getGaugeText();
 
-		if (!StringUtils.isEmpty(text)) {
+		if (text != null) {
 			int color = this.getTextColor();
 			int textPadding = 2;
 			Rectangle2d textBounds = new Rectangle2d(innerBounds.getX() + textPadding, innerBounds.getY(), innerBounds.getWidth() - textPadding, innerBounds.getHeight());
+			
 			this.drawText(matrixStack, textBounds, text, color);
 		}
 	}
 
-	protected void drawText(MatrixStack matrixStack, Rectangle2d bounds, String text, int color) {
+	protected void drawText(MatrixStack matrixStack, Rectangle2d bounds, ITextComponent text, int color) {
 		this.drawText(Minecraft.getInstance(), matrixStack, bounds, text, color);
 	}
 
-	protected void drawText(Minecraft minecraft, MatrixStack matrixStack, Rectangle2d bounds, String text, int color) {
+	protected void drawText(Minecraft minecraft, MatrixStack matrixStack, Rectangle2d bounds, ITextComponent text, int color) {
 		FontRenderer fontRenderer = minecraft.fontRenderer;
-		int textWidth = fontRenderer.getStringWidth(text);
+		int textWidth = fontRenderer.getStringPropertyWidth(text);
 
 		float scale = Math.min(1.0F, (float) bounds.getWidth() / (float) textWidth);
 		float offsetX = 0.0F;
@@ -77,7 +78,7 @@ public abstract class AbstractGaugeDataRenderer {
 
 		matrixStack.push();
 		matrixStack.scale(scale, scale, scale);
-		fontRenderer.drawStringWithShadow(matrixStack, text, scaledX, scaledY, color);
+		fontRenderer.func_243248_b(matrixStack, text, scaledX, scaledY, color);
 		matrixStack.pop();
 	}
 

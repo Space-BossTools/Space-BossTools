@@ -158,21 +158,16 @@ public class SolarPanelBlock {
 		}
 
 		@Override
-		public ITextComponent getDefaultName() {
-			return new StringTextComponent("solar_panel");
-		}
-
-		@Override
 		public Container createMenu(int id, PlayerInventory player) {
 			return new SolarPanelGUIGui.GuiContainerMod(id, player, this);
 		}
 
-		@Override
-		public ITextComponent getDisplayName() {
-			return new StringTextComponent("Solar Panel");
+		protected int getGenerationInTick() {
+			return this.getMaxGeneration();
 		}
 
-		public int getGeneratePerTick() {
+		@Override
+		public int getMaxGeneration() {
 			return ENERGY_PER_TICK;
 		}
 
@@ -184,7 +179,7 @@ public class SolarPanelBlock {
 
 		@Override
 		protected void generateEnergy() {
-			this.generateEnergy(this.getGeneratePerTick());
+			this.generateEnergy(this.getGenerationInTick());
 		}
 
 		@Override

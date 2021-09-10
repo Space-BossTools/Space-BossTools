@@ -51,8 +51,6 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -79,8 +77,8 @@ import net.mrscauthd.boss_tools.crafting.RocketPart;
 import net.mrscauthd.boss_tools.crafting.WorkbenchingRecipe;
 import net.mrscauthd.boss_tools.gui.NasaWorkbenchGui;
 import net.mrscauthd.boss_tools.inventory.ItemHandlerHelper2;
-import net.mrscauthd.boss_tools.inventory.StackCacher;
 import net.mrscauthd.boss_tools.inventory.RocketPartsItemHandler;
+import net.mrscauthd.boss_tools.inventory.StackCacher;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 import net.mrscauthd.boss_tools.machines.tile.AbstractMachineTileEntity;
 
@@ -315,11 +313,6 @@ public class NASAWorkbenchBlock extends BossToolsModElements.ModElement {
 		}
 
 		@Override
-		public ITextComponent getDefaultName() {
-			return new StringTextComponent("nasa_workbench");
-		}
-
-		@Override
 		public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
 			super.setInventorySlotContents(p_70299_1_, p_70299_2_);
 			this.cacheRecipes();
@@ -328,11 +321,6 @@ public class NASAWorkbenchBlock extends BossToolsModElements.ModElement {
 		@Override
 		public Container createMenu(int id, PlayerInventory player) {
 			return new NasaWorkbenchGui.GuiContainerMod(id, player, this);
-		}
-
-		@Override
-		public ITextComponent getDisplayName() {
-			return new StringTextComponent("�dNASA Workbench");
 		}
 
 		@Override

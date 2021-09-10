@@ -240,18 +240,8 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 		}
 
 		@Override
-		public ITextComponent getDefaultName() {
-			return new StringTextComponent("oxygen_bullet_generator");
-		}
-
-		@Override
 		public Container createMenu(int id, PlayerInventory player) {
 			return new OxygenBulletGeneratorGUIGui.GuiContainerMod(id, player, this);
-		}
-
-		@Override
-		public ITextComponent getDisplayName() {
-			return new StringTextComponent("Oxygen Bullet Generator");
 		}
 
 		@Override
