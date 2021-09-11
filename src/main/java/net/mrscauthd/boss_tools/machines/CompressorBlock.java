@@ -30,8 +30,6 @@ import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
@@ -166,18 +164,8 @@ public class CompressorBlock {
 		}
 
 		@Override
-		public ITextComponent getDefaultName() {
-			return new StringTextComponent("compressor");
-		}
-
-		@Override
 		public Container createMenu(int id, PlayerInventory player) {
 			return new CompressorGuiGui.GuiContainerMod(id, player, this);
-		}
-
-		@Override
-		public ITextComponent getDisplayName() {
-			return new StringTextComponent("Compressor");
 		}
 
 		@Override

@@ -34,6 +34,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
@@ -90,6 +92,12 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		this.itemHandlers = SidedInvWrapper.create(this, Direction.values());
 		this.createItemHandlers();
 		this.stacks = NonNullList.<ItemStack>withSize(this.getInitialInventorySize(), ItemStack.EMPTY);
+	}
+
+	@Override
+	public ITextComponent getDefaultName() {
+		ResourceLocation registryName = this.getType().getRegistryName();
+		return new TranslationTextComponent("container." + registryName.getNamespace() + "." + registryName.getPath());
 	}
 
 	protected void createItemHandlers() {

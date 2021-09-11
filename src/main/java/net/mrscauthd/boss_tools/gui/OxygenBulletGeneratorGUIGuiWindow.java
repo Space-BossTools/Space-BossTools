@@ -20,6 +20,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
+import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock;
 import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock.CustomTileEntity;
@@ -39,6 +40,7 @@ public class OxygenBulletGeneratorGUIGuiWindow extends ContainerScreen<OxygenBul
 		this.tileEntity = container.getTileEntity();
 		this.xSize = 176;
 		this.ySize = 167;
+		this.playerInventoryTitleY = this.ySize - 92;
 	}
 
 	@Override
@@ -69,18 +71,18 @@ public class OxygenBulletGeneratorGUIGuiWindow extends ContainerScreen<OxygenBul
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
+		super.drawGuiContainerForegroundLayer(ms, mouseX, mouseY);
+		
 		double range = this.getTileEntity().getRange();
 		NumberFormat numberInstance = NumberFormat.getNumberInstance();
 		numberInstance.setMaximumFractionDigits(2);
 		String rangeToString = numberInstance.format(range);
 
-		String oxygenText = "Using: " + tileEntity.getOxygenPowerSystem().getPowerForOperation() + " Oxygen/t";
-		int oxygenWidth = this.font.getStringWidth(oxygenText);
+		ITextComponent oxygenText = GaugeTextHelper.getUsingText(GaugeDataHelper.getOxygen(this.getTileEntity().getOxygenPowerSystem().getPowerForOperation()));
+		int oxygenWidth = this.font.getStringPropertyWidth(oxygenText);
 
-		this.font.drawString(ms, "Oxygen Generator", 37, 5, 0x333333);
-		this.font.drawString(ms, "Inventory", 6, 74, 0x333333);
 		this.font.drawString(ms, String.format("%sx%s", rangeToString, rangeToString), 12, -8, 0x339900);
-		this.font.drawString(ms, oxygenText, this.xSize - oxygenWidth - 5, 74, 0x333333);
+		this.font.func_243248_b(ms, oxygenText, this.xSize - oxygenWidth - 5, this.playerInventoryTitleY, 0x333333);
 	}
 
 	@Override

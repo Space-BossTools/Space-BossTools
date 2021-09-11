@@ -11,6 +11,8 @@ public interface IGaugeFormat extends INBTSerializable<CompoundNBT> {
 	boolean isReversePercenage();
 
 	ITextComponent getText(IGaugeValue value);
+	
+	ITextComponent getAmountText(IGaugeValue value);
 
 	public default double getDisplayRatio(IGaugeValue value) {
 		int capacity = value.getCapacity();
@@ -19,8 +21,8 @@ public interface IGaugeFormat extends INBTSerializable<CompoundNBT> {
 			return 0.0D;
 		}
 
-		int stored = value.getStored();
-		return (this.isReversePercenage() ? (capacity - stored) : stored) / (double) capacity;
+		int amount = value.getAmount();
+		return (this.isReversePercenage() ? (capacity - amount) : amount) / (double) capacity;
 	}
 
 }

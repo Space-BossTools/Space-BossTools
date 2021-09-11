@@ -1,6 +1,7 @@
 package net.mrscauthd.boss_tools.gauge;
 
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fluids.FluidStack;
 
 public class GaugeValueFluidStack implements IGaugeValue {
@@ -43,8 +44,8 @@ public class GaugeValueFluidStack implements IGaugeValue {
 	}
 
 	@Override
-	public String getDisplayName() {
-		return this.getStack().getDisplayName().getString();
+	public ITextComponent getDisplayName() {
+		return this.getStack().getDisplayName();
 	}
 
 	@Override
@@ -53,7 +54,7 @@ public class GaugeValueFluidStack implements IGaugeValue {
 	}
 
 	@Override
-	public int getStored() {
+	public int getAmount() {
 		return this.getStack().getAmount();
 	}
 

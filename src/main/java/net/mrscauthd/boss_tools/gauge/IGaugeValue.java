@@ -1,15 +1,16 @@
 package net.mrscauthd.boss_tools.gauge;
 
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public interface IGaugeValue extends INBTSerializable<CompoundNBT> {
 
-	String getDisplayName();
+	ITextComponent getDisplayName();
 
 	String getUnit();
 
-	int getStored();
+	int getAmount();
 
 	int getCapacity();
 

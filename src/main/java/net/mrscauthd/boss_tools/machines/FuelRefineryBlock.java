@@ -37,8 +37,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
@@ -264,11 +262,6 @@ public class FuelRefineryBlock {
 		}
 
 		@Override
-		public ITextComponent getDefaultName() {
-			return new StringTextComponent("fuel_refinery");
-		}
-
-		@Override
 		public int getInventoryStackLimit() {
 			return 1;
 		}
@@ -276,11 +269,6 @@ public class FuelRefineryBlock {
 		@Override
 		public Container createMenu(int id, PlayerInventory player) {
 			return new FuelRefineryGUIGui.GuiContainerMod(id, player, this);
-		}
-
-		@Override
-		public ITextComponent getDisplayName() {
-			return new StringTextComponent("Fuel Refinery");
 		}
 
 		@Override

@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.StringTextComponent;
 
 public class GaugeFormat implements IGaugeFormat {
 
@@ -60,33 +60,38 @@ public class GaugeFormat implements IGaugeFormat {
 
 	@Override
 	public ITextComponent getText(IGaugeValue value) {
-		int capacity = value.getCapacity();
-		int stored = value.getStored();
-		String unit = value.getUnit();
-		StringBuilder builder = new StringBuilder();
+		StringTextComponent builder = new StringTextComponent("");
+		ITextComponent displayName = value.getDisplayName();
 
-		String displayName = value.getDisplayName();
-
-		if (!StringUtils.isEmpty(displayName)) {
-			builder.append(displayName).append(": ");
+		if (displayName != null) {
+			builder.append(displayName).appendString(": ");
 		}
 
-		builder.append(stored);
+		builder.append(this.getAmountText(value));
+		return builder;
+	}
+
+	@Override
+	public ITextComponent getAmountText(IGaugeValue value) {
+		int capacity = value.getCapacity();
+		int amount = value.getAmount();
+		String unit = value.getUnit();
+		StringTextComponent builder = new StringTextComponent(String.valueOf(amount));
 
 		if (!StringUtils.isEmpty(unit)) {
-			builder.append(" ").append(unit);
+			builder.appendString(" ").appendString(unit);
 		}
 
 		if (this.isShowCapacity()) {
-			builder.append(" / ").append(capacity);
+			builder.appendString(" / ").appendString(String.valueOf(capacity));
 
 			if (!StringUtils.isEmpty(unit)) {
-				builder.append(" ").append(unit);
+				builder.appendString(" ").appendString(unit);
 			}
 
 		}
 
-		return new TranslationTextComponent(builder.toString(), displayName);
+		return builder;
 	}
 
 }

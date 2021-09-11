@@ -25,6 +25,7 @@ public class NasaWorkbenchGuiWindow extends ContainerScreen<NasaWorkbenchGui.Gui
 		this.tileEntity = container.getTileEntity();
 		this.xSize = 176;
 		this.ySize = 224;
+		this.playerInventoryTitleY = this.ySize - 92;
 	}
 
 	@Override
@@ -39,12 +40,6 @@ public class NasaWorkbenchGuiWindow extends ContainerScreen<NasaWorkbenchGui.Gui
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		Minecraft.getInstance().getTextureManager().bindTexture(texture);
 		AbstractGui.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
-	}
-
-	@Override
-	protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
-		this.font.drawString(ms, "NASA Workbench", 6, 6, -13421773);
-		this.font.drawString(ms, "Inventory", 8, 131, -13421773);
 	}
 
 	public CustomTileEntity getTileEntity() {

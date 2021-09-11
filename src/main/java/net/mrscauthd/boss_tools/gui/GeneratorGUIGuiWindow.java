@@ -31,6 +31,7 @@ public class GeneratorGUIGuiWindow extends ContainerScreen<GeneratorGUIGui.GuiCo
 		this.tileEntity = container.getTileEntity();
 		this.xSize = 176;
 		this.ySize = 166;
+		this.playerInventoryTitleY = this.ySize - 92;
 	}
 
 	@Override
@@ -53,12 +54,6 @@ public class GeneratorGUIGuiWindow extends ContainerScreen<GeneratorGUIGui.GuiCo
 		AbstractGui.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
 		GuiHelper.drawFire(ms, this.guiLeft + FIRE_LEFT, this.guiTop + FIRE_TOP, tileEntity.getPowerSystemGenerating().getStoredRatio());
 		GuiHelper.drawEnergy(ms, this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP, tileEntity.getGeneratingEnergyStorage());
-	}
-
-	@Override
-	protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
-		this.font.drawString(ms, "Coal Generator", 47, 5, 0x333333);
-		this.font.drawString(ms, "Inventory", 6, 73, 0x333333);
 	}
 
 	public CustomTileEntity getTileEntity() {

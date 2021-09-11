@@ -31,6 +31,7 @@ public class CompressorGuiGuiWindow extends ContainerScreen<CompressorGuiGui.Gui
 		this.tileEntity = container.getTileEntity();
 		this.xSize = 177;
 		this.ySize = 168;
+		this.playerInventoryTitleY = this.ySize - 92;
 	}
 
 	@Override
@@ -53,12 +54,6 @@ public class CompressorGuiGuiWindow extends ContainerScreen<CompressorGuiGui.Gui
 		AbstractGui.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
 		GuiHelper.drawEnergy(ms, this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP, tileEntity.getPrimaryEnergyStorage());
 		GuiHelper.drawArrow(ms, this.guiLeft + ARROW_LEFT, this.guiTop + ARROW_TOP, tileEntity.getTimerRatio());
-	}
-
-	@Override
-	protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
-		this.font.drawString(ms, "Compressor", 7, 6, 0x333333);
-		this.font.drawString(ms, "Inventory", 7, 73, 0x333333);
 	}
 
 	public CustomTileEntity getTileEntity() {
