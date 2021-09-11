@@ -57,7 +57,7 @@ public abstract class AbstractGaugeDataRenderer {
 			int color = this.getTextColor();
 			int textPadding = 2;
 			Rectangle2d textBounds = new Rectangle2d(innerBounds.getX() + textPadding, innerBounds.getY(), innerBounds.getWidth() - textPadding, innerBounds.getHeight());
-			
+
 			this.drawText(matrixStack, textBounds, text, color);
 		}
 	}
@@ -78,7 +78,7 @@ public abstract class AbstractGaugeDataRenderer {
 
 		matrixStack.push();
 		matrixStack.scale(scale, scale, scale);
-		fontRenderer.func_243248_b(matrixStack, text, scaledX, scaledY, color);
+		fontRenderer.func_243246_a(matrixStack, text, scaledX, scaledY, color);
 		matrixStack.pop();
 	}
 
@@ -124,6 +124,8 @@ public abstract class AbstractGaugeDataRenderer {
 		AbstractGui.fill(matrixStack, left, top, left + padding, top + height - padding, borderColor);
 		AbstractGui.fill(matrixStack, left + width - padding, top, left + width, top + height - padding, borderColor);
 		AbstractGui.fill(matrixStack, left, top + height - padding, left + width, top + height, borderColor);
+
+		AbstractGui.fill(matrixStack, left + padding, top + padding, left + width - padding, top + height - padding, 0xFF000000);
 	}
 
 	public int getTextColor() {
