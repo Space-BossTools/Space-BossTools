@@ -139,6 +139,7 @@
   "entity.boss_tools.rocket_t1": "Tier 1 Rocket",
   "entity.boss_tools.rocket_t2": "Tier 2 Rocket",
   "entity.boss_tools.rocket_t3": "Tier 3 Rocket",
+  "entity.boss_tools.lander": "Lander",
   "entity.boss_tools.rover": "Rover",
 
   "biome.boss_tools.orbit": "Orbit Biome",

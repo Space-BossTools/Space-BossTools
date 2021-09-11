@@ -36,7 +36,7 @@ import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = "boss_tools")
 public class Events {
     public static double counter = 1;
     public static boolean check = false;

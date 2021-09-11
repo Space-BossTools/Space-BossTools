@@ -139,6 +139,7 @@
   "entity.boss_tools.rocket_t1": "1 티어 로켓",
   "entity.boss_tools.rocket_t2": "2 티어 로켓",
   "entity.boss_tools.rocket_t3": "3 티어 로켓",
+  "entity.boss_tools.lander": "Lander",
   "entity.boss_tools.rover": "로버",
 
   "biome.boss_tools.orbit": "궤도",

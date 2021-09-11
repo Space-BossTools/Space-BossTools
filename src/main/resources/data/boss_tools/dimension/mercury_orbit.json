@@ -36,7 +36,7 @@
       },
       "biomes": [
         {
-          "biome": "boss_tools:orbit_biome",
+          "biome": "boss_tools:orbit",
           "parameters": {
             "temperature": 0,
             "humidity": 0,

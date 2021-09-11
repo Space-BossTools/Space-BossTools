@@ -15,6 +15,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.FlatChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
@@ -50,7 +51,7 @@ import net.mrscauthd.boss_tools.flag.*;
 import net.mrscauthd.boss_tools.fluid.FuelFluid;
 import net.mrscauthd.boss_tools.item.HammerItem;
 import net.mrscauthd.boss_tools.armor.NetheriteSpaceSuit;
-import net.mrscauthd.boss_tools.world.biomes.BiomeRegisrtyEvents;
+import net.mrscauthd.boss_tools.world.biomes.BiomeRegistry;
 import net.mrscauthd.boss_tools.events.Config;
 import net.mrscauthd.boss_tools.feature.MarsIceSpikeFeature;
 import net.mrscauthd.boss_tools.feature.VenusDeltas;
@@ -472,11 +473,11 @@ public class ModInnet {
     }
     //@SubscribeEvent
     public static void biomesLoading(final BiomeLoadingEvent event){
-        if(event.getName().getPath().equals(BiomeRegisrtyEvents.mars_ice_spike_biome.getRegistryName().getPath())){
+        if(event.getName().getPath().equals(BiomeRegistry.mars_ice_spike.getRegistryName().getPath())){
             event.getGeneration().withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ICE_SPIKE);
         }
         //Venus Deltas
-        if(event.getName().getPath().equals(BiomeRegisrtyEvents.infernal_venus_barrens_biome.getRegistryName().getPath())){
+        if(event.getName().getPath().equals(BiomeRegistry.infernal_venus_barrens.getRegistryName().getPath())){
             event.getGeneration().withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, DELTAS);
             event.getGeneration().withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, DELTAS2);
         }
