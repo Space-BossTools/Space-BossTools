@@ -31,7 +31,7 @@ public class BiomeRegistry {
 
     @SubscribeEvent
     public static void registerBiomes(RegistryEvent.Register<Biome> event) {
-        //Moon Biome
+        //Moon
         if (moon == null) {
             BiomeAmbience effects = new BiomeAmbience.Builder().setFogColor(-16777216).setWaterColor(4159204).setWaterFogColor(329011).withSkyColor(-16777216).withFoliageColor(7842607).withGrassColor(9551193).build();
             BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder().withSurfaceBuilder(SurfaceBuilder.DEFAULT.func_242929_a(new SurfaceBuilderConfig(MoonsandBlock.block.getDefaultState(), MoonsandBlock.block.getDefaultState(), MoonsandBlock.block.getDefaultState())));
@@ -42,7 +42,7 @@ public class BiomeRegistry {
             event.getRegistry().register(moon.setRegistryName("boss_tools:moon"));
         }
 
-        //Mars Biome
+        //Mars
         if (mars == null) {
             BiomeAmbience effects = new BiomeAmbience.Builder().setFogColor(-3044526).setWaterColor(4159204).setWaterFogColor(329011).withSkyColor(-3044526).withFoliageColor(7842607).withGrassColor(9551193).setParticle(new ParticleEffectAmbience(ParticleTypes.CRIMSON_SPORE, 0.014f)).build();
             BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder().withSurfaceBuilder(SurfaceBuilder.DEFAULT.func_242929_a(new SurfaceBuilderConfig(MarssandBlock.block.getDefaultState(), MarssandBlock.block.getDefaultState(), MarssandBlock.block.getDefaultState())));
@@ -53,7 +53,7 @@ public class BiomeRegistry {
             event.getRegistry().register(mars.setRegistryName("boss_tools:mars"));
         }
 
-        //Mars ice Spike Biome
+        //Mars ice Spike
         if (mars_ice_spike == null) {
             BiomeAmbience effects = new BiomeAmbience.Builder().setFogColor(-3044526).setWaterColor(4159204).setWaterFogColor(329011).withSkyColor(-3044526).withFoliageColor(7842607).withGrassColor(9551193).setParticle(new ParticleEffectAmbience(ParticleTypes.CRIMSON_SPORE, 0.014f)).build();
             BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder().withSurfaceBuilder(SurfaceBuilder.DEFAULT.func_242929_a(new SurfaceBuilderConfig(Blocks.SNOW_BLOCK.getDefaultState(), MarsStoneBlock.block.getDefaultState(), MarsStoneBlock.block.getDefaultState())));
@@ -64,7 +64,7 @@ public class BiomeRegistry {
             event.getRegistry().register(mars_ice_spike.setRegistryName("boss_tools:mars_ice_spike"));
         }
 
-        //Venus Biome
+        //Venus
         if (venus == null) {
             BiomeAmbience effects = new BiomeAmbience.Builder().setFogColor(-3044526).setWaterColor(4159204).setWaterFogColor(329011).withSkyColor(-3044526).withFoliageColor(7842607).withGrassColor(9551193).setParticle(new ParticleEffectAmbience(ParticleTypes.CRIMSON_SPORE, 0.02f)).build();
             BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder().withSurfaceBuilder(SurfaceBuilder.DEFAULT.func_242929_a(new SurfaceBuilderConfig(VenusSandBlock.block.getDefaultState(), VenusSandStoneBlock.block.getDefaultState(), VenusSandStoneBlock.block.getDefaultState())));
@@ -75,7 +75,7 @@ public class BiomeRegistry {
             event.getRegistry().register(venus.setRegistryName("boss_tools:venus"));
         }
 
-        //Infernal Venus Barrens Biome
+        //Infernal Venus Barrens
         if (infernal_venus_barrens == null) {
             BiomeAmbience effects = new BiomeAmbience.Builder().setFogColor(-3044526).setWaterColor(4159204).setWaterFogColor(329011).withSkyColor(-3044526).withFoliageColor(7842607).withGrassColor(9551193).setParticle(new ParticleEffectAmbience(ParticleTypes.CRIMSON_SPORE, 0.02f)).build();
             BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder().withSurfaceBuilder(SurfaceBuilder.DEFAULT.func_242929_a(new SurfaceBuilderConfig(VenusSandBlock.block.getDefaultState(), VenusSandStoneBlock.block.getDefaultState(), VenusSandStoneBlock.block.getDefaultState())));
@@ -96,7 +96,7 @@ public class BiomeRegistry {
             event.getRegistry().register(infernal_venus_barrens.setRegistryName("boss_tools:infernal_venus_barrens"));
         }
 
-        //Venus Hills Biome
+        //Venus Hills
         if (venus_hills == null) {
             BiomeAmbience effects = new BiomeAmbience.Builder().setFogColor(-3044526).setWaterColor(4159204).setWaterFogColor(329011).withSkyColor(-3044526).withFoliageColor(7842607).withGrassColor(9551193).setParticle(new ParticleEffectAmbience(ParticleTypes.CRIMSON_SPORE, 0.02f)).build();
             BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder().withSurfaceBuilder(SurfaceBuilder.DEFAULT.func_242929_a(new SurfaceBuilderConfig(VenusSandBlock.block.getDefaultState(), VenusSandStoneBlock.block.getDefaultState(), VenusSandStoneBlock.block.getDefaultState())));
@@ -107,7 +107,7 @@ public class BiomeRegistry {
             event.getRegistry().register(venus_hills.setRegistryName("boss_tools:venus_hills"));
         }
 
-        //Mercury Biome
+        //Mercury
         if (mercury == null) {
             BiomeAmbience effects = new BiomeAmbience.Builder().setFogColor(-16777216).setWaterColor(4159204).setWaterFogColor(329011).withSkyColor(-16777216).withFoliageColor(7842607).withGrassColor(9551193).build();
             BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder().withSurfaceBuilder(SurfaceBuilder.DEFAULT.func_242929_a(new SurfaceBuilderConfig(MrrcuryCobblestoneBlock.block.getDefaultState(), MrrcuryCobblestoneBlock.block.getDefaultState(), MrrcuryCobblestoneBlock.block.getDefaultState())));
@@ -118,7 +118,7 @@ public class BiomeRegistry {
             event.getRegistry().register(mercury.setRegistryName("boss_tools:mercury"));
         }
 
-        //Mercury Magama Biome
+        //Mercury Magama
         if (mercury_magma == null) {
             BiomeAmbience effects = new BiomeAmbience.Builder().setFogColor(-16777216).setWaterColor(4159204).setWaterFogColor(329011).withSkyColor(-16777216).withFoliageColor(7842607).withGrassColor(9551193).build();
             BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder().withSurfaceBuilder(SurfaceBuilder.DEFAULT.func_242929_a(new SurfaceBuilderConfig(MercurystoneBlock.block.getDefaultState(), MrrcuryCobblestoneBlock.block.getDefaultState(), MrrcuryCobblestoneBlock.block.getDefaultState())));

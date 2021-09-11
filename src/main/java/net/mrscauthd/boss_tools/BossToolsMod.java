@@ -54,8 +54,8 @@ public class BossToolsMod {
 
 
 		// SyncEvent Registers
-		SyncEvents.OxygenBulletGeneratorSyncEvent.NetworkLoader.registerMessages();
-		SyncEvents.PlayerMovementSyncEvent.NetworkLoader.registerMessages();
+		SyncEvents.OxygenBulletGeneratorSyncEvent.NetworkLoader.registerMessages(); //TODO IN FUTURE REMOVED
+		SyncEvents.PlayerMovementSyncEvent.NetworkLoader.registerMessages(); //TODO IN FUTURE REMOVED
 
 		// MobInnet
 		MinecraftForge.EVENT_BUS.register(this);

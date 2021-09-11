@@ -15,7 +15,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.FlatChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
@@ -84,10 +83,10 @@ import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = "boss_tools", bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModInnet {
-    //Entity
+
     public static final DeferredRegister<EntityType<?>> ENTITYS = DeferredRegister.create(ForgeRegistries.ENTITIES, "boss_tools");
-    //Tile Entity DeferredRegister
-    public static DeferredRegister<TileEntityType<?>> TILE_ENTITYS = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, "boss_tools");
+
+    public static final DeferredRegister<TileEntityType<?>> TILE_ENTITYS = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, "boss_tools");
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, "boss_tools");
 
