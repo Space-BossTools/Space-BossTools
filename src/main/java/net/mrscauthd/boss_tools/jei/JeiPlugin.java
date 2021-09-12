@@ -56,7 +56,7 @@ import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock;
 import net.mrscauthd.boss_tools.machines.CoalGeneratorBlock;
 import net.mrscauthd.boss_tools.machines.CompressorBlock;
 import net.mrscauthd.boss_tools.machines.FuelRefineryBlock;
-import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock;
+import net.mrscauthd.boss_tools.machines.OxygenBubbleDistributorBlock;
 import net.mrscauthd.boss_tools.machines.OxygenLoaderBlock;
 import net.mrscauthd.boss_tools.gui.*;
 import net.mrscauthd.boss_tools.gui.guihelper.GridPlacer;
@@ -96,7 +96,7 @@ public class JeiPlugin implements IModPlugin {
 		registration.addRecipeTransferHandler(OxygenLoaderGuiGui.GuiContainerMod.class, OxygenMakingJeiCategory.Uid, OxygenLoaderBlock.SLOT_ACTIVATING, 1, oxygenLoaderInventoryStartIndex, inventorySlotCount);
 		registration.addRecipeTransferHandler(OxygenLoaderGuiGui.GuiContainerMod.class, OxygenLoadingJeiCategory.Uid, OxygenLoaderBlock.SLOT_ITEM, 1, oxygenLoaderInventoryStartIndex, inventorySlotCount);
 		// OxygenBulletGenerator
-		registration.addRecipeTransferHandler(OxygenBulletGeneratorGUIGui.GuiContainerMod.class, OxygenMakingJeiCategory.Uid, OxygenGeneratorBlock.SLOT_ACTIVATING, 1, OxygenGeneratorBlock.SLOT_ACTIVATING + 1, inventorySlotCount);
+		registration.addRecipeTransferHandler(OxygenBubbleDistributorGUI.GuiContainerMod.class, OxygenMakingJeiCategory.Uid, OxygenBubbleDistributorBlock.SLOT_ACTIVATING, 1, OxygenBubbleDistributorBlock.SLOT_ACTIVATING + 1, inventorySlotCount);
 		// Generator
 		registration.addRecipeTransferHandler(GeneratorGUIGui.GuiContainerMod.class, GeneratorJeiCategory.Uid, CoalGeneratorBlock.SLOT_FUEL, 1, CoalGeneratorBlock.SLOT_FUEL + 1, inventorySlotCount);
 		// BlastFurnace
@@ -119,7 +119,7 @@ public class JeiPlugin implements IModPlugin {
 		registration.addGuiContainerHandler(BlastFurnaceGUIGuiWindow.class, new BlastFurnaceGuiContainerHandler());
 		registration.addGuiContainerHandler(CompressorGuiGuiWindow.class, new CompressorGuiContainerHandler());
 		registration.addGuiContainerHandler(OxygenLoaderGuiGuiWindow.class, new OxygenLoaderGuiContainerHandler());
-		registration.addGuiContainerHandler(OxygenBulletGeneratorGUIGuiWindow.class, new OxygenGeneratorGuiContainerHandler());
+		registration.addGuiContainerHandler(OxygenBubbleDistributorGUIWindow.class, new OxygenGeneratorGuiContainerHandler());
 	}
 
 	@Override
@@ -263,11 +263,11 @@ public class JeiPlugin implements IModPlugin {
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
 		registration.addRecipeCatalyst(new ItemStack(ModInnet.OXYGEN_LOADER_BLOCK.get()), OxygenMakingJeiCategory.Uid, OxygenLoadingJeiCategory.Uid);
 		// Neue maschine
-		registration.addRecipeCatalyst(new ItemStack(OxygenGeneratorBlock.block), OxygenMakingJeiCategory.Uid);
+		registration.addRecipeCatalyst(new ItemStack(ModInnet.OXYGEN_LOADER_BLOCK.get()), OxygenMakingJeiCategory.Uid);
 		// Genrator
 		registration.addRecipeCatalyst(new ItemStack(ModInnet.COAL_GENERATOR_BLOCK.get()), GeneratorJeiCategory.Uid);
 		// workbench
-		registration.addRecipeCatalyst(new ItemStack(NASAWorkbenchBlock.block), WorkbenchJeiCategory.Uid);
+		registration.addRecipeCatalyst(new ItemStack(ModInnet.NASA_WORKBENCH_ITEM.get()), WorkbenchJeiCategory.Uid);
 		// BlastingFurnace
 		registration.addRecipeCatalyst(new ItemStack(ModInnet.BLAST_FURNACE_BLOCK.get()), BlastingFurnaceJeiCategory.Uid, VanillaRecipeCategoryUid.FUEL);
 		// RocketTier1Gui
@@ -340,7 +340,6 @@ public class JeiPlugin implements IModPlugin {
 
 			if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
 				list.add(GaugeTextHelper.getUsingText(GaugeDataHelper.getEnergy(OxygenLoaderBlock.ENERGY_PER_TICK)));
-				list.add(GaugeTextHelper.getTotalText(GaugeDataHelper.getEnergy((int) Math.ceil((double) capacity / OxygenLoaderBlock.OXYGEN_PER_TICK))));
 			} else if (this.getOxygenBounds().contains((int) mouseX, (int) mouseY)) {
 				list.add(GaugeTextHelper.getUsingText(GaugeDataHelper.getOxygen(OxygenLoaderBlock.OXYGEN_PER_TICK)));
 			}
@@ -480,7 +479,6 @@ public class JeiPlugin implements IModPlugin {
 			} else if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
 				List<ITextComponent> list = new ArrayList<>();
 				list.add(GaugeTextHelper.getGeneratingText(GaugeDataHelper.getEnergy(CoalGeneratorBlock.ENERGY_PER_TICK)));
-				list.add(GaugeTextHelper.getTotalText(GaugeDataHelper.getEnergy(recipe.getBurnTime() * CoalGeneratorBlock.ENERGY_PER_TICK)));
 				return list;
 			}
 			return Collections.emptyList();
@@ -972,7 +970,6 @@ public class JeiPlugin implements IModPlugin {
 			if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
 				List<ITextComponent> list = new ArrayList<>();
 				list.add(GaugeTextHelper.getUsingText(GaugeDataHelper.getEnergy(CompressorBlock.ENERGY_PER_TICK)));
-				list.add(GaugeTextHelper.getTotalText(GaugeDataHelper.getEnergy(recipe.getCookTime() * CompressorBlock.ENERGY_PER_TICK)));
 				return list;
 			}
 

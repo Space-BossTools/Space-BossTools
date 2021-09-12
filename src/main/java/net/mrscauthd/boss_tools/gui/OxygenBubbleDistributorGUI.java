@@ -18,14 +18,14 @@ import net.minecraftforge.fml.network.IContainerFactory;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.SlotItemHandler;
 import net.mrscauthd.boss_tools.BossToolsModElements;
-import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock;
-import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock.CustomTileEntity;
+import net.mrscauthd.boss_tools.machines.OxygenBubbleDistributorBlock;
+import net.mrscauthd.boss_tools.machines.OxygenBubbleDistributorBlock.CustomTileEntity;
 
 @BossToolsModElements.ModElement.Tag
-public class OxygenBulletGeneratorGUIGui extends BossToolsModElements.ModElement {
+public class OxygenBubbleDistributorGUI extends BossToolsModElements.ModElement {
 	private static ContainerType<GuiContainerMod> containerType = null;
 
-	public OxygenBulletGeneratorGUIGui(BossToolsModElements instance) {
+	public OxygenBubbleDistributorGUI(BossToolsModElements instance) {
 		super(instance, 317);
 		containerType = new ContainerType<>(new GuiContainerModFactory());
 		FMLJavaModLoadingContext.get().getModEventBus().register(new ContainerRegisterHandler());
@@ -41,7 +41,7 @@ public class OxygenBulletGeneratorGUIGui extends BossToolsModElements.ModElement
 	@SuppressWarnings("deprecation")
 	@OnlyIn(Dist.CLIENT)
 	public void initElements() {
-		DeferredWorkQueue.runLater(() -> ScreenManager.registerFactory(containerType, OxygenBulletGeneratorGUIGuiWindow::new));
+		DeferredWorkQueue.runLater(() -> ScreenManager.registerFactory(containerType, OxygenBubbleDistributorGUIWindow::new));
 	}
 
 	public static class GuiContainerModFactory implements IContainerFactory<GuiContainerMod> {
@@ -60,7 +60,7 @@ public class OxygenBulletGeneratorGUIGui extends BossToolsModElements.ModElement
 			this.tileEntity = tileEntity;
 
 			IItemHandlerModifiable itemHandler = tileEntity.getItemHandler();
-			this.addSlot(new SlotItemHandler(itemHandler, OxygenGeneratorBlock.SLOT_ACTIVATING, 75, 44) {
+			this.addSlot(new SlotItemHandler(itemHandler, OxygenBubbleDistributorBlock.SLOT_ACTIVATING, 75, 44) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
 					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);

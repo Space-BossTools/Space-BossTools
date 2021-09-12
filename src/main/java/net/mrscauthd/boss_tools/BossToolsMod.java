@@ -5,6 +5,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.mrscauthd.boss_tools.compat.CompatibleManager;
 import net.mrscauthd.boss_tools.events.SyncEvents;
 import net.mrscauthd.boss_tools.keybind.KeyBindings;
+import net.mrscauthd.boss_tools.machines.OxygenBubbleDistributorBlock;
 import net.mrscauthd.boss_tools.world.structure.configuration.STStructures;
 import net.mrscauthd.boss_tools.world.structure.configuration.STStructures2;
 import org.apache.logging.log4j.Logger;
@@ -69,7 +70,7 @@ public class BossToolsMod {
 		ModInnet.RECIPE_SERIALIZERS.register(bus);
 		ModInnet.ROCKET_PARTS.register(bus);
         
-		bus.addListener(ModInnet::setup);
+		//bus.addListener(ModInnet::setup);
 		forgeBus.addListener(EventPriority.NORMAL, ModInnet::addDimensionalSpacing);
 		forgeBus.addListener(EventPriority.HIGH, ModInnet::biomeModification);
 		// Structures
@@ -80,6 +81,9 @@ public class BossToolsMod {
 
 		// KeyBindings
 		KeyBindings.registerMessages();
+
+		//Networker
+		BossToolsMod.addNetworkMessage(OxygenBubbleDistributorBlock.SetLargeMessage.class, OxygenBubbleDistributorBlock.SetLargeMessage::encode, OxygenBubbleDistributorBlock.SetLargeMessage::decode, OxygenBubbleDistributorBlock.SetLargeMessage::handle);
 
 		CompatibleManager.loadAll();
 	}

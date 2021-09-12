@@ -90,7 +90,7 @@ public class AlienSpitEntity extends AbstractArrowEntity implements IRendersAsIt
         double x = entity.getPosX();
         double y = entity.getPosY();
         double z = entity.getPosZ();
-        entity.world.playSound((PlayerEntity) null, x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.blaze.shoot")), SoundCategory.PLAYERS, 1, 1f / (new Random().nextFloat() * 0.5f + 1));
+        entity.world.playSound(null, x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.blaze.shoot")), SoundCategory.PLAYERS, 1, 1f / (new Random().nextFloat() * 0.5f + 1));
         return entityarrow;
     }
 }

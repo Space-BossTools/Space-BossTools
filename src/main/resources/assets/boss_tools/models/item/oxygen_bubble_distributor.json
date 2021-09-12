@@ -1,5 +1,5 @@
 {
-  "parent": "boss_tools:block/oxygen_bullet_generator",
+  "parent": "boss_tools:block/oxygen_bubble_distributor",
   "display": {
     "thirdperson": {
       "rotation": [

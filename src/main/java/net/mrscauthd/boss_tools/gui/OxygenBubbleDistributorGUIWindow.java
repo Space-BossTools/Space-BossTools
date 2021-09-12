@@ -22,11 +22,11 @@ import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
 import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
-import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock;
-import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock.CustomTileEntity;
+import net.mrscauthd.boss_tools.machines.OxygenBubbleDistributorBlock;
+import net.mrscauthd.boss_tools.machines.OxygenBubbleDistributorBlock.CustomTileEntity;
 
 @OnlyIn(Dist.CLIENT)
-public class OxygenBulletGeneratorGUIGuiWindow extends ContainerScreen<OxygenBulletGeneratorGUIGui.GuiContainerMod> {
+public class OxygenBubbleDistributorGUIWindow extends ContainerScreen<OxygenBubbleDistributorGUI.GuiContainerMod> {
 	public static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/oxygen_bullet_generator_gui.png");
 	public static final int OXYGEN_LEFT = 76;
 	public static final int OXYGEN_TOP = 28;
@@ -35,7 +35,7 @@ public class OxygenBulletGeneratorGUIGuiWindow extends ContainerScreen<OxygenBul
 
 	private CustomTileEntity tileEntity;
 
-	public OxygenBulletGeneratorGUIGuiWindow(OxygenBulletGeneratorGUIGui.GuiContainerMod container, PlayerInventory inventory, ITextComponent text) {
+	public OxygenBubbleDistributorGUIWindow(OxygenBubbleDistributorGUI.GuiContainerMod container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
 		this.tileEntity = container.getTileEntity();
 		this.xSize = 176;
@@ -91,11 +91,11 @@ public class OxygenBulletGeneratorGUIGuiWindow extends ContainerScreen<OxygenBul
 
 		this.addButton(new Button(this.guiLeft - 20, this.guiTop + 25, 20, 20, new StringTextComponent("-"), e -> {
 			BlockPos pos = this.getTileEntity().getPos();
-			BossToolsMod.PACKET_HANDLER.sendToServer(new OxygenGeneratorBlock.SetLargeMessage(pos, false));
+			BossToolsMod.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlock.SetLargeMessage(pos, false));
 		}));
 		this.addButton(new Button(this.guiLeft - 20, this.guiTop + 5, 20, 20, new StringTextComponent("+"), e -> {
 			BlockPos pos = this.getTileEntity().getPos();
-			BossToolsMod.PACKET_HANDLER.sendToServer(new OxygenGeneratorBlock.SetLargeMessage(pos, true));
+			BossToolsMod.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlock.SetLargeMessage(pos, true));
 		}));
 	}
 

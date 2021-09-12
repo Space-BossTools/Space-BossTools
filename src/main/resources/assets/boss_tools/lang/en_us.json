@@ -61,7 +61,7 @@
   "itemGroup.tab_materials": "Space-Bosstools: Materials",
 
   "block.boss_tools.coal_lantern": "Coal Lantern",
-  "block.boss_tools.oxygen_bullet_generator": "Oxygen Bullet Generator",
+  "block.boss_tools.oxygen_bubble_distributor": "Oxygen Bubble Distributor",
   "block.boss_tools.block_of_blue_iron_plating": "Block of Blue Iron Plating",
   "block.boss_tools.mercury_iron_ore": "Mercury Iron Ore",
   "block.boss_tools.fuel": "Fuel",
@@ -197,7 +197,7 @@
   "container.boss_tools.compressor": "Compressor",
   "container.boss_tools.fuel_refinery": "Fuel Refinery",
   "container.boss_tools.nasa_workbench": "NASA Workbench",
-  "container.boss_tools.oxygen_bullet_generator": "Oxygen Bullet Generator",
+  "container.boss_tools.oxygen_bubble_distributor": "Oxygen Bubble Distributor",
   "container.boss_tools.oxygen_loader": "Oxygen Loader",
   "container.boss_tools.solar_panel": "Solar Panel",
   
