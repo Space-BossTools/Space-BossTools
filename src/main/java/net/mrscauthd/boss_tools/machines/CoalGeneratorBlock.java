@@ -40,8 +40,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
-import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
 import net.mrscauthd.boss_tools.gui.GeneratorGUIGui;
 import net.mrscauthd.boss_tools.machines.tile.GeneratorTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemFuelGeneratingRecipe;
@@ -182,7 +180,7 @@ public class CoalGeneratorBlock {
 		public Container createMenu(int id, PlayerInventory player) {
 			return new GeneratorGUIGui.GuiContainerMod(id, player, this);
 		}
-		
+
 		@Override
 		public int getMaxGeneration() {
 			return ENERGY_PER_TICK;
