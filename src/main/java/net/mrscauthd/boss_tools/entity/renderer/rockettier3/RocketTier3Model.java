@@ -13,276 +13,227 @@ import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 
 @OnlyIn(Dist.CLIENT)
 public class RocketTier3Model<T extends RocketTier3Entity> extends EntityModel<T> {
-	private final ModelRenderer Rocket;
-	private final ModelRenderer bone;
-	private final ModelRenderer bone2;
+	private final ModelRenderer rocket;
+	private final ModelRenderer cube_r1;
+	private final ModelRenderer cube_r2;
+	private final ModelRenderer cube_r3;
+	private final ModelRenderer cube_r4;
+	private final ModelRenderer cube_r5;
+	private final ModelRenderer cube_r6;
+	private final ModelRenderer cube_r7;
+	private final ModelRenderer cube_r8;
+	private final ModelRenderer cube_r9;
+	private final ModelRenderer cube_r10;
+	private final ModelRenderer cube_r11;
+	private final ModelRenderer cube_r12;
+	private final ModelRenderer cube_r13;
+	private final ModelRenderer cube_r14;
+	private final ModelRenderer cube_r15;
+	private final ModelRenderer cube_r16;
+	private final ModelRenderer cube_r17;
+	private final ModelRenderer cube_r18;
+	private final ModelRenderer cube_r19;
+	private final ModelRenderer cube_r20;
+	private final ModelRenderer cube_r21;
+	private final ModelRenderer cube_r22;
+	private final ModelRenderer cube_r23;
+
 	public RocketTier3Model() {
-		textureWidth = 512;
+		textureWidth = 256;
 		textureHeight = 256;
-		Rocket = new ModelRenderer(this);
-		Rocket.setRotationPoint(0.0F, 23.0F, 0.0F);
-		Rocket.setTextureOffset(273, 90).addBox(4.0F, -36.0F, -8.0F, 3.0F, 7.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(85, 46).addBox(3.0F, -36.0F, -8.1F, 1.0F, 7.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(86, 47).addBox(-4.0F, -36.0F, -8.1F, 1.0F, 7.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(87, 52).addBox(-3.0F, -36.0F, -8.1F, 6.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(89, 52).addBox(-3.0F, -30.0F, -8.1F, 6.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(279, 130).addBox(-7.0F, -36.0F, -8.0F, 3.0F, 7.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(275, 80).addBox(-7.0F, -29.0F, -8.0F, 14.0F, 5.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(275, 82).addBox(-7.0F, -41.0F, -8.0F, 14.0F, 5.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(275, 82).addBox(-7.0F, -41.0F, 7.0F, 14.0F, 5.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(274, 84).addBox(-7.0F, -46.0F, -8.0F, 14.0F, 5.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(275, 82).addBox(-7.0F, -46.0F, 7.0F, 14.0F, 5.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(274, 85).addBox(-7.0F, -51.0F, -8.0F, 14.0F, 5.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(275, 80).addBox(-7.0F, -51.0F, 7.0F, 14.0F, 5.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(276, 135).addBox(-7.0F, -24.0F, -8.0F, 14.0F, 19.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(136, 136).addBox(-2.0F, -14.0F, -12.0F, 4.0F, 7.0F, 4.0F, 0.0F, false);
-		Rocket.setTextureOffset(136, 136).addBox(-12.0F, -14.0F, -2.0F, 4.0F, 7.0F, 4.0F, 0.0F, false);
-		Rocket.setTextureOffset(136, 136).addBox(-2.0F, -14.0F, 8.0F, 4.0F, 7.0F, 4.0F, 0.0F, false);
-		Rocket.setTextureOffset(136, 136).addBox(8.0F, -14.0F, -2.0F, 4.0F, 7.0F, 4.0F, 0.0F, false);
-		Rocket.setTextureOffset(73, 156).addBox(-2.0F, -15.0F, -12.0F, 4.0F, 1.0F, 4.0F, 0.0F, false);
-		Rocket.setTextureOffset(248, 91).addBox(-2.0F, -7.0F, -12.0F, 4.0F, 1.0F, 4.0F, 0.0F, false);
-		Rocket.setTextureOffset(73, 156).addBox(-12.0F, -15.0F, -2.0F, 4.0F, 1.0F, 4.0F, 0.0F, false);
-		Rocket.setTextureOffset(249, 96).addBox(-12.0F, -7.0F, -2.0F, 4.0F, 1.0F, 4.0F, 0.0F, false);
-		Rocket.setTextureOffset(73, 156).addBox(-2.0F, -15.0F, 8.0F, 4.0F, 1.0F, 4.0F, 0.0F, false);
-		Rocket.setTextureOffset(249, 89).addBox(-2.0F, -7.0F, 8.0F, 4.0F, 1.0F, 4.0F, 0.0F, false);
-		Rocket.setTextureOffset(73, 156).addBox(8.0F, -15.0F, -2.0F, 4.0F, 1.0F, 4.0F, 0.0F, false);
-		Rocket.setTextureOffset(249, 88).addBox(8.0F, -7.0F, -2.0F, 4.0F, 1.0F, 4.0F, 0.0F, false);
-		Rocket.setTextureOffset(73, 134).addBox(-2.0F, -16.0F, -12.0F, 4.0F, 1.0F, 4.0F, 0.0F, false);
-		Rocket.setTextureOffset(73, 139).addBox(-12.0F, -16.0F, -2.0F, 4.0F, 1.0F, 4.0F, 0.0F, false);
-		Rocket.setTextureOffset(73, 134).addBox(-2.0F, -16.0F, 8.0F, 4.0F, 1.0F, 4.0F, 0.0F, false);
-		Rocket.setTextureOffset(73, 139).addBox(8.0F, -16.0F, -2.0F, 4.0F, 1.0F, 4.0F, 0.0F, false);
-		Rocket.setTextureOffset(57, 137).addBox(-0.5F, -9.0F, -12.1F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(57, 137).addBox(-12.1F, -9.0F, -0.5F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(57, 137).addBox(-0.5F, -9.0F, 11.1F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(57, 137).addBox(11.1F, -9.0F, -0.5F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(57, 137).addBox(-2.1F, -9.0F, -10.5F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(57, 137).addBox(-10.5F, -9.0F, 1.1F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(57, 137).addBox(1.1F, -9.0F, 9.5F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(57, 137).addBox(9.5F, -9.0F, -2.1F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(57, 137).addBox(1.1F, -9.0F, -10.5F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(57, 137).addBox(-10.5F, -9.0F, -2.1F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(57, 137).addBox(-2.1F, -9.0F, 9.5F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(57, 137).addBox(9.5F, -9.0F, 1.1F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(57, 137).addBox(-0.5F, -9.0F, -12.1F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(279, 120).addBox(-7.0F, -36.0F, 7.0F, 14.0F, 31.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(276, 107).addBox(-8.0F, -36.0F, -7.0F, 1.0F, 31.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(275, 68).addBox(7.0F, -39.0F, -7.0F, 1.0F, 3.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(274, 81).addBox(-8.0F, -39.0F, -7.0F, 1.0F, 3.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(275, 68).addBox(7.0F, -42.0F, -7.0F, 1.0F, 3.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(274, 80).addBox(-8.0F, -42.0F, -7.0F, 1.0F, 3.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(275, 68).addBox(7.0F, -45.0F, -7.0F, 1.0F, 3.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(275, 76).addBox(-8.0F, -45.0F, -7.0F, 1.0F, 3.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(275, 68).addBox(7.0F, -48.0F, -7.0F, 1.0F, 3.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(275, 68).addBox(-8.0F, -48.0F, -7.0F, 1.0F, 3.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(275, 68).addBox(7.0F, -51.0F, -7.0F, 1.0F, 3.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(275, 68).addBox(-8.0F, -51.0F, -7.0F, 1.0F, 3.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(307, 78).addBox(-8.0F, -37.0F, -8.0F, 1.0F, 32.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(307, 78).addBox(-8.0F, -37.0F, 7.0F, 1.0F, 32.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(37, 23).addBox(-7.0F, -52.0F, 7.0F, 14.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(37, 23).addBox(-7.0F, -37.0F, 8.0F, 14.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(37, 23).addBox(-1.0F, -51.0F, 8.0F, 2.0F, 14.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(37, 23).addBox(-1.0F, -24.0F, 8.0F, 2.0F, 14.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(37, 23).addBox(-7.0F, -29.0F, 8.0F, 14.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(37, 23).addBox(-7.0F, -25.0F, 8.0F, 14.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(37, 23).addBox(-7.0F, -52.0F, -8.0F, 14.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(37, 23).addBox(-7.0F, -37.0F, -9.0F, 14.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(37, 23).addBox(-1.0F, -51.0F, -9.0F, 2.0F, 14.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(37, 23).addBox(-1.0F, -24.0F, -9.0F, 2.0F, 14.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(37, 23).addBox(4.0F, -36.0F, -9.0F, 2.0F, 7.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(37, 23).addBox(-6.0F, -36.0F, -9.0F, 2.0F, 7.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(37, 23).addBox(-7.0F, -29.0F, -9.0F, 14.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(37, 23).addBox(-7.0F, -25.0F, -9.0F, 14.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(29, 17).addBox(-8.0F, -52.0F, -7.0F, 1.0F, 1.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(29, 17).addBox(-9.0F, -37.0F, -7.0F, 1.0F, 1.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(29, 17).addBox(-9.0F, -24.0F, -1.0F, 1.0F, 14.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(29, 17).addBox(-9.0F, -51.0F, -1.0F, 1.0F, 14.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(29, 17).addBox(-9.0F, -29.0F, -7.0F, 1.0F, 1.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(29, 17).addBox(-9.0F, -25.0F, -7.0F, 1.0F, 1.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(29, 17).addBox(8.0F, -37.0F, -7.0F, 1.0F, 1.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(29, 17).addBox(8.0F, -51.0F, -1.0F, 1.0F, 14.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(29, 17).addBox(8.0F, -24.0F, -1.0F, 1.0F, 14.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(29, 17).addBox(8.0F, -29.0F, -7.0F, 1.0F, 1.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(29, 17).addBox(8.0F, -25.0F, -7.0F, 1.0F, 1.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(29, 17).addBox(7.0F, -52.0F, -7.0F, 1.0F, 1.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(307, 78).addBox(7.0F, -37.0F, 7.0F, 1.0F, 32.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(307, 78).addBox(7.0F, -52.0F, 7.0F, 1.0F, 15.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(307, 78).addBox(-8.0F, -52.0F, 7.0F, 1.0F, 15.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(307, 78).addBox(-8.0F, -52.0F, -8.0F, 1.0F, 15.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(307, 78).addBox(7.0F, -52.0F, -8.0F, 1.0F, 15.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(307, 78).addBox(7.0F, -37.0F, -8.0F, 1.0F, 32.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(276, 110).addBox(7.0F, -36.0F, -7.0F, 1.0F, 31.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(33, 87).addBox(4.0F, -53.0F, -7.0F, 2.0F, 1.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(33, 87).addBox(6.0F, -53.0F, -6.0F, 1.0F, 1.0F, 12.0F, 0.0F, false);
-		Rocket.setTextureOffset(33, 87).addBox(-7.0F, -53.0F, -6.0F, 1.0F, 1.0F, 12.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(-7.0F, -53.0F, -7.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(6.0F, -53.0F, -7.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(5.0F, -54.0F, -6.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(5.0F, -55.0F, -6.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(4.0F, -57.0F, -5.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(4.0F, -56.0F, -5.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(4.0F, -57.0F, 4.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(4.0F, -56.0F, 4.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(-5.0F, -57.0F, -5.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(-3.0F, -67.0F, -3.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(-3.0F, -66.0F, -3.0F, 1.0F, 5.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(2.0F, -67.0F, -3.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(2.0F, -66.0F, -3.0F, 1.0F, 5.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(-3.0F, -67.0F, 2.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(-2.0F, -69.0F, 1.0F, 1.0F, 5.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(-2.0F, -72.0F, 1.0F, 1.0F, 3.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(-2.0F, -69.0F, -2.0F, 1.0F, 5.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(-2.0F, -72.0F, -2.0F, 1.0F, 3.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(1.0F, -69.0F, 1.0F, 1.0F, 5.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(1.0F, -72.0F, 1.0F, 1.0F, 3.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(1.0F, -69.0F, -2.0F, 1.0F, 5.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(1.0F, -72.0F, -2.0F, 1.0F, 3.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(-3.0F, -66.0F, 2.0F, 1.0F, 5.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(2.0F, -67.0F, 2.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(2.0F, -66.0F, 2.0F, 1.0F, 5.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(-4.0F, -62.0F, -4.0F, 1.0F, 5.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(-4.0F, -62.0F, 3.0F, 1.0F, 5.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(3.0F, -62.0F, -4.0F, 1.0F, 5.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(3.0F, -62.0F, 3.0F, 1.0F, 5.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(-5.0F, -56.0F, -5.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(-5.0F, -57.0F, 4.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(-5.0F, -56.0F, 4.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(-6.0F, -54.0F, -6.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(-6.0F, -55.0F, -6.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(5.0F, -54.0F, 5.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(5.0F, -55.0F, 5.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(-6.0F, -54.0F, 5.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(-6.0F, -55.0F, 5.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(-7.0F, -53.0F, 6.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(48, 23).addBox(6.0F, -53.0F, 6.0F, 1.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(31, 17).addBox(4.0F, -5.0F, -8.0F, 4.0F, 1.0F, 16.0F, 0.0F, false);
-		Rocket.setTextureOffset(30, 14).addBox(0.0F, -5.0F, -6.0F, 4.0F, 1.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(30, 14).addBox(-4.0F, -5.0F, -6.0F, 4.0F, 1.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(27, 15).addBox(-7.0F, -5.0F, -6.0F, 3.0F, 1.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(31, 17).addBox(3.0F, -52.0F, -7.0F, 4.0F, 1.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 15).addBox(-1.0F, -80.0F, -1.0F, 2.0F, 2.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(500, 146).addBox(-1.0F, -78.0F, -1.0F, 2.0F, 15.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(64, 102).addBox(-1.0F, -69.0F, -2.0F, 2.0F, 5.0F, 4.0F, 0.0F, false);
-		Rocket.setTextureOffset(64, 102).addBox(-1.0F, -72.0F, -2.0F, 2.0F, 3.0F, 4.0F, 0.0F, false);
-		Rocket.setTextureOffset(64, 102).addBox(-2.0F, -69.0F, -1.0F, 1.0F, 5.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(64, 102).addBox(-2.0F, -72.0F, -1.0F, 1.0F, 3.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(64, 102).addBox(1.0F, -69.0F, -1.0F, 1.0F, 5.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(64, 102).addBox(1.0F, -72.0F, -1.0F, 1.0F, 3.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(88, 110).addBox(-3.0F, -67.0F, -2.0F, 6.0F, 1.0F, 4.0F, 0.0F, false);
-		Rocket.setTextureOffset(88, 110).addBox(-3.0F, -66.0F, -2.0F, 6.0F, 5.0F, 4.0F, 0.0F, false);
-		Rocket.setTextureOffset(88, 110).addBox(-2.0F, -67.0F, -3.0F, 4.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(88, 110).addBox(-2.0F, -66.0F, -3.0F, 4.0F, 5.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(88, 110).addBox(-2.0F, -67.0F, 2.0F, 4.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(88, 110).addBox(-2.0F, -66.0F, 2.0F, 4.0F, 5.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(88, 88).addBox(-3.0F, -62.0F, -4.0F, 6.0F, 5.0F, 8.0F, 0.0F, false);
-		Rocket.setTextureOffset(88, 88).addBox(3.0F, -62.0F, -3.0F, 1.0F, 5.0F, 6.0F, 0.0F, false);
-		Rocket.setTextureOffset(88, 88).addBox(-4.0F, -62.0F, -3.0F, 1.0F, 5.0F, 6.0F, 0.0F, false);
-		Rocket.setTextureOffset(75, 97).addBox(-4.0F, -57.0F, -5.0F, 8.0F, 1.0F, 10.0F, 0.0F, false);
-		Rocket.setTextureOffset(75, 97).addBox(-4.0F, -56.0F, -5.0F, 8.0F, 1.0F, 10.0F, 0.0F, false);
-		Rocket.setTextureOffset(75, 97).addBox(-5.0F, -57.0F, -4.0F, 1.0F, 1.0F, 8.0F, 0.0F, false);
-		Rocket.setTextureOffset(75, 97).addBox(-5.0F, -56.0F, -4.0F, 1.0F, 1.0F, 8.0F, 0.0F, false);
-		Rocket.setTextureOffset(75, 97).addBox(4.0F, -57.0F, -4.0F, 1.0F, 1.0F, 8.0F, 0.0F, false);
-		Rocket.setTextureOffset(75, 97).addBox(4.0F, -56.0F, -4.0F, 1.0F, 1.0F, 8.0F, 0.0F, false);
-		Rocket.setTextureOffset(65, 106).addBox(-5.0F, -54.0F, -6.0F, 10.0F, 1.0F, 12.0F, 0.0F, false);
-		Rocket.setTextureOffset(65, 106).addBox(-5.0F, -55.0F, -6.0F, 10.0F, 1.0F, 12.0F, 0.0F, false);
-		Rocket.setTextureOffset(65, 106).addBox(-6.0F, -54.0F, -5.0F, 1.0F, 1.0F, 10.0F, 0.0F, false);
-		Rocket.setTextureOffset(65, 106).addBox(-6.0F, -55.0F, -5.0F, 1.0F, 1.0F, 10.0F, 0.0F, false);
-		Rocket.setTextureOffset(65, 106).addBox(5.0F, -54.0F, -5.0F, 1.0F, 1.0F, 10.0F, 0.0F, false);
-		Rocket.setTextureOffset(65, 106).addBox(5.0F, -55.0F, -5.0F, 1.0F, 1.0F, 10.0F, 0.0F, false);
-		Rocket.setTextureOffset(66, 94).addBox(-6.0F, -53.0F, -7.0F, 10.0F, 1.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(30, 14).addBox(-7.0F, -52.0F, -7.0F, 10.0F, 1.0F, 14.0F, 0.0F, false);
-		Rocket.setTextureOffset(43, 17).addBox(-7.0F, -5.0F, -8.0F, 11.0F, 1.0F, 2.0F, 0.0F, false);
-		Rocket.setTextureOffset(27, 15).addBox(-8.0F, -5.0F, -8.0F, 1.0F, 1.0F, 16.0F, 0.0F, false);
-		Rocket.setTextureOffset(33, 23).addBox(-3.0F, -4.0F, -3.0F, 6.0F, 1.0F, 6.0F, 0.0F, false);
-		Rocket.setTextureOffset(30, 23).addBox(-3.0F, -3.0F, -3.0F, 1.0F, 1.0F, 6.0F, 0.0F, false);
-		Rocket.setTextureOffset(14, 2).addBox(-3.0F, -3.0F, -3.0F, 6.0F, 0.0F, 6.0F, 0.0F, false);
-		Rocket.setTextureOffset(33, 29).addBox(-4.0F, -2.0F, 3.0F, 8.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(37, 26).addBox(-4.0F, -2.0F, -4.0F, 8.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(45, 20).addBox(3.0F, -2.0F, -3.0F, 1.0F, 1.0F, 6.0F, 0.0F, false);
-		Rocket.setTextureOffset(37, 20).addBox(-4.0F, -2.0F, -3.0F, 1.0F, 1.0F, 6.0F, 0.0F, false);
-		Rocket.setTextureOffset(34, 17).addBox(2.0F, -3.0F, -3.0F, 1.0F, 1.0F, 6.0F, 0.0F, false);
-		Rocket.setTextureOffset(39, 26).addBox(-2.0F, -3.0F, 2.0F, 4.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(40, 11).addBox(-2.0F, -3.0F, -3.0F, 4.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(34, 30).addBox(-5.0F, -1.0F, -5.0F, 10.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(32, 16).addBox(-5.0F, -1.0F, 4.0F, 10.0F, 1.0F, 1.0F, 0.0F, false);
-		Rocket.setTextureOffset(34, 23).addBox(4.0F, -1.0F, -4.0F, 1.0F, 1.0F, 8.0F, 0.0F, false);
-		Rocket.setTextureOffset(34, 17).addBox(-5.0F, -1.0F, -4.0F, 1.0F, 1.0F, 8.0F, 0.0F, false);
-		bone = new ModelRenderer(this);
-		bone.setRotationPoint(8.0F, 0.0F, 3.0F);
-		Rocket.addChild(bone);
-		setRotationAngle(bone, 0.0F, 0.8727F, 0.0F);
-		bone.setTextureOffset(43, 17).addBox(7.0F, -11.0F, -8.0F, 2.0F, 6.0F, 2.0F, 0.0F, false);
-		bone.setTextureOffset(43, 17).addBox(7.0F, -20.0F, -8.0F, 2.0F, 9.0F, 2.0F, 0.0F, false);
-		bone.setTextureOffset(43, 17).addBox(10.0F, -9.0F, -8.0F, 1.0F, 6.0F, 2.0F, 0.0F, false);
-		bone.setTextureOffset(43, 17).addBox(10.0F, -18.0F, -8.0F, 1.0F, 9.0F, 2.0F, 0.0F, false);
-		bone.setTextureOffset(43, 17).addBox(9.0F, -10.0F, -8.0F, 1.0F, 6.0F, 2.0F, 0.0F, false);
-		bone.setTextureOffset(43, 17).addBox(9.0F, -19.0F, -8.0F, 1.0F, 9.0F, 2.0F, 0.0F, false);
-		bone.setTextureOffset(43, 17).addBox(11.0F, -7.0F, -8.0F, 1.0F, 6.0F, 2.0F, 0.0F, false);
-		bone.setTextureOffset(43, 17).addBox(11.0F, -16.0F, -8.0F, 1.0F, 9.0F, 2.0F, 0.0F, false);
-		bone.setTextureOffset(43, 17).addBox(12.0F, -7.0F, -8.0F, 1.0F, 7.0F, 2.0F, 0.0F, false);
-		bone.setTextureOffset(43, 17).addBox(12.0F, -16.0F, -8.0F, 1.0F, 9.0F, 2.0F, 0.0F, false);
-		bone.setTextureOffset(43, 17).addBox(13.0F, -11.0F, -8.0F, 1.0F, 13.0F, 2.0F, 0.0F, false);
-		bone.setTextureOffset(316, 115).addBox(7.5314F, -51.0F, -8.0362F, 1.0F, 40.0F, 2.0F, 0.0F, false);
-		bone2 = new ModelRenderer(this);
-		bone2.setRotationPoint(8.0F, 0.0F, 3.0F);
-		Rocket.addChild(bone2);
-		setRotationAngle(bone2, 0.0F, 0.8727F, 0.0F);
-		bone2.setTextureOffset(43, 17).addBox(-14.8917F, -11.0F, -9.9549F, 2.0F, 6.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-14.8917F, -20.0F, -9.9549F, 2.0F, 9.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-4.8F, -11.0F, 2.1117F, 2.0F, 6.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-4.8F, -20.0F, 2.1117F, 2.0F, 9.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-2.9F, -11.0F, -19.8502F, 2.0F, 6.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-2.9F, -20.0F, -19.8502F, 2.0F, 9.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-16.8917F, -9.0F, -9.9549F, 1.0F, 6.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-16.8917F, -18.0F, -9.9549F, 1.0F, 9.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-4.8F, -9.0F, 5.1117F, 2.0F, 6.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-4.8F, -18.0F, 5.1117F, 2.0F, 9.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-2.9F, -9.0F, -21.8502F, 2.0F, 6.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-2.9F, -18.0F, -21.8502F, 2.0F, 9.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-15.8917F, -10.0F, -9.9549F, 1.0F, 6.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-15.8917F, -19.0F, -9.9549F, 1.0F, 9.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-4.8F, -10.0F, 4.1117F, 2.0F, 6.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-4.8F, -19.0F, 4.1117F, 2.0F, 9.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-2.9F, -10.0F, -20.8502F, 2.0F, 6.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-2.9F, -19.0F, -20.8502F, 2.0F, 9.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-17.8917F, -7.0F, -9.9549F, 1.0F, 6.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-17.8917F, -16.0F, -9.9549F, 1.0F, 9.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-4.8F, -7.0F, 6.1117F, 2.0F, 6.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-4.8F, -16.0F, 6.1117F, 2.0F, 9.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-2.9F, -7.0F, -22.8502F, 2.0F, 6.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-2.9F, -16.0F, -22.8502F, 2.0F, 9.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-18.8917F, -7.0F, -9.9549F, 1.0F, 7.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-18.8917F, -16.0F, -9.9549F, 1.0F, 9.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-4.8F, -7.0F, 7.1117F, 2.0F, 7.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-4.8F, -16.0F, 7.1117F, 2.0F, 9.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-2.9F, -7.0F, -23.8502F, 2.0F, 7.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-2.9F, -16.0F, -23.8502F, 2.0F, 9.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-19.8917F, -11.0F, -9.9549F, 1.0F, 13.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(316, 115).addBox(-14.2454F, -51.0F, -9.9931F, 1.0F, 40.0F, 2.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-4.8F, -11.0F, 8.1117F, 2.0F, 13.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(316, 116).addBox(-4.858F, -51.0F, 2.2862F, 2.0F, 40.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(43, 17).addBox(-2.9F, -11.0F, -24.8502F, 2.0F, 13.0F, 1.0F, 0.0F, true);
-		bone2.setTextureOffset(316, 116).addBox(-2.8433F, -51.0F, -19.4152F, 2.0F, 40.0F, 1.0F, 0.0F, true);
+
+		rocket = new ModelRenderer(this);
+		rocket.setRotationPoint(0.0F, 25.0F, 0.0F);
+		rocket.setTextureOffset(184, 0).addBox(-9.0F, -58.0F, -9.0F, 18.0F, 50.0F, 18.0F, 0.0F, false);
+		rocket.setTextureOffset(184, 68).addBox(-9.0F, -10.0F, -9.0F, 18.0F, 0.0F, 18.0F, 0.0F, false);
+		rocket.setTextureOffset(36, 25).addBox(-2.0F, -84.0F, -2.0F, 4.0F, 2.0F, 4.0F, 0.0F, false);
+		rocket.setTextureOffset(36, 25).addBox(-2.0F, -90.0F, -2.0F, 4.0F, 2.0F, 4.0F, 0.0F, false);
+		rocket.setTextureOffset(36, 25).addBox(-2.0F, -87.0F, -2.0F, 4.0F, 2.0F, 4.0F, 0.0F, false);
+		rocket.setTextureOffset(36, 0).addBox(-2.0F, -101.0F, -2.0F, 4.0F, 4.0F, 4.0F, -0.375F, false);
+		rocket.setTextureOffset(36, 8).addBox(-1.0F, -98.0F, -1.0F, 2.0F, 15.0F, 2.0F, 0.0F, false);
+		rocket.setTextureOffset(36, 31).addBox(-3.0F, -82.0F, -3.0F, 6.0F, 8.0F, 6.0F, 0.0F, false);
+		rocket.setTextureOffset(22, 128).addBox(-6.0F, -5.0F, -6.0F, 12.0F, 2.0F, 12.0F, 0.0F, false);
+		rocket.setTextureOffset(0, 85).addBox(-10.0F, -13.0F, -10.0F, 20.0F, 2.0F, 20.0F, 0.0F, false);
+		rocket.setTextureOffset(0, 85).addBox(-10.0F, -16.0F, -10.0F, 20.0F, 2.0F, 20.0F, 0.0F, false);
+		rocket.setTextureOffset(0, 85).addBox(-10.0F, -59.0F, -10.0F, 20.0F, 2.0F, 20.0F, 0.0F, false);
+		rocket.setTextureOffset(0, 85).addBox(-10.0F, -55.0F, -10.0F, 20.0F, 2.0F, 20.0F, 0.0F, false);
+		rocket.setTextureOffset(0, 85).addBox(-10.0F, -44.0F, -10.0F, 20.0F, 2.0F, 20.0F, 0.0F, false);
+		rocket.setTextureOffset(0, 85).addBox(-10.0F, -32.0F, -10.0F, 20.0F, 2.0F, 20.0F, 0.0F, false);
+		rocket.setTextureOffset(22, 116).addBox(-5.0F, -7.0F, -5.0F, 10.0F, 2.0F, 10.0F, 0.0F, false);
+		rocket.setTextureOffset(22, 107).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 1.0F, 8.0F, 0.0F, false);
+		rocket.setTextureOffset(230, 88).addBox(-6.0F, -43.0F, -9.5F, 12.0F, 12.0F, 1.0F, 0.0F, false);
+		rocket.setTextureOffset(238, 101).addBox(-4.0F, -41.0F, -9.5F, 8.0F, 8.0F, 1.0F, 0.0F, false);
+		rocket.setTextureOffset(0, 169).addBox(-12.0F, -21.0F, -1.0F, 3.0F, 3.0F, 2.0F, 0.0F, false);
+		rocket.setTextureOffset(0, 152).addBox(-13.0F, -18.0F, -3.0F, 4.0F, 11.0F, 6.0F, 0.0F, false);
+
+		cube_r1 = new ModelRenderer(this);
+		cube_r1.setRotationPoint(0.0F, 0.0F, 0.0F);
+		rocket.addChild(cube_r1);
+		setRotationAngle(cube_r1, 0.0F, 1.5708F, 0.0F);
+		cube_r1.setTextureOffset(0, 169).addBox(-12.0F, -21.0F, -1.0F, 3.0F, 3.0F, 2.0F, 0.0F, false);
+		cube_r1.setTextureOffset(0, 152).addBox(-13.0F, -18.0F, -3.0F, 4.0F, 11.0F, 6.0F, 0.0F, false);
+		cube_r1.setTextureOffset(224, 88).addBox(4.0F, -43.0F, -9.5F, 2.0F, 12.0F, 1.0F, 0.0F, false);
+		cube_r1.setTextureOffset(224, 88).addBox(-6.0F, -43.0F, -9.5F, 2.0F, 12.0F, 1.0F, 0.0F, false);
+
+		cube_r2 = new ModelRenderer(this);
+		cube_r2.setRotationPoint(0.0F, 0.0F, 0.0F);
+		rocket.addChild(cube_r2);
+		setRotationAngle(cube_r2, 0.0F, 3.1416F, 0.0F);
+		cube_r2.setTextureOffset(0, 152).addBox(-13.0F, -18.0F, -3.0F, 4.0F, 11.0F, 6.0F, 0.0F, false);
+		cube_r2.setTextureOffset(0, 169).addBox(-12.0F, -21.0F, -1.0F, 3.0F, 3.0F, 2.0F, 0.0F, false);
+		cube_r2.setTextureOffset(224, 88).addBox(4.0F, -43.0F, -9.5F, 2.0F, 12.0F, 1.0F, 0.0F, false);
+		cube_r2.setTextureOffset(224, 88).addBox(-6.0F, -43.0F, -9.5F, 2.0F, 12.0F, 1.0F, 0.0F, false);
+
+		cube_r3 = new ModelRenderer(this);
+		cube_r3.setRotationPoint(0.0F, 0.0F, 0.0F);
+		rocket.addChild(cube_r3);
+		setRotationAngle(cube_r3, 0.0F, -1.5708F, 0.0F);
+		cube_r3.setTextureOffset(0, 169).addBox(-12.0F, -21.0F, -1.0F, 3.0F, 3.0F, 2.0F, 0.0F, false);
+		cube_r3.setTextureOffset(0, 152).addBox(-13.0F, -18.0F, -3.0F, 4.0F, 11.0F, 6.0F, 0.0F, false);
+		cube_r3.setTextureOffset(224, 88).addBox(-6.0F, -43.0F, -9.5F, 2.0F, 12.0F, 1.0F, 0.0F, false);
+		cube_r3.setTextureOffset(224, 88).addBox(4.0F, -43.0F, -9.5F, 2.0F, 12.0F, 1.0F, 0.0F, false);
+
+		cube_r4 = new ModelRenderer(this);
+		cube_r4.setRotationPoint(0.0F, -78.0F, 0.0F);
+		rocket.addChild(cube_r4);
+		setRotationAngle(cube_r4, -0.48F, 0.7854F, 0.0F);
+		cube_r4.setTextureOffset(0, 24).addBox(-1.0F, -3.5F, -2.5F, 2.0F, 27.0F, 2.0F, 0.0F, false);
+
+		cube_r5 = new ModelRenderer(this);
+		cube_r5.setRotationPoint(0.0F, -78.0F, 0.0F);
+		rocket.addChild(cube_r5);
+		setRotationAngle(cube_r5, -0.48F, -2.3562F, 0.0F);
+		cube_r5.setTextureOffset(0, 24).addBox(-1.0F, -3.5F, -2.5F, 2.0F, 27.0F, 2.0F, 0.0F, false);
+
+		cube_r6 = new ModelRenderer(this);
+		cube_r6.setRotationPoint(0.0F, -78.0F, 0.0F);
+		rocket.addChild(cube_r6);
+		setRotationAngle(cube_r6, -0.48F, 2.3562F, 0.0F);
+		cube_r6.setTextureOffset(0, 24).addBox(-1.0F, -3.5F, -2.5F, 2.0F, 27.0F, 2.0F, 0.0F, false);
+
+		cube_r7 = new ModelRenderer(this);
+		cube_r7.setRotationPoint(0.0F, -78.0F, 0.0F);
+		rocket.addChild(cube_r7);
+		setRotationAngle(cube_r7, -0.48F, -0.7854F, 0.0F);
+		cube_r7.setTextureOffset(0, 24).addBox(-1.0F, -3.5F, -2.5F, 2.0F, 27.0F, 2.0F, 0.0F, false);
+
+		cube_r8 = new ModelRenderer(this);
+		cube_r8.setRotationPoint(0.0F, -58.0F, 0.0F);
+		rocket.addChild(cube_r8);
+		setRotationAngle(cube_r8, 0.3491F, 1.5708F, 0.0F);
+		cube_r8.setTextureOffset(0, 0).addBox(-8.0F, -20.8F, 8.5175F, 16.0F, 24.0F, 0.0F, 0.0F, false);
+
+		cube_r9 = new ModelRenderer(this);
+		cube_r9.setRotationPoint(0.0F, -58.0F, 0.0F);
+		rocket.addChild(cube_r9);
+		setRotationAngle(cube_r9, 0.3491F, 3.1416F, 0.0F);
+		cube_r9.setTextureOffset(0, 0).addBox(-8.0F, -20.8F, 8.5175F, 16.0F, 24.0F, 0.0F, 0.0F, false);
+
+		cube_r10 = new ModelRenderer(this);
+		cube_r10.setRotationPoint(0.0F, -58.0F, 0.0F);
+		rocket.addChild(cube_r10);
+		setRotationAngle(cube_r10, 0.3491F, -1.5708F, 0.0F);
+		cube_r10.setTextureOffset(0, 0).addBox(-8.0F, -20.8F, 8.5175F, 16.0F, 24.0F, 0.0F, 0.0F, false);
+
+		cube_r11 = new ModelRenderer(this);
+		cube_r11.setRotationPoint(0.0F, -58.0F, 0.0F);
+		rocket.addChild(cube_r11);
+		setRotationAngle(cube_r11, 0.3491F, 0.0F, 0.0F);
+		cube_r11.setTextureOffset(0, 0).addBox(-8.0F, -20.8F, 8.5175F, 16.0F, 24.0F, 0.0F, 0.0F, false);
+
+		cube_r12 = new ModelRenderer(this);
+		cube_r12.setRotationPoint(-1.0F, 0.0F, 1.0F);
+		rocket.addChild(cube_r12);
+		setRotationAngle(cube_r12, 0.0F, -0.7854F, 0.0F);
+		cube_r12.setTextureOffset(0, 131).addBox(-2.0F, -17.0F, 20.0F, 4.0F, 17.0F, 4.0F, 0.0F, false);
+
+		cube_r13 = new ModelRenderer(this);
+		cube_r13.setRotationPoint(-1.0F, 0.0F, 1.0F);
+		rocket.addChild(cube_r13);
+		setRotationAngle(cube_r13, 1.1345F, -0.7854F, 0.0F);
+		cube_r13.setTextureOffset(0, 107).addBox(-1.0F, 1.0F, 13.0F, 2.0F, 15.0F, 9.0F, 0.0F, false);
+
+		cube_r14 = new ModelRenderer(this);
+		cube_r14.setRotationPoint(-1.0F, 0.0F, -1.0F);
+		rocket.addChild(cube_r14);
+		setRotationAngle(cube_r14, 0.0F, -2.3562F, 0.0F);
+		cube_r14.setTextureOffset(0, 131).addBox(-2.0F, -17.0F, 20.0F, 4.0F, 17.0F, 4.0F, 0.0F, false);
+
+		cube_r15 = new ModelRenderer(this);
+		cube_r15.setRotationPoint(-1.0F, 0.0F, -1.0F);
+		rocket.addChild(cube_r15);
+		setRotationAngle(cube_r15, 1.1345F, -2.3562F, 0.0F);
+		cube_r15.setTextureOffset(0, 107).addBox(-1.0F, 1.0F, 13.0F, 2.0F, 15.0F, 9.0F, 0.0F, false);
+
+		cube_r16 = new ModelRenderer(this);
+		cube_r16.setRotationPoint(1.0F, 0.0F, 1.0F);
+		rocket.addChild(cube_r16);
+		setRotationAngle(cube_r16, 0.0F, 0.7854F, 0.0F);
+		cube_r16.setTextureOffset(0, 131).addBox(-2.0F, -17.0F, 20.0F, 4.0F, 17.0F, 4.0F, 0.0F, false);
+
+		cube_r17 = new ModelRenderer(this);
+		cube_r17.setRotationPoint(1.0F, 0.0F, 1.0F);
+		rocket.addChild(cube_r17);
+		setRotationAngle(cube_r17, 1.1345F, 0.7854F, 0.0F);
+		cube_r17.setTextureOffset(0, 107).addBox(-1.0F, 1.0F, 13.0F, 2.0F, 15.0F, 9.0F, 0.0F, false);
+
+		cube_r18 = new ModelRenderer(this);
+		cube_r18.setRotationPoint(0.0F, 0.0F, 0.0F);
+		rocket.addChild(cube_r18);
+		setRotationAngle(cube_r18, 0.0F, 2.3562F, 0.0F);
+		cube_r18.setTextureOffset(20, 142).addBox(-3.0F, -18.0F, 20.4142F, 6.0F, 5.0F, 6.0F, -0.3F, false);
+		cube_r18.setTextureOffset(36, 8).addBox(-1.0F, -13.0F, 18.4142F, 2.0F, 13.0F, 2.0F, -0.2F, false);
+		cube_r18.setTextureOffset(36, 8).addBox(-1.0F, -13.0F, 15.4142F, 2.0F, 13.0F, 2.0F, -0.2F, false);
+
+		cube_r19 = new ModelRenderer(this);
+		cube_r19.setRotationPoint(0.0F, 0.0F, 0.0F);
+		rocket.addChild(cube_r19);
+		setRotationAngle(cube_r19, 0.0F, 0.7854F, 0.0F);
+		cube_r19.setTextureOffset(20, 142).addBox(-3.0F, -18.0F, 20.4142F, 6.0F, 5.0F, 6.0F, -0.3F, false);
+		cube_r19.setTextureOffset(36, 8).addBox(-1.0F, -13.0F, 15.4142F, 2.0F, 13.0F, 2.0F, -0.2F, false);
+		cube_r19.setTextureOffset(36, 8).addBox(-1.0F, -13.0F, 18.4142F, 2.0F, 13.0F, 2.0F, -0.2F, false);
+
+		cube_r20 = new ModelRenderer(this);
+		cube_r20.setRotationPoint(0.0F, 0.0F, 0.0F);
+		rocket.addChild(cube_r20);
+		setRotationAngle(cube_r20, 0.0F, -2.3562F, 0.0F);
+		cube_r20.setTextureOffset(20, 142).addBox(-3.0F, -18.0F, 20.4142F, 6.0F, 5.0F, 6.0F, -0.3F, false);
+		cube_r20.setTextureOffset(36, 8).addBox(-1.0F, -13.0F, 15.4142F, 2.0F, 13.0F, 2.0F, -0.2F, false);
+		cube_r20.setTextureOffset(36, 8).addBox(-1.0F, -13.0F, 18.4142F, 2.0F, 13.0F, 2.0F, -0.2F, false);
+
+		cube_r21 = new ModelRenderer(this);
+		cube_r21.setRotationPoint(0.0F, 0.0F, 0.0F);
+		rocket.addChild(cube_r21);
+		setRotationAngle(cube_r21, 0.0F, -0.7854F, 0.0F);
+		cube_r21.setTextureOffset(20, 142).addBox(-3.0F, -18.0F, 20.4142F, 6.0F, 5.0F, 6.0F, -0.3F, false);
+		cube_r21.setTextureOffset(36, 8).addBox(-1.0F, -13.0F, 18.4142F, 2.0F, 13.0F, 2.0F, -0.2F, false);
+		cube_r21.setTextureOffset(36, 8).addBox(-1.0F, -13.0F, 15.4142F, 2.0F, 13.0F, 2.0F, -0.2F, false);
+
+		cube_r22 = new ModelRenderer(this);
+		cube_r22.setRotationPoint(1.0F, 0.0F, -1.0F);
+		rocket.addChild(cube_r22);
+		setRotationAngle(cube_r22, 0.0F, 2.3562F, 0.0F);
+		cube_r22.setTextureOffset(0, 131).addBox(-2.0F, -17.0F, 20.0F, 4.0F, 17.0F, 4.0F, 0.0F, false);
+
+		cube_r23 = new ModelRenderer(this);
+		cube_r23.setRotationPoint(1.0F, 0.0F, -1.0F);
+		rocket.addChild(cube_r23);
+		setRotationAngle(cube_r23, 1.1345F, 2.3562F, 0.0F);
+		cube_r23.setTextureOffset(0, 107).addBox(-1.0F, 1.0F, 13.0F, 2.0F, 15.0F, 9.0F, 0.0F, false);
 	}
 
 	@Override
 	public void setRotationAngles(T entityIn, float f, float f1, float f2, float f3, float f4) {
-		this.Rocket.rotateAngleY = f3 / (180F / (float) Math.PI);
-		// this.Rocket.rotateAngleX = f4 / (180F / (float) Math.PI);
-		// Animation1
-		this.Rocket.rotateAngleZ = f2 / (180F / (float) Math.PI);
-		if (entityIn instanceof LivingEntity) {
-			this.Rocket.rotateAngleZ = (float) entityIn.ay;
-		}
-		// Animation2
-		this.Rocket.rotateAngleX = f2 / (180F / (float) Math.PI);
-		if (entityIn instanceof LivingEntity) {
-			this.Rocket.rotateAngleX = (float) entityIn.ap;
-		}
+		this.rocket.rotateAngleY = f3 / (180F / (float) Math.PI);
+
+		this.rocket.rotateAngleZ = (float) entityIn.ay;
+
+		this.rocket.rotateAngleX = (float) entityIn.ap;
 	}
 
 	@Override
 	public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		Rocket.render(matrixStack, buffer, packedLight, packedOverlay);
+		rocket.render(matrixStack, buffer, packedLight, packedOverlay);
 	}
 
 	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {

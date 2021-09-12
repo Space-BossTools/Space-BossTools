@@ -132,7 +132,7 @@ public class RocketTier2Entity extends CreatureEntity {
 
 	@Override
 	public double getMountedYOffset() {
-		return super.getMountedYOffset() -2.1;
+		return super.getMountedYOffset() -2.45;
 	}
 
 	@Override
