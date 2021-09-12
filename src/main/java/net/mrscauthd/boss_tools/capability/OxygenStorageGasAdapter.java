@@ -58,7 +58,9 @@ public class OxygenStorageGasAdapter implements IGasHandler {
 	public GasStack insertChemical(int var1, GasStack var2, Action var3) {
 		if (this.isCanInsert() && this.isValid(var1, var2)) {
 			var2 = var2.copy();
-			var2.shrink(this.getOxygenStorage().receiveOxygen((int) var2.getAmount(), var3.simulate()));
+			int amount = (int)Math.min(var2.getAmount(), Integer.MAX_VALUE);
+			int receiveOxygen = this.getOxygenStorage().receiveOxygen(amount, var3.simulate());
+			var2.shrink(receiveOxygen);
 			return var2;
 		} else {
 			return var2;
