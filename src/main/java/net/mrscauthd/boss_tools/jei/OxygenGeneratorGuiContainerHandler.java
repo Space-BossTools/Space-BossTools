@@ -14,22 +14,22 @@ import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
-import net.mrscauthd.boss_tools.gui.OxygenBulletGeneratorGUIGuiWindow;
+import net.mrscauthd.boss_tools.gui.OxygenBubbleDistributorGUIWindow;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 import net.mrscauthd.boss_tools.jei.JeiPlugin.OxygenMakingJeiCategory;
 
-public class OxygenGeneratorGuiContainerHandler implements IGuiContainerHandler<OxygenBulletGeneratorGUIGuiWindow> {
+public class OxygenGeneratorGuiContainerHandler implements IGuiContainerHandler<OxygenBubbleDistributorGUIWindow> {
 
 	public OxygenGeneratorGuiContainerHandler() {
 
 	}
 
 	@Override
-	public Collection<IGuiClickableArea> getGuiClickableAreas(OxygenBulletGeneratorGUIGuiWindow containerScreen, double mouseX, double mouseY) {
+	public Collection<IGuiClickableArea> getGuiClickableAreas(OxygenBubbleDistributorGUIWindow containerScreen, double mouseX, double mouseY) {
 		return Collections.singleton(new IGuiClickableArea() {
 			@Override
 			public Rectangle2d getArea() {
-				return GuiHelper.getOxygenBounds(OxygenBulletGeneratorGUIGuiWindow.OXYGEN_LEFT, OxygenBulletGeneratorGUIGuiWindow.OXYGEN_TOP);
+				return GuiHelper.getOxygenBounds(OxygenBubbleDistributorGUIWindow.OXYGEN_LEFT, OxygenBubbleDistributorGUIWindow.OXYGEN_TOP);
 			}
 
 			@Override

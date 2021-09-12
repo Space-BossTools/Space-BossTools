@@ -31,7 +31,7 @@ public class BossToolsItemGroups {
 		@OnlyIn(Dist.CLIENT)
 		@Override
 		public ItemStack createIcon() {
-			return new ItemStack(NASAWorkbenchBlock.block, (int) (1));
+			return new ItemStack(ModInnet.NASA_WORKBENCH_ITEM.get(), (int) (1));
 		}
 
 		@OnlyIn(Dist.CLIENT)

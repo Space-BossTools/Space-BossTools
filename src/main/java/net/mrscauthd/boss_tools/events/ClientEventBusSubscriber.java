@@ -23,7 +23,6 @@ import net.mrscauthd.boss_tools.entity.renderer.rockettier1.RocketTier1Renderer;
 import net.mrscauthd.boss_tools.entity.renderer.rockettier2.RocketTier2Renderer;
 import net.mrscauthd.boss_tools.entity.renderer.rockettier3.RocketTier3Renderer;
 import net.mrscauthd.boss_tools.entity.renderer.starcrawler.StarCrawlerRenderer;
-import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock;
 import net.mrscauthd.boss_tools.spawneggs.ModSpawnEggs;
 import net.mrscauthd.boss_tools.entity.renderer.alien.AlienRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.mogler.MoglerRenderer;
@@ -51,7 +50,7 @@ public class ClientEventBusSubscriber {
 
 		RenderingRegistry.registerEntityRenderingHandler(ModInnet.TIER_3_ROCKET.get(), ((IRenderFactory) RocketTier3Renderer::new));
 
-		ClientRegistry.bindTileEntityRenderer(OxygenGeneratorBlock.tileEntityType, TileEntityBoxRenderer::new);
+		ClientRegistry.bindTileEntityRenderer(ModInnet.OXYGEN_BUBBLE_DISTRIBUTOR.get(), TileEntityBoxRenderer::new);
 
 		ClientRegistry.bindTileEntityRenderer(ModInnet.FLAG.get(), TileEntityHeadRenderer::new);
 
@@ -67,6 +66,9 @@ public class ClientEventBusSubscriber {
 
 		//Block Translucent Renderer
 		RenderTypeLookup.setRenderLayer(ModInnet.COAL_LANTERN_BLOCK.get(), RenderType.getTranslucent());
+
+		//Cutout
+		RenderTypeLookup.setRenderLayer(ModInnet.NASA_WORKBENCH_BLOCK.get(), RenderType.getCutout());
 	}
 
 	@SubscribeEvent

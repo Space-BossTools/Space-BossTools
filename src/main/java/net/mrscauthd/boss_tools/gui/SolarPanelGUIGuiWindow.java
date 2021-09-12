@@ -51,9 +51,9 @@ public class SolarPanelGUIGuiWindow extends ContainerScreen<SolarPanelGUIGui.Gui
 		CustomTileEntity tileEntity = this.getTileEntity();
 		IEnergyStorage energyStorage = tileEntity.getPrimaryEnergyStorage();
 
-		this.font.func_243248_b(ms, GaugeTextHelper.getStoredText(GaugeDataHelper.getEnergy(energyStorage.getEnergyStored())), this.titleX, 26, 0x3C3C3C);
-		this.font.func_243248_b(ms, GaugeTextHelper.getCapacityText(GaugeDataHelper.getEnergy(energyStorage.getMaxEnergyStored())), this.titleX, 38, 0x3C3C3C);
-		this.font.func_243248_b(ms, GaugeTextHelper.getMaxGenerationText(GaugeDataHelper.getEnergy(tileEntity.getMaxGeneration())), this.titleX, 50, 0x3C3C3C);
+		this.font.func_243248_b(ms, GaugeTextHelper.getStoredText(GaugeDataHelper.getEnergy(energyStorage.getEnergyStored())), this.titleX, 28, 0x3C3C3C);
+		this.font.func_243248_b(ms, GaugeTextHelper.getCapacityText(GaugeDataHelper.getEnergy(energyStorage.getMaxEnergyStored())), this.titleX, 40, 0x3C3C3C);
+		this.font.func_243248_b(ms, GaugeTextHelper.getMaxGenerationText(GaugeDataHelper.getEnergy(tileEntity.getMaxGeneration())), this.titleX, 52, 0x3C3C3C);
 	}
 
 	public CustomTileEntity getTileEntity() {

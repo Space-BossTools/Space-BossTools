@@ -16,10 +16,10 @@ import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock;
+import net.mrscauthd.boss_tools.machines.OxygenBubbleDistributorBlock;
 
 @OnlyIn(Dist.CLIENT)
-public class TileEntityBoxRenderer extends TileEntityRenderer<OxygenGeneratorBlock.CustomTileEntity> {
+public class TileEntityBoxRenderer extends TileEntityRenderer<OxygenBubbleDistributorBlock.CustomTileEntity> {
 
     private Minecraft mc = Minecraft.getInstance();
     private World world = mc.world;
@@ -31,12 +31,12 @@ public class TileEntityBoxRenderer extends TileEntityRenderer<OxygenGeneratorBlo
     }
 
     @Override
-    public boolean isGlobalRenderer(OxygenGeneratorBlock.CustomTileEntity te) {
+    public boolean isGlobalRenderer(OxygenBubbleDistributorBlock.CustomTileEntity te) {
         return true;
     }
 
     @Override
-    public void render(OxygenGeneratorBlock.CustomTileEntity tileEntityIn, float partialTicks, MatrixStack matrix, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    public void render(OxygenBubbleDistributorBlock.CustomTileEntity tileEntityIn, float partialTicks, MatrixStack matrix, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
 
         IVertexConsumer builder = (IVertexConsumer) bufferIn.getBuffer(RenderType.getLines());
 
