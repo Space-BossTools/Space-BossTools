@@ -33,7 +33,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.boss_tools.ModInnet;
@@ -46,6 +46,8 @@ import net.mrscauthd.boss_tools.crafting.FuelRefiningRecipe;
 import net.mrscauthd.boss_tools.crafting.GeneratingRecipe;
 import net.mrscauthd.boss_tools.crafting.WorkbenchingRecipe;
 import net.mrscauthd.boss_tools.fluid.FluidUtil2;
+import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
+import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
 import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipe;
 import net.mrscauthd.boss_tools.crafting.RocketPart;
 import net.mrscauthd.boss_tools.machines.NASAWorkbenchBlock;
@@ -295,7 +297,7 @@ public class JeiPlugin implements IModPlugin {
 		private final LoadingCache<Integer, IDrawableAnimated> cachedEnergies;
 
 		public OxygenLoadingJeiCategory(IGuiHelper guiHelper) {
-			this.title = "Oxygen Loading";
+			this.title = new TranslationTextComponent("category.boss_tools.oxygenloading").getString();
 			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loading_jei.png"), 0, 0, 144, 84);
 			this.cachedOxygens = createUsingOxygens(guiHelper);
 			this.cachedEnergies = createUsingEnergies(guiHelper);
@@ -337,10 +339,10 @@ public class JeiPlugin implements IModPlugin {
 			int capacity = recipe.getCapability(CapabilityOxygen.OXYGEN).map(i -> i.getMaxOxygenStored()).orElse(0);
 
 			if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
-				list.add(new StringTextComponent("Using: " + OxygenLoaderBlock.ENERGY_PER_TICK + " FE/t"));
-				list.add(new StringTextComponent("Total: " + (int) Math.ceil((double) capacity / OxygenLoaderBlock.OXYGEN_PER_TICK) + " FE"));
+				list.add(GaugeTextHelper.getUsingText(GaugeDataHelper.getEnergy(OxygenLoaderBlock.ENERGY_PER_TICK)));
+				list.add(GaugeTextHelper.getTotalText(GaugeDataHelper.getEnergy((int) Math.ceil((double) capacity / OxygenLoaderBlock.OXYGEN_PER_TICK))));
 			} else if (this.getOxygenBounds().contains((int) mouseX, (int) mouseY)) {
-				list.add(new StringTextComponent("Using: " + OxygenLoaderBlock.OXYGEN_PER_TICK + " Oxygen/t"));
+				list.add(GaugeTextHelper.getUsingText(GaugeDataHelper.getOxygen(OxygenLoaderBlock.OXYGEN_PER_TICK)));
 			}
 
 			return list;
@@ -391,7 +393,7 @@ public class JeiPlugin implements IModPlugin {
 		private final LoadingCache<Integer, IDrawableAnimated> cachedOxygens;
 
 		public OxygenMakingJeiCategory(IGuiHelper guiHelper) {
-			this.title = "Oxygen Making";
+			this.title = new TranslationTextComponent("category.boss_tools.oxygenmaking").getString();
 			ResourceLocation path = new ResourceLocation("boss_tools", "textures/oxygen_making_jei.png");
 			this.background = guiHelper.createDrawable(path, 0, 0, 144, 84);
 			this.cachedOxygens = createMakingOxygens(guiHelper);
@@ -439,7 +441,7 @@ public class JeiPlugin implements IModPlugin {
 			this.cachedOxygens.getUnchecked(activaingTime).draw(matrixStack, OXYGEN_LEFT, OXYGEN_TOP);
 
 			FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
-			fontRenderer.drawString(matrixStack, "Oxygen: " + recipe.getOxygen(), 54, 35, 0x808080);
+			fontRenderer.func_243248_b(matrixStack, GaugeDataHelper.getOxygen(recipe.getOxygen()).getText(), 54, 35, 0x404040);
 		}
 
 		@Override
@@ -465,7 +467,7 @@ public class JeiPlugin implements IModPlugin {
 		private final LoadingCache<Integer, IDrawableAnimated> energies;
 
 		public GeneratorJeiCategory(IGuiHelper guiHelper) {
-			this.title = "Coal Generator";
+			this.title = new TranslationTextComponent("container.boss_tools.coal_generator").getString();
 			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/generator_gui_jei.png"), 0, 0, 144, 84);
 			this.fires = createFires(guiHelper);
 			this.energies = createGeneratingEnergies(guiHelper);
@@ -474,11 +476,11 @@ public class JeiPlugin implements IModPlugin {
 		@Override
 		public List<ITextComponent> getTooltipStrings(GeneratingRecipe recipe, double mouseX, double mouseY) {
 			if (this.getFireBounds().contains((int) mouseX, (int) mouseY)) {
-				return Collections.singletonList(new StringTextComponent("Burn Time: " + recipe.getBurnTime()));
+				return Collections.singletonList(GaugeDataHelper.getBurnTime(recipe.getBurnTime()).getText());
 			} else if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
 				List<ITextComponent> list = new ArrayList<>();
-				list.add(new StringTextComponent("Generating: " + CoalGeneratorBlock.ENERGY_PER_TICK + " FE/t"));
-				list.add(new StringTextComponent("Total: " + recipe.getBurnTime() * CoalGeneratorBlock.ENERGY_PER_TICK + " FE"));
+				list.add(GaugeTextHelper.getGeneratingText(GaugeDataHelper.getEnergy(CoalGeneratorBlock.ENERGY_PER_TICK)));
+				list.add(GaugeTextHelper.getTotalText(GaugeDataHelper.getEnergy(recipe.getBurnTime() * CoalGeneratorBlock.ENERGY_PER_TICK)));
 				return list;
 			}
 			return Collections.emptyList();
@@ -551,7 +553,7 @@ public class JeiPlugin implements IModPlugin {
 		private final IDrawable background;
 
 		public WorkbenchJeiCategory(IGuiHelper guiHelper) {
-			this.title = "NASA Workbench";
+			this.title = new TranslationTextComponent("container.boss_tools.nasa_workbench").getString();
 			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/nasaworkbenchjei.png"), 0, 0, 176, 122);
 		}
 
@@ -720,7 +722,7 @@ public class JeiPlugin implements IModPlugin {
 		private final LoadingCache<Integer, IDrawableAnimated> cachedArrows;
 
 		public BlastingFurnaceJeiCategory(IGuiHelper guiHelper) {
-			this.title = "Blast Furnace";
+			this.title = new TranslationTextComponent("container.boss_tools.blast_furnace").getString();
 			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/blast_furnace_gui_jei.png"), 0, 0, 144, 84);
 			this.fire = createFires(guiHelper);
 			this.cachedArrows = createArrows(guiHelper);
@@ -959,7 +961,7 @@ public class JeiPlugin implements IModPlugin {
 		private final LoadingCache<Integer, IDrawableAnimated> cachedEnergies;
 
 		public CompressorJeiCategory(IGuiHelper guiHelper) {
-			this.title = "Compressor";
+			this.title = new TranslationTextComponent("container.boss_tools.compressor").getString();
 			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/compressor_gui_jei.png"), 0, 0, 144, 84);
 			this.cachedArrows = createArrows(guiHelper);
 			this.cachedEnergies = createUsingEnergies(guiHelper);
@@ -969,8 +971,8 @@ public class JeiPlugin implements IModPlugin {
 		public List<ITextComponent> getTooltipStrings(CompressingRecipe recipe, double mouseX, double mouseY) {
 			if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
 				List<ITextComponent> list = new ArrayList<>();
-				list.add(new StringTextComponent("Using: " + CompressorBlock.ENERGY_PER_TICK + " FE/t"));
-				list.add(new StringTextComponent("Total: " + recipe.getCookTime() * CompressorBlock.ENERGY_PER_TICK + " FE"));
+				list.add(GaugeTextHelper.getUsingText(GaugeDataHelper.getEnergy(CompressorBlock.ENERGY_PER_TICK)));
+				list.add(GaugeTextHelper.getTotalText(GaugeDataHelper.getEnergy(recipe.getCookTime() * CompressorBlock.ENERGY_PER_TICK)));
 				return list;
 			}
 
@@ -1135,7 +1137,7 @@ public class JeiPlugin implements IModPlugin {
 
 		public FuelMakerJeiCategory(JeiPlugin plugin, IGuiHelper guiHelper) {
 			this.plugin = plugin;
-			this.title = "Fuel Refinery";
+			this.title = new TranslationTextComponent("container.boss_tools.fuel_refinery").getString();
 			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refinery_jei.png"), 0, 0, 148, 64);
 			this.fluidOverlay = guiHelper.drawableBuilder(GuiHelper.FLUID_TANK_PATH, 0, 0, GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).setTextureSize(GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).build();
 			this.cachedEnergies = createUsingEnergies(guiHelper);
@@ -1144,7 +1146,7 @@ public class JeiPlugin implements IModPlugin {
 		@Override
 		public List<ITextComponent> getTooltipStrings(FuelRefiningRecipe recipe, double mouseX, double mouseY) {
 			if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
-				return Collections.singletonList(new StringTextComponent("Using: " + FuelRefineryBlock.ENERGY_PER_TICK + " FE/t"));
+				return Collections.singletonList(GaugeTextHelper.getUsingText(GaugeDataHelper.getEnergy(FuelRefineryBlock.ENERGY_PER_TICK)));
 			}
 
 			return Collections.emptyList();

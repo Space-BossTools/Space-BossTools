@@ -43,6 +43,7 @@ public class FuelRefineryGUIGuiWindow extends ContainerScreen<FuelRefineryGUIGui
 		this.tileEntity = container.getTileEntity();
 		this.xSize = 177;
 		this.ySize = 172;
+		this.playerInventoryTitleY = this.ySize - 92;
 	}
 
 	public Rectangle2d getInputTankBounds() {
@@ -84,12 +85,6 @@ public class FuelRefineryGUIGuiWindow extends ContainerScreen<FuelRefineryGUIGui
 		GuiHelper.drawEnergy(ms, this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP, tileEntity.getPrimaryEnergyStorage());
 		GuiHelper.drawFluidTank(ms, this.guiLeft + INPUT_TANK_LEFT, this.guiTop + INPUT_TANK_TOP, tileEntity.getInputTank());
 		GuiHelper.drawFluidTank(ms, this.guiLeft + OUTPUT_TANK_LEFT, this.guiTop + OUTPUT_TANK_TOP, tileEntity.getOutputTank());
-	}
-
-	@Override
-	protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
-		this.font.drawString(ms, "Fuel Refinery", 54, 7, -13421773);
-		this.font.drawString(ms, "Inventory", 7, 79, -13421773);
 	}
 
 	public CustomTileEntity getTileEntity() {

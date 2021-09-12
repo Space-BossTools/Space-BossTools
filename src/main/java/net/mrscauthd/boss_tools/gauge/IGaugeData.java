@@ -11,6 +11,10 @@ public interface IGaugeData extends INBTSerializable<CompoundNBT> {
 		return this.getFormat().getText(this.getValue());
 	}
 
+	public default ITextComponent getAmountText() {
+		return this.getFormat().getAmountText(this.getValue());
+	}
+
 	public default double getDisplayRatio() {
 		return this.getFormat().getDisplayRatio(this.getValue());
 	}

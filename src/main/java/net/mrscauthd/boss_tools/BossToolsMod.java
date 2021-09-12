@@ -2,7 +2,6 @@ package net.mrscauthd.boss_tools;
 
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.mrscauthd.boss_tools.world.biomes.BiomeRegisrtyEvents;
 import net.mrscauthd.boss_tools.compat.CompatibleManager;
 import net.mrscauthd.boss_tools.events.SyncEvents;
 import net.mrscauthd.boss_tools.keybind.KeyBindings;
@@ -55,8 +54,8 @@ public class BossToolsMod {
 
 
 		// SyncEvent Registers
-		SyncEvents.OxygenBulletGeneratorSyncEvent.NetworkLoader.registerMessages();
-		SyncEvents.PlayerMovementSyncEvent.NetworkLoader.registerMessages();
+		SyncEvents.OxygenBulletGeneratorSyncEvent.NetworkLoader.registerMessages(); //TODO IN FUTURE REMOVED
+		SyncEvents.PlayerMovementSyncEvent.NetworkLoader.registerMessages(); //TODO IN FUTURE REMOVED
 
 		// MobInnet
 		MinecraftForge.EVENT_BUS.register(this);
@@ -78,8 +77,6 @@ public class BossToolsMod {
 		STStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
 
 		forgeBus.addListener(EventPriority.HIGH, ModInnet::biomesLoading);
-		// Biome Registery Event
-		bus.register(new BiomeRegisrtyEvents.BiomeRegisterHandler());
 
 		// KeyBindings
 		KeyBindings.registerMessages();

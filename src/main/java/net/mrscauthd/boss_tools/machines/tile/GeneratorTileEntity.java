@@ -15,11 +15,23 @@ import net.mrscauthd.boss_tools.capability.EnergyStorageExtractaOnly;
 
 public abstract class GeneratorTileEntity extends AbstractMachineTileEntity {
 
+	public static final String KEY_GENERATING = "generating";
+
 	private IEnergyStorage internalEnergyStorage;
 	private IEnergyStorage energyStorage;
 
+	private int generatingCache;
+
 	protected GeneratorTileEntity(TileEntityType<?> type) {
 		super(type);
+	}
+
+	@Override
+	protected void onTickProcessingPost() {
+		super.onTickProcessingPost();
+
+		this.setGenerating(this.generatingCache);
+		this.generatingCache = 0;
 	}
 
 	@Override
@@ -36,7 +48,7 @@ public abstract class GeneratorTileEntity extends AbstractMachineTileEntity {
 	protected abstract void generateEnergy();
 
 	protected void generateEnergy(int energy) {
-		this.getInternalEnergyStorage().receiveEnergy(energy, false);
+		this.generatingCache += this.getInternalEnergyStorage().receiveEnergy(energy, false);
 		this.setProcessedInThisTick();
 	}
 
@@ -107,4 +119,22 @@ public abstract class GeneratorTileEntity extends AbstractMachineTileEntity {
 		return this.energyStorage;
 	}
 
+	public int getGenerating() {
+		return this.getTileData().getInt(KEY_GENERATING);
+	}
+
+	public void setGenerating(int generating) {
+		generating = Math.max(generating, 0);
+
+		if (this.getGenerating() != generating) {
+			this.getTileData().putInt(KEY_GENERATING, generating);
+			this.markDirty();
+		}
+	}
+
+	public double getGeneratingRatio() {
+		return (double) this.getGenerating() / (double) this.getMaxGeneration();
+	}
+
+	public abstract int getMaxGeneration();
 }

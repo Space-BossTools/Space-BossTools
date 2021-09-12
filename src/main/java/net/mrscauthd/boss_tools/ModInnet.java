@@ -50,7 +50,7 @@ import net.mrscauthd.boss_tools.flag.*;
 import net.mrscauthd.boss_tools.fluid.FuelFluid;
 import net.mrscauthd.boss_tools.item.HammerItem;
 import net.mrscauthd.boss_tools.armor.NetheriteSpaceSuit;
-import net.mrscauthd.boss_tools.world.biomes.BiomeRegisrtyEvents;
+import net.mrscauthd.boss_tools.world.biomes.BiomeRegistry;
 import net.mrscauthd.boss_tools.events.Config;
 import net.mrscauthd.boss_tools.feature.MarsIceSpikeFeature;
 import net.mrscauthd.boss_tools.feature.VenusDeltas;
@@ -83,10 +83,10 @@ import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = "boss_tools", bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModInnet {
-    //Entity
+
     public static final DeferredRegister<EntityType<?>> ENTITYS = DeferredRegister.create(ForgeRegistries.ENTITIES, "boss_tools");
-    //Tile Entity DeferredRegister
-    public static DeferredRegister<TileEntityType<?>> TILE_ENTITYS = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, "boss_tools");
+
+    public static final DeferredRegister<TileEntityType<?>> TILE_ENTITYS = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, "boss_tools");
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, "boss_tools");
 
@@ -341,12 +341,9 @@ public class ModInnet {
             STStructures.setupStructures();
             STStructures2.setupStructures();
             STConfiguredStructures.registerConfiguredStructures();
-            //Meteor
-            //STStructures.setupStructures();
-            //STConfiguredStructures.registerConfiguredStructures();
         });
     }
-    //@SubscribeEvent
+
     public static void biomeModification(final BiomeLoadingEvent event) {
         RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
         if (event.getName().equals(new ResourceLocation("boss_tools:moon_biome")) && Config.AlienVillageStructure == true) {
@@ -458,25 +455,20 @@ public class ModInnet {
 
             BossToolsRecipeTypes.init();
 
-            ICE_SPIKE = register("ice_spike1",
-                    ModInnet.MARS_ICE_SPIKE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(2));
+            ICE_SPIKE = register("ice_spike1", ModInnet.MARS_ICE_SPIKE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(2));
             //Venus Deltas
-            DELTAS = register("deltas1",
-                    ModInnet.VENUS_DELTAS.withConfiguration(new ColumnConfig(FeatureSpread.func_242252_a(1), FeatureSpread.func_242253_a(1, 8)))
-                            .withPlacement(Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(4))));
+            DELTAS = register("deltas1", ModInnet.VENUS_DELTAS.withConfiguration(new ColumnConfig(FeatureSpread.func_242252_a(1), FeatureSpread.func_242253_a(1, 8))).withPlacement(Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(4))));
             //Venus Deltas2
-            DELTAS2 = register("deltas2",
-                    ModInnet.VENUS_DELTAS.withConfiguration(new ColumnConfig(FeatureSpread.func_242253_a(2, 1), FeatureSpread.func_242253_a(5, 6)))
-                            .withPlacement(Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(1))));
+            DELTAS2 = register("deltas2", ModInnet.VENUS_DELTAS.withConfiguration(new ColumnConfig(FeatureSpread.func_242253_a(2, 1), FeatureSpread.func_242253_a(5, 6))).withPlacement(Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(1))));
         });
     }
-    //@SubscribeEvent
+
     public static void biomesLoading(final BiomeLoadingEvent event){
-        if(event.getName().getPath().equals(BiomeRegisrtyEvents.mars_ice_spike_biome.getRegistryName().getPath())){
+        if(event.getName().getPath().equals(BiomeRegistry.mars_ice_spike.getRegistryName().getPath())){
             event.getGeneration().withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ICE_SPIKE);
         }
         //Venus Deltas
-        if(event.getName().getPath().equals(BiomeRegisrtyEvents.infernal_venus_barrens_biome.getRegistryName().getPath())){
+        if(event.getName().getPath().equals(BiomeRegistry.infernal_venus_barrens.getRegistryName().getPath())){
             event.getGeneration().withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, DELTAS);
             event.getGeneration().withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, DELTAS2);
         }

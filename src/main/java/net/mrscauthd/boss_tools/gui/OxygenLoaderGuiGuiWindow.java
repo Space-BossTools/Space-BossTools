@@ -32,6 +32,7 @@ public class OxygenLoaderGuiGuiWindow extends ContainerScreen<OxygenLoaderGuiGui
 		this.tileEntity = container.getTileEntity();
 		this.xSize = 176;
 		this.ySize = 167;
+		this.playerInventoryTitleY = this.ySize - 92;
 	}
 
 	@Override
@@ -54,12 +55,6 @@ public class OxygenLoaderGuiGuiWindow extends ContainerScreen<OxygenLoaderGuiGui
 		AbstractGui.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
 		GuiHelper.drawOxygen(ms, this.guiLeft + OXYGEN_LEFT, this.guiTop + OXYGEN_TOP, tileEntity.getOxygenPowerSystem().getStoredRatio());
 		GuiHelper.drawEnergy(ms, this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP, tileEntity.getPrimaryEnergyStorage());
-	}
-
-	@Override
-	protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
-		this.font.drawString(ms, "Oxygen Loader", 45, 5, 0x333333);
-		this.font.drawString(ms, "Inventory", 6, 74, 0x333333);
 	}
 
 	public Rectangle2d getEnergyBounds() {
