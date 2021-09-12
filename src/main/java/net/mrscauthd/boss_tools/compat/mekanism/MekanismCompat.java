@@ -1,6 +1,7 @@
-package net.mrscauthd.boss_tools.compat;
+package net.mrscauthd.boss_tools.compat.mekanism;
 
 import net.minecraft.util.ResourceLocation;
+import net.mrscauthd.boss_tools.compat.CompatibleMod;
 
 public class MekanismCompat extends CompatibleMod {
 	public static final String MODID = "mekanism";

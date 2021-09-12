@@ -2,21 +2,15 @@ package net.mrscauthd.boss_tools.machines.tile;
 
 import java.util.List;
 
-import mekanism.api.Action;
-import mekanism.api.chemical.gas.GasStack;
-import mekanism.api.chemical.gas.IGasHandler;
 import mekanism.common.capabilities.Capabilities;
-import mekanism.common.registries.MekanismGases;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.mrscauthd.boss_tools.capability.GasHandlerEmpty;
 import net.mrscauthd.boss_tools.compat.CompatibleManager;
+import net.mrscauthd.boss_tools.compat.mekanism.MekanismHelper;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipe;
@@ -58,31 +52,7 @@ public abstract class PowerSystemFuelOxygen extends PowerSystemFuel {
 
 	public int extractNearGas(int amount, boolean simulate) {
 		if (CompatibleManager.MEKANISM.isLoaded()) {
-			AbstractMachineTileEntity tileEntity = this.getTileEntity();
-			BlockPos pos = tileEntity.getPos();
-			World world = tileEntity.getWorld();
-			int extractedAmount = 0;
-
-			for (Direction direction : Direction.values()) {
-				if (amount <= 0) {
-					break;
-				} else {
-					BlockPos nearPos = pos.offset(direction);
-					TileEntity nearTileEntity = world.getTileEntity(nearPos);
-
-					if (nearTileEntity != null) {
-						IGasHandler gasHandler = nearTileEntity.getCapability(Capabilities.GAS_HANDLER_CAPABILITY, direction.getOpposite()).orElse(null);
-
-						if (gasHandler != null) {
-							GasStack extracted = gasHandler.extractChemical(new GasStack(MekanismGases.OXYGEN, amount), Action.get(!simulate));
-							amount -= extracted.getAmount();
-							extractedAmount += extracted.getAmount();
-						}
-					}
-				}
-			}
-
-			return extractedAmount;
+			return MekanismHelper.extracteNearOxygen(this.getTileEntity(), amount, simulate);
 		} else {
 			return 0;
 		}

@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import net.mrscauthd.boss_tools.compat.hwyla.HwylaCompat;
+import net.mrscauthd.boss_tools.compat.mekanism.MekanismCompat;
 import net.mrscauthd.boss_tools.compat.theoneprobe.TOPCompat;
 import net.mrscauthd.boss_tools.compat.tinkers.TinkersCompat;
 
