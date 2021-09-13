@@ -9,7 +9,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.common.util.LazyOptional;
 import net.mrscauthd.boss_tools.gauge.GaugeData;
 
 public abstract class PowerSystem implements INBTSerializable<CompoundNBT> {
@@ -18,8 +20,8 @@ public abstract class PowerSystem implements INBTSerializable<CompoundNBT> {
 	public PowerSystem(AbstractMachineTileEntity tileEntity) {
 		this.tileEntity = tileEntity;
 	}
-	
-	public List<GaugeData> getGaugeDataList(){
+
+	public List<GaugeData> getGaugeDataList() {
 		return new ArrayList<>();
 	}
 
@@ -34,7 +36,8 @@ public abstract class PowerSystem implements INBTSerializable<CompoundNBT> {
 	}
 
 	public boolean isPowerEnoughForOperation() {
-		return this.getStored() >= this.getPowerPerTick() + this.getPowerForOperation();
+		int require = this.getPowerPerTick() + this.getPowerForOperation();
+		return this.extract(require, true) >= require;
 	}
 
 	public int consumeForOperation() {
@@ -122,4 +125,8 @@ public abstract class PowerSystem implements INBTSerializable<CompoundNBT> {
 	}
 
 	public abstract ResourceLocation getName();
+
+	public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
+		return LazyOptional.empty();
+	}
 }
