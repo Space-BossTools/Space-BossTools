@@ -177,22 +177,17 @@ public class CoalGeneratorBlock {
 		}
 
 		@Override
-		public ITextComponent getDefaultName() {
-			return new StringTextComponent("coal_generator");
-		}
-
-		@Override
 		public Container createMenu(int id, PlayerInventory player) {
 			return new GeneratorGUIGui.GuiContainerMod(id, player, this);
 		}
 
 		@Override
-		public ITextComponent getDisplayName() {
-			return new StringTextComponent("Coal Generator");
+		public int getMaxGeneration() {
+			return ENERGY_PER_TICK;
 		}
 
-		public int getGeneratePerTick() {
-			return ENERGY_PER_TICK;
+		protected int getGenerationInTick() {
+			return this.getMaxGeneration();
 		}
 
 		@Override
@@ -202,7 +197,7 @@ public class CoalGeneratorBlock {
 
 		@Override
 		protected void generateEnergy() {
-			this.generateEnergy(this.getGeneratePerTick());
+			this.generateEnergy(this.getGenerationInTick());
 		}
 
 		@Override

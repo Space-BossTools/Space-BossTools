@@ -21,7 +21,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.block.CoalLanternBlock;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = "boss_tools")
 public class CoalTorchEvents {
     //RightClickonBlock Event
     @SubscribeEvent

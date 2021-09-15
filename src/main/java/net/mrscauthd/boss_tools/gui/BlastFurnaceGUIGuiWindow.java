@@ -31,6 +31,7 @@ public class BlastFurnaceGUIGuiWindow extends ContainerScreen<BlastFurnaceGUIGui
 		this.tileEntity = container.getTileEntity();
 		this.xSize = 177;
 		this.ySize = 172;
+		this.playerInventoryTitleY = this.ySize - 95;
 	}
 
 	@Override
@@ -53,12 +54,6 @@ public class BlastFurnaceGUIGuiWindow extends ContainerScreen<BlastFurnaceGUIGui
 		AbstractGui.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
 		GuiHelper.drawFire(ms, this.guiLeft + FIRE_LEFT, this.guiTop + FIRE_TOP, tileEntity.getPowerSystemBurnTime().getStoredRatio());
 		GuiHelper.drawArrow(ms, this.guiLeft + ARROW_LEFT, this.guiTop + ARROW_TOP, tileEntity.getTimerRatio());
-	}
-
-	@Override
-	protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
-		this.font.drawString(ms, "Blast Furnace", 54, 5, 0x333333);
-		this.font.drawString(ms, "Inventory", 7, 76, 0x333333);
 	}
 
 	public CustomTileEntity getTileEntity() {

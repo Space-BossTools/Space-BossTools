@@ -36,7 +36,7 @@
       },
       "biomes": [
         {
-          "biome": "boss_tools:moon_biome",
+          "biome": "boss_tools:moon",
           "parameters": {
             "temperature": 0,
             "humidity": 0,

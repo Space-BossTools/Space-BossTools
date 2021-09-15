@@ -15,8 +15,6 @@ import net.minecraft.block.HorizontalBlock;
 import net.minecraft.block.IWaterLoggable;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -25,9 +23,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.loot.LootContext;
@@ -37,7 +33,6 @@ import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -51,27 +46,17 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.ObjectHolder;
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
@@ -79,17 +64,11 @@ import net.mrscauthd.boss_tools.crafting.RocketPart;
 import net.mrscauthd.boss_tools.crafting.WorkbenchingRecipe;
 import net.mrscauthd.boss_tools.gui.NasaWorkbenchGui;
 import net.mrscauthd.boss_tools.inventory.ItemHandlerHelper2;
-import net.mrscauthd.boss_tools.inventory.StackCacher;
 import net.mrscauthd.boss_tools.inventory.RocketPartsItemHandler;
-import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
+import net.mrscauthd.boss_tools.inventory.StackCacher;
 import net.mrscauthd.boss_tools.machines.tile.AbstractMachineTileEntity;
 
-@BossToolsModElements.ModElement.Tag
-public class NASAWorkbenchBlock extends BossToolsModElements.ModElement {
-	@ObjectHolder("boss_tools:nasa_workbench")
-	public static final Block block = null;
-	@ObjectHolder("boss_tools:nasa_workbench")
-	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
+public class NASAWorkbenchBlock {
 
 	public static final int SLOT_PARTS = 0;
 
@@ -108,30 +87,6 @@ public class NASAWorkbenchBlock extends BossToolsModElements.ModElement {
 		return getBasicPartOrders().stream().collect(Collectors.summingInt(p -> p.getSlots()));
 	}
 
-	public NASAWorkbenchBlock(BossToolsModElements instance) {
-		super(instance, 69);
-		FMLJavaModLoadingContext.get().getModEventBus().register(new TileEntityRegisterHandler());
-	}
-
-	@Override
-	public void initElements() {
-		elements.blocks.add(() -> new CustomBlock());
-		elements.items.add(() -> new BlockItem(block, new Item.Properties().group(BossToolsItemGroups.tab_machines)).setRegistryName(block.getRegistryName()));
-	}
-
-	private static class TileEntityRegisterHandler {
-		@SubscribeEvent
-		public void registerTileEntity(RegistryEvent.Register<TileEntityType<?>> event) {
-			event.getRegistry().register(TileEntityType.Builder.create(CustomTileEntity::new, block).build(null).setRegistryName("nasa_workbench"));
-		}
-	}
-
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void clientLoad(FMLClientSetupEvent event) {
-		RenderTypeLookup.setRenderLayer(block, RenderType.getCutout());
-	}
-
 	public static class CustomBlock extends Block implements IWaterLoggable {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 		public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -139,7 +94,6 @@ public class NASAWorkbenchBlock extends BossToolsModElements.ModElement {
 		public CustomBlock() {
 			super(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 1f).setLightLevel(s -> 1).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool().notSolid().setOpaque((bs, br, bp) -> false));
 			this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(WATERLOGGED, false));
-			setRegistryName("nasa_workbench");
 		}
 
 		@Override
@@ -278,8 +232,8 @@ public class NASAWorkbenchBlock extends BossToolsModElements.ModElement {
 
 		private RocketPartsItemHandler partsItemHandler;
 
-		protected CustomTileEntity() {
-			super(tileEntityType);
+		public CustomTileEntity() {
+			super(ModInnet.NASA_WORKBENCH.get());
 
 			this.itemStackCacher = new StackCacher();
 			this.cachedRecipe = null;
@@ -315,11 +269,6 @@ public class NASAWorkbenchBlock extends BossToolsModElements.ModElement {
 		}
 
 		@Override
-		public ITextComponent getDefaultName() {
-			return new StringTextComponent("nasa_workbench");
-		}
-
-		@Override
 		public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
 			super.setInventorySlotContents(p_70299_1_, p_70299_2_);
 			this.cacheRecipes();
@@ -328,11 +277,6 @@ public class NASAWorkbenchBlock extends BossToolsModElements.ModElement {
 		@Override
 		public Container createMenu(int id, PlayerInventory player) {
 			return new NasaWorkbenchGui.GuiContainerMod(id, player, this);
-		}
-
-		@Override
-		public ITextComponent getDisplayName() {
-			return new StringTextComponent("�dNASA Workbench");
 		}
 
 		@Override

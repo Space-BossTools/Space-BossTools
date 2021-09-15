@@ -16,7 +16,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = "boss_tools",bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Config {
 	public static boolean AlienSpawing = true;
 	public static boolean AlienVillageStructure = true;

@@ -36,7 +36,7 @@ import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = "boss_tools")
 public class Events {
     public static double counter = 1;
     public static boolean check = false;
@@ -150,15 +150,11 @@ public class Events {
         PlayerModel model = event.getModelPlayer();
         //Player Rocket Sit Rotations
         if (Methodes.RocketCheckOr(player.getRidingEntity()) == true) {
-            model.bipedRightLeg.rotationPointY = (float) Math.toRadians(485F);
-            model.bipedLeftLeg.rotationPointY = (float) Math.toRadians(485F);
             model.bipedRightLeg.rotateAngleX = (float) Math.toRadians(0F);
             model.bipedLeftLeg.rotateAngleX = (float) Math.toRadians(0F);
             model.bipedLeftLeg.rotateAngleY = (float) Math.toRadians(3F);
             model.bipedRightLeg.rotateAngleY = (float) Math.toRadians(3F);
             // Arms
-            model.bipedRightArm.rotationPointX = (float) Math.toRadians(-250F);// -200
-            model.bipedLeftArm.rotationPointX = (float) Math.toRadians(250F);
             model.bipedLeftArm.rotateAngleX = -0.07f;
             model.bipedRightArm.rotateAngleX = -0.07f;
         }

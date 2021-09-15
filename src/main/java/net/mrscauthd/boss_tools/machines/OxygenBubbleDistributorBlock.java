@@ -17,9 +17,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
 import net.minecraft.nbt.CompoundNBT;
@@ -30,7 +28,6 @@ import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -49,29 +46,17 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import net.minecraftforge.fml.network.NetworkHooks;
-import net.minecraftforge.registries.ObjectHolder;
-import net.mrscauthd.boss_tools.BossToolsMod;
-import net.mrscauthd.boss_tools.BossToolsModElements;
-import net.mrscauthd.boss_tools.gui.OxygenBulletGeneratorGUIGui;
-import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
+import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.gui.OxygenBubbleDistributorGUI;
 import net.mrscauthd.boss_tools.machines.tile.NamedComponentRegistry;
 import net.mrscauthd.boss_tools.machines.tile.OxygenUsingTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemEnergyCommon;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemRegistry;
 
-@BossToolsModElements.ModElement.Tag
-public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
-	@ObjectHolder("boss_tools:oxygen_bullet_generator")
-	public static final Block block = null;
-
-	@ObjectHolder("boss_tools:oxygen_bullet_generator")
-	public static final TileEntityType<CustomTileEntity> tileEntityType = null;
+public class OxygenBubbleDistributorBlock {
 
 	public static final int SLOT_ACTIVATING = 0;
 	public static final int ENERGY_PER_TICK = 1;
@@ -84,25 +69,6 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 	 */
 	public static final int MAX_TIMER = 2;
 
-	public OxygenGeneratorBlock(BossToolsModElements instance) {
-		super(instance, 76);
-		FMLJavaModLoadingContext.get().getModEventBus().register(new TileEntityRegisterHandler());
-		BossToolsMod.addNetworkMessage(SetLargeMessage.class, SetLargeMessage::encode, SetLargeMessage::decode, SetLargeMessage::handle);
-	}
-
-	@Override
-	public void initElements() {
-		elements.blocks.add(() -> new CustomBlock());
-		elements.items.add(() -> new BlockItem(block, new Item.Properties().group(BossToolsItemGroups.tab_machines)).setRegistryName(block.getRegistryName()));
-	}
-
-	private static class TileEntityRegisterHandler {
-		@SubscribeEvent
-		public void registerTileEntity(RegistryEvent.Register<TileEntityType<?>> event) {
-			event.getRegistry().register(TileEntityType.Builder.create(CustomTileEntity::new, block).build(null).setRegistryName("oxygen_bullet_generator"));
-		}
-	}
-
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 		public static final BooleanProperty ACTIAVATED = BlockStateProperties.LIT;
@@ -110,7 +76,6 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 		public CustomBlock() {
 			super(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 1f).setLightLevel(s -> 0).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool());
 			this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(ACTIAVATED, Boolean.valueOf(false)));
-			setRegistryName("oxygen_bullet_generator");
 		}
 
 		@Override
@@ -224,8 +189,8 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 
 	public static class CustomTileEntity extends OxygenUsingTileEntity {
 
-		protected CustomTileEntity() {
-			super(tileEntityType);
+		public CustomTileEntity() {
+			super(ModInnet.OXYGEN_BUBBLE_DISTRIBUTOR.get());
 		}
 
 		@OnlyIn(Dist.CLIENT)
@@ -240,18 +205,8 @@ public class OxygenGeneratorBlock extends BossToolsModElements.ModElement {
 		}
 
 		@Override
-		public ITextComponent getDefaultName() {
-			return new StringTextComponent("oxygen_bullet_generator");
-		}
-
-		@Override
 		public Container createMenu(int id, PlayerInventory player) {
-			return new OxygenBulletGeneratorGUIGui.GuiContainerMod(id, player, this);
-		}
-
-		@Override
-		public ITextComponent getDisplayName() {
-			return new StringTextComponent("Oxygen Bullet Generator");
+			return new OxygenBubbleDistributorGUI.GuiContainerMod(id, player, this);
 		}
 
 		@Override

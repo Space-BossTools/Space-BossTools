@@ -61,7 +61,7 @@
   "itemGroup.tab_materials": "Space-Bosstools: Materials",
 
   "block.boss_tools.coal_lantern": "Coal Lantern",
-  "block.boss_tools.oxygen_bullet_generator": "Oxygen Bullet Generator",
+  "block.boss_tools.oxygen_bubble_distributor": "Oxygen Bubble Distributor",
   "block.boss_tools.block_of_blue_iron_plating": "Block of Blue Iron Plating",
   "block.boss_tools.mercury_iron_ore": "Mercury Iron Ore",
   "block.boss_tools.fuel": "Fuel",
@@ -139,6 +139,7 @@
   "entity.boss_tools.rocket_t1": "Tier 1 Rocket",
   "entity.boss_tools.rocket_t2": "Tier 2 Rocket",
   "entity.boss_tools.rocket_t3": "Tier 3 Rocket",
+  "entity.boss_tools.lander": "Lander",
   "entity.boss_tools.rover": "Rover",
 
   "biome.boss_tools.orbit": "Orbit Biome",
@@ -190,6 +191,31 @@
   "fluid.boss_tools.molten_silicon": "Molten Silicon",
   "fluid.boss_tools.flowing_molten_silicon": "Flowing Molten Silicon",
   "item.boss_tools.molten_silicon_bucket": "Molten Silicon Bucket",
+  
+  "container.boss_tools.blast_furnace": "Blast Furnace",
+  "container.boss_tools.coal_generator": "Coal Generator",
+  "container.boss_tools.compressor": "Compressor",
+  "container.boss_tools.fuel_refinery": "Fuel Refinery",
+  "container.boss_tools.nasa_workbench": "NASA Workbench",
+  "container.boss_tools.oxygen_bubble_distributor": "Oxygen Bubble Distributor",
+  "container.boss_tools.oxygen_loader": "Oxygen Loader",
+  "container.boss_tools.solar_panel": "Solar Panel",
+  
+  "category.boss_tools.oxygenmaking": "Oxygen Making",
+  "category.boss_tools.oxygenloading": "Oxygen Loading",
+  
+  "gague_text.boss_tools.using": "%1$s Using: %2$s/t",
+  "gague_text.boss_tools.generating": "%1$s Generating: %2$s/t",
+  "gague_text.boss_tools.maxgeneration": "Max. %1$s Generation: %2$s/t",
+  "gague_text.boss_tools.total": "Total %1S: %2$s",
+  "gague_text.boss_tools.stored": "Stored %1$s: %2$s",
+  "gague_text.boss_tools.capacity": "%1$s Capacity: %2$s",
+  
+  "gague.boss_tools.energy": "Energy",
+  "gague.boss_tools.oxygen": "Oxygen",
+  "gague.boss_tools.burntime": "Burn Time",
+  "gague.boss_tools.cooktime": "Cook Time",
+  "gague.boss_tools.oxygenloading": "Loading",
   
   "_eof": "eof"
 }

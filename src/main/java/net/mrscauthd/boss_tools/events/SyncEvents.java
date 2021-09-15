@@ -17,10 +17,11 @@ import net.minecraft.client.Minecraft;
 
 import java.util.function.Supplier;
 
-public class SyncEvents { //In Future get it Removed
+public class SyncEvents { //TODO In Future get it Removed
 	//OxygenBulletGeneratorSyncEvent
 	@Mod.EventBusSubscriber
 	public static class OxygenBulletGeneratorSyncEvent {
+		
 		// packages System
 		public static class NetworkLoader {
 			public static SimpleChannel INSTANCE;

@@ -15,6 +15,6 @@ public class RocketTier1Renderer extends MobRenderer<RocketTier1Entity, RocketTi
 
     @Override
     public ResourceLocation getEntityTexture(RocketTier1Entity entity) {
-        return new ResourceLocation("boss_tools:textures/rockettier1newnew.png");
+        return new ResourceLocation("boss_tools:textures/rockets/tier_1_rocket.png");
     }
 }

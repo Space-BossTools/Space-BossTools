@@ -20,12 +20,13 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
+import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
-import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock;
-import net.mrscauthd.boss_tools.machines.OxygenGeneratorBlock.CustomTileEntity;
+import net.mrscauthd.boss_tools.machines.OxygenBubbleDistributorBlock;
+import net.mrscauthd.boss_tools.machines.OxygenBubbleDistributorBlock.CustomTileEntity;
 
 @OnlyIn(Dist.CLIENT)
-public class OxygenBulletGeneratorGUIGuiWindow extends ContainerScreen<OxygenBulletGeneratorGUIGui.GuiContainerMod> {
+public class OxygenBubbleDistributorGUIWindow extends ContainerScreen<OxygenBubbleDistributorGUI.GuiContainerMod> {
 	public static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/oxygen_bullet_generator_gui.png");
 	public static final int OXYGEN_LEFT = 76;
 	public static final int OXYGEN_TOP = 28;
@@ -34,11 +35,12 @@ public class OxygenBulletGeneratorGUIGuiWindow extends ContainerScreen<OxygenBul
 
 	private CustomTileEntity tileEntity;
 
-	public OxygenBulletGeneratorGUIGuiWindow(OxygenBulletGeneratorGUIGui.GuiContainerMod container, PlayerInventory inventory, ITextComponent text) {
+	public OxygenBubbleDistributorGUIWindow(OxygenBubbleDistributorGUI.GuiContainerMod container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
 		this.tileEntity = container.getTileEntity();
 		this.xSize = 176;
 		this.ySize = 167;
+		this.playerInventoryTitleY = this.ySize - 92;
 	}
 
 	@Override
@@ -69,18 +71,18 @@ public class OxygenBulletGeneratorGUIGuiWindow extends ContainerScreen<OxygenBul
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
+		super.drawGuiContainerForegroundLayer(ms, mouseX, mouseY);
+		
 		double range = this.getTileEntity().getRange();
 		NumberFormat numberInstance = NumberFormat.getNumberInstance();
 		numberInstance.setMaximumFractionDigits(2);
 		String rangeToString = numberInstance.format(range);
 
-		String oxygenText = "Using: " + tileEntity.getOxygenPowerSystem().getPowerForOperation() + " Oxygen/t";
-		int oxygenWidth = this.font.getStringWidth(oxygenText);
+		ITextComponent oxygenText = GaugeTextHelper.getUsingText(GaugeDataHelper.getOxygen(this.getTileEntity().getOxygenPowerSystem().getPowerForOperation()));
+		int oxygenWidth = this.font.getStringPropertyWidth(oxygenText);
 
-		this.font.drawString(ms, "Oxygen Generator", 37, 5, 0x333333);
-		this.font.drawString(ms, "Inventory", 6, 74, 0x333333);
 		this.font.drawString(ms, String.format("%sx%s", rangeToString, rangeToString), 12, -8, 0x339900);
-		this.font.drawString(ms, oxygenText, this.xSize - oxygenWidth - 5, 74, 0x333333);
+		this.font.func_243248_b(ms, oxygenText, this.xSize - oxygenWidth - 5, this.playerInventoryTitleY, 0x333333);
 	}
 
 	@Override
@@ -89,11 +91,11 @@ public class OxygenBulletGeneratorGUIGuiWindow extends ContainerScreen<OxygenBul
 
 		this.addButton(new Button(this.guiLeft - 20, this.guiTop + 25, 20, 20, new StringTextComponent("-"), e -> {
 			BlockPos pos = this.getTileEntity().getPos();
-			BossToolsMod.PACKET_HANDLER.sendToServer(new OxygenGeneratorBlock.SetLargeMessage(pos, false));
+			BossToolsMod.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlock.SetLargeMessage(pos, false));
 		}));
 		this.addButton(new Button(this.guiLeft - 20, this.guiTop + 5, 20, 20, new StringTextComponent("+"), e -> {
 			BlockPos pos = this.getTileEntity().getPos();
-			BossToolsMod.PACKET_HANDLER.sendToServer(new OxygenGeneratorBlock.SetLargeMessage(pos, true));
+			BossToolsMod.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlock.SetLargeMessage(pos, true));
 		}));
 	}
 

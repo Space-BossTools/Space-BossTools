@@ -12,6 +12,8 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
+import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
 import net.mrscauthd.boss_tools.machines.SolarPanelBlock.CustomTileEntity;
 
 @OnlyIn(Dist.CLIENT)
@@ -25,6 +27,7 @@ public class SolarPanelGUIGuiWindow extends ContainerScreen<SolarPanelGUIGui.Gui
 		this.tileEntity = container.getTileEntity();
 		this.xSize = 176;
 		this.ySize = 166;
+		this.playerInventoryTitleY = this.ySize - 92;
 	}
 
 	@Override
@@ -43,16 +46,14 @@ public class SolarPanelGUIGuiWindow extends ContainerScreen<SolarPanelGUIGui.Gui
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
+		super.drawGuiContainerForegroundLayer(ms, mouseX, mouseY);
 
 		CustomTileEntity tileEntity = this.getTileEntity();
 		IEnergyStorage energyStorage = tileEntity.getPrimaryEnergyStorage();
 
-		this.font.drawString(ms, "Solar Panel", 58, 5, 0x333333);
-		this.font.drawString(ms, "Charge: " + energyStorage.getEnergyStored() + " FE", 7, 26, 0x3C3C3C);
-		this.font.drawString(ms, "Capacity: " + energyStorage.getMaxEnergyStored() + " FE", 7, 38, 0x3C3C3C);
-		this.font.drawString(ms, "Generation: " + tileEntity.getGeneratePerTick() + " FE/t", 7, 50, 0x3C3C3C);
-
-		this.font.drawString(ms, "Inventory", 6, 73, 0x333333);
+		this.font.func_243248_b(ms, GaugeTextHelper.getStoredText(GaugeDataHelper.getEnergy(energyStorage.getEnergyStored())), this.titleX, 28, 0x3C3C3C);
+		this.font.func_243248_b(ms, GaugeTextHelper.getCapacityText(GaugeDataHelper.getEnergy(energyStorage.getMaxEnergyStored())), this.titleX, 40, 0x3C3C3C);
+		this.font.func_243248_b(ms, GaugeTextHelper.getMaxGenerationText(GaugeDataHelper.getEnergy(tileEntity.getMaxGeneration())), this.titleX, 52, 0x3C3C3C);
 	}
 
 	public CustomTileEntity getTileEntity() {

@@ -2,10 +2,10 @@ package net.mrscauthd.boss_tools;
 
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.mrscauthd.boss_tools.world.biomes.BiomeRegisrtyEvents;
 import net.mrscauthd.boss_tools.compat.CompatibleManager;
 import net.mrscauthd.boss_tools.events.SyncEvents;
 import net.mrscauthd.boss_tools.keybind.KeyBindings;
+import net.mrscauthd.boss_tools.machines.OxygenBubbleDistributorBlock;
 import net.mrscauthd.boss_tools.world.structure.configuration.STStructures;
 import net.mrscauthd.boss_tools.world.structure.configuration.STStructures2;
 import org.apache.logging.log4j.Logger;
@@ -55,8 +55,8 @@ public class BossToolsMod {
 
 
 		// SyncEvent Registers
-		SyncEvents.OxygenBulletGeneratorSyncEvent.NetworkLoader.registerMessages();
-		SyncEvents.PlayerMovementSyncEvent.NetworkLoader.registerMessages();
+		SyncEvents.OxygenBulletGeneratorSyncEvent.NetworkLoader.registerMessages(); //TODO IN FUTURE REMOVED
+		SyncEvents.PlayerMovementSyncEvent.NetworkLoader.registerMessages(); //TODO IN FUTURE REMOVED
 
 		// MobInnet
 		MinecraftForge.EVENT_BUS.register(this);
@@ -70,7 +70,7 @@ public class BossToolsMod {
 		ModInnet.RECIPE_SERIALIZERS.register(bus);
 		ModInnet.ROCKET_PARTS.register(bus);
         
-		bus.addListener(ModInnet::setup);
+		//bus.addListener(ModInnet::setup);
 		forgeBus.addListener(EventPriority.NORMAL, ModInnet::addDimensionalSpacing);
 		forgeBus.addListener(EventPriority.HIGH, ModInnet::biomeModification);
 		// Structures
@@ -78,11 +78,12 @@ public class BossToolsMod {
 		STStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
 
 		forgeBus.addListener(EventPriority.HIGH, ModInnet::biomesLoading);
-		// Biome Registery Event
-		bus.register(new BiomeRegisrtyEvents.BiomeRegisterHandler());
 
 		// KeyBindings
 		KeyBindings.registerMessages();
+
+		//Networker
+		BossToolsMod.addNetworkMessage(OxygenBubbleDistributorBlock.SetLargeMessage.class, OxygenBubbleDistributorBlock.SetLargeMessage::encode, OxygenBubbleDistributorBlock.SetLargeMessage::decode, OxygenBubbleDistributorBlock.SetLargeMessage::handle);
 
 		CompatibleManager.loadAll();
 	}
