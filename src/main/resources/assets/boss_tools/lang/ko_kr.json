@@ -197,8 +197,8 @@
   "container.boss_tools.compressor": "압축기",
   "container.boss_tools.fuel_refinery": "연료 정제기",
   "container.boss_tools.nasa_workbench": "NASA 작업대",
-  "container.boss_tools.oxygen_loader": "산소 충전기",
   "container.boss_tools.oxygen_bubble_distributor": "산소 기포 분배기",
+  "container.boss_tools.oxygen_loader": "산소 충전기",
   "container.boss_tools.solar_panel": "태양광 발전기",
   
   "category.boss_tools.oxygenmaking": "산소 생성",
