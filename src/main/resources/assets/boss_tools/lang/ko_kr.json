@@ -61,7 +61,7 @@
   "itemGroup.tab_materials": "Space-Bosstools: 재료",
 
   "block.boss_tools.coal_lantern": "석탄 랜턴",
-  "block.boss_tools.oxygen_bubble_distributor": "산소 탄 생성기",
+  "block.boss_tools.oxygen_bubble_distributor": "산소 기포 분배기",
   "block.boss_tools.block_of_blue_iron_plating": "청금 철 판 블록",
   "block.boss_tools.mercury_iron_ore": "수성 철 광석",
   "block.boss_tools.fuel": "연료",
@@ -139,7 +139,7 @@
   "entity.boss_tools.rocket_t1": "1 티어 로켓",
   "entity.boss_tools.rocket_t2": "2 티어 로켓",
   "entity.boss_tools.rocket_t3": "3 티어 로켓",
-  "entity.boss_tools.lander": "Lander",
+  "entity.boss_tools.lander": "착륙선",
   "entity.boss_tools.rover": "로버",
 
   "biome.boss_tools.orbit": "궤도",
@@ -197,7 +197,7 @@
   "container.boss_tools.compressor": "압축기",
   "container.boss_tools.fuel_refinery": "연료 정제기",
   "container.boss_tools.nasa_workbench": "NASA 작업대",
-  "container.boss_tools.oxygen_bubble_distributor": "산소 탄 생성기",
+  "container.boss_tools.oxygen_bubble_distributor": "산소 기포 분배기",
   "container.boss_tools.oxygen_loader": "산소 충전기",
   "container.boss_tools.solar_panel": "태양광 발전기",
   
