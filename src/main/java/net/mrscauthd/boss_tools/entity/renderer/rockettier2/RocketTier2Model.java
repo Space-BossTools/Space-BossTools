@@ -44,10 +44,10 @@ public class RocketTier2Model<T extends RocketTier2Entity> extends EntityModel<T
 		textureHeight = 256;
 
 		rocket = new ModelRenderer(this);
-		rocket.setRotationPoint(0.0F, 24.0F, 0.0F);
+		rocket.setRotationPoint(0.0F, 25.0F, 0.0F);
 		rocket.setTextureOffset(0, 167).addBox(-12.0F, -21.0F, -1.0F, 3.0F, 3.0F, 2.0F, 0.0F, false);
 		rocket.setTextureOffset(184, 0).addBox(-9.0F, -55.0F, -9.0F, 18.0F, 47.0F, 18.0F, 0.0F, false);
-		rocket.setTextureOffset(184, 62).addBox(-9.0F, -10.0F, -9.0F, 18.0F, 0.0F, 18.0F, 0.0F, false);
+		rocket.setTextureOffset(184, 65).addBox(-9.0F, -10.0F, -9.0F, 18.0F, 0.0F, 18.0F, 0.0F, false);
 		rocket.setTextureOffset(36, 23).addBox(-2.0F, -81.0F, -2.0F, 4.0F, 2.0F, 4.0F, 0.0F, false);
 		rocket.setTextureOffset(36, 0).addBox(-2.0F, -94.0F, -2.0F, 4.0F, 4.0F, 4.0F, -0.375F, false);
 		rocket.setTextureOffset(36, 8).addBox(-1.0F, -93.0F, -1.0F, 2.0F, 13.0F, 2.0F, 0.0F, false);
