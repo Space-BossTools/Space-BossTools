@@ -128,7 +128,7 @@
     }
   },
   "textures": {
-    "m_0": "boss_tools:items/tier_1_rocket",
-    "particle": "boss_tools:items/tier_1_rocket"
+    "m_0": "boss_tools:rocket_items/item_rocket_tier_1",
+    "particle": "boss_tools:rocket_items/item_rocket_tier_1"
   }
 }

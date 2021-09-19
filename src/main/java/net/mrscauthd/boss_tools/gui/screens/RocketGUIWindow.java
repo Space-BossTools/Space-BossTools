@@ -1,9 +1,14 @@
 
 package net.mrscauthd.boss_tools.gui.screens;
 
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidTank;
+import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
+import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 import org.lwjgl.opengl.GL11;
 
@@ -98,7 +103,18 @@ public class RocketGUIWindow extends ContainerScreen<RocketGUI.GuiContainerMod> 
 		Minecraft.getInstance().getTextureManager().bindTexture(fuel_bar);
 		this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
 
-		GuiHelper.drawFuel(ms, this.guiLeft + 66, this.guiTop + 21, (double) tank / 300);
+		FluidStack fluidStack = new FluidStack(ModInnet.FUEL_BLOCK.get().getFluid(), 1);
+		drawFluidTank(ms, this.guiLeft + 67, this.guiTop + 22, fluidStack, 300, tank);
+	}
+
+	public static void drawFluidTank(MatrixStack matrixStack, int left, int top, FluidStack stack, int capacity, int amount) {
+		if (stack != null && !stack.isEmpty() && capacity > 0) {
+			int maxHeight = 46;
+			int scaledHeight = (int) Math.ceil(maxHeight * ((double) amount / (double) capacity));
+			int offset = maxHeight - scaledHeight;
+			GuiHelper.drawFluid(matrixStack, left, top + offset, 46, scaledHeight, stack);
+		}
+
 	}
 
 	@Override
