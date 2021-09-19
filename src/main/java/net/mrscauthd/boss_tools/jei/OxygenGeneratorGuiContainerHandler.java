@@ -16,7 +16,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
 import net.mrscauthd.boss_tools.gui.OxygenBubbleDistributorGUIWindow;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
-import net.mrscauthd.boss_tools.jei.JeiPlugin.OxygenMakingJeiCategory;
+import net.mrscauthd.boss_tools.jei.JeiPlugin.OxygenBubbleDistributorJeiCategory;
 
 public class OxygenGeneratorGuiContainerHandler implements IGuiContainerHandler<OxygenBubbleDistributorGUIWindow> {
 
@@ -34,7 +34,7 @@ public class OxygenGeneratorGuiContainerHandler implements IGuiContainerHandler<
 
 			@Override
 			public void onClick(IFocusFactory focusFactory, IRecipesGui recipesGui) {
-				recipesGui.showCategories(Arrays.asList(OxygenMakingJeiCategory.Uid));
+				recipesGui.showCategories(Arrays.asList(OxygenBubbleDistributorJeiCategory.Uid));
 			}
 
 			@Override

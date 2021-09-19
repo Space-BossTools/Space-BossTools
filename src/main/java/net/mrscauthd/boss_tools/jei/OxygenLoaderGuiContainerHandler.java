@@ -17,7 +17,7 @@ import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
 import net.mrscauthd.boss_tools.gui.OxygenLoaderGuiGuiWindow;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 import net.mrscauthd.boss_tools.jei.JeiPlugin.OxygenLoadingJeiCategory;
-import net.mrscauthd.boss_tools.jei.JeiPlugin.OxygenMakingJeiCategory;
+import net.mrscauthd.boss_tools.jei.JeiPlugin.OxygenBubbleDistributorJeiCategory;
 
 public class OxygenLoaderGuiContainerHandler implements IGuiContainerHandler<OxygenLoaderGuiGuiWindow> {
 
@@ -35,7 +35,7 @@ public class OxygenLoaderGuiContainerHandler implements IGuiContainerHandler<Oxy
 
 			@Override
 			public void onClick(IFocusFactory focusFactory, IRecipesGui recipesGui) {
-				recipesGui.showCategories(Arrays.asList(OxygenMakingJeiCategory.Uid, OxygenLoadingJeiCategory.Uid));
+				recipesGui.showCategories(Arrays.asList(OxygenBubbleDistributorJeiCategory.Uid, OxygenLoadingJeiCategory.Uid));
 			}
 
 			@Override

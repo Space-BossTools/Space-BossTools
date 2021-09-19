@@ -16,7 +16,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
 import net.mrscauthd.boss_tools.gui.GeneratorGUIGuiWindow;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
-import net.mrscauthd.boss_tools.jei.JeiPlugin.GeneratorJeiCategory;
+import net.mrscauthd.boss_tools.jei.JeiPlugin.CoalGeneratorJeiCategory;
 
 public class CoalGeneratorGuiContainerHandler implements IGuiContainerHandler<GeneratorGUIGuiWindow> {
 
@@ -34,7 +34,7 @@ public class CoalGeneratorGuiContainerHandler implements IGuiContainerHandler<Ge
 
 			@Override
 			public void onClick(IFocusFactory focusFactory, IRecipesGui recipesGui) {
-				recipesGui.showCategories(Arrays.asList(GeneratorJeiCategory.Uid));
+				recipesGui.showCategories(Arrays.asList(CoalGeneratorJeiCategory.Uid));
 			}
 
 			@Override
