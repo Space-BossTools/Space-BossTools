@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "boss_tools:fuel_bucket",
-    "boss_tools:barrel_of_fuel"
+    "boss_tools:fuel_bucket"
   ]
 }
