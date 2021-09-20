@@ -6,7 +6,7 @@
     "MixinItemGravity"
   ],
   "client": [
-    "ArmorTransluction"
+    "ArmorTranslucent"
   ],
   "injectors": {
     "defaultRequire": 1
