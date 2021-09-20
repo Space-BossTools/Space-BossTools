@@ -1,6 +1,6 @@
-
 package net.mrscauthd.boss_tools.armor;
 
+import net.minecraft.client.renderer.RenderType;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorBodyTickEventProcedure;
 import net.mrscauthd.boss_tools.capability.CapabilityOxygen;
 import net.mrscauthd.boss_tools.capability.IOxygenStorage;
@@ -34,13 +34,14 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import java.util.Map;
 import java.util.List;
 import java.util.HashMap;
+import java.util.function.Function;
 
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 public class SpaceSuit {
 	//Armor Material
-	public static IArmorMaterial armormaterial = new IArmorMaterial() {
+	public static IArmorMaterial ArmorMaterial = new IArmorMaterial() {
 		@Override
 		public int getDurability(EquipmentSlotType slot) {
 			return new int[]{15, 18, 16, 14}[slot.getIndex()] * 10;
@@ -58,7 +59,7 @@ public class SpaceSuit {
 
 		@Override
 		public net.minecraft.util.SoundEvent getSoundEvent() {
-			return (net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("item.armor.equip_leather"));
+			return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("item.armor.equip_leather"));
 		}
 
 		@Override
@@ -84,11 +85,12 @@ public class SpaceSuit {
 	};
 
 	//OXYGEN_MASK
-	public static ArmorItem OXYGEN_MASK = new ArmorItem(armormaterial, EquipmentSlotType.HEAD, new Item.Properties().group(BossToolsItemGroups.tab_normal)) {
+	public static ArmorItem OXYGEN_MASK = new ArmorItem(ArmorMaterial, EquipmentSlotType.HEAD, new Item.Properties().group(BossToolsItemGroups.tab_normal)) {
 		@Override
 		@OnlyIn(Dist.CLIENT)
 		public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
-			BipedModel armorModel = new BipedModel(1);
+			Function<ResourceLocation, RenderType> function = RenderType::getEntityTranslucent;
+			BipedModel armorModel = new BipedModel(function,0,0,64,64);
 			armorModel.bipedHead = new Space_Suit_Part_1().kopf;
 			armorModel.isSneak = living.isSneaking();
 			armorModel.isSitting = defaultModel.isSitting;
@@ -108,7 +110,7 @@ public class SpaceSuit {
 	};
 
 	//SPACE_SUIT
-	public static ArmorItem SPACE_SUIT =  new ArmorItem(armormaterial, EquipmentSlotType.CHEST, new Item.Properties().group(BossToolsItemGroups.tab_normal)) {
+	public static ArmorItem SPACE_SUIT =  new ArmorItem(ArmorMaterial, EquipmentSlotType.CHEST, new Item.Properties().group(BossToolsItemGroups.tab_normal)) {
 		@Override
 		@OnlyIn(Dist.CLIENT)
 		public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
@@ -155,7 +157,7 @@ public class SpaceSuit {
 	};
 
 	//SPACE_PANTS
-	public static ArmorItem SPACE_PANTS = new ArmorItem(armormaterial, EquipmentSlotType.LEGS, new Item.Properties().group(BossToolsItemGroups.tab_normal)) {
+	public static ArmorItem SPACE_PANTS = new ArmorItem(ArmorMaterial, EquipmentSlotType.LEGS, new Item.Properties().group(BossToolsItemGroups.tab_normal)) {
 		@Override
 		@OnlyIn(Dist.CLIENT)
 		public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
@@ -180,7 +182,7 @@ public class SpaceSuit {
 	};
 
 	//SPACE_BOOTS
-	public static ArmorItem SPACE_BOOTS = new ArmorItem(armormaterial, EquipmentSlotType.FEET, new Item.Properties().group(BossToolsItemGroups.tab_normal)) {
+	public static ArmorItem SPACE_BOOTS = new ArmorItem(ArmorMaterial, EquipmentSlotType.FEET, new Item.Properties().group(BossToolsItemGroups.tab_normal)) {
 		@Override
 		@OnlyIn(Dist.CLIENT)
 		public BipedModel getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlotType slot, BipedModel defaultModel) {
@@ -205,14 +207,16 @@ public class SpaceSuit {
 	};
 
 	//SPACE SUIT MODEL PART 1
-	public static class Space_Suit_Part_1 extends EntityModel<Entity> {
+	public static class Space_Suit_Part_1 extends BipedModel<LivingEntity> {
 		private final ModelRenderer kopf;
 		private final ModelRenderer Body;
 		private final ModelRenderer armr;
 		private final ModelRenderer arml;
 		private final ModelRenderer Left_Foot;
 		private final ModelRenderer Right_Foot;
+
 		public Space_Suit_Part_1() {
+			super(RenderType::getEntityTranslucent,0,0,64,64);
 			textureWidth = 64;
 			textureHeight = 64;
 			kopf = new ModelRenderer(this);
@@ -244,12 +248,12 @@ public class SpaceSuit {
 
 		@Override
 		public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-				kopf.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
-				Body.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
-				armr.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
-				arml.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
-				Left_Foot.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
-				Right_Foot.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
+			kopf.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
+			Body.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
+			armr.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
+			arml.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
+			Left_Foot.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
+			Right_Foot.render(matrixStack, buffer, packedLight, packedOverlay, red,green,blue,alpha);
 		}
 
 		public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
@@ -258,8 +262,6 @@ public class SpaceSuit {
 			modelRenderer.rotateAngleZ = z;
 		}
 
-		public void setRotationAngles(Entity e, float f, float f1, float f2, float f3, float f4) {
-		}
 	}
 
 	//SPACE SUIT MODEL PART 2

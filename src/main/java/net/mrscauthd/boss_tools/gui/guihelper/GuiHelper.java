@@ -116,6 +116,16 @@ public class GuiHelper {
 		drawTiledSprite(matrixStack, left, top, width, height, fluidStillSprite, 16, 16);
 	}
 
+	public static void drawRocketFluidTank(MatrixStack matrixStack, int left, int top, FluidStack stack, int capacity, int amount) {
+		if (stack != null && !stack.isEmpty() && capacity > 0) {
+			int maxHeight = 46;
+			int scaledHeight = (int) Math.ceil(maxHeight * ((double) amount / (double) capacity));
+			int offset = maxHeight - scaledHeight;
+			GuiHelper.drawFluid(matrixStack, left, top + offset, 46, scaledHeight, stack);
+		}
+
+	}
+
 	public static void drawFluidHorizontal(MatrixStack matrixStack, int left, int top, int width, int height, FluidStack stack, int capacity) {
 		Fluid fluid = FluidUtil2.getFluid(stack);
 

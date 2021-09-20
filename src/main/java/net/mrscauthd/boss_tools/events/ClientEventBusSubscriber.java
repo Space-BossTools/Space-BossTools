@@ -16,6 +16,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraft.entity.EntityType;
 import net.minecraft.client.Minecraft;
 import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.armor.SpaceSuit;
 import net.mrscauthd.boss_tools.entity.renderer.TileEntityBoxRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.flagtileentity.TileEntityHeadRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.alienzombie.AlienZombieRenderer;

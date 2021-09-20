@@ -5,6 +5,9 @@
   "mixins": [
     "MixinItemGravity"
   ],
+  "client": [
+    "ArmorTransluction"
+  ],
   "injectors": {
     "defaultRequire": 1
   },

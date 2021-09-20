@@ -1,4 +1,3 @@
-
 package net.mrscauthd.boss_tools.armor;
 
 import net.mrscauthd.boss_tools.procedures.SpaceArmorBodyTickEventProcedure;
@@ -58,7 +57,7 @@ public class NetheriteSpaceSuit {
 
 		@Override
 		public net.minecraft.util.SoundEvent getSoundEvent() {
-			return (net.minecraft.util.SoundEvent) ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("item.armor.equip_leather"));
+			return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("item.armor.equip_leather"));
 		}
 
 		@Override
