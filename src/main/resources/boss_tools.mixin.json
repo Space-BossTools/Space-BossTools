@@ -3,7 +3,8 @@
   "package": "net.mrscauthd.boss_tools.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "MixinItemGravity"
+    "MixinItemGravity",
+    "ArmorTransluction"
   ],
   "injectors": {
     "defaultRequire": 1
