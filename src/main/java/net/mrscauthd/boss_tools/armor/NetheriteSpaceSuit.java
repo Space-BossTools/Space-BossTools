@@ -97,7 +97,7 @@ public class NetheriteSpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-			return "boss_tools:textures/netherite_spacesuit_layer_1.png";
+			return "boss_tools:textures/models/armor/netherite_space_suit_head.png";
 		}
 
 		@Override
@@ -138,7 +138,7 @@ public class NetheriteSpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-			return "boss_tools:textures/models/armor/netherite_spacesuit__layer_" + (slot == EquipmentSlotType.LEGS ? "2" : "1") + ".png";
+			return "boss_tools:textures/models/armor/netherite_space_suit.png";
 		}
 
 		@Override
@@ -169,7 +169,7 @@ public class NetheriteSpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-			return "boss_tools:textures/netherite_spacesuit_layer_2.png";
+			return "boss_tools:textures/models/armor/netherite_space_suit_legs.png";
 		}
 
 		@Override
@@ -194,7 +194,7 @@ public class NetheriteSpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-			return "boss_tools:textures/models/armor/netherite_spacesuit__layer_" + (slot == EquipmentSlotType.LEGS ? "2" : "1") + ".png";
+			return "boss_tools:textures/models/armor/netherite_space_suit.png";
 		}
 
 		@Override

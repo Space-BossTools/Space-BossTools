@@ -68,7 +68,7 @@ public class SpaceSuit {
 		@OnlyIn(Dist.CLIENT)
 		@Override
 		public String getName() {
-			return "space_armor";
+			return "space_suit";
 		}
 
 		@Override
@@ -97,7 +97,7 @@ public class SpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-			return "boss_tools:textures/spacesuitmode__layer_1_head.png";
+			return "boss_tools:textures/models/armor/space_suit_head.png";
 		}
 
 		@Override
@@ -138,7 +138,7 @@ public class SpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-			return "boss_tools:textures/models/armor/spacesuitmode__layer_" + (slot == EquipmentSlotType.LEGS ? "2" : "1") + ".png";
+			return "boss_tools:textures/models/armor/space_suit.png";
 		}
 
 		@Override
@@ -169,7 +169,7 @@ public class SpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-			return "boss_tools:textures/spacesuitmode__layer_2.png";
+			return "boss_tools:textures/models/armor/space_suit_legs.png";
 		}
 
 		@Override
@@ -194,7 +194,7 @@ public class SpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-			return "boss_tools:textures/models/armor/spacesuitmode__layer_" + (slot == EquipmentSlotType.LEGS ? "2" : "1") + ".png";
+			return "boss_tools:textures/models/armor/space_suit.png";
 		}
 
 		@Override
