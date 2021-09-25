@@ -1,5 +1,8 @@
 package net.mrscauthd.boss_tools.procedures;
 
+import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.events.Config;
 import net.mrscauthd.boss_tools.armor.SpaceSuit;

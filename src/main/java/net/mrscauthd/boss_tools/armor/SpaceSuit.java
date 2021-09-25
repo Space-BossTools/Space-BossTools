@@ -244,7 +244,6 @@ public class SpaceSuit {
 
 		@Override
 		public void setRotationAngles(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
 		}
 
 		@Override
