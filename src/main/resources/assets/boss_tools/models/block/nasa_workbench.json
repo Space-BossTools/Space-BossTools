@@ -1,5 +1,5 @@
 {
-  "parent": "boss_tools:custom/nasaworkbench",
+  "parent": "boss_tools:custom/nasa_workbench",
   "textures": {
     "all": "boss_tools:blocks/workbench_nasa_top_2",
     "particle": "boss_tools:blocks/workbench_nasa_top_2",

@@ -16,8 +16,11 @@ import net.minecraft.entity.merchant.IMerchant;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.entity.villager.VillagerType;
+import net.minecraft.item.MerchantOffer;
+import net.minecraft.item.MerchantOffers;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.GlobalPos;
 import net.minecraft.village.PointOfInterestType;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
@@ -142,6 +145,12 @@ public class AlienEntity extends VillagerEntity implements IMerchant, INPC {
 	@Override
 	public void tick() {
 		super.tick();
+
+		//this.resetOffersAndAdjustForDemand();
+		//this.func_223718_eH();
+		this.restock();
+
+
 
 		if (Config.AlienSpawing == false) {
 			if (!this.world.isRemote())
