@@ -146,6 +146,7 @@ public class AlienEntity extends VillagerEntity implements IMerchant, INPC {
 	public void func_242367_a(ServerWorld p_242367_1_, long p_242367_2_, int p_242367_4_) {
 	}
 
+	@Override
 	protected void populateTradeData() {
 		VillagerData villagerdata = this.getVillagerData();
 		Int2ObjectMap<AlienTrade.ITrade[]> int2objectmap = AlienTrade.VILLAGER_DEFAULT_TRADES.get(villagerdata.getProfession());
@@ -184,9 +185,8 @@ public class AlienEntity extends VillagerEntity implements IMerchant, INPC {
 	public void tick() {
 		super.tick();
 
-		if (Config.AlienSpawing == false) {
-			if (!this.world.isRemote())
-				this.remove();
+		if (!Config.AlienSpawing) {
+			this.remove();
 		}
 	}
 
