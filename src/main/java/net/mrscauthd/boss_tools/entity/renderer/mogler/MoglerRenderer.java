@@ -1,7 +1,5 @@
 package net.mrscauthd.boss_tools.entity.renderer.mogler;
 
-import net.mrscauthd.boss_tools.entity.renderer.mogler.MoglerModel;
-
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
@@ -12,15 +10,12 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 
 @OnlyIn(Dist.CLIENT)
 public class MoglerRenderer extends MobRenderer<HoglinEntity, MoglerModel<HoglinEntity>> {
-    private static final ResourceLocation field_239382_a_ = new ResourceLocation("boss_tools:textures/moglerium.png");
+    private static final ResourceLocation field_239382_a_ = new ResourceLocation("boss_tools:textures/mogler_entity.png");
 
     public MoglerRenderer(EntityRendererManager p_i232470_1_) {
         super(p_i232470_1_, new MoglerModel<>(), 0.7F);
     }
 
-    /**
-     * Returns the location of an entity's texture.
-     */
     public ResourceLocation getEntityTexture(HoglinEntity entity) {
         return field_239382_a_;
     }

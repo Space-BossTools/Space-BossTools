@@ -2,8 +2,10 @@ package net.mrscauthd.boss_tools.entity.alien;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.memory.MemoryModuleStatus;
@@ -13,14 +15,15 @@ import net.minecraft.entity.ai.brain.schedule.Schedule;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.merchant.IMerchant;
+import net.minecraft.entity.merchant.villager.VillagerData;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
+import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.entity.villager.VillagerType;
 import net.minecraft.item.MerchantOffer;
 import net.minecraft.item.MerchantOffers;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.GlobalPos;
 import net.minecraft.village.PointOfInterestType;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
@@ -36,6 +39,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
 
 public class AlienEntity extends VillagerEntity implements IMerchant, INPC {
 	public static ImmutableList<Pair<Integer, ? extends Task<? super VillagerEntity>>> core(VillagerProfession profession, float p_220638_1_) {
@@ -142,19 +146,48 @@ public class AlienEntity extends VillagerEntity implements IMerchant, INPC {
 	public void func_242367_a(ServerWorld p_242367_1_, long p_242367_2_, int p_242367_4_) {
 	}
 
+	protected void populateTradeData() {
+		VillagerData villagerdata = this.getVillagerData();
+		Int2ObjectMap<AlienTrade.ITrade[]> int2objectmap = AlienTrade.VILLAGER_DEFAULT_TRADES.get(villagerdata.getProfession());
+		if (int2objectmap != null && !int2objectmap.isEmpty()) {
+			AlienTrade.ITrade[] avillagertrades$itrade = int2objectmap.get(villagerdata.getLevel());
+			if (avillagertrades$itrade != null) {
+				MerchantOffers merchantoffers = this.getOffers();
+				this.addTrades(merchantoffers, avillagertrades$itrade, 6);
+			}
+		}
+	}
+
+	protected void addTrades(MerchantOffers givenMerchantOffers, AlienTrade.ITrade[] newTrades, int maxNumbers) {
+		Set<Integer> set = Sets.newHashSet();
+		if (newTrades.length > maxNumbers) {
+			while(set.size() < maxNumbers) {
+				set.add(this.rand.nextInt(newTrades.length));
+			}
+		} else {
+			for(int i = 0; i < newTrades.length; ++i) {
+				set.add(i);
+			}
+		}
+
+		for(Integer integer : set) {
+			AlienTrade.ITrade villagertrades$itrade = newTrades[integer];
+			MerchantOffer merchantoffer = villagertrades$itrade.getOffer(this, this.rand);
+			if (merchantoffer != null) {
+				givenMerchantOffers.add(merchantoffer);
+			}
+		}
+
+	}
+
 	@Override
 	public void tick() {
 		super.tick();
-
-		//this.resetOffersAndAdjustForDemand();
-		//this.func_223718_eH();
-		this.restock();
-
-
 
 		if (Config.AlienSpawing == false) {
 			if (!this.world.isRemote())
 				this.remove();
 		}
 	}
+
 }
