@@ -9,7 +9,6 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tileentity.BannerPattern;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.SoundEvent;
@@ -240,7 +239,7 @@ public class ModInnet {
 
 
     //Steel Item Tier
-    public static IItemTier SteelItemTier = new IItemTier() {
+    public static IItemTier STEEL_ITEM_TIER = new IItemTier() {
         public int getMaxUses() {
             return 1661;
         }
@@ -267,20 +266,20 @@ public class ModInnet {
     };
 
     //Tools
-    public static final RegistryObject<Item> SteelSword = ITEMS.register("steel_sword",
-            () -> new SwordItem(SteelItemTier,3,-2.4f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
+    public static final RegistryObject<Item> STEEL_SWORD = ITEMS.register("steel_sword",
+            () -> new SwordItem(STEEL_ITEM_TIER,3,-2.4f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
 
-    public static final RegistryObject<Item> SteelShovel = ITEMS.register("steel_shovel",
-            () -> new ShovelItem(SteelItemTier,1.5f,-3f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
+    public static final RegistryObject<Item> STEEL_SHOVEL = ITEMS.register("steel_shovel",
+            () -> new ShovelItem(STEEL_ITEM_TIER,1.5f,-3f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
 
-    public static final RegistryObject<Item> SteelPickaxe = ITEMS.register("steel_pickaxe",
-            () -> new PickaxeItem(SteelItemTier,1,-2.8f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
+    public static final RegistryObject<Item> STEEL_PICKAXE = ITEMS.register("steel_pickaxe",
+            () -> new PickaxeItem(STEEL_ITEM_TIER,1,-2.8f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
 
-    public static final RegistryObject<Item> SteelAxe = ITEMS.register("steel_axe",
-            () -> new AxeItem(SteelItemTier,6,-3f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
+    public static final RegistryObject<Item> STEEL_AXE = ITEMS.register("steel_axe",
+            () -> new AxeItem(STEEL_ITEM_TIER,6,-3f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
 
-    public static final RegistryObject<Item> SteelHoe = ITEMS.register("steel_hoe",
-            () -> new HoeItem(SteelItemTier,-2,0f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
+    public static final RegistryObject<Item> STEEL_HOE = ITEMS.register("steel_hoe",
+            () -> new HoeItem(STEEL_ITEM_TIER,-2,0f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
 
     //Flag Items
     public static final RegistryObject<Item> FLAG_ITEM = ITEMS.register("flag", () -> new TallBlockItem(FLAG_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
