@@ -13,22 +13,35 @@ import net.minecraft.entity.ai.brain.memory.MemoryModuleType;
 import net.minecraft.entity.ai.brain.schedule.Activity;
 import net.minecraft.entity.ai.brain.schedule.Schedule;
 import net.minecraft.entity.ai.brain.task.*;
+import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.merchant.IMerchant;
 import net.minecraft.entity.merchant.villager.VillagerData;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
-import net.minecraft.entity.merchant.villager.VillagerTrades;
+import net.minecraft.entity.monster.PillagerEntity;
+import net.minecraft.entity.monster.ZombieVillagerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.villager.VillagerType;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.MerchantOffer;
 import net.minecraft.item.MerchantOffers;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraft.stats.Stats;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.village.PointOfInterestType;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.server.ServerWorld;
 import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.entity.AlienZombieEntity;
 import net.mrscauthd.boss_tools.events.Config;
 
 
@@ -76,6 +89,73 @@ public class AlienEntity extends VillagerEntity implements IMerchant, INPC {
 	}
 
 	@Override
+	public ActionResultType func_230254_b_(PlayerEntity p_230254_1_, Hand p_230254_2_) {
+		ItemStack itemstack = p_230254_1_.getHeldItem(p_230254_2_);
+		if (itemstack.getItem() != ModInnet.ALIEN_SPAWN_EGG.get() && this.isAlive() && !this.hasCustomer() && !this.isSleeping() && !p_230254_1_.isSecondaryUseActive()) {
+			if (this.isChild()) {
+				this.shakeHead();
+				return ActionResultType.func_233537_a_(this.world.isRemote);
+			} else {
+				boolean flag = this.getOffers().isEmpty();
+				if (p_230254_2_ == Hand.MAIN_HAND) {
+					if (flag && !this.world.isRemote) {
+						this.shakeHead();
+					}
+
+					p_230254_1_.addStat(Stats.TALKED_TO_VILLAGER);
+				}
+
+				if (flag) {
+					return ActionResultType.func_233537_a_(this.world.isRemote);
+				} else {
+					if (!this.world.isRemote && !this.offers.isEmpty()) {
+						this.displayMerchantGui(p_230254_1_);
+					}
+
+					return ActionResultType.func_233537_a_(this.world.isRemote);
+				}
+			}
+		} else {
+			return ActionResultType.PASS;
+		}
+	}
+
+	private void displayMerchantGui(PlayerEntity player) {
+		this.recalculateSpecialPricesFor(player);
+		this.setCustomer(player);
+		this.openMerchantContainer(player, this.getDisplayName(), this.getVillagerData().getLevel());
+	}
+
+	private void recalculateSpecialPricesFor(PlayerEntity playerIn) {
+		int i = this.getPlayerReputation(playerIn);
+		if (i != 0) {
+			for(MerchantOffer merchantoffer : this.getOffers()) {
+				merchantoffer.increaseSpecialPrice(-MathHelper.floor((float)i * merchantoffer.getPriceMultiplier()));
+			}
+		}
+
+		if (playerIn.isPotionActive(Effects.HERO_OF_THE_VILLAGE)) {
+			EffectInstance effectinstance = playerIn.getActivePotionEffect(Effects.HERO_OF_THE_VILLAGE);
+			int k = effectinstance.getAmplifier();
+
+			for(MerchantOffer merchantoffer1 : this.getOffers()) {
+				double d0 = 0.3D + 0.0625D * (double)k;
+				int j = (int)Math.floor(d0 * (double)merchantoffer1.getBuyingStackFirst().getCount());
+				merchantoffer1.increaseSpecialPrice(-Math.max(j, 1));
+			}
+		}
+
+	}
+
+	private void shakeHead() {
+		this.setShakeHeadTicks(40);
+		if (!this.world.isRemote()) {
+			this.playSound(SoundEvents.ENTITY_VILLAGER_NO, this.getSoundVolume(), this.getSoundPitch());
+		}
+
+	}
+
+	@Override
 	protected Brain<?> createBrain(Dynamic<?> dynamicIn) {
 		Brain<VillagerEntity> brain = this.getBrainCodec().deserialize(dynamicIn);
 		this.initBrain(brain);
@@ -88,6 +168,12 @@ public class AlienEntity extends VillagerEntity implements IMerchant, INPC {
 		brain.stopAllTasks(serverWorldIn, this);
 		this.brain = brain.copy();
 		this.initBrain(this.getBrain());
+	}
+
+	@Override
+	protected void registerGoals() {
+		super.registerGoals();
+		this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, AlienZombieEntity.class, 15.0F, 0.5F, 0.5F));
 	}
 
 	private void initBrain(Brain<VillagerEntity> villagerBrain) {
@@ -182,8 +268,8 @@ public class AlienEntity extends VillagerEntity implements IMerchant, INPC {
 	}
 
 	@Override
-	public void tick() {
-		super.tick();
+	public void baseTick() {
+		super.baseTick();
 
 		if (!Config.AlienSpawing) {
 			this.remove();

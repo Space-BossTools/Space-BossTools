@@ -180,7 +180,7 @@ public class AlienTrade {
             Registry.VILLAGER_TYPE.stream().filter((villagerType) -> {
                 return !villagerTypeItemsIn.containsKey(villagerType);
             }).findAny().ifPresent((villagerType) -> {
-                
+
             });
             this.villagerTypeItems = villagerTypeItemsIn;
             this.count = count;
