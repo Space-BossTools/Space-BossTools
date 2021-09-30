@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.container.PlayerContainer;
@@ -21,6 +20,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
+import net.mrscauthd.boss_tools.capability.IOxygenStorage;
 import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 
 public class GuiHelper {
@@ -31,9 +31,10 @@ public class GuiHelper {
 	public static final ResourceLocation ARROW_PATH = new ResourceLocation("boss_tools:textures/animated_arrow_full.png");
 	public static final int ARROW_WIDTH = 24;
 	public static final int ARROW_HEIGHT = 17;
-	public static final ResourceLocation OXYGEN_PATH = new ResourceLocation("boss_tools:textures/oxygen_full.png");
-	public static final int OXYGEN_WIDTH = 14;
-	public static final int OXYGEN_HEIGHT = 14;
+	public static final ResourceLocation OXYGEN_CONTENT_PATH = new ResourceLocation("boss_tools:textures/oxygen.png");
+	public static final ResourceLocation OXYGEN_TANK_PATH = new ResourceLocation("boss_tools:textures/fluid_tank_fore.png");
+	public static final int OXYGEN_TANK_WIDTH = 14;
+	public static final int OXYGEN_TANK_HEIGHT = 48;
 	public static final ResourceLocation ENERGY_PATH = new ResourceLocation("boss_tools:textures/energy_full.png");
 	public static final int ENERGY_WIDTH = 24;
 	public static final int ENERGY_HEIGHT = 48;
@@ -59,12 +60,21 @@ public class GuiHelper {
 		return new Rectangle2d(left, top, FIRE_WIDTH, FIRE_HEIGHT);
 	}
 
-	public static void drawOxygen(MatrixStack matrixStack, int left, int top, double ratio) {
-		drawVertical(matrixStack, left, top, OXYGEN_WIDTH, OXYGEN_HEIGHT, OXYGEN_PATH, ratio);
+	public static void drawOxygenTank(MatrixStack matrixStack, int left, int top, IOxygenStorage oxygenStorage) {
+		drawOxygenTank(matrixStack, left, top, oxygenStorage.getOxygenStoredRatio());
 	}
 
-	public static Rectangle2d getOxygenBounds(int left, int top) {
-		return new Rectangle2d(left, top, OXYGEN_WIDTH, OXYGEN_HEIGHT);
+	public static void drawOxygenTank(MatrixStack matrixStack, int left, int top, double ratio) {
+		int maxHeight = FLUID_TANK_HEIGHT;
+		int scaledHeight = (int) Math.ceil(maxHeight * ratio);
+		int offset = maxHeight - scaledHeight;
+		Minecraft.getInstance().getTextureManager().bindTexture(OXYGEN_CONTENT_PATH);
+		drawTiledSprite(matrixStack, left, top + offset, OXYGEN_TANK_WIDTH, scaledHeight, 16, 16, 0.0F, 1.0F, 0.0F, 1.0F);
+		drawFluidTankOverlay(matrixStack, left, top);
+	}
+
+	public static Rectangle2d getOxygenTankBounds(int left, int top) {
+		return new Rectangle2d(left, top, OXYGEN_TANK_WIDTH, OXYGEN_TANK_HEIGHT);
 	}
 
 	public static void drawEnergy(MatrixStack matrixStack, int left, int top, IEnergyStorage energyStorage) {
@@ -114,6 +124,7 @@ public class GuiHelper {
 		FluidAttributes attributes = fluid.getAttributes();
 		setGLColorFromInt(attributes.getColor(stack));
 		drawTiledSprite(matrixStack, left, top, width, height, fluidStillSprite, 16, 16);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 	}
 
 	public static void drawRocketFluidTank(MatrixStack matrixStack, int left, int top, FluidStack stack, int capacity, int amount) {
@@ -151,16 +162,24 @@ public class GuiHelper {
 	}
 
 	public static void drawTiledSprite(MatrixStack matrixStack, int left, int top, int width, int height, TextureAtlasSprite sprite, int tileWidth, int tileHeight) {
+		float uMin = sprite.getMinU();
+		float uMax = sprite.getMaxU();
+		float vMin = sprite.getMinV();
+		float vMax = sprite.getMaxV();
 		Minecraft minecraft = Minecraft.getInstance();
 		minecraft.getTextureManager().bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
+		drawTiledSprite(matrixStack, left, top, width, height, tileWidth, tileHeight, uMin, uMax, vMin, vMax);
+	}
+
+	public static void drawTiledSprite(MatrixStack matrixStack, int left, int top, int width, int height, int tileWidth, int tileHeight, float uMin, float uMax, float vMin, float vMax) {
 		Matrix4f matrix = matrixStack.getLast().getMatrix();
 
-		final int xTileCount = width / tileWidth;
-		final int xRemainder = width - (xTileCount * tileWidth);
-		final int yTileCount = height / tileWidth;
-		final int yRemainder = height - (yTileCount * tileWidth);
+		int xTileCount = width / tileWidth;
+		int xRemainder = width - (xTileCount * tileWidth);
+		int yTileCount = height / tileWidth;
+		int yRemainder = height - (yTileCount * tileWidth);
 
-		final int yStart = top + height;
+		int yStart = top + height;
 
 		for (int xTile = 0; xTile <= xTileCount; xTile++) {
 			for (int yTile = 0; yTile <= yTileCount; yTile++) {
@@ -173,19 +192,13 @@ public class GuiHelper {
 					int maskRight = tileWidth - tiledWidth;
 					int maskTop = tileHeight - tiledHeight;
 
-					drawTextureWithMasking(matrix, x, y, sprite, tileWidth, tileHeight, maskTop, maskRight, 0);
+					drawTextureWithMasking(matrix, x, y, tileWidth, tileHeight, maskTop, maskRight, 0, uMin, uMax, vMin, vMax);
 				}
 			}
 		}
-
 	}
 
-	private static void drawTextureWithMasking(Matrix4f matrix, float left, float top, TextureAtlasSprite textureSprite, float tileWidth, float tileHeight, int maskTop, int maskRight, float zLevel) {
-		float uMin = textureSprite.getMinU();
-		float uMax = textureSprite.getMaxU();
-		float vMin = textureSprite.getMinV();
-		float vMax = textureSprite.getMaxV();
-
+	public static void drawTextureWithMasking(Matrix4f matrix, float left, float top, float tileWidth, float tileHeight, int maskTop, int maskRight, float zLevel, float uMin, float uMax, float vMin, float vMax) {
 		uMax = uMax - (maskRight / tileWidth * (uMax - uMin));
 		vMax = vMax - (maskTop / tileHeight * (vMax - vMin));
 
@@ -209,11 +222,10 @@ public class GuiHelper {
 	}
 
 	public static TextureAtlasSprite getStillFluidSprite(FluidStack stack) {
-		Minecraft minecraft = Minecraft.getInstance();
 		Fluid fluid = stack.getFluid();
 		FluidAttributes attributes = fluid.getAttributes();
 		ResourceLocation fluidStill = attributes.getStillTexture(stack);
-		return minecraft.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE).apply(fluidStill);
+		return Minecraft.getInstance().getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE).apply(fluidStill);
 	}
 
 	public static Rectangle2d getFluidTankBounds(int left, int top) {
@@ -223,31 +235,27 @@ public class GuiHelper {
 	public static void drawVertical(MatrixStack matrixStack, int left, int top, int width, int height, ResourceLocation resource, double ratio) {
 		int ratioHeight = (int) Math.ceil(height * ratio);
 		int remainHeight = height - ratioHeight;
-		TextureManager textureManager = Minecraft.getInstance().getTextureManager();
-		textureManager.bindTexture(resource);
+		Minecraft.getInstance().getTextureManager().bindTexture(resource);
 		AbstractGui.blit(matrixStack, left, top + remainHeight, 0, remainHeight, width, ratioHeight, width, height);
 	}
 
 	public static void drawVerticalReverse(MatrixStack matrixStack, int left, int top, int width, int height, ResourceLocation resource, double ratio) {
 		int ratioHeight = (int) Math.ceil(height * ratio);
 		int remainHeight = height - ratioHeight;
-		TextureManager textureManager = Minecraft.getInstance().getTextureManager();
-		textureManager.bindTexture(resource);
+		Minecraft.getInstance().getTextureManager().bindTexture(resource);
 		AbstractGui.blit(matrixStack, left, top, 0, 0, width, remainHeight, width, height);
 	}
 
 	public static void drawHorizontal(MatrixStack matrixStack, int left, int top, int width, int height, ResourceLocation resource, double ratio) {
 		int ratioWidth = (int) Math.ceil(width * ratio);
-		TextureManager textureManager = Minecraft.getInstance().getTextureManager();
-		textureManager.bindTexture(resource);
+		Minecraft.getInstance().getTextureManager().bindTexture(resource);
 		AbstractGui.blit(matrixStack, left, top, 0, 0, ratioWidth, height, width, height);
 	}
 
 	public static void drawHorizontalReverse(MatrixStack matrixStack, int left, int top, int width, int height, ResourceLocation resource, double ratio) {
 		int ratioWidth = (int) Math.ceil(width * ratio);
 		int remainWidth = width - ratioWidth;
-		TextureManager textureManager = Minecraft.getInstance().getTextureManager();
-		textureManager.bindTexture(resource);
+		Minecraft.getInstance().getTextureManager().bindTexture(resource);
 		AbstractGui.blit(matrixStack, left + ratioWidth, top, ratioWidth, 0, remainWidth, height, width, height);
 	}
 

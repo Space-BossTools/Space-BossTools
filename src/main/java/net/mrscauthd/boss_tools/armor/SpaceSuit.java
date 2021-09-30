@@ -3,6 +3,7 @@ package net.mrscauthd.boss_tools.armor;
 import net.mrscauthd.boss_tools.procedures.SpaceArmorBodyTickEventProcedure;
 import net.mrscauthd.boss_tools.capability.CapabilityOxygen;
 import net.mrscauthd.boss_tools.capability.IOxygenStorage;
+import net.mrscauthd.boss_tools.capability.OxygenUtil;
 import net.mrscauthd.boss_tools.capability.SpaceSuitCapabilityProvider;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 
@@ -129,7 +130,7 @@ public class SpaceSuit {
 		@Override
 		public void addInformation(ItemStack itemstack, World world, List<ITextComponent> list, ITooltipFlag flag) {
 			super.addInformation(itemstack, world, list, flag);
-			IOxygenStorage oxygenStorage = itemstack.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
+			IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(itemstack);
 
 			if (oxygenStorage != null) {
 				list.add(new StringTextComponent("\u00A79Oxygen:\u00A76 " + oxygenStorage.getOxygenStored() + "\u00A78 | \u00A7c" + oxygenStorage.getMaxOxygenStored()));

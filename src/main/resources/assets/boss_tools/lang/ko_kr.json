@@ -202,7 +202,6 @@
   "container.boss_tools.solar_panel": "태양광 발전기",
   
   "category.boss_tools.oxygenmaking": "산소 생성",
-  "category.boss_tools.oxygenloading": "산소 충전",
   
   "gague_text.boss_tools.using": "%1$s 소모: %2$s/t",
   "gague_text.boss_tools.generating": "%1$s 발전: %2$s/t",

@@ -18,8 +18,8 @@ import net.minecraftforge.fml.network.IContainerFactory;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.SlotItemHandler;
 import net.mrscauthd.boss_tools.BossToolsModElements;
-import net.mrscauthd.boss_tools.machines.OxygenLoaderBlock;
 import net.mrscauthd.boss_tools.machines.OxygenLoaderBlock.CustomTileEntity;
+import net.mrscauthd.boss_tools.machines.tile.OxygenMakingTileEntity;
 
 @BossToolsModElements.ModElement.Tag
 public class OxygenLoaderGuiGui extends BossToolsModElements.ModElement {
@@ -59,21 +59,34 @@ public class OxygenLoaderGuiGui extends BossToolsModElements.ModElement {
 			super(containerType, id);
 			this.tileEntity = tileEntity;
 
-			IItemHandlerModifiable itemHandler = tileEntity.getItemHandler();
-			this.addSlot(new SlotItemHandler(itemHandler, OxygenLoaderBlock.SLOT_ITEM, 75, 22) {
+			IItemHandlerModifiable internal = tileEntity.getItemHandler();
+
+			this.addSlot(new SlotItemHandler(internal, OxygenMakingTileEntity.SLOT_INPUT_SOURCE, 26, 22) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
 					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
 				}
 			});
-			this.addSlot(new SlotItemHandler(itemHandler, OxygenLoaderBlock.SLOT_ACTIVATING, 75, 56) {
+			this.addSlot(new SlotItemHandler(internal, OxygenMakingTileEntity.SLOT_OUTPUT_SINK, 92, 52) {
+				@Override
+				public boolean isItemValid(ItemStack stack) {
+					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
+				}
+			});
+			this.addSlot(new SlotItemHandler(internal, OxygenMakingTileEntity.SLOT_INPUT_SINK, 26, 52) {
+				@Override
+				public boolean isItemValid(ItemStack stack) {
+					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
+				}
+			});
+			this.addSlot(new SlotItemHandler(internal, OxygenMakingTileEntity.SLOT_OUTPUT_SOURCE, 92, 22) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
 					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
 				}
 			});
 
-			ContainerHelper.addInventorySlots(this, inv, 8, 85, 143, this::addSlot);
+			ContainerHelper.addInventorySlots(this, inv, 8, 90, 148, this::addSlot);
 		}
 
 		public CustomTileEntity getTileEntity() {

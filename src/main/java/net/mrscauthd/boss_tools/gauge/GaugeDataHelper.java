@@ -8,7 +8,6 @@ import net.minecraftforge.fluids.IFluidTank;
 import net.mrscauthd.boss_tools.capability.IOxygenStorage;
 import net.mrscauthd.boss_tools.machines.tile.AbstractMachineTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemFuelBurnTime;
-import net.mrscauthd.boss_tools.machines.tile.PowerSystemFuelOxygen;
 
 public class GaugeDataHelper {
 
@@ -18,7 +17,6 @@ public class GaugeDataHelper {
 	public static final ResourceLocation OXYGEN_NAME = new ResourceLocation("boss_tools", "oxygen");
 	public static final ResourceLocation BURNTIME_NAME = new ResourceLocation("boss_tools", "burntime");
 	public static final ResourceLocation COOKTIME_NAME = new ResourceLocation("boss_tools", "cooktime");
-	public static final ResourceLocation OXYGENLOADING_NAME = new ResourceLocation("boss_tools", "oxygenloading");
 
 	public static String makeTranslationKey(ResourceLocation name) {
 		return "gague." + name.getNamespace() + "." + name.getPath();
@@ -72,10 +70,6 @@ public class GaugeDataHelper {
 		return getOxygen(oxygenStorage.getOxygenStored(), oxygenStorage.getMaxOxygenStored());
 	}
 
-	public static GaugeData getOxygen(PowerSystemFuelOxygen oxygenPowerSystem) {
-		return getOxygen(oxygenPowerSystem.getStored(), oxygenPowerSystem.getCapacity());
-	}
-
 	public static GaugeData getBurnTime(int amount) {
 		return getBurnTime(amount, NO_CAPACITY);
 	}
@@ -90,14 +84,6 @@ public class GaugeDataHelper {
 
 	public static GaugeData getCookTime(int timer, int maxTimer) {
 		return new GaugeData(new GaugeValueSimple(COOKTIME_NAME, maxTimer - timer, maxTimer), new GaugeFormat(true, true));
-	}
-
-	public static GaugeData getOxygenLoading(int amount, int capacity) {
-		return new GaugeData(new GaugeValueSimple(OXYGENLOADING_NAME, amount, capacity), new GaugeFormat(true, false));
-	}
-
-	public static GaugeData getOxygenLoading(IOxygenStorage oxygenStorage) {
-		return getOxygenLoading(oxygenStorage.getOxygenStored(), oxygenStorage.getMaxOxygenStored());
 	}
 
 }

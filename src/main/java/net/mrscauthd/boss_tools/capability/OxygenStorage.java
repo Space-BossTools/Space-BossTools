@@ -18,25 +18,22 @@ public class OxygenStorage implements IOxygenStorage {
 	}
 
 	public int receiveOxygen(int maxReceive, boolean simulate) {
-		int oxygenReceived = Math.min(this.capacity - this.oxygen, Math.max(0, maxReceive));
+		int oxygen = this.getOxygenStored();
+		int oxygenReceived = Math.min(this.getMaxOxygenStored() - oxygen, Math.max(0, maxReceive));
+
 		if (!simulate) {
-			this.oxygen += oxygenReceived;
-			if (oxygenReceived > 0) {
-				Optional.ofNullable(this.getHolder()).ifPresent(h -> h.onOxygenChanged(this, +oxygenReceived));
-			}
+			this.setOxygenStored(oxygen + oxygenReceived);
 		}
 
 		return oxygenReceived;
 	}
 
 	public int extractOxygen(int maxExtract, boolean simulate) {
-		int oxygenExtracted = Math.min(this.oxygen, Math.max(0, maxExtract));
-		if (!simulate) {
-			this.oxygen -= oxygenExtracted;
+		int oxygen = this.getOxygenStored();
+		int oxygenExtracted = Math.min(oxygen, Math.max(0, maxExtract));
 
-			if (oxygenExtracted > 0) {
-				Optional.ofNullable(this.getHolder()).ifPresent(h -> h.onOxygenChanged(this, -oxygenExtracted));
-			}
+		if (!simulate) {
+			this.setOxygenStored(oxygen - oxygenExtracted);
 		}
 
 		return oxygenExtracted;

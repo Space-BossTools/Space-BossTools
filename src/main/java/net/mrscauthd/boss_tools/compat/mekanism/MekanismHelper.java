@@ -1,45 +1,49 @@
 package net.mrscauthd.boss_tools.compat.mekanism;
 
-import mekanism.api.Action;
-import mekanism.api.chemical.gas.GasStack;
+import java.util.ArrayList;
+import java.util.List;
+
 import mekanism.api.chemical.gas.IGasHandler;
 import mekanism.common.capabilities.Capabilities;
-import mekanism.common.registries.MekanismGases;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import mekanism.common.integration.lookingat.theoneprobe.TOPChemicalElement;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.capabilities.Capability;
+import net.mrscauthd.boss_tools.capability.IOxygenStorage;
 
 public class MekanismHelper {
+	public static Capability<IGasHandler> getGasHandlerCapability() {
+		return Capabilities.GAS_HANDLER_CAPABILITY;
+	}
 
-	public static int extracteNearOxygen(TileEntity tileEntity, int amount, boolean simulate) {
-		BlockPos pos = tileEntity.getPos();
-		World world = tileEntity.getWorld();
-		int extractedAmount = 0;
+	public static IGasHandler getItemStackGasHandler(ItemStack itemStack) {
+		if (itemStack.isEmpty()) {
+			return null;
+		}
 
-		for (Direction direction : Direction.values()) {
-			if (amount <= 0) {
-				break;
-			} else {
-				BlockPos nearPos = pos.offset(direction);
-				TileEntity nearTileEntity = world.getTileEntity(nearPos);
+		return itemStack.getCapability(getGasHandlerCapability()).orElse(null);
+	}
 
-				if (nearTileEntity != null) {
-					IGasHandler gasHandler = nearTileEntity.getCapability(Capabilities.GAS_HANDLER_CAPABILITY, direction.getOpposite()).orElse(null);
+	public static IOxygenStorage getItemStackOxygenAdapter(ItemStack itemStack) {
+		IGasHandler gasHandler = getItemStackGasHandler(itemStack);
 
-					if (gasHandler != null) {
-						GasStack extracted = gasHandler.extractChemical(new GasStack(MekanismGases.OXYGEN, amount), Action.get(!simulate));
-						amount -= extracted.getAmount();
-						extractedAmount += extracted.getAmount();
-					}
-				}
+		if (gasHandler != null) {
+			return new GasHandlerOxygeenAdapter(gasHandler);
+		} else {
+			return null;
+		}
+	}
+
+	public static List<TOPChemicalElement> createGasGaugeDataElement(IGasHandler gasHandler) {
+		List<TOPChemicalElement> list = new ArrayList<>();
+
+		if (gasHandler != null) {
+			int tanks = gasHandler.getTanks();
+
+			for (int i = 0; i < tanks; i++) {
+				list.add(new TOPChemicalElement.GasElement(gasHandler.getChemicalInTank(i), gasHandler.getTankCapacity(i)));
 			}
 		}
 
-		return extractedAmount;
-	}
-
-	private MekanismHelper() {
-
+		return list;
 	}
 }

@@ -36,28 +36,18 @@ import net.minecraftforge.common.ToolType;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.capability.IOxygenStorage;
-import net.mrscauthd.boss_tools.gauge.GaugeData;
-import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
 import net.mrscauthd.boss_tools.gui.OxygenLoaderGuiGui;
 import net.mrscauthd.boss_tools.machines.tile.NamedComponentRegistry;
-import net.mrscauthd.boss_tools.machines.tile.OxygenUsingTileEntity;
-import net.mrscauthd.boss_tools.machines.tile.PowerSystem;
+import net.mrscauthd.boss_tools.machines.tile.OxygenMakingTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemEnergyCommon;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemRegistry;
 
 public class OxygenLoaderBlock {
-	public static final int SLOT_ITEM = 0;
-	public static final int SLOT_ACTIVATING = 1;
-
 	public static final int ENERGY_PER_TICK = 1;
-	public static final int OXYGEN_PER_TICK = 8;
 
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 		public static final BooleanProperty ACTIAVATED = BlockStateProperties.LIT;
-		public static double energy = 0;
-		public static boolean itemcheck = false;
 
 		public CustomBlock() {
 			super(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 1f).setLightLevel(s -> 0).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool());
@@ -166,27 +156,10 @@ public class OxygenLoaderBlock {
 		}
 	}
 
-	public static class CustomTileEntity extends OxygenUsingTileEntity {
+	public static class CustomTileEntity extends OxygenMakingTileEntity {
 
 		public CustomTileEntity() {
 			super(ModInnet.OXYGEN_LOADER.get());
-		}
-
-		@Override
-		public List<GaugeData> getGaugeDataList() {
-			List<GaugeData> list = super.getGaugeDataList();
-			IOxygenStorage itemOxygenStorage = this.getItemOxygenStorage();
-
-			if (itemOxygenStorage != null) {
-				list.add(GaugeDataHelper.getOxygenLoading(itemOxygenStorage));
-			}
-
-			return list;
-		}
-
-		@Override
-		protected int getInitialInventorySize() {
-			return super.getInitialInventorySize() + 1;
 		}
 
 		@Override
@@ -194,90 +167,10 @@ public class OxygenLoaderBlock {
 			return new OxygenLoaderGuiGui.GuiContainerMod(id, player, this);
 		}
 
-		public int getItemSlot() {
-			return SLOT_ITEM;
-		}
-
-		@Override
-		public int getBaseOxygenForOperation() {
-			return OXYGEN_PER_TICK;
-		}
-
-		public int getActivatingSlot() {
-			return SLOT_ACTIVATING;
-		}
-
-		@Override
-		protected boolean canUsingOxygen() {
-			return this.getOxygenPowerSystem().getPowerForOperation() > 0;
-		}
-
-		@Override
-		protected void onUsingOxygen(int consumedOxygen) {
-			IOxygenStorage oxygenStorage = this.getItemOxygenStorage();
-
-			if (oxygenStorage != null) {
-				oxygenStorage.receiveOxygen(consumedOxygen, false);
-			}
-		}
-
 		@Override
 		protected void createEnergyStorages(NamedComponentRegistry<IEnergyStorage> registry) {
 			super.createEnergyStorages(registry);
 			registry.put(this.createEnergyStorageCommon());
-		}
-
-		@Override
-		protected void getSlotsForFace(Direction direction, List<Integer> slots) {
-			super.getSlotsForFace(direction, slots);
-			slots.add(this.getItemSlot());
-		}
-
-		@Override
-		protected boolean onCanInsertItem(int index, ItemStack stack, Direction direction) {
-			if (index == this.getItemSlot()) {
-				return this.getItemOxygenStorage(stack) != null;
-			}
-
-			return super.onCanInsertItem(index, stack, direction);
-		}
-
-		@Override
-		public int getPowerForOperation(PowerSystem powerSystem, int base) {
-			if (powerSystem == this.getOxygenPowerSystem()) {
-				IOxygenStorage oxygenStorage = this.getItemOxygenStorage();
-
-				if (oxygenStorage == null) {
-					return 0;
-				} else {
-					int storageRecivable = oxygenStorage.receiveOxygen(base, true);
-					return Math.max(powerSystem.extract(storageRecivable, true), 1);
-				}
-			}
-
-			return super.getPowerForOperation(powerSystem, base);
-		}
-
-		@Override
-		public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-			if (index == this.getItemSlot()) {
-				IOxygenStorage oxygenStorage = this.getItemOxygenStorage(stack);
-
-				if (oxygenStorage != null) {
-					return oxygenStorage.receiveOxygen(1, true) == 0;
-				}
-			}
-
-			return super.canExtractItem(index, stack, direction);
-		}
-
-		public IOxygenStorage getItemOxygenStorage() {
-			return this.getItemOxygenStorage(this.getItemHandler().getStackInSlot(this.getItemSlot()));
-		}
-
-		@Override
-		public boolean hasSpaceInOutput() {
-			return this.hasSpaceInOutput(this.getItemOxygenStorage());
 		}
 
 		@Override

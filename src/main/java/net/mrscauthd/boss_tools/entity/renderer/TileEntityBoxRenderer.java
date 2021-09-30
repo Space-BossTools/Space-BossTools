@@ -13,16 +13,13 @@ import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Matrix3f;
 import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraft.world.World;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.boss_tools.machines.OxygenBubbleDistributorBlock;
 
 @OnlyIn(Dist.CLIENT)
 public class TileEntityBoxRenderer extends TileEntityRenderer<OxygenBubbleDistributorBlock.CustomTileEntity> {
-
-    private Minecraft mc = Minecraft.getInstance();
-    private World world = mc.world;
 
     public static TextureAtlasSprite atlass = null;
 
@@ -39,17 +36,18 @@ public class TileEntityBoxRenderer extends TileEntityRenderer<OxygenBubbleDistri
     public void render(OxygenBubbleDistributorBlock.CustomTileEntity tileEntityIn, float partialTicks, MatrixStack matrix, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
 
         IVertexConsumer builder = (IVertexConsumer) bufferIn.getBuffer(RenderType.getLines());
+        AxisAlignedBB workingArea = tileEntityIn.getWorkingArea(tileEntityIn.getRange());
 
         Matrix3f normal = matrix.getLast().getNormal();
         Matrix4f matrix4f = matrix.getLast().getMatrix();
 
-        float startX = 5;
-        float topY = 9;
-        float startZ = 5;
+        float startX = (float) workingArea.minX;
+        float topY = (float) workingArea.minY;
+        float startZ = (float) workingArea.minZ;
 
-        float endX = -4;
-        float botY = 0.01f;
-        float endZ = -4;
+        float endX = (float) workingArea.minX;
+        float botY = (float) workingArea.maxY;
+        float endZ = (float) workingArea.maxZ;
 
         //255 is default
         int rl = 78;

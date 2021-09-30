@@ -1,9 +1,0 @@
-{
-   "type":"boss_tools:oxygenmaking",
-   "input":{
-      "ingredient":{
-         "tag":"minecraft:leaves"
-      }
-   },
-   "oxygen":1600
-}

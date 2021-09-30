@@ -4,7 +4,6 @@ import org.lwjgl.opengl.GL11;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.renderer.Rectangle2d;
@@ -20,19 +19,43 @@ import net.mrscauthd.boss_tools.machines.OxygenLoaderBlock.CustomTileEntity;
 @OnlyIn(Dist.CLIENT)
 public class OxygenLoaderGuiGuiWindow extends ContainerScreen<OxygenLoaderGuiGui.GuiContainerMod> {
 	public static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/oxygen_loader_gui.png");
-	public static final int OXYGEN_LEFT = 76;
-	public static final int OXYGEN_TOP = 40;
+	public static final int INPUT_TANK_LEFT = 9;
+	public static final int INPUT_TANK_TOP = 21;
+	public static final int INPUT_SOURCE_LEFT = 25;
+	public static final int INPUT_SOURCE_TOP = 21;
+	public static final int INPUT_SINK_LEFT = 25;
+	public static final int INPUT_SINK_TOP = 21;
+	public static final int OUTPUT_TANK_LEFT = 75;
+	public static final int OUTPUT_TANK_TOP = 21;
+	public static final int OUTPUT_SOURCE_LEFT = 91;
+	public static final int OUTPUT_SOURCE_TOP = 21;
+	public static final int OUTPUT_SINK_LEFT = 91;
+	public static final int OUTPUT_SINK_TOP = 21;
 	public static final int ENERGY_LEFT = 144;
 	public static final int ENERGY_TOP = 21;
+	public static final int ARROW_LEFT = 48;
+	public static final int ARROW_TOP = 36;
 
 	private CustomTileEntity tileEntity;
 
 	public OxygenLoaderGuiGuiWindow(OxygenLoaderGuiGui.GuiContainerMod container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
 		this.tileEntity = container.getTileEntity();
-		this.xSize = 176;
-		this.ySize = 167;
+		this.xSize = 177;
+		this.ySize = 172;
 		this.playerInventoryTitleY = this.ySize - 92;
+	}
+
+	public Rectangle2d getInputTankBounds() {
+		return GuiHelper.getFluidTankBounds(this.guiLeft + INPUT_TANK_LEFT, this.guiTop + INPUT_TANK_TOP);
+	}
+
+	public Rectangle2d getOutputTankBounds() {
+		return GuiHelper.getFluidTankBounds(this.guiLeft + OUTPUT_TANK_LEFT, this.guiTop + OUTPUT_TANK_TOP);
+	}
+
+	public Rectangle2d getEnergyBounds() {
+		return GuiHelper.getEnergyBounds(this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP);
 	}
 
 	@Override
@@ -41,24 +64,27 @@ public class OxygenLoaderGuiGuiWindow extends ContainerScreen<OxygenLoaderGuiGui
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 
-		if (this.getEnergyBounds().contains(mouseX, mouseY)) {
-			this.renderTooltip(ms, GaugeDataHelper.getEnergy(this.getTileEntity()).getText(), mouseX, mouseY);
+		CustomTileEntity tileEntity = (CustomTileEntity) this.getTileEntity();
+
+		if (this.getInputTankBounds().contains(mouseX, mouseY)) {
+			this.renderTooltip(ms, GaugeDataHelper.getFluid(tileEntity.getInputTank()).getText(), mouseX, mouseY);
+		} else if (this.getOutputTankBounds().contains(mouseX, mouseY)) {
+			this.renderTooltip(ms, GaugeDataHelper.getOxygen(tileEntity.getOutputTank()).getText(), mouseX, mouseY);
+		} else if (this.getEnergyBounds().contains(mouseX, mouseY)) {
+			this.renderTooltip(ms, GaugeDataHelper.getEnergy(tileEntity).getText(), mouseX, mouseY);
 		}
 	}
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float par1, int par2, int par3) {
-		CustomTileEntity tileEntity = this.getTileEntity();
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		CustomTileEntity tileEntity = this.getTileEntity();
 
-		Minecraft.getInstance().getTextureManager().bindTexture(texture);
+		this.minecraft.getTextureManager().bindTexture(texture);
 		AbstractGui.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
-		GuiHelper.drawOxygen(ms, this.guiLeft + OXYGEN_LEFT, this.guiTop + OXYGEN_TOP, tileEntity.getOxygenPowerSystem().getStoredRatio());
 		GuiHelper.drawEnergy(ms, this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP, tileEntity.getPrimaryEnergyStorage());
-	}
-
-	public Rectangle2d getEnergyBounds() {
-		return GuiHelper.getEnergyBounds(this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP);
+		GuiHelper.drawFluidTank(ms, this.guiLeft + INPUT_TANK_LEFT, this.guiTop + INPUT_TANK_TOP, tileEntity.getInputTank());
+		GuiHelper.drawOxygenTank(ms, this.guiLeft + OUTPUT_TANK_LEFT, this.guiTop + OUTPUT_TANK_TOP, tileEntity.getOutputTank());
 	}
 
 	public CustomTileEntity getTileEntity() {

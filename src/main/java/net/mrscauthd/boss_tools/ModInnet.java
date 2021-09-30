@@ -32,6 +32,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.mrscauthd.boss_tools.armor.SpaceSuit;
 import net.mrscauthd.boss_tools.block.*;
+import net.mrscauthd.boss_tools.capability.CapabilityOxygen;
 import net.mrscauthd.boss_tools.crafting.BlastingRecipeSerializer;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.CompressingRecipeSerializer;
@@ -460,6 +461,7 @@ public class ModInnet {
         event.enqueueWork(() -> {
 
             BossToolsRecipeTypes.init();
+            CapabilityOxygen.register();
 
             ICE_SPIKE = register("ice_spike1", ModInnet.MARS_ICE_SPIKE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(2));
             //Venus Deltas

@@ -202,7 +202,6 @@
   "container.boss_tools.solar_panel": "Solar Panel",
   
   "category.boss_tools.oxygenmaking": "Oxygen Making",
-  "category.boss_tools.oxygenloading": "Oxygen Loading",
   
   "gague_text.boss_tools.using": "%1$s Using: %2$s/t",
   "gague_text.boss_tools.generating": "%1$s Generating: %2$s/t",

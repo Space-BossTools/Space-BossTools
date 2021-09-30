@@ -50,19 +50,18 @@ import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.capability.IOxygenStorage;
 import net.mrscauthd.boss_tools.gui.OxygenBubbleDistributorGUI;
 import net.mrscauthd.boss_tools.machines.tile.NamedComponentRegistry;
-import net.mrscauthd.boss_tools.machines.tile.OxygenUsingTileEntity;
+import net.mrscauthd.boss_tools.machines.tile.OxygenMakingTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemEnergyCommon;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemRegistry;
 
 public class OxygenBubbleDistributorBlock {
 
-	public static final int SLOT_ACTIVATING = 0;
 	public static final int ENERGY_PER_TICK = 1;
-	public static final int OXYGEN_PER_TICK = 8;
 	public static final String KEY_TIMER = "timer";
-	public static final String KEY_LARGE = "large";
+	public static final String KEY_RANGE = "large";
 
 	/**
 	 * Interval Ticks, 2 = every 2 ticks
@@ -187,7 +186,7 @@ public class OxygenBubbleDistributorBlock {
 		}
 	}
 
-	public static class CustomTileEntity extends OxygenUsingTileEntity {
+	public static class CustomTileEntity extends OxygenMakingTileEntity {
 
 		public CustomTileEntity() {
 			super(ModInnet.OXYGEN_BUBBLE_DISTRIBUTOR.get());
@@ -219,30 +218,37 @@ public class OxygenBubbleDistributorBlock {
 		protected void tickProcessing() {
 			super.tickProcessing();
 
-			this.setTimer(this.getTimer() + 1);
-		}
-
-		@Override
-		public int getActivatingSlot() {
-			return SLOT_ACTIVATING;
+			this.tickDistributeTimer();
 		}
 
 		/**
 		 * timer will 0, 1, 0, 1
 		 */
-		@Override
-		protected boolean canUsingOxygen() {
-			return this.getTimer() >= MAX_TIMER;
+		private void tickDistributeTimer() {
+			if (this.getTimer() >= this.getMaxTimer()) {
+				this.setTimer(0);
+				this.distribute();
+			}
+
+			this.setTimer(this.getTimer() + 1);
 		}
 
-		@Override
-		protected void onUsingOxygen(int consumed) {
-			this.setTimer(0);
-
-			World world = this.getWorld();
-			BlockPos pos = this.getPos();
+		private void distribute() {
+			IOxygenStorage oxygenStorage = this.getOutputTank();
 			double range = this.getRange();
-			List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(pos).grow(range), null);
+			int oxygenUsing = this.getOxygenUsing(range);
+
+			if (oxygenStorage.extractOxygen(oxygenUsing, true) == oxygenUsing && this.consumePowerForOperation() != null) {
+				oxygenStorage.extractOxygen(oxygenUsing, false);
+
+				this.spawnOxygenBubble(range);
+			}
+
+		}
+
+		private void spawnOxygenBubble(double range) {
+			World world = this.getWorld();
+			List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, this.getWorkingArea(range), null);
 
 			for (PlayerEntity player : players) {
 				CompoundNBT persistentData = player.getPersistentData();
@@ -252,20 +258,18 @@ public class OxygenBubbleDistributorBlock {
 
 			if (world instanceof ServerWorld) {
 				ServerWorld serverWorld = (ServerWorld) world;
-				Vector3d center = new AxisAlignedBB(pos).getCenter();
+				Vector3d center = new AxisAlignedBB(this.getPos()).getCenter();
 				serverWorld.spawnParticle(ParticleTypes.CLOUD, center.x, center.y + 0.5D, center.z, 1, 0.1D, 0.1D, 0.1D, 0.001D);
 			}
 
 		}
 
-		@Override
-		protected boolean canActivated() {
-			return this.isPowerEnoughForOperation();
+		public int getOxygenUsing(double range) {
+			return 8;
 		}
 
-		@Override
-		public boolean hasSpaceInOutput() {
-			return true;
+		public int getMaxTimer() {
+			return MAX_TIMER;
 		}
 
 		public int getTimer() {
@@ -281,19 +285,21 @@ public class OxygenBubbleDistributorBlock {
 			}
 		}
 
-		public double getRange() {
-			return this.isLarge() ? 6.0D : 3.0D;
+		public int getRange() {
+			return this.getTileData().getInt(KEY_RANGE);
 		}
 
-		public boolean isLarge() {
-			return this.getTileData().getBoolean(KEY_LARGE);
-		}
+		public void setRange(int range) {
+			range = Math.max(range, 0);
 
-		public void setLarge(boolean large) {
-			if (this.isLarge() != large) {
-				this.getTileData().putBoolean(KEY_LARGE, large);
+			if (this.getRange() != range) {
+				this.getTileData().putInt(KEY_RANGE, range);
 				this.markDirty();
 			}
+		}
+
+		public AxisAlignedBB getWorkingArea(double range) {
+			return new AxisAlignedBB(this.getPos()).grow(range);
 		}
 
 		@Override
@@ -317,29 +323,24 @@ public class OxygenBubbleDistributorBlock {
 			return ENERGY_PER_TICK;
 		}
 
-		@Override
-		public int getBaseOxygenForOperation() {
-			return OXYGEN_PER_TICK;
-		}
 	}
 
-	public static class SetLargeMessage {
-
+	public static class ChangeRangeMessage {
 		private BlockPos blockPos = BlockPos.ZERO;
-		private boolean large = false;
+		private boolean direction = false;
 
-		public SetLargeMessage() {
+		public ChangeRangeMessage() {
 
 		}
 
-		public SetLargeMessage(BlockPos pos, boolean large) {
+		public ChangeRangeMessage(BlockPos pos, boolean large) {
 			this.setBlockPos(pos);
-			this.setLarge(large);
+			this.setDirection(large);
 		}
 
-		public SetLargeMessage(PacketBuffer buffer) {
+		public ChangeRangeMessage(PacketBuffer buffer) {
 			this.setBlockPos(buffer.readBlockPos());
-			this.setLarge(buffer.readBoolean());
+			this.setDirection(buffer.readBoolean());
 		}
 
 		public BlockPos getBlockPos() {
@@ -350,27 +351,29 @@ public class OxygenBubbleDistributorBlock {
 			this.blockPos = blockPos;
 		}
 
-		public boolean isLarge() {
-			return this.large;
+		public boolean getDirection() {
+			return this.direction;
 		}
 
-		public void setLarge(boolean large) {
-			this.large = large;
+		public void setDirection(boolean direction) {
+			this.direction = direction;
 		}
 
-		public static SetLargeMessage decode(PacketBuffer buffer) {
-			return new SetLargeMessage(buffer);
+		public static ChangeRangeMessage decode(PacketBuffer buffer) {
+			return new ChangeRangeMessage(buffer);
 		}
 
-		public static void encode(SetLargeMessage message, PacketBuffer buffer) {
+		public static void encode(ChangeRangeMessage message, PacketBuffer buffer) {
 			buffer.writeBlockPos(message.getBlockPos());
-			buffer.writeBoolean(message.isLarge());
+			buffer.writeBoolean(message.getDirection());
 		}
 
-		public static void handle(SetLargeMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
+		public static void handle(ChangeRangeMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
 			Context context = contextSupplier.get();
 			CustomTileEntity tileEntity = (CustomTileEntity) context.getSender().getServerWorld().getTileEntity(message.getBlockPos());
-			tileEntity.setLarge(message.isLarge());
+			int prev = tileEntity.getRange();
+			int next = prev + (message.getDirection() ? +1 : -1);
+			tileEntity.setRange(next);
 			context.setPacketHandled(true);
 		}
 	}
