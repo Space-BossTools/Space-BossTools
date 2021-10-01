@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.skyrenderer;
 
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.settings.GraphicsFanciness;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -21,11 +22,8 @@ import net.minecraft.client.world.DimensionRenderInfo;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.WorldVertexBufferUploader;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.FogRenderer;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.Minecraft;
+
 import java.util.Random;
 
 import javax.annotation.Nullable;
@@ -37,50 +35,34 @@ import org.lwjgl.opengl.GL11;
 
 @Mod.EventBusSubscriber(modid = "boss_tools", bus = Bus.MOD, value = Dist.CLIENT)
 public class ClientEventBusMoon {
+
 	//star
 	@Nullable
 	public static VertexBuffer starVBO;
 	public static final VertexFormat skyVertexFormat = DefaultVertexFormats.POSITION;
 	private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation("boss_tools", "moon");
 	private static final ResourceLocation SUN_TEXTURES = new ResourceLocation("boss_tools", "textures/sky/no_a_sun.png");
-	private static final ResourceLocation MOON_PHASES_TEXTURES = new ResourceLocation("boss_tools", "textures/sky/earth.png");
+	private static final ResourceLocation EARTH = new ResourceLocation("boss_tools", "textures/sky/earth.png");
 	private static final ResourceLocation EARTH_LIGHT_TEXTURES = new ResourceLocation("boss_tools", "textures/sky/earth_light.png");
-	private static final ResourceLocation SKY_TEXTURE = new ResourceLocation("boss_tools", "textures/sky/sky.png");
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void clientSetup(FMLClientSetupEvent event) {
-		// public net.minecraft.client.world.DimensionRenderInfo field_239208_a_ #
-		// field_239208_a_
-		// public net.minecraft.client.renderer.Minecraft.getInstance().worldRenderer
-		// field_175012_t # skyVBO
-		// public net.minecraft.client.renderer.Minecraft.getInstance().worldRenderer
-		// field_175014_r # skyVertexFormat
-		// public net.minecraft.client.renderer.Minecraft.getInstance().worldRenderer
-		// field_175013_s # starVBO
-		// public net.minecraft.client.renderer.Minecraft.getInstance().worldRenderer
-		// field_175011_u # sky2VBO
-		DimensionRenderInfo.field_239208_a_.put(DIM_RENDER_INFO,
-				// cloudHeight, alternate sky color, fog type, render sky, diffuse lighting
-				new DimensionRenderInfo(128, false, FogType.NORMAL, false, false) {
+		DimensionRenderInfo.field_239208_a_.put(DIM_RENDER_INFO, new DimensionRenderInfo(128, false, FogType.NORMAL, false, false) {
 					@Override
-					// adjustSkyColor
 					public Vector3d func_230494_a_(Vector3d fogColor, float partialTicks) {
 						return fogColor;
 					}
 
 					@Override
-					// useThickFog
 					public boolean func_230493_a_(int posX, int posY) {
 						return false;
 					}
 
-					@Nullable
 					@Override
 					public ICloudRenderHandler getCloudRenderHandler() {
 						return new ICloudRenderHandler() {
 							@Override
-							public void render(int ticks, float partialTicks, MatrixStack matrixStack, ClientWorld world, Minecraft mc,
-											   double viewEntityX, double viewEntityY, double viewEntityZ) {
-								//Clouds Render with nothing in it nothing rendered
+							public void render(int ticks, float partialTicks, MatrixStack matrixStack, ClientWorld world, Minecraft mc, double viewEntityX, double viewEntityY, double viewEntityZ) {
+
 							}
 						};
 					}
@@ -98,6 +80,7 @@ public class ClientEventBusMoon {
 								float f2 = (float) vector3d.z;
 								FogRenderer.applyFog();
 								BufferBuilder bufferbuilder = Tessellator.getInstance().getBuffer();
+								RenderSystem.disableDepthTest();
 								RenderSystem.depthMask(false);
 								RenderSystem.enableFog();
 								RenderSystem.color3f(f, f1, f2);
@@ -109,20 +92,10 @@ public class ClientEventBusMoon {
 								Matrix4f matrix4f1 = matrixStack.getLast().getMatrix();
 								RenderSystem.enableAlphaTest();
 								RenderSystem.enableTexture();
-								RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE,
-										GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+								RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 								RenderSystem.color4f(1f, 1f, 1f, 1f);
-								//star
+								//star gen
 								generateStars();
-
-								mc.getTextureManager().bindTexture(SKY_TEXTURE);
-								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-								bufferbuilder.pos(matrix4f1, -100, 8f, -100).tex(0.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, 100, 8f, -100).tex(1.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, 100, 8f, 100).tex(1.0F, 1.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, -100, 8f, 100).tex(0.0F, 1.0F).endVertex();
-								bufferbuilder.finishDrawing();
-								WorldVertexBufferUploader.draw(bufferbuilder);
 								RenderSystem.disableTexture();
 								RenderSystem.disableFog();
 								RenderSystem.disableAlphaTest();
@@ -147,8 +120,7 @@ public class ClientEventBusMoon {
 										float f7 = (float) j * ((float) Math.PI * 2F) / 16.0F;
 										float f8 = MathHelper.sin(f7);
 										float f9 = MathHelper.cos(f7);
-										bufferbuilder.pos(matrix4f, f8 * 120.0F, f9 * 120.0F, -f9 * 40.0F * afloat[3])
-												.color(afloat[0], afloat[1], afloat[2], 0.0F).endVertex();
+										bufferbuilder.pos(matrix4f, f8 * 120.0F, f9 * 120.0F, -f9 * 40.0F * afloat[3]).color(afloat[0], afloat[1], afloat[2], 0.0F).endVertex();
 									}
 									bufferbuilder.finishDrawing();
 									WorldVertexBufferUploader.draw(bufferbuilder);
@@ -156,20 +128,17 @@ public class ClientEventBusMoon {
 									RenderSystem.shadeModel(7424);
 								}
 								RenderSystem.enableTexture();
-								RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE,
-										GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+								RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 								matrixStack.push();
-								float f11 = 100000.0F - world.getRainStrength(partialTicks);// Rrain basiss ist es auf
-								// 1.0F
-								RenderSystem.color4f(1.0F, 1.0F, 1.0F, f11);
+
+								RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 								matrixStack.rotate(Vector3f.YP.rotationDegrees(-90.0F));
-								// matrixStack.rotate(Vector3f.XP.rotationDegrees(world.func_242415_f(partialTicks)
-								// * 360.0F));
 								matrixStack.rotate(Vector3f.XP.rotationDegrees(180.0F /* world.func_242415_f(partialTicks) * 360.0F */));
 								matrixStack.rotate(Vector3f.ZP.rotationDegrees(30.0F));
-								matrix4f1 = matrixStack.getLast().getMatrix();
+
 								float f12 = 30.0F;
-								// Earth light
+
+								//EARTH LIGHT
 								mc.getTextureManager().bindTexture(EARTH_LIGHT_TEXTURES);
 								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 								bufferbuilder.pos(matrix4f1, -25, -100.0F, 25).tex(0.0F, 0.0F).endVertex();
@@ -178,15 +147,12 @@ public class ClientEventBusMoon {
 								bufferbuilder.pos(matrix4f1, -25, -100.0F, -25).tex(0.0F, 1.0F).endVertex();
 								bufferbuilder.finishDrawing();
 								WorldVertexBufferUploader.draw(bufferbuilder);
-								// Earth Light end
-								mc.getTextureManager().bindTexture(MOON_PHASES_TEXTURES);
-								int k = world.getMoonPhase();
-								int l = k % 4;
-								int i1 = k / 4 % 2;
-								float f13 = (float) (l + 0) / 4.0F;
-								float f14 = (float) (i1 + 0) / 2.0F;
-								float f15 = (float) (l + 1) / 4.0F;
-								float f16 = (float) (i1 + 1) / 2.0F;
+
+								//EARTH
+								RenderSystem.enableDepthTest();
+								RenderSystem.depthMask(true);
+
+								mc.getTextureManager().bindTexture(EARTH);
 								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 								bufferbuilder.pos(matrix4f1, -9, -100.0F, 9).tex(0.0F, 0.0F).endVertex();
 								bufferbuilder.pos(matrix4f1, 9, -100.0F, 9).tex(1.0F, 0.0F).endVertex();
@@ -194,10 +160,14 @@ public class ClientEventBusMoon {
 								bufferbuilder.pos(matrix4f1, -9, -100.0F, -9).tex(0.0F, 1.0F).endVertex();
 								bufferbuilder.finishDrawing();
 								WorldVertexBufferUploader.draw(bufferbuilder);
-								// matrixStack.rotate(Vector3f.YP.rotationDegrees(-90.0F));
+
+								RenderSystem.depthMask(false);
+
 								matrixStack.rotate(Vector3f.ZP.rotationDegrees(-30.0F));
 								matrixStack.rotate(Vector3f.XP.rotationDegrees(world.func_242415_f(partialTicks) * 360.0F));
 								matrix4f1 = matrixStack.getLast().getMatrix();
+
+								//SUN
 								mc.getTextureManager().bindTexture(SUN_TEXTURES);
 								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 								bufferbuilder.pos(matrix4f1, -f12, -100.0F, f12).tex(0.0F, 0.0F).endVertex();
@@ -206,23 +176,17 @@ public class ClientEventBusMoon {
 								bufferbuilder.pos(matrix4f1, -f12, -100.0F, -f12).tex(0.0F, 1.0F).endVertex();
 								bufferbuilder.finishDrawing();
 								WorldVertexBufferUploader.draw(bufferbuilder);
-								RenderSystem.disableTexture();
-								f12 = 20.0F;
-								// f11 = 1000.0F;// Star Brightness
-								float f10 = 0.9F;// world.getStarBrightness(partialTicks) * f11;
-								// f11
-								if (f10 > 0.0F) {
-									RenderSystem.color4f(f10, f10, f10, f10);
 
-									starVBO.bindBuffer();
-									mc.worldRenderer.skyVertexFormat.setupBufferState(0L);
-									starVBO.draw(matrixStack.getLast().getMatrix(), 7);
-									//mc.worldRenderer.starVBO.bindBuffer();
-									//mc.worldRenderer.skyVertexFormat.setupBufferState(0L);
-									//mc.worldRenderer.starVBO.draw(matrixStack.getLast().getMatrix(), 7);
-									VertexBuffer.unbindBuffer();
-									mc.worldRenderer.skyVertexFormat.clearBufferState();
-								}
+								RenderSystem.disableTexture();
+
+								float f10 = 1.0F;
+								RenderSystem.color4f(f10, f10, f10, f10);
+								starVBO.bindBuffer();
+								mc.worldRenderer.skyVertexFormat.setupBufferState(0L);
+								starVBO.draw(matrixStack.getLast().getMatrix(), 7);
+								VertexBuffer.unbindBuffer();
+								mc.worldRenderer.skyVertexFormat.clearBufferState();
+
 								RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 								RenderSystem.disableBlend();
 								RenderSystem.enableAlphaTest();
