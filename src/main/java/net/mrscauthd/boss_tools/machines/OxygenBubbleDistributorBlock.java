@@ -258,7 +258,7 @@ public class OxygenBubbleDistributorBlock {
 		}
 
 		public void setRange(int range) {
-			range = Math.max(range, 1);
+			range = Math.min(Math.max(range, 1), 15);
 
 			if (this.getRange() != range) {
 				this.getTileData().putInt(KEY_RANGE, range);

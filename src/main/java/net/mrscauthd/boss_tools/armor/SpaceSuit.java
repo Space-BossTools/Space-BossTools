@@ -135,7 +135,8 @@ public class SpaceSuit {
 			IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(itemstack);
 
 			if (oxygenStorage != null) {
-				list.add(new StringTextComponent("\u00A79Oxygen:\u00A76 " + oxygenStorage.getOxygenStored() + " mB\u00A78 | \u00A7c" + oxygenStorage.getMaxOxygenStored() + " mB"));
+				String unit = GaugeDataHelper.OXYGEN_UNIT;
+				list.add(new StringTextComponent("\u00A79Oxygen:\u00A76 " + oxygenStorage.getOxygenStored() + " " + unit + "\u00A78 | \u00A7c" + oxygenStorage.getMaxOxygenStored() + " " + unit));
 			}
 		}
 

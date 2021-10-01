@@ -5,6 +5,7 @@ import net.mrscauthd.boss_tools.capability.CapabilityOxygen;
 import net.mrscauthd.boss_tools.capability.IOxygenStorage;
 import net.mrscauthd.boss_tools.capability.OxygenUtil;
 import net.mrscauthd.boss_tools.capability.SpaceSuitCapabilityProvider;
+import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 
 import net.minecraftforge.registries.ForgeRegistries;
@@ -133,7 +134,8 @@ public class NetheriteSpaceSuit {
 			IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(itemstack);
 
 			if (oxygenStorage != null) {
-				list.add(new StringTextComponent("\u00A79Oxygen:\u00A76 " + oxygenStorage.getOxygenStored() + " mB\u00A78 | \u00A7c" + oxygenStorage.getMaxOxygenStored() + " mB"));
+				String unit = GaugeDataHelper.OXYGEN_UNIT;
+				list.add(new StringTextComponent("\u00A79Oxygen:\u00A76 " + oxygenStorage.getOxygenStored() + " " + unit + "\u00A78 | \u00A7c" + oxygenStorage.getMaxOxygenStored() + " " + unit));
 			}
 		}
 
