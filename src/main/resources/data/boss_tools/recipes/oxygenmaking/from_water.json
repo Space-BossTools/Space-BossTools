@@ -1,0 +1,8 @@
+{
+   "type":"boss_tools:oxygenmaking",
+   "input":{
+      "tag":"minecraft:water",
+      "amount":2
+   },
+   "oxygen":1
+}

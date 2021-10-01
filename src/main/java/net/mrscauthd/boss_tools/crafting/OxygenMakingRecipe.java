@@ -4,43 +4,36 @@ import java.util.function.Predicate;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidStack;
 import net.mrscauthd.boss_tools.ModInnet;
 
-public class OxygenMakingRecipe extends BossToolsRecipe implements Predicate<ItemStack> {
+public class OxygenMakingRecipe extends BossToolsRecipe implements Predicate<FluidStack> {
 
-	public static final int SLOT_INGREDIENT = 0;
-
-	private final Ingredient ingredient;
+	private final FluidIngredient input;
 	private final int oxygen;
 
 	public OxygenMakingRecipe(ResourceLocation id, JsonObject json) {
 		super(id, json);
-		JsonObject inputJson = JSONUtils.getJsonObject(json, "input");
-		this.ingredient = Ingredient.deserialize(JSONUtils.getJsonObject(inputJson, "ingredient"));
+		this.input = FluidIngredient.deserialize(JSONUtils.getJsonObject(json, "input"));
 		this.oxygen = JSONUtils.getInt(json, "oxygen");
 	}
 
 	public OxygenMakingRecipe(ResourceLocation id, PacketBuffer buffer) {
 		super(id, buffer);
 
-		this.ingredient = Ingredient.read(buffer);
+		this.input = FluidIngredient.read(buffer);
 		this.oxygen = buffer.readInt();
 
 	}
 
-	public OxygenMakingRecipe(ResourceLocation id, Ingredient ingredient, int oxygen) {
+	public OxygenMakingRecipe(ResourceLocation id, FluidIngredient ingredient, int oxygen) {
 		super(id);
-		this.ingredient = ingredient;
+		this.input = ingredient;
 		this.oxygen = oxygen;
 	}
 
@@ -48,7 +41,7 @@ public class OxygenMakingRecipe extends BossToolsRecipe implements Predicate<Ite
 	public void write(PacketBuffer buffer) {
 		super.write(buffer);
 
-		this.getIngredient().write(buffer);
+		this.getInput().write(buffer);
 		buffer.writeInt(this.getOxygen());
 	}
 
@@ -67,24 +60,13 @@ public class OxygenMakingRecipe extends BossToolsRecipe implements Predicate<Ite
 		return BossToolsRecipeTypes.OXYGENMAKING;
 	}
 
-	public int getIngredientSlot(IInventory inventory, World world) {
-		return SLOT_INGREDIENT;
-	}
-
 	@Override
-	public boolean test(ItemStack itemStack) {
-		return this.ingredient.test(itemStack);
+	public boolean test(FluidStack fluidStack) {
+		return this.input.test(fluidStack);
 	}
 
-	public Ingredient getIngredient() {
-		return this.ingredient;
-	}
-
-	@Override
-	public NonNullList<Ingredient> getIngredients() {
-		NonNullList<Ingredient> list = super.getIngredients();
-		list.add(this.getIngredient());
-		return list;
+	public FluidIngredient getInput() {
+		return this.input;
 	}
 
 	public int getOxygen() {

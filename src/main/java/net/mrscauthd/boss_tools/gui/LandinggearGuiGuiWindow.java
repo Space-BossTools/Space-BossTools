@@ -50,8 +50,6 @@ public class LandinggearGuiGuiWindow extends ContainerScreen<LandinggearGuiGui.G
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
 		this.blit(ms, k, l, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
-		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/nasaworkbenchoutput.png"));
-		this.blit(ms, this.guiLeft + 68, this.guiTop + 19, 0, 0, 256, 256, 256, 256);
 		RenderSystem.disableBlend();
 	}
 

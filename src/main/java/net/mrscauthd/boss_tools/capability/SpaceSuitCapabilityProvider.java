@@ -1,6 +1,6 @@
 package net.mrscauthd.boss_tools.capability;
 
-import mekanism.common.capabilities.Capabilities;
+import net.mrscauthd.boss_tools.compat.mekanism.MekanismHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
@@ -8,6 +8,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.mrscauthd.boss_tools.compat.CompatibleManager;
+import net.mrscauthd.boss_tools.compat.mekanism.OxygenStorageGasAdapter;
 
 public class SpaceSuitCapabilityProvider implements ICapabilityProvider, IOxygenStorageHolder {
 
@@ -41,12 +42,8 @@ public class SpaceSuitCapabilityProvider implements ICapabilityProvider, IOxygen
 		}
 
 		if (CompatibleManager.MEKANISM.isLoaded()) {
-			if (capability == Capabilities.GAS_HANDLER_CAPABILITY) {
-				IOxygenStorage storage = this.getCapability(CapabilityOxygen.OXYGEN, direction).orElse(null);
-
-				if (storage != null) {
-					return LazyOptional.of(() -> new OxygenStorageGasAdapter(storage, false, true)).cast();
-				}
+			if (capability == MekanismHelper.getGasHandlerCapability()) {
+				return LazyOptional.of(() -> new OxygenStorageGasAdapter(this.getCapability(CapabilityOxygen.OXYGEN, direction).orElse(null))).cast();
 			}
 		}
 

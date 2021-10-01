@@ -3,6 +3,8 @@ package net.mrscauthd.boss_tools.gauge;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.fluids.FluidStack;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 
 public class GaugeDataRenderer extends AbstractGaugeDataRenderer {
@@ -38,7 +40,12 @@ public class GaugeDataRenderer extends AbstractGaugeDataRenderer {
 	public int getBackgroundColor() {
 		IGaugeValue value = this.getData().getValue();
 
-		if (value instanceof GaugeValueSimple) {
+		if (value instanceof GaugeValueFluidStack) {
+			FluidStack fluidStack = ((GaugeValueFluidStack) value).getStack();
+			FluidAttributes attributes = fluidStack.getFluid().getAttributes();
+			return attributes.getColor(fluidStack);
+		}
+		else if (value instanceof GaugeValueSimple) {
 			return ((GaugeValueSimple) value).getColor();
 		} else {
 			return super.getBackgroundColor();

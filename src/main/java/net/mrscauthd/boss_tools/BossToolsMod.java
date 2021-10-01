@@ -83,7 +83,8 @@ public class BossToolsMod {
 		KeyBindings.registerMessages();
 
 		//Networker
-		BossToolsMod.addNetworkMessage(OxygenBubbleDistributorBlock.SetLargeMessage.class, OxygenBubbleDistributorBlock.SetLargeMessage::encode, OxygenBubbleDistributorBlock.SetLargeMessage::decode, OxygenBubbleDistributorBlock.SetLargeMessage::handle);
+		BossToolsMod.addNetworkMessage(OxygenBubbleDistributorBlock.ChangeRangeMessage.class, OxygenBubbleDistributorBlock.ChangeRangeMessage::encode, OxygenBubbleDistributorBlock.ChangeRangeMessage::decode, OxygenBubbleDistributorBlock.ChangeRangeMessage::handle);
+		BossToolsMod.addNetworkMessage(OxygenBubbleDistributorBlock.ChangeWorkingAreaVisibleMessage.class, OxygenBubbleDistributorBlock.ChangeWorkingAreaVisibleMessage::encode, OxygenBubbleDistributorBlock.ChangeWorkingAreaVisibleMessage::decode, OxygenBubbleDistributorBlock.ChangeWorkingAreaVisibleMessage::handle);
 
 		CompatibleManager.loadAll();
 	}

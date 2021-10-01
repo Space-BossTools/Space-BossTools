@@ -1,10 +1,11 @@
-package net.mrscauthd.boss_tools.capability;
+package net.mrscauthd.boss_tools.compat.mekanism;
 
 import mekanism.api.Action;
 import mekanism.api.chemical.gas.Gas;
 import mekanism.api.chemical.gas.GasStack;
 import mekanism.api.chemical.gas.IGasHandler;
 import mekanism.common.registries.MekanismGases;
+import net.mrscauthd.boss_tools.capability.IOxygenStorage;
 
 public class OxygenStorageGasAdapter implements IGasHandler {
 
@@ -26,14 +27,15 @@ public class OxygenStorageGasAdapter implements IGasHandler {
 		return MekanismGases.OXYGEN.get();
 	}
 
-	protected GasStack createGasStack(int amount) {
+	protected GasStack createGasStack(long amount) {
 		return new GasStack(this.getGas(), amount);
 	}
 
 	@Override
 	public GasStack extractChemical(int var1, long var2, Action var4) {
 		if (this.isCanExtract()) {
-			return this.createGasStack(this.getOxygenStorage().extractOxygen((int) var2, var4.simulate()));
+			int extractOxygen = this.getOxygenStorage().extractOxygen((int) var2, var4.simulate());
+			return this.createGasStack(extractOxygen);
 		} else {
 			return GasStack.EMPTY;
 		}
@@ -57,11 +59,9 @@ public class OxygenStorageGasAdapter implements IGasHandler {
 	@Override
 	public GasStack insertChemical(int var1, GasStack var2, Action var3) {
 		if (this.isCanInsert() && this.isValid(var1, var2)) {
-			var2 = var2.copy();
-			int amount = (int)Math.min(var2.getAmount(), Integer.MAX_VALUE);
+			int amount = (int) Math.min(var2.getAmount(), Integer.MAX_VALUE);
 			int receiveOxygen = this.getOxygenStorage().receiveOxygen(amount, var3.simulate());
-			var2.shrink(receiveOxygen);
-			return var2;
+			return this.createGasStack(var2.getAmount() - receiveOxygen);
 		} else {
 			return var2;
 		}
