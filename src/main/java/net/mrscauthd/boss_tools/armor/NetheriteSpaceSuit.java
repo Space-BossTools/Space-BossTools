@@ -133,7 +133,7 @@ public class NetheriteSpaceSuit {
 			IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(itemstack);
 
 			if (oxygenStorage != null) {
-				list.add(new StringTextComponent("\u00A79Oxygen:\u00A76 " + oxygenStorage.getOxygenStored() + "\u00A78 | \u00A7c" + oxygenStorage.getMaxOxygenStored()));
+				list.add(new StringTextComponent("\u00A79Oxygen:\u00A76 " + oxygenStorage.getOxygenStored() + " mB\u00A78 | \u00A7c" + oxygenStorage.getMaxOxygenStored() + " mB"));
 			}
 		}
 

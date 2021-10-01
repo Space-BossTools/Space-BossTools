@@ -18,6 +18,15 @@ public class GaugeDataHelper {
 	public static final ResourceLocation BURNTIME_NAME = new ResourceLocation("boss_tools", "burntime");
 	public static final ResourceLocation COOKTIME_NAME = new ResourceLocation("boss_tools", "cooktime");
 
+	public static final int ENERGY_COLOR = 0xA0FF404B;
+	public static final int OXYGEN_COLOR = 0xA000FFFF;
+	public static final int BURNTIME_COLOR = 0xA0FF3F00;
+	public static final int COOKTIME_COLOR = 0xA0FFFFFF;
+
+	public static final String ENERGY_UNIT = "FE";
+	public static final String OXYGEN_UNIT = "mB";
+	public static final String FLUID_UNIT = "mB";
+
 	public static String makeTranslationKey(ResourceLocation name) {
 		return "gague." + name.getNamespace() + "." + name.getPath();
 	}
@@ -47,7 +56,7 @@ public class GaugeDataHelper {
 	}
 
 	public static GaugeData getEnergy(int stored, int capacity) {
-		return new GaugeData(new GaugeValueSimple(ENERGY_NAME, stored, capacity, null, "FE").color(0xA0FF404B), new GaugeFormat(capacity > NO_CAPACITY, false));
+		return new GaugeData(new GaugeValueSimple(ENERGY_NAME, stored, capacity, null, ENERGY_UNIT).color(ENERGY_COLOR), new GaugeFormat(capacity > NO_CAPACITY, false));
 	}
 
 	public static GaugeData getEnergy(IEnergyStorage energyStorage) {
@@ -63,7 +72,7 @@ public class GaugeDataHelper {
 	}
 
 	public static GaugeData getOxygen(int amount, int capacity) {
-		return new GaugeData(new GaugeValueSimple(OXYGEN_NAME, amount, capacity).color(0xA000FFFF), new GaugeFormat(capacity > NO_CAPACITY, false));
+		return new GaugeData(new GaugeValueSimple(OXYGEN_NAME, amount, capacity, null, OXYGEN_UNIT).color(OXYGEN_COLOR), new GaugeFormat(capacity > NO_CAPACITY, false));
 	}
 
 	public static GaugeData getOxygen(IOxygenStorage oxygenStorage) {
@@ -75,7 +84,7 @@ public class GaugeDataHelper {
 	}
 
 	public static GaugeData getBurnTime(int amount, int capacity) {
-		return new GaugeData(new GaugeValueSimple(BURNTIME_NAME, amount, capacity).color(0xA0FF3F00), new GaugeFormat(capacity > NO_CAPACITY, false));
+		return new GaugeData(new GaugeValueSimple(BURNTIME_NAME, amount, capacity).color(BURNTIME_COLOR), new GaugeFormat(capacity > NO_CAPACITY, false));
 	}
 
 	public static GaugeData getBurnTime(PowerSystemFuelBurnTime fuelPowerSystem) {
@@ -83,7 +92,7 @@ public class GaugeDataHelper {
 	}
 
 	public static GaugeData getCookTime(int timer, int maxTimer) {
-		return new GaugeData(new GaugeValueSimple(COOKTIME_NAME, maxTimer - timer, maxTimer), new GaugeFormat(true, true));
+		return new GaugeData(new GaugeValueSimple(COOKTIME_NAME, maxTimer - timer, maxTimer).color(COOKTIME_COLOR), new GaugeFormat(true, true));
 	}
 
 }

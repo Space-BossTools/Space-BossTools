@@ -50,7 +50,7 @@ public class GaugeValueFluidStack implements IGaugeValue {
 
 	@Override
 	public String getUnit() {
-		return "mb";
+		return GaugeDataHelper.FLUID_UNIT;
 	}
 
 	@Override

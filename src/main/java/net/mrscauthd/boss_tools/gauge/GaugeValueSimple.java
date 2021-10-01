@@ -11,6 +11,8 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 public class GaugeValueSimple implements IGaugeValue {
 
+	public static final int FALLBACK_COLOR = 0xA0FFFFFF;
+
 	private ResourceLocation name;
 	private int amount;
 	private int capacity;
@@ -37,7 +39,7 @@ public class GaugeValueSimple implements IGaugeValue {
 	}
 
 	public GaugeValueSimple(@Nonnull ResourceLocation name, int amount, int capacity, @Nullable ITextComponent displayeName, @Nonnull String unit) {
-		this(name, amount, capacity, displayeName, unit, 0xA0FFFFFF);
+		this(name, amount, capacity, displayeName, unit, FALLBACK_COLOR);
 	}
 
 	public GaugeValueSimple(@Nonnull ResourceLocation name, int amount, int capacity, @Nullable ITextComponent displayeName, @Nonnull String unit, int color) {
