@@ -16,6 +16,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.boss_tools.BossToolsMod;
@@ -46,6 +47,8 @@ public class OxygenBubbleDistributorGUIWindow extends ContainerScreen<OxygenBubb
 	public static final int ARROW_TOP = 36;
 
 	private CustomTileEntity tileEntity;
+	private boolean cachedWorkingAreaVisible;
+	private Button workingAreaVisibleButton;
 
 	public OxygenBubbleDistributorGUIWindow(OxygenBubbleDistributorGUI.GuiContainerMod container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
@@ -70,6 +73,7 @@ public class OxygenBubbleDistributorGUIWindow extends ContainerScreen<OxygenBubb
 	@Override
 	public void render(MatrixStack ms, int mouseX, int mouseY, float partialTicks) {
 		this.renderBackground(ms);
+		this.updateWorkingAreaVisibleButton();
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 
@@ -94,9 +98,6 @@ public class OxygenBubbleDistributorGUIWindow extends ContainerScreen<OxygenBubb
 		GuiHelper.drawEnergy(ms, this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP, tileEntity.getPrimaryEnergyStorage());
 		GuiHelper.drawFluidTank(ms, this.guiLeft + INPUT_TANK_LEFT, this.guiTop + INPUT_TANK_TOP, tileEntity.getInputTank());
 		GuiHelper.drawOxygenTank(ms, this.guiLeft + OUTPUT_TANK_LEFT, this.guiTop + OUTPUT_TANK_TOP, tileEntity.getOutputTank());
-
-		this.minecraft.getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/oxygenlarge6.png"));
-		AbstractGui.blit(ms, this.guiLeft + 10, this.guiTop - 10, 0, 0, 21, 11, 21, 11);
 	}
 
 	@Override
@@ -106,12 +107,33 @@ public class OxygenBubbleDistributorGUIWindow extends ContainerScreen<OxygenBubb
 		double range = this.getTileEntity().getRange();
 		NumberFormat numberInstance = NumberFormat.getNumberInstance();
 		numberInstance.setMaximumFractionDigits(2);
-		String rangeToString = numberInstance.format(range);
+		String rangeToString = numberInstance.format((range * 2.0D) + 1.0D);
+		TranslationTextComponent workingAreaText = new TranslationTextComponent("gui.boss_tools.oxygen_bubble_distributor.workingarea.text", rangeToString, rangeToString, rangeToString);
+
+		int sideWidth = 2;
+		int sidePadding = 2;
+		int workingAreaWidth = this.font.getStringPropertyWidth(workingAreaText) + (sidePadding * 2);
+		int workingAreaHeight = 11;
+		int workingAreaLeft = this.workingAreaVisibleButton.x + this.workingAreaVisibleButton.getWidth() - this.guiLeft;
+		int workignAreaTop = -workingAreaHeight;
+
+		int workingAreaOffsetX = workingAreaLeft;
+		this.minecraft.getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/workingarea_side.png"));
+		AbstractGui.blit(ms, workingAreaOffsetX, workignAreaTop, 0, 0, sideWidth, workingAreaHeight, sideWidth, workingAreaHeight);
+		workingAreaOffsetX += sideWidth;
+
+		this.minecraft.getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/workingarea_middle.png"));
+		AbstractGui.blit(ms, workingAreaOffsetX, workignAreaTop, 0, 0, workingAreaWidth, workingAreaHeight, workingAreaWidth, workingAreaHeight);
+		workingAreaOffsetX += workingAreaWidth;
+
+		this.minecraft.getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/workingarea_side.png"));
+		AbstractGui.blit(ms, workingAreaOffsetX, workignAreaTop, 0, 0, sideWidth, workingAreaHeight, sideWidth, workingAreaHeight);
+		workingAreaOffsetX += sideWidth;
+
+		this.font.func_243248_b(ms, workingAreaText, workingAreaLeft + sideWidth + sidePadding, workignAreaTop + 2, 0x339900);
 
 		ITextComponent oxygenText = GaugeTextHelper.getUsingText(GaugeDataHelper.getOxygen(this.getTileEntity().getOxygenUsing(range)));
 		int oxygenWidth = this.font.getStringPropertyWidth(oxygenText);
-
-		this.font.drawString(ms, String.format("%sx%s", rangeToString, rangeToString), 12, -8, 0x339900);
 		this.font.func_243248_b(ms, oxygenText, this.xSize - oxygenWidth - 5, this.playerInventoryTitleY, 0x333333);
 	}
 
@@ -127,6 +149,40 @@ public class OxygenBubbleDistributorGUIWindow extends ContainerScreen<OxygenBubb
 			BlockPos pos = this.getTileEntity().getPos();
 			BossToolsMod.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlock.ChangeRangeMessage(pos, true));
 		}));
+		this.workingAreaVisibleButton = this.addButton(new Button(this.guiLeft, this.guiTop - 20, 20, 20, new StringTextComponent(""), e -> {
+			BlockPos pos = this.getTileEntity().getPos();
+			BossToolsMod.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlock.ChangeWorkingAreaVisibleMessage(pos, !this.cachedWorkingAreaVisible));
+		}));
+
+		this.resizeWorkingAreaVisibleButton();
+		this.refreshWorkingAreaVisibleButtonMessage();
+	}
+
+	private void updateWorkingAreaVisibleButton() {
+		boolean next = this.getTileEntity().isWorkingAreaVisible();
+
+		if (this.cachedWorkingAreaVisible != next) {
+			this.cachedWorkingAreaVisible = next;
+			this.refreshWorkingAreaVisibleButtonMessage();
+		}
+	}
+
+	private ITextComponent getWorkingAreaVisibleMessage(boolean visible) {
+		String prefix = "gui.boss_tools.oxygen_bubble_distributor.workingarea.";
+		String method = visible ? "hide" : "show";
+		return new TranslationTextComponent(prefix + method);
+	}
+
+	private void refreshWorkingAreaVisibleButtonMessage() {
+		ITextComponent message = this.getWorkingAreaVisibleMessage(this.cachedWorkingAreaVisible);
+		this.workingAreaVisibleButton.setMessage(message);
+	}
+
+	private void resizeWorkingAreaVisibleButton() {
+		int messageWidth = this.workingAreaVisibleButton.getHeightRealms();
+		messageWidth = Math.max(messageWidth, this.font.getStringPropertyWidth(this.getWorkingAreaVisibleMessage(true)));
+		messageWidth = Math.max(messageWidth, this.font.getStringPropertyWidth(this.getWorkingAreaVisibleMessage(false)));
+		this.workingAreaVisibleButton.setWidth(messageWidth + 8);
 	}
 
 	public CustomTileEntity getTileEntity() {

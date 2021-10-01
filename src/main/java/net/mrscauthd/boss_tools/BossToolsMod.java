@@ -84,6 +84,7 @@ public class BossToolsMod {
 
 		//Networker
 		BossToolsMod.addNetworkMessage(OxygenBubbleDistributorBlock.ChangeRangeMessage.class, OxygenBubbleDistributorBlock.ChangeRangeMessage::encode, OxygenBubbleDistributorBlock.ChangeRangeMessage::decode, OxygenBubbleDistributorBlock.ChangeRangeMessage::handle);
+		BossToolsMod.addNetworkMessage(OxygenBubbleDistributorBlock.ChangeWorkingAreaVisibleMessage.class, OxygenBubbleDistributorBlock.ChangeWorkingAreaVisibleMessage::encode, OxygenBubbleDistributorBlock.ChangeWorkingAreaVisibleMessage::decode, OxygenBubbleDistributorBlock.ChangeWorkingAreaVisibleMessage::handle);
 
 		CompatibleManager.loadAll();
 	}

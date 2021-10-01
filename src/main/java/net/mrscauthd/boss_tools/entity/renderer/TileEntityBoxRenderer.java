@@ -14,6 +14,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Matrix3f;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.boss_tools.machines.OxygenBubbleDistributorBlock;
@@ -32,52 +33,55 @@ public class TileEntityBoxRenderer extends TileEntityRenderer<OxygenBubbleDistri
         return true;
     }
 
-    @Override
-    public void render(OxygenBubbleDistributorBlock.CustomTileEntity tileEntityIn, float partialTicks, MatrixStack matrix, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
+	@Override
+	public void render(OxygenBubbleDistributorBlock.CustomTileEntity tileEntityIn, float partialTicks, MatrixStack matrix, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
 
-        IVertexConsumer builder = (IVertexConsumer) bufferIn.getBuffer(RenderType.getLines());
-        AxisAlignedBB workingArea = tileEntityIn.getWorkingArea(tileEntityIn.getRange());
+		if (tileEntityIn.isWorkingAreaVisible()) {
+			IVertexConsumer builder = (IVertexConsumer) bufferIn.getBuffer(RenderType.getLines());
+			AxisAlignedBB workingArea = tileEntityIn.getWorkingArea(BlockPos.ZERO, tileEntityIn.getRange());
 
-        Matrix3f normal = matrix.getLast().getNormal();
-        Matrix4f matrix4f = matrix.getLast().getMatrix();
+			Matrix3f normal = matrix.getLast().getNormal();
+			Matrix4f matrix4f = matrix.getLast().getMatrix();
 
-        float startX = (float) workingArea.minX;
-        float topY = (float) workingArea.minY;
-        float startZ = (float) workingArea.minZ;
+			float startX = (float) workingArea.minX;
+			float topY = (float) workingArea.minY + 0.005F;
+			float startZ = (float) workingArea.minZ;
 
-        float endX = (float) workingArea.minX;
-        float botY = (float) workingArea.maxY;
-        float endZ = (float) workingArea.maxZ;
+			float endX = (float) workingArea.maxX;
+			float botY = (float) workingArea.maxY;
+			float endZ = (float) workingArea.maxZ;
 
-        //255 is default
-        int rl = 78;
-        int gl = 197;
-        int bl = 231;
+			//255 is default
+			int rl = 78;
+			int gl = 197;
+			int bl = 231;
 
-        int r = 255;
-        int g = 255;
-        int b = 255;
+			int r = 255;
+			int g = 255;
+			int b = 255;
 
-        //Bottom frame
-        drawShapeOutline(builder, matrix4f, normal, startX, botY, startZ,   endX, botY, startZ, rl, gl, bl);
-        drawShapeOutline(builder, matrix4f, normal, startX, botY,   endZ,   endX, botY,   endZ, rl, gl, bl);
-        drawShapeOutline(builder, matrix4f, normal, startX, botY, startZ, startX, botY,   endZ, rl, gl, bl);
-        drawShapeOutline(builder, matrix4f, normal,   endX, botY, startZ,   endX, botY,   endZ, rl, gl, bl);
+			//Bottom frame
+			drawShapeOutline(builder, matrix4f, normal, startX, botY, startZ,   endX, botY, startZ, rl, gl, bl);
+			drawShapeOutline(builder, matrix4f, normal, startX, botY,   endZ,   endX, botY,   endZ, rl, gl, bl);
+			drawShapeOutline(builder, matrix4f, normal, startX, botY, startZ, startX, botY,   endZ, rl, gl, bl);
+			drawShapeOutline(builder, matrix4f, normal,   endX, botY, startZ,   endX, botY,   endZ, rl, gl, bl);
 
-        //Top frame
-        drawShapeOutline(builder, matrix4f, normal, startX, topY, startZ,   endX, topY, startZ, rl, gl, bl);
-        drawShapeOutline(builder, matrix4f, normal, startX, topY,   endZ,   endX, topY,   endZ, rl, gl, bl);
-        drawShapeOutline(builder, matrix4f, normal, startX, topY, startZ, startX, topY,   endZ, rl, gl, bl);
-        drawShapeOutline(builder, matrix4f, normal,   endX, topY, startZ,   endX, topY,   endZ, rl, gl, bl);
+			//Top frame
+			drawShapeOutline(builder, matrix4f, normal, startX, topY, startZ,   endX, topY, startZ, rl, gl, bl);
+			drawShapeOutline(builder, matrix4f, normal, startX, topY,   endZ,   endX, topY,   endZ, rl, gl, bl);
+			drawShapeOutline(builder, matrix4f, normal, startX, topY, startZ, startX, topY,   endZ, rl, gl, bl);
+			drawShapeOutline(builder, matrix4f, normal,   endX, topY, startZ,   endX, topY,   endZ, rl, gl, bl);
 
-        //Vertical lines
-        drawShapeOutline(builder, matrix4f, normal, startX, botY, startZ, startX, topY, startZ, rl, gl, bl);
-        drawShapeOutline(builder, matrix4f, normal, startX, botY,   endZ, startX, topY,   endZ, rl, gl, bl);
-        drawShapeOutline(builder, matrix4f, normal,   endX, botY, startZ,   endX, topY, startZ, rl, gl, bl);
-        drawShapeOutline(builder, matrix4f, normal,   endX, botY,   endZ,   endX, topY,   endZ, rl, gl, bl);
+			//Vertical lines
+			drawShapeOutline(builder, matrix4f, normal, startX, botY, startZ, startX, topY, startZ, rl, gl, bl);
+			drawShapeOutline(builder, matrix4f, normal, startX, botY,   endZ, startX, topY,   endZ, rl, gl, bl);
+			drawShapeOutline(builder, matrix4f, normal,   endX, botY, startZ,   endX, topY, startZ, rl, gl, bl);
+			drawShapeOutline(builder, matrix4f, normal,   endX, botY,   endZ,   endX, topY,   endZ, rl, gl, bl);
 
-        drawSurfaces(bufferIn,matrix4f, normal, startX, startZ, endX, endZ, botY, topY,r,g,b);
-    }
+			drawSurfaces(bufferIn,matrix4f, normal, startX, startZ, endX, endZ, botY, topY,r,g,b);
+		}
+
+	}
 
     private void drawShapeOutline(IVertexConsumer builder, Matrix4f matrix, Matrix3f normal, float x1, float y1, float z1, float x2, float y2, float z2, int r, int g, int b) {
         float nX = (float)(x2 - x1);

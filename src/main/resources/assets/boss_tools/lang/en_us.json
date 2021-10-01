@@ -201,6 +201,10 @@
   "container.boss_tools.oxygen_loader": "Oxygen Loader",
   "container.boss_tools.solar_panel": "Solar Panel",
   
+  "gui.boss_tools.oxygen_bubble_distributor.workingarea.text": "Working Area: %1$sx%2$sx%3$s",
+  "gui.boss_tools.oxygen_bubble_distributor.workingarea.show": "Show",
+  "gui.boss_tools.oxygen_bubble_distributor.workingarea.hide": "Hide",
+  
   "category.boss_tools.oxygenmaking": "Oxygen Making",
   
   "gague_text.boss_tools.using": "%1$s Using: %2$s/t",

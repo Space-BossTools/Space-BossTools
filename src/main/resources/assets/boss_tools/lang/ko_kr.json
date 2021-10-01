@@ -201,6 +201,10 @@
   "container.boss_tools.oxygen_loader": "산소 충전기",
   "container.boss_tools.solar_panel": "태양광 발전기",
   
+  "gui.boss_tools.oxygen_bubble_distributor.workingarea.text": "작업 영역: %1$sx%2$sx%3$s",
+  "gui.boss_tools.oxygen_bubble_distributor.workingarea.show": "표시",
+  "gui.boss_tools.oxygen_bubble_distributor.workingarea.hide": "숨김",
+  
   "category.boss_tools.oxygenmaking": "산소 생성",
   
   "gague_text.boss_tools.using": "%1$s 소모: %2$s/t",

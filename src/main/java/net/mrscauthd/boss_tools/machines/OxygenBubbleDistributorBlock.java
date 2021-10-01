@@ -60,13 +60,8 @@ import net.mrscauthd.boss_tools.machines.tile.PowerSystemRegistry;
 public class OxygenBubbleDistributorBlock {
 
 	public static final int ENERGY_PER_TICK = 1;
-	public static final String KEY_TIMER = "timer";
-	public static final String KEY_RANGE = "large";
-
-	/**
-	 * Interval Ticks, 2 = every 2 ticks
-	 */
-	public static final int MAX_TIMER = 2;
+	public static final String KEY_RANGE = "range";
+	public static final String KEY_WORKINGAREA_VISIBLE = "workingAreaVisible";
 
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
@@ -190,6 +185,7 @@ public class OxygenBubbleDistributorBlock {
 
 		public CustomTileEntity() {
 			super(ModInnet.OXYGEN_BUBBLE_DISTRIBUTOR.get());
+			this.setWorkingAreaVisible(false);
 		}
 
 		@OnlyIn(Dist.CLIENT)
@@ -218,19 +214,7 @@ public class OxygenBubbleDistributorBlock {
 		protected void tickProcessing() {
 			super.tickProcessing();
 
-			this.tickDistributeTimer();
-		}
-
-		/**
-		 * timer will 0, 1, 0, 1
-		 */
-		private void tickDistributeTimer() {
-			if (this.getTimer() >= this.getMaxTimer()) {
-				this.setTimer(0);
-				this.distribute();
-			}
-
-			this.setTimer(this.getTimer() + 1);
+			this.distribute();
 		}
 
 		private void distribute() {
@@ -262,35 +246,19 @@ public class OxygenBubbleDistributorBlock {
 				serverWorld.spawnParticle(ParticleTypes.CLOUD, center.x, center.y + 0.5D, center.z, 1, 0.1D, 0.1D, 0.1D, 0.001D);
 			}
 
+			this.setProcessedInThisTick();
 		}
 
 		public int getOxygenUsing(double range) {
-			return 8;
-		}
-
-		public int getMaxTimer() {
-			return MAX_TIMER;
-		}
-
-		public int getTimer() {
-			return this.getTileData().getInt(KEY_TIMER);
-		}
-
-		public void setTimer(int timer) {
-			timer = Math.max(timer, 0);
-
-			if (this.getTimer() != timer) {
-				this.getTileData().putInt(KEY_TIMER, timer);
-				this.markDirty();
-			}
+			return (int) range;
 		}
 
 		public int getRange() {
-			return this.getTileData().getInt(KEY_RANGE);
+			return Math.max(this.getTileData().getInt(KEY_RANGE), 1);
 		}
 
 		public void setRange(int range) {
-			range = Math.max(range, 0);
+			range = Math.max(range, 1);
 
 			if (this.getRange() != range) {
 				this.getTileData().putInt(KEY_RANGE, range);
@@ -298,8 +266,23 @@ public class OxygenBubbleDistributorBlock {
 			}
 		}
 
+		public boolean isWorkingAreaVisible() {
+			return this.getTileData().getBoolean(KEY_WORKINGAREA_VISIBLE);
+		}
+
+		public void setWorkingAreaVisible(boolean visible) {
+			if (this.isWorkingAreaVisible() != visible) {
+				this.getTileData().putBoolean(KEY_WORKINGAREA_VISIBLE, visible);
+				this.markDirty();
+			}
+		}
+
 		public AxisAlignedBB getWorkingArea(double range) {
-			return new AxisAlignedBB(this.getPos()).grow(range);
+			return this.getWorkingArea(this.getPos(), range);
+		}
+
+		public AxisAlignedBB getWorkingArea(BlockPos pos, double range) {
+			return new AxisAlignedBB(pos).grow(range).offset(0.0D, range, 0.0D);
 		}
 
 		@Override
@@ -333,9 +316,9 @@ public class OxygenBubbleDistributorBlock {
 
 		}
 
-		public ChangeRangeMessage(BlockPos pos, boolean large) {
+		public ChangeRangeMessage(BlockPos pos, boolean direction) {
 			this.setBlockPos(pos);
-			this.setDirection(large);
+			this.setDirection(direction);
 		}
 
 		public ChangeRangeMessage(PacketBuffer buffer) {
@@ -374,6 +357,57 @@ public class OxygenBubbleDistributorBlock {
 			int prev = tileEntity.getRange();
 			int next = prev + (message.getDirection() ? +1 : -1);
 			tileEntity.setRange(next);
+			context.setPacketHandled(true);
+		}
+	}
+
+	public static class ChangeWorkingAreaVisibleMessage {
+		private BlockPos blockPos = BlockPos.ZERO;
+		private boolean visible = false;
+
+		public ChangeWorkingAreaVisibleMessage() {
+
+		}
+
+		public ChangeWorkingAreaVisibleMessage(BlockPos pos, boolean visible) {
+			this.setBlockPos(pos);
+			this.setVisible(visible);
+		}
+
+		public ChangeWorkingAreaVisibleMessage(PacketBuffer buffer) {
+			this.setBlockPos(buffer.readBlockPos());
+			this.setVisible(buffer.readBoolean());
+		}
+
+		public BlockPos getBlockPos() {
+			return this.blockPos;
+		}
+
+		public void setBlockPos(BlockPos blockPos) {
+			this.blockPos = blockPos;
+		}
+
+		public boolean isVisible() {
+			return this.visible;
+		}
+
+		public void setVisible(boolean visible) {
+			this.visible = visible;
+		}
+
+		public static ChangeWorkingAreaVisibleMessage decode(PacketBuffer buffer) {
+			return new ChangeWorkingAreaVisibleMessage(buffer);
+		}
+
+		public static void encode(ChangeWorkingAreaVisibleMessage message, PacketBuffer buffer) {
+			buffer.writeBlockPos(message.getBlockPos());
+			buffer.writeBoolean(message.isVisible());
+		}
+
+		public static void handle(ChangeWorkingAreaVisibleMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
+			Context context = contextSupplier.get();
+			CustomTileEntity tileEntity = (CustomTileEntity) context.getSender().getServerWorld().getTileEntity(message.getBlockPos());
+			tileEntity.setWorkingAreaVisible(message.isVisible());
 			context.setPacketHandled(true);
 		}
 	}
