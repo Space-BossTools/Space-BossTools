@@ -135,6 +135,7 @@ public class ClientEventBusMoon {
 								matrixStack.rotate(Vector3f.YP.rotationDegrees(-90.0F));
 								matrixStack.rotate(Vector3f.XP.rotationDegrees(180.0F /* world.func_242415_f(partialTicks) * 360.0F */));
 								matrixStack.rotate(Vector3f.ZP.rotationDegrees(30.0F));
+								matrix4f1 = matrixStack.getLast().getMatrix();
 
 								float f12 = 30.0F;
 
