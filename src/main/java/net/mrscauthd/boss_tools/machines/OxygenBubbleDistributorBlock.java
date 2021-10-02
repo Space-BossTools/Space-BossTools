@@ -197,6 +197,15 @@ public class OxygenBubbleDistributorBlock {
 			this.setWorkingAreaVisible(false);
 		}
 
+		@Override
+		protected boolean canActivated() {
+			if (this.getOutputTank().getOxygenStored() >= this.getOxygenUsing(this.getRange())) {
+				return true;
+			}
+
+			return super.canActivated();
+		}
+
 		@OnlyIn(Dist.CLIENT)
 		@Override
 		public double getMaxRenderDistanceSquared() {
