@@ -68,9 +68,9 @@ public class OxygenBubbleDistributorBlock {
 	public static final String KEY_WORKINGAREA_VISIBLE = "workingAreaVisible";
 
 	/**
-	 * Interval Ticks, 5 = every 5 ticks
+	 * Interval Ticks, 4 = every 4 ticks
 	 */
-	public static final int MAX_TIMER = 5;
+	public static final int MAX_TIMER = 4;
 
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
@@ -226,7 +226,7 @@ public class OxygenBubbleDistributorBlock {
 		}
 
 		/**
-		 * timer will cycle 0, 1, 2, 3, 4
+		 * timer will cycle 0, 1, 2, 3
 		 */
 		private void tickDistributeTimer() {
 			if (this.getTimer() >= this.getMaxTimer()) {
