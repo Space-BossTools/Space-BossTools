@@ -29,7 +29,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
@@ -44,11 +43,12 @@ import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.CompressingRecipe;
 import net.mrscauthd.boss_tools.crafting.FuelRefiningRecipe;
 import net.mrscauthd.boss_tools.crafting.GeneratingRecipe;
+import net.mrscauthd.boss_tools.crafting.OxygenBubbleDistributorRecipe;
+import net.mrscauthd.boss_tools.crafting.OxygenLoaderRecipe;
 import net.mrscauthd.boss_tools.crafting.WorkbenchingRecipe;
 import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
 import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
-import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipe;
 import net.mrscauthd.boss_tools.crafting.RocketPart;
 import net.mrscauthd.boss_tools.gui.screens.RocketGUI;
 import net.mrscauthd.boss_tools.machines.NASAWorkbenchBlock;
@@ -72,20 +72,28 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
 	public static IJeiHelpers jeiHelper;
 
-	private List<ItemStack> waterFullItemStacks;
+	private Map<Fluid, List<ItemStack>> fluidFullItemStacks;
 	private List<ItemStack> oxygenFullItemStacks;
-	private List<ItemStack> oilFullItemStacks;
-	private List<ItemStack> fuelFullItemStacks;
 
 	//TODO: Rework Fluid Bar in Rockets,Rover
 
+	public List<ItemStack> getFluidFullItemStacks(Fluid fluid){
+		return this.fluidFullItemStacks.computeIfAbsent(fluid, this::generateFluidFullIngredients);
+	}
+
+	public List<ItemStack> getFluidFullItemStacks(Collection<Fluid> fluids){
+		return fluids.stream().flatMap(f -> this.getFluidFullItemStacks(f).stream()).collect(Collectors.toList());
+	}
+	
 	@Override
 	public ResourceLocation getPluginUid() {
 		return new ResourceLocation("boss_tools", "default");
@@ -95,9 +103,9 @@ public class JeiPlugin implements IModPlugin {
 	public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
 		int inventorySlotCount = 36;
 		// OxygenLoader
-		registration.addRecipeTransferHandler(OxygenLoaderGuiGui.GuiContainerMod.class, OxygenMakingJeiCategory.Uid, OxygenMakingTileEntity.SLOT_INPUT_SOURCE, 1, 0, inventorySlotCount);
+		registration.addRecipeTransferHandler(OxygenLoaderGuiGui.GuiContainerMod.class, OxygenLoaderJeiCategory.Uid, OxygenMakingTileEntity.SLOT_INPUT_SOURCE, 1, 0, inventorySlotCount);
 		// OxygenBubbleDistributor
-		registration.addRecipeTransferHandler(OxygenBubbleDistributorGUI.GuiContainerMod.class, OxygenMakingJeiCategory.Uid, OxygenMakingTileEntity.SLOT_INPUT_SOURCE, 1, 0, inventorySlotCount);
+		registration.addRecipeTransferHandler(OxygenBubbleDistributorGUI.GuiContainerMod.class, OxygenBubbleDistributorJeiCategory.Uid, OxygenMakingTileEntity.SLOT_INPUT_SOURCE, 1, 0, inventorySlotCount);
 		// Generator
 		registration.addRecipeTransferHandler(GeneratorGUIGui.GuiContainerMod.class, CoalGeneratorJeiCategory.Uid, CoalGeneratorBlock.SLOT_FUEL, 1, CoalGeneratorBlock.SLOT_FUEL + 1, inventorySlotCount);
 		// BlastFurnace
@@ -123,14 +131,15 @@ public class JeiPlugin implements IModPlugin {
 		registration.addRecipeClickArea(FuelRefineryGUIGuiWindow.class, FuelRefineryGUIGuiWindow.ARROW_LEFT, FuelRefineryGUIGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, FuelRefineryJeiCategory.Uid);
 		registration.addGuiContainerHandler(BlastFurnaceGUIGuiWindow.class, new BlastFurnaceGuiContainerHandler());
 		registration.addGuiContainerHandler(CompressorGuiGuiWindow.class, new CompressorGuiContainerHandler());
-		registration.addRecipeClickArea(OxygenLoaderGuiGuiWindow.class, FuelRefineryGUIGuiWindow.ARROW_LEFT, FuelRefineryGUIGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, OxygenMakingJeiCategory.Uid);
-		registration.addRecipeClickArea(OxygenBubbleDistributorGUIWindow.class, FuelRefineryGUIGuiWindow.ARROW_LEFT, FuelRefineryGUIGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, OxygenMakingJeiCategory.Uid);
+		registration.addRecipeClickArea(OxygenLoaderGuiGuiWindow.class, OxygenLoaderGuiGuiWindow.ARROW_LEFT, OxygenLoaderGuiGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, OxygenLoaderJeiCategory.Uid);
+		registration.addRecipeClickArea(OxygenBubbleDistributorGUIWindow.class, OxygenBubbleDistributorGUIWindow.ARROW_LEFT, OxygenBubbleDistributorGUIWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, OxygenBubbleDistributorJeiCategory.Uid);
 	}
 
 	@Override
 	public void registerCategories(IRecipeCategoryRegistration registration) {
 		jeiHelper = registration.getJeiHelpers();
-		registration.addRecipeCategories(new OxygenMakingJeiCategory(this, jeiHelper.getGuiHelper()));
+		registration.addRecipeCategories(new OxygenLoaderJeiCategory(this, jeiHelper.getGuiHelper()));
+		registration.addRecipeCategories(new OxygenBubbleDistributorJeiCategory(this, jeiHelper.getGuiHelper()));
 		// Genrator
 		registration.addRecipeCategories(new CoalGeneratorJeiCategory(jeiHelper.getGuiHelper()));
 		// workbench
@@ -153,13 +162,13 @@ public class JeiPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipes(IRecipeRegistration registration) {
-		this.waterFullItemStacks = this.generateFluidFullIngredients(Fluids.WATER);
-		this.oxygenFullItemStacks = this.generateOxygenLoadingRecipes();
-		this.fuelFullItemStacks = this.generateFluidFullIngredients(ModInnet.FUEL_STILL.get());
-		this.oilFullItemStacks = this.generateFluidFullIngredients(ModInnet.OIL_STILL.get());
+		this.fluidFullItemStacks = new HashMap<>();
+		this.oxygenFullItemStacks = this.generateOxygenLoadingItems();
 		
-		// OxygenMaking
-		registration.addRecipes(generateOxygenMakingRecipes(), OxygenMakingJeiCategory.Uid);
+		// OxygenLoader
+		registration.addRecipes(generateOxygenLoaderRecipes(), OxygenLoaderJeiCategory.Uid);
+		// OxygenBubbleDistributor
+		registration.addRecipes(generateOxygenBubbleDistributorRecipes(), OxygenBubbleDistributorJeiCategory.Uid);
 		// Generator
 		registration.addRecipes(generateGeneratorRecipes(), CoalGeneratorJeiCategory.Uid);
 		// workbench
@@ -185,13 +194,18 @@ public class JeiPlugin implements IModPlugin {
 	}
 
 	// Oxygen Loading
-	private List<ItemStack> generateOxygenLoadingRecipes() {
+	private List<ItemStack> generateOxygenLoadingItems() {
 		return ForgeRegistries.ITEMS.getValues().stream().map(i -> new ItemStack(i)).filter(is -> OxygenUtil.canReceive(is)).map(OxygenUtil::makeFull).collect(Collectors.toList());
 	}
 
-	// Oxygen Making
-	private List<OxygenMakingRecipe> generateOxygenMakingRecipes() {
-		return BossToolsRecipeTypes.OXYGENMAKING.getRecipes(Minecraft.getInstance().world);
+	// Oxygen Loader
+	private List<OxygenLoaderRecipe> generateOxygenLoaderRecipes() {
+		return BossToolsRecipeTypes.OXYGENLOADER.getRecipes(Minecraft.getInstance().world);
+	}
+
+	// Oxygen Bubble Distributor
+	private List<OxygenBubbleDistributorRecipe> generateOxygenBubbleDistributorRecipes() {
+		return BossToolsRecipeTypes.OXYGENBUBBLEDISTRIBUTOR.getRecipes(Minecraft.getInstance().world);
 	}
 
 	// Generator
@@ -271,9 +285,9 @@ public class JeiPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-		registration.addRecipeCatalyst(new ItemStack(ModInnet.OXYGEN_LOADER_BLOCK.get()), OxygenMakingJeiCategory.Uid);
+		registration.addRecipeCatalyst(new ItemStack(ModInnet.OXYGEN_LOADER_BLOCK.get()), OxygenLoaderJeiCategory.Uid);
 		// Neue maschine
-		registration.addRecipeCatalyst(new ItemStack(ModInnet.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK.get()), OxygenMakingJeiCategory.Uid);
+		registration.addRecipeCatalyst(new ItemStack(ModInnet.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK.get()), OxygenBubbleDistributorJeiCategory.Uid);
 		// Genrator
 		registration.addRecipeCatalyst(new ItemStack(ModInnet.COAL_GENERATOR_BLOCK.get()), CoalGeneratorJeiCategory.Uid);
 		// workbench
@@ -294,8 +308,8 @@ public class JeiPlugin implements IModPlugin {
 		registration.addRecipeCatalyst(new ItemStack(RoverItemItem.block), RoverJeiCategory.Uid);
 	}
 
-	public static class OxygenMakingJeiCategory implements IRecipeCategory<OxygenMakingRecipe> {
-		public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "oxygenloadingcategory");
+	public static class OxygenLoaderJeiCategory implements IRecipeCategory<OxygenLoaderRecipe> {
+		public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "oxygen_loader");
 		public static final int INPUT_TANK_LEFT = 8;
 		public static final int INPUT_TANK_TOP = 8;
 		public static final int OUTPUT_TANK_LEFT = 74;
@@ -309,21 +323,21 @@ public class JeiPlugin implements IModPlugin {
 		private final IDrawable fluidOverlay;
 		private final LoadingCache<Integer, IDrawableAnimated> cachedEnergies;
 
-		public OxygenMakingJeiCategory(JeiPlugin plugin, IGuiHelper guiHelper) {
+		public OxygenLoaderJeiCategory(JeiPlugin plugin, IGuiHelper guiHelper) {
 			this.plugin = plugin;
-			this.title = new TranslationTextComponent("category.boss_tools.oxygenmaking").getString();
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refinery_jei.png"), 0, 0, 148, 64);
+			this.title = new TranslationTextComponent("container.boss_tools.oxygen_loader").getString();
+			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_jei.png"), 0, 0, 148, 64);
 			this.fluidOverlay = guiHelper.drawableBuilder(GuiHelper.FLUID_TANK_PATH, 0, 0, GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).setTextureSize(GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).build();
 			this.cachedEnergies = createUsingEnergies(guiHelper);
 		}
 
 		@Override
-		public List<ITextComponent> getTooltipStrings(OxygenMakingRecipe recipe, double mouseX, double mouseY) {
+		public List<ITextComponent> getTooltipStrings(OxygenLoaderRecipe recipe, double mouseX, double mouseY) {
 			if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
 				return Collections.singletonList(GaugeTextHelper.getUsingText(GaugeDataHelper.getEnergy(FuelRefineryBlock.ENERGY_PER_TICK)));
 			}
 			else if (this.getOutputTankBounds().contains((int) mouseX, (int) mouseY)) {
-				return Collections.singletonList(GaugeDataHelper.getOxygen(FuelRefineryBlock.ENERGY_PER_TICK).getText());
+				return Collections.singletonList(GaugeDataHelper.getOxygen(recipe.getOxygen()).getText());
 			}
 
 			return Collections.emptyList();
@@ -335,8 +349,8 @@ public class JeiPlugin implements IModPlugin {
 		}
 
 		@Override
-		public Class<? extends OxygenMakingRecipe> getRecipeClass() {
-			return OxygenMakingRecipe.class;
+		public Class<? extends OxygenLoaderRecipe> getRecipeClass() {
+			return OxygenLoaderRecipe.class;
 		}
 
 		@Override
@@ -355,7 +369,7 @@ public class JeiPlugin implements IModPlugin {
 		}
 
 		@Override
-		public void draw(OxygenMakingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+		public void draw(OxygenLoaderRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
 			IRecipeCategory.super.draw(recipe, matrixStack, mouseX, mouseY);
 
 			this.cachedEnergies.getUnchecked(200).draw(matrixStack, ENERGY_LEFT, ENERGY_TOP);
@@ -363,15 +377,15 @@ public class JeiPlugin implements IModPlugin {
 		}
 
 		@Override
-		public void setIngredients(OxygenMakingRecipe recipe, IIngredients iIngredients) {
-			iIngredients.setInputs(VanillaTypes.ITEM, this.plugin.waterFullItemStacks);
+		public void setIngredients(OxygenLoaderRecipe recipe, IIngredients iIngredients) {
+			iIngredients.setInputs(VanillaTypes.ITEM, this.plugin.getFluidFullItemStacks(recipe.getInput().getFluids()));
 			iIngredients.setOutputs(VanillaTypes.ITEM, this.plugin.oxygenFullItemStacks);
 
 			iIngredients.setInputs(VanillaTypes.FLUID, recipe.getInput().toStacks());
 		}
 		
 		@Override
-		public void setRecipe(IRecipeLayout iRecipeLayout, OxygenMakingRecipe recipe, IIngredients iIngredients) {
+		public void setRecipe(IRecipeLayout iRecipeLayout, OxygenLoaderRecipe recipe, IIngredients iIngredients) {
 			IGuiItemStackGroup itemStacks = iRecipeLayout.getItemStacks();
 			itemStacks.init(FuelRefineryBlock.SLOT_INPUT_SOURCE, true, 24, 8);
 			itemStacks.init(FuelRefineryBlock.SLOT_OUTPUT_SINK, false, 90, 38);
@@ -380,6 +394,109 @@ public class JeiPlugin implements IModPlugin {
 
 			itemStacks.set(FuelRefineryBlock.SLOT_INPUT_SOURCE, iIngredients.getInputs(VanillaTypes.ITEM).stream().flatMap(Collection::stream).collect(Collectors.toList()));
 			itemStacks.set(FuelRefineryBlock.SLOT_OUTPUT_SINK, iIngredients.getOutputs(VanillaTypes.ITEM).stream().flatMap(Collection::stream).collect(Collectors.toList()));
+
+			IGuiFluidStackGroup fluidStacks = iRecipeLayout.getFluidStacks();
+			int tanks = 0;
+
+			fluidStacks.init(tanks, true, INPUT_TANK_LEFT, INPUT_TANK_TOP, GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT, 1, false, this.fluidOverlay);
+			fluidStacks.set(tanks, iIngredients.getInputs(VanillaTypes.FLUID).stream().flatMap(Collection::stream).collect(Collectors.toList()));
+			tanks++;
+		}
+
+		public Rectangle2d getInputTankBounds() {
+			return GuiHelper.getFluidTankBounds(INPUT_TANK_LEFT, INPUT_TANK_TOP);
+		}
+
+		public Rectangle2d getOutputTankBounds() {
+			return GuiHelper.getFluidTankBounds(OUTPUT_TANK_LEFT, OUTPUT_TANK_TOP);
+		}
+
+		public Rectangle2d getEnergyBounds() {
+			return GuiHelper.getEnergyBounds(ENERGY_LEFT, ENERGY_TOP);
+		}
+	}
+
+	public static class OxygenBubbleDistributorJeiCategory implements IRecipeCategory<OxygenBubbleDistributorRecipe> {
+		public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "oxygen_bubble_distributor");
+		public static final int INPUT_TANK_LEFT = 8;
+		public static final int INPUT_TANK_TOP = 8;
+		public static final int OUTPUT_TANK_LEFT = 74;
+		public static final int OUTPUT_TANK_TOP = 8;
+		public static final int ENERGY_LEFT = 114;
+		public static final int ENERGY_TOP = 8;
+
+		private final JeiPlugin plugin;
+		private final String title;
+		private final IDrawable background;
+		private final IDrawable fluidOverlay;
+		private final LoadingCache<Integer, IDrawableAnimated> cachedEnergies;
+
+		public OxygenBubbleDistributorJeiCategory(JeiPlugin plugin, IGuiHelper guiHelper) {
+			this.plugin = plugin;
+			this.title = new TranslationTextComponent("container.boss_tools.oxygen_bubble_distributor").getString();
+			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_bubble_distributor_jei.png"), 0, 0, 148, 64);
+			this.fluidOverlay = guiHelper.drawableBuilder(GuiHelper.FLUID_TANK_PATH, 0, 0, GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).setTextureSize(GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).build();
+			this.cachedEnergies = createUsingEnergies(guiHelper);
+		}
+
+		@Override
+		public List<ITextComponent> getTooltipStrings(OxygenBubbleDistributorRecipe recipe, double mouseX, double mouseY) {
+			if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
+				return Collections.singletonList(GaugeTextHelper.getUsingText(GaugeDataHelper.getEnergy(FuelRefineryBlock.ENERGY_PER_TICK)));
+			}
+			else if (this.getOutputTankBounds().contains((int) mouseX, (int) mouseY)) {
+				return Collections.singletonList(GaugeDataHelper.getOxygen(recipe.getOxygen()).getText());
+			}
+
+			return Collections.emptyList();
+		}
+
+		@Override
+		public ResourceLocation getUid() {
+			return Uid;
+		}
+
+		@Override
+		public Class<? extends OxygenBubbleDistributorRecipe> getRecipeClass() {
+			return OxygenBubbleDistributorRecipe.class;
+		}
+
+		@Override
+		public String getTitle() {
+			return this.title;
+		}
+
+		@Override
+		public IDrawable getBackground() {
+			return this.background;
+		}
+
+		@Override
+		public IDrawable getIcon() {
+			return null;
+		}
+
+		@Override
+		public void draw(OxygenBubbleDistributorRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+			IRecipeCategory.super.draw(recipe, matrixStack, mouseX, mouseY);
+
+			this.cachedEnergies.getUnchecked(200).draw(matrixStack, ENERGY_LEFT, ENERGY_TOP);
+			GuiHelper.drawOxygenTank(matrixStack, OUTPUT_TANK_LEFT, OUTPUT_TANK_TOP, 1.0D);
+		}
+
+		@Override
+		public void setIngredients(OxygenBubbleDistributorRecipe recipe, IIngredients iIngredients) {
+			iIngredients.setInputs(VanillaTypes.ITEM, this.plugin.getFluidFullItemStacks(recipe.getInput().getFluids()));
+			iIngredients.setInputs(VanillaTypes.FLUID, recipe.getInput().toStacks());
+		}
+		
+		@Override
+		public void setRecipe(IRecipeLayout iRecipeLayout, OxygenBubbleDistributorRecipe recipe, IIngredients iIngredients) {
+			IGuiItemStackGroup itemStacks = iRecipeLayout.getItemStacks();
+			itemStacks.init(FuelRefineryBlock.SLOT_INPUT_SOURCE, true, 24, 8);
+			itemStacks.init(FuelRefineryBlock.SLOT_INPUT_SINK, false, 24, 38);
+
+			itemStacks.set(FuelRefineryBlock.SLOT_INPUT_SOURCE, iIngredients.getInputs(VanillaTypes.ITEM).stream().flatMap(Collection::stream).collect(Collectors.toList()));
 
 			IGuiFluidStackGroup fluidStacks = iRecipeLayout.getFluidStacks();
 			int tanks = 0;
@@ -769,7 +886,7 @@ public class JeiPlugin implements IModPlugin {
 		public void setIngredients(Tier1RocketItemItemRecipeWrapper recipeWrapper, IIngredients iIngredients) {
 			iIngredients.setInputs(VanillaTypes.ITEM, recipeWrapper.getInput());
 
-			iIngredients.setOutputs(VanillaTypes.ITEM, this.plugin.fuelFullItemStacks);
+			iIngredients.setOutputs(VanillaTypes.ITEM, this.plugin.getFluidFullItemStacks(ModInnet.FUEL_STILL.get()));
 
 			iIngredients.setOutputs(VanillaTypes.FLUID, recipeWrapper.getOutput());
 		}
@@ -1132,8 +1249,8 @@ public class JeiPlugin implements IModPlugin {
 
 		@Override
 		public void setIngredients(FuelRefiningRecipe recipe, IIngredients iIngredients) {
-			iIngredients.setInputs(VanillaTypes.ITEM, this.plugin.oilFullItemStacks);
-			iIngredients.setOutputs(VanillaTypes.ITEM, this.plugin.fuelFullItemStacks);
+			iIngredients.setInputs(VanillaTypes.ITEM, this.plugin.getFluidFullItemStacks(recipe.getInput().getFluids()));
+			iIngredients.setOutputs(VanillaTypes.ITEM, this.plugin.getFluidFullItemStacks(recipe.getOutput().getFluids()));
 
 			iIngredients.setInputs(VanillaTypes.FLUID, recipe.getInput().toStacks());
 			iIngredients.setOutputs(VanillaTypes.FLUID, recipe.getOutput().toStacks());

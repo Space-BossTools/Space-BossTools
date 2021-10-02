@@ -27,6 +27,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Mirror;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -36,6 +37,11 @@ import net.minecraftforge.common.ToolType;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.capability.IOxygenStorage;
+import net.mrscauthd.boss_tools.capability.OxygenUtil;
+import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
+import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
+import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipeAbstract;
 import net.mrscauthd.boss_tools.gui.OxygenLoaderGuiGui;
 import net.mrscauthd.boss_tools.machines.tile.NamedComponentRegistry;
 import net.mrscauthd.boss_tools.machines.tile.OxygenMakingTileEntity;
@@ -44,6 +50,8 @@ import net.mrscauthd.boss_tools.machines.tile.PowerSystemRegistry;
 
 public class OxygenLoaderBlock {
 	public static final int ENERGY_PER_TICK = 1;
+	public static final int SLOT_OUTPUT_SINK = 2;
+	public static final int SLOT_OUTPUT_SOURCE = 3;
 
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
@@ -163,6 +171,47 @@ public class OxygenLoaderBlock {
 		}
 
 		@Override
+		protected void drainSources() {
+			super.drainSources();
+			OxygenUtil.drainSource(this.getItemHandler(), this.getOutputSourceSlot(), this.getOutputTank(), this.getTransferPerTick());
+		}
+
+		@Override
+		protected void fillSinks() {
+			super.fillSinks();
+			OxygenUtil.fillSink(this.getItemHandler(), this.getOutputSinkSlot(), this.getOutputTank(), this.getTransferPerTick());
+		}
+
+		@Override
+		protected boolean onCanInsertItem(int index, ItemStack stack, Direction direction) {
+			if (index == this.getOutputSourceSlot()) {
+				return OxygenUtil.canExtract(stack);
+			} else if (index == this.getOutputSinkSlot()) {
+				return OxygenUtil.canReceive(stack);
+			}
+
+			return super.onCanInsertItem(index, stack, direction);
+		}
+
+		@Override
+		public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
+			if (index == this.getOutputSourceSlot()) {
+				return !OxygenUtil.canExtract(stack);
+			} else if (index == this.getOutputSinkSlot()) {
+				return !OxygenUtil.canReceive(stack);
+			}
+
+			return super.canExtractItem(index, stack, direction);
+		}
+
+		@Override
+		protected void getSlotsForFace(Direction direction, List<Integer> slots) {
+			super.getSlotsForFace(direction, slots);
+			slots.add(this.getOutputSourceSlot());
+			slots.add(this.getOutputSinkSlot());
+		}
+
+		@Override
 		public Container createMenu(int id, PlayerInventory player) {
 			return new OxygenLoaderGuiGui.GuiContainerMod(id, player, this);
 		}
@@ -192,6 +241,48 @@ public class OxygenLoaderBlock {
 
 		public int getBasePowerForOperation() {
 			return ENERGY_PER_TICK;
+		}
+
+		@Override
+		public BossToolsRecipeType<? extends OxygenMakingRecipeAbstract> getRecipeType() {
+			return BossToolsRecipeTypes.OXYGENLOADER;
+		}
+
+		@Override
+		protected int getInitialInventorySize() {
+			return super.getInitialInventorySize() + 2;
+		}
+
+		public boolean isSourceSlot(int slot) {
+			return slot == this.getOutputSourceSlot() || super.isSourceSlot(slot);
+		}
+
+		public boolean isSinkSlot(int slot) {
+			return slot == this.getOutputSinkSlot() || super.isSinkSlot(slot);
+		}
+
+		public IOxygenStorage slotToOxygenTank(int slot) {
+			if (slot == this.getOutputSourceSlot() || slot == this.getOutputSinkSlot()) {
+				return this.getOutputTank();
+			} else {
+				return super.slotToOxygenTank(slot);
+			}
+		}
+
+		public ResourceLocation slotToTankName(int slot) {
+			if (slot == this.getOutputSourceSlot() || slot == this.getOutputSinkSlot()) {
+				return this.getOutputTankName();
+			} else {
+				return super.slotToTankName(slot);
+			}
+		}
+
+		public int getOutputSourceSlot() {
+			return SLOT_OUTPUT_SOURCE;
+		}
+
+		public int getOutputSinkSlot() {
+			return SLOT_OUTPUT_SINK;
 		}
 	}
 }

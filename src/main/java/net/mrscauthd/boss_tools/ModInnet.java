@@ -38,8 +38,9 @@ import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.CompressingRecipeSerializer;
 import net.mrscauthd.boss_tools.crafting.FuelRefiningRecipeSerializer;
 import net.mrscauthd.boss_tools.crafting.GeneratingRecipeSerializer;
+import net.mrscauthd.boss_tools.crafting.OxygenBubbleDistributorRecipeSerializer;
+import net.mrscauthd.boss_tools.crafting.OxygenLoaderRecipeSerializer;
 import net.mrscauthd.boss_tools.crafting.WorkbenchingRecipeSerializer;
-import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipeSerializer;
 import net.mrscauthd.boss_tools.crafting.RocketPart;
 import net.mrscauthd.boss_tools.entity.*;
 import net.mrscauthd.boss_tools.flag.FlagTileEntity;
@@ -303,7 +304,8 @@ public class ModInnet {
     public static final RegistryObject<IRecipeSerializer<?>> RECIPE_SERIALIZER_BLASTING = RECIPE_SERIALIZERS.register("blasting", () -> new BlastingRecipeSerializer());
     public static final RegistryObject<IRecipeSerializer<?>> RECIPE_SERIALIZER_COMPRESSING = RECIPE_SERIALIZERS.register("compressing", () -> new CompressingRecipeSerializer());
     public static final RegistryObject<IRecipeSerializer<?>> RECIPE_SERIALIZER_GENERATING = RECIPE_SERIALIZERS.register("generating", () -> new GeneratingRecipeSerializer());
-    public static final RegistryObject<IRecipeSerializer<?>> RECIPE_SERIALIZER_OXYGENMAKING = RECIPE_SERIALIZERS.register("oxygenmaking", () -> new OxygenMakingRecipeSerializer());
+    public static final RegistryObject<IRecipeSerializer<?>> RECIPE_SERIALIZER_OXYGENLOADER = RECIPE_SERIALIZERS.register("oxygenloader", () -> new OxygenLoaderRecipeSerializer());
+    public static final RegistryObject<IRecipeSerializer<?>> RECIPE_SERIALIZER_OXYGENBUBBLEDISTRIBUTOR = RECIPE_SERIALIZERS.register("oxygenbubbledistributor", () -> new OxygenBubbleDistributorRecipeSerializer());
     public static final RegistryObject<IRecipeSerializer<?>> RECIPE_SERIALIZER_WORKBENCHING = RECIPE_SERIALIZERS.register("workbenching", () -> new WorkbenchingRecipeSerializer());
     public static final RegistryObject<IRecipeSerializer<?>> RECIPE_SERIALIZER_FUELREFINING = RECIPE_SERIALIZERS.register("fuelrefining", () -> new FuelRefiningRecipeSerializer());
     

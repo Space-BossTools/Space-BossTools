@@ -18,6 +18,7 @@ import net.minecraftforge.fml.network.IContainerFactory;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.SlotItemHandler;
 import net.mrscauthd.boss_tools.BossToolsModElements;
+import net.mrscauthd.boss_tools.machines.OxygenLoaderBlock;
 import net.mrscauthd.boss_tools.machines.OxygenLoaderBlock.CustomTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.OxygenMakingTileEntity;
 
@@ -67,7 +68,7 @@ public class OxygenLoaderGuiGui extends BossToolsModElements.ModElement {
 					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
 				}
 			});
-			this.addSlot(new SlotItemHandler(internal, OxygenMakingTileEntity.SLOT_OUTPUT_SINK, 92, 52) {
+			this.addSlot(new SlotItemHandler(internal, OxygenLoaderBlock.SLOT_OUTPUT_SINK, 92, 52) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
 					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
@@ -79,7 +80,7 @@ public class OxygenLoaderGuiGui extends BossToolsModElements.ModElement {
 					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
 				}
 			});
-			this.addSlot(new SlotItemHandler(internal, OxygenMakingTileEntity.SLOT_OUTPUT_SOURCE, 92, 22) {
+			this.addSlot(new SlotItemHandler(internal, OxygenLoaderBlock.SLOT_OUTPUT_SOURCE, 92, 22) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
 					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
