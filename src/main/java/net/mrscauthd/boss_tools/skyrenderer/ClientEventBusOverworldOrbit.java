@@ -142,17 +142,17 @@ public class ClientEventBusOverworldOrbit {
 								RenderSystem.enableDepthTest();
 								RenderSystem.depthMask(true);
 
-								float var20 = 40.0F + (float) Minecraft.getInstance().player.getPosY() / 2F;
+								float var20 = -3000.0F + (float) Minecraft.getInstance().player.getPosY() * 6F;
 
-								float scale = 100 * (0.3F - 0.25f - var20 / 10000.0F);
-								scale = Math.max(scale, 0.2F);
+								float scale = 100 * (0.3F - var20 / 10000.0F);
+								scale = Math.max(scale, 4.0F);
 
 								mc.getTextureManager().bindTexture(EARTH_TEXTURE);
 								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-								bufferbuilder.pos(matrix4f1, -scale, -var20 / 10, scale).tex(0.0F, 0.0F).endVertex(); // 350
-								bufferbuilder.pos(matrix4f1, scale, -var20 / 10, scale).tex(1.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, scale, -var20 / 10, -scale).tex(1.0F, 1.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, -scale, -var20 / 10, -scale).tex(0.0F, 1.0F).endVertex();
+								bufferbuilder.pos(matrix4f1, -scale, -180.0F, scale).tex(0.0F, 0.0F).endVertex();
+								bufferbuilder.pos(matrix4f1, scale, -180.0F, scale).tex(1.0F, 0.0F).endVertex();
+								bufferbuilder.pos(matrix4f1, scale, -180.0F, -scale).tex(1.0F, 1.0F).endVertex();
+								bufferbuilder.pos(matrix4f1, -scale, -180.0F, -scale).tex(0.0F, 1.0F).endVertex();
 								bufferbuilder.finishDrawing();
 								WorldVertexBufferUploader.draw(bufferbuilder);
 
@@ -172,20 +172,20 @@ public class ClientEventBusOverworldOrbit {
 								float f15 = (float) (l + 1) / 4.0F;
 								float f16 = (float) (i1 + 1) / 2.0F;
 								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-								bufferbuilder.pos(matrix4f1, -f12, -100.0F,f12).tex(f15, f16).endVertex();
-								bufferbuilder.pos(matrix4f1, f12, -100.0F, f12).tex(f13, f16).endVertex();
-								bufferbuilder.pos(matrix4f1, f12, -100.0F, -f12).tex(f13, f14).endVertex();
-								bufferbuilder.pos(matrix4f1, -f12,  -100.0F, -f12).tex(f15, f14).endVertex();
+								bufferbuilder.pos(matrix4f1, -f12 * 2, -200.0F,f12 * 2).tex(f15, f16).endVertex();
+								bufferbuilder.pos(matrix4f1, f12 * 2, -200.0F, f12 * 2).tex(f13, f16).endVertex();
+								bufferbuilder.pos(matrix4f1, f12 * 2, -200.0F, -f12 * 2).tex(f13, f14).endVertex();
+								bufferbuilder.pos(matrix4f1, -f12 * 2,  -200.0F, -f12 * 2).tex(f15, f14).endVertex();
 								bufferbuilder.finishDrawing();
 								WorldVertexBufferUploader.draw(bufferbuilder);
 
 								//SUN
 								mc.getTextureManager().bindTexture(SUN_TEXTURE);
 								bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-								bufferbuilder.pos(matrix4f1, -35, 100.0F, -35).tex(0.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, 35, 100.0F, -35).tex(1.0F, 0.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, 35, 100.0F, 35).tex(1.0F, 1.0F).endVertex();
-								bufferbuilder.pos(matrix4f1, -35, 100.0F, 35).tex(0.0F, 1.0F).endVertex();
+								bufferbuilder.pos(matrix4f1, -35 * 2, 200.0F, -35 * 2).tex(0.0F, 0.0F).endVertex();
+								bufferbuilder.pos(matrix4f1, 35 * 2, 200.0F, -35 * 2).tex(1.0F, 0.0F).endVertex();
+								bufferbuilder.pos(matrix4f1, 35 * 2, 200.0F, 35 * 2).tex(1.0F, 1.0F).endVertex();
+								bufferbuilder.pos(matrix4f1, -35 * 2, 200.0F, 35 * 2).tex(0.0F, 1.0F).endVertex();
 								bufferbuilder.finishDrawing();
 								WorldVertexBufferUploader.draw(bufferbuilder);
 
@@ -254,9 +254,9 @@ public class ClientEventBusOverworldOrbit {
 								d0 = d0 * d4;
 								d1 = d1 * d4;
 								d2 = d2 * d4;
-								double d5 = d0 * 150.0D; //default Minecraft 100
-								double d6 = d1 * 150.0D;
-								double d7 = d2 * 150.0D;
+								double d5 = d0 * 200.0D; //default Minecraft 100
+								double d6 = d1 * 200.0D;
+								double d7 = d2 * 200.0D;
 								double d8 = Math.atan2(d0, d2);
 								double d9 = Math.sin(d8);
 								double d10 = Math.cos(d8);
