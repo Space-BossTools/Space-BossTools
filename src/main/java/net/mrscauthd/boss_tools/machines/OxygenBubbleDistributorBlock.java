@@ -286,7 +286,7 @@ public class OxygenBubbleDistributorBlock {
 		}
 
 		public int getOxygenUsing(double range) {
-			return (int) range;
+			return (int) range + 1;
 		}
 
 		public int getRange() {
