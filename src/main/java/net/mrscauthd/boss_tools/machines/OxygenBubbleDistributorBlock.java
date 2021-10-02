@@ -51,6 +51,9 @@ import net.minecraftforge.fml.network.NetworkEvent.Context;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.capability.IOxygenStorage;
+import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
+import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
+import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipeAbstract;
 import net.mrscauthd.boss_tools.gui.OxygenBubbleDistributorGUI;
 import net.mrscauthd.boss_tools.machines.tile.NamedComponentRegistry;
 import net.mrscauthd.boss_tools.machines.tile.OxygenMakingTileEntity;
@@ -60,8 +63,14 @@ import net.mrscauthd.boss_tools.machines.tile.PowerSystemRegistry;
 public class OxygenBubbleDistributorBlock {
 
 	public static final int ENERGY_PER_TICK = 1;
+	public static final String KEY_TIMER = "timer";
 	public static final String KEY_RANGE = "range";
 	public static final String KEY_WORKINGAREA_VISIBLE = "workingAreaVisible";
+
+	/**
+	 * Interval Ticks, 5 = every 5 ticks
+	 */
+	public static final int MAX_TIMER = 5;
 
 	public static class CustomBlock extends Block {
 		public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
@@ -210,11 +219,21 @@ public class OxygenBubbleDistributorBlock {
 			registry.put(this.createEnergyStorageCommon());
 		}
 
-		@Override
 		protected void tickProcessing() {
 			super.tickProcessing();
 
-			this.distribute();
+			this.tickDistributeTimer();
+		}
+
+		/**
+		 * timer will cycle 0, 1, 2, 3, 4
+		 */
+		private void tickDistributeTimer() {
+			if (this.getTimer() >= this.getMaxTimer()) {
+				this.setTimer(0);
+				this.distribute();
+			}
+			this.setTimer(this.getTimer() + 1);
 		}
 
 		private void distribute() {
@@ -247,6 +266,23 @@ public class OxygenBubbleDistributorBlock {
 			}
 
 			this.setProcessedInThisTick();
+		}
+
+		public int getMaxTimer() {
+			return MAX_TIMER;
+		}
+
+		public int getTimer() {
+			return this.getTileData().getInt(KEY_TIMER);
+		}
+
+		public void setTimer(int timer) {
+			timer = Math.max(timer, 0);
+
+			if (this.getTimer() != timer) {
+				this.getTileData().putInt(KEY_TIMER, timer);
+				this.markDirty();
+			}
 		}
 
 		public int getOxygenUsing(double range) {
@@ -306,6 +342,10 @@ public class OxygenBubbleDistributorBlock {
 			return ENERGY_PER_TICK;
 		}
 
+		@Override
+		public BossToolsRecipeType<? extends OxygenMakingRecipeAbstract> getRecipeType() {
+			return BossToolsRecipeTypes.OXYGENBUBBLEDISTRIBUTOR;
+		}
 	}
 
 	public static class ChangeRangeMessage {

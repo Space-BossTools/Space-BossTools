@@ -208,6 +208,7 @@
   "category.boss_tools.oxygenmaking": "산소 생성",
   
   "gague_text.boss_tools.using": "%1$s 소모: %2$s/t",
+  "gague_text.boss_tools.using2": "%1$s 소모: %2$s/%3$s t",
   "gague_text.boss_tools.generating": "%1$s 발전: %2$s/t",
   "gague_text.boss_tools.maxgeneration": "%1$s 최대 발전: %2$s/t",
   "gague_text.boss_tools.total": "총 %1$s: %2$s",

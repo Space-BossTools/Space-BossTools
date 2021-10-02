@@ -7,7 +7,8 @@ public class BossToolsRecipeTypes {
 	public static final ItemStackToItemStackRecipeType<BlastingRecipe> BLASTING = create(new ItemStackToItemStackRecipeType<>("blasting"));
 	public static final ItemStackToItemStackRecipeType<CompressingRecipe> COMPRESSING = create(new ItemStackToItemStackRecipeType<>("compressing"));
 	public static final BossToolsRecipeType<GeneratingRecipe> GENERATING = create(new BossToolsRecipeType<>("generating"));
-	public static final BossToolsRecipeType<OxygenMakingRecipe> OXYGENMAKING = create(new BossToolsRecipeType<>("oxygenmaking"));
+	public static final BossToolsRecipeType<OxygenLoaderRecipe> OXYGENLOADER = create(new BossToolsRecipeType<>("oxygenloader"));
+	public static final BossToolsRecipeType<OxygenBubbleDistributorRecipe> OXYGENBUBBLEDISTRIBUTOR = create(new BossToolsRecipeType<>("oxygenbubbledistributor"));
 	public static final BossToolsRecipeType<WorkbenchingRecipe> WORKBENCHING = create(new BossToolsRecipeType<>("workbenching"));
 	public static final BossToolsRecipeType<FuelRefiningRecipe> FUELREFINING = create(new BossToolsRecipeType<>("fuelrefining"));
 
