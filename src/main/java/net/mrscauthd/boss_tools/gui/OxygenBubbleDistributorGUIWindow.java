@@ -104,7 +104,8 @@ public class OxygenBubbleDistributorGUIWindow extends ContainerScreen<OxygenBubb
 	protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
 		super.drawGuiContainerForegroundLayer(ms, mouseX, mouseY);
 
-		double range = this.getTileEntity().getRange();
+		CustomTileEntity tileEntity = this.getTileEntity();
+		double range = tileEntity.getRange();
 		NumberFormat numberInstance = NumberFormat.getNumberInstance();
 		numberInstance.setMaximumFractionDigits(2);
 		String rangeToString = numberInstance.format((range * 2.0D) + 1.0D);
@@ -132,9 +133,13 @@ public class OxygenBubbleDistributorGUIWindow extends ContainerScreen<OxygenBubb
 
 		this.font.func_243248_b(ms, workingAreaText, workingAreaLeft + sideWidth + sidePadding, workignAreaTop + 2, 0x339900);
 
-		ITextComponent oxygenText = GaugeTextHelper.getUsingText(GaugeDataHelper.getOxygen(this.getTileEntity().getOxygenUsing(range)));
+		GL11.glPushMatrix();
+		double oyxgenScale = 0.8D;
+		GL11.glScaled(oyxgenScale, oyxgenScale, oyxgenScale);
+		ITextComponent oxygenText = GaugeTextHelper.getUsingText2(GaugeDataHelper.getOxygen(tileEntity.getOxygenUsing(range)), tileEntity.getMaxTimer());
 		int oxygenWidth = this.font.getStringPropertyWidth(oxygenText);
-		this.font.func_243248_b(ms, oxygenText, this.xSize - oxygenWidth - 5, this.playerInventoryTitleY, 0x333333);
+		this.font.func_243248_b(ms, oxygenText, (int) ((this.xSize - 5) / oyxgenScale) - oxygenWidth, (int) (this.playerInventoryTitleY / oyxgenScale), 0x333333);
+		GL11.glPopMatrix();
 	}
 
 	@Override

@@ -19,18 +19,12 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
-import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.boss_tools.capability.CapabilityOxygen;
 import net.mrscauthd.boss_tools.capability.IOxygenStorage;
 import net.mrscauthd.boss_tools.capability.IOxygenStorageHolder;
 import net.mrscauthd.boss_tools.capability.OxygenStorage;
-import net.mrscauthd.boss_tools.capability.OxygenUtil;
-import net.mrscauthd.boss_tools.compat.CompatibleManager;
-import net.mrscauthd.boss_tools.compat.mekanism.MekanismHelper;
-import net.mrscauthd.boss_tools.compat.mekanism.OxygenStorageGasAdapter;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
-import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
-import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipe;
+import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipeAbstract;
 import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 import net.mrscauthd.boss_tools.gauge.GaugeData;
 import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
@@ -42,15 +36,13 @@ public abstract class OxygenMakingTileEntity extends AbstractMachineTileEntity {
 	public static final ResourceLocation TANK_INPUT = new ResourceLocation("boss_tools", "input");
 	public static final ResourceLocation TANK_OUTPUT = new ResourceLocation("boss_tools", "output");
 	public static final int SLOT_INPUT_SOURCE = 0;
-	public static final int SLOT_OUTPUT_SINK = 1;
-	public static final int SLOT_INPUT_SINK = 2;
-	public static final int SLOT_OUTPUT_SOURCE = 3;
+	public static final int SLOT_INPUT_SINK = 1;
 
 	private FluidTank inputTank;
 	private OxygenStorage outputTank;
 
 	private StackCacher recipeCacher;
-	private OxygenMakingRecipe cachedRecipe;
+	private OxygenMakingRecipeAbstract cachedRecipe;
 
 	public OxygenMakingTileEntity(TileEntityType<?> type) {
 		super(type);
@@ -78,10 +70,7 @@ public abstract class OxygenMakingTileEntity extends AbstractMachineTileEntity {
 	@Override
 	public List<GaugeData> getGaugeDataList() {
 		List<GaugeData> list = super.getGaugeDataList();
-
-		if (!CompatibleManager.MEKANISM.isLoaded()) {
-			list.add(GaugeDataHelper.getOxygen(this.getOutputTank()));
-		}
+		list.add(GaugeDataHelper.getOxygen(this.getOutputTank()));
 
 		return list;
 	}
@@ -137,7 +126,7 @@ public abstract class OxygenMakingTileEntity extends AbstractMachineTileEntity {
 	}
 
 	public boolean consumeIngredients() {
-		OxygenMakingRecipe recipe = this.cacheRecipe();
+		OxygenMakingRecipeAbstract recipe = this.cacheRecipe();
 
 		if (recipe != null) {
 			int oxygen = recipe.getOxygen();
@@ -156,17 +145,11 @@ public abstract class OxygenMakingTileEntity extends AbstractMachineTileEntity {
 	}
 
 	protected void drainSources() {
-		IItemHandlerModifiable itemHandler = this.getItemHandler();
-		int transferPerTick = this.getTransferPerTick();
-		FluidUtil2.drainSource(itemHandler, this.getInputSourceSlot(), this.getInputTank(), transferPerTick);
-		OxygenUtil.drainSource(itemHandler, this.getOutputSourceSlot(), this.getOutputTank(), transferPerTick);
+		FluidUtil2.drainSource(this.getItemHandler(), this.getInputSourceSlot(), this.getInputTank(), this.getTransferPerTick());
 	}
 
 	protected void fillSinks() {
-		IItemHandlerModifiable itemHandler = this.getItemHandler();
-		int transferPerTick = this.getTransferPerTick();
-		FluidUtil2.fillSink(itemHandler, this.getInputSinkSlot(), this.getInputTank(), transferPerTick);
-		OxygenUtil.fillSink(itemHandler, this.getOutputSinkSlot(), this.getOutputTank(), transferPerTick);
+		FluidUtil2.fillSink(this.getItemHandler(), this.getInputSinkSlot(), this.getInputTank(), this.getTransferPerTick());
 	}
 
 	@Override
@@ -175,22 +158,9 @@ public abstract class OxygenMakingTileEntity extends AbstractMachineTileEntity {
 	}
 
 	@Override
-	public <T> LazyOptional<T> getCapability(Capability<T> capability, Direction facing) {
-		if (CompatibleManager.MEKANISM.isLoaded()) {
-			if (capability == MekanismHelper.getGasHandlerCapability()) {
-				return LazyOptional.of(() -> new OxygenStorageGasAdapter(this.getOutputTank())).cast();
-			}
-		}
-
-		return super.getCapability(capability, facing);
-	}
-
-	@Override
 	protected void getSlotsForFace(Direction direction, List<Integer> slots) {
 		super.getSlotsForFace(direction, slots);
-		slots.add(this.getOutputSourceSlot());
 		slots.add(this.getInputSourceSlot());
-		slots.add(this.getOutputSinkSlot());
 	}
 
 	@Override
@@ -199,10 +169,6 @@ public abstract class OxygenMakingTileEntity extends AbstractMachineTileEntity {
 			return FluidUtil2.canDrain(stack, this.getTankFluid(this.slotToTankName(index)));
 		} else if (index == this.getInputSinkSlot()) {
 			return FluidUtil2.canFill(stack, this.getTankFluid(this.slotToTankName(index)));
-		} else if (index == this.getOutputSourceSlot()) {
-			return OxygenUtil.canExtract(stack);
-		} else if (index == this.getOutputSinkSlot()) {
-			return OxygenUtil.canReceive(stack);
 		}
 
 		return super.onCanInsertItem(index, stack, direction);
@@ -214,10 +180,6 @@ public abstract class OxygenMakingTileEntity extends AbstractMachineTileEntity {
 			return !FluidUtil2.canDrain(stack, this.getTankFluid(this.slotToTankName(index)));
 		} else if (index == this.getInputSinkSlot()) {
 			return !FluidUtil2.canFill(stack, this.getTankFluid(this.slotToTankName(index)));
-		} else if (index == this.getOutputSourceSlot()) {
-			return !OxygenUtil.canExtract(stack);
-		} else if (index == this.getOutputSinkSlot()) {
-			return !OxygenUtil.canReceive(stack);
 		}
 
 		return super.canExtractItem(index, stack, direction);
@@ -225,7 +187,7 @@ public abstract class OxygenMakingTileEntity extends AbstractMachineTileEntity {
 
 	@Override
 	public boolean hasSpaceInOutput() {
-		OxygenMakingRecipe recipe = this.cacheRecipe();
+		OxygenMakingRecipeAbstract recipe = this.cacheRecipe();
 		return recipe != null && this.hasSpaceInOutput(recipe.getOxygen());
 	}
 
@@ -237,7 +199,7 @@ public abstract class OxygenMakingTileEntity extends AbstractMachineTileEntity {
 		return (oxygen + storage.getOxygenStored()) <= storage.getMaxOxygenStored();
 	}
 
-	public OxygenMakingRecipe cacheRecipe() {
+	public OxygenMakingRecipeAbstract cacheRecipe() {
 		FluidStack fluidStack = this.getInputTank().getFluid();
 
 		if (fluidStack.isEmpty()) {
@@ -251,13 +213,16 @@ public abstract class OxygenMakingTileEntity extends AbstractMachineTileEntity {
 		return this.cachedRecipe;
 	}
 
-	public BossToolsRecipeType<? extends OxygenMakingRecipe> getRecipeType() {
-		return BossToolsRecipeTypes.OXYGENMAKING;
-	}
+	public abstract BossToolsRecipeType<? extends OxygenMakingRecipeAbstract> getRecipeType();
 
 	@Override
 	protected int getInitialInventorySize() {
-		return super.getInitialInventorySize() + 4;
+		return super.getInitialInventorySize() + 2;
+	}
+	
+	@Override
+	public int getInventoryStackLimit() {
+		return 1;
 	}
 
 	public int getInputSourceSlot() {
@@ -268,20 +233,12 @@ public abstract class OxygenMakingTileEntity extends AbstractMachineTileEntity {
 		return SLOT_INPUT_SINK;
 	}
 
-	public int getOutputSourceSlot() {
-		return SLOT_OUTPUT_SOURCE;
-	}
-
-	public int getOutputSinkSlot() {
-		return SLOT_OUTPUT_SINK;
-	}
-
 	public boolean isSourceSlot(int slot) {
-		return slot == this.getInputSourceSlot() || slot == this.getOutputSourceSlot();
+		return slot == this.getInputSourceSlot();
 	}
 
 	public boolean isSinkSlot(int slot) {
-		return slot == this.getInputSinkSlot() || slot == this.getOutputSinkSlot();
+		return slot == this.getInputSinkSlot();
 	}
 
 	public FluidTank slotToFluidTank(int slot) {
@@ -293,18 +250,12 @@ public abstract class OxygenMakingTileEntity extends AbstractMachineTileEntity {
 	}
 
 	public IOxygenStorage slotToOxygenTank(int slot) {
-		if (slot == this.getOutputSourceSlot() || slot == this.getOutputSinkSlot()) {
-			return this.getOutputTank();
-		} else {
-			return null;
-		}
+		return null;
 	}
 
 	public ResourceLocation slotToTankName(int slot) {
 		if (slot == this.getInputSourceSlot() || slot == this.getInputSinkSlot()) {
 			return this.getInputTankName();
-		} else if (slot == this.getOutputSourceSlot() || slot == this.getOutputSinkSlot()) {
-			return this.getOutputTankName();
 		} else {
 			return null;
 		}
