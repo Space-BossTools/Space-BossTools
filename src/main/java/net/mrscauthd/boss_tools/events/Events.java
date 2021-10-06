@@ -26,6 +26,7 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.boss_tools.entity.*;
+import net.mrscauthd.boss_tools.item.RocketAbstractItem;
 import net.mrscauthd.boss_tools.item.RoverItemItem;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
@@ -119,11 +120,10 @@ public class Events {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void CameraPos(EntityViewRenderEvent.CameraSetup event) {
-        if (event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier1Entity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier2Entity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier3Entity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof LanderEntity.CustomEntity) {
-            if (Minecraft.getInstance().gameSettings.getPointOfView().equals(PointOfView.THIRD_PERSON_FRONT)) {
-                event.getInfo().movePosition(-event.getInfo().calcCameraDistance(8d), 0d, 0);
-            }
-            if (Minecraft.getInstance().gameSettings.getPointOfView().equals(PointOfView.THIRD_PERSON_BACK)) {
+        if (event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketAbstractEntity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof LanderEntity.CustomEntity) {
+            PointOfView pointOfView = Minecraft.getInstance().gameSettings.getPointOfView();
+            
+			if (pointOfView.equals(PointOfView.THIRD_PERSON_FRONT) || pointOfView.equals(PointOfView.THIRD_PERSON_BACK)) {
                 event.getInfo().movePosition(-event.getInfo().calcCameraDistance(8d), 0d, 0);
             }
         }
@@ -159,15 +159,9 @@ public class Events {
         if (Methodes.RocketCheckOr(player.getRidingEntity()) == false) {
             Item item1 = player.getHeldItemMainhand().getItem();
             Item item2 = player.getHeldItemOffhand().getItem();
-            if (item1 == Tier1RocketItemItem.block
-                    || item1 == Tier2RocketItemItem.block
-                    || item1 == Tier3RocketItemItem.block
-                    || item1 == RoverItemItem.block
+            if (item1 instanceof RocketAbstractItem || item1 == RoverItemItem.block
                     //Off Hand
-                    || item2 == Tier1RocketItemItem.block
-                    || item2 == Tier2RocketItemItem.block
-                    || item2 == Tier3RocketItemItem.block
-                    || item2 == RoverItemItem.block) {
+                    || item2 instanceof RocketAbstractItem || item2 == RoverItemItem.block) {
                 model.bipedRightArm.rotateAngleX = 10;
                 model.bipedLeftArm.rotateAngleX = 10;
                 model.bipedLeftArm.rotateAngleZ = 0;

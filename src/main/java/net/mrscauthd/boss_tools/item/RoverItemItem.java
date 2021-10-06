@@ -50,7 +50,7 @@ public class RoverItemItem extends BossToolsModElements.ModElement {
 	public void initElements() {
 		elements.items.add(() -> new ItemCustom());
 	}
-	public static class ItemCustom extends Item {
+	public static class ItemCustom extends Item implements IVehicleItem {
 		public ItemCustom() {
 			super(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1).rarity(Rarity.RARE));
 			setRegistryName("rover");

@@ -147,21 +147,11 @@ public class KeyBindings {
 		//Type 1
 		if (type == 1) {
 			if (Methodes.RocketCheckOr(entity.getRidingEntity())) {
-				if (entity.getRidingEntity() instanceof RocketTier1Entity && entity.getRidingEntity().getDataManager().get(RocketTier1Entity.FUEL) == 300) {
-
-					entity.getRidingEntity().getDataManager().set(RocketTier1Entity.ROCKET_START, true);
+				RocketAbstractEntity rocket = (RocketAbstractEntity) entity.getRidingEntity();
+				
+				if (rocket.isFuelFull()) {
+					rocket.setRocketStart(true);
 					Methodes.RocketSounds(entity.getRidingEntity(), world);
-
-				} else if (entity.getRidingEntity() instanceof RocketTier2Entity && entity.getRidingEntity().getDataManager().get(RocketTier2Entity.FUEL) == 300) {
-
-					entity.getRidingEntity().getDataManager().set(RocketTier2Entity.ROCKET_START, true);
-					Methodes.RocketSounds(entity.getRidingEntity(), world);
-
-				} else if (entity.getRidingEntity() instanceof RocketTier3Entity && entity.getRidingEntity().getDataManager().get(RocketTier3Entity.FUEL) == 300) {
-
-					entity.getRidingEntity().getDataManager().set(RocketTier3Entity.ROCKET_START, true);
-					Methodes.RocketSounds(entity.getRidingEntity(), world);
-
 				} else {
 					if (!entity.world.isRemote()) {
 						entity.sendStatusMessage(new StringTextComponent("\u00A7cNO FUEL! \u00A77Fill the Rocket with \u00A7cFuel\u00A77. (\u00A76Sneak and Right Click\u00A77)"), false);

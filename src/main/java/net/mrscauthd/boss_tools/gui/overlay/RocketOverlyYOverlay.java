@@ -7,6 +7,7 @@ import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.entity.LanderEntity;
+import net.mrscauthd.boss_tools.entity.RocketAbstractEntity;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -70,10 +71,8 @@ public class RocketOverlyYOverlay extends BossToolsModElements.ModElement {
 												.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus")))))) {
 											if ((!((world instanceof World ? (((World) world).getDimensionKey()) : World.OVERWORLD) == (RegistryKey
 													.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:orbit_venus")))))) {
-												if ((((entity.getRidingEntity()) instanceof RocketTier1Entity)
-														|| (((entity.getRidingEntity()) instanceof RocketTier2Entity)
-														|| ((entity.getRidingEntity()) instanceof RocketTier3Entity)
-														|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity)))) {
+												if ((((entity.getRidingEntity()) instanceof RocketAbstractEntity)
+														|| ((entity.getRidingEntity()) instanceof LanderEntity.CustomEntity))) {
 													//Rocket Y
 													Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/rocket_y_main_1.png"));
 													Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(),

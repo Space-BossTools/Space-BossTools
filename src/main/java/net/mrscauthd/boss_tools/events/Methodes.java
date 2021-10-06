@@ -26,13 +26,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.*;
-import net.mrscauthd.boss_tools.item.RoverItemItem;
-import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
-import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
-import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
-
-import java.util.ArrayList;
-import java.util.List;
+import net.mrscauthd.boss_tools.item.IVehicleItem;
 
 public class Methodes {
     public static void PlayerFallToPlanet(PlayerEntity entity, ResourceLocation Planet) {
@@ -94,14 +88,11 @@ public class Methodes {
     }
 
     public static boolean RocketCheckOr(Entity entity) {
-        if (entity instanceof RocketTier1Entity || entity instanceof RocketTier2Entity || entity instanceof RocketTier3Entity) {
-            return true;
-        }
-        return false;
+        return entity instanceof RocketAbstractEntity;
     }
 
     public static boolean AllVehiclesOr(Entity entity) {
-        if (entity instanceof RocketTier1Entity || entity instanceof RocketTier2Entity || entity instanceof RocketTier3Entity || entity instanceof LanderEntity.CustomEntity || entity instanceof RoverEntity.CustomEntity) {
+        if (entity instanceof RocketAbstractEntity || entity instanceof LanderEntity.CustomEntity || entity instanceof RoverEntity.CustomEntity) {
             return true;
         }
         return false;
@@ -115,14 +106,7 @@ public class Methodes {
         Item item1 = player.getHeldItemMainhand().getItem();
         Item item2 = player.getHeldItemOffhand().getItem();
 
-        List<Item> items = new ArrayList<Item>();
-
-        items.add(Tier1RocketItemItem.block);
-        items.add(Tier2RocketItemItem.block);
-        items.add(Tier3RocketItemItem.block);
-        items.add(RoverItemItem.block);
-
-        if (items.contains(item1) && items.contains(item2)) {
+        if (item1 instanceof IVehicleItem && item2 instanceof IVehicleItem) {
 
             ItemEntity spawn = new ItemEntity(player.world, player.getPosX(),player.getPosY(),player.getPosZ(), new ItemStack(item2));
             spawn.setPickupDelay(0);

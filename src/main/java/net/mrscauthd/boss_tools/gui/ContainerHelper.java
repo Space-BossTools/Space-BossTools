@@ -9,6 +9,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.IItemHandler;
 
 public class ContainerHelper {
 
@@ -29,7 +30,7 @@ public class ContainerHelper {
 		}
 	}
 
-	public static ItemStack transferStackInSlot(Container container, PlayerEntity player, int slotNumber, int inventoryIndex, IInventory inventory, IMergeItemStack mergeItemStack) {
+	public static ItemStack transferStackInSlot(Container container, PlayerEntity player, int slotNumber, int inventoryIndex, int inventorySize, IMergeItemStack mergeItemStack) {
 		ItemStack itemStack = ItemStack.EMPTY;
 		List<Slot> inventorySlots = container.inventorySlots;
 		Slot slot = inventorySlots.get(slotNumber);
@@ -38,11 +39,11 @@ public class ContainerHelper {
 			ItemStack slotStack = slot.getStack();
 			itemStack = slotStack.copy();
 
-			if (inventoryIndex < inventory.getSizeInventory()) {
-				if (!mergeItemStack.mergeItemStack(slotStack, inventory.getSizeInventory(), inventorySlots.size(), true)) {
+			if (inventoryIndex < inventorySize) {
+				if (!mergeItemStack.mergeItemStack(slotStack, inventorySize, inventorySlots.size(), true)) {
 					return ItemStack.EMPTY;
 				}
-			} else if (!mergeItemStack.mergeItemStack(slotStack, 0, inventory.getSizeInventory(), false)) {
+			} else if (!mergeItemStack.mergeItemStack(slotStack, 0, inventorySize, false)) {
 				return ItemStack.EMPTY;
 			}
 
@@ -56,8 +57,20 @@ public class ContainerHelper {
 		return itemStack;
 	}
 
+	public static ItemStack transferStackInSlot(Container container, PlayerEntity player, int slotNumber, int inventoryIndex, IInventory inventory, IMergeItemStack mergeItemStack) {
+		return transferStackInSlot(container, player, slotNumber, inventoryIndex, inventory.getSizeInventory(), mergeItemStack);
+	}
+
 	public static ItemStack transferStackInSlot(Container container, PlayerEntity player, int slotNumber, IInventory inventory, IMergeItemStack mergeItemStack) {
-		return transferStackInSlot(container, player, slotNumber, slotNumber, inventory, mergeItemStack);
+		return transferStackInSlot(container, player, slotNumber, slotNumber, inventory.getSizeInventory(), mergeItemStack);
+	}
+
+	public static ItemStack transferStackInSlot(Container container, PlayerEntity player, int slotNumber, int inventoryIndex, IItemHandler handler, IMergeItemStack mergeItemStack) {
+		return transferStackInSlot(container, player, slotNumber, inventoryIndex, handler.getSlots(), mergeItemStack);
+	}
+
+	public static ItemStack transferStackInSlot(Container container, PlayerEntity player, int slotNumber, IItemHandler handler, IMergeItemStack mergeItemStack) {
+		return transferStackInSlot(container, player, slotNumber, slotNumber, handler.getSlots(), mergeItemStack);
 	}
 
 }
