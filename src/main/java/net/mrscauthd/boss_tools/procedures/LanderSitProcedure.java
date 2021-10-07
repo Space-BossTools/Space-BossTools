@@ -12,6 +12,8 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.mrscauthd.boss_tools.entity.LanderEntity;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
+import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
+import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 
 public class LanderSitProcedure {
 	@Mod.EventBusSubscriber
@@ -31,9 +33,9 @@ public class LanderSitProcedure {
 		if (rocketTier == 1) {
 			return Tier1RocketItemItem.block;
 		} else if (rocketTier == 2) {
-			return Tier1RocketItemItem.block;
+			return Tier2RocketItemItem.block;
 		} else if (rocketTier == 3) {
-			return Tier1RocketItemItem.block;
+			return Tier3RocketItemItem.block;
 		}
 
 		return Items.AIR;
