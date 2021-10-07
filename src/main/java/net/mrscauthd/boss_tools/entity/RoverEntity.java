@@ -183,7 +183,7 @@ public class RoverEntity extends BossToolsModElements.ModElement {
 		}
 	}
 
-	public static class CustomEntity extends CreatureEntity {
+	public static class CustomEntity extends CreatureEntity implements IVehicleEntity {
 		public double speed = 0;
 		public float forward = 0;
 		public CustomEntity(FMLPlayMessages.SpawnEntity packet, World world) {

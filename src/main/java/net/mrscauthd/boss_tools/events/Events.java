@@ -26,6 +26,7 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.boss_tools.entity.*;
+import net.mrscauthd.boss_tools.item.IVehicleItem;
 import net.mrscauthd.boss_tools.item.RocketAbstractItem;
 import net.mrscauthd.boss_tools.item.RoverItemItem;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
@@ -145,7 +146,7 @@ public class Events {
         PlayerEntity player = event.getPlayer();
         PlayerModel model = event.getModelPlayer();
         //Player Rocket Sit Rotations
-        if (Methodes.RocketCheckOr(player.getRidingEntity()) == true) {
+        if (player.getRidingEntity() instanceof RocketAbstractEntity) {
             model.bipedRightLeg.rotateAngleX = (float) Math.toRadians(0F);
             model.bipedLeftLeg.rotateAngleX = (float) Math.toRadians(0F);
             model.bipedLeftLeg.rotateAngleY = (float) Math.toRadians(3F);
@@ -154,14 +155,11 @@ public class Events {
             model.bipedLeftArm.rotateAngleX = -0.07f;
             model.bipedRightArm.rotateAngleX = -0.07f;
         }
-
         //Player Hold Vehicles Rotation
-        if (Methodes.RocketCheckOr(player.getRidingEntity()) == false) {
+        else {
             Item item1 = player.getHeldItemMainhand().getItem();
             Item item2 = player.getHeldItemOffhand().getItem();
-            if (item1 instanceof RocketAbstractItem || item1 == RoverItemItem.block
-                    //Off Hand
-                    || item2 instanceof RocketAbstractItem || item2 == RoverItemItem.block) {
+            if (item1 instanceof IVehicleItem || item2 instanceof IVehicleItem) {
                 model.bipedRightArm.rotateAngleX = 10;
                 model.bipedLeftArm.rotateAngleX = 10;
                 model.bipedLeftArm.rotateAngleZ = 0;
@@ -177,7 +175,7 @@ public class Events {
     @SubscribeEvent
     public static void ItemRender(RenderItemEvent.Held event) {
         Entity player = event.getEntity();
-        if (Methodes.RocketCheckOr(player.getRidingEntity()) == true) {
+        if (player.getRidingEntity() instanceof RocketAbstractEntity) {
             event.setCanceled(true);
         }
     }
@@ -226,7 +224,7 @@ public class Events {
     public static void FishingBobberTick(ProjectileImpactEvent.FishingBobber event) {
         if (event.getRayTraceResult().getType() == RayTraceResult.Type.ENTITY) {
             Entity entity = ((EntityRayTraceResult) event.getRayTraceResult()).getEntity();
-            if (Methodes.AllVehiclesOr(entity) == true) {
+            if (entity instanceof IVehicleEntity) {
                 event.setCanceled(true);
             }
         }

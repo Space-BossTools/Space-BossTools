@@ -87,17 +87,6 @@ public class Methodes {
         return false;
     }
 
-    public static boolean RocketCheckOr(Entity entity) {
-        return entity instanceof RocketAbstractEntity;
-    }
-
-    public static boolean AllVehiclesOr(Entity entity) {
-        if (entity instanceof RocketAbstractEntity || entity instanceof LanderEntity.CustomEntity || entity instanceof RoverEntity.CustomEntity) {
-            return true;
-        }
-        return false;
-    }
-
     public static void RocketSounds(Entity entity, World world) {
         world.playMovingSound(null, entity, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("boss_tools:rocket_fly")), SoundCategory.NEUTRAL,1,1);
     }

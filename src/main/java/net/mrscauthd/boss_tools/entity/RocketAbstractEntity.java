@@ -18,7 +18,6 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -49,18 +48,22 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.items.wrapper.EntityArmorInvWrapper;
 import net.minecraftforge.items.wrapper.EntityHandsInvWrapper;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.block.RocketLaunchPadBlock;
+import net.mrscauthd.boss_tools.events.Methodes;
 import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 import net.mrscauthd.boss_tools.gui.screens.RocketGUI;
 
-public abstract class RocketAbstractEntity extends CreatureEntity implements INamedContainerProvider {
+public abstract class RocketAbstractEntity extends CreatureEntity implements INamedContainerProvider, IVehicleEntity {
 
 	public static final String KEY_ROCKET_START = "rocket_start";
 	public static final String KEY_FUEL_LOADING = "fuel_loading";
@@ -217,12 +220,9 @@ public abstract class RocketAbstractEntity extends CreatureEntity implements INa
 	}
 
 	@Override
-	public void onKillCommand() {
-		double x = this.getPosX();
-		double y = this.getPosY();
-		double z = this.getPosZ();
+	protected void dropInventory() {
+		super.dropInventory();
 
-		// Drop Inv
 		for (int i = 0; i < inventory.getSlots(); ++i) {
 			ItemStack itemstack = inventory.getStackInSlot(i);
 			if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
@@ -230,48 +230,22 @@ public abstract class RocketAbstractEntity extends CreatureEntity implements INa
 			}
 		}
 
-		// Spawn Rocket Item
-		ItemStack item = this.createItemStack();
+		this.entityDropItem(this.createItemStack());
+	}
 
-		if (world instanceof World && !world.isRemote()) {
-			ItemEntity entityToSpawn = new ItemEntity(world, x, y, z, item);
-			entityToSpawn.setPickupDelay(10);
-			world.addEntity(entityToSpawn);
-		}
-
-		this.remove();
-		super.onKillCommand();
+	@Override
+	public void onKillCommand() {
+		this.onDeath(DamageSource.OUT_OF_WORLD);
 	}
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-		double x = this.getPosX();
-		double y = this.getPosY();
-		double z = this.getPosZ();
 		Entity sourceentity = source.getTrueSource();
 
 		if (!source.isProjectile() && sourceentity != null && sourceentity.isSneaking() && !this.isBeingRidden()) {
-
-			// Drop Rocket Item
-			if (!world.isRemote()) {
-				ItemEntity entityToSpawn = new ItemEntity(world, x, y, z, this.createItemStack());
-				entityToSpawn.setPickupDelay(10);
-				world.addEntity(entityToSpawn);
-			}
-
-			// Drop Inv
-			for (int i = 0; i < inventory.getSlots(); ++i) {
-				ItemStack itemstack = inventory.getStackInSlot(i);
-				if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
-					this.entityDropItem(itemstack);
-				}
-			}
-
-			// Remove Entity
-			if (!this.world.isRemote())
-				this.remove();
-
+			this.onDeath(DamageSource.OUT_OF_WORLD);
 		}
+
 		return false;
 	}
 
@@ -284,7 +258,7 @@ public abstract class RocketAbstractEntity extends CreatureEntity implements INa
 
 	private final CombinedInvWrapper combined = new CombinedInvWrapper(inventory, new EntityHandsInvWrapper(this), new EntityArmorInvWrapper(this));
 
-	public ItemStackHandler getInventory() {
+	public IItemHandlerModifiable getInventory() {
 		return this.inventory;
 	}
 
@@ -323,20 +297,22 @@ public abstract class RocketAbstractEntity extends CreatureEntity implements INa
 
 	@Override
 	public ActionResultType func_230254_b_(PlayerEntity sourceentity, Hand hand) {
-		super.func_230254_b_(sourceentity, hand);
-		ActionResultType retval = ActionResultType.func_233537_a_(this.world.isRemote());
-
 		if (sourceentity instanceof ServerPlayerEntity && sourceentity.isSneaking()) {
 			openGui((ServerPlayerEntity) sourceentity);
-			return retval;
+		} else {
+			sourceentity.startRiding(this);
 		}
 
-		sourceentity.startRiding(this);
-		return retval;
+		return ActionResultType.func_233537_a_(this.world.isRemote());
 	}
 
 	public void openGui(ServerPlayerEntity player) {
 		NetworkHooks.openGui(player, this, buffer -> buffer.writeInt(this.getEntityId()));
+	}
+
+	@Override
+	public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+		return new RocketGUI.GuiContainerMod(id, inventory, this);
 	}
 
 	@Override
@@ -410,29 +386,17 @@ public abstract class RocketAbstractEntity extends CreatureEntity implements INa
 			BlockState state = world.getBlockState(new BlockPos(Math.floor(x), y - 0.1, Math.floor(z)));
 
 			if (!world.isAirBlock(new BlockPos(Math.floor(x), y - 0.01, Math.floor(z))) && state.getBlock() instanceof RocketLaunchPadBlock.CustomBlock && state.get(RocketLaunchPadBlock.CustomBlock.STAGE) == false || world.getBlockState(new BlockPos(Math.floor(x), Math.floor(y), Math.floor(z))).getBlock() != RocketLaunchPadBlock.block.getDefaultState().getBlock()) {
-
-				// Drop Inv
-				for (int i = 0; i < inventory.getSlots(); ++i) {
-					ItemStack itemstack = inventory.getStackInSlot(i);
-					if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
-						this.entityDropItem(itemstack);
-					}
-				}
-
-				// Spawn Rocket Item
-				ItemStack item = this.createItemStack();
-
-				if (world instanceof World && !world.isRemote()) {
-					ItemEntity entityToSpawn = new ItemEntity(world, x, y, z, item);
-					entityToSpawn.setPickupDelay(10);
-					world.addEntity(entityToSpawn);
-				}
-				this.remove();
-
+				this.onDeath(DamageSource.OUT_OF_WORLD);
 			}
 
 		}
 
+	}
+
+	@Override
+	public void onDeath(DamageSource p_70645_1_) {
+		super.onDeath(p_70645_1_);
+		this.remove();
 	}
 
 	protected void loadFuel() {
@@ -447,7 +411,7 @@ public abstract class RocketAbstractEntity extends CreatureEntity implements INa
 	}
 
 	protected void putFuelLoading() {
-		ItemStackHandler inventory = this.getInventory();
+		IItemHandlerModifiable inventory = this.getInventory();
 		int fuelLoading = this.getFuelLoading();
 		int willFuel = this.getFuel() + fuelLoading;
 		int fuelCapacity = this.getFuelCapacity();
@@ -460,17 +424,17 @@ public abstract class RocketAbstractEntity extends CreatureEntity implements INa
 					inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));
 					this.setFuelLoading(fuelLoading + 1000);
 				} else {
-//					IFluidHandlerItem fluidHandler = FluidUtil2.getItemStackFluidHandler(itemStack);
-//
-//					if (fluidHandler != null) {
-//						int loadingSpeed = this.getFuelLoadingSpeed();
-//						int extract = Math.min(fuelCapacity - willFuel, loadingSpeed);
-//
-//						if (fluidHandler.drain(extract, FluidAction.SIMULATE).getAmount() == extract) {
-//							fluidHandler.drain(extract, FluidAction.EXECUTE);
-//							this.setFuelLoading(fuelLoading + extract);
-//						}
-//					}
+					IFluidHandlerItem fluidHandler = FluidUtil2.getItemStackFluidHandler(itemStack);
+
+					if (fluidHandler != null) {
+						int loadingSpeed = this.getFuelLoadingSpeed();
+						int extract = Math.min(fuelCapacity - willFuel, loadingSpeed);
+
+						if (fluidHandler.drain(extract, FluidAction.SIMULATE).getAmount() == extract) {
+							fluidHandler.drain(extract, FluidAction.EXECUTE);
+							this.setFuelLoading(fuelLoading + extract);
+						}
+					}
 				}
 			}
 		}
@@ -478,6 +442,18 @@ public abstract class RocketAbstractEntity extends CreatureEntity implements INa
 
 	public int getFuelLoadingSpeed() {
 		return 10;
+	}
+
+	public void startLaunch() {
+		this.setRocketStart(true);
+		Methodes.RocketSounds(this, this.world);
+	}
+
+	public void rotation(int amount) {
+		this.rotationYaw = this.rotationYaw + amount;
+		this.setRenderYawOffset(this.rotationYaw);
+		this.prevRotationYaw = this.rotationYaw;
+		this.prevRenderYawOffset = this.rotationYaw;
 	}
 
 	public int getStartTimer() {
@@ -521,10 +497,5 @@ public abstract class RocketAbstractEntity extends CreatureEntity implements INa
 	public abstract int getFuelCapacity();
 
 	public abstract String getGUISystemKey();
-
-	@Override
-	public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-		return new RocketGUI.GuiContainerMod(id, inventory, this);
-	}
 
 }

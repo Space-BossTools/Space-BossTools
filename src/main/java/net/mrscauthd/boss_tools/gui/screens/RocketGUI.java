@@ -14,7 +14,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.IContainerFactory;
-import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.SlotItemHandler;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.ModInnet;
@@ -61,12 +61,11 @@ public class RocketGUI extends BossToolsModElements.ModElement {
 			super(containerType, id);
 			this.entity = entity;
 
-			ItemStackHandler internal = entity.getInventory();
+			IItemHandlerModifiable internal = entity.getInventory();
 			this.addSlot(new SlotItemHandler(internal, 0, 46, 22) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
-//					return FluidUtil2.canDrain(stack, ModInnet.FUEL_STILL.get());
-					return stack.getItem() == ModInnet.FUEL_BUCKET.get();
+					return FluidUtil2.canDrain(stack, ModInnet.FUEL_STILL.get());
 				}
 			});
 

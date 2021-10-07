@@ -30,7 +30,7 @@ public class OverlayEvents {
         //Disable Food Overlay
         if (event.getType() == RenderGameOverlayEvent.ElementType.HEALTHMOUNT) {
             PlayerEntity entity = Minecraft.getInstance().player;
-            if (Methodes.AllVehiclesOr(entity.getRidingEntity())) {
+            if (entity instanceof IVehicleEntity) {
                 event.setCanceled(true);
             }
         }
@@ -44,14 +44,14 @@ public class OverlayEvents {
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.disableAlphaTest();
-            if (entity.getRidingEntity() instanceof LanderEntity.CustomEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
+            if (entity.getRidingEntity() instanceof LanderEntity.CustomEntity && !((LanderEntity.CustomEntity) entity.getRidingEntity()).isOnGroundOrInWater()) {
                 RenderSystem.color4f((float) Events.counter, (float) Events.counter, (float) Events.counter, (float) Events.counter);
                 // Plinken
                 Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/warning1.png"));
                 Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight());
             }
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-            if (entity.getRidingEntity() instanceof LanderEntity.CustomEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
+            if (entity.getRidingEntity() instanceof LanderEntity.CustomEntity && !((LanderEntity.CustomEntity) entity.getRidingEntity()).isOnGroundOrInWater()) {
                 double speed = Math.round(100.0 * (entity.getRidingEntity()).getMotion().getY()) / 100.0;
                 double speedcheck = speed;
                 Minecraft.getInstance().fontRenderer.drawString(event.getMatrixStack(), "" + speedcheck + " Speed", event.getWindow().getScaledWidth() / 2 - 29, event.getWindow().getScaledHeight() / 2 / 2.3f, -3407872);
@@ -71,7 +71,7 @@ public class OverlayEvents {
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.disableAlphaTest();
 
-            if (Methodes.RocketCheckOr(entity.getRidingEntity())) {
+            if (entity.getRidingEntity() instanceof RocketAbstractEntity) {
                 int timer = ((RocketAbstractEntity)entity.getRidingEntity()).getStartTimer();
 
                 int width = event.getWindow().getScaledWidth() / 2 - 31;

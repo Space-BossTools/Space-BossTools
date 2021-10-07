@@ -6,6 +6,7 @@ import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import net.mrscauthd.boss_tools.entity.IVehicleEntity;
 
 public class Gravity {
     public static void Gravity(LivingEntity entity, String type, World world) {
@@ -203,7 +204,7 @@ public class Gravity {
 
     /**Living Entity (Example: Sheep,Pig,Cow...)*/
     public static boolean GravityCheckLiving(LivingEntity entity) {
-        if (!entity.isElytraFlying() && !entity.isInWater() && !entity.isInLava() && !entity.hasNoGravity() && !(entity instanceof PlayerEntity) && !Methodes.AllVehiclesOr(entity)) {
+        if (!entity.isElytraFlying() && !entity.isInWater() && !entity.isInLava() && !entity.hasNoGravity() && !(entity instanceof PlayerEntity) && !(entity instanceof IVehicleEntity)) {
             return true;
         }
 

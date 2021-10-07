@@ -23,7 +23,6 @@ import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.RocketAbstractEntity;
 import net.mrscauthd.boss_tools.gauge.GaugeData;
 import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
-import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 
 @OnlyIn(Dist.CLIENT)

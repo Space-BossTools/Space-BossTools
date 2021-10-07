@@ -23,6 +23,7 @@ import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.World;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.client.util.InputMappings;
@@ -130,28 +131,18 @@ public class KeyBindings {
 		//Type 0
 		if (type == 0) { //TODO REWORK
 			if (entity.getRidingEntity() instanceof LanderEntity.CustomEntity) {
-				if (entity.getRidingEntity().isOnGround() == false
-						&& entity.getRidingEntity().areEyesInFluid(FluidTags.WATER) == false) {
-					if (entity.getRidingEntity().getMotion().getY() <= -0.05) {
-						entity.getRidingEntity().setMotion(entity.getRidingEntity().getMotion().getX(), entity.getRidingEntity().getMotion().getY() * 0.85, entity.getRidingEntity().getMotion().getZ());
-					}
-					entity.getRidingEntity().getPersistentData().putDouble("Lander1", 1);
-					entity.getRidingEntity().getPersistentData().putDouble("Lander2", 1);
-				}
-			}
-			if (entity.getRidingEntity() instanceof LanderEntity.CustomEntity) {
-				(entity.getRidingEntity()).fallDistance = (float) ((entity.getRidingEntity().getMotion().getY() * (-1)) * 4.5);
+				LanderEntity.CustomEntity customEntity = (LanderEntity.CustomEntity) entity.getRidingEntity();
+				customEntity.reduceFallSpeed();
 			}
 		}
 
 		//Type 1
 		if (type == 1) {
-			if (Methodes.RocketCheckOr(entity.getRidingEntity())) {
+			if (entity.getRidingEntity() instanceof RocketAbstractEntity) {
 				RocketAbstractEntity rocket = (RocketAbstractEntity) entity.getRidingEntity();
 				
 				if (rocket.isFuelFull()) {
-					rocket.setRocketStart(true);
-					Methodes.RocketSounds(entity.getRidingEntity(), world);
+					rocket.startLaunch();
 				} else {
 					if (!entity.world.isRemote()) {
 						entity.sendStatusMessage(new StringTextComponent("\u00A7cNO FUEL! \u00A77Fill the Rocket with \u00A7cFuel\u00A77. (\u00A76Sneak and Right Click\u00A77)"), false);
@@ -164,13 +155,9 @@ public class KeyBindings {
 		//Type 2 //TODO REWORK
 		if (type == 2) {
 			//Rocket Rotation (Direction -1)
-			if (entity.getRidingEntity() instanceof RocketTier1Entity || entity.getRidingEntity() instanceof RocketTier2Entity || entity.getRidingEntity() instanceof RocketTier3Entity) {
-				(entity.getRidingEntity()).rotationYaw = (float) ((((entity.getRidingEntity()).rotationYaw) - 1));
-				(entity.getRidingEntity()).setRenderYawOffset((entity.getRidingEntity()).rotationYaw);
-				(entity.getRidingEntity()).prevRotationYaw = (entity.getRidingEntity()).rotationYaw;
-				if ((entity.getRidingEntity()) instanceof LivingEntity) {
-					((LivingEntity) entity.getRidingEntity()).prevRenderYawOffset = entity.getRidingEntity().rotationYaw;
-				}
+			if (entity.getRidingEntity() instanceof RocketAbstractEntity) {
+				RocketAbstractEntity rocket = (RocketAbstractEntity) entity.getRidingEntity();
+				rocket.rotation(-1);
 			}
 			// Rover Rotation (Direction -1)
 			if (entity.getRidingEntity() instanceof RoverEntity.CustomEntity) {
@@ -199,13 +186,9 @@ public class KeyBindings {
 		//Type 3 //TODO REWORK
 		if (type == 3) {
 			//Rocket Rotation (Direction +1)
-			if (entity.getRidingEntity() instanceof RocketTier1Entity || entity.getRidingEntity() instanceof RocketTier2Entity || entity.getRidingEntity() instanceof RocketTier3Entity) {
-				(entity.getRidingEntity()).rotationYaw = (float) ((((entity.getRidingEntity()).rotationYaw) + 1));
-				(entity.getRidingEntity()).setRenderYawOffset((entity.getRidingEntity()).rotationYaw);
-				(entity.getRidingEntity()).prevRotationYaw = (entity.getRidingEntity()).rotationYaw;
-				if ((entity.getRidingEntity()) instanceof LivingEntity) {
-					((LivingEntity) entity.getRidingEntity()).prevRenderYawOffset = entity.getRidingEntity().rotationYaw;
-				}
+			if (entity.getRidingEntity() instanceof RocketAbstractEntity) {
+				RocketAbstractEntity rocket = (RocketAbstractEntity) entity.getRidingEntity();
+				rocket.rotation(+1);
 			}
 			// Rover Rotation (Direction +1)
 			if (entity.getRidingEntity() instanceof RoverEntity.CustomEntity) {
