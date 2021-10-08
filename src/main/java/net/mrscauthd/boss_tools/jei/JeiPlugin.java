@@ -5,6 +5,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
@@ -28,7 +29,9 @@ import mezz.jei.api.registration.IRecipeTransferRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Rectangle2d;
+import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
@@ -46,12 +49,16 @@ import net.mrscauthd.boss_tools.crafting.GeneratingRecipe;
 import net.mrscauthd.boss_tools.crafting.OxygenBubbleDistributorRecipe;
 import net.mrscauthd.boss_tools.crafting.OxygenLoaderRecipe;
 import net.mrscauthd.boss_tools.crafting.WorkbenchingRecipe;
+import net.mrscauthd.boss_tools.entity.RocketAbstractEntity;
 import net.mrscauthd.boss_tools.fluid.FluidUtil2;
+import net.mrscauthd.boss_tools.gauge.GaugeData;
 import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
 import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
 import net.mrscauthd.boss_tools.crafting.RocketPart;
 import net.mrscauthd.boss_tools.gui.screens.RocketGUI;
+import net.mrscauthd.boss_tools.gui.screens.RocketGUIWindow;
 import net.mrscauthd.boss_tools.machines.NASAWorkbenchBlock;
+import net.mrscauthd.boss_tools.machines.OxygenLoaderBlock;
 import net.mrscauthd.boss_tools.machines.tile.ItemStackToItemStackTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.OxygenMakingTileEntity;
 import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock;
@@ -66,6 +73,7 @@ import net.mrscauthd.boss_tools.gui.guihelper.RocketPartGridPlacer;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
+import net.mrscauthd.boss_tools.item.IFuelLoadingItem;
 import net.mrscauthd.boss_tools.item.RoverItemItem;
 
 import java.text.NumberFormat;
@@ -83,6 +91,7 @@ public class JeiPlugin implements IModPlugin {
 
 	private Map<Fluid, List<ItemStack>> fluidFullItemStacks;
 	private List<ItemStack> oxygenFullItemStacks;
+	private List<ItemStack> fuelLoadingableItemStacks; 
 
 	//TODO: Rework Fluid Bar in Rockets,Rover
 
@@ -121,7 +130,7 @@ public class JeiPlugin implements IModPlugin {
 		//Fuel Refinery
 		registration.addRecipeTransferHandler(FuelRefineryGUIGui.GuiContainerMod.class, FuelRefineryJeiCategory.Uid, FuelRefineryBlock.SLOT_INPUT_SOURCE, 1, 0, inventorySlotCount);
 		//Rocket Fuel
-		registration.addRecipeTransferHandler(RocketGUI.GuiContainerMod.class, Tier1RocketJeiCategory.Uid, 0, 1, 0, inventorySlotCount);
+		registration.addRecipeTransferHandler(RocketGUI.GuiContainerMod.class, FuelLoadingJeiCategory.Uid, 0, 1, 0, inventorySlotCount);
 	}
 
 	@Override
@@ -133,6 +142,7 @@ public class JeiPlugin implements IModPlugin {
 		registration.addGuiContainerHandler(CompressorGuiGuiWindow.class, new CompressorGuiContainerHandler());
 		registration.addRecipeClickArea(OxygenLoaderGuiGuiWindow.class, OxygenLoaderGuiGuiWindow.ARROW_LEFT, OxygenLoaderGuiGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, OxygenLoaderJeiCategory.Uid);
 		registration.addRecipeClickArea(OxygenBubbleDistributorGUIWindow.class, OxygenBubbleDistributorGUIWindow.ARROW_LEFT, OxygenBubbleDistributorGUIWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, OxygenBubbleDistributorJeiCategory.Uid);
+		registration.addRecipeClickArea(RocketGUIWindow.class, RocketGUIWindow.ARROW_LEFT, RocketGUIWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, FuelLoadingJeiCategory.Uid);
 	}
 
 	@Override
@@ -146,24 +156,21 @@ public class JeiPlugin implements IModPlugin {
 		registration.addRecipeCategories(new NASAWorkbenchJeiCategory(jeiHelper.getGuiHelper()));
 		// BlastFurnace
 		registration.addRecipeCategories(new BlastingFurnaceJeiCategory(jeiHelper.getGuiHelper()));
-		// RocketTier1Gui
-		registration.addRecipeCategories(new Tier1RocketJeiCategory(this, jeiHelper.getGuiHelper()));
-		// RocketTier2Gui
-		registration.addRecipeCategories(new Tier2RocketItemItemJeiCategory(jeiHelper.getGuiHelper()));
-		// RocketItem3Gui
-		registration.addRecipeCategories(new Tier3RocketItemItemJeiCategory(jeiHelper.getGuiHelper()));
 		// Compressor
 		registration.addRecipeCategories(new CompressorJeiCategory(jeiHelper.getGuiHelper()));
 		// Fuel Maker
 		registration.addRecipeCategories(new FuelRefineryJeiCategory(this, jeiHelper.getGuiHelper()));
 		// Rover
 		registration.addRecipeCategories(new RoverJeiCategory(jeiHelper.getGuiHelper()));
+		// Rocket Fuel Loading
+		registration.addRecipeCategories(new FuelLoadingJeiCategory(this, jeiHelper.getGuiHelper()));
 	}
 
 	@Override
 	public void registerRecipes(IRecipeRegistration registration) {
 		this.fluidFullItemStacks = new HashMap<>();
 		this.oxygenFullItemStacks = this.generateOxygenLoadingItems();
+		this.fuelLoadingableItemStacks = this.generateFuelLoadableItems();
 		
 		// OxygenLoader
 		registration.addRecipes(generateOxygenLoaderRecipes(), OxygenLoaderJeiCategory.Uid);
@@ -175,12 +182,7 @@ public class JeiPlugin implements IModPlugin {
 		registration.addRecipes(generateWorkbenchRecipes(), NASAWorkbenchJeiCategory.Uid);
 		// BlastFurnace
 		registration.addRecipes(generateBlastingFurnaceRecipes(), BlastingFurnaceJeiCategory.Uid);
-		// RocketTier1Gui
-		registration.addRecipes(generateTier1RocketItemItemRecipes(), Tier1RocketJeiCategory.Uid);
-		// RocketTier2Gui
-		registration.addRecipes(generateTier2RocketItemItemRecipes(), Tier2RocketItemItemJeiCategory.Uid);
-		// RocketTier3Gui
-		registration.addRecipes(generateTier3RocketItemItemRecipes(), Tier3RocketItemItemJeiCategory.Uid);
+		registration.addRecipes(this.fuelLoadingableItemStacks.stream().map(is -> new FuelLoadingJeiCategory.FuelLoadingRecipe(is)).collect(Collectors.toList()), FuelLoadingJeiCategory.Uid);
 		// Compressor
 		registration.addRecipes(generateCompressingRecipes(), CompressorJeiCategory.Uid);
 		// Fuel Maker
@@ -238,39 +240,8 @@ public class JeiPlugin implements IModPlugin {
 	}
 
 	// Rockettier1Gui
-	private List<Tier1RocketJeiCategory.Tier1RocketItemItemRecipeWrapper> generateTier1RocketItemItemRecipes() {
-		List<Tier1RocketJeiCategory.Tier1RocketItemItemRecipeWrapper> recipes = new ArrayList<>();
-		ArrayList<ItemStack> inputs = new ArrayList<>();
-		ArrayList<FluidStack> outputs = new ArrayList<>();
-
-		FluidStack fluidStack = new FluidStack(ModInnet.FUEL_BLOCK.get().getFluid(), 1000);
-
-		outputs.add(fluidStack);
-
-		inputs.add(new ItemStack(ModInnet.FUEL_BUCKET.get()));
-		// ...
-		recipes.add(new Tier1RocketJeiCategory.Tier1RocketItemItemRecipeWrapper(inputs, outputs));
-		return recipes;
-	}
-
-	// RocektTier2Gui
-	private List<Tier2RocketItemItemJeiCategory.Tier2RocketItemItemRecipeWrapper> generateTier2RocketItemItemRecipes() {
-		List<Tier2RocketItemItemJeiCategory.Tier2RocketItemItemRecipeWrapper> recipes = new ArrayList<>();
-		ArrayList<ItemStack> inputs = new ArrayList<>();
-		inputs.add(new ItemStack(ModInnet.FUEL_BUCKET.get()));
-		// ...
-		recipes.add(new Tier2RocketItemItemJeiCategory.Tier2RocketItemItemRecipeWrapper(inputs));
-		return recipes;
-	}
-
-	// RocektTier3Gui
-	private List<Tier3RocketItemItemJeiCategory.Tier3RocketItemItemRecipeWrapper> generateTier3RocketItemItemRecipes() { // RocketItemTier3Block
-		List<Tier3RocketItemItemJeiCategory.Tier3RocketItemItemRecipeWrapper> recipes = new ArrayList<>();
-		ArrayList<ItemStack> inputs = new ArrayList<>();
-		inputs.add(new ItemStack(ModInnet.FUEL_BUCKET.get()));
-		// ...
-		recipes.add(new Tier3RocketItemItemJeiCategory.Tier3RocketItemItemRecipeWrapper(inputs));
-		return recipes;
+	private List<ItemStack> generateFuelLoadableItems() {
+		return ForgeRegistries.ITEMS.getValues().stream().filter(i -> i instanceof IFuelLoadingItem).map(i -> new ItemStack(i)).collect(Collectors.toList());
 	}
 
 	// Rover
@@ -294,18 +265,16 @@ public class JeiPlugin implements IModPlugin {
 		registration.addRecipeCatalyst(new ItemStack(ModInnet.NASA_WORKBENCH_ITEM.get()), NASAWorkbenchJeiCategory.Uid);
 		// BlastingFurnace
 		registration.addRecipeCatalyst(new ItemStack(ModInnet.BLAST_FURNACE_BLOCK.get()), BlastingFurnaceJeiCategory.Uid, VanillaRecipeCategoryUid.FUEL);
-		// RocketTier1Gui
-		registration.addRecipeCatalyst(new ItemStack(Tier1RocketItemItem.block), Tier1RocketJeiCategory.Uid);
-		// RocketTier2Gui
-		registration.addRecipeCatalyst(new ItemStack(Tier2RocketItemItem.block), Tier2RocketItemItemJeiCategory.Uid);
-		// RocketTier3Gui
-		registration.addRecipeCatalyst(new ItemStack(Tier3RocketItemItem.block), Tier3RocketItemItemJeiCategory.Uid);
 		// Compressor
 		registration.addRecipeCatalyst(new ItemStack(ModInnet.COMPRESSOR_BLOCK.get()), CompressorJeiCategory.Uid);
 		// FuelMaker
 		registration.addRecipeCatalyst(new ItemStack(ModInnet.FUEL_REFINERY_BLOCK.get()), FuelRefineryJeiCategory.Uid);
 		// Rover
 		registration.addRecipeCatalyst(new ItemStack(RoverItemItem.block), RoverJeiCategory.Uid);
+		
+		for (ItemStack itemStack : this.fuelLoadingableItemStacks) {
+			registration.addRecipeCatalyst(itemStack, FuelLoadingJeiCategory.Uid);
+		}
 	}
 
 	public static class OxygenLoaderJeiCategory implements IRecipeCategory<OxygenLoaderRecipe> {
@@ -831,181 +800,118 @@ public class JeiPlugin implements IModPlugin {
 	}
 
 	// RocketTier1Gui
-	public static class Tier1RocketJeiCategory implements IRecipeCategory<Tier1RocketJeiCategory.Tier1RocketItemItemRecipeWrapper> {
-		private static ResourceLocation Uid = new ResourceLocation("boss_tools", "rocket_t_1_category");
-		private static final int input1 = 0; // THE NUMBER = SLOTID
-		// ...
+	public static class FuelLoadingJeiCategory implements IRecipeCategory<FuelLoadingJeiCategory.FuelLoadingRecipe> {
+		public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "fuel_loading");
+		public static final int TANK_LEFT = 65;
+		public static final int TANK_TOP = 11;
+		
 		private final String title;
 		private final IDrawable background;
 		private final JeiPlugin plugin;
 
-		public Tier1RocketJeiCategory(JeiPlugin plugin, IGuiHelper guiHelper) {
+		public FuelLoadingJeiCategory(JeiPlugin plugin, IGuiHelper guiHelper) {
 			this.plugin = plugin;
-			this.title = "Tier 1 Rocket";
+			this.title = new TranslationTextComponent("jei.category.boss_tools.fuel_loading").getString();
 			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/rocket_gui_jei.png"), 0, 0, 128, 71);
 		}
 
 		@Override
-		public List<ITextComponent> getTooltipStrings(Tier1RocketItemItemRecipeWrapper recipe, double mouseX, double mouseY) {
-
+		public List<ITextComponent> getTooltipStrings(FuelLoadingRecipe recipe, double mouseX, double mouseY) {
+			if (new Rectangle2d(TANK_LEFT, TANK_TOP, RocketGUIWindow.TANK_WIDTH, RocketGUIWindow.TANK_HEIGHT).contains((int)mouseX, (int)mouseY)) {
+				ItemStack itemStack = recipe.getItemStack();
+				IFuelLoadingItem fuelLoadingItem = recipe.getFuelLoadingItem();
+				FlowingFluid fluid = ModInnet.FUEL_STILL.get();
+				
+				List<ITextComponent> list = new ArrayList<>();
+				list.add(GaugeDataHelper.getFluid(fluid, fuelLoadingItem.getFuelAmount(itemStack), fuelLoadingItem.getFuelCapacity(itemStack)).getText());
+				list.add(GaugeTextHelper.getLoadingText(GaugeDataHelper.getFluid(fluid, fuelLoadingItem.getFuelTransfer(itemStack))));
+				return list;
+			}
+			
 			return Collections.emptyList();
 		}
 
 		@Override
-		public void draw(Tier1RocketItemItemRecipeWrapper recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+		public ResourceLocation getUid() {
+			return Uid;
+		}
+
+		@Override
+		public Class<? extends FuelLoadingRecipe> getRecipeClass() {
+			return FuelLoadingRecipe.class;
+		}
+
+		@Override
+		public String getTitle() {
+			return title;
+		}
+
+		@Override
+		public IDrawable getBackground() {
+			return background;
+		}
+
+		@Override
+		public IDrawable getIcon() {
+			return null;
+		}
+
+		@Override
+		public void setIngredients(FuelLoadingRecipe recipe, IIngredients iIngredients) {
+			Fluid fluid = ModInnet.FUEL_STILL.get();
+			List<List<ItemStack>> list = new ArrayList<>();
+			list.add(this.plugin.getFluidFullItemStacks(fluid));
+			iIngredients.setInputLists(VanillaTypes.ITEM, list);
+			iIngredients.setInput(VanillaTypes.FLUID, new FluidStack(fluid, 1));
+			iIngredients.setOutput(VanillaTypes.ITEM, recipe.getItemStack());
+		}
+
+		@Override
+		public void setRecipe(IRecipeLayout iRecipeLayout, FuelLoadingRecipe recipe, IIngredients iIngredients) {
+			int slotFuel = RocketAbstractEntity.SLOT_FUEL;
+			int slotRocket = 1;
+			
+			IGuiItemStackGroup itemstacks = iRecipeLayout.getItemStacks();
+			itemstacks.init(slotFuel, true, 13, 18);
+			itemstacks.set(slotFuel, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
+			
+			itemstacks.init(slotRocket, false, 37, 41);
+			itemstacks.set(slotRocket, iIngredients.getOutputs(VanillaTypes.ITEM).get(0));
+		}
+		
+		@Override
+		public void draw(FuelLoadingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
 			IRecipeCategory.super.draw(recipe, matrixStack, mouseX, mouseY);
-
-		}
-
-		@Override
-		public ResourceLocation getUid() {
-			return Uid;
-		}
-
-		@Override
-		public Class<? extends Tier1RocketItemItemRecipeWrapper> getRecipeClass() {
-			return Tier1RocketJeiCategory.Tier1RocketItemItemRecipeWrapper.class;
-		}
-
-		@Override
-		public String getTitle() {
-			return title;
-		}
-
-		@Override
-		public IDrawable getBackground() {
-			return background;
-		}
-
-		@Override
-		public IDrawable getIcon() {
-			return null;
-		}
-
-		@Override
-		public void setIngredients(Tier1RocketItemItemRecipeWrapper recipeWrapper, IIngredients iIngredients) {
-			iIngredients.setInputs(VanillaTypes.ITEM, recipeWrapper.getInput());
-
-			iIngredients.setOutputs(VanillaTypes.ITEM, this.plugin.getFluidFullItemStacks(ModInnet.FUEL_STILL.get()));
-
-			iIngredients.setOutputs(VanillaTypes.FLUID, recipeWrapper.getOutput());
-		}
-
-		@Override
-		public void setRecipe(IRecipeLayout iRecipeLayout, Tier1RocketItemItemRecipeWrapper recipeWrapper, IIngredients iIngredients) {
-			IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
-			stacks.init(input1, true, 13, 18);
-			// ...
-
-			stacks.set(input1, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
-			// ...
-
-			IGuiFluidStackGroup fluidStacks = iRecipeLayout.getFluidStacks();
-			int tanks = 0;
-
-			fluidStacks.init(tanks, false, 66, 12, 46, 46, 1000, false, null);
-			fluidStacks.set(tanks, iIngredients.getOutputs(VanillaTypes.FLUID).get(0));
-			tanks++;
-
-		}
-
-		public static class Tier1RocketItemItemRecipeWrapper {
-			private ArrayList input;
-			private ArrayList output;
-
-			public Tier1RocketItemItemRecipeWrapper(ArrayList input, ArrayList output) {
-				this.input = input;
-				this.output = output;
+			
+			ItemStack itemStack = recipe.getItemStack();
+			IFuelLoadingItem fuelLoadingItem = recipe.getFuelLoadingItem();
+			int fuelAmount = fuelLoadingItem.getFuelAmount(itemStack);
+			int fuelCapacity = fuelLoadingItem.getFuelCapacity(itemStack);
+			
+			if (fuelAmount >= fuelCapacity) {
+				fuelAmount = 0;
 			}
+			
+			fuelAmount = Math.min(fuelAmount + fuelLoadingItem.getFuelTransfer(itemStack), fuelCapacity);
 
-			public ArrayList getInput() {
-				return input;
+			fuelLoadingItem.setFuelAmount(itemStack, fuelAmount);
+			RenderSystem.enableBlend();
+			GuiHelper.drawRocketFluidTank(matrixStack, TANK_LEFT + 1, TANK_TOP + 1, new FluidStack(ModInnet.FUEL_STILL.get(), fuelAmount), fuelCapacity);
+			RenderSystem.disableBlend();
+		}
+		
+		public static class FuelLoadingRecipe {
+			private ItemStack itemStack;
+
+			public FuelLoadingRecipe(ItemStack itemStack) {
+				this.itemStack = itemStack.copy();
 			}
-
-			public ArrayList getOutput() {
-				return output;
+			
+			public ItemStack getItemStack() {
+				return this.itemStack;
 			}
-		}
-	}
-
-	// RocketTier2Gui
-	public static class Tier2RocketItemItemJeiCategory implements IRecipeCategory<Tier2RocketItemItemJeiCategory.Tier2RocketItemItemRecipeWrapper> {
-		private static ResourceLocation Uid = new ResourceLocation("boss_tools", "tier2rocketitemitemcategory");
-		private static final int input1 = 0; // THE NUMBER = SLOTID
-		// ...
-		private final String title;
-		private final IDrawable background;
-
-		public Tier2RocketItemItemJeiCategory(IGuiHelper guiHelper) {
-			this.title = "Tier 2 Rocket";
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/rocket_gui_jei.png"), 0, 0, 128, 71);
-		}
-
-		@Override
-		public List<ITextComponent> getTooltipStrings(Tier2RocketItemItemJeiCategory.Tier2RocketItemItemRecipeWrapper recipe, double mouseX, double mouseY) {
-			List<ITextComponent> fuel = new ArrayList<ITextComponent>();
-			fuel.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Fuel"));
-			fuel.add(ITextComponent.getTextComponentOrEmpty("100" + "%"));
-			// counter = counter - 1;
-			// if (counter <= 0){
-			// counter = 9000;
-			// }
-			// animation = counter;
-			if (mouseX > 64 && mouseX < 113 && mouseY > 10 && mouseY < 59) {
-				return Collections.synchronizedList(fuel);
-			}
-			return Collections.emptyList();
-		}
-
-		@Override
-		public ResourceLocation getUid() {
-			return Uid;
-		}
-
-		@Override
-		public Class<? extends Tier2RocketItemItemRecipeWrapper> getRecipeClass() {
-			return Tier2RocketItemItemJeiCategory.Tier2RocketItemItemRecipeWrapper.class;
-		}
-
-		@Override
-		public String getTitle() {
-			return title;
-		}
-
-		@Override
-		public IDrawable getBackground() {
-			return background;
-		}
-
-		@Override
-		public IDrawable getIcon() {
-			return null;
-		}
-
-		@Override
-		public void setIngredients(Tier2RocketItemItemRecipeWrapper recipeWrapper, IIngredients iIngredients) {
-			iIngredients.setInputs(VanillaTypes.ITEM, recipeWrapper.getInput());
-		}
-
-		@Override
-		public void setRecipe(IRecipeLayout iRecipeLayout, Tier2RocketItemItemRecipeWrapper recipeWrapper, IIngredients iIngredients) {
-			IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
-			stacks.init(input1, true, 13, 18);
-			// ...
-
-			stacks.set(input1, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
-			// ...
-		}
-
-		public static class Tier2RocketItemItemRecipeWrapper {
-			private ArrayList input;
-
-			public Tier2RocketItemItemRecipeWrapper(ArrayList input) {
-				this.input = input;
-			}
-
-			public ArrayList getInput() {
-				return input;
+			public IFuelLoadingItem getFuelLoadingItem() {
+				return (IFuelLoadingItem) this.getItemStack().getItem();
 			}
 		}
 	}
@@ -1097,88 +1003,6 @@ public class JeiPlugin implements IModPlugin {
 			stacks.set(ItemStackToItemStackTileEntity.SLOT_INGREDIENT, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
 			stacks.set(ItemStackToItemStackTileEntity.SLOT_OUTPUT, iIngredients.getOutputs(VanillaTypes.ITEM).get(0));
 			// ...
-		}
-	}
-
-	// RocketTier3Gui
-	public static class Tier3RocketItemItemJeiCategory implements IRecipeCategory<Tier3RocketItemItemJeiCategory.Tier3RocketItemItemRecipeWrapper> {
-		private static ResourceLocation Uid = new ResourceLocation("boss_tools", "tier3rocketitemitemcategory");
-		private static final int input1 = 0; // THE NUMBER = SLOTID
-		// ...
-		private final String title;
-		private final IDrawable background;
-
-		public Tier3RocketItemItemJeiCategory(IGuiHelper guiHelper) {
-			this.title = "Tier 3 Rocket";
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/rocket_gui_jei.png"), 0, 0, 128, 71);
-		}
-
-		@Override
-		public List<ITextComponent> getTooltipStrings(Tier3RocketItemItemJeiCategory.Tier3RocketItemItemRecipeWrapper recipe, double mouseX, double mouseY) {
-			List<ITextComponent> fuel = new ArrayList<ITextComponent>();
-			fuel.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Fuel"));
-			fuel.add(ITextComponent.getTextComponentOrEmpty("100" + "%"));
-			// counter = counter - 1;
-			// if (counter <= 0){
-			// counter = 9000;
-			// }
-			// animation = counter;
-			if (mouseX > 64 && mouseX < 113 && mouseY > 10 && mouseY < 59) {
-				return Collections.synchronizedList(fuel);
-			}
-			return Collections.emptyList();
-		}
-
-		@Override
-		public ResourceLocation getUid() {
-			return Uid;
-		}
-
-		@Override
-		public Class<? extends Tier3RocketItemItemRecipeWrapper> getRecipeClass() {
-			return Tier3RocketItemItemJeiCategory.Tier3RocketItemItemRecipeWrapper.class;
-		}
-
-		@Override
-		public String getTitle() {
-			return title;
-		}
-
-		@Override
-		public IDrawable getBackground() {
-			return background;
-		}
-
-		@Override
-		public IDrawable getIcon() {
-			return null;
-		}
-
-		@Override
-		public void setIngredients(Tier3RocketItemItemRecipeWrapper recipeWrapper, IIngredients iIngredients) {
-			iIngredients.setInputs(VanillaTypes.ITEM, recipeWrapper.getInput());
-		}
-
-		@Override
-		public void setRecipe(IRecipeLayout iRecipeLayout, Tier3RocketItemItemRecipeWrapper recipeWrapper, IIngredients iIngredients) {
-			IGuiItemStackGroup stacks = iRecipeLayout.getItemStacks();
-			stacks.init(input1, true, 13, 18);
-			// ...
-
-			stacks.set(input1, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
-			// ...
-		}
-
-		public static class Tier3RocketItemItemRecipeWrapper {
-			private ArrayList input;
-
-			public Tier3RocketItemItemRecipeWrapper(ArrayList input) {
-				this.input = input;
-			}
-
-			public ArrayList getInput() {
-				return input;
-			}
 		}
 	}
 

@@ -20,6 +20,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
@@ -29,7 +30,7 @@ import net.mrscauthd.boss_tools.block.RocketLaunchPadBlock;
 import net.mrscauthd.boss_tools.entity.RocketAbstractEntity;
 import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
 
-public abstract class RocketAbstractItem extends Item implements IVehicleItem {
+public abstract class RocketAbstractItem extends Item implements IVehicleItem, IFuelLoadingItem {
 
 	public RocketAbstractItem(Properties properties) {
 		super(properties);
@@ -56,7 +57,7 @@ public abstract class RocketAbstractItem extends Item implements IVehicleItem {
 
 		if (this.isInGroup(group)) {
 			ItemStack full = new ItemStack(this);
-			this.setItemStackFuel(full, this.getRocketFuelCapacity());
+			this.setFuelAmount(full, this.getFuelCapacity(full));
 			list.add(full);
 		}
 
@@ -65,17 +66,18 @@ public abstract class RocketAbstractItem extends Item implements IVehicleItem {
 	@Override
 	public void addInformation(ItemStack itemstack, World world, List<ITextComponent> list, ITooltipFlag flag) {
 		super.addInformation(itemstack, world, list, flag);
-		int fuel = this.getItemStackFuel(itemstack);
-		int fuelCapacity = this.getRocketFuelCapacity();
+		int fuel = this.getFuelAmount(itemstack);
+		int fuelCapacity = this.getFuelCapacity(itemstack);
 		list.add(new StringTextComponent("\u00A79Fuel: " + fuel + " " + GaugeDataHelper.FLUID_UNIT + ", " + (int) (fuel / (fuelCapacity / 100.0D)) + "%"));
 	}
 
-	public void setItemStackFuel(ItemStack itemstack, int fuel) {
+	public void setFuelAmount(ItemStack itemstack, int fuel) {
 		CompoundNBT tag = itemstack.getOrCreateTag();
+		fuel = MathHelper.clamp(fuel, 0, this.getFuelCapacity(itemstack));
 		tag.putInt(RocketAbstractEntity.KEY_FUEL, fuel);
 	}
 
-	public int getItemStackFuel(ItemStack itemstack) {
+	public int getFuelAmount(ItemStack itemstack) {
 		CompoundNBT tag = itemstack.getTag();
 		return tag != null ? tag.getInt(RocketAbstractEntity.KEY_FUEL) : 0;
 	}
@@ -121,6 +123,4 @@ public abstract class RocketAbstractItem extends Item implements IVehicleItem {
 	}
 
 	public abstract EntityType<? extends RocketAbstractEntity> getEntityType();
-
-	public abstract int getRocketFuelCapacity();
 }

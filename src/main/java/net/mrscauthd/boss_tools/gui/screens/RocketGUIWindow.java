@@ -11,6 +11,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -29,7 +30,12 @@ import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 public class RocketGUIWindow extends ContainerScreen<RocketGUI.GuiContainerMod> {
 
 	public static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/rocket_tier_1_gui_fuel.png");
-	public static final ResourceLocation fuel_bar = new ResourceLocation("boss_tools:textures/rocket_fuel_bar.png");
+	public static final int TANK_LEFT = 93;
+	public static final int TANK_TOP = 21;
+	public static final int TANK_WIDTH = 48;
+	public static final int TANK_HEIGHT = 48;
+	public static final int ARROW_LEFT = 66;
+	public static final int ARROW_TOP = 29;
 
 	public RocketGUIWindow(RocketGUI.GuiContainerMod container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
@@ -44,19 +50,20 @@ public class RocketGUIWindow extends ContainerScreen<RocketGUI.GuiContainerMod> 
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 
-		RocketAbstractEntity entity = this.getContainer().getEntity();
-		int fuel = entity.getFuel();
-		int capacity = entity.getFuelCapacity();
+		if (this.getTankBounds().contains(mouseX, mouseY)) {
+			RocketAbstractEntity entity = this.getContainer().getEntity();
+			GaugeData data = GaugeDataHelper.getFluid(new FluidStack(ModInnet.FUEL_STILL.get(), entity.getFuel()), entity.getFuelCapacity());
 
-		List<ITextComponent> fuel2 = new ArrayList<ITextComponent>();
-
-		if (mouseX > guiLeft + 65 && mouseX < guiLeft + 114 && mouseY > guiTop + 20 && mouseY < guiTop + 69) {
-			GaugeData data = GaugeDataHelper.getFluid(new FluidStack(ModInnet.FUEL_STILL.get(), fuel), capacity);
+			List<ITextComponent> fuel2 = new ArrayList<ITextComponent>();
 			fuel2.add(new StringTextComponent("\u00A79" + data.getValue().getDisplayName().getString()));
 			fuel2.add(new TranslationTextComponent("%s, %s", data.getAmountText(), (int) (data.getDisplayRatio() * 100) + "%"));
 			this.func_243308_b(ms, fuel2, mouseX, mouseY);
 		}
 
+	}
+
+	public Rectangle2d getTankBounds() {
+		return new Rectangle2d(this.guiLeft + TANK_LEFT, this.guiTop + TANK_TOP, TANK_WIDTH, TANK_HEIGHT);
 	}
 
 	@Override
@@ -65,17 +72,10 @@ public class RocketGUIWindow extends ContainerScreen<RocketGUI.GuiContainerMod> 
 		Minecraft.getInstance().getTextureManager().bindTexture(texture);
 		AbstractGui.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
 
-		// Tank
-		RocketAbstractEntity entity = this.getContainer().getEntity();
-		int fuel = entity.getFuel();
-		int capacity = entity.getFuelCapacity();
-
 		// Textures
-		Minecraft.getInstance().getTextureManager().bindTexture(fuel_bar);
-		AbstractGui.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-
-		FluidStack fluidStack = new FluidStack(ModInnet.FUEL_BLOCK.get().getFluid(), fuel);
-		GuiHelper.drawRocketFluidTank(ms, this.guiLeft + 67, this.guiTop + 22, fluidStack, capacity);
+		RocketAbstractEntity entity = this.getContainer().getEntity();
+		FluidStack fluidStack = new FluidStack(ModInnet.FUEL_STILL.get(), entity.getFuel());
+		GuiHelper.drawRocketFluidTank(ms, this.guiLeft + TANK_LEFT + 1, this.guiTop + TANK_TOP + 1, fluidStack, entity.getFuelCapacity());
 	}
 
 }

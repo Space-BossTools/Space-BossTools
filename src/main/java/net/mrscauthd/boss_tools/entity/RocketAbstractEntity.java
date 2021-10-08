@@ -65,6 +65,8 @@ import net.mrscauthd.boss_tools.gui.screens.RocketGUI;
 
 public abstract class RocketAbstractEntity extends CreatureEntity implements INamedContainerProvider, IVehicleEntity {
 
+	public static final int SLOT_FUEL = 0;
+
 	public static final String KEY_ROCKET_START = "rocket_start";
 	public static final String KEY_FUEL_LOADING = "fuel_loading";
 	public static final String KEY_FUEL = "fuel";
@@ -400,7 +402,7 @@ public abstract class RocketAbstractEntity extends CreatureEntity implements INa
 	}
 
 	protected void loadFuel() {
-		int loadingSpeed = this.getFuelLoadingSpeed();
+		int loadingSpeed = this.getFuelTransfer();
 		int fuelLoading = this.getFuelLoading();
 
 		if (fuelLoading > 0) {
@@ -417,17 +419,18 @@ public abstract class RocketAbstractEntity extends CreatureEntity implements INa
 		int fuelCapacity = this.getFuelCapacity();
 
 		if (willFuel < fuelCapacity) {
-			ItemStack itemStack = inventory.getStackInSlot(0);
+			int fuelSlot = this.getFuelSlot();
+			ItemStack itemStack = inventory.getStackInSlot(fuelSlot);
 
 			if (FluidUtil2.canDrain(itemStack, ModInnet.FUEL_STILL.get())) {
 				if (itemStack.getItem() == ModInnet.FUEL_BUCKET.get()) {
-					inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));
-					this.setFuelLoading(fuelLoading + 1000);
+					inventory.setStackInSlot(fuelSlot, new ItemStack(Items.BUCKET));
+					this.setFuelLoading(fuelLoading + FluidUtil2.BUCKET_SIZE);
 				} else {
 					IFluidHandlerItem fluidHandler = FluidUtil2.getItemStackFluidHandler(itemStack);
 
 					if (fluidHandler != null) {
-						int loadingSpeed = this.getFuelLoadingSpeed();
+						int loadingSpeed = this.getFuelTransfer();
 						int extract = Math.min(fuelCapacity - willFuel, loadingSpeed);
 
 						if (fluidHandler.drain(extract, FluidAction.SIMULATE).getAmount() == extract) {
@@ -440,7 +443,11 @@ public abstract class RocketAbstractEntity extends CreatureEntity implements INa
 		}
 	}
 
-	public int getFuelLoadingSpeed() {
+	public int getFuelSlot() {
+		return SLOT_FUEL;
+	}
+
+	public int getFuelTransfer() {
 		return 10;
 	}
 

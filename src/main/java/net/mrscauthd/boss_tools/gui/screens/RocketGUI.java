@@ -62,7 +62,7 @@ public class RocketGUI extends BossToolsModElements.ModElement {
 			this.entity = entity;
 
 			IItemHandlerModifiable internal = entity.getInventory();
-			this.addSlot(new SlotItemHandler(internal, 0, 46, 22) {
+			this.addSlot(new SlotItemHandler(internal, 0, 46, 29) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
 					return FluidUtil2.canDrain(stack, ModInnet.FUEL_STILL.get());

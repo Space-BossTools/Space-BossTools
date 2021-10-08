@@ -8,6 +8,7 @@ import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 public class RocketTier1Entity extends RocketAbstractEntity {
 
 	public static final int FUEL_CAPACITY = 1000;
+	public static final int FUEL_TRANSFER = 3;
 
 	public RocketTier1Entity(EntityType<? extends RocketTier1Entity> type, World world) {
 		super(type, world);
@@ -21,6 +22,11 @@ public class RocketTier1Entity extends RocketAbstractEntity {
 	@Override
 	public int getFuelCapacity() {
 		return FUEL_CAPACITY;
+	}
+	
+	@Override
+	public int getFuelTransfer() {
+		return FUEL_TRANSFER;
 	}
 
 	@Override

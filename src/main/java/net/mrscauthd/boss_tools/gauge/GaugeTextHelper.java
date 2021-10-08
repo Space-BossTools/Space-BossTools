@@ -13,6 +13,7 @@ public class GaugeTextHelper {
 
 	public static final ResourceLocation USING_NAME = new ResourceLocation("boss_tools", "using");
 	public static final ResourceLocation USING2_NAME = new ResourceLocation("boss_tools", "using2");
+	public static final ResourceLocation LOADING_NAME = new ResourceLocation("boss_tools", "loading");
 	public static final ResourceLocation GENERATING_NAME = new ResourceLocation("boss_tools", "generating");
 	public static final ResourceLocation MAXGENERATION_NAME = new ResourceLocation("boss_tools", "maxgeneration");
 	public static final ResourceLocation TOTAL_NAME = new ResourceLocation("boss_tools", "total");
@@ -21,6 +22,7 @@ public class GaugeTextHelper {
 
 	public static final String USING_KEY = makeTranslationKey(USING_NAME);
 	public static final String USING2_KEY = makeTranslationKey(USING2_NAME);
+	public static final String LOADING_KEY = makeTranslationKey(LOADING_NAME);
 	public static final String GENERATING_KEY = makeTranslationKey(GENERATING_NAME);
 	public static final String MAXGNERATION_KEY = makeTranslationKey(MAXGENERATION_NAME);
 	public static final String TOTAL_KEY = makeTranslationKey(TOTAL_NAME);
@@ -49,6 +51,10 @@ public class GaugeTextHelper {
 
 	public static ITextComponent getTotalText(IGaugeData data) {
 		return getText(data, TOTAL_KEY);
+	}
+
+	public static ITextComponent getLoadingText(IGaugeData data) {
+		return getText(data, LOADING_KEY);
 	}
 
 	public static ITextComponent getGeneratingText(IGaugeData data) {

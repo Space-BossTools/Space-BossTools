@@ -3,6 +3,7 @@ package net.mrscauthd.boss_tools.item;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraftforge.registries.ObjectHolder;
 import net.mrscauthd.boss_tools.BossToolsModElements;
@@ -37,8 +38,13 @@ public class Tier2RocketItemItem extends BossToolsModElements.ModElement {
 		}
 
 		@Override
-		public int getRocketFuelCapacity() {
+		public int getFuelCapacity(ItemStack itemstack) {
 			return RocketTier2Entity.FUEL_CAPACITY;
+		}
+
+		@Override
+		public int getFuelTransfer(ItemStack itemStack) {
+			return RocketTier2Entity.FUEL_TRANSFER;
 		}
 	}
 }
