@@ -2,6 +2,8 @@ package net.mrscauthd.boss_tools.capability;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import net.mrscauthd.boss_tools.compat.CompatibleManager;
+import net.mrscauthd.boss_tools.compat.mekanism.MekanismHelper;
 
 public class OxygenUtil {
 
@@ -10,6 +12,14 @@ public class OxygenUtil {
 
 		if (oxygenStorage != null) {
 			return oxygenStorage;
+		}
+		
+		if (CompatibleManager.MEKANISM.isLoaded()) {
+			IOxygenStorage adapter = MekanismHelper.getItemStackOxygenAdapter(itemStack);
+
+			if (adapter != null) {
+				return adapter;
+			}
 		}
 
 		return null;

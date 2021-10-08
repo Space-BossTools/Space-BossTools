@@ -23,6 +23,9 @@ import net.mrscauthd.boss_tools.capability.CapabilityOxygen;
 import net.mrscauthd.boss_tools.capability.IOxygenStorage;
 import net.mrscauthd.boss_tools.capability.IOxygenStorageHolder;
 import net.mrscauthd.boss_tools.capability.OxygenStorage;
+import net.mrscauthd.boss_tools.compat.CompatibleManager;
+import net.mrscauthd.boss_tools.compat.mekanism.MekanismHelper;
+import net.mrscauthd.boss_tools.compat.mekanism.OxygenStorageGasAdapter;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
 import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipeAbstract;
 import net.mrscauthd.boss_tools.fluid.FluidUtil2;
@@ -70,7 +73,10 @@ public abstract class OxygenMakingTileEntity extends AbstractMachineTileEntity {
 	@Override
 	public List<GaugeData> getGaugeDataList() {
 		List<GaugeData> list = super.getGaugeDataList();
-		list.add(GaugeDataHelper.getOxygen(this.getOutputTank()));
+
+		if (!CompatibleManager.MEKANISM.isLoaded()) {
+			list.add(GaugeDataHelper.getOxygen(this.getOutputTank()));
+		}
 
 		return list;
 	}
@@ -158,6 +164,17 @@ public abstract class OxygenMakingTileEntity extends AbstractMachineTileEntity {
 	}
 
 	@Override
+	public <T> LazyOptional<T> getCapability(Capability<T> capability, Direction facing) {
+		if (CompatibleManager.MEKANISM.isLoaded()) {
+			if (capability == MekanismHelper.getGasHandlerCapability()) {
+				return LazyOptional.of(() -> new OxygenStorageGasAdapter(this.getOutputTank(), false, true)).cast();
+			}
+		}
+
+		return super.getCapability(capability, facing);
+	}
+
+	@Override
 	protected void getSlotsForFace(Direction direction, List<Integer> slots) {
 		super.getSlotsForFace(direction, slots);
 		slots.add(this.getInputSourceSlot());
@@ -219,7 +236,7 @@ public abstract class OxygenMakingTileEntity extends AbstractMachineTileEntity {
 	protected int getInitialInventorySize() {
 		return super.getInitialInventorySize() + 2;
 	}
-	
+
 	@Override
 	public int getInventoryStackLimit() {
 		return 1;
