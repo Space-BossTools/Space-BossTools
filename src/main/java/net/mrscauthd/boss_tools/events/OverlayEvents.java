@@ -30,7 +30,7 @@ public class OverlayEvents {
         //Disable Food Overlay
         if (event.getType() == RenderGameOverlayEvent.ElementType.HEALTHMOUNT) {
             PlayerEntity entity = Minecraft.getInstance().player;
-            if (entity instanceof IVehicleEntity) {
+            if (entity.getRidingEntity() instanceof VehicleEntity) {
                 event.setCanceled(true);
             }
         }
