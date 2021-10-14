@@ -51,6 +51,9 @@
   "item.boss_tools.mogler_spawn_egg": "Mogler Spawn Egg",
   "item.boss_tools.desh_ingot": "Desh Ingot",
   "item.boss_tools.compressed_desh": "Compressed Desh",
+  "item.boss_tools.desh_nugget": "Desh Nugget",
+  "item.boss_tools.silicon_nugget": "Silicon Nugget",
+  "item.boss_tools.steel_nugget": "Steel Nugget",
 
   "itemGroup.tab_normal": "Space-BossTools",
   "itemGroup.tab_flags": "Space-Bosstools: Flags",
