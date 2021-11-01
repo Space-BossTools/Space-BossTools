@@ -21,8 +21,10 @@ public class TileEntityHeadModel extends Model {
         this.textureWidth = p_i51060_3_;
         this.textureHeight = p_i51060_4_;
         this.field_217105_a = new ModelRenderer(this, p_i51060_1_, p_i51060_2_);
-        this.field_217105_a.setTextureOffset(8, 8).addBox(-3.0F, -11.0F, 3.999F, 8.0F, 8.0F, 0.001F, 0.0F, false);
-        this.field_217105_a.setTextureOffset(0, 8).addBox(-3.0F, -11.0F, 4.001F, 8.0F, 8.0F, 0.001F, 0.0F, false);
+
+        this.field_217105_a.setTextureOffset(8, 8).addBox(-3.0F, -11.0F, 3.980F, 8.0F, 8.0F, 0.020F, 0.0F, false);
+
+        this.field_217105_a.setTextureOffset(0, 8).addBox(-3.0F, -11.0F, 4.002F, 8.0F, 8.0F, 0.010F, 0.0F, false);
     }
 
     public void func_225603_a_(float p_225603_1_, float p_225603_2_, float p_225603_3_) {

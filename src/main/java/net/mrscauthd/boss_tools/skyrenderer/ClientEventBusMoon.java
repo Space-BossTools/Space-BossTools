@@ -91,7 +91,7 @@ public class ClientEventBusMoon {
 						RenderSystem.enableTexture();
 						RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 						RenderSystem.color4f(1f, 1f, 1f, 1f);
-						//star gen
+						//STAR GEN
 						generateStars();
 						RenderSystem.disableTexture();
 						RenderSystem.disableFog();
@@ -152,10 +152,10 @@ public class ClientEventBusMoon {
 
 						mc.getTextureManager().bindTexture(EARTH);
 						bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-						bufferbuilder.pos(matrix4f1, -9, -100.0F, 9).tex(0.0F, 0.0F).endVertex();
-						bufferbuilder.pos(matrix4f1, 9, -100.0F, 9).tex(1.0F, 0.0F).endVertex();
-						bufferbuilder.pos(matrix4f1, 9, -100.0F, -9).tex(1.0F, 1.0F).endVertex();
-						bufferbuilder.pos(matrix4f1, -9, -100.0F, -9).tex(0.0F, 1.0F).endVertex();
+						bufferbuilder.pos(matrix4f1, -9, -99.0F, 9).tex(0.0F, 0.0F).endVertex();
+						bufferbuilder.pos(matrix4f1, 9, -99.0F, 9).tex(1.0F, 0.0F).endVertex();
+						bufferbuilder.pos(matrix4f1, 9, -99.0F, -9).tex(1.0F, 1.0F).endVertex();
+						bufferbuilder.pos(matrix4f1, -9, -99.0F, -9).tex(0.0F, 1.0F).endVertex();
 						bufferbuilder.finishDrawing();
 						WorldVertexBufferUploader.draw(bufferbuilder);
 
@@ -177,8 +177,7 @@ public class ClientEventBusMoon {
 
 						RenderSystem.disableTexture();
 
-						float f10 = 1.0F;
-						RenderSystem.color4f(f10, f10, f10, f10);
+						RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 						starVBO.bindBuffer();
 						mc.worldRenderer.skyVertexFormat.setupBufferState(0L);
 						starVBO.draw(matrixStack.getLast().getMatrix(), 7);
@@ -192,7 +191,9 @@ public class ClientEventBusMoon {
 						matrixStack.pop();
 						RenderSystem.disableTexture();
 						RenderSystem.color3f(0.0F, 0.0F, 0.0F);
+
 						double d0 = mc.player.getEyePosition(partialTicks).y - world.getWorldInfo().getVoidFogHeight();
+
 						if (d0 < 0.0D) {
 							matrixStack.push();
 							matrixStack.translate(0.0D, 12.0D, 0.0D);
@@ -233,7 +234,7 @@ public class ClientEventBusMoon {
 				bufferBuilderIn.begin(7, DefaultVertexFormats.POSITION);
 				int stars = 0;
 				if (Minecraft.getInstance().gameSettings.graphicFanciness == GraphicsFanciness.FANCY || Minecraft.getInstance().gameSettings.graphicFanciness == GraphicsFanciness.FABULOUS) {
-					stars = 13000; //for Very good pcs 20000
+					stars = 13000;
 				} else {
 					stars = 6000;
 				}
@@ -278,7 +279,6 @@ public class ClientEventBusMoon {
 					}
 				}
 			}
-
 		});
 	}
 }

@@ -5,11 +5,11 @@ import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import net.mrscauthd.boss_tools.events.Methodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 
 @Mixin(ItemEntity.class)
 public abstract class MixinItemGravity {
@@ -38,23 +38,7 @@ public abstract class MixinItemGravity {
             }
 
             //Orbits
-            if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:overworld_orbit"))) {
-                w.setMotion(w.getMotion().getX(), w.getMotion().getY() / 0.98 + 0.08 - 0.05, w.getMotion().getZ());
-            }
-
-            if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon_orbit"))) {
-                w.setMotion(w.getMotion().getX(), w.getMotion().getY() / 0.98 + 0.08 - 0.05, w.getMotion().getZ());
-            }
-
-            if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars_orbit"))) {
-                w.setMotion(w.getMotion().getX(), w.getMotion().getY() / 0.98 + 0.08 - 0.05, w.getMotion().getZ());
-            }
-
-            if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury_orbit"))) {
-                w.setMotion(w.getMotion().getX(), w.getMotion().getY() / 0.98 + 0.08 - 0.05, w.getMotion().getZ());
-            }
-
-            if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus_orbit"))) {
+            if (Methodes.isOrbitWorld(w.world)) {
                 w.setMotion(w.getMotion().getX(), w.getMotion().getY() / 0.98 + 0.08 - 0.05, w.getMotion().getZ());
             }
         }

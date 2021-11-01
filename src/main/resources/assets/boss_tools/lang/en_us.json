@@ -163,6 +163,8 @@
   "advancements.workbench_advancement.descr": "§bHas crafted a NASA Workbench",
   "advancements.rocket_tier_2_advancement.descr": "§bHas crafted a Tier 2 Rocket",
 
+  "effect.boss_tools.oxygen_bubble_effect": "Oxygen Bubble",
+
   "key.categories.boss_tools": "Space-Bosstools",
   "key.boss_tools.rocket_start": "Rocket Start",
 

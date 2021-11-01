@@ -73,7 +73,9 @@ dependencies {
   minecraft 'net.minecraftforge:forge:1.16.5-36.2.0'
 
   //Mixin
-  annotationProcessor 'org.spongepowered:mixin:0.8.2:processor'
+    if (System.getProperty("idea.sync.active") != "true") {
+        annotationProcessor 'org.spongepowered:mixin:0.8.2:processor'
+    }
 
   //Obfuscate
   compile fg.deobf("curse.maven:obfuscate-289380:3067472")

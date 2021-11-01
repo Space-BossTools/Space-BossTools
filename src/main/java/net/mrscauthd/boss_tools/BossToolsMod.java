@@ -53,10 +53,9 @@ public class BossToolsMod {
 		bus.addListener(this::clientLoad);
 		forgeBus.register(new BossToolsModFMLBusEvents(this));
 
-
 		// SyncEvent Registers
-		SyncEvents.OxygenBulletGeneratorSyncEvent.NetworkLoader.registerMessages(); //TODO IN FUTURE REMOVED
 		SyncEvents.PlayerMovementSyncEvent.NetworkLoader.registerMessages(); //TODO IN FUTURE REMOVED
+
 
 		//MobInnet
 		MinecraftForge.EVENT_BUS.register(this);
@@ -69,6 +68,7 @@ public class BossToolsMod {
 		ModInnet.FLUIDS.register(bus);
 		ModInnet.RECIPE_SERIALIZERS.register(bus);
 		ModInnet.ROCKET_PARTS.register(bus);
+		ModInnet.EFFECTS.register(bus);
         
 		//bus.addListener(ModInnet::setup);
 		forgeBus.addListener(EventPriority.NORMAL, ModInnet::addDimensionalSpacing);

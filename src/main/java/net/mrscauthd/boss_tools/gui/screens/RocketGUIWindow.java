@@ -83,7 +83,6 @@ public class RocketGUIWindow extends ContainerScreen<RocketGUI.GuiContainerMod> 
 		int l = (this.height - this.ySize) / 2;
 		this.blit(ms, k, l, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
 
-		// Tank
 		int tank = 0;
 
 		if (container.rocket instanceof RocketTier1Entity) {
@@ -96,7 +95,6 @@ public class RocketGUIWindow extends ContainerScreen<RocketGUI.GuiContainerMod> 
 			tank = container.rocket.getDataManager().get(RocketTier3Entity.FUEL);
 		}
 
-		// Textures
 		Minecraft.getInstance().getTextureManager().bindTexture(fuel_bar);
 		this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
 

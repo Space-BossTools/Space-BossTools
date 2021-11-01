@@ -1,9 +1,11 @@
 package net.mrscauthd.boss_tools.entity.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
@@ -43,13 +45,13 @@ public class TileEntityBoxRenderer extends TileEntityRenderer<OxygenBubbleDistri
 			Matrix3f normal = matrix.getLast().getNormal();
 			Matrix4f matrix4f = matrix.getLast().getMatrix();
 
-			float startX = (float) workingArea.minX;
+			float startX = (float) workingArea.minX + 0.005F;
 			float topY = (float) workingArea.minY + 0.005F;
-			float startZ = (float) workingArea.minZ;
+			float startZ = (float) workingArea.minZ + 0.005F;
 
-			float endX = (float) workingArea.maxX;
-			float botY = (float) workingArea.maxY;
-			float endZ = (float) workingArea.maxZ;
+			float endX = (float) workingArea.maxX - 0.005F;
+			float botY = (float) workingArea.maxY - 0.005F;
+			float endZ = (float) workingArea.maxZ - 0.005F;
 
 			//255 is default
 			int rl = 78;
@@ -95,7 +97,6 @@ public class TileEntityBoxRenderer extends TileEntityRenderer<OxygenBubbleDistri
         builder.pos(matrix, x1, y1, z1).color(r, g, b, 0xFF).normal(normal, nX, nY, nZ).endVertex();
         builder.pos(matrix, x2, y2, z2).color(r, g, b, 0xFF).normal(normal, nX, nY, nZ).endVertex();
     }
-
 
     private void drawSurfaces(IRenderTypeBuffer buffer, Matrix4f matrix, Matrix3f normal, float startX, float startZ, float endX, float endZ, float botY, float topY, int r, int g, int b) {
         IVertexConsumer builder = (IVertexConsumer) buffer.getBuffer(Atlases.getTranslucentCullBlockType());

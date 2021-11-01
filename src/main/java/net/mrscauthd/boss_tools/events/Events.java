@@ -19,6 +19,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
@@ -37,48 +38,46 @@ public class Events {
     public static double counter = 1;
     public static boolean check = false;
 
-    //Player Tick
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
-            PlayerEntity entity = event.player;
-            IWorld world = entity.world;
-            double x = entity.getPosX();
-            double y = entity.getPosY();
-            double z = entity.getPosZ();
+            PlayerEntity player = event.player;
+            IWorld world = player.world;
+
+            OxygenSystem.OxygenSystem(player);
 
             //Gravity Methode Call
-            Gravity.Gravity(entity, "player", (World) world);
+            Gravity.Gravity(player, "player", (World) world);
 
             //Drop Off Hand Item
-            Methodes.DropRocket(entity);
+            Methodes.DropRocket(player);
 
             //Player orbit Fall Teleport
             RegistryKey<World> world2 = ((World) world).getDimensionKey();
 
             if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:overworld_orbit"))) {
                 ResourceLocation planet = new ResourceLocation("overworld");
-                Methodes.PlayerFallToPlanet(entity, planet);
+                Methodes.PlayerFallToPlanet(player, planet);
             }
 
             if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon_orbit"))) {
                 ResourceLocation planet = new ResourceLocation("boss_tools:moon");
-                Methodes.PlayerFallToPlanet(entity, planet);
+                Methodes.PlayerFallToPlanet(player, planet);
             }
 
             if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars_orbit"))) {
                 ResourceLocation planet = new ResourceLocation("boss_tools:mars");
-                Methodes.PlayerFallToPlanet(entity, planet);
+                Methodes.PlayerFallToPlanet(player, planet);
             }
 
             if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury_orbit"))) {
                 ResourceLocation planet = new ResourceLocation("boss_tools:mercury");
-                Methodes.PlayerFallToPlanet(entity, planet);
+                Methodes.PlayerFallToPlanet(player, planet);
             }
 
             if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus_orbit"))) {
                 ResourceLocation planet = new ResourceLocation("boss_tools:venus");
-                Methodes.PlayerFallToPlanet(entity, planet);
+                Methodes.PlayerFallToPlanet(player, planet);
             }
 
             //Lander Warning Overlay Tick
@@ -98,13 +97,11 @@ public class Events {
         }
     }
 
-    //OnEntityTick Event
     @SubscribeEvent
-    public static void onEntityTick(LivingEvent.LivingUpdateEvent event) {
+    public static void onLivingEntityTick(LivingEvent.LivingUpdateEvent event) {
         LivingEntity entity = event.getEntityLiving();
         World world = entity.world;
 
-        //Entity Oxygen //Todo rework this with the New Oxygen System
         Methodes.EntityOxygen(entity,world);
 
         //Gravity Methode Call
@@ -113,23 +110,26 @@ public class Events {
         //Venus Rain
         Methodes.VenusRain(entity, new ResourceLocation("boss_tools:venus"));
 
+        //Venus Fire
+        Methodes.VenusFire(entity, new ResourceLocation("boss_tools:venus"), new ResourceLocation("boss_tools:mercury"));
     }
 
-    //Camera Event
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void CameraPos(EntityViewRenderEvent.CameraSetup event) {
-        if (event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier1Entity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier2Entity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof RocketTier3Entity || event.getInfo().getRenderViewEntity().getRidingEntity() instanceof LanderEntity.CustomEntity) {
-            if (Minecraft.getInstance().gameSettings.getPointOfView().equals(PointOfView.THIRD_PERSON_FRONT)) {
+        Entity ridding = event.getInfo().getRenderViewEntity().getRidingEntity();
+
+        if (Methodes.isInRocket(ridding) || ridding instanceof LanderEntity.CustomEntity) {
+            PointOfView pointOfView = Minecraft.getInstance().gameSettings.getPointOfView();
+
+            if (pointOfView.equals(PointOfView.THIRD_PERSON_FRONT)  || pointOfView.equals(PointOfView.THIRD_PERSON_BACK)) {
                 event.getInfo().movePosition(-event.getInfo().calcCameraDistance(8d), 0d, 0);
             }
-            if (Minecraft.getInstance().gameSettings.getPointOfView().equals(PointOfView.THIRD_PERSON_BACK)) {
-                event.getInfo().movePosition(-event.getInfo().calcCameraDistance(8d), 0d, 0);
-            }
+
         }
+
     }
 
-    //Render Player Event
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void render(RenderPlayerEvent event) {
@@ -138,14 +138,13 @@ public class Events {
         }
     }
 
-    //Obfuscate Rotation Event
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void setupPlayerAngles(PlayerModelEvent.SetupAngles.Post event) {
         PlayerEntity player = event.getPlayer();
         PlayerModel model = event.getModelPlayer();
         //Player Rocket Sit Rotations
-        if (Methodes.RocketCheckOr(player.getRidingEntity()) == true) {
+        if (Methodes.isInRocket(player.getRidingEntity())) {
             model.bipedRightLeg.rotateAngleX = (float) Math.toRadians(0F);
             model.bipedLeftLeg.rotateAngleX = (float) Math.toRadians(0F);
             model.bipedLeftLeg.rotateAngleY = (float) Math.toRadians(3F);
@@ -156,7 +155,7 @@ public class Events {
         }
 
         //Player Hold Vehicles Rotation
-        if (Methodes.RocketCheckOr(player.getRidingEntity()) == false) {
+        if (!Methodes.isInRocket(player.getRidingEntity())) {
             Item item1 = player.getHeldItemMainhand().getItem();
             Item item2 = player.getHeldItemOffhand().getItem();
             if (item1 == Tier1RocketItemItem.block
@@ -178,18 +177,16 @@ public class Events {
         }
     }
 
-    //Obfuscate Item Render Event
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void ItemRender(RenderItemEvent.Held event) {
         Entity player = event.getEntity();
-        if (Methodes.RocketCheckOr(player.getRidingEntity()) == true) {
+        if (Methodes.isInRocket(player.getRidingEntity())) {
             event.setCanceled(true);
         }
     }
 
     //TODO:Change Dimension Id in Teleport Code
-    //World Tick Event
     @SubscribeEvent
     public static void onWorldTick(TickEvent.WorldTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
@@ -232,10 +229,19 @@ public class Events {
     public static void FishingBobberTick(ProjectileImpactEvent.FishingBobber event) {
         if (event.getRayTraceResult().getType() == RayTraceResult.Type.ENTITY) {
             Entity entity = ((EntityRayTraceResult) event.getRayTraceResult()).getEntity();
-            if (Methodes.AllVehiclesOr(entity) == true) {
+            if (Methodes.AllVehiclesOr(entity)) {
                 event.setCanceled(true);
             }
+
         }
+
     }
-    //Other Events
+
+    @SubscribeEvent
+    public static void SpaceSounds(PlaySoundEvent event) {
+        if (Minecraft.getInstance().player != null && Minecraft.getInstance().player.world != null && Minecraft.getInstance().currentScreen == null && Methodes.isSpaceWorld(Minecraft.getInstance().player.world)) {
+            event.setResultSound(new SpaceSoundSystem(event.getSound()));
+        }
+
+    }
 }

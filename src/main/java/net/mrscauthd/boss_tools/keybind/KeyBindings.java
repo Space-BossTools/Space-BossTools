@@ -3,13 +3,10 @@ package net.mrscauthd.boss_tools.keybind;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.boss_tools.entity.*;
 import net.mrscauthd.boss_tools.events.ClientEventBusSubscriber;
 import net.mrscauthd.boss_tools.events.Methodes;
@@ -118,124 +115,92 @@ public class KeyBindings {
 		}
 	}
 
-	private static void pressAction(PlayerEntity entity, int type, int pressedms) {
-		World world = entity.world;
-		double x = entity.getPosX();
-		double y = entity.getPosY();
-		double z = entity.getPosZ();
-		// security measure to prevent arbitrary chunk generation
+	private static void pressAction(PlayerEntity player, int type, int pressedms) {
+		World world = player.world;
+		double x = player.getPosX();
+		double y = player.getPosY();
+		double z = player.getPosZ();
+
 		if (!world.isBlockLoaded(new BlockPos(x, y, z)))
 			return;
 
-		//Type 0
 		if (type == 0) { //TODO REWORK
-			if (entity.getRidingEntity() instanceof LanderEntity.CustomEntity) {
-				if (entity.getRidingEntity().isOnGround() == false
-						&& entity.getRidingEntity().areEyesInFluid(FluidTags.WATER) == false) {
-					if (entity.getRidingEntity().getMotion().getY() <= -0.05) {
-						entity.getRidingEntity().setMotion(entity.getRidingEntity().getMotion().getX(), entity.getRidingEntity().getMotion().getY() * 0.85, entity.getRidingEntity().getMotion().getZ());
+			if (player.getRidingEntity() instanceof LanderEntity.CustomEntity) {
+				if (!player.getRidingEntity().isOnGround() && !player.getRidingEntity().areEyesInFluid(FluidTags.WATER)) {
+					if (player.getRidingEntity().getMotion().getY() <= -0.05) {
+						player.getRidingEntity().setMotion(player.getRidingEntity().getMotion().getX(), player.getRidingEntity().getMotion().getY() * 0.85, player.getRidingEntity().getMotion().getZ());
 					}
-					entity.getRidingEntity().getPersistentData().putDouble("Lander1", 1);
-					entity.getRidingEntity().getPersistentData().putDouble("Lander2", 1);
+					player.getRidingEntity().getPersistentData().putDouble("Lander1", 1);
+					player.getRidingEntity().getPersistentData().putDouble("Lander2", 1);
 				}
 			}
-			if (entity.getRidingEntity() instanceof LanderEntity.CustomEntity) {
-				(entity.getRidingEntity()).fallDistance = (float) ((entity.getRidingEntity().getMotion().getY() * (-1)) * 4.5);
+			if (player.getRidingEntity() instanceof LanderEntity.CustomEntity) {
+				(player.getRidingEntity()).fallDistance = (float) ((player.getRidingEntity().getMotion().getY() * (-1)) * 4.5);
 			}
 		}
 
-		//Type 1
 		if (type == 1) {
-			if (Methodes.RocketCheckOr(entity.getRidingEntity())) {
-				if (entity.getRidingEntity() instanceof RocketTier1Entity && entity.getRidingEntity().getDataManager().get(RocketTier1Entity.FUEL) == 300) {
+			if (Methodes.isInRocket(player.getRidingEntity())) {
+				if (player.getRidingEntity() instanceof RocketTier1Entity && player.getRidingEntity().getDataManager().get(RocketTier1Entity.FUEL) == 300) {
 
-					entity.getRidingEntity().getDataManager().set(RocketTier1Entity.ROCKET_START, true);
-					Methodes.RocketSounds(entity.getRidingEntity(), world);
+					player.getRidingEntity().getDataManager().set(RocketTier1Entity.ROCKET_START, true);
+					Methodes.RocketSounds(player.getRidingEntity(), world);
 
-				} else if (entity.getRidingEntity() instanceof RocketTier2Entity && entity.getRidingEntity().getDataManager().get(RocketTier2Entity.FUEL) == 300) {
+				} else if (player.getRidingEntity() instanceof RocketTier2Entity && player.getRidingEntity().getDataManager().get(RocketTier2Entity.FUEL) == 300) {
 
-					entity.getRidingEntity().getDataManager().set(RocketTier2Entity.ROCKET_START, true);
-					Methodes.RocketSounds(entity.getRidingEntity(), world);
+					player.getRidingEntity().getDataManager().set(RocketTier2Entity.ROCKET_START, true);
+					Methodes.RocketSounds(player.getRidingEntity(), world);
 
-				} else if (entity.getRidingEntity() instanceof RocketTier3Entity && entity.getRidingEntity().getDataManager().get(RocketTier3Entity.FUEL) == 300) {
+				} else if (player.getRidingEntity() instanceof RocketTier3Entity && player.getRidingEntity().getDataManager().get(RocketTier3Entity.FUEL) == 300) {
 
-					entity.getRidingEntity().getDataManager().set(RocketTier3Entity.ROCKET_START, true);
-					Methodes.RocketSounds(entity.getRidingEntity(), world);
+					player.getRidingEntity().getDataManager().set(RocketTier3Entity.ROCKET_START, true);
+					Methodes.RocketSounds(player.getRidingEntity(), world);
 
 				} else {
-					if (!entity.world.isRemote()) {
-						entity.sendStatusMessage(new StringTextComponent("\u00A7cNO FUEL! \u00A77Fill the Rocket with \u00A7cFuel\u00A77. (\u00A76Sneak and Right Click\u00A77)"), false);
-					}
+					Methodes.noFuelMessage(player);
 				}
 			}
 
 		}
 
-		//Type 2 //TODO REWORK
 		if (type == 2) {
-			//Rocket Rotation (Direction -1)
-			if (entity.getRidingEntity() instanceof RocketTier1Entity || entity.getRidingEntity() instanceof RocketTier2Entity || entity.getRidingEntity() instanceof RocketTier3Entity) {
-				(entity.getRidingEntity()).rotationYaw = (float) ((((entity.getRidingEntity()).rotationYaw) - 1));
-				(entity.getRidingEntity()).setRenderYawOffset((entity.getRidingEntity()).rotationYaw);
-				(entity.getRidingEntity()).prevRotationYaw = (entity.getRidingEntity()).rotationYaw;
-				if ((entity.getRidingEntity()) instanceof LivingEntity) {
-					((LivingEntity) entity.getRidingEntity()).prevRenderYawOffset = entity.getRidingEntity().rotationYaw;
-				}
+			//Rocket
+			if (Methodes.isInRocket(player.getRidingEntity())) {
+				Methodes.vehicleRotation((LivingEntity) player.getRidingEntity(), -1);
 			}
-			// Rover Rotation (Direction -1)
-			if (entity.getRidingEntity() instanceof RoverEntity.CustomEntity) {
-				float forward = ((LivingEntity) entity).moveForward;
-				if (entity.getRidingEntity().getPersistentData().getDouble("fuel") >= 1 && entity.getRidingEntity().areEyesInFluid(FluidTags.WATER) == false) {
+
+			//Rover
+			if (player.getRidingEntity() instanceof RoverEntity.CustomEntity) {
+				float forward = player.moveForward;
+
+				if (player.getRidingEntity().getPersistentData().getDouble("fuel") >= 1 && !player.getRidingEntity().areEyesInFluid(FluidTags.WATER)) {
 					if (forward >= 0.01) {
-						entity.getRidingEntity().rotationYaw = (float) entity.getRidingEntity().rotationYaw - 1;
-						entity.getRidingEntity().setRenderYawOffset(entity.getRidingEntity().rotationYaw);
-						entity.getRidingEntity().prevRotationYaw = entity.getRidingEntity().rotationYaw;
-						if (entity.getRidingEntity() instanceof LivingEntity) {
-							((LivingEntity) entity.getRidingEntity()).prevRenderYawOffset = entity.getRidingEntity().rotationYaw;
-						}
+						Methodes.vehicleRotation((LivingEntity) player.getRidingEntity(), -1);
 					}
 					if (forward <= -0.01) {
-						entity.getRidingEntity().rotationYaw = (float) entity.getRidingEntity().rotationYaw + 1;
-						entity.getRidingEntity().setRenderYawOffset(entity.getRidingEntity().rotationYaw);
-						entity.getRidingEntity().prevRotationYaw = entity.getRidingEntity().rotationYaw;
-						if (entity.getRidingEntity() instanceof LivingEntity) {
-							((LivingEntity) entity.getRidingEntity()).prevRenderYawOffset = entity.getRidingEntity().rotationYaw;
-						}
+						Methodes.vehicleRotation((LivingEntity) player.getRidingEntity(), 1);
 					}
 				}
 			}
+
 		}
 
-		//Type 3 //TODO REWORK
 		if (type == 3) {
-			//Rocket Rotation (Direction +1)
-			if (entity.getRidingEntity() instanceof RocketTier1Entity || entity.getRidingEntity() instanceof RocketTier2Entity || entity.getRidingEntity() instanceof RocketTier3Entity) {
-				(entity.getRidingEntity()).rotationYaw = (float) ((((entity.getRidingEntity()).rotationYaw) + 1));
-				(entity.getRidingEntity()).setRenderYawOffset((entity.getRidingEntity()).rotationYaw);
-				(entity.getRidingEntity()).prevRotationYaw = (entity.getRidingEntity()).rotationYaw;
-				if ((entity.getRidingEntity()) instanceof LivingEntity) {
-					((LivingEntity) entity.getRidingEntity()).prevRenderYawOffset = entity.getRidingEntity().rotationYaw;
-				}
+			//Rocket
+			if (Methodes.isInRocket(player.getRidingEntity())) {
+				Methodes.vehicleRotation((LivingEntity) player.getRidingEntity(), 1);
 			}
-			// Rover Rotation (Direction +1)
-			if (entity.getRidingEntity() instanceof RoverEntity.CustomEntity) {
-				float forward = ((LivingEntity) entity).moveForward;
-				if (entity.getRidingEntity().getPersistentData().getDouble("fuel") >= 1 && entity.getRidingEntity().areEyesInFluid(FluidTags.WATER) == false) {
+
+			//Rover
+			if (player.getRidingEntity() instanceof RoverEntity.CustomEntity) {
+				float forward = player.moveForward;
+
+				if (player.getRidingEntity().getPersistentData().getDouble("fuel") >= 1 && !player.getRidingEntity().areEyesInFluid(FluidTags.WATER)) {
 					if (forward >= 0.01) {
-						entity.getRidingEntity().rotationYaw = (float) entity.getRidingEntity().rotationYaw + 1;
-						entity.getRidingEntity().setRenderYawOffset(entity.getRidingEntity().rotationYaw);
-						entity.getRidingEntity().prevRotationYaw = entity.getRidingEntity().rotationYaw;
-						if (entity.getRidingEntity() instanceof LivingEntity) {
-							((LivingEntity) entity.getRidingEntity()).prevRenderYawOffset = entity.getRidingEntity().rotationYaw;
-						}
+						Methodes.vehicleRotation((LivingEntity) player.getRidingEntity(), 1);
 					}
 					if (forward <= -0.01) {
-						entity.getRidingEntity().rotationYaw = (float) entity.getRidingEntity().rotationYaw - 1;
-						entity.getRidingEntity().setRenderYawOffset(entity.getRidingEntity().rotationYaw);
-						entity.getRidingEntity().prevRotationYaw = entity.getRidingEntity().rotationYaw;
-						if (entity.getRidingEntity() instanceof LivingEntity) {
-							((LivingEntity) entity.getRidingEntity()).prevRenderYawOffset = entity.getRidingEntity().rotationYaw;
-						}
+						Methodes.vehicleRotation((LivingEntity) player.getRidingEntity(), -1);
 					}
 				}
 			}

@@ -995,6 +995,7 @@ public class JeiPlugin implements IModPlugin {
 
 			stacks.set(input1, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
 			// ...
+
 		}
 
 		public static class Tier2RocketItemItemRecipeWrapper {

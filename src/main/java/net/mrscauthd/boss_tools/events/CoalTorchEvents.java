@@ -5,11 +5,12 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.LanternBlock;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
@@ -23,7 +24,6 @@ import net.mrscauthd.boss_tools.block.CoalLanternBlock;
 
 @Mod.EventBusSubscriber(modid = "boss_tools")
 public class CoalTorchEvents {
-    //RightClickonBlock Event
     @SubscribeEvent
     public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         PlayerEntity entity = event.getPlayer();
@@ -36,12 +36,8 @@ public class CoalTorchEvents {
         BlockPos pos = new BlockPos(x,y,z);
         IWorld world = event.getWorld();
 
-        //Check Dim
-        if (Methodes.isSpaceWorld((World) world) == false
-            && entity.isSneaking() == false
-            && entity.getHeldItemMainhand().getItem() == Items.FLINT_AND_STEEL || entity.getHeldItemOffhand().getItem() == Items.FLINT_AND_STEEL) {
+        if (!Methodes.isSpaceWorld((World) world) && !entity.isSneaking() && entity.getHeldItemMainhand().getItem() == Items.FLINT_AND_STEEL) {
 
-            //Block check (wall torch)
             if (world.getBlockState(pos).getBlock() == ModInnet.WALL_COAL_TORCH_BLOCK.get()) {
                 //Facing
                 BlockState bs = world.getBlockState(pos);
@@ -51,33 +47,33 @@ public class CoalTorchEvents {
                 world.setBlockState(pos, Blocks.WALL_TORCH.getDefaultState().with(property,bs.get(property)), 3);
 
                 play_fire_sounds_place(pos, (World) world);
+                flintDamage(event.getItemStack(),event.getPlayer(),event.getHand());
             }
 
-            //Replace Coal Torch to Torch
             if (world.getBlockState(pos).getBlock() == ModInnet.COAL_TORCH_BLOCK.get().getDefaultState().getBlock()) {
                 world.setBlockState(pos, Blocks.TORCH.getDefaultState(), 3);
 
                 play_fire_sounds_place(pos, (World) world);
+                flintDamage(event.getItemStack(),event.getPlayer(),event.getHand());
             }
 
-            //Replace Coal Lantern to Lantern
             if (world.getBlockState(pos).getBlock() == ModInnet.COAL_LANTERN_BLOCK.get() && world.getBlockState(pos).getBlockState().get(CoalLanternBlock.HANGING) == false) {
                 world.setBlockState(pos, Blocks.LANTERN.getDefaultState(), 3);
 
                 play_fire_sounds_place(pos, (World) world);
+                flintDamage(event.getItemStack(),event.getPlayer(),event.getHand());
             }
 
-            //Replace Coal Lantern to Lantern HANGING
             if (world.getBlockState(pos).getBlock() == ModInnet.COAL_LANTERN_BLOCK.get() && world.getBlockState(pos).getBlockState().get(CoalLanternBlock.HANGING) == true) {
                 world.setBlockState(pos, Blocks.LANTERN.getDefaultState().with(LanternBlock.HANGING, true), 3);
 
                 play_fire_sounds_place(pos, (World) world);
+                flintDamage(event.getItemStack(),event.getPlayer(),event.getHand());
             }
 
         }
     }
 
-    //BlockEvent
     @SubscribeEvent
     public static void onBlockPlace(BlockEvent.EntityPlaceEvent event) {
         IWorld world = event.getWorld();
@@ -96,7 +92,6 @@ public class CoalTorchEvents {
                 play_fire_sounds_delete(pos, (World) world);
             }
 
-            //Place Coal Wall Torch
             if (world.getBlockState(pos).getBlock() == Blocks.WALL_TORCH) {
                 //Facing
                 BlockState bs = world.getBlockState(pos);
@@ -108,28 +103,24 @@ public class CoalTorchEvents {
                 play_fire_sounds_delete(pos, (World) world);
             }
 
-            //Place Coal Torch
             if (world.getBlockState(pos).getBlock() == Blocks.TORCH) {
                 world.setBlockState(pos, ModInnet.COAL_TORCH_BLOCK.get().getDefaultState(), 3);
 
                 play_fire_sounds_delete(pos, (World) world);
             }
 
-            //Place Coal Lantern
             if (world.getBlockState(pos).getBlock() == Blocks.LANTERN && world.getBlockState(pos).getBlockState().get(LanternBlock.HANGING) == false) {
                 world.setBlockState(pos, ModInnet.COAL_LANTERN_BLOCK.get().getDefaultState(), 3);
 
                 play_fire_sounds_delete(pos, (World) world);
             }
 
-            //Place Coal Lantern HANGING
             if (world.getBlockState(pos).getBlock() == Blocks.LANTERN && world.getBlockState(pos).getBlockState().get(LanternBlock.HANGING) == true) {
                 world.setBlockState(pos, ModInnet.COAL_LANTERN_BLOCK.get().getDefaultState().with(CoalLanternBlock.HANGING, true), 3);
 
                 play_fire_sounds_delete(pos, (World) world);
             }
 
-            //Campfire State Change
             if (world.getBlockState(pos).getBlock() == Blocks.CAMPFIRE && world.getBlockState(pos).getBlockState().get(CampfireBlock.LIT) == true) {
                 //Get Block State
                 BooleanProperty property = (BooleanProperty) world.getBlockState(pos).getBlock().getStateContainer().getProperty("lit");
@@ -149,6 +140,12 @@ public class CoalTorchEvents {
 
     public static void play_fire_sounds_place(BlockPos pos, World world) {
         world.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE,SoundCategory.BLOCKS, 1,1);
+    }
+
+    public static void flintDamage(ItemStack itemstack, PlayerEntity playerentity, Hand hand) {
+        itemstack.damageItem(1, playerentity, (player) -> {
+            player.sendBreakAnimation(hand);
+        });
     }
     
 }

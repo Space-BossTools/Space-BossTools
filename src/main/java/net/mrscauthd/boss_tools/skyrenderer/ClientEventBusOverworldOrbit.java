@@ -46,7 +46,7 @@ public class ClientEventBusOverworldOrbit {
 	private static final ResourceLocation MOON_TEXTURE = new ResourceLocation("boss_tools", "textures/sky/moon_phases.png");
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void clientSetup(FMLClientSetupEvent event) {
-		DimensionRenderInfo.field_239208_a_.put(DIM_RENDER_INFO, new DimensionRenderInfo(999999999, false, FogType.NORMAL, false, false) {
+		DimensionRenderInfo.field_239208_a_.put(DIM_RENDER_INFO, new DimensionRenderInfo(128, false, FogType.NORMAL, false, false) {
 			@Override
 			public Vector3d func_230494_a_(Vector3d fogColor, float partialTicks) {
 				return fogColor;
@@ -158,7 +158,7 @@ public class ClientEventBusOverworldOrbit {
 
 						matrixStack.rotate(Vector3f.XP.rotationDegrees(world.func_242415_f(partialTicks) * 360.0F));//Normal Day Circle
 
-						float f12 = 20.0F;
+						float f12 = 20.0F * 2;
 
 						//MOON
 						mc.getTextureManager().bindTexture(MOON_TEXTURE);
@@ -170,27 +170,28 @@ public class ClientEventBusOverworldOrbit {
 						float f15 = (float) (l + 1) / 4.0F;
 						float f16 = (float) (i1 + 1) / 2.0F;
 						bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-						bufferbuilder.pos(matrix4f1, -f12 * 2, -200.0F,f12 * 2).tex(f15, f16).endVertex();
-						bufferbuilder.pos(matrix4f1, f12 * 2, -200.0F, f12 * 2).tex(f13, f16).endVertex();
-						bufferbuilder.pos(matrix4f1, f12 * 2, -200.0F, -f12 * 2).tex(f13, f14).endVertex();
-						bufferbuilder.pos(matrix4f1, -f12 * 2,  -200.0F, -f12 * 2).tex(f15, f14).endVertex();
+						bufferbuilder.pos(matrix4f1, -f12, -200.0F,f12).tex(f15, f16).endVertex();
+						bufferbuilder.pos(matrix4f1, f12, -200.0F, f12).tex(f13, f16).endVertex();
+						bufferbuilder.pos(matrix4f1, f12, -200.0F, -f12).tex(f13, f14).endVertex();
+						bufferbuilder.pos(matrix4f1, -f12,  -200.0F, -f12).tex(f15, f14).endVertex();
 						bufferbuilder.finishDrawing();
 						WorldVertexBufferUploader.draw(bufferbuilder);
+
+						f12 = 35 * 2;
 
 						//SUN
 						mc.getTextureManager().bindTexture(SUN_TEXTURE);
 						bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-						bufferbuilder.pos(matrix4f1, -35 * 2, 200.0F, -35 * 2).tex(0.0F, 0.0F).endVertex();
-						bufferbuilder.pos(matrix4f1, 35 * 2, 200.0F, -35 * 2).tex(1.0F, 0.0F).endVertex();
-						bufferbuilder.pos(matrix4f1, 35 * 2, 200.0F, 35 * 2).tex(1.0F, 1.0F).endVertex();
-						bufferbuilder.pos(matrix4f1, -35 * 2, 200.0F, 35 * 2).tex(0.0F, 1.0F).endVertex();
+						bufferbuilder.pos(matrix4f1, -f12, 200.0F, -f12).tex(0.0F, 0.0F).endVertex();
+						bufferbuilder.pos(matrix4f1, f12, 200.0F, -f12).tex(1.0F, 0.0F).endVertex();
+						bufferbuilder.pos(matrix4f1, f12, 200.0F, f12).tex(1.0F, 1.0F).endVertex();
+						bufferbuilder.pos(matrix4f1, -f12, 200.0F, f12).tex(0.0F, 1.0F).endVertex();
 						bufferbuilder.finishDrawing();
 						WorldVertexBufferUploader.draw(bufferbuilder);
 
 						RenderSystem.disableTexture();
 
-						float f10 = 1.0F;
-						RenderSystem.color4f(f10, f10, f10, f10);
+						RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 						starVBO.bindBuffer();
 						mc.worldRenderer.skyVertexFormat.setupBufferState(0L);
 						starVBO.draw(matrixStack.getLast().getMatrix(), 7);
@@ -204,6 +205,7 @@ public class ClientEventBusOverworldOrbit {
 						matrixStack.pop();
 						RenderSystem.disableTexture();
 						RenderSystem.color3f(0.0F, 0.0F, 0.0F);
+
 						if (world.func_239132_a_().func_239216_b_()) {
 							RenderSystem.color3f(f * 0.2F + 0.04F, f1 * 0.2F + 0.04F, f2 * 0.6F + 0.1F);
 						} else {
@@ -234,7 +236,7 @@ public class ClientEventBusOverworldOrbit {
 				bufferBuilderIn.begin(7, DefaultVertexFormats.POSITION);
 				int stars = 0;
 				if (Minecraft.getInstance().gameSettings.graphicFanciness == GraphicsFanciness.FANCY || Minecraft.getInstance().gameSettings.graphicFanciness == GraphicsFanciness.FABULOUS) {
-					stars = 13000; //for Very good pcs 20000
+					stars = 13000;
 				} else {
 					stars = 6000;
 				}

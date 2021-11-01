@@ -11,7 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.SChangeGameStatePacket;
 import net.minecraft.network.play.server.SPlayEntityEffectPacket;
 import net.minecraft.network.play.server.SPlayerAbilitiesPacket;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.DamageSource;
@@ -19,6 +18,7 @@ import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.server.ServerWorld;
@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Methodes {
+
     public static void PlayerFallToPlanet(PlayerEntity entity, ResourceLocation Planet) {
         if (entity.getPosY() <= 1 && !(entity.getRidingEntity() instanceof LanderEntity.CustomEntity) && !entity.world.isRemote) {
 
@@ -53,11 +54,11 @@ public class Methodes {
         }
     }
 
-    public static boolean Nethrite_Space_Suit_Check(PlayerEntity player) {
-        Boolean item3 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 3)).getItem() == ModInnet.NETHERITE_OXYGEN_MASK.get();
-        Boolean item2 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 2)).getItem() == ModInnet.NETHERITE_SPACE_SUIT.get();
-        Boolean item1 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 1)).getItem() == ModInnet.NETHERITE_SPACE_PANTS.get();
-        Boolean item0 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 0)).getItem() == ModInnet.NETHERITE_SPACE_BOOTS.get();
+    public static boolean Nethrite_Space_Suit_Check(LivingEntity entity) {
+        Boolean item3 = checkArmor(entity, 3, ModInnet.NETHERITE_OXYGEN_MASK.get());
+        Boolean item2 = checkArmor(entity, 2, ModInnet.NETHERITE_SPACE_SUIT.get());
+        Boolean item1 = checkArmor(entity, 1, ModInnet.NETHERITE_SPACE_PANTS.get());
+        Boolean item0 = checkArmor(entity, 0, ModInnet.NETHERITE_SPACE_BOOTS.get());
 
         if (item0 && item1 && item2 && item3) {
             return true;
@@ -65,35 +66,100 @@ public class Methodes {
         return false;
     }
 
-    public static boolean Space_Suit_Check(PlayerEntity player) {
-        Boolean item3 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 3)).getItem() == ModInnet.OXYGEN_MASK.get();
-        Boolean item2 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 2)).getItem() == ModInnet.SPACE_SUIT.get();
-        Boolean item1 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 1)).getItem() == ModInnet.SPACE_PANTS.get();
-        Boolean item0 = player.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 0)).getItem() == ModInnet.SPACE_BOOTS.get();
+    public static boolean Space_Suit_Check(LivingEntity entity) {
+        Boolean item3 = checkArmor(entity, 3, ModInnet.OXYGEN_MASK.get());
+        Boolean item2 = checkArmor(entity, 2, ModInnet.SPACE_SUIT.get());
+        Boolean item1 = checkArmor(entity, 1, ModInnet.SPACE_PANTS.get());
+        Boolean item0 = checkArmor(entity, 0, ModInnet.SPACE_BOOTS.get());
 
         if (item0 && item1 && item2 && item3) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean Space_Suit_Check_Both(LivingEntity entity) {
+        Boolean item3 = checkArmor(entity, 3, ModInnet.OXYGEN_MASK.get());
+        Boolean item2 = checkArmor(entity, 2, ModInnet.SPACE_SUIT.get());
+        Boolean item1 = checkArmor(entity, 1, ModInnet.SPACE_PANTS.get());
+        Boolean item0 = checkArmor(entity, 0, ModInnet.SPACE_BOOTS.get());
+
+        Boolean item3_2 = checkArmor(entity, 3, ModInnet.NETHERITE_OXYGEN_MASK.get());
+        Boolean item2_2 = checkArmor(entity, 2, ModInnet.NETHERITE_SPACE_SUIT.get());
+        Boolean item1_2 = checkArmor(entity, 1, ModInnet.NETHERITE_SPACE_PANTS.get());
+        Boolean item0_2 = checkArmor(entity, 0, ModInnet.NETHERITE_SPACE_BOOTS.get());
+
+        Boolean check3 = false;
+        Boolean check2 = false;
+        Boolean check1 = false;
+        Boolean check0 = false;
+
+        if (item3 || item3_2) {
+            check3 = true;
+        }
+        if (item2 || item2_2) {
+            check2 = true;
+        }
+        if (item1 || item1_2) {
+            check1 = true;
+        }
+        if (item0 || item0_2) {
+            check0 = true;
+        }
+
+        if (check0 && check1 && check2 && check3) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean checkArmor(LivingEntity entity,int number, Item item) {
+        if (entity.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, number)).getItem() == item) {
             return true;
         }
         return false;
     }
 
     public static boolean isSpaceWorld(World world) {
-        RegistryKey<World> world2 = world.getDimensionKey();
-        if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon"))
-                || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon_orbit"))
-                || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars"))
-                || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars_orbit"))
-                || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury"))
-                || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury_orbit"))
-                || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))
-                || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus_orbit"))
-                || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:overworld_orbit"))) {
+        if (Methodes.isWorld(world, new ResourceLocation("boss_tools:moon"))
+                || Methodes.isWorld(world, new ResourceLocation("boss_tools:moon_orbit"))
+                || Methodes.isWorld(world, new ResourceLocation("boss_tools:mars"))
+                || Methodes.isWorld(world, new ResourceLocation("boss_tools:mars_orbit"))
+                || Methodes.isWorld(world, new ResourceLocation("boss_tools:mercury"))
+                || Methodes.isWorld(world, new ResourceLocation("boss_tools:mercury_orbit"))
+                || Methodes.isWorld(world, new ResourceLocation("boss_tools:venus"))
+                || Methodes.isWorld(world, new ResourceLocation("boss_tools:venus_orbit"))
+                || Methodes.isWorld(world, new ResourceLocation("boss_tools:overworld_orbit"))) {
             return true;
         }
         return false;
     }
 
-    public static boolean RocketCheckOr(Entity entity) {
+    public static boolean isOrbitWorld(World world) {
+        if (Methodes.isWorld(world, new ResourceLocation("boss_tools:overworld_orbit"))
+                || Methodes.isWorld(world, new ResourceLocation("boss_tools:moon_orbit"))
+                || Methodes.isWorld(world, new ResourceLocation("boss_tools:mars_orbit"))
+                || Methodes.isWorld(world, new ResourceLocation("boss_tools:mercury_orbit"))
+                || Methodes.isWorld(world, new ResourceLocation("boss_tools:venus_orbit"))) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isWorld(World world, ResourceLocation loc) {
+        RegistryKey<World> world2 = world.getDimensionKey();
+        if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, loc)) {
+            return true;
+        }
+        return false;
+    }
+
+    public static void OxygenDamage(LivingEntity entity) {
+        entity.attackEntityFrom(new DamageSource("oxygen").setDamageBypassesArmor(), 1.0F);
+    }
+
+    public static boolean isInRocket(Entity entity) {
         if (entity instanceof RocketTier1Entity || entity instanceof RocketTier2Entity || entity instanceof RocketTier3Entity) {
             return true;
         }
@@ -136,10 +202,21 @@ public class Methodes {
 
     }
 
+    public static void VenusFire(LivingEntity entity, ResourceLocation planet1, ResourceLocation planet2) {
+
+        RegistryKey<World> key = entity.world.getDimensionKey();
+
+        if (key == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, planet1) || key == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, planet2)) {
+            if (!Methodes.Nethrite_Space_Suit_Check(entity)) {
+                entity.setFire(10);
+            }
+        }
+    }
+
     /**If a entity should not get Damage add it to the Tag "venus_rain", and if you has a Entity like a car return the damage to false*/
     public static void VenusRain(LivingEntity entity, ResourceLocation planet) {
         if (entity.world.getDimensionKey() == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, planet)) {
-            if (entity.world.getWorldInfo().isRaining() == (true) && entity.world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(entity.getPosX()), (int) Math.floor(entity.getPosZ())) <= Math.floor(entity.getPosY()) + 1) {
+            if (entity.world.getWorldInfo().isRaining() && entity.world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(entity.getPosX()), (int) Math.floor(entity.getPosZ())) <= Math.floor(entity.getPosY()) + 1) {
                 if (EntityTypeTags.getCollection().getTagByID(new ResourceLocation(("forge:entities/venus_rain").toLowerCase(java.util.Locale.ENGLISH))).contains(entity.getType()) == false) {
 
                     entity.attackEntityFrom(new DamageSource("venus.acid").setDamageBypassesArmor(), 1);
@@ -151,22 +228,35 @@ public class Methodes {
 
     /**IF a entity should get oxygen damage add it in the tag "oxygen" (don't add the Player, he have a own oxygen system)*/
     public static void EntityOxygen(LivingEntity entity, World world) {
-        if (Config.EntityOxygenSystem == true) {
-            if (EntityTypeTags.getCollection().getTagByID(new ResourceLocation(("forge:entities/oxygen").toLowerCase(java.util.Locale.ENGLISH))).contains(entity.getType())) {
-                if (Methodes.isSpaceWorld(world)) {
-                    entity.getPersistentData().putDouble("tick", entity.getPersistentData().getDouble("tick") + 1);
+        if (Config.EntityOxygenSystem && Methodes.isSpaceWorld(world) && EntityTypeTags.getCollection().getTagByID(new ResourceLocation(("forge:entities/oxygen").toLowerCase(java.util.Locale.ENGLISH))).contains(entity.getType())) {
 
-                    if (entity.getPersistentData().getDouble("tick") > 15) {
+            if (!entity.isPotionActive(ModInnet.OXYGEN_EFFECT.get())) {
 
-                        world.addParticle(ParticleTypes.SMOKE, entity.getPosX(), entity.getPosY() + 1, entity.getPosZ(), 0, 0, 0);
-                        entity.attackEntityFrom(new DamageSource("oxygen").setDamageBypassesArmor(),1);
+                entity.getPersistentData().putDouble("boss_tools:oxygen_tick", entity.getPersistentData().getDouble("boss_tools:oxygen_tick") + 1);
 
-                        entity.getPersistentData().putDouble("tick", 0);
+                if (entity.getPersistentData().getDouble("boss_tools:oxygen_tick") > 15) {
+
+                    if(!world.isRemote) {
+                        Methodes.OxygenDamage(entity);
                     }
+
+                    entity.getPersistentData().putDouble("boss_tools:oxygen_tick", 0);
                 }
             }
         }
+    }
 
+    public static void vehicleRotation(LivingEntity vehicle, float roation) {
+        vehicle.rotationYaw = vehicle.rotationYaw + roation;
+        vehicle.setRenderYawOffset(vehicle.rotationYaw);
+        vehicle.prevRotationYaw = vehicle.rotationYaw;
+        vehicle.prevRenderYawOffset = vehicle.rotationYaw;
+    }
+
+    public static void noFuelMessage(PlayerEntity player) {
+        if (!player.world.isRemote()) {
+            player.sendStatusMessage(new StringTextComponent("\u00A7cNO FUEL! \u00A77Fill the Rocket with \u00A7cFuel\u00A77. (\u00A76Sneak and Right Click\u00A77)"), false);
+        }
     }
 
 }

@@ -71,7 +71,7 @@ public class OverlayEvents {
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.disableAlphaTest();
 
-            if (Methodes.RocketCheckOr(entity.getRidingEntity())) {
+            if (Methodes.isInRocket(entity.getRidingEntity())) {
                 int timer = 0;
 
                 if (entity.getRidingEntity() instanceof RocketTier1Entity) {
@@ -167,5 +167,65 @@ public class OverlayEvents {
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         }
 
+        //ROCKET HIGH OVERLAY
+        if (!event.isCancelable() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
+            RenderSystem.disableDepthTest();
+            RenderSystem.depthMask(false);
+            RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            RenderSystem.disableAlphaTest();
+
+            PlayerEntity entity = Minecraft.getInstance().player;
+            IngameGui mc = Minecraft.getInstance().ingameGUI;
+            TextureManager manager = Minecraft.getInstance().textureManager;
+            World world = Minecraft.getInstance().world;
+
+            if (Methodes.isInRocket(entity.getRidingEntity()) || entity.getRidingEntity() instanceof LanderEntity.CustomEntity) {
+                int width = event.getWindow().getScaledWidth();
+                int high = event.getWindow().getScaledHeight();
+
+                float yHeight = (float) entity.getPosY() / 5.3F;
+
+                if (yHeight < 0) {
+                    yHeight = 0;
+                }
+
+                if (yHeight > 113) {
+                    yHeight = 113;
+                }
+
+                ResourceLocation planet;
+
+                if (Methodes.isWorld(world, new ResourceLocation("boss_tools:moon"))) {
+                    planet = new ResourceLocation("boss_tools:textures/rocket_y_main_moon.png");
+
+                } else if (Methodes.isWorld(world, new ResourceLocation("boss_tools:mars"))) {
+                    planet = new ResourceLocation("boss_tools:textures/rocket_y_main_mars.png");
+
+                } else if (Methodes.isWorld(world, new ResourceLocation("boss_tools:mercury"))) {
+                    planet = new ResourceLocation("boss_tools:textures/rocket_y_main_mercury.png");
+
+                } else if (Methodes.isWorld(world, new ResourceLocation("boss_tools:venus"))) {
+                    planet = new ResourceLocation("boss_tools:textures/rocket_y_main_venus.png");
+
+                } else if (Methodes.isOrbitWorld(world)) {
+                    planet = new ResourceLocation("boss_tools:textures/rocket_y_main_orbit.png");
+
+                } else {
+                    planet = new ResourceLocation("boss_tools:textures/rocket_y_main_earth.png");
+                }
+
+                manager.bindTexture(planet);
+                mc.blit(event.getMatrixStack(), 0, (high / 2) - 128 / 2, 0, 0, 16, 128, 16, 128);
+
+                manager.bindTexture(new ResourceLocation("boss_tools:textures/rocket_y.png"));
+                GuiHelper.blit(event.getMatrixStack(), 4, (high / 2) + (103 / 2) - yHeight, 0, 0, 8, 11, 8, 11);
+            }
+
+            RenderSystem.depthMask(true);
+            RenderSystem.enableDepthTest();
+            RenderSystem.enableAlphaTest();
+            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        }
     }
 }

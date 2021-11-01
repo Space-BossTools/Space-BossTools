@@ -8,7 +8,8 @@ import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectType;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.SoundEvent;
@@ -42,9 +43,11 @@ import net.mrscauthd.boss_tools.crafting.OxygenBubbleDistributorRecipeSerializer
 import net.mrscauthd.boss_tools.crafting.OxygenLoaderRecipeSerializer;
 import net.mrscauthd.boss_tools.crafting.WorkbenchingRecipeSerializer;
 import net.mrscauthd.boss_tools.crafting.RocketPart;
+import net.mrscauthd.boss_tools.effects.OxygenEffect;
 import net.mrscauthd.boss_tools.entity.*;
 import net.mrscauthd.boss_tools.flag.FlagTileEntity;
 import net.mrscauthd.boss_tools.fluid.OilFluid;
+import net.mrscauthd.boss_tools.itemtiers.SteelItemTier;
 import net.mrscauthd.boss_tools.machines.*;
 import net.mrscauthd.boss_tools.spawneggs.ModSpawnEggs;
 import net.mrscauthd.boss_tools.entity.pygro.PygroEntity;
@@ -95,6 +98,8 @@ public class ModInnet {
     public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, "boss_tools");
 
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, "boss_tools");
+
+    public static final DeferredRegister<Effect> EFFECTS = DeferredRegister.create(ForgeRegistries.POTIONS, "boss_tools");
 
     //Entitys
     public static RegistryObject<EntityType<?>> ALIEN = ENTITYS.register("alien", () -> EntityType.Builder.create(AlienEntity::new, EntityClassification.CREATURE).size(0.75f, 2.5f).build(new ResourceLocation("boss_tools", "alien").toString()));
@@ -226,12 +231,8 @@ public class ModInnet {
     public static final RegistryObject<Item> GOLDEN_TANK = ITEMS.register("golden_tank", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_basics)));
     public static final RegistryObject<Item> DIAMOND_TANK = ITEMS.register("diamond_tank", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_basics)));
 
-
-    //Netherite Space Suit Items
-    public static final RegistryObject<Item> NETHERITE_OXYGEN_MASK = ITEMS.register("netherite_oxygen_mask", () -> NetheriteSpaceSuit.NETHERITE_OXYGEN_MASK);
-    public static final RegistryObject<Item> NETHERITE_SPACE_SUIT = ITEMS.register("netherite_space_suit", () -> NetheriteSpaceSuit.NETHERITE_SPACE_SUIT);
-    public static final RegistryObject<Item> NETHERITE_SPACE_PANTS = ITEMS.register("netherite_space_pants", () -> NetheriteSpaceSuit.NETHERITE_SPACE_PANTS);
-    public static final RegistryObject<Item> NETHERITE_SPACE_BOOTS = ITEMS.register("netherite_space_boots", () -> NetheriteSpaceSuit.NETHERITE_SPACE_BOOTS);
+    //Effects
+    public static final RegistryObject<Effect> OXYGEN_EFFECT = EFFECTS.register("oxygen_bubble_effect", () -> new OxygenEffect(EffectType.BENEFICIAL,3035801));
 
     //Space Suit Items
     public static final RegistryObject<Item> OXYGEN_MASK = ITEMS.register("oxygen_mask", () -> SpaceSuit.OXYGEN_MASK);
@@ -239,49 +240,27 @@ public class ModInnet {
     public static final RegistryObject<Item> SPACE_PANTS = ITEMS.register("space_pants", () -> SpaceSuit.SPACE_PANTS);
     public static final RegistryObject<Item> SPACE_BOOTS = ITEMS.register("space_boots", () -> SpaceSuit.SPACE_BOOTS);
 
-
-    //Steel Item Tier
-    public static IItemTier STEEL_ITEM_TIER = new IItemTier() {
-        public int getMaxUses() {
-            return 1661;
-        }
-
-        public float getEfficiency() {
-            return 7f;
-        }
-
-        public float getAttackDamage() {
-            return 2f;
-        }
-
-        public int getHarvestLevel() {
-            return 3;
-        }
-
-        public int getEnchantability() {
-            return 14;
-        }
-
-        public Ingredient getRepairMaterial() {
-            return Ingredient.fromStacks(new ItemStack(ModInnet.STEEL_INGOT.get(), (int) (1)));
-        }
-    };
+    //Netherite Space Suit Items
+    public static final RegistryObject<Item> NETHERITE_OXYGEN_MASK = ITEMS.register("netherite_oxygen_mask", () -> NetheriteSpaceSuit.NETHERITE_OXYGEN_MASK);
+    public static final RegistryObject<Item> NETHERITE_SPACE_SUIT = ITEMS.register("netherite_space_suit", () -> NetheriteSpaceSuit.NETHERITE_SPACE_SUIT);
+    public static final RegistryObject<Item> NETHERITE_SPACE_PANTS = ITEMS.register("netherite_space_pants", () -> NetheriteSpaceSuit.NETHERITE_SPACE_PANTS);
+    public static final RegistryObject<Item> NETHERITE_SPACE_BOOTS = ITEMS.register("netherite_space_boots", () -> NetheriteSpaceSuit.NETHERITE_SPACE_BOOTS);
 
     //Tools
     public static final RegistryObject<Item> STEEL_SWORD = ITEMS.register("steel_sword",
-            () -> new SwordItem(STEEL_ITEM_TIER,3,-2.4f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
+            () -> new SwordItem(SteelItemTier.ITEM_TIER,3,-2.4f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
 
     public static final RegistryObject<Item> STEEL_SHOVEL = ITEMS.register("steel_shovel",
-            () -> new ShovelItem(STEEL_ITEM_TIER,1.5f,-3f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
+            () -> new ShovelItem(SteelItemTier.ITEM_TIER,1.5f,-3f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
 
     public static final RegistryObject<Item> STEEL_PICKAXE = ITEMS.register("steel_pickaxe",
-            () -> new PickaxeItem(STEEL_ITEM_TIER,1,-2.8f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
+            () -> new PickaxeItem(SteelItemTier.ITEM_TIER,1,-2.8f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
 
     public static final RegistryObject<Item> STEEL_AXE = ITEMS.register("steel_axe",
-            () -> new AxeItem(STEEL_ITEM_TIER,6,-3f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
+            () -> new AxeItem(SteelItemTier.ITEM_TIER,6,-3f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
 
     public static final RegistryObject<Item> STEEL_HOE = ITEMS.register("steel_hoe",
-            () -> new HoeItem(STEEL_ITEM_TIER,-2,0f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
+            () -> new HoeItem(SteelItemTier.ITEM_TIER,-2,0f,new Item.Properties().group(BossToolsItemGroups.tab_basics).isImmuneToFire()));
 
     //Flag Items
     public static final RegistryObject<Item> FLAG_ITEM = ITEMS.register("flag", () -> new TallBlockItem(FLAG_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
@@ -320,11 +299,12 @@ public class ModInnet {
 	public static final RegistryObject<RocketPart> ROCKET_PART_FIN_LEFT = ROCKET_PARTS.register("fin_left", () -> new RocketPart(2));
 	public static final RegistryObject<RocketPart> ROCKET_PART_FIN_RIGHT = ROCKET_PARTS.register("fin_right", () -> new RocketPart(2));
 	public static final RegistryObject<RocketPart> ROCKET_PART_ENGINE = ROCKET_PARTS.register("engine", () -> new RocketPart(1));
-	
-    //Wrold Gen Things
+
+    //ICE SPIKE
     public static ConfiguredFeature<?, ?> ICE_SPIKE;
     public static MarsIceSpikeFeature MARS_ICE_SPIKE;
-    //VenusDeltas
+
+    //VENUS DELTAS
     public static ConfiguredFeature<?, ?> DELTAS;
     public static ConfiguredFeature<?, ?> DELTAS2;
     public static VenusDeltas VENUS_DELTAS;
@@ -334,7 +314,8 @@ public class ModInnet {
         MARS_ICE_SPIKE = new MarsIceSpikeFeature(NoFeatureConfig.field_236558_a_);
         MARS_ICE_SPIKE.setRegistryName("boss_tools", "mars_ice_spike");
         feature.getRegistry().register(MARS_ICE_SPIKE);
-        //VenusDeltas
+
+        //VENUS DELTAS
         VENUS_DELTAS = new VenusDeltas(ColumnConfig.CODEC);
         VENUS_DELTAS.setRegistryName("boss_tools", "venus_deltas");
         feature.getRegistry().register(VENUS_DELTAS);
@@ -356,49 +337,42 @@ public class ModInnet {
     public static void biomeModification(final BiomeLoadingEvent event) {
         RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
         if (event.getName().equals(new ResourceLocation("boss_tools:moon")) && Config.AlienVillageStructure == true) {
-            event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE);
+            event.getGeneration().getStructures().add(() -> STConfiguredStructures.ALIEN_VILLAGE);
         }
         if (event.getName().equals(new ResourceLocation("plains")) && Config.MeteorStructure == true) {
-            event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
-            // event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE)
+            event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR);
         }
         if (event.getName().equals(new ResourceLocation("snowy_tundra")) && Config.MeteorStructure == true) {
-            event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
-            // event.getGeneration().getStructures().add(() -> STConfiguredStructures.CONFIGURED_RUN_DOWN_HOUSE)
+            event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR);
         }
-        //  if (event.getName().equals(new ResourceLocation("boss_tools:mars"))) {
-        //       event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
-        //   }
         if (event.getName().equals(new ResourceLocation("forest")) && Config.MeteorStructure == true) {
-            event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
+            event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR);
         }
         if (event.getName().equals(new ResourceLocation("desert")) && Config.MeteorStructure == true) {
-            event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR_CONFIGURED_RUN_DOWN_HOUSE);
+            event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR);
         }
-        //venus bullet
         if (event.getName().equals(new ResourceLocation("boss_tools:venus")) && Config.VenusBulletStructure == true) {
-            event.getGeneration().getStructures().add(() -> STConfiguredStructures.VENUS_BULLET_CONFIGURED_RUN_DOWN_HOUSE);
+            event.getGeneration().getStructures().add(() -> STConfiguredStructures.VENUS_BULLET);
         }
-        //venus tower
         if (event.getName().equals(new ResourceLocation("boss_tools:venus")) && Config.VenusTowerStructure == true) {
-            event.getGeneration().getStructures().add(() -> STConfiguredStructures.VENUS_TOWER_CONFIGURED_RUN_DOWN_HOUSE);
+            event.getGeneration().getStructures().add(() -> STConfiguredStructures.VENUS_TOWER);
         }
-        //Oil
         if (event.getName().equals(new ResourceLocation("ocean")) && Config.OILWellStructure == true) {
-            event.getGeneration().getStructures().add(() -> STConfiguredStructures.OIL_CONFIGURED_RUN_DOWN_HOUSE);
+            event.getGeneration().getStructures().add(() -> STConfiguredStructures.OIL);
         }
         if (event.getName().equals(new ResourceLocation("deep_cold_ocean")) && Config.OILWellStructure == true) {
-            event.getGeneration().getStructures().add(() -> STConfiguredStructures.OIL_CONFIGURED_RUN_DOWN_HOUSE);
+            event.getGeneration().getStructures().add(() -> STConfiguredStructures.OIL);
         }
         if (event.getName().equals(new ResourceLocation("deep_ocean")) && Config.OILWellStructure == true) {
-            event.getGeneration().getStructures().add(() -> STConfiguredStructures.OIL_CONFIGURED_RUN_DOWN_HOUSE);
+            event.getGeneration().getStructures().add(() -> STConfiguredStructures.OIL);
         }
         if (event.getName().equals(new ResourceLocation("lukewarm_ocean")) && Config.OILWellStructure == true) {
-            event.getGeneration().getStructures().add(() -> STConfiguredStructures.OIL_CONFIGURED_RUN_DOWN_HOUSE);
+            event.getGeneration().getStructures().add(() -> STConfiguredStructures.OIL);
         }
     }
+
     private static Method GETCODEC_METHOD;
-    //@SubscribeEvent
+
     public static void addDimensionalSpacing(final WorldEvent.Load event) {
         if (event.getWorld() instanceof ServerWorld) {
             ServerWorld serverWorld = (ServerWorld) event.getWorld();
@@ -408,46 +382,34 @@ public class ModInnet {
                 ResourceLocation cgRL = Registry.CHUNK_GENERATOR_CODEC.getKey((Codec<? extends ChunkGenerator>) GETCODEC_METHOD.invoke(serverWorld.getChunkProvider().generator));
                 if (cgRL != null && cgRL.getNamespace().equals("terraforged")) return;
             } catch (Exception e) {
-                // StructureTutorialMain.LOGGER.error("Was unable to check if " + serverWorld.dimension().location() + " is using Terraforged's ChunkGenerator.");
+
             }
             if(serverWorld.getChunkProvider().getChunkGenerator() instanceof FlatChunkGenerator ||
                     serverWorld.getDimensionType().equals(World.OVERWORLD)){
                 return;
             }
             Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
-            tempMap.putIfAbsent(STStructures.RUN_DOWN_HOUSE.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.RUN_DOWN_HOUSE.get()));
-            //  serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_() = tempMap;
-            //meteor
-            // tempMap.putIfAbsent(STStructures.METEOR.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.METEOR.get()));
+            tempMap.putIfAbsent(STStructures.ALIEN_VILLAGE.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.ALIEN_VILLAGE.get()));
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
 
             Map<Structure<?>, StructureSeparationSettings> tempMap1 = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
-            //tempMap.putIfAbsent(STStructures.RUN_DOWN_HOUSE.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.RUN_DOWN_HOUSE.get()));
-            //  serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_() = tempMap;
-            //meteor
             tempMap1.putIfAbsent(STStructures.METEOR.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.METEOR.get()));
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap1;
-            //venus bullet
+
             Map<Structure<?>, StructureSeparationSettings> tempMap2 = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
-            //tempMap.putIfAbsent(STStructures.RUN_DOWN_HOUSE.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.RUN_DOWN_HOUSE.get()));
-            //  serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_() = tempMap;
-            //meteor
             tempMap2.putIfAbsent(STStructures2.VENUS_BULLET.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures2.VENUS_BULLET.get()));
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap2;
-            //venus tower
-            Map<Structure<?>, StructureSeparationSettings> tempMap3 = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
 
+            Map<Structure<?>, StructureSeparationSettings> tempMap3 = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
             tempMap3.putIfAbsent(STStructures2.VENUS_TOWER.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures2.VENUS_TOWER.get()));
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap3;
-            //OIl
-            Map<Structure<?>, StructureSeparationSettings> tempMap4 = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
 
+            Map<Structure<?>, StructureSeparationSettings> tempMap4 = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
             tempMap4.putIfAbsent(STStructures.OIL.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.OIL.get()));
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap4;
         }
     }
 
-    //@Override
     @SubscribeEvent
     public static void init(final FMLCommonSetupEvent event) {
         DeferredWorkQueue.runLater(() -> {

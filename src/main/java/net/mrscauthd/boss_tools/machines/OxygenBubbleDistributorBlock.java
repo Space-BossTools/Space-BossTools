@@ -11,6 +11,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -20,9 +21,9 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
@@ -250,7 +251,13 @@ public class OxygenBubbleDistributorBlock {
 			double range = this.getRange();
 			int oxygenUsing = this.getOxygenUsing(range);
 
-			if (oxygenStorage.extractOxygen(oxygenUsing, true) == oxygenUsing && this.consumePowerForOperation() != null) {
+			if (this.consumeIngredients() != true) {
+				if (this.consumePowerForOperation() == null) {
+					return;
+				}
+			}
+
+			if (oxygenStorage.extractOxygen(oxygenUsing, true) == oxygenUsing) {
 				oxygenStorage.extractOxygen(oxygenUsing, false);
 
 				this.spawnOxygenBubble(range);
@@ -260,12 +267,10 @@ public class OxygenBubbleDistributorBlock {
 
 		private void spawnOxygenBubble(double range) {
 			World world = this.getWorld();
-			List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, this.getWorkingArea(range), null);
+			List<LivingEntity> entities = world.getEntitiesWithinAABB(LivingEntity.class, this.getWorkingArea(range), null);
 
-			for (PlayerEntity player : players) {
-				CompoundNBT persistentData = player.getPersistentData();
-				persistentData.putBoolean("Oxygen_Bullet_Generator", true);
-				persistentData.putDouble("timer_oxygen", 0);
+			for (LivingEntity entity : entities) {
+				entity.addPotionEffect(new EffectInstance(ModInnet.OXYGEN_EFFECT.get(),2 * 24,0, false ,false));
 			}
 
 			if (world instanceof ServerWorld) {
