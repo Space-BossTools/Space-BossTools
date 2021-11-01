@@ -215,7 +215,7 @@ public class OxygenBubbleDistributorBlock {
 
 		@Override
 		public AxisAlignedBB getRenderBoundingBox() {
-			return new AxisAlignedBB(560, 560, 560, -560, -560, -560);
+			return new AxisAlignedBB(660, 660, 660, -660, -660, -660);
 		}
 
 		@Override

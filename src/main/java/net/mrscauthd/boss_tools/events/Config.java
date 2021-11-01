@@ -34,7 +34,6 @@ public class Config {
 			if (!boss_tools.exists()) {
 				try {
 					boss_tools.createNewFile();
-					// new
 					Gson gson = new GsonBuilder().setPrettyPrinting().create();
 					JsonObject Config = new JsonObject();
 					Config.addProperty("Alien Spawn", (true));
@@ -67,8 +66,7 @@ public class Config {
 						jsonstringbuilder.append(line);
 					}
 					JsonObject Config = new Gson().fromJson(jsonstringbuilder.toString(), JsonObject.class);
-					// First
-					if (Config == null) { // Category check
+					if (Config == null) {
 						Gson gson = new GsonBuilder().setPrettyPrinting().create();
 						Config = new JsonObject();
 						Config.addProperty("Alien Spawn", (true));
@@ -89,7 +87,7 @@ public class Config {
 							exception.printStackTrace();
 						}
 					}
-					// in category check
+
 					if (Config.get("Alien Spawn") == null || Config.get("Star Crawler Spawn") == null || Config.get("Alien Zombie Spawn") == null || Config.get("Alien Village Structure") == null || Config.get("Meteor Structure") == null || Config.get("Player Oxygen System") == null || Config.get("Entity Oxygen System") == null || Config.get("Venus Bullet Structure") == null || Config.get("Venus Tower Structure") == null || Config.get("Oil Well") == null) {
 						Gson gson = new GsonBuilder().setPrettyPrinting().create();
 						Config = new JsonObject();
@@ -111,22 +109,17 @@ public class Config {
 							exception.printStackTrace();
 						}
 					}
-					// first end
 					boss_toolsReader.close();
-					// first
 					AlienSpawing = (boolean) Config.get("Alien Spawn").getAsBoolean();
 					StarCrawlerSpawn = (boolean) Config.get("Star Crawler Spawn").getAsBoolean();
 					AlienZombieSpawn = (boolean) Config.get("Alien Zombie Spawn").getAsBoolean();
-					// Category structures
 					AlienVillageStructure = (boolean) Config.get("Alien Village Structure").getAsBoolean();
 					MeteorStructure = (boolean) Config.get("Meteor Structure").getAsBoolean();
 					VenusBulletStructure = (boolean) Config.get("Venus Bullet Structure").getAsBoolean();
 					VenusTowerStructure = (boolean) Config.get("Venus Bullet Structure").getAsBoolean();
 					OILWellStructure = (boolean) Config.get("Oil Well").getAsBoolean();
-					// Oxygen System
 					PlayerOxygenSystem = (boolean) Config.get("Player Oxygen System").getAsBoolean();
 					EntityOxygenSystem = (boolean) Config.get("Entity Oxygen System").getAsBoolean();
-					// next
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
