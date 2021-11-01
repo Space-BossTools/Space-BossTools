@@ -1,7 +1,9 @@
 package net.mrscauthd.boss_tools.compat.theoneprobe;
 
+import java.util.List;
 import java.util.function.Function;
 
+import mcjty.theoneprobe.api.IElement;
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.IProbeInfoProvider;
@@ -12,6 +14,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.mrscauthd.boss_tools.compat.CompatibleManager;
+import net.mrscauthd.boss_tools.compat.mekanism.MekanismHelper;
 import net.mrscauthd.boss_tools.machines.tile.AbstractMachineTileEntity;
 
 public class ProbeInfoProvider implements IProbeInfoProvider, Function<ITheOneProbe, Void> {
@@ -37,6 +41,12 @@ public class ProbeInfoProvider implements IProbeInfoProvider, Function<ITheOnePr
 
 		if (tileEntity instanceof AbstractMachineTileEntity) {
 			AbstractMachineTileEntity machineTileEntity = (AbstractMachineTileEntity) tileEntity;
+			
+			if (CompatibleManager.MEKANISM.isLoaded()) {
+				List<? extends IElement> elements = MekanismHelper.createGasGaugeDataElement(machineTileEntity.getCapability(MekanismHelper.getGasHandlerCapability()).orElse(null));
+				elements.forEach(element -> probeInfo.element(element));
+			}
+
 			machineTileEntity.getGaugeDataList().forEach(g -> probeInfo.element(new GaugeDataElement(g)));
 		}
 	}
