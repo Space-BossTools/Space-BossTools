@@ -93,6 +93,12 @@ dependencies {
   
   //Hwyla
   compile fg.deobf("curse.maven:hwyla-253449:3033593")
+  
+  //Mekanism
+  compile fg.deobf("mekanism:Mekanism:1.16.5-10.0.20.447")
+  runtimeOnly fg.deobf("mekanism:Mekanism:1.16.5-10.0.20.447:additions")
+  runtimeOnly fg.deobf("mekanism:Mekanism:1.16.5-10.0.20.447:generators")
+  runtimeOnly fg.deobf("mekanism:Mekanism:1.16.5-10.0.20.447:tools")
 }
 
 mixin {
