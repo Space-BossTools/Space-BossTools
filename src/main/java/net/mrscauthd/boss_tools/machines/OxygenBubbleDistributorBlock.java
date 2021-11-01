@@ -251,7 +251,24 @@ public class OxygenBubbleDistributorBlock {
 			double range = this.getRange();
 			int oxygenUsing = this.getOxygenUsing(range);
 
+			if (this.consumeIngredients() != true) {
+				if (this.consumePowerForOperation() == null) {
+					return;
+				}
+			}
 
+			if (oxygenStorage.extractOxygen(oxygenUsing, true) == oxygenUsing) {
+				oxygenStorage.extractOxygen(oxygenUsing, false);
+				if (oxygenStorage.extractOxygen(oxygenUsing, true) == oxygenUsing) {
+					if (this.isProcessedInThisTick() || this.consumePowerForOperation() != null) {
+						oxygenStorage.extractOxygen(oxygenUsing, false);
+						this.spawnOxygenBubble(range);
+					}
+
+				}
+
+			}
+		}
 
 		private void spawnOxygenBubble(double range) {
 			World world = this.getWorld();
