@@ -203,13 +203,14 @@ public class Methodes {
 
     }
 
+    /**If a entity should not get Fire add it to the Tag "venus_fire"*/
     public static void VenusFire(LivingEntity entity, ResourceLocation planet1, ResourceLocation planet2) {
 
         RegistryKey<World> key = entity.world.getDimensionKey();
 
         if (key == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, planet1) || key == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, planet2)) {
             if (!Methodes.Nethrite_Space_Suit_Check(entity)) {
-            	if (!MinecraftForge.EVENT_BUS.post(new LivingSetFireInHotPlanetEvent(entity))) {
+            	if (!EntityTypeTags.getCollection().getTagByID(new ResourceLocation(("boss_tools:entities/venus_fire").toLowerCase(java.util.Locale.ENGLISH))).contains(entity.getType())) {
             		entity.setFire(10);
             	}
             }
@@ -220,7 +221,7 @@ public class Methodes {
     public static void VenusRain(LivingEntity entity, ResourceLocation planet) {
         if (entity.world.getDimensionKey() == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, planet)) {
             if (entity.world.getWorldInfo().isRaining() && entity.world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(entity.getPosX()), (int) Math.floor(entity.getPosZ())) <= Math.floor(entity.getPosY()) + 1) {
-                if (EntityTypeTags.getCollection().getTagByID(new ResourceLocation(("forge:entities/venus_rain").toLowerCase(java.util.Locale.ENGLISH))).contains(entity.getType()) == false) {
+                if (!EntityTypeTags.getCollection().getTagByID(new ResourceLocation(("boss_tools:entities/venus_rain").toLowerCase(java.util.Locale.ENGLISH))).contains(entity.getType())) {
 
                 	entity.attackEntityFrom(ModInnet.DAMAGE_SOURCE_ACID_RAIN, 1);
                 }
@@ -231,7 +232,7 @@ public class Methodes {
 
     /**IF a entity should get oxygen damage add it in the tag "oxygen" (don't add the Player, he have a own oxygen system)*/
     public static void EntityOxygen(LivingEntity entity, World world) {
-        if (Config.EntityOxygenSystem && Methodes.isSpaceWorld(world) && EntityTypeTags.getCollection().getTagByID(new ResourceLocation(("forge:entities/oxygen").toLowerCase(java.util.Locale.ENGLISH))).contains(entity.getType())) {
+        if (Config.EntityOxygenSystem && Methodes.isSpaceWorld(world) && EntityTypeTags.getCollection().getTagByID(new ResourceLocation(("boss_tools:entities/oxygen").toLowerCase(java.util.Locale.ENGLISH))).contains(entity.getType())) {
 
             if (!entity.isPotionActive(ModInnet.OXYGEN_EFFECT.get())) {
 

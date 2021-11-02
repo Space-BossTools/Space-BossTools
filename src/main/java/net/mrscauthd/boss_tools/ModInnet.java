@@ -304,6 +304,10 @@ public class ModInnet {
 	public static final RegistryObject<RocketPart> ROCKET_PART_FIN_RIGHT = ROCKET_PARTS.register("fin_right", () -> new RocketPart(2));
 	public static final RegistryObject<RocketPart> ROCKET_PART_ENGINE = ROCKET_PARTS.register("engine", () -> new RocketPart(1));
 
+    //DamgeSources
+    public static final DamageSource DAMAGE_SOURCE_OXYGEN = new DamageSource("oxygen").setDamageBypassesArmor();
+    public static final DamageSource DAMAGE_SOURCE_ACID_RAIN = new DamageSource("venus.acid").setDamageBypassesArmor();
+
     //ICE SPIKE
     public static ConfiguredFeature<?, ?> ICE_SPIKE;
     public static MarsIceSpikeFeature MARS_ICE_SPIKE;
@@ -312,10 +316,6 @@ public class ModInnet {
     public static ConfiguredFeature<?, ?> DELTAS;
     public static ConfiguredFeature<?, ?> DELTAS2;
     public static VenusDeltas VENUS_DELTAS;
-
-    //DamgeSources
-    public static final DamageSource DAMAGE_SOURCE_OXYGEN = new DamageSource("oxygen").setDamageBypassesArmor();
-    public static final DamageSource DAMAGE_SOURCE_ACID_RAIN = new DamageSource("venus.acid").setDamageBypassesArmor();
     
     @SubscribeEvent
     public static void RegistryFeature(RegistryEvent.Register<Feature<?>> feature) {
