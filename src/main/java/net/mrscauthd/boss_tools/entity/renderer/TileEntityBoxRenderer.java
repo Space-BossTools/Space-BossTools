@@ -102,7 +102,7 @@ public class TileEntityBoxRenderer extends TileEntityRenderer<OxygenBubbleDistri
         GraphicsFanciness graphicsFanciness = Minecraft.getInstance().gameSettings.graphicFanciness;
 
         if (graphicsFanciness == GraphicsFanciness.FABULOUS) {
-            builder = (IVertexConsumer) buffer.getBuffer(Atlases.getItemEntityTranslucentCullType());
+            builder = (IVertexConsumer) buffer.getBuffer(RenderType.getTranslucentMovingBlock());
         } else {
             builder = (IVertexConsumer) buffer.getBuffer(RenderType.getTranslucentNoCrumbling());
         }
