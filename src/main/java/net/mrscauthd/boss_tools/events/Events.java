@@ -80,18 +80,18 @@ public class Events {
             }
 
             //Lander Warning Overlay Tick
-                if (check == false) {
-                    counter = counter - 0.025;
-                    if (counter <= 0.2) {
-                        check = true;
-                    }
+            if (check == false) {
+                counter = counter - 0.025;
+                if (counter <= 0.2) {
+                    check = true;
                 }
-                if (check == true) {
-                    counter = counter + 0.025;
-                    if (counter >= 1.2) {
-                        check = false;
-                    }
+            }
+            if (check == true) {
+                counter = counter + 0.025;
+                if (counter >= 1.2) {
+                    check = false;
                 }
+            }
 
         }
     }
