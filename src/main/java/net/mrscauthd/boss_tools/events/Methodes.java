@@ -225,8 +225,8 @@ public class Methodes {
     public static void VenusRain(LivingEntity entity, ResourceLocation planet) {
         if (entity.world.getDimensionKey() == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, planet)) {
             if (entity.world.getWorldInfo().isRaining() && entity.world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(entity.getPosX()), (int) Math.floor(entity.getPosZ())) <= Math.floor(entity.getPosY()) + 1) {
-                if (!tagCheck(entity,"boss_tools:entities/venus_rain")) {
-                    if (!MinecraftForge.EVENT_BUS.post(new LivingSetVenusRainEvent(entity))) {
+                if (!MinecraftForge.EVENT_BUS.post(new LivingSetVenusRainEvent(entity))) {
+                    if (!tagCheck(entity,"boss_tools:entities/venus_rain")) {
 
                         entity.attackEntityFrom(ModInnet.DAMAGE_SOURCE_ACID_RAIN, 1);
                     }
