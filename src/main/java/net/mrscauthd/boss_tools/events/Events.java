@@ -236,6 +236,7 @@ public class Events {
 
     }
 
+    @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void SpaceSounds(PlaySoundEvent event) {
         if (Minecraft.getInstance().player != null && Minecraft.getInstance().player.world != null && Minecraft.getInstance().currentScreen == null && Methodes.isSpaceWorld(Minecraft.getInstance().player.world)) {
