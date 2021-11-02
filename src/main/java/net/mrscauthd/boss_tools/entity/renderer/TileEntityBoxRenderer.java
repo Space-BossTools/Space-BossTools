@@ -1,16 +1,15 @@
 package net.mrscauthd.boss_tools.entity.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 
+import net.minecraft.client.settings.GraphicsFanciness;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Matrix3f;
@@ -99,7 +98,14 @@ public class TileEntityBoxRenderer extends TileEntityRenderer<OxygenBubbleDistri
     }
 
     private void drawSurfaces(IRenderTypeBuffer buffer, Matrix4f matrix, Matrix3f normal, float startX, float startZ, float endX, float endZ, float botY, float topY, int r, int g, int b) {
-        IVertexConsumer builder = (IVertexConsumer) buffer.getBuffer(Atlases.getTranslucentCullBlockType());
+        IVertexConsumer builder;
+        GraphicsFanciness graphicsFanciness = Minecraft.getInstance().gameSettings.graphicFanciness;
+
+        if (graphicsFanciness == GraphicsFanciness.FABULOUS) {
+            builder = (IVertexConsumer) buffer.getBuffer(Atlases.getItemEntityTranslucentCullType());
+        } else {
+            builder = (IVertexConsumer) buffer.getBuffer(RenderType.getTranslucentNoCrumbling());
+        }
 
         if (atlass == null) {
             atlass = Minecraft.getInstance().getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE).apply(new ResourceLocation("boss_tools", "entities/tile_entity_box_oxygen_generator"));
