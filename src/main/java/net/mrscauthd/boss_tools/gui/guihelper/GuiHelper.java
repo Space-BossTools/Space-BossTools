@@ -123,6 +123,8 @@ public class GuiHelper {
 
 		TextureAtlasSprite fluidStillSprite = getStillFluidSprite(stack);
 		FluidAttributes attributes = fluid.getAttributes();
+		RenderSystem.enableBlend();
+		RenderSystem.enableAlphaTest();
 		setGLColorFromInt(attributes.getColor(stack));
 		drawTiledSprite(matrixStack, left, top, width, height, fluidStillSprite, 16, 16);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
