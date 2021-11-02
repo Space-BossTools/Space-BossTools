@@ -210,7 +210,7 @@ public class Methodes {
 
         if (key == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, planet1) || key == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, planet2)) {
             if (!Methodes.Nethrite_Space_Suit_Check(entity)) {
-            	if (!EntityTypeTags.getCollection().getTagByID(new ResourceLocation(("boss_tools:entities/venus_fire").toLowerCase(java.util.Locale.ENGLISH))).contains(entity.getType())) {
+            	if (!tagCheck(entity,"boss_tools:entities/venus_fire")) {
             		entity.setFire(10);
             	}
             }
@@ -221,7 +221,7 @@ public class Methodes {
     public static void VenusRain(LivingEntity entity, ResourceLocation planet) {
         if (entity.world.getDimensionKey() == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, planet)) {
             if (entity.world.getWorldInfo().isRaining() && entity.world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(entity.getPosX()), (int) Math.floor(entity.getPosZ())) <= Math.floor(entity.getPosY()) + 1) {
-                if (!EntityTypeTags.getCollection().getTagByID(new ResourceLocation(("boss_tools:entities/venus_rain").toLowerCase(java.util.Locale.ENGLISH))).contains(entity.getType())) {
+                if (!tagCheck(entity,"boss_tools:entities/venus_rain")) {
 
                 	entity.attackEntityFrom(ModInnet.DAMAGE_SOURCE_ACID_RAIN, 1);
                 }
@@ -232,7 +232,7 @@ public class Methodes {
 
     /**IF a entity should get oxygen damage add it in the tag "oxygen" (don't add the Player, he have a own oxygen system)*/
     public static void EntityOxygen(LivingEntity entity, World world) {
-        if (Config.EntityOxygenSystem && Methodes.isSpaceWorld(world) && EntityTypeTags.getCollection().getTagByID(new ResourceLocation(("boss_tools:entities/oxygen").toLowerCase(java.util.Locale.ENGLISH))).contains(entity.getType())) {
+        if (Config.EntityOxygenSystem && Methodes.isSpaceWorld(world) && tagCheck(entity,"boss_tools:entities/oxygen")) {
 
             if (!entity.isPotionActive(ModInnet.OXYGEN_EFFECT.get())) {
 
@@ -261,6 +261,13 @@ public class Methodes {
         if (!player.world.isRemote()) {
             player.sendStatusMessage(new StringTextComponent("\u00A7cNO FUEL! \u00A77Fill the Rocket with \u00A7cFuel\u00A77. (\u00A76Sneak and Right Click\u00A77)"), false);
         }
+    }
+
+    public static boolean tagCheck(Entity entity, String tag) {
+        if (EntityTypeTags.getCollection().getTagByID(new ResourceLocation((tag).toLowerCase(java.util.Locale.ENGLISH))).contains(entity.getType())) {
+            return true;
+        }
+        return false;
     }
 
 }
