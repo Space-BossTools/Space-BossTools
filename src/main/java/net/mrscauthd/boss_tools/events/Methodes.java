@@ -13,7 +13,6 @@ import net.minecraft.network.play.server.SPlayEntityEffectPacket;
 import net.minecraft.network.play.server.SPlayerAbilitiesPacket;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -27,6 +26,8 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.*;
+import net.mrscauthd.boss_tools.events.forgeevents.LivingSetFireInHotPlanetEvent;
+import net.mrscauthd.boss_tools.events.forgeevents.LivingSetVenusRainEvent;
 import net.mrscauthd.boss_tools.item.RoverItemItem;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
@@ -210,9 +211,12 @@ public class Methodes {
 
         if (key == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, planet1) || key == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, planet2)) {
             if (!Methodes.Nethrite_Space_Suit_Check(entity)) {
-            	if (!tagCheck(entity,"boss_tools:entities/venus_fire")) {
-            		entity.setFire(10);
-            	}
+                if (!MinecraftForge.EVENT_BUS.post(new LivingSetFireInHotPlanetEvent(entity))) {
+                    if (!tagCheck(entity, "boss_tools:entities/venus_fire")) {
+
+                        entity.setFire(10);
+                    }
+                }
             }
         }
     }
@@ -222,8 +226,10 @@ public class Methodes {
         if (entity.world.getDimensionKey() == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, planet)) {
             if (entity.world.getWorldInfo().isRaining() && entity.world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(entity.getPosX()), (int) Math.floor(entity.getPosZ())) <= Math.floor(entity.getPosY()) + 1) {
                 if (!tagCheck(entity,"boss_tools:entities/venus_rain")) {
+                    if (!MinecraftForge.EVENT_BUS.post(new LivingSetVenusRainEvent(entity))) {
 
-                	entity.attackEntityFrom(ModInnet.DAMAGE_SOURCE_ACID_RAIN, 1);
+                        entity.attackEntityFrom(ModInnet.DAMAGE_SOURCE_ACID_RAIN, 1);
+                    }
                 }
             }
         }
