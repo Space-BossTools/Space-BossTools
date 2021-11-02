@@ -613,7 +613,7 @@ public class JeiPlugin implements IModPlugin {
 
 	// workbench
 	public static class NASAWorkbenchJeiCategory implements IRecipeCategory<WorkbenchingRecipe> {
-		private static ResourceLocation Uid = new ResourceLocation("boss_tools", "workbenchcategory"); // muss klein sein !
+		public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "workbenchcategory"); // muss klein sein !
 		// ...
 		private final String title;
 		private final IDrawable background;
@@ -832,7 +832,7 @@ public class JeiPlugin implements IModPlugin {
 
 	// RocketTier1Gui
 	public static class Tier1RocketJeiCategory implements IRecipeCategory<Tier1RocketJeiCategory.Tier1RocketItemItemRecipeWrapper> {
-		private static ResourceLocation Uid = new ResourceLocation("boss_tools", "rocket_t_1_category");
+		public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "rocket_t_1_category");
 		private static final int input1 = 0; // THE NUMBER = SLOTID
 		// ...
 		private final String title;
@@ -930,7 +930,7 @@ public class JeiPlugin implements IModPlugin {
 
 	// RocketTier2Gui
 	public static class Tier2RocketItemItemJeiCategory implements IRecipeCategory<Tier2RocketItemItemJeiCategory.Tier2RocketItemItemRecipeWrapper> {
-		private static ResourceLocation Uid = new ResourceLocation("boss_tools", "tier2rocketitemitemcategory");
+		public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "tier2rocketitemitemcategory");
 		private static final int input1 = 0; // THE NUMBER = SLOTID
 		// ...
 		private final String title;
@@ -1103,7 +1103,7 @@ public class JeiPlugin implements IModPlugin {
 
 	// RocketTier3Gui
 	public static class Tier3RocketItemItemJeiCategory implements IRecipeCategory<Tier3RocketItemItemJeiCategory.Tier3RocketItemItemRecipeWrapper> {
-		private static ResourceLocation Uid = new ResourceLocation("boss_tools", "tier3rocketitemitemcategory");
+		public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "tier3rocketitemitemcategory");
 		private static final int input1 = 0; // THE NUMBER = SLOTID
 		// ...
 		private final String title;
@@ -1295,7 +1295,7 @@ public class JeiPlugin implements IModPlugin {
 
 	// Rover
 	public static class RoverJeiCategory implements IRecipeCategory<RoverJeiCategory.RoverRecipeWrapper> {
-		private static ResourceLocation Uid = new ResourceLocation("boss_tools", "rovercategory");
+		public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "rovercategory");
 		private static final int input1 = 0; // THE NUMBER = SLOTID
 		// ...
 		private final String title;
