@@ -22,6 +22,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.boss_tools.ModInnet;
@@ -156,7 +157,7 @@ public class Methodes {
     }
 
     public static void OxygenDamage(LivingEntity entity) {
-        entity.attackEntityFrom(new DamageSource("oxygen").setDamageBypassesArmor(), 1.0F);
+        entity.attackEntityFrom(ModInnet.DAMAGE_SOURCE_OXYGEN, 1.0F);
     }
 
     public static boolean isInRocket(Entity entity) {
@@ -208,7 +209,9 @@ public class Methodes {
 
         if (key == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, planet1) || key == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, planet2)) {
             if (!Methodes.Nethrite_Space_Suit_Check(entity)) {
-                entity.setFire(10);
+            	if (!MinecraftForge.EVENT_BUS.post(new LivingSetFireInHotPlanetEvent(entity))) {
+            		entity.setFire(10);
+            	}
             }
         }
     }
@@ -219,7 +222,7 @@ public class Methodes {
             if (entity.world.getWorldInfo().isRaining() && entity.world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(entity.getPosX()), (int) Math.floor(entity.getPosZ())) <= Math.floor(entity.getPosY()) + 1) {
                 if (EntityTypeTags.getCollection().getTagByID(new ResourceLocation(("forge:entities/venus_rain").toLowerCase(java.util.Locale.ENGLISH))).contains(entity.getType()) == false) {
 
-                    entity.attackEntityFrom(new DamageSource("venus.acid").setDamageBypassesArmor(), 1);
+                	entity.attackEntityFrom(ModInnet.DAMAGE_SOURCE_ACID_RAIN, 1);
                 }
             }
         }
