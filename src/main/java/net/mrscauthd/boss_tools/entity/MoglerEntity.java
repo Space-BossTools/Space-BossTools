@@ -37,6 +37,11 @@ public class MoglerEntity extends HoglinEntity {
         return CreatureAttribute.UNDEAD;
     }
 
+    @Override
+    public boolean canDespawn(double distanceToClosestPlayer) {
+        return false;
+    }
+
     @Nullable
     @Override
     public AgeableEntity func_241840_a(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) {

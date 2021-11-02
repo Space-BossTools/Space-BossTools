@@ -213,9 +213,7 @@ public class Events {
         if (event != null && event.getEntity() instanceof PlayerEntity) {
             PlayerEntity entity = (PlayerEntity) event.getEntity();
 
-            Boolean armorCheck = Methodes.nethriteSpaceSuitCheck(entity);
-
-            if (armorCheck == true) {
+            if (Methodes.nethriteSpaceSuitCheck(entity)) {
                 if (event.getSource().isFireDamage()) {
                     entity.forceFireTicks(0);
                     event.setCanceled(true);

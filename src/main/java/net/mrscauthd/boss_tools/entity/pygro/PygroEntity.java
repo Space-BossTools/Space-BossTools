@@ -9,7 +9,6 @@ import net.minecraft.entity.monster.piglin.PiglinEntity;
 import net.mrscauthd.boss_tools.ModInnet;
 
 import net.minecraftforge.fml.network.NetworkHooks;
-
 import net.minecraft.world.World;
 import net.minecraft.network.IPacket;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -45,5 +44,10 @@ public class PygroEntity extends PiglinEntity {
     @Override
     public CreatureAttribute getCreatureAttribute() {
         return CreatureAttribute.UNDEAD;
+    }
+
+    @Override
+    public boolean canDespawn(double distanceToClosestPlayer) {
+        return false;
     }
 }

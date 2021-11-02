@@ -4,6 +4,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.util.SoundEvent;
 import net.mrscauthd.boss_tools.entity.alien.AlienEntity;
 import net.mrscauthd.boss_tools.events.Config;
 
@@ -58,12 +59,12 @@ public class AlienZombieEntity extends MonsterEntity implements IRangedAttackMob
 	}
 
 	@Override
-	public net.minecraft.util.SoundEvent getHurtSound(DamageSource ds) {
+	public SoundEvent getHurtSound(DamageSource ds) {
 		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.pillager.hurt"));
 	}
 
 	@Override
-	public net.minecraft.util.SoundEvent getDeathSound() {
+	public SoundEvent getDeathSound() {
 		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.pillager.death"));
 	}
 
