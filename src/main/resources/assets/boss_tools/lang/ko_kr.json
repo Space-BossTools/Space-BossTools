@@ -51,6 +51,9 @@
   "item.boss_tools.mogler_spawn_egg": "Mogler 생성 알",
   "item.boss_tools.desh_ingot": "데쉬 주괴",
   "item.boss_tools.compressed_desh": "압축 데쉬",
+  "item.boss_tools.desh_nugget": "데쉬 조각",
+  "item.boss_tools.silicon_nugget": "실리콘 조각",
+  "item.boss_tools.steel_nugget": "강철 조각",
 
   "itemGroup.tab_normal": "Space-BossTools",
   "itemGroup.tab_flags": "Space-Bosstools: 깃발",
