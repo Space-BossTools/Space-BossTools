@@ -56,7 +56,7 @@ public class Methodes {
         }
     }
 
-    public static boolean Nethrite_Space_Suit_Check(LivingEntity entity) {
+    public static boolean nethriteSpaceSuitCheck(LivingEntity entity) {
         Boolean item3 = checkArmor(entity, 3, ModInnet.NETHERITE_OXYGEN_MASK.get());
         Boolean item2 = checkArmor(entity, 2, ModInnet.NETHERITE_SPACE_SUIT.get());
         Boolean item1 = checkArmor(entity, 1, ModInnet.NETHERITE_SPACE_PANTS.get());
@@ -68,7 +68,7 @@ public class Methodes {
         return false;
     }
 
-    public static boolean Space_Suit_Check(LivingEntity entity) {
+    public static boolean spaceSuitCheck(LivingEntity entity) {
         Boolean item3 = checkArmor(entity, 3, ModInnet.OXYGEN_MASK.get());
         Boolean item2 = checkArmor(entity, 2, ModInnet.SPACE_SUIT.get());
         Boolean item1 = checkArmor(entity, 1, ModInnet.SPACE_PANTS.get());
@@ -80,7 +80,7 @@ public class Methodes {
         return false;
     }
 
-    public static boolean Space_Suit_Check_Both(LivingEntity entity) {
+    public static boolean spaceSuitCheckBoth(LivingEntity entity) {
         Boolean item3 = checkArmor(entity, 3, ModInnet.OXYGEN_MASK.get());
         Boolean item2 = checkArmor(entity, 2, ModInnet.SPACE_SUIT.get());
         Boolean item1 = checkArmor(entity, 1, ModInnet.SPACE_PANTS.get());
@@ -210,7 +210,7 @@ public class Methodes {
         RegistryKey<World> key = entity.world.getDimensionKey();
 
         if (key == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, planet1) || key == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, planet2)) {
-            if (!Methodes.Nethrite_Space_Suit_Check(entity)) {
+            if (!Methodes.nethriteSpaceSuitCheck(entity)) {
                 if (!MinecraftForge.EVENT_BUS.post(new LivingSetFireInHotPlanetEvent(entity))) {
                     if (!tagCheck(entity, "boss_tools:entities/venus_fire")) {
 

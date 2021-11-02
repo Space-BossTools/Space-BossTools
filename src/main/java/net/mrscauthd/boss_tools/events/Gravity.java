@@ -20,7 +20,7 @@ public class Gravity {
         //Planets
         if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon"))) {
 
-            if (type == "player" && GravityCheck((PlayerEntity) entity) == true) {
+            if (type == "player" && GravityCheck((PlayerEntity) entity)) {
                 entity.setMotion(entity.getMotion().getX(), moon, entity.getMotion().getZ());
 
                 if (entity.getMotion().getY() < -0.1) {
@@ -39,7 +39,7 @@ public class Gravity {
         }
 
         if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars"))) {
-            if (type == "player" && GravityCheck((PlayerEntity) entity) == true) {
+            if (type == "player" && GravityCheck((PlayerEntity) entity)) {
                 entity.setMotion(entity.getMotion().getX(), mars, entity.getMotion().getZ());
 
                 if (entity.getMotion().getY() < -0.1) {
@@ -58,7 +58,7 @@ public class Gravity {
         }
 
         if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury"))) {
-            if (type == "player" && GravityCheck((PlayerEntity) entity) == true) {
+            if (type == "player" && GravityCheck((PlayerEntity) entity)) {
                 entity.setMotion(entity.getMotion().getX(), mercury, entity.getMotion().getZ());
 
                 if (entity.getMotion().getY() < -0.1) {
@@ -77,7 +77,7 @@ public class Gravity {
         }
 
         if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))) {
-            if (type == "player" && GravityCheck((PlayerEntity) entity) == true) {
+            if (type == "player" && GravityCheck((PlayerEntity) entity)) {
                 entity.setMotion(entity.getMotion().getX(), venus, entity.getMotion().getZ());
 
                 if (entity.getMotion().getY() < -0.1) {
@@ -97,7 +97,7 @@ public class Gravity {
 
         //Orbits
         if (Methodes.isOrbitWorld(world)) {
-            if (type == "player" && GravityCheck((PlayerEntity) entity) == true) {
+            if (type == "player" && GravityCheck((PlayerEntity) entity)) {
                 entity.setMotion(entity.getMotion().getX(), orbit, entity.getMotion().getZ());
 
                 if (entity.getMotion().getY() < -0.1) {

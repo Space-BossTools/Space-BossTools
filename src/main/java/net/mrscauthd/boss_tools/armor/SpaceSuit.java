@@ -90,7 +90,7 @@ public class SpaceSuit {
 
 		@Override
 		public void onArmorTick(ItemStack itemstack, World world, PlayerEntity player) {
-			if (!player.abilities.isCreativeMode && !player.isSpectator() && Methodes.Space_Suit_Check_Both(player) && Config.PlayerOxygenSystem) {
+			if (!player.abilities.isCreativeMode && !player.isSpectator() && Methodes.spaceSuitCheckBoth(player) && Config.PlayerOxygenSystem) {
 				IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(itemstack);
 
 				OXYGEN_TIMER = OXYGEN_TIMER + 1;

@@ -21,7 +21,7 @@ public class OxygenSystem {
 
             if (entity instanceof PlayerEntity) {
 
-                if (Methodes.Space_Suit_Check_Both(entity)) {
+                if (Methodes.spaceSuitCheckBoth(entity)) {
 
                     ItemStack itemstack = entity.getItemStackFromSlot(EquipmentSlotType.fromSlotTypeAndIndex(EquipmentSlotType.Group.ARMOR, 2));
                     IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(itemstack);
@@ -36,7 +36,7 @@ public class OxygenSystem {
 
                 }
 
-                if (!Methodes.Space_Suit_Check_Both(entity)) {
+                if (!Methodes.spaceSuitCheckBoth(entity)) {
                     entity.setAir(-4);
                 }
             }

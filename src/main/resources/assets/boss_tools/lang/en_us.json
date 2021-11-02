@@ -56,12 +56,12 @@
   "item.boss_tools.steel_nugget": "Steel Nugget",
 
   "itemGroup.tab_normal": "Space-BossTools",
-  "itemGroup.tab_flags": "Space-Bosstools: Flags",
-  "itemGroup.tab_blocks": "Space-Bosstools: Blocks",
-  "itemGroup.tab_basics": "Space-Bosstools: Basics",
-  "itemGroup.tab_machines": "Space-Bosstools: Machines",
-  "itemGroup.tab_spawn_eggs": "Space-Bosstools: Spawn Eggs",
-  "itemGroup.tab_materials": "Space-Bosstools: Materials",
+  "itemGroup.tab_flags": "Space-BossTools: Flags",
+  "itemGroup.tab_blocks": "Space-BossTools: Blocks",
+  "itemGroup.tab_basics": "Space-BossTools: Basics",
+  "itemGroup.tab_machines": "Space-BossTools: Machines",
+  "itemGroup.tab_spawn_eggs": "Space-BossTools: Spawn Eggs",
+  "itemGroup.tab_materials": "Space-BossTools: Materials",
 
   "block.boss_tools.coal_lantern": "Coal Lantern",
   "block.boss_tools.oxygen_bubble_distributor": "Oxygen Bubble Distributor",

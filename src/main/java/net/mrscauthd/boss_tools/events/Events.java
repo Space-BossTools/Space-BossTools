@@ -32,7 +32,6 @@ import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 
-
 @Mod.EventBusSubscriber(modid = "boss_tools")
 public class Events {
     public static double counter = 1;
@@ -93,7 +92,7 @@ public class Events {
                         check = false;
                     }
                 }
-            //Other Player Ticks
+
         }
     }
 
@@ -214,7 +213,7 @@ public class Events {
         if (event != null && event.getEntity() instanceof PlayerEntity) {
             PlayerEntity entity = (PlayerEntity) event.getEntity();
 
-            Boolean armorCheck = Methodes.Nethrite_Space_Suit_Check(entity);
+            Boolean armorCheck = Methodes.nethriteSpaceSuitCheck(entity);
 
             if (armorCheck == true) {
                 if (event.getSource().isFireDamage()) {
