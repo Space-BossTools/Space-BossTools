@@ -11,6 +11,7 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.registry.Registry;
@@ -309,6 +310,10 @@ public class ModInnet {
     public static ConfiguredFeature<?, ?> DELTAS2;
     public static VenusDeltas VENUS_DELTAS;
 
+    //DamgeSources
+    public static final DamageSource DAMAGE_SOURCE_OXYGEN = new DamageSource("oxygen").setDamageBypassesArmor();
+    public static final DamageSource DAMAGE_SOURCE_ACID_RAIN = new DamageSource("venus.acid").setDamageBypassesArmor();
+    
     @SubscribeEvent
     public static void RegistryFeature(RegistryEvent.Register<Feature<?>> feature) {
         MARS_ICE_SPIKE = new MarsIceSpikeFeature(NoFeatureConfig.field_236558_a_);
