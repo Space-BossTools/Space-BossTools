@@ -24,6 +24,9 @@ public abstract class MixinItemGravity {
         if (!GravityCheckItem(w)) {
         	return;
         }
+		else if (!Methodes.isSpaceWorld(w.world)) {
+			return;
+		}
 
         RegistryKey<World> dim = w.world.getDimensionKey();
 		double divisor = 0.98D;

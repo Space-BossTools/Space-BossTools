@@ -15,6 +15,9 @@ public class Gravity {
 		if (!GravityCheck(entity, type)) {
 			return;
 		}
+		else if (!Methodes.isSpaceWorld(world)) {
+			return;
+		}
 		
 		RegistryKey<World> dim = world.getDimensionKey();
 		double divisor = 0.98D;
