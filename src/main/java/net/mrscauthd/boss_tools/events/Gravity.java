@@ -18,7 +18,7 @@ public class Gravity {
 		else if (!Methodes.isSpaceWorld(world)) {
 			return;
 		}
-		
+
 		RegistryKey<World> dim = world.getDimensionKey();
 		double divisor = 0.98D;
 		double offset = 0.08D;

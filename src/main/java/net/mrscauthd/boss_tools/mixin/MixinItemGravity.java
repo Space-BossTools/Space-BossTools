@@ -17,47 +17,47 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemEntity.class)
 public abstract class MixinItemGravity {
-    @Inject(at = @At(value = "HEAD"), method = "Lnet/minecraft/entity/item/ItemEntity;tick()V")
-    private void tick(CallbackInfo info) {
-        ItemEntity w = (ItemEntity) ((Object) this);
-        
-        if (!GravityCheckItem(w)) {
-        	return;
-        }
-        else if (!Methodes.isSpaceWorld(w.world)) {
-        	return;
-        }
+	@Inject(at = @At(value = "HEAD"), method = "Lnet/minecraft/entity/item/ItemEntity;tick()V")
+	private void tick(CallbackInfo info) {
+		ItemEntity w = (ItemEntity) ((Object) this);
 
-        RegistryKey<World> dim = w.world.getDimensionKey();
+		if (!GravityCheckItem(w)) {
+			return;
+		}
+		else if (!Methodes.isSpaceWorld(w.world)) {
+			return;
+		}
+
+		RegistryKey<World> dim = w.world.getDimensionKey();
 		double divisor = 0.98D;
 		double offset = 0.08D;
 
-        //Planets
+		//Planets
 		if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon"))) {
 			offset -= 0.05D;
-        }
-        else if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars"))) {
+		}
+		else if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars"))) {
 			offset -= 0.06D;
-        }
-        else if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury"))) {
+		}
+		else if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury"))) {
 			offset -= 0.05D;
-        }
-        else if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))) {
+		}
+		else if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))) {
 			offset -= 0.06D;
-        }
-        //Orbits
-        else if (Methodes.isOrbitWorld(w.world)) {
+		}
+		//Orbits
+		else if (Methodes.isOrbitWorld(w.world)) {
 			offset -= 0.05D;
-        }
+		}
 
 		ItemSpaceGravityEvent e = new ItemSpaceGravityEvent(w, divisor, offset);
 
 		if (!MinecraftForge.EVENT_BUS.post(e)) {
-	        Vector3d motion = w.getMotion();
+			Vector3d motion = w.getMotion();
 			double motionY = (motion.getY() / e.getDivisor()) + e.getOffset();
 			w.setMotion(motion.getX(), motionY, motion.getZ());
 		}
-    }
+	}
 
     private static boolean GravityCheckItem(ItemEntity entity) {
         if (!entity.isInWater() && !entity.isInLava() && !entity.hasNoGravity()) {
