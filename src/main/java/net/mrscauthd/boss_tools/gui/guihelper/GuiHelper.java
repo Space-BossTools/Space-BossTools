@@ -127,6 +127,7 @@ public class GuiHelper {
 		RenderSystem.defaultBlendFunc();
 		setGLColorFromInt(attributes.getColor(stack));
 		drawTiledSprite(matrixStack, left, top, width, height, fluidStillSprite, 16, 16);
+		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		RenderSystem.disableBlend();
 	}
 

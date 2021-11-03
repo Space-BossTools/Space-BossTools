@@ -67,7 +67,7 @@ public class GeneratorGUIGui extends BossToolsModElements.ModElement {
 				}
 			});
 
-			ContainerHelper.addInventorySlots(this, inv, 8, 84, 142, this::addSlot);
+			ContainerHelper.addInventorySlots(this, inv, 8, 84, this::addSlot);
 		}
 
 		public CustomTileEntity getTileEntity() {

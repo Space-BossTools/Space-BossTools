@@ -80,7 +80,7 @@ public class BlastFurnaceGUIGui extends BossToolsModElements.ModElement {
 				}
 			});
 
-			ContainerHelper.addInventorySlots(this, inv, 8, 87, 145, this::addSlot);
+			ContainerHelper.addInventorySlots(this, inv, 8, 87, this::addSlot);
 		}
 
 		public CustomTileEntity getTileEntity() {

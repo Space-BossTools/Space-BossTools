@@ -62,10 +62,6 @@ public abstract class ItemStackToItemStackRecipe extends BossToolsRecipe impleme
 		return this.output.copy();
 	}
 
-	public int getIngredientSlot(IInventory inventory, World world) {
-		return ItemStackToItemStackTileEntity.SLOT_INGREDIENT;
-	}
-
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		NonNullList<Ingredient> list = super.getIngredients();
