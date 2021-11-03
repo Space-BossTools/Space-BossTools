@@ -60,7 +60,6 @@ public class OxygenBubbleDistributorGUI extends BossToolsModElements.ModElement 
 			this.tileEntity = tileEntity;
 
 			IItemHandlerModifiable internal = tileEntity.getItemHandler();
-
 			this.addSlot(new SlotItemHandler(internal, OxygenMakingTileEntity.SLOT_INPUT_SOURCE, 26, 22) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
@@ -74,7 +73,7 @@ public class OxygenBubbleDistributorGUI extends BossToolsModElements.ModElement 
 				}
 			});
 
-			ContainerHelper.addInventorySlots(this, inv, 8, 90, 148, this::addSlot);
+			ContainerHelper.addInventorySlots(this, inv, 8, 90, this::addSlot);
 		}
 
 		public CustomTileEntity getTileEntity() {

@@ -56,15 +56,15 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 		super.getSlotsForFace(direction, slots);
 
 		if (direction == Direction.UP) {
-			slots.add(SLOT_INGREDIENT);
+			slots.add(this.getSlotIngredient());
 		} else if (direction == Direction.DOWN) {
-			slots.add(SLOT_OUTPUT);
+			slots.add(this.getSlotOutput());
 		}
 	}
 
 	@Override
 	protected boolean onCanInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
-		if (index == SLOT_INGREDIENT && this.nullOrMatch(direction, Direction.UP)) {
+		if (index == this.getSlotIngredient() && this.nullOrMatch(direction, Direction.UP)) {
 			return this.getRecipeType().findFirst(this.getWorld(), r -> r.test(stack)) != null;
 		}
 
@@ -73,7 +73,7 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 
 	@Override
 	public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-		if (index == SLOT_OUTPUT && direction == Direction.DOWN) {
+		if (index == this.getSlotOutput() && direction == Direction.DOWN) {
 			return true;
 		}
 
@@ -86,7 +86,7 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 	}
 
 	protected ItemStackToItemStackRecipe cacheRecipe() {
-		ItemStack itemStack = this.getStackInSlot(SLOT_INGREDIENT);
+		ItemStack itemStack = this.getStackInSlot(this.getSlotIngredient());
 
 		if (itemStack == null || itemStack.isEmpty()) {
 			this.itemStackCacher.set(itemStack);
@@ -113,7 +113,7 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 	}
 
 	public boolean hasSpaceInOutput(ItemStack recipeOutput) {
-		ItemStack output = this.getItemHandler().getStackInSlot(SLOT_OUTPUT);
+		ItemStack output = this.getItemHandler().getStackInSlot(this.getSlotOutput());
 		return hasSpaceInOutput(recipeOutput, output);
 	}
 
@@ -149,8 +149,8 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 
 					if (this.getTimer() >= this.getMaxTimer()) {
 						IItemHandlerModifiable itemHandler = this.getItemHandler();
-						itemHandler.insertItem(SLOT_OUTPUT, recipeOutput.copy(), false);
-						itemHandler.extractItem(SLOT_INGREDIENT, 1, false);
+						itemHandler.insertItem(this.getSlotOutput(), recipeOutput.copy(), false);
+						itemHandler.extractItem(this.getSlotIngredient(), 1, false);
 						this.setTimer(0);
 					}
 				} else {
@@ -192,5 +192,13 @@ public abstract class ItemStackToItemStackTileEntity extends AbstractMachineTile
 
 	public double getTimerRatio() {
 		return (double) this.getTimer() / (double) this.getMaxTimer();
+	}
+
+	public int getSlotIngredient() {
+		return SLOT_INGREDIENT;
+	}
+
+	public int getSlotOutput() {
+		return SLOT_OUTPUT;
 	}
 }

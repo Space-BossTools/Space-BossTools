@@ -73,7 +73,7 @@ public class CompressorGuiGui extends BossToolsModElements.ModElement {
 				}
 			});
 
-			ContainerHelper.addInventorySlots(this, inv, 8, 86, 144, this::addSlot);
+			ContainerHelper.addInventorySlots(this, inv, 8, 86, this::addSlot);
 		}
 
 		public CustomTileEntity getTileEntity() {

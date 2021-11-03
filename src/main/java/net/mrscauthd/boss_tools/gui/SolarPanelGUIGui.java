@@ -56,7 +56,7 @@ public class SolarPanelGUIGui extends BossToolsModElements.ModElement {
 			super(containerType, id);
 			this.tileEntity = tileEntity;
 
-			ContainerHelper.addInventorySlots(this, inv, 8, 84, 142, this::addSlot);
+			ContainerHelper.addInventorySlots(this, inv, 8, 84, this::addSlot);
 		}
 
 		public CustomTileEntity getTileEntity() {
