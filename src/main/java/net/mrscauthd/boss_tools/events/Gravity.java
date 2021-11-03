@@ -4,116 +4,74 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.mrscauthd.boss_tools.events.forgeevents.LivingSpaceGravityEvent;
 
 public class Gravity {
-    public static void Gravity(LivingEntity entity, String type, World world) {
-        RegistryKey<World> dim = world.getDimensionKey();
+	public static void Gravity(LivingEntity entity, GravityType type, World world) {
+		if (!GravityCheck(entity, type)) {
+			return;
+		}
+		
+		RegistryKey<World> dim = world.getDimensionKey();
+		double divisor = 0.98D;
+		double offset = 0.08D;
+		double fallDistanceMultiplier = 1.0D;
 
-        double moon = entity.getMotion().getY() / 0.98 + 0.08 - 0.03;
-        double mars = entity.getMotion().getY() / 0.98 + 0.08 - 0.04;
-        double mercury = entity.getMotion().getY() / 0.98 + 0.08 - 0.03;
-        double venus = entity.getMotion().getY() / 0.98 + 0.08 - 0.04;
-        double orbit = entity.getMotion().getY() / 0.98 + 0.08 - 0.02;
+		// Planets
+		if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon"))) {
+			offset -= 0.03D;
+			fallDistanceMultiplier = 2.5F;
+		}
+		else if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars"))) {
+			offset -= 0.04D;
+			fallDistanceMultiplier = 2.0D;
+		}
+		else if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury"))) {
+			offset -= 0.03D;
+			fallDistanceMultiplier = 2.5D;
+		}
+		else if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))) {
+			offset -= 0.04D;
+			fallDistanceMultiplier = 2.0D;
+		}
+		// Orbits
+		else if (Methodes.isOrbitWorld(world)) {
+			offset -= 0.02D;
+			fallDistanceMultiplier = 2.5D;
+		}
 
-        //Planets
-        if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon"))) {
+		LivingSpaceGravityEvent e = new LivingSpaceGravityEvent(entity, divisor, offset, fallDistanceMultiplier);
 
-            if (type == "player" && GravityCheck((PlayerEntity) entity)) {
-                entity.setMotion(entity.getMotion().getX(), moon, entity.getMotion().getZ());
+		if (!MinecraftForge.EVENT_BUS.post(e)) {
+			Vector3d motion = entity.getMotion();
+			double motionY = (motion.getY() / e.getDivisor()) + e.getOffset();
+			entity.setMotion(motion.getX(), motionY, motion.getZ());
 
-                if (entity.getMotion().getY() < -0.1) {
-                    entity.fallDistance = (float) entity.getMotion().getY() * -2.5f;
-                }
-            }
+			if (motionY < -0.1) {
+				entity.fallDistance = -(float) (motionY * e.getFallDistanceMultiplier());
+			}
+		}
+	}
 
-            if (type == "living" && GravityCheckLiving(entity))  {
-                entity.setMotion(entity.getMotion().getX(), moon, entity.getMotion().getZ());
+	public enum GravityType {
+		PLAYER,LIVING
+	}
 
-                if (entity.getMotion().getY() < -0.1) {
-                    entity.fallDistance = (float) entity.getMotion().getY() * -2.5f;
-                }
-            }
-
-        }
-
-        if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars"))) {
-            if (type == "player" && GravityCheck((PlayerEntity) entity)) {
-                entity.setMotion(entity.getMotion().getX(), mars, entity.getMotion().getZ());
-
-                if (entity.getMotion().getY() < -0.1) {
-                    entity.fallDistance = (float) entity.getMotion().getY() * -2f;
-                }
-            }
-
-            if (type == "living" && GravityCheckLiving(entity))  {
-                entity.setMotion(entity.getMotion().getX(), mars, entity.getMotion().getZ());
-
-                if (entity.getMotion().getY() < -0.1) {
-                    entity.fallDistance = (float) entity.getMotion().getY() * -2f;
-                }
-            }
-
-        }
-
-        if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury"))) {
-            if (type == "player" && GravityCheck((PlayerEntity) entity)) {
-                entity.setMotion(entity.getMotion().getX(), mercury, entity.getMotion().getZ());
-
-                if (entity.getMotion().getY() < -0.1) {
-                    entity.fallDistance = (float) entity.getMotion().getY() * -2.5f;
-                }
-            }
-
-            if (type == "living" && GravityCheckLiving(entity))  {
-                entity.setMotion(entity.getMotion().getX(), mercury, entity.getMotion().getZ());
-
-                if (entity.getMotion().getY() < -0.1) {
-                    entity.fallDistance = (float) entity.getMotion().getY() * -2.5f;
-                }
-            }
-
-        }
-
-        if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))) {
-            if (type == "player" && GravityCheck((PlayerEntity) entity)) {
-                entity.setMotion(entity.getMotion().getX(), venus, entity.getMotion().getZ());
-
-                if (entity.getMotion().getY() < -0.1) {
-                    entity.fallDistance = (float) entity.getMotion().getY() * -2f;
-                }
-            }
-
-            if (type == "living" && GravityCheckLiving(entity))  {
-                entity.setMotion(entity.getMotion().getX(), venus, entity.getMotion().getZ());
-
-                if (entity.getMotion().getY() < -0.1) {
-                    entity.fallDistance = (float) entity.getMotion().getY() * -2f;
-                }
-            }
-
-        }
-
-        //Orbits
-        if (Methodes.isOrbitWorld(world)) {
-            if (type == "player" && GravityCheck((PlayerEntity) entity)) {
-                entity.setMotion(entity.getMotion().getX(), orbit, entity.getMotion().getZ());
-
-                if (entity.getMotion().getY() < -0.1) {
-                    entity.fallDistance = (float) entity.getMotion().getY() * -2.5f;
-                }
-            }
-
-            if (type == "living" && GravityCheckLiving(entity))  {
-                entity.setMotion(entity.getMotion().getX(), orbit, entity.getMotion().getZ());
-
-                if (entity.getMotion().getY() < -0.1) {
-                    entity.fallDistance = (float) entity.getMotion().getY() * -2.5f;
-                }
-            }
-        }
-    }
+	/** Check Entity with type */
+	public static boolean GravityCheck(LivingEntity entity, GravityType type) {
+		if (type == GravityType.PLAYER && GravityCheck((PlayerEntity) entity)) {
+			return true;
+		}
+		else if (type == GravityType.LIVING && GravityCheckLiving(entity)) {
+			return true;
+		}
+		
+		return false;
+	}
 
     /**Player Entity (Example: Player)*/
     public static boolean GravityCheck(PlayerEntity player) {
