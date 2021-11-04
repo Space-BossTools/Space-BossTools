@@ -124,15 +124,14 @@ public class Methodes {
     }
 
     public static boolean isSpaceWorld(World world) {
+    	return isSpacePlanetWorld(world) || isOrbitWorld(world);
+    }
+
+    public static boolean isSpacePlanetWorld(World world) {
         if (Methodes.isWorld(world, new ResourceLocation("boss_tools:moon"))
-                || Methodes.isWorld(world, new ResourceLocation("boss_tools:moon_orbit"))
                 || Methodes.isWorld(world, new ResourceLocation("boss_tools:mars"))
-                || Methodes.isWorld(world, new ResourceLocation("boss_tools:mars_orbit"))
                 || Methodes.isWorld(world, new ResourceLocation("boss_tools:mercury"))
-                || Methodes.isWorld(world, new ResourceLocation("boss_tools:mercury_orbit"))
-                || Methodes.isWorld(world, new ResourceLocation("boss_tools:venus"))
-                || Methodes.isWorld(world, new ResourceLocation("boss_tools:venus_orbit"))
-                || Methodes.isWorld(world, new ResourceLocation("boss_tools:overworld_orbit"))) {
+                || Methodes.isWorld(world, new ResourceLocation("boss_tools:venus"))) {
             return true;
         }
         return false;

@@ -26,24 +26,24 @@ public class Gravity {
 
 		// Planets
 		if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon"))) {
-			offset -= 0.03D;
+			offset = 0.05D;
 			fallDistanceMultiplier = 2.5F;
 		}
 		else if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars"))) {
-			offset -= 0.04D;
+			offset = 0.04D;
 			fallDistanceMultiplier = 2.0D;
 		}
 		else if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury"))) {
-			offset -= 0.03D;
+			offset = 0.05D;
 			fallDistanceMultiplier = 2.5D;
 		}
 		else if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))) {
-			offset -= 0.04D;
+			offset = 0.04D;
 			fallDistanceMultiplier = 2.0D;
 		}
 		// Orbits
 		else if (Methodes.isOrbitWorld(world)) {
-			offset -= 0.02D;
+			offset = 0.06D;
 			fallDistanceMultiplier = 2.5D;
 		}
 

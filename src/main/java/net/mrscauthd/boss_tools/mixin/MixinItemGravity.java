@@ -30,24 +30,24 @@ public abstract class MixinItemGravity {
 
 		RegistryKey<World> dim = w.world.getDimensionKey();
 		double divisor = 0.98D;
-		double offset = 0.08D;
+		double offset = 0.00D;
 
 		//Planets
 		if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon"))) {
-			offset -= 0.05D;
+			offset = 0.03D;
 		}
 		else if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars"))) {
-			offset -= 0.06D;
+			offset = 0.02D;
 		}
 		else if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury"))) {
-			offset -= 0.05D;
+			offset = 0.03D;
 		}
 		else if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))) {
-			offset -= 0.06D;
+			offset = 0.02D;
 		}
 		//Orbits
 		else if (Methodes.isOrbitWorld(w.world)) {
-			offset -= 0.05D;
+			offset = 0.03D;
 		}
 
 		ItemSpaceGravityEvent e = new ItemSpaceGravityEvent(w, divisor, offset);
