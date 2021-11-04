@@ -232,6 +232,11 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	}
 
 	@Override
+	public boolean isItemValidForSlot(int index, ItemStack stack) {
+		return this.canInsertItem(index, stack, null);
+	}
+
+	@Override
 	public final boolean canInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
 		boolean result = this.onCanInsertItem(index, stack, direction);
 

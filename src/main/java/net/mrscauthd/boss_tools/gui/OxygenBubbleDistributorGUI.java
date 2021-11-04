@@ -60,18 +60,8 @@ public class OxygenBubbleDistributorGUI extends BossToolsModElements.ModElement 
 			this.tileEntity = tileEntity;
 
 			IItemHandlerModifiable internal = tileEntity.getItemHandler();
-			this.addSlot(new SlotItemHandler(internal, OxygenMakingTileEntity.SLOT_INPUT_SOURCE, 26, 22) {
-				@Override
-				public boolean isItemValid(ItemStack stack) {
-					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
-				}
-			});
-			this.addSlot(new SlotItemHandler(internal, OxygenMakingTileEntity.SLOT_INPUT_SINK, 26, 52) {
-				@Override
-				public boolean isItemValid(ItemStack stack) {
-					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
-				}
-			});
+			this.addSlot(new SlotItemHandler(internal, OxygenMakingTileEntity.SLOT_INPUT_SOURCE, 26, 22));
+			this.addSlot(new SlotItemHandler(internal, OxygenMakingTileEntity.SLOT_INPUT_SINK, 26, 52));
 
 			ContainerHelper.addInventorySlots(this, inv, 8, 90, this::addSlot);
 		}

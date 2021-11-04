@@ -60,12 +60,7 @@ public class GeneratorGUIGui extends BossToolsModElements.ModElement {
 			this.tileEntity = tileEntity;
 
 			IItemHandlerModifiable itemHandler = tileEntity.getItemHandler();
-			this.addSlot(new SlotItemHandler(itemHandler, CoalGeneratorBlock.SLOT_FUEL, 77, 31) {
-				@Override
-				public boolean isItemValid(ItemStack stack) {
-					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
-				}
-			});
+			this.addSlot(new SlotItemHandler(itemHandler, CoalGeneratorBlock.SLOT_FUEL, 77, 31));
 
 			ContainerHelper.addInventorySlots(this, inv, 8, 84, this::addSlot);
 		}
