@@ -1,11 +1,10 @@
 package net.mrscauthd.boss_tools.mixin;
 
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.mrscauthd.boss_tools.events.Methodes;
+import net.mrscauthd.boss_tools.events.forgeevents.ItemGravityEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,29 +16,29 @@ public abstract class MixinItemGravity {
     private void tick(CallbackInfo info) {
         ItemEntity w = (ItemEntity) ((Object) this);
 
-        RegistryKey<World> dim = w.world.getDimensionKey();
+        if (MinecraftForge.EVENT_BUS.post(new ItemGravityEvent((ItemEntity) w.getEntity()))) {
+            return;
+        }
 
-        //Planets
         if (GravityCheckItem(w)) {
-            if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon"))) {
-                w.setMotion(w.getMotion().getX(), w.getMotion().getY() / 0.98 + 0.08 - 0.05, w.getMotion().getZ());
+            if (Methodes.isWorld(w.world, new ResourceLocation("boss_tools:moon"))) {
+                itemGravityMath(w,0.05);
             }
 
-            if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars"))) {
-                w.setMotion(w.getMotion().getX(), w.getMotion().getY() / 0.98 + 0.08 - 0.06, w.getMotion().getZ());
+            if (Methodes.isWorld(w.world, new ResourceLocation("boss_tools:mars"))) {
+                itemGravityMath(w,0.06);
             }
 
-            if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury"))) {
-                w.setMotion(w.getMotion().getX(), w.getMotion().getY() / 0.98 + 0.08 - 0.05, w.getMotion().getZ());
+            if (Methodes.isWorld(w.world, new ResourceLocation("boss_tools:mercury"))) {
+                itemGravityMath(w,0.05);
             }
 
-            if (dim == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))) {
-                w.setMotion(w.getMotion().getX(), w.getMotion().getY() / 0.98 + 0.08 - 0.06, w.getMotion().getZ());
+            if (Methodes.isWorld(w.world, new ResourceLocation("boss_tools:venus"))) {
+                itemGravityMath(w,0.06);
             }
 
-            //Orbits
             if (Methodes.isOrbitWorld(w.world)) {
-                w.setMotion(w.getMotion().getX(), w.getMotion().getY() / 0.98 + 0.08 - 0.05, w.getMotion().getZ());
+                itemGravityMath(w,0.05);
             }
         }
 
@@ -51,6 +50,10 @@ public abstract class MixinItemGravity {
         }
 
         return false;
+    }
+
+    private static void itemGravityMath(ItemEntity entity, double gravity) {
+        entity.setMotion(entity.getMotion().getX(), entity.getMotion().getY() / 0.98 + 0.08 - gravity, entity.getMotion().getZ());
     }
 
 }
