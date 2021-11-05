@@ -27,6 +27,7 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.boss_tools.entity.*;
+import net.mrscauthd.boss_tools.events.forgeevents.LivingGravityEvent;
 import net.mrscauthd.boss_tools.item.RoverItemItem;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
@@ -46,7 +47,7 @@ public class Events {
             OxygenSystem.OxygenSystem(player);
 
             //Gravity Methode Call
-            Gravity.Gravity(player, "player", (World) world);
+            Gravity.Gravity(player, Gravity.GravityType.PLAYER, (World) world);
 
             //Drop Off Hand Item
             Methodes.DropRocket(player);
@@ -104,7 +105,7 @@ public class Events {
         Methodes.EntityOxygen(entity,world);
 
         //Gravity Methode Call
-        Gravity.Gravity(entity, "living", world);
+        Gravity.Gravity(entity, Gravity.GravityType.LIVING, world);
 
         //Venus Rain
         Methodes.VenusRain(entity, new ResourceLocation("boss_tools:venus"));
