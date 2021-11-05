@@ -60,20 +60,15 @@ public class CompressorGuiGui extends BossToolsModElements.ModElement {
 			this.tileEntity = tileEntity;
 
 			IItemHandlerModifiable itemHandler = tileEntity.getItemHandler();
-			this.addSlot(new SlotItemHandler(itemHandler, CustomTileEntity.SLOT_INGREDIENT, 40, 37) {
-				@Override
-				public boolean isItemValid(ItemStack stack) {
-					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
-				}
-			});
+			this.addSlot(new SlotItemHandler(itemHandler, CustomTileEntity.SLOT_INGREDIENT, 40, 37));
 			this.addSlot(new SlotItemHandler(itemHandler, ItemStackToItemStackTileEntity.SLOT_OUTPUT, 92, 36) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
-					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
+					return false;
 				}
 			});
 
-			ContainerHelper.addInventorySlots(this, inv, 8, 86, 144, this::addSlot);
+			ContainerHelper.addInventorySlots(this, inv, 8, 86, this::addSlot);
 		}
 
 		public CustomTileEntity getTileEntity() {

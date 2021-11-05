@@ -94,7 +94,7 @@ public class NasaWorkbenchGui extends BossToolsModElements.ModElement {
 			RocketPartGridPlacer.placeContainer(40, 108, 1, placer::placeBottom, ModInnet.ROCKET_PART_ENGINE.get(), partsItemHandler, this::addSlot);
 			this.partSlotEnd = this.inventorySlots.size();
 
-			ContainerHelper.addInventorySlots(this, inv, 8, 142, 200, this::addSlot);
+			ContainerHelper.addInventorySlots(this, inv, 8, 142, this::addSlot);
 		}
 
 		private void onExtractResult(ItemStack stack) {

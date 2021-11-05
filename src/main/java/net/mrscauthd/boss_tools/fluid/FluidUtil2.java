@@ -143,6 +143,25 @@ public class FluidUtil2 {
 		return capacity;
 	}
 
+	public static ItemStack makeEmpty(ItemStack itemStack, Fluid fluid) {
+		if (itemStack.isEmpty()) {
+			return itemStack;
+		}
+
+		if (itemStack.getItem() == fluid.getFilledBucket()) {
+			return new ItemStack(Items.BUCKET);
+		}
+
+		IFluidHandlerItem handlerInItemStack = getItemStackFluidHandler(itemStack);
+
+		if (handlerInItemStack != null) {
+			FluidStack fluidStack = new FluidStack(fluid, getMaxCapacity(handlerInItemStack));
+			handlerInItemStack.drain(fluidStack, FluidAction.EXECUTE);
+		}
+
+		return itemStack;
+	}
+
 	public static ItemStack makeFull(ItemStack itemStack, Fluid fluid) {
 		if (itemStack.isEmpty()) {
 			return itemStack;

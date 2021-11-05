@@ -61,26 +61,16 @@ public class BlastFurnaceGUIGui extends BossToolsModElements.ModElement {
 			this.tileEntity = tileEntity;
 
 			IItemHandlerModifiable itemHandler = tileEntity.getItemHandler();
-			this.addSlot(new SlotItemHandler(itemHandler, ItemStackToItemStackTileEntity.SLOT_INGREDIENT, 53, 19) {
-				@Override
-				public boolean isItemValid(ItemStack stack) {
-					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
-				}
-			});
+			this.addSlot(new SlotItemHandler(itemHandler, ItemStackToItemStackTileEntity.SLOT_INGREDIENT, 53, 19));
 			this.addSlot(new SlotItemHandler(itemHandler, ItemStackToItemStackTileEntity.SLOT_OUTPUT, 104, 38) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
-					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
+					return false;
 				}
 			});
-			this.addSlot(new SlotItemHandler(itemHandler, BlastingFurnaceBlock.SLOT_FUEL, 53, 56) {
-				@Override
-				public boolean isItemValid(ItemStack stack) {
-					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
-				}
-			});
+			this.addSlot(new SlotItemHandler(itemHandler, BlastingFurnaceBlock.SLOT_FUEL, 53, 56));
 
-			ContainerHelper.addInventorySlots(this, inv, 8, 87, 145, this::addSlot);
+			ContainerHelper.addInventorySlots(this, inv, 8, 87, this::addSlot);
 		}
 
 		public CustomTileEntity getTileEntity() {

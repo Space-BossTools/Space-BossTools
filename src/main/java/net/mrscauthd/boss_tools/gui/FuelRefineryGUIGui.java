@@ -58,33 +58,12 @@ public class FuelRefineryGUIGui extends BossToolsModElements.ModElement {
 			this.tileEntity = tileEntity;
 
 			IItemHandlerModifiable internal = tileEntity.getItemHandler();
+			this.addSlot(new SlotItemHandler(internal, FuelRefineryBlock.SLOT_INPUT_SOURCE, 26, 22));
+			this.addSlot(new SlotItemHandler(internal, FuelRefineryBlock.SLOT_OUTPUT_SINK, 92, 52));
+			this.addSlot(new SlotItemHandler(internal, FuelRefineryBlock.SLOT_INPUT_SINK, 26, 52));
+			this.addSlot(new SlotItemHandler(internal, FuelRefineryBlock.SLOT_OUTPUT_SOURCE, 92, 22));
 
-			this.addSlot(new SlotItemHandler(internal, FuelRefineryBlock.SLOT_INPUT_SOURCE, 26, 22) {
-				@Override
-				public boolean isItemValid(ItemStack stack) {
-					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
-				}
-			});
-			this.addSlot(new SlotItemHandler(internal, FuelRefineryBlock.SLOT_OUTPUT_SINK, 92, 52) {
-				@Override
-				public boolean isItemValid(ItemStack stack) {
-					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
-				}
-			});
-			this.addSlot(new SlotItemHandler(internal, FuelRefineryBlock.SLOT_INPUT_SINK, 26, 52) {
-				@Override
-				public boolean isItemValid(ItemStack stack) {
-					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
-				}
-			});
-			this.addSlot(new SlotItemHandler(internal, FuelRefineryBlock.SLOT_OUTPUT_SOURCE, 92, 22) {
-				@Override
-				public boolean isItemValid(ItemStack stack) {
-					return tileEntity.canInsertItem(this.getSlotIndex(), stack, null);
-				}
-			});
-
-			ContainerHelper.addInventorySlots(this, inv, 8, 90, 148, this::addSlot);
+			ContainerHelper.addInventorySlots(this, inv, 8, 90, this::addSlot);
 		}
 
 		public CustomTileEntity getTileEntity() {
