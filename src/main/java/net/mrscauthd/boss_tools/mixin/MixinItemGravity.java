@@ -16,10 +16,6 @@ public abstract class MixinItemGravity {
     private void tick(CallbackInfo info) {
         ItemEntity w = (ItemEntity) ((Object) this);
 
-        if (MinecraftForge.EVENT_BUS.post(new ItemGravityEvent((ItemEntity) w.getEntity()))) {
-            return;
-        }
-
         if (GravityCheckItem(w)) {
             if (Methodes.isWorld(w.world, new ResourceLocation("boss_tools:moon"))) {
                 itemGravityMath(w,0.05);
@@ -53,6 +49,10 @@ public abstract class MixinItemGravity {
     }
 
     private static void itemGravityMath(ItemEntity entity, double gravity) {
+        if (MinecraftForge.EVENT_BUS.post(new ItemGravityEvent(entity))) {
+            return;
+        }
+
         entity.setMotion(entity.getMotion().getX(), entity.getMotion().getY() / 0.98 + 0.08 - gravity, entity.getMotion().getZ());
     }
 
