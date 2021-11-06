@@ -12,7 +12,7 @@ public class STConfiguredStructures {
     public static StructureFeature<?, ?> METEOR = STStructures.METEOR.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
     public static StructureFeature<?, ?> VENUS_BULLET = STStructures2.VENUS_BULLET.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
     public static StructureFeature<?, ?> VENUS_TOWER = STStructures2.VENUS_TOWER.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
-    public static StructureFeature<?, ?> CRIMSON = STStructures.CRIMSON.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
+    public static StructureFeature<?, ?> CRIMSON = STStructures2.CRIMSON.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
     public static StructureFeature<?, ?> OIL = STStructures.OIL.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
 
     public static void registerConfiguredStructures() {
@@ -28,7 +28,7 @@ public class STConfiguredStructures {
         FlatGenerationSettings.STRUCTURES.put(STStructures.METEOR.get(), METEOR);
         FlatGenerationSettings.STRUCTURES.put(STStructures2.VENUS_BULLET.get(), VENUS_BULLET);
         FlatGenerationSettings.STRUCTURES.put(STStructures2.VENUS_TOWER.get(), VENUS_TOWER);
-        FlatGenerationSettings.STRUCTURES.put(STStructures.CRIMSON.get(), CRIMSON);
+        FlatGenerationSettings.STRUCTURES.put(STStructures2.CRIMSON.get(), CRIMSON);
         FlatGenerationSettings.STRUCTURES.put(STStructures.OIL.get(), OIL);
     }
 }

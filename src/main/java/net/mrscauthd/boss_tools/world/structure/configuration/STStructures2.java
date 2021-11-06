@@ -23,11 +23,14 @@ public class STStructures2 {
 
     public static final RegistryObject<Structure<NoFeatureConfig>> VENUS_BULLET = DEFERRED_REGISTRY_STRUCTURE.register("venus_bullet", () -> (new VenusBulletStructure(NoFeatureConfig.field_236558_a_)));
     public static final RegistryObject<Structure<NoFeatureConfig>> VENUS_TOWER = DEFERRED_REGISTRY_STRUCTURE.register("venus_tower", () -> (new VenusTowerStructure(NoFeatureConfig.field_236558_a_)));
+    public static final RegistryObject<Structure<NoFeatureConfig>> CRIMSON = DEFERRED_REGISTRY_STRUCTURE.register("crimson_village", () -> (new CrimsonStructure(NoFeatureConfig.field_236558_a_)));
 
     public static void setupStructures() {
         setupMapSpacingAndLand(VENUS_BULLET.get(), new StructureSeparationSettings(29, 19, 1234567890), true);
 
         setupMapSpacingAndLand(VENUS_TOWER.get(), new StructureSeparationSettings(24, 17, 1234567890), true);
+
+        setupMapSpacingAndLand(CRIMSON.get(), new StructureSeparationSettings(27, 14, 1234567890), true);
     }
 
     public static <F extends Structure<?>> void setupMapSpacingAndLand(F structure, StructureSeparationSettings structureSeparationSettings, boolean transformSurroundingLand) {

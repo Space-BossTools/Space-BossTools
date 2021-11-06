@@ -419,7 +419,7 @@ public class ModInnet {
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap4;
 
             Map<Structure<?>, StructureSeparationSettings> tempMap5 = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
-            tempMap5.putIfAbsent(STStructures.CRIMSON.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.CRIMSON.get()));
+            tempMap5.putIfAbsent(STStructures2.CRIMSON.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures2.CRIMSON.get()));
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap5;
         }
     }

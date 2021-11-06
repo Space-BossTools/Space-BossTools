@@ -68,7 +68,7 @@ public class CrimsonStructure extends Structure<NoFeatureConfig> {
             BlockPos blockpos = new BlockPos(x, 0, z);
 
             JigsawManager.func_242837_a(dynamicRegistryManager, new VillageConfig(() -> dynamicRegistryManager.getRegistry(Registry.JIGSAW_POOL_KEY)
-                            .getOrDefault(new ResourceLocation("boss_tools", "run_meteor/side_meteor_start")),
+                            .getOrDefault(new ResourceLocation("boss_tools", "crimson_village/crimson_start")),
                             25),
                     AbstractVillagePiece::new,
                     chunkGenerator,
