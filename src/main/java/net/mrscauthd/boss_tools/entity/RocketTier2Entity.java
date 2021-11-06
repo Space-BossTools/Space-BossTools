@@ -136,12 +136,12 @@ public class RocketTier2Entity extends CreatureEntity {
 	}
 
 	@Override
-	public net.minecraft.util.SoundEvent getHurtSound(DamageSource ds) {
+	public SoundEvent getHurtSound(DamageSource ds) {
 		return null;
 	}
 
 	@Override
-	public net.minecraft.util.SoundEvent getDeathSound() {
+	public SoundEvent getDeathSound() {
 		return null;
 	}
 
@@ -324,7 +324,7 @@ public class RocketTier2Entity extends CreatureEntity {
 		double y = this.getPosY();
 		double z = this.getPosZ();
 
-		if (this.dataManager.get(ROCKET_START) == true) {
+		if (this.dataManager.get(ROCKET_START)) {
 
 			//Rocket Animation
 			ar = ar + 1;
@@ -350,14 +350,14 @@ public class RocketTier2Entity extends CreatureEntity {
 				}
 			}
 
-			if (y > 600 && this.getPassengers().isEmpty() == false) {
+			if (y > 600 && !this.getPassengers().isEmpty()) {
 				Entity pass = this.getPassengers().get(0);
 
 				pass.getPersistentData().putDouble("Tier_2_open_main_menu", 1); //TODO Remove it if you Reworked the GUI SYSTEM
 				pass.getPersistentData().putDouble("Player_movement", 1); //TODO Remove it if you Reworked the GUI SYSTEM
 
 				this.remove();
-			} else if (y > 600 && this.getPassengers().isEmpty() == true)  {
+			} else if (y > 600 && this.getPassengers().isEmpty())  {
 				this.remove();
 			}
 

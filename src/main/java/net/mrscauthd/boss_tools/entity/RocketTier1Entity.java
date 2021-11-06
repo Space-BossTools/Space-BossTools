@@ -15,7 +15,6 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.block.RocketLaunchPadBlock;
-import net.mrscauthd.boss_tools.events.Methodes;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.gui.screens.RocketGUI;
 
@@ -64,7 +63,6 @@ public class RocketTier1Entity extends CreatureEntity {
 	public static final DataParameter<Boolean> BUCKET = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.BOOLEAN);
 	public static final DataParameter<Integer> FUEL = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.VARINT);
 	public static final DataParameter<Integer> START_TIMER = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.VARINT);
-
 
 	public RocketTier1Entity(EntityType type, World world) {
 		super(type, world);
@@ -136,12 +134,12 @@ public class RocketTier1Entity extends CreatureEntity {
 	}
 
 	@Override
-	public net.minecraft.util.SoundEvent getHurtSound(DamageSource ds) {
+	public SoundEvent getHurtSound(DamageSource ds) {
 		return null;
 	}
 
 	@Override
-	public net.minecraft.util.SoundEvent getDeathSound() {
+	public SoundEvent getDeathSound() {
 		return null;
 	}
 
@@ -324,7 +322,7 @@ public class RocketTier1Entity extends CreatureEntity {
 		double y = this.getPosY();
 		double z = this.getPosZ();
 
-		if (this.dataManager.get(ROCKET_START) == true) {
+		if (this.dataManager.get(ROCKET_START)) {
 
 			//Rocket Animation
 			ar = ar + 1;
@@ -394,7 +392,7 @@ public class RocketTier1Entity extends CreatureEntity {
 
 			if (!world.isAirBlock(new BlockPos(Math.floor(x), y - 0.01, Math.floor(z)))
 					&& state.getBlock() instanceof RocketLaunchPadBlock.CustomBlock
-					&& state.get(RocketLaunchPadBlock.CustomBlock.STAGE) == false
+					&& !state.get(RocketLaunchPadBlock.CustomBlock.STAGE)
 					|| world.getBlockState(new BlockPos(Math.floor(x), Math.floor(y), Math.floor(z))).getBlock() != RocketLaunchPadBlock.block.getDefaultState().getBlock()) {
 
 				//Drop Inv

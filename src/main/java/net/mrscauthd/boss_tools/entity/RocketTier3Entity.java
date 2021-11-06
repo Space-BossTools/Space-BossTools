@@ -136,12 +136,12 @@ public class RocketTier3Entity extends CreatureEntity {
 	}
 
 	@Override
-	public net.minecraft.util.SoundEvent getHurtSound(DamageSource ds) {
+	public SoundEvent getHurtSound(DamageSource ds) {
 		return null;
 	}
 
 	@Override
-	public net.minecraft.util.SoundEvent getDeathSound() {
+	public SoundEvent getDeathSound() {
 		return null;
 	}
 
@@ -324,7 +324,7 @@ public class RocketTier3Entity extends CreatureEntity {
 		double y = this.getPosY();
 		double z = this.getPosZ();
 
-		if (this.dataManager.get(ROCKET_START) == true) {
+		if (this.dataManager.get(ROCKET_START)) {
 
 			//Rocket Animation
 			ar = ar + 1;
