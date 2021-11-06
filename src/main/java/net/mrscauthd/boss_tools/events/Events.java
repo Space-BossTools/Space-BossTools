@@ -27,8 +27,6 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.boss_tools.entity.*;
-import net.mrscauthd.boss_tools.events.forgeevents.ItemGravityEvent;
-import net.mrscauthd.boss_tools.events.forgeevents.LivingGravityEvent;
 import net.mrscauthd.boss_tools.item.RoverItemItem;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
