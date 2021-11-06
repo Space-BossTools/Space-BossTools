@@ -1,6 +1,5 @@
 package net.mrscauthd.boss_tools.world.structure.configuration;
 
-
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
@@ -11,6 +10,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.boss_tools.world.structure.AlienVillageStructure;
+import net.mrscauthd.boss_tools.world.structure.CrimsonStructure;
 import net.mrscauthd.boss_tools.world.structure.MeteorStructure;
 import net.mrscauthd.boss_tools.world.structure.OilStructure;
 
@@ -24,6 +24,8 @@ public class STStructures {
     public static final RegistryObject<Structure<NoFeatureConfig>> ALIEN_VILLAGE = DEFERRED_REGISTRY_STRUCTURE.register("alien_village", () -> (new AlienVillageStructure(NoFeatureConfig.field_236558_a_)));
     public static final RegistryObject<Structure<NoFeatureConfig>> METEOR = DEFERRED_REGISTRY_STRUCTURE.register("meteor", () -> (new MeteorStructure(NoFeatureConfig.field_236558_a_)));
     public static final RegistryObject<Structure<NoFeatureConfig>> OIL = DEFERRED_REGISTRY_STRUCTURE.register("oil_well", () -> (new OilStructure(NoFeatureConfig.field_236558_a_)));
+    public static final RegistryObject<Structure<NoFeatureConfig>> CRIMSON = DEFERRED_REGISTRY_STRUCTURE.register("crimson_village", () -> (new CrimsonStructure(NoFeatureConfig.field_236558_a_)));
+
 
     public static void setupStructures() {
         setupMapSpacingAndLand(ALIEN_VILLAGE.get(), new StructureSeparationSettings(24, 9, 1234567890), true);
@@ -31,6 +33,8 @@ public class STStructures {
         setupMapSpacingAndLand(METEOR.get(), new StructureSeparationSettings(22, 5, 1234567890), true);
 
         setupMapSpacingAndLand(OIL.get(), new StructureSeparationSettings(13, 7, 1234567890), true);
+
+        setupMapSpacingAndLand(CRIMSON.get(), new StructureSeparationSettings(20, 26, 1234567890), true);
     }
 
     public static <F extends Structure<?>> void setupMapSpacingAndLand(F structure, StructureSeparationSettings structureSeparationSettings, boolean transformSurroundingLand) {

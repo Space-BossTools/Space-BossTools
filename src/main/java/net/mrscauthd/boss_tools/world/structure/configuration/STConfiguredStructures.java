@@ -12,6 +12,7 @@ public class STConfiguredStructures {
     public static StructureFeature<?, ?> METEOR = STStructures.METEOR.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
     public static StructureFeature<?, ?> VENUS_BULLET = STStructures2.VENUS_BULLET.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
     public static StructureFeature<?, ?> VENUS_TOWER = STStructures2.VENUS_TOWER.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
+    public static StructureFeature<?, ?> CRIMSON = STStructures.CRIMSON.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
     public static StructureFeature<?, ?> OIL = STStructures.OIL.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
 
     public static void registerConfiguredStructures() {
@@ -20,12 +21,14 @@ public class STConfiguredStructures {
         Registry.register(registry, new ResourceLocation("boss_tools", "meteor"), METEOR);
         Registry.register(registry, new ResourceLocation("boss_tools", "venus_bullet"), VENUS_BULLET);
         Registry.register(registry, new ResourceLocation("boss_tools", "venus_tower"), VENUS_TOWER);
+        Registry.register(registry, new ResourceLocation("boss_tools", "crimson_village"), CRIMSON);
         Registry.register(registry, new ResourceLocation("boss_tools", "oil"), OIL);
 
         FlatGenerationSettings.STRUCTURES.put(STStructures.ALIEN_VILLAGE.get(), ALIEN_VILLAGE);
         FlatGenerationSettings.STRUCTURES.put(STStructures.METEOR.get(), METEOR);
         FlatGenerationSettings.STRUCTURES.put(STStructures2.VENUS_BULLET.get(), VENUS_BULLET);
         FlatGenerationSettings.STRUCTURES.put(STStructures2.VENUS_TOWER.get(), VENUS_TOWER);
+        FlatGenerationSettings.STRUCTURES.put(STStructures.CRIMSON.get(), CRIMSON);
         FlatGenerationSettings.STRUCTURES.put(STStructures.OIL.get(), OIL);
     }
 }

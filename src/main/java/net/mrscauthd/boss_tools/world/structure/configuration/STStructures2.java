@@ -1,6 +1,5 @@
 package net.mrscauthd.boss_tools.world.structure.configuration;
 
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.util.registry.WorldGenRegistries;
@@ -11,6 +10,7 @@ import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.mrscauthd.boss_tools.world.structure.CrimsonStructure;
 import net.mrscauthd.boss_tools.world.structure.VenusBulletStructure;
 import net.mrscauthd.boss_tools.world.structure.VenusTowerStructure;
 

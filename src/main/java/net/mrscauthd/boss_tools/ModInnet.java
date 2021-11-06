@@ -365,6 +365,9 @@ public class ModInnet {
         if (event.getName().equals(new ResourceLocation("boss_tools:venus")) && Config.VenusTowerStructure == true) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.VENUS_TOWER);
         }
+        if (event.getName().equals(new ResourceLocation("boss_tools:venus"))) {
+            event.getGeneration().getStructures().add(() -> STConfiguredStructures.CRIMSON);
+        }
         if (event.getName().equals(new ResourceLocation("ocean")) && Config.OILWellStructure == true) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.OIL);
         }
@@ -392,8 +395,7 @@ public class ModInnet {
             } catch (Exception e) {
 
             }
-            if(serverWorld.getChunkProvider().getChunkGenerator() instanceof FlatChunkGenerator ||
-                    serverWorld.getDimensionType().equals(World.OVERWORLD)){
+            if(serverWorld.getChunkProvider().getChunkGenerator() instanceof FlatChunkGenerator || serverWorld.getDimensionType().equals(World.OVERWORLD)){
                 return;
             }
             Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
@@ -415,6 +417,10 @@ public class ModInnet {
             Map<Structure<?>, StructureSeparationSettings> tempMap4 = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
             tempMap4.putIfAbsent(STStructures.OIL.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.OIL.get()));
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap4;
+
+            Map<Structure<?>, StructureSeparationSettings> tempMap5 = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
+            tempMap5.putIfAbsent(STStructures.CRIMSON.get(), DimensionStructuresSettings.field_236191_b_.get(STStructures.CRIMSON.get()));
+            serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap5;
         }
     }
 
