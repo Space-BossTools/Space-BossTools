@@ -9,11 +9,6 @@ import net.mrscauthd.boss_tools.events.forgeevents.LivingGravityEvent;
 
 public class Gravity {
     public static void Gravity(LivingEntity entity, GravityType type, World world) {
-
-        if (MinecraftForge.EVENT_BUS.post(new LivingGravityEvent(entity))) {
-            return;
-        }
-
         double moon = 0.03;
         double mars = 0.04;
         double mercury = 0.03;
@@ -62,18 +57,26 @@ public class Gravity {
     }
 
     public static void gravityMath(GravityType type, LivingEntity entity, double gravity, float fallDistance) {
-        if (type == GravityType.PLAYER && playerGravityCheck((PlayerEntity) entity)) {
+    	if (!checkType(type, entity)) {
+    		return;
+    	}
 
-            entity.setMotion(entity.getMotion().getX(), entity.getMotion().getY() / 0.98 + 0.08 - gravity, entity.getMotion().getZ());
-            fallDamage(entity, fallDistance);
+    	if (MinecraftForge.EVENT_BUS.post(new LivingGravityEvent(entity))) {
+    		return;
+    	}
 
-        } else if (type == GravityType.LIVING && livingGravityCheck(entity)) {
+    	entity.setMotion(entity.getMotion().getX(), entity.getMotion().getY() / 0.98 + 0.08 - gravity, entity.getMotion().getZ());
+    	fallDamage(entity, fallDistance);
+	}
 
-            entity.setMotion(entity.getMotion().getX(), entity.getMotion().getY() / 0.98 + 0.08 - gravity, entity.getMotion().getZ());
-            fallDamage(entity, fallDistance);
+    public static boolean checkType(GravityType type, LivingEntity entity) {
+    	if (type == GravityType.PLAYER && playerGravityCheck((PlayerEntity) entity)) {
+    		return true;
+    	} else if (type == GravityType.LIVING && livingGravityCheck(entity)) {
+    		return true;
+    	}
 
-        }
-
+    	return false;
     }
 
     public static void fallDamage (LivingEntity entity, float fallDistance) {
