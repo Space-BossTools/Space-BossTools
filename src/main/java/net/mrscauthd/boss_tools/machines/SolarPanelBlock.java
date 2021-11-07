@@ -48,7 +48,7 @@ import net.mrscauthd.boss_tools.machines.tile.GeneratorTileEntity;
 import javax.annotation.Nullable;
 
 public class SolarPanelBlock {
-	public static final int ENERGY_PER_TICK = 4;
+	public static final int ENERGY_PER_TICK = 5;
 
 	public static class CustomBlock extends Block {
 
