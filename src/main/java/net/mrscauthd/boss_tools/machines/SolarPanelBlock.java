@@ -3,18 +3,21 @@ package net.mrscauthd.boss_tools.machines;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalBlock;
-import net.minecraft.block.SoundType;
+import com.google.common.collect.Maps;
+import com.mojang.serialization.Codec;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.fluid.WaterFluid;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
@@ -24,24 +27,25 @@ import net.minecraft.loot.LootContext;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.gui.SolarPanelGUIGui;
 import net.mrscauthd.boss_tools.machines.tile.GeneratorTileEntity;
+
+import javax.annotation.Nullable;
 
 public class SolarPanelBlock {
 	public static final int ENERGY_PER_TICK = 4;
@@ -153,7 +157,8 @@ public class SolarPanelBlock {
 		@Override
 		protected boolean canGenerateEnergy() {
 			World world = this.getWorld();
-			return world.isDaytime() && world.canBlockSeeSky(this.getPos().up());
+
+			return world.isDaytime() && world.getHeight(Heightmap.Type. MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(this.getPos().getX()), (int) Math.floor(this.getPos().getZ())) <= Math.floor(this.getPos().getY()) + 1;
 		}
 
 		@Override
