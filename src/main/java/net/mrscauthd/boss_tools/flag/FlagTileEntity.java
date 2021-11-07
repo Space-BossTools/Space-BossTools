@@ -13,14 +13,13 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.server.management.PlayerProfileCache;
-import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.boss_tools.ModInnet;
 
-public class FlagTileEntity extends TileEntity implements ITickableTileEntity {
+public class FlagTileEntity extends TileEntity {
     @Nullable
     private static PlayerProfileCache profileCache;
 
@@ -58,10 +57,6 @@ public class FlagTileEntity extends TileEntity implements ITickableTileEntity {
             }
         }
 
-    }
-
-    @Override
-    public void tick() {
     }
 
     @Nullable

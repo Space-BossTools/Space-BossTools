@@ -50,6 +50,7 @@ import net.mrscauthd.boss_tools.flag.FlagTileEntity;
 import net.mrscauthd.boss_tools.fluid.OilFluid;
 import net.mrscauthd.boss_tools.itemtiers.SteelItemTier;
 import net.mrscauthd.boss_tools.machines.*;
+import net.mrscauthd.boss_tools.machines.tile.WaterPumpTileEntity;
 import net.mrscauthd.boss_tools.spawneggs.ModSpawnEggs;
 import net.mrscauthd.boss_tools.entity.pygro.PygroEntity;
 import net.mrscauthd.boss_tools.flag.*;
@@ -158,6 +159,7 @@ public class ModInnet {
     public static final RegistryObject<TileEntityType<?>> SOLAR_PANEL = TILE_ENTITYS.register("solar_panel", () -> TileEntityType.Builder.create(SolarPanelBlock.CustomTileEntity::new,ModInnet.SOLAR_PANEL_BLOCK.get()).build(null));
     public static final RegistryObject<TileEntityType<?>> NASA_WORKBENCH = TILE_ENTITYS.register("nasa_workbench", () -> TileEntityType.Builder.create(NASAWorkbenchBlock.CustomTileEntity::new,ModInnet.NASA_WORKBENCH_BLOCK.get()).build(null));
     public static final RegistryObject<TileEntityType<OxygenBubbleDistributorBlock.CustomTileEntity>> OXYGEN_BUBBLE_DISTRIBUTOR = TILE_ENTITYS.register("oxygen_bubble_distributor", () -> TileEntityType.Builder.create(OxygenBubbleDistributorBlock.CustomTileEntity::new,ModInnet.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<?>> WATER_PUMP = TILE_ENTITYS.register("water_pump", () -> TileEntityType.Builder.create(WaterPumpTileEntity::new,ModInnet.WATER_PUMP_BLOCK.get()).build(null));
 
 
     //Tile Entitys Flags
@@ -172,6 +174,8 @@ public class ModInnet {
     public static RegistryObject<Block> SOLAR_PANEL_BLOCK = BLOCKS.register("solar_panel",() -> new SolarPanelBlock.CustomBlock());
     public static RegistryObject<Block> NASA_WORKBENCH_BLOCK = BLOCKS.register("nasa_workbench",() -> new NASAWorkbenchBlock.CustomBlock());
     public static RegistryObject<Block> OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK = BLOCKS.register("oxygen_bubble_distributor",() -> new OxygenBubbleDistributorBlock.CustomBlock());
+    public static RegistryObject<Block> WATER_PUMP_BLOCK = BLOCKS.register("water_pump",() -> new WaterPump(AbstractBlock.Properties.create(Material.IRON).sound(SoundType.METAL).notSolid().hardnessAndResistance(5f, 1f).setLightLevel(s -> 0).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool()));
+
 
     //Block Item
     public static final RegistryObject<BlockItem> FUEL_REFINERY_ITEM = ITEMS.register("fuel_refinery", () -> new BlockItem(ModInnet.FUEL_REFINERY_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_machines)));
@@ -183,6 +187,7 @@ public class ModInnet {
     public static final RegistryObject<BlockItem> NASA_WORKBENCH_ITEM = ITEMS.register("nasa_workbench", () -> new BlockItem(ModInnet.NASA_WORKBENCH_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_machines)));
     public static final RegistryObject<BlockItem> OXYGEN_BUBBLE_DISTRIBUTOR_ITEM = ITEMS.register("oxygen_bubble_distributor", () -> new BlockItem(ModInnet.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_machines)));
     public static final RegistryObject<BlockItem> COAL_LANTERN_ITEM = ITEMS.register("coal_lantern", () -> new BlockItem(ModInnet.COAL_LANTERN_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_basics)));
+    public static final RegistryObject<BlockItem> WATER_PUMP_ITEM = ITEMS.register("water_pump", () -> new BlockItem(ModInnet.WATER_PUMP_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_machines)));
 
     //Fuel Fluid
     public static final RegistryObject<FlowingFluid> FLOWING_FUEL = FLUIDS.register("flowing_fuel", ()-> new FuelFluid.Flowing());
