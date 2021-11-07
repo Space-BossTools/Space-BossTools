@@ -1,5 +1,5 @@
 {
-  "parent": "boss_tools:block/block_of_desh",
+  "parent": "boss_tools:block/desh_block",
   "display": {
     "thirdperson": {
       "rotation": [

@@ -1,6 +1,7 @@
 package net.mrscauthd.boss_tools.entity.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
@@ -10,6 +11,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.settings.GraphicsFanciness;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.ResourceLocation;
@@ -103,9 +105,9 @@ public class TileEntityBoxRenderer extends TileEntityRenderer<OxygenBubbleDistri
         GraphicsFanciness graphicsFanciness = Minecraft.getInstance().gameSettings.graphicFanciness;
 
         if (graphicsFanciness == GraphicsFanciness.FABULOUS) {
-            builder = (IVertexConsumer) buffer.getBuffer(Atlases.getItemEntityTranslucentCullType());
+            builder = (IVertexConsumer) buffer.getBuffer(RenderType.getTranslucentMovingBlock());
         } else {
-            builder = (IVertexConsumer) buffer.getBuffer(RenderType.getEntityTranslucentCull(AtlasTexture.LOCATION_BLOCKS_TEXTURE));
+            builder = (IVertexConsumer) buffer.getBuffer(RenderType.getTranslucentNoCrumbling());
         }
 
         if (atlass == null) {
@@ -191,5 +193,4 @@ public class TileEntityBoxRenderer extends TileEntityRenderer<OxygenBubbleDistri
         builder.pos(matrix,   startX, topY,   endZ).color(r, g, b, 0xAA).tex(maxU, maxV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 1, 0, 0).endVertex();
         builder.pos(matrix,   startX, botY,   endZ).color(r, g, b, 0xAA).tex(maxU, minV).overlay(OverlayTexture.NO_OVERLAY).lightmap(240).normal(normal, 1, 0, 0).endVertex();
     }
-
 }
