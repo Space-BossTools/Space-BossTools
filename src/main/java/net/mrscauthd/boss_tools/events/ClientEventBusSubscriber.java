@@ -71,7 +71,7 @@ public class ClientEventBusSubscriber {
 		//Cutout
 		RenderTypeLookup.setRenderLayer(ModInnet.NASA_WORKBENCH_BLOCK.get(), RenderType.getCutout());
 
-		RenderTypeLookup.setRenderLayer(ModInnet.WATER_PUMP_BLOCK.get(),RenderType.getTranslucent());
+		RenderTypeLookup.setRenderLayer(ModInnet.WATER_PUMP_BLOCK.get(), RenderType.getCutout());
 	}
 
 	@SubscribeEvent

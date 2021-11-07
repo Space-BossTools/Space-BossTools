@@ -13,7 +13,7 @@ public class WaterPumpTileEntity extends AbstractMachineTileEntity {
         super(ModInnet.WATER_PUMP.get());
     }
 
-    public static double WATER_TIMER = 0;
+    public double WATER_TIMER = 0;
 
     @Override
     protected Container createMenu(int id, PlayerInventory player) {
