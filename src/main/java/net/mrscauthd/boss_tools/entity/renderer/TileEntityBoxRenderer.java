@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
@@ -102,9 +103,9 @@ public class TileEntityBoxRenderer extends TileEntityRenderer<OxygenBubbleDistri
         GraphicsFanciness graphicsFanciness = Minecraft.getInstance().gameSettings.graphicFanciness;
 
         if (graphicsFanciness == GraphicsFanciness.FABULOUS) {
-            builder = (IVertexConsumer) buffer.getBuffer(RenderType.getTranslucentMovingBlock());
+            builder = (IVertexConsumer) buffer.getBuffer(Atlases.getItemEntityTranslucentCullType());
         } else {
-            builder = (IVertexConsumer) buffer.getBuffer(RenderType.getTranslucentNoCrumbling());
+            builder = (IVertexConsumer) buffer.getBuffer(RenderType.getEntityTranslucentCull(AtlasTexture.LOCATION_BLOCKS_TEXTURE));
         }
 
         if (atlass == null) {
