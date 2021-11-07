@@ -206,7 +206,7 @@ public class ModInnet {
     public static final RegistryObject<ModSpawnEggs> ALIEN_ZOMBIE_SPAWN_EGG = ITEMS.register("alien_zombie_spawn_egg",() -> new ModSpawnEggs(ALIEN_ZOMBIE, -14804199, -16740159, new Item.Properties().group(BossToolsItemGroups.tab_spawn_eggs)));
     public static final RegistryObject<ModSpawnEggs> STAR_CRAWLER_SPAWN_EGG = ITEMS.register("star_crawler_spawn_egg",() -> new ModSpawnEggs(STAR_CRAWLER, -13421773, -16724788, new Item.Properties().group(BossToolsItemGroups.tab_spawn_eggs)));
 
-
+    //Generel Items
     public static final RegistryObject<Item> CHESE = ITEMS.register("chesse", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_normal).food((new Food.Builder()).hunger(4).saturation(3f).build())));
     public static final RegistryObject<Item> COMPRESSED_DESH = ITEMS.register("compressed_desh", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_materials)));
     public static final RegistryObject<Item> COMPRESSED_SILICON = ITEMS.register("compressed_silicon", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_materials)));
@@ -235,10 +235,10 @@ public class ModInnet {
     public static final RegistryObject<Item> GOLDEN_TANK = ITEMS.register("golden_tank", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_basics)));
     public static final RegistryObject<Item> DIAMOND_TANK = ITEMS.register("diamond_tank", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_basics)));
 
-    //Blocks
+    //Generel Blocks
     public static final RegistryObject<Block> DESH_BLOCK = BLOCKS.register("desh_block", () -> new Block(AbstractBlock.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 2.5f).harvestTool(ToolType.PICKAXE).setRequiresTool()));
 
-    //Block Items
+    //Generel Block Items
     public static final RegistryObject<BlockItem> DESH_BLOCK_ITEM = ITEMS.register("desh_block", () -> new BlockItem(ModInnet.DESH_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_blocks)));
 
     //Effects
