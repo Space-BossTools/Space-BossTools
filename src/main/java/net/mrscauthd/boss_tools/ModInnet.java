@@ -355,40 +355,40 @@ public class ModInnet {
 
     public static void biomeModification(final BiomeLoadingEvent event) {
         RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
-        if (event.getName().equals(new ResourceLocation("boss_tools:moon")) && Config.AlienVillageStructure == true) {
+        if (event.getName().equals(new ResourceLocation("boss_tools:moon")) && Config.AlienVillageStructure) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.ALIEN_VILLAGE);
         }
-        if (event.getName().equals(new ResourceLocation("plains")) && Config.MeteorStructure == true) {
+        if (event.getName().equals(new ResourceLocation("plains")) && Config.MeteorStructure) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR);
         }
-        if (event.getName().equals(new ResourceLocation("snowy_tundra")) && Config.MeteorStructure == true) {
+        if (event.getName().equals(new ResourceLocation("snowy_tundra")) && Config.MeteorStructure) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR);
         }
-        if (event.getName().equals(new ResourceLocation("forest")) && Config.MeteorStructure == true) {
+        if (event.getName().equals(new ResourceLocation("forest")) && Config.MeteorStructure) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR);
         }
-        if (event.getName().equals(new ResourceLocation("desert")) && Config.MeteorStructure == true) {
+        if (event.getName().equals(new ResourceLocation("desert")) && Config.MeteorStructure) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR);
         }
-        if (event.getName().equals(new ResourceLocation("boss_tools:venus")) && Config.VenusBulletStructure == true) {
+        if (event.getName().equals(new ResourceLocation("boss_tools:venus")) && Config.VenusBulletStructure) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.VENUS_BULLET);
         }
-        if (event.getName().equals(new ResourceLocation("boss_tools:venus")) && Config.VenusTowerStructure == true) {
+        if (event.getName().equals(new ResourceLocation("boss_tools:venus")) && Config.VenusTowerStructure) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.VENUS_TOWER);
         }
-        if (event.getName().equals(new ResourceLocation("boss_tools:venus"))) {
+        if (event.getName().equals(new ResourceLocation("boss_tools:venus")) && Config.CrimsonVillageStructure) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.CRIMSON);
         }
-        if (event.getName().equals(new ResourceLocation("ocean")) && Config.OILWellStructure == true) {
+        if (event.getName().equals(new ResourceLocation("ocean")) && Config.OILWellStructure) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.OIL);
         }
-        if (event.getName().equals(new ResourceLocation("deep_cold_ocean")) && Config.OILWellStructure == true) {
+        if (event.getName().equals(new ResourceLocation("deep_cold_ocean")) && Config.OILWellStructure) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.OIL);
         }
-        if (event.getName().equals(new ResourceLocation("deep_ocean")) && Config.OILWellStructure == true) {
+        if (event.getName().equals(new ResourceLocation("deep_ocean")) && Config.OILWellStructure) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.OIL);
         }
-        if (event.getName().equals(new ResourceLocation("lukewarm_ocean")) && Config.OILWellStructure == true) {
+        if (event.getName().equals(new ResourceLocation("lukewarm_ocean")) && Config.OILWellStructure) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.OIL);
         }
     }

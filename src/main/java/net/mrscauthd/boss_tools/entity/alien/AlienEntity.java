@@ -19,12 +19,9 @@ import net.minecraft.entity.merchant.IMerchant;
 import net.minecraft.entity.merchant.villager.VillagerData;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
-import net.minecraft.entity.monster.PillagerEntity;
-import net.minecraft.entity.monster.ZombieVillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.villager.VillagerType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.MerchantOffer;
 import net.minecraft.item.MerchantOffers;
 import net.minecraft.nbt.CompoundNBT;
@@ -271,7 +268,7 @@ public class AlienEntity extends VillagerEntity implements IMerchant, INPC {
 	public void baseTick() {
 		super.baseTick();
 
-		if (!Config.AlienSpawing) {
+		if (!Config.AlienSpawn) {
 			this.remove();
 		}
 	}
