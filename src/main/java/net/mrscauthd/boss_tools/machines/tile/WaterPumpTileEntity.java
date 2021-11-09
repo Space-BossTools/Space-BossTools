@@ -6,6 +6,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -13,6 +14,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.mrscauthd.boss_tools.ModInnet;
@@ -26,9 +28,9 @@ public class WaterPumpTileEntity extends AbstractMachineTileEntity {
         super(ModInnet.WATER_PUMP.get());
     }
 
+    public static final ResourceLocation WATER_TANK = new ResourceLocation("boss_tools", "water_tank");
     public static final int TANK_CAPACITY = 6000;
     public double WATER_TIMER = 0;
-    public static final ResourceLocation WATER_TANK = new ResourceLocation("boss_tools", "water_tank");
     private FluidTank waterTank;
 
     @Override
@@ -58,7 +60,31 @@ public class WaterPumpTileEntity extends AbstractMachineTileEntity {
                     }
                 }
             }
+
+            if (this.getWaterTank().getFluid().getAmount() > 1) {
+                TileEntity tileEntity = world.getTileEntity(new BlockPos(this.pos.getX(),this.pos.getY() + 1, this.pos.getZ()));
+
+                if (tileEntity != null) {
+
+                    if (getFluidTankAmount(tileEntity) < getFluidTankCapacity(tileEntity)) {
+                        if (this.consumePowerForOperation() != null) {
+
+                            tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).ifPresent(capability -> capability.fill(new FluidStack(Fluids.WATER, 10), IFluidHandler.FluidAction.EXECUTE));
+
+                            this.getWaterTank().drain(new FluidStack(Fluids.WATER, 10), IFluidHandler.FluidAction.EXECUTE);
+                        }
+                    }
+                }
+            }
         }
+    }
+
+    public int getFluidTankCapacity(TileEntity tileEntity) {
+        return tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).map(fluid -> fluid.getTankCapacity(1)).orElse(0);
+    }
+
+    public int getFluidTankAmount(TileEntity tileEntity) {
+        return tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).map(fluid -> fluid.getFluidInTank(1).getAmount()).orElse(0);
     }
 
     @Override
@@ -70,7 +96,7 @@ public class WaterPumpTileEntity extends AbstractMachineTileEntity {
     }
 
     public boolean hasSpaceIn(int water, FluidStack storage) {
-        return water < TANK_CAPACITY;
+        return water < TANK_CAPACITY - 1000;
     }
 
     @Override
