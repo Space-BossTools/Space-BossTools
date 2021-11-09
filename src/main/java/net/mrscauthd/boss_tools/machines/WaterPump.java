@@ -3,21 +3,33 @@ package net.mrscauthd.boss_tools.machines;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.mrscauthd.boss_tools.machines.tile.WaterPumpTileEntity;
+
+import java.util.List;
 
 public class WaterPump extends Block {
 
@@ -42,6 +54,29 @@ public class WaterPump extends Block {
             case WEST :
                 return VoxelShapes.or(makeCuboidShape(5.5, 0, 10.5, 10.5, 1, 5.5), makeCuboidShape(6, 1, 10, 10, 13, 6), makeCuboidShape(5.5, 13, 10.5, 10.5, 16, 5.5), makeCuboidShape(1, 6, 6, 10, 10, 10), makeCuboidShape(0, 5.5, 5.5, 1, 10.5, 10.5)).withOffset(offset.x, offset.y, offset.z);
         }
+    }
+
+    @Override
+    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity entity, Hand hand, BlockRayTraceResult hit) {
+        if (entity instanceof ServerPlayerEntity) {
+            NetworkHooks.openGui((ServerPlayerEntity) entity, this.getContainer(state, world, pos), pos);
+            return ActionResultType.CONSUME;
+        } else {
+            return ActionResultType.SUCCESS;
+        }
+    }
+
+    @Override
+    public INamedContainerProvider getContainer(BlockState state, World worldIn, BlockPos pos) {
+        TileEntity tileEntity = worldIn.getTileEntity(pos);
+        return tileEntity instanceof INamedContainerProvider ? (INamedContainerProvider) tileEntity : null;
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void addInformation(ItemStack itemstack, IBlockReader world, List<ITextComponent> list, ITooltipFlag flag) {
+        super.addInformation(itemstack, world, list, flag);
+        list.add(new StringTextComponent("\u00A79Transfer: \u00A77" + 10 + " \u00A77mB/t"));
     }
 
     @Override
