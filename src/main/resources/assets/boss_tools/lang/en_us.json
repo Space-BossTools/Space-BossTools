@@ -54,6 +54,8 @@
   "item.boss_tools.desh_nugget": "Desh Nugget",
   "item.boss_tools.silicon_nugget": "Silicon Nugget",
   "item.boss_tools.steel_nugget": "Steel Nugget",
+  "item.boss_tools.water_pump": "Water Pump",
+
 
   "itemGroup.tab_normal": "Space-BossTools",
   "itemGroup.tab_flags": "Space-BossTools: Flags",
@@ -128,6 +130,8 @@
   "block.boss_tools.flag_lime": "Lime Flag",
   "block.boss_tools.moon_cheese_ore": "Moon Cheese Ore",
   "block.boss_tools.moon_desh_ore": "Moon Desh Ore",
+  "block.boss_tools.water_pump": "Water Pump",
+
 
   "fluid.boss_tools.fuel": "Fuel",
   "fluid.fuel": "Fuel",
