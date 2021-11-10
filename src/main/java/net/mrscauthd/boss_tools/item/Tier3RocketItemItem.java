@@ -2,12 +2,12 @@
 package net.mrscauthd.boss_tools.item;
 
 import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.block.RocketLaunchPad;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
 import net.mrscauthd.boss_tools.entity.LanderEntity;
-import net.mrscauthd.boss_tools.block.RocketLaunchPadBlock;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ObjectHolder;
@@ -101,7 +101,7 @@ public class Tier3RocketItemItem extends BossToolsModElements.ModElement {
 			{
 				BlockState state = world.getBlockState(new BlockPos((int) x, (int) y, (int) z));
 				if (world.isAirBlock(new BlockPos((int) x, (int) y + 1, (int) z)) && world.isAirBlock(new BlockPos((int) x, (int) y + 2, (int) z))&& world.isAirBlock(new BlockPos((int) x, (int) y + 3, (int) z))&& world.isAirBlock(new BlockPos((int) x, (int) y + 4, (int) z))) {
-					if (state.getBlock() instanceof RocketLaunchPadBlock.CustomBlock && state.get(RocketLaunchPadBlock.CustomBlock.STAGE) == true) {
+					if (state.getBlock() instanceof RocketLaunchPad && state.get(RocketLaunchPad.STAGE) == true) {
 						// check if entity on this pos
 						Boolean entityblock = false;
 						{

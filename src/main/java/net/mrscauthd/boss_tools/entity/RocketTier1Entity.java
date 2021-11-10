@@ -14,7 +14,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.block.RocketLaunchPadBlock;
+import net.mrscauthd.boss_tools.block.RocketLaunchPad;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.gui.screens.RocketGUI;
 
@@ -390,10 +390,8 @@ public class RocketTier1Entity extends CreatureEntity {
 
 			BlockState state = world.getBlockState(new BlockPos(Math.floor(x), y - 0.1, Math.floor(z)));
 
-			if (!world.isAirBlock(new BlockPos(Math.floor(x), y - 0.01, Math.floor(z)))
-					&& state.getBlock() instanceof RocketLaunchPadBlock.CustomBlock
-					&& !state.get(RocketLaunchPadBlock.CustomBlock.STAGE)
-					|| world.getBlockState(new BlockPos(Math.floor(x), Math.floor(y), Math.floor(z))).getBlock() != RocketLaunchPadBlock.block.getDefaultState().getBlock()) {
+			if (!world.isAirBlock(new BlockPos(Math.floor(x), y - 0.01, Math.floor(z))) && state.getBlock() instanceof RocketLaunchPad && !state.get(RocketLaunchPad.STAGE)
+					|| world.getBlockState(new BlockPos(Math.floor(x), Math.floor(y), Math.floor(z))).getBlock() != ModInnet.ROCKET_LAUNCH_PAD.get().getDefaultState().getBlock()) {
 
 				//Drop Inv
 				for (int i = 0; i < inventory.getSlots(); ++i) {
@@ -412,10 +410,8 @@ public class RocketTier1Entity extends CreatureEntity {
 					world.addEntity(entityToSpawn);
 				}
 				this.remove();
-
 			}
-
 		}
-
 	}
+
 }

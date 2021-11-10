@@ -262,6 +262,9 @@ public class ModInnet {
     public static final RegistryObject<Block> VENUS_SANDSTONE = BLOCKS.register("venus_sandstone", () -> new Block(AbstractBlock.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 1f).harvestTool(ToolType.PICKAXE).setRequiresTool()));
     public static final RegistryObject<Block> VENUS_STONE = BLOCKS.register("venus_stone", () -> new Block(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.ORANGE_TERRACOTTA).sound(SoundType.STONE).hardnessAndResistance(1.5f, 1f).harvestTool(ToolType.PICKAXE).setRequiresTool()));
 
+    //Rocket Launch Pad
+    public static final RegistryObject<Block> ROCKET_LAUNCH_PAD = BLOCKS.register("rocket_launch_pad", () -> new RocketLaunchPad(AbstractBlock.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 2.5f).harvestTool(ToolType.PICKAXE).setRequiresTool()));
+
 
     //Faling Block
     public static final RegistryObject<Block> MOON_SAND = BLOCKS.register("moon_sand", () -> new FallingBlock(AbstractBlock.Properties.create(Material.SAND, MaterialColor.GRAY).sound(SoundType.SAND).hardnessAndResistance(0.5f, 0.5f).harvestTool(ToolType.SHOVEL)));
@@ -272,7 +275,7 @@ public class ModInnet {
     //ORES
     public static final RegistryObject<Block> MOON_CHESSE_ORE = BLOCKS.register("moon_cheese_ore", () -> new Block(AbstractBlock.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).setRequiresTool()));
     public static final RegistryObject<Block> MOON_DESH_ORE = BLOCKS.register("moon_desh_ore", () -> new Block(AbstractBlock.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).setRequiresTool()));
-    public static final RegistryObject<Block> MOON_GLOWSTONE_ORE = BLOCKS.register("moon_glowstone_ore", () -> new Block(AbstractBlock.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).setRequiresTool()));
+    public static final RegistryObject<Block> MOON_GLOWSTONE_ORE = BLOCKS.register("moon_glowstone_ore", () -> new Block(AbstractBlock.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).setLightLevel(state -> 15).setRequiresTool()));
     public static final RegistryObject<Block> MOON_IRON_ORE = BLOCKS.register("moon_iron_ore", () -> new Block(AbstractBlock.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).setRequiresTool()));
     public static final RegistryObject<Block> MARS_ICE_SHARD_ORE = BLOCKS.register("mars_ice_shard_ore", () -> new Block(AbstractBlock.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).setRequiresTool()));
     public static final RegistryObject<Block> MARS_IRON_ORE = BLOCKS.register("mars_iron_ore", () -> new Block(AbstractBlock.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(3.0F, 3.0F).harvestTool(ToolType.PICKAXE).setRequiresTool()));
@@ -306,6 +309,8 @@ public class ModInnet {
     public static final RegistryObject<BlockItem> MERCURY_COBBLESTONE_ITEM = ITEMS.register("mercury_cobblestone", () -> new BlockItem(ModInnet.MERCURY_COBBLESTONE.get(), new Item.Properties().group(BossToolsItemGroups.tab_blocks)));
     public static final RegistryObject<BlockItem> VENUS_SANDSTONE_ITEM = ITEMS.register("venus_sandstone", () -> new BlockItem(ModInnet.VENUS_SANDSTONE.get(), new Item.Properties().group(BossToolsItemGroups.tab_blocks)));
     public static final RegistryObject<BlockItem> VENUS_STONE_ITEM = ITEMS.register("venus_stone", () -> new BlockItem(ModInnet.VENUS_STONE.get(), new Item.Properties().group(BossToolsItemGroups.tab_blocks)));
+
+    public static final RegistryObject<BlockItem> ROCKET_LAUNCH_PAD_ITEM = ITEMS.register("rocket_launch_pad", () -> new BlockItem(ModInnet.ROCKET_LAUNCH_PAD.get(), new Item.Properties().group(BossToolsItemGroups.tab_normal)));
 
     public static final RegistryObject<BlockItem> MOON_SAND_ITEM = ITEMS.register("moon_sand", () -> new BlockItem(ModInnet.MOON_SAND.get(), new Item.Properties().group(BossToolsItemGroups.tab_blocks)));
     public static final RegistryObject<BlockItem> MARS_SAND_ITEM = ITEMS.register("mars_sand", () -> new BlockItem(ModInnet.MARS_SAND.get(), new Item.Properties().group(BossToolsItemGroups.tab_blocks)));

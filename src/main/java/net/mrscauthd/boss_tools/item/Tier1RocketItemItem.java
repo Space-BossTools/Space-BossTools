@@ -3,12 +3,9 @@ package net.mrscauthd.boss_tools.item;
 
 import net.minecraft.item.*;
 import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.block.RocketLaunchPad;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
-import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
-import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
-import net.mrscauthd.boss_tools.entity.LanderEntity;
-import net.mrscauthd.boss_tools.block.RocketLaunchPadBlock;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ObjectHolder;
@@ -39,10 +36,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.BlockState;
 
-import java.util.stream.Collectors;
-import java.util.function.Function;
 import java.util.List;
-import java.util.Comparator;
 
 @BossToolsModElements.ModElement.Tag
 public class Tier1RocketItemItem extends BossToolsModElements.ModElement {
@@ -100,7 +94,7 @@ public class Tier1RocketItemItem extends BossToolsModElements.ModElement {
 				BlockState state = world.getBlockState(new BlockPos((int) x, (int) y, (int) z));
 				if (world.isAirBlock(new BlockPos((int) x, (int) y + 1, (int) z)) && world.isAirBlock(new BlockPos((int) x, (int) y + 2, (int) z))
 						&& world.isAirBlock(new BlockPos((int) x, (int) y + 3, (int) z))) {
-					if (state.getBlock() instanceof RocketLaunchPadBlock.CustomBlock && state.get(RocketLaunchPadBlock.CustomBlock.STAGE) == true) {
+					if (state.getBlock() instanceof RocketLaunchPad && state.get(RocketLaunchPad.STAGE) == true) {
 						// check if entity on this pos
 
 						AxisAlignedBB scanAbove = new AxisAlignedBB(x - 0, y - 0, z - 0, x + 1, y + 1, z + 1);
