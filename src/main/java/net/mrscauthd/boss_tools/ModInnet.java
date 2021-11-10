@@ -237,6 +237,7 @@ public class ModInnet {
     public static final RegistryObject<Item> IRON_TANK = ITEMS.register("iron_tank", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_basics)));
     public static final RegistryObject<Item> GOLDEN_TANK = ITEMS.register("golden_tank", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_basics)));
     public static final RegistryObject<Item> DIAMOND_TANK = ITEMS.register("diamond_tank", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_basics)));
+    public static final RegistryObject<Item> ROCKET_FIN = ITEMS.register("rocket_fin", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_basics)));
 
     //Generel Blocks
     public static final RegistryObject<Block> STEEL_BLOCK = BLOCKS.register("steel_block", () -> new Block(AbstractBlock.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 2.5f).harvestTool(ToolType.PICKAXE).setRequiresTool()));
