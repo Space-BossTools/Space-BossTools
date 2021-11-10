@@ -22,7 +22,7 @@ public abstract class AbstractGaugeDataRenderer {
 	private final IGaugeData data;
 
 	public AbstractGaugeDataRenderer(IGaugeData data) {
-		this.data = data;
+		this.data = new GaugeData(data.getValue(), new GaugeFormat(false));
 	}
 
 	public void toBytes(PacketBuffer buffer) {
@@ -78,7 +78,7 @@ public abstract class AbstractGaugeDataRenderer {
 
 		matrixStack.push();
 		matrixStack.scale(scale, scale, scale);
-		fontRenderer.func_243246_a(matrixStack, text, scaledX, scaledY, color);
+		fontRenderer.func_243248_b(matrixStack, text, scaledX, scaledY, color);
 		matrixStack.pop();
 	}
 
@@ -124,8 +124,6 @@ public abstract class AbstractGaugeDataRenderer {
 		AbstractGui.fill(matrixStack, left, top, left + padding, top + height - padding, borderColor);
 		AbstractGui.fill(matrixStack, left + width - padding, top, left + width, top + height - padding, borderColor);
 		AbstractGui.fill(matrixStack, left, top + height - padding, left + width, top + height, borderColor);
-
-		AbstractGui.fill(matrixStack, left + padding, top + padding, left + width - padding, top + height - padding, 0xFF000000);
 	}
 
 	public int getTextColor() {
@@ -143,7 +141,7 @@ public abstract class AbstractGaugeDataRenderer {
 	}
 
 	public int getBackgroundColor() {
-		return 0xFFFFFFFF;
+		return 0x00000000;
 	}
 
 	public int getBackgroundTileWidth() {
@@ -159,7 +157,7 @@ public abstract class AbstractGaugeDataRenderer {
 	}
 
 	public int getBorderColor() {
-		return 0xFF555555;
+		return 0xFF000000;
 	}
 
 	public int getWidth() {

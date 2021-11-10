@@ -19,6 +19,7 @@ public class GaugeValueSimple implements IGaugeValue {
 	private ITextComponent displayeName;
 	private String unit;
 	private int color;
+	private boolean reverse;
 
 	private ITextComponent displayNameCache;
 
@@ -64,6 +65,7 @@ public class GaugeValueSimple implements IGaugeValue {
 
 		compound.putString("unit", this.getUnit());
 		compound.putInt("color", this.getColor());
+		compound.putBoolean("reverse", this.isReverse());
 
 		return compound;
 	}
@@ -80,6 +82,7 @@ public class GaugeValueSimple implements IGaugeValue {
 
 		this.unit(compound.getString("unit"));
 		this.color(compound.getInt("color"));
+		this.reverse(compound.getBoolean("reverse"));
 	}
 
 	public ResourceLocation getName() {
@@ -148,6 +151,16 @@ public class GaugeValueSimple implements IGaugeValue {
 
 	public GaugeValueSimple color(int color) {
 		this.color = color;
+		return this;
+	}
+
+	@Override
+	public boolean isReverse() {
+		return this.reverse;
+	}
+
+	public GaugeValueSimple reverse(boolean reverse) {
+		this.reverse = reverse;
 		return this;
 	}
 
