@@ -13,5 +13,7 @@ public interface IGaugeValue extends INBTSerializable<CompoundNBT> {
 	int getAmount();
 
 	int getCapacity();
+	
+	boolean isReverse();
 
 }
