@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "bbb",
+        "B#B",
+        " H "
+    ],
+    "key": {
+        "b": {
+            "item": "boss_tools:steel_ingot"
+        },
+        "B": {
+            "item": "boss_tools:iron_plate"
+        },
+        "#": {
+            "item": "minecraft:bucket"
+        },
+        "H": {
+            "item": "minecraft:hopper"
+        }
+    },
+    "result": {
+        "item": "boss_tools:water_pump",
+        "count": 1
+    }
+}

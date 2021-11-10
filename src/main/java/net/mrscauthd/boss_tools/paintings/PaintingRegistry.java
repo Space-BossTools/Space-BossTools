@@ -6,7 +6,7 @@ import net.minecraftforge.event.RegistryEvent;
 
 import net.minecraft.entity.item.PaintingType;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = "boss_tools", bus = Mod.EventBusSubscriber.Bus.MOD)
 public class PaintingRegistry {
 	@SubscribeEvent
 	public static void registerPaintingType(RegistryEvent.Register<PaintingType> event) {

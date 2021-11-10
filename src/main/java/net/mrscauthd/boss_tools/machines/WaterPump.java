@@ -9,6 +9,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootContext;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
@@ -29,6 +30,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.mrscauthd.boss_tools.machines.tile.WaterPumpTileEntity;
 
+import java.util.Collections;
 import java.util.List;
 
 public class WaterPump extends Block {
@@ -53,6 +55,17 @@ public class WaterPump extends Block {
                 return VoxelShapes.or(makeCuboidShape(5.5, 0, 10.5, 10.5, 1, 5.5), makeCuboidShape(6, 1, 10, 10, 13, 6), makeCuboidShape(5.5, 13, 10.5, 10.5, 16, 5.5), makeCuboidShape(15, 6, 10, 10, 10, 6), makeCuboidShape(16, 5.5, 10.5, 15, 10.5, 5.5)).withOffset(offset.x, offset.y, offset.z);
             case WEST :
                 return VoxelShapes.or(makeCuboidShape(5.5, 0, 10.5, 10.5, 1, 5.5), makeCuboidShape(6, 1, 10, 10, 13, 6), makeCuboidShape(5.5, 13, 10.5, 10.5, 16, 5.5), makeCuboidShape(1, 6, 6, 10, 10, 10), makeCuboidShape(0, 5.5, 5.5, 1, 10.5, 10.5)).withOffset(offset.x, offset.y, offset.z);
+        }
+    }
+
+    @Override
+    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+        @SuppressWarnings("deprecation")
+        List<ItemStack> dropsOriginal = super.getDrops(state, builder);
+        if (!dropsOriginal.isEmpty()) {
+            return dropsOriginal;
+        } else {
+            return Collections.singletonList(new ItemStack(this, 1));
         }
     }
 

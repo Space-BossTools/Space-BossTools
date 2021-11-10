@@ -1,7 +1,6 @@
 package net.mrscauthd.boss_tools.itemgroup;
 
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.block.MoonoreironBlock;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -50,7 +49,7 @@ public class BossToolsItemGroups {
 		@OnlyIn(Dist.CLIENT)
 		@Override
 		public ItemStack createIcon() {
-			return new ItemStack(MoonoreironBlock.block, 1);
+			return new ItemStack(ModInnet.MOON_IRON_ORE.get(), 1);
 		}
 	};
 	public static ItemGroup tab_spawn_eggs = new ItemGroup("tab_spawn_eggs") {

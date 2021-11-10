@@ -6,6 +6,7 @@ import net.mrscauthd.boss_tools.compat.CompatibleManager;
 import net.mrscauthd.boss_tools.events.SyncEvents;
 import net.mrscauthd.boss_tools.keybind.KeyBindings;
 import net.mrscauthd.boss_tools.machines.OxygenBubbleDistributorBlock;
+import net.mrscauthd.boss_tools.world.oregen.OreGeneration;
 import net.mrscauthd.boss_tools.world.structure.configuration.STStructures;
 import net.mrscauthd.boss_tools.world.structure.configuration.STStructures2;
 import org.apache.logging.log4j.Logger;
@@ -78,6 +79,7 @@ public class BossToolsMod {
 		STStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
 
 		forgeBus.addListener(EventPriority.HIGH, ModInnet::biomesLoading);
+		forgeBus.addListener(EventPriority.HIGH, OreGeneration::biomesLoading);
 
 		// KeyBindings
 		KeyBindings.registerMessages();
