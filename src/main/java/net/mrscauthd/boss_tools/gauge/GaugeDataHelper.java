@@ -44,7 +44,7 @@ public class GaugeDataHelper {
 	}
 
 	public static GaugeData getFluid(FluidStack stack, int capacity) {
-		return new GaugeData(new GaugeValueFluidStack(stack, capacity), new GaugeFormat(capacity > NO_CAPACITY, false));
+		return new GaugeData(new GaugeValueFluidStack(stack, capacity), new GaugeFormat(capacity > NO_CAPACITY));
 	}
 
 	public static GaugeData getFluid(IFluidTank tank) {
@@ -56,7 +56,7 @@ public class GaugeDataHelper {
 	}
 
 	public static GaugeData getEnergy(int stored, int capacity) {
-		return new GaugeData(new GaugeValueSimple(ENERGY_NAME, stored, capacity, null, ENERGY_UNIT).color(ENERGY_COLOR), new GaugeFormat(capacity > NO_CAPACITY, false));
+		return new GaugeData(new GaugeValueSimple(ENERGY_NAME, stored, capacity, null, ENERGY_UNIT).color(ENERGY_COLOR), new GaugeFormat(capacity > NO_CAPACITY));
 	}
 
 	public static GaugeData getEnergy(IEnergyStorage energyStorage) {
@@ -72,7 +72,7 @@ public class GaugeDataHelper {
 	}
 
 	public static GaugeData getOxygen(int amount, int capacity) {
-		return new GaugeData(new GaugeValueSimple(OXYGEN_NAME, amount, capacity, null, OXYGEN_UNIT).color(OXYGEN_COLOR), new GaugeFormat(capacity > NO_CAPACITY, false));
+		return new GaugeData(new GaugeValueSimple(OXYGEN_NAME, amount, capacity, null, OXYGEN_UNIT).color(OXYGEN_COLOR), new GaugeFormat(capacity > NO_CAPACITY));
 	}
 
 	public static GaugeData getOxygen(IOxygenStorage oxygenStorage) {
@@ -84,7 +84,7 @@ public class GaugeDataHelper {
 	}
 
 	public static GaugeData getBurnTime(int amount, int capacity) {
-		return new GaugeData(new GaugeValueSimple(BURNTIME_NAME, amount, capacity).color(BURNTIME_COLOR), new GaugeFormat(capacity > NO_CAPACITY, false));
+		return new GaugeData(new GaugeValueSimple(BURNTIME_NAME, amount, capacity).color(BURNTIME_COLOR), new GaugeFormat(capacity > NO_CAPACITY));
 	}
 
 	public static GaugeData getBurnTime(PowerSystemFuelBurnTime fuelPowerSystem) {
@@ -92,7 +92,7 @@ public class GaugeDataHelper {
 	}
 
 	public static GaugeData getCookTime(int timer, int maxTimer) {
-		return new GaugeData(new GaugeValueSimple(COOKTIME_NAME, maxTimer - timer, maxTimer).color(COOKTIME_COLOR), new GaugeFormat(true, true));
+		return new GaugeData(new GaugeValueSimple(COOKTIME_NAME, maxTimer - timer, maxTimer).color(COOKTIME_COLOR).reverse(true), new GaugeFormat(true));
 	}
 
 }

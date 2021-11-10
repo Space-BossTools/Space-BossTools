@@ -9,19 +9,13 @@ import net.minecraft.util.text.StringTextComponent;
 public class GaugeFormat implements IGaugeFormat {
 
 	private boolean showCapacity;
-	private boolean reversePercenage;
 
 	public GaugeFormat() {
 
 	}
 
 	public GaugeFormat(boolean showCapacity) {
-		this(showCapacity, false);
-	}
-
-	public GaugeFormat(boolean showCapacity, boolean reversePercenge) {
 		this.showCapacity(showCapacity);
-		this.reversePercenage(reversePercenge);
 	}
 
 	@Override
@@ -35,26 +29,14 @@ public class GaugeFormat implements IGaugeFormat {
 	}
 
 	@Override
-	public boolean isReversePercenage() {
-		return reversePercenage;
-	}
-
-	public GaugeFormat reversePercenage(boolean reversePercenage) {
-		this.reversePercenage = reversePercenage;
-		return this;
-	}
-
-	@Override
 	public void deserializeNBT(CompoundNBT compound) {
 		this.showCapacity(compound.getBoolean("showCapacity"));
-		this.reversePercenage(compound.getBoolean("reversePercenage"));
 	}
 
 	@Override
 	public CompoundNBT serializeNBT() {
 		CompoundNBT compound = new CompoundNBT();
 		compound.putBoolean("showCapacity", this.isShowCapacity());
-		compound.putBoolean("reversePercenage", this.isReversePercenage());
 		return compound;
 	}
 

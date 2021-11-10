@@ -67,4 +67,9 @@ public class GaugeValueFluidStack implements IGaugeValue {
 		this.capacity = capacity;
 	}
 
+	@Override
+	public boolean isReverse() {
+		return false;
+	}
+
 }
