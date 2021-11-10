@@ -44,14 +44,14 @@ public class OverlayEvents {
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.disableAlphaTest();
-            if (entity.getRidingEntity() instanceof LanderEntity.CustomEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
+            if (entity.getRidingEntity() instanceof LanderEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
                 RenderSystem.color4f((float) Events.counter, (float) Events.counter, (float) Events.counter, (float) Events.counter);
                 // Plinken
                 Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/warning1.png"));
                 Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight());
             }
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-            if (entity.getRidingEntity() instanceof LanderEntity.CustomEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
+            if (entity.getRidingEntity() instanceof LanderEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
                 double speed = Math.round(100.0 * (entity.getRidingEntity()).getMotion().getY()) / 100.0;
                 double speedcheck = speed;
                 Minecraft.getInstance().fontRenderer.drawString(event.getMatrixStack(), "" + speedcheck + " Speed", event.getWindow().getScaledWidth() / 2 - 29, event.getWindow().getScaledHeight() / 2 / 2.3f, -3407872);
@@ -180,7 +180,7 @@ public class OverlayEvents {
             TextureManager manager = Minecraft.getInstance().textureManager;
             World world = Minecraft.getInstance().world;
 
-            if (Methodes.isInRocket(entity.getRidingEntity()) || entity.getRidingEntity() instanceof LanderEntity.CustomEntity) {
+            if (Methodes.isInRocket(entity.getRidingEntity()) || entity.getRidingEntity() instanceof LanderEntity) {
                 int width = event.getWindow().getScaledWidth();
                 int high = event.getWindow().getScaledHeight();
 

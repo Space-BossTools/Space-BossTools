@@ -18,12 +18,12 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 @OnlyIn(Dist.CLIENT)
-public class LandinggearGuiGuiWindow extends ContainerScreen<LandinggearGuiGui.GuiContainerMod> {
+public class LanderGuiWindow extends ContainerScreen<LanderGui.GuiContainerMod> {
 	private World world;
 	private int x, y, z;
 	private PlayerEntity entity;
-	private final static HashMap guistate = LandinggearGuiGui.guistate;
-	public LandinggearGuiGuiWindow(LandinggearGuiGui.GuiContainerMod container, PlayerInventory inventory, ITextComponent text) {
+	private final static HashMap guistate = LanderGui.guistate;
+	public LanderGuiWindow(LanderGui.GuiContainerMod container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
 		this.world = container.world;
 		this.x = container.x;
@@ -33,7 +33,7 @@ public class LandinggearGuiGuiWindow extends ContainerScreen<LandinggearGuiGui.G
 		this.xSize = 176;
 		this.ySize = 167;
 	}
-	private static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/landinggear_gui.png");
+	private static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/lander_gui.png");
 	@Override
 	public void render(MatrixStack ms, int mouseX, int mouseY, float partialTicks) {
 		this.renderBackground(ms);

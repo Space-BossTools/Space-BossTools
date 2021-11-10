@@ -70,7 +70,6 @@ public class RocketTier1Entity extends CreatureEntity {
 		this.dataManager.register(BUCKET, false);
 		this.dataManager.register(FUEL, 0);
 		this.dataManager.register(START_TIMER, 0);
-		enablePersistence();
 	}
 
 	public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
@@ -183,61 +182,42 @@ public class RocketTier1Entity extends CreatureEntity {
 
 	@Override
 	public void onKillCommand() {
-		double x = this.getPosX();
-		double y = this.getPosY();
-		double z = this.getPosZ();
+		this.dropInventory();
+		this.spawnRocketItem();
+		this.remove();
+	}
 
-		//Drop Inv
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float amount) {
+		Entity sourceentity = source.getTrueSource();
+
+		if (!source.isProjectile() && sourceentity != null && sourceentity.isSneaking() && !this.isBeingRidden()) {
+
+			this.spawnRocketItem();
+			this.dropInventory();
+			this.remove();
+
+		}
+		return false;
+	}
+
+	protected void spawnRocketItem() {
+		if (!world.isRemote()) {
+			ItemEntity entityToSpawn = new ItemEntity(world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(Tier1RocketItemItem.block, 1));
+			entityToSpawn.setPickupDelay(10);
+			world.addEntity(entityToSpawn);
+		}
+	}
+
+	@Override
+	protected void dropInventory() {
+		super.dropInventory();
 		for (int i = 0; i < inventory.getSlots(); ++i) {
 			ItemStack itemstack = inventory.getStackInSlot(i);
 			if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
 				this.entityDropItem(itemstack);
 			}
 		}
-
-		//Spawn Rocket Item
-		ItemStack item = new ItemStack(Tier1RocketItemItem.block,1);
-
-		if (world instanceof World && !world.isRemote()) {
-			ItemEntity entityToSpawn = new ItemEntity(world, x, y, z, item);
-			entityToSpawn.setPickupDelay(10);
-			world.addEntity(entityToSpawn);
-		}
-
-		this.remove();
-		super.onKillCommand();
-	}
-
-	@Override
-	public boolean attackEntityFrom(DamageSource source, float amount) {
-		double x = this.getPosX();
-		double y = this.getPosY();
-		double z = this.getPosZ();
-		Entity sourceentity = source.getTrueSource();
-
-		if (!source.isProjectile() && sourceentity != null && sourceentity.isSneaking() && !this.isBeingRidden()) {
-
-			//Drop Rocket Item
-			if (!world.isRemote()) {
-				ItemEntity entityToSpawn = new ItemEntity(world, x, y, z, new ItemStack(Tier1RocketItemItem.block, 1));
-				entityToSpawn.setPickupDelay(10);
-				world.addEntity(entityToSpawn);
-			}
-
-			//Drop Inv
-			for (int i = 0; i < inventory.getSlots(); ++i) {
-				ItemStack itemstack = inventory.getStackInSlot(i);
-				if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
-					this.entityDropItem(itemstack);
-				}
-			}
-
-			//Remove Entity
-			if (!this.world.isRemote())
-				this.remove();
-
-		}
-		return false;
 	}
 
 	private final ItemStackHandler inventory = new ItemStackHandler(1) {
@@ -348,14 +328,14 @@ public class RocketTier1Entity extends CreatureEntity {
 				}
 			}
 
-			if (y > 600 && this.getPassengers().isEmpty() == false) {
+			if (y > 600 && !this.getPassengers().isEmpty()) {
 				Entity pass = this.getPassengers().get(0);
 
 				pass.getPersistentData().putDouble("Tier_1_open_main_menu", 1); //TODO Remove it if you Reworked the GUI SYSTEM
 				pass.getPersistentData().putDouble("Player_movement", 1); //TODO Remove it if you Reworked the GUI SYSTEM
 
 				this.remove();
-			} else if (y > 600 && this.getPassengers().isEmpty() == true)  {
+			} else if (y > 600 && this.getPassengers().isEmpty())  {
 				this.remove();
 			}
 
@@ -377,12 +357,12 @@ public class RocketTier1Entity extends CreatureEntity {
 
 		}
 
-		if (this.inventory.getStackInSlot(0).getItem() == ModInnet.FUEL_BUCKET.get() && this.dataManager.get(BUCKET) == false) {
+		if (this.inventory.getStackInSlot(0).getItem() == ModInnet.FUEL_BUCKET.get() && !this.dataManager.get(BUCKET)) {
 			this.inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));
 			this.getDataManager().set(BUCKET, true);
 		}
 
-		if (this.dataManager.get(BUCKET) == true && this.dataManager.get(FUEL) < 300) {
+		if (this.dataManager.get(BUCKET) && this.dataManager.get(FUEL) < 300) {
 			this.getDataManager().set(FUEL, this.dataManager.get(FUEL) + 1);
 		}
 
@@ -391,24 +371,10 @@ public class RocketTier1Entity extends CreatureEntity {
 			BlockState state = world.getBlockState(new BlockPos(Math.floor(x), y - 0.1, Math.floor(z)));
 
 			if (!world.isAirBlock(new BlockPos(Math.floor(x), y - 0.01, Math.floor(z))) && state.getBlock() instanceof RocketLaunchPad && !state.get(RocketLaunchPad.STAGE)
-					|| world.getBlockState(new BlockPos(Math.floor(x), Math.floor(y), Math.floor(z))).getBlock() != ModInnet.ROCKET_LAUNCH_PAD.get().getDefaultState().getBlock()) {
+			|| world.getBlockState(new BlockPos(Math.floor(x), Math.floor(y), Math.floor(z))).getBlock() != ModInnet.ROCKET_LAUNCH_PAD.get().getDefaultState().getBlock()) {
 
-				//Drop Inv
-				for (int i = 0; i < inventory.getSlots(); ++i) {
-					ItemStack itemstack = inventory.getStackInSlot(i);
-					if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
-						this.entityDropItem(itemstack);
-					}
-				}
-
-				//Spawn Rocket Item
-				ItemStack item = new ItemStack(Tier1RocketItemItem.block,1);
-
-				if (world instanceof World && !world.isRemote()) {
-					ItemEntity entityToSpawn = new ItemEntity(world, x, y, z, item);
-					entityToSpawn.setPickupDelay(10);
-					world.addEntity(entityToSpawn);
-				}
+				this.dropInventory();
+				this.spawnRocketItem();
 				this.remove();
 			}
 		}

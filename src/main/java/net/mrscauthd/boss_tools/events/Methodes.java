@@ -1,13 +1,16 @@
 package net.mrscauthd.boss_tools.events;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.network.play.server.SChangeGameStatePacket;
 import net.minecraft.network.play.server.SPlayEntityEffectPacket;
 import net.minecraft.network.play.server.SPlayerAbilitiesPacket;
@@ -38,15 +41,15 @@ import java.util.List;
 
 public class Methodes {
 
-    public static void PlayerFallToPlanet(PlayerEntity entity, ResourceLocation Planet) {
-        if (entity.getPosY() <= 1 && !(entity.getRidingEntity() instanceof LanderEntity.CustomEntity) && !entity.world.isRemote) {
+    public static void worldTeleport(PlayerEntity entity, ResourceLocation Planet, double high) {
+        if (!entity.world.isRemote) {
 
             RegistryKey<World> destinationType = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, Planet);
             ServerWorld nextWorld = entity.getServer().getWorld(destinationType);
 
             if (nextWorld != null) {
                 ((ServerPlayerEntity) entity).connection.sendPacket(new SChangeGameStatePacket(SChangeGameStatePacket.field_241768_e_, 0));
-                ((ServerPlayerEntity) entity).teleport(nextWorld, entity.getPosX(), 450, entity.getPosZ(), entity.rotationYaw, entity.rotationPitch);
+                ((ServerPlayerEntity) entity).teleport(nextWorld, entity.getPosX(), high, entity.getPosZ(), entity.rotationYaw, entity.rotationPitch);
                 ((ServerPlayerEntity) entity).connection.sendPacket(new SPlayerAbilitiesPacket(entity.abilities));
 
                 for (EffectInstance effectinstance : entity.getActivePotionEffects()) {
@@ -169,7 +172,7 @@ public class Methodes {
     }
 
     public static boolean AllVehiclesOr(Entity entity) {
-        if (entity instanceof RocketTier1Entity || entity instanceof RocketTier2Entity || entity instanceof RocketTier3Entity || entity instanceof LanderEntity.CustomEntity || entity instanceof RoverEntity.CustomEntity) {
+        if (entity instanceof RocketTier1Entity || entity instanceof RocketTier2Entity || entity instanceof RocketTier3Entity || entity instanceof LanderEntity || entity instanceof RoverEntity.CustomEntity) {
             return true;
         }
         return false;
@@ -276,4 +279,77 @@ public class Methodes {
         return false;
     }
 
+    public static void landerTeleport(PlayerEntity player, ResourceLocation newPlanet) {
+        LanderEntity lander = (LanderEntity) player.getRidingEntity();
+
+        if (player.getPosY() < 1) {
+
+            ItemStack slot_0 = lander.getInventory().getStackInSlot(0);
+            ItemStack slot_1 = lander.getInventory().getStackInSlot(1);
+            lander.remove();
+
+            Methodes.worldTeleport(player, newPlanet, 700);
+
+            World newWorld = player.world;
+
+            if (!player.world.isRemote()) {
+                LanderEntity entityToSpawn = new LanderEntity((EntityType<LanderEntity>) ModInnet.LANDER.get(), newWorld);
+                entityToSpawn.setLocationAndAngles(player.getPosX(), player.getPosY(), player.getPosZ(), 0, 0);
+                entityToSpawn.onInitialSpawn((ServerWorld) newWorld, newWorld.getDifficultyForLocation(entityToSpawn.getPosition()), SpawnReason.MOB_SUMMONED, null, null);
+                newWorld.addEntity(entityToSpawn);
+
+                entityToSpawn.getInventory().setStackInSlot(0, slot_0);
+                entityToSpawn.getInventory().setStackInSlot(1, slot_1);
+
+                player.startRiding(entityToSpawn);
+            }
+        }
+    }
+
+    public static void landerTeleportOrbit(PlayerEntity player, World world) {
+        if (Methodes.isWorld(world, new ResourceLocation("boss_tools:overworld_orbit"))) {
+            Methodes.landerTeleport(player, new ResourceLocation("minecraft:overworld"));
+        }
+        if (Methodes.isWorld(world, new ResourceLocation("boss_tools:moon_orbit"))) {
+            Methodes.landerTeleport(player, new ResourceLocation("boss_tools:moon"));
+        }
+        if (Methodes.isWorld(world, new ResourceLocation("boss_tools:mars_orbit"))) {
+            Methodes.landerTeleport(player, new ResourceLocation("boss_tools:mars"));
+        }
+        if (Methodes.isWorld(world, new ResourceLocation("boss_tools:mercury_orbit"))) {
+            Methodes.landerTeleport(player, new ResourceLocation("boss_tools:mercury"));
+        }
+        if (Methodes.isWorld(world, new ResourceLocation("boss_tools:venus_orbit"))) {
+            Methodes.landerTeleport(player, new ResourceLocation("boss_tools:venus"));
+        }
+    }
+
+    public static void playerFalltoPlanet(World world, PlayerEntity player) {
+        RegistryKey<World> world2 = world.getDimensionKey();
+
+        if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:overworld_orbit"))) {
+            ResourceLocation planet = new ResourceLocation("overworld");
+            Methodes.worldTeleport(player, planet, 450);
+        }
+
+        if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon_orbit"))) {
+            ResourceLocation planet = new ResourceLocation("boss_tools:moon");
+            Methodes.worldTeleport(player, planet, 450);
+        }
+
+        if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars_orbit"))) {
+            ResourceLocation planet = new ResourceLocation("boss_tools:mars");
+            Methodes.worldTeleport(player, planet, 450);
+        }
+
+        if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury_orbit"))) {
+            ResourceLocation planet = new ResourceLocation("boss_tools:mercury");
+            Methodes.worldTeleport(player, planet, 450);
+        }
+
+        if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus_orbit"))) {
+            ResourceLocation planet = new ResourceLocation("boss_tools:venus");
+            Methodes.worldTeleport(player, planet, 450);
+        }
+    }
 }

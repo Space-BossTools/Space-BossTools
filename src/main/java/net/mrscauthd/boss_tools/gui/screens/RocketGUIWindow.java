@@ -41,7 +41,7 @@ public class RocketGUIWindow extends ContainerScreen<RocketGUI.GuiContainerMod> 
 		this.ySize = 167;
 	}
 
-	private static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/rocket_tier_1_gui_fuel.png");
+	private static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/rocket_gui_fuel.png");
 	private static final ResourceLocation fuel_bar = new ResourceLocation("boss_tools:textures/rocket_fuel_bar.png");
 
 	@Override

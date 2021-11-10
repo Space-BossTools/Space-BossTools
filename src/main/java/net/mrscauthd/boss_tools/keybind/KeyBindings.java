@@ -1,8 +1,12 @@
 package net.mrscauthd.boss_tools.keybind;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.NetworkRegistry;
@@ -124,18 +128,25 @@ public class KeyBindings {
 		if (!world.isBlockLoaded(new BlockPos(x, y, z)))
 			return;
 
-		if (type == 0) { //TODO REWORK
-			if (player.getRidingEntity() instanceof LanderEntity.CustomEntity) {
-				if (!player.getRidingEntity().isOnGround() && !player.getRidingEntity().areEyesInFluid(FluidTags.WATER)) {
-					if (player.getRidingEntity().getMotion().getY() <= -0.05) {
-						player.getRidingEntity().setMotion(player.getRidingEntity().getMotion().getX(), player.getRidingEntity().getMotion().getY() * 0.85, player.getRidingEntity().getMotion().getZ());
+		if (type == 0) {
+
+			Entity ridding = player.getRidingEntity();
+
+			if (ridding instanceof LanderEntity) {
+				if (!ridding.isOnGround() && !ridding.areEyesInFluid(FluidTags.WATER)) {
+
+					if (ridding.getMotion().getY() < -0.05) {
+						ridding.setMotion(ridding.getMotion().getX(), ridding.getMotion().getY() * 0.85, ridding.getMotion().getZ());
 					}
-					player.getRidingEntity().getPersistentData().putDouble("Lander1", 1);
-					player.getRidingEntity().getPersistentData().putDouble("Lander2", 1);
+
+					if (world instanceof ServerWorld) {
+						for (ServerPlayerEntity p : ((ServerWorld) world).getPlayers()) {
+							((ServerWorld) world).spawnParticle(p, ParticleTypes.SPIT, true, ridding.getPosX(), ridding.getPosY() - 0.3, ridding.getPosZ(), 3, 0.1, 0.1, 0.1, 0.001);
+						}
+					}
+
 				}
-			}
-			if (player.getRidingEntity() instanceof LanderEntity.CustomEntity) {
-				(player.getRidingEntity()).fallDistance = (float) ((player.getRidingEntity().getMotion().getY() * (-1)) * 4.5);
+				ridding.fallDistance = (float) (ridding.getMotion().getY() * (-1) * 4.5);
 			}
 		}
 

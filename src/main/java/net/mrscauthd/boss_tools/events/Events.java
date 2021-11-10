@@ -13,7 +13,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -41,42 +40,25 @@ public class Events {
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
             PlayerEntity player = event.player;
-            IWorld world = player.world;
+            World world = player.world;
 
+            //Lander Teleport System
+            if (player.getRidingEntity() instanceof LanderEntity) {
+                Methodes.landerTeleportOrbit(player, world);
+            }
+
+            //Oxygen System
             OxygenSystem.OxygenSystem(player);
 
             //Gravity Methode Call
-            Gravity.Gravity(player, Gravity.GravityType.PLAYER, (World) world);
+            Gravity.Gravity(player, Gravity.GravityType.PLAYER, world);
 
             //Drop Off Hand Item
             Methodes.DropRocket(player);
 
             //Player orbit Fall Teleport
-            RegistryKey<World> world2 = ((World) world).getDimensionKey();
-
-            if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:overworld_orbit"))) {
-                ResourceLocation planet = new ResourceLocation("overworld");
-                Methodes.PlayerFallToPlanet(player, planet);
-            }
-
-            if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon_orbit"))) {
-                ResourceLocation planet = new ResourceLocation("boss_tools:moon");
-                Methodes.PlayerFallToPlanet(player, planet);
-            }
-
-            if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars_orbit"))) {
-                ResourceLocation planet = new ResourceLocation("boss_tools:mars");
-                Methodes.PlayerFallToPlanet(player, planet);
-            }
-
-            if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury_orbit"))) {
-                ResourceLocation planet = new ResourceLocation("boss_tools:mercury");
-                Methodes.PlayerFallToPlanet(player, planet);
-            }
-
-            if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus_orbit"))) {
-                ResourceLocation planet = new ResourceLocation("boss_tools:venus");
-                Methodes.PlayerFallToPlanet(player, planet);
+            if (player.getPosY() < 1 && !(player.getRidingEntity() instanceof LanderEntity)) {
+                Methodes.playerFalltoPlanet(world, player);
             }
 
             //Lander Warning Overlay Tick
@@ -118,7 +100,7 @@ public class Events {
     public static void CameraPos(EntityViewRenderEvent.CameraSetup event) {
         Entity ridding = event.getInfo().getRenderViewEntity().getRidingEntity();
 
-        if (Methodes.isInRocket(ridding) || ridding instanceof LanderEntity.CustomEntity) {
+        if (Methodes.isInRocket(ridding) || ridding instanceof LanderEntity) {
             PointOfView pointOfView = Minecraft.getInstance().gameSettings.getPointOfView();
 
             if (pointOfView.equals(PointOfView.THIRD_PERSON_FRONT)  || pointOfView.equals(PointOfView.THIRD_PERSON_BACK)) {
@@ -132,7 +114,7 @@ public class Events {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void render(RenderPlayerEvent event) {
-        if (event.getEntity().getRidingEntity() instanceof LanderEntity.CustomEntity) {
+        if (event.getEntity().getRidingEntity() instanceof LanderEntity) {
             event.setCanceled(true);
         }
     }

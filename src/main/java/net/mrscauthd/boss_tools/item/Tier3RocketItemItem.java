@@ -118,7 +118,7 @@ public class Tier3RocketItemItem extends BossToolsModElements.ModElement {
 							for (Entity entityiterator : _entfound) {
 								if (entityiterator instanceof RocketTier1Entity || entityiterator instanceof RocketTier2Entity
 										|| entityiterator instanceof RocketTier3Entity
-										|| entityiterator instanceof LanderEntity.CustomEntity) {
+										|| entityiterator instanceof LanderEntity) {
 									entityblock = true;
 								} else {
 									entityblock = false;
