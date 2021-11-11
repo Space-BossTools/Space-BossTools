@@ -334,10 +334,10 @@ public class JeiPlugin implements IModPlugin {
 
 		@Override
 		public List<ITextComponent> getTooltipStrings(OxygenLoaderRecipe recipe, double mouseX, double mouseY) {
-			if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
+			if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
 				return Collections.singletonList(GaugeTextHelper.getUsingText(GaugeDataHelper.getEnergy(FuelRefineryBlock.ENERGY_PER_TICK)));
 			}
-			else if (this.getOutputTankBounds().contains((int) mouseX, (int) mouseY)) {
+			else if (GuiHelper.isHover(this.getOutputTankBounds(), mouseX, mouseY)) {
 				return Collections.singletonList(GaugeDataHelper.getOxygen(recipe.getOxygen()).getText());
 			}
 
@@ -442,10 +442,10 @@ public class JeiPlugin implements IModPlugin {
 
 		@Override
 		public List<ITextComponent> getTooltipStrings(OxygenBubbleDistributorRecipe recipe, double mouseX, double mouseY) {
-			if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
+			if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
 				return Collections.singletonList(GaugeTextHelper.getUsingText(GaugeDataHelper.getEnergy(FuelRefineryBlock.ENERGY_PER_TICK)));
 			}
-			else if (this.getOutputTankBounds().contains((int) mouseX, (int) mouseY)) {
+			else if (GuiHelper.isHover(this.getOutputTankBounds(), mouseX, mouseY)) {
 				return Collections.singletonList(GaugeDataHelper.getOxygen(recipe.getOxygen()).getText());
 			}
 
@@ -543,9 +543,9 @@ public class JeiPlugin implements IModPlugin {
 
 		@Override
 		public List<ITextComponent> getTooltipStrings(GeneratingRecipe recipe, double mouseX, double mouseY) {
-			if (this.getFireBounds().contains((int) mouseX, (int) mouseY)) {
+			if (GuiHelper.isHover(this.getFireBounds(), mouseX, mouseY)) {
 				return Collections.singletonList(GaugeDataHelper.getBurnTime(recipe.getBurnTime()).getText());
-			} else if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
+			} else if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
 				List<ITextComponent> list = new ArrayList<>();
 				list.add(GaugeTextHelper.getGeneratingText(GaugeDataHelper.getEnergy(CoalGeneratorBlock.ENERGY_PER_TICK)));
 				return list;
@@ -1035,7 +1035,7 @@ public class JeiPlugin implements IModPlugin {
 
 		@Override
 		public List<ITextComponent> getTooltipStrings(CompressingRecipe recipe, double mouseX, double mouseY) {
-			if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
+			if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
 				List<ITextComponent> list = new ArrayList<>();
 				list.add(GaugeTextHelper.getUsingText(GaugeDataHelper.getEnergy(CompressorBlock.ENERGY_PER_TICK)));
 				return list;
@@ -1210,7 +1210,7 @@ public class JeiPlugin implements IModPlugin {
 
 		@Override
 		public List<ITextComponent> getTooltipStrings(FuelRefiningRecipe recipe, double mouseX, double mouseY) {
-			if (this.getEnergyBounds().contains((int) mouseX, (int) mouseY)) {
+			if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
 				return Collections.singletonList(GaugeTextHelper.getUsingText(GaugeDataHelper.getEnergy(FuelRefineryBlock.ENERGY_PER_TICK)));
 			}
 
