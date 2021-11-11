@@ -53,10 +53,6 @@ public class BossToolsMod {
 		bus.addListener(this::clientLoad);
 		forgeBus.register(new BossToolsModFMLBusEvents(this));
 
-		// SyncEvent Registers
-		SyncEvents.PlayerMovementSyncEvent.NetworkLoader.registerMessages(); //TODO IN FUTURE REMOVED
-
-
 		//MobInnet
 		MinecraftForge.EVENT_BUS.register(this);
 		ModInnet.ENTITYS.register(bus);
