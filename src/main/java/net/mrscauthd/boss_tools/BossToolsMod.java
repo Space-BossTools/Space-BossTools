@@ -34,6 +34,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+//TODO: IN FUTURE FULL REWORKED
 @Mod("boss_tools")
 public class BossToolsMod {
 	public static final Logger LOGGER = LogManager.getLogger(BossToolsMod.class);

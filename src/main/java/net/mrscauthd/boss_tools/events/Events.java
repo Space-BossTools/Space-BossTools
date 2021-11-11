@@ -167,7 +167,6 @@ public class Events {
         }
     }
 
-    //TODO:Change Dimension Id in Teleport Code
     @SubscribeEvent
     public static void onWorldTick(TickEvent.WorldTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
