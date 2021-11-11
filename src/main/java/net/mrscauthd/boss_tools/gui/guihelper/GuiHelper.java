@@ -45,6 +45,14 @@ public class GuiHelper {
 	public static final int FLUID_TANK_WIDTH = 14;
 	public static final int FLUID_TANK_HEIGHT = 48;
 
+	public static boolean isHover(Rectangle2d bounds, double x, double y) {
+		int left = bounds.getX();
+		int right = left + bounds.getWidth();
+		int top = bounds.getY();
+		int bottom = top + bounds.getHeight();
+		return left <= x && x < right && top <= y && y < bottom;
+	}
+
 	public static void drawArrow(MatrixStack matrixStack, int left, int top, double ratio) {
 		GuiHelper.drawHorizontal(matrixStack, left, top, ARROW_WIDTH, ARROW_HEIGHT, ARROW_PATH, ratio);
 	}
@@ -266,10 +274,10 @@ public class GuiHelper {
 	public static void innerBlit(Matrix4f matrix, float x1, float x2, float y1, float y2, int blitOffset, float minU, float maxU, float minV, float maxV) {
 		BufferBuilder bufferbuilder = Tessellator.getInstance().getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-		bufferbuilder.pos(matrix, (float)x1, (float)y2, (float)blitOffset).tex(minU, maxV).endVertex();
-		bufferbuilder.pos(matrix, (float)x2, (float)y2, (float)blitOffset).tex(maxU, maxV).endVertex();
-		bufferbuilder.pos(matrix, (float)x2, (float)y1, (float)blitOffset).tex(maxU, minV).endVertex();
-		bufferbuilder.pos(matrix, (float)x1, (float)y1, (float)blitOffset).tex(minU, minV).endVertex();
+		bufferbuilder.pos(matrix, (float) x1, (float) y2, (float) blitOffset).tex(minU, maxV).endVertex();
+		bufferbuilder.pos(matrix, (float) x2, (float) y2, (float) blitOffset).tex(maxU, maxV).endVertex();
+		bufferbuilder.pos(matrix, (float) x2, (float) y1, (float) blitOffset).tex(maxU, minV).endVertex();
+		bufferbuilder.pos(matrix, (float) x1, (float) y1, (float) blitOffset).tex(minU, minV).endVertex();
 		bufferbuilder.finishDrawing();
 		RenderSystem.enableAlphaTest();
 		WorldVertexBufferUploader.draw(bufferbuilder);
@@ -280,7 +288,7 @@ public class GuiHelper {
 	}
 
 	private static void innerBlit(MatrixStack matrixStack, float x1, float x2, float y1, float y2, int blitOffset, float uWidth, float vHeight, float uOffset, float vOffset, int textureWidth, int textureHeight) {
-		innerBlit(matrixStack.getLast().getMatrix(), x1, x2, y1, y2, blitOffset, (uOffset + 0.0F) / (float)textureWidth, (uOffset + (float)uWidth) / (float)textureWidth, (vOffset + 0.0F) / (float)textureHeight, (vOffset + (float)vHeight) / (float)textureHeight);
+		innerBlit(matrixStack.getLast().getMatrix(), x1, x2, y1, y2, blitOffset, (uOffset + 0.0F) / (float) textureWidth, (uOffset + (float) uWidth) / (float) textureWidth, (vOffset + 0.0F) / (float) textureHeight, (vOffset + (float) vHeight) / (float) textureHeight);
 	}
 
 	public static void blit(MatrixStack matrixStack, float x, float y, float uOffset, float vOffset, float width, float height, int textureWidth, int textureHeight) {

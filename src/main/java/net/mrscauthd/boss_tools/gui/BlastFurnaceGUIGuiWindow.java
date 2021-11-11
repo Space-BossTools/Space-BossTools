@@ -40,7 +40,7 @@ public class BlastFurnaceGUIGuiWindow extends ContainerScreen<BlastFurnaceGUIGui
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 
-		if (this.getFireBounds().contains(mouseX, mouseY)) {
+		if (GuiHelper.isHover(this.getFireBounds(), mouseX, mouseY)) {
 			this.renderTooltip(ms, GaugeDataHelper.getBurnTime(this.getTileEntity().getPowerSystemBurnTime()).getText(), mouseX, mouseY);
 		}
 	}

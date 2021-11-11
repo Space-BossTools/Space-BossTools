@@ -48,9 +48,9 @@ public class WaterPumpGuiWindow extends ContainerScreen<WaterPumpGui.GuiContaine
 
 		WaterPumpTileEntity tileEntity = (WaterPumpTileEntity) this.getTileEntity();
 
-		if (this.getOutputTankBounds().contains(mouseX, mouseY)) {
+		if (GuiHelper.isHover(this.getOutputTankBounds(), mouseX, mouseY)) {
 			this.renderTooltip(ms, GaugeDataHelper.getFluid(tileEntity.getWaterTank()).getText(), mouseX, mouseY);
-		} else if (this.getEnergyBounds().contains(mouseX, mouseY)) {
+		} else if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
 			this.renderTooltip(ms, GaugeDataHelper.getEnergy(tileEntity).getText(), mouseX, mouseY);
 		}
 	}
