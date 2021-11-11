@@ -40,7 +40,7 @@ public class GeneratorGUIGuiWindow extends ContainerScreen<GeneratorGUIGui.GuiCo
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 
-		if (this.getEnergyBounds().contains(mouseX, mouseY)) {
+		if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
 			this.renderTooltip(ms, GaugeDataHelper.getEnergy(this.getTileEntity().getGeneratingEnergyStorage()).getText(), mouseX, mouseY);
 		}
 	}

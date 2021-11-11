@@ -66,11 +66,11 @@ public class FuelRefineryGUIGuiWindow extends ContainerScreen<FuelRefineryGUIGui
 
 		CustomTileEntity tileEntity = (CustomTileEntity) this.getTileEntity();
 
-		if (this.getInputTankBounds().contains(mouseX, mouseY)) {
+		if (GuiHelper.isHover(this.getInputTankBounds(), mouseX, mouseY)) {
 			this.renderTooltip(ms, GaugeDataHelper.getFluid(tileEntity.getInputTank()).getText(), mouseX, mouseY);
-		} else if (this.getOutputTankBounds().contains(mouseX, mouseY)) {
+		} else if (GuiHelper.isHover(this.getOutputTankBounds(), mouseX, mouseY)) {
 			this.renderTooltip(ms, GaugeDataHelper.getFluid(tileEntity.getOutputTank()).getText(), mouseX, mouseY);
-		} else if (this.getEnergyBounds().contains(mouseX, mouseY)) {
+		} else if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
 			this.renderTooltip(ms, GaugeDataHelper.getEnergy(tileEntity).getText(), mouseX, mouseY);
 		}
 	}
