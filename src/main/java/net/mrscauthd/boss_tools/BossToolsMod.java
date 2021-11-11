@@ -3,7 +3,6 @@ package net.mrscauthd.boss_tools;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.mrscauthd.boss_tools.compat.CompatibleManager;
-import net.mrscauthd.boss_tools.events.SyncEvents;
 import net.mrscauthd.boss_tools.keybind.KeyBindings;
 import net.mrscauthd.boss_tools.machines.OxygenBubbleDistributorBlock;
 import net.mrscauthd.boss_tools.world.oregen.OreGeneration;
