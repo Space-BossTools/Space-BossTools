@@ -17,7 +17,8 @@ import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock.CustomTileEntity;
 
 @OnlyIn(Dist.CLIENT)
-public class BlastFurnaceGUIGuiWindow extends ContainerScreen<BlastFurnaceGUIGui.GuiContainerMod> {
+public class BlastFurnaceGuiWindow extends ContainerScreen<BlastFurnaceGui.GuiContainer> {
+
 	public static final ResourceLocation TEXTURE = new ResourceLocation("boss_tools:textures/blast_furnace_gui.png");
 	public static final int FIRE_LEFT = 53;
 	public static final int FIRE_TOP = 39;
@@ -26,7 +27,7 @@ public class BlastFurnaceGUIGuiWindow extends ContainerScreen<BlastFurnaceGUIGui
 
 	private CustomTileEntity tileEntity;
 
-	public BlastFurnaceGUIGuiWindow(BlastFurnaceGUIGui.GuiContainerMod container, PlayerInventory inventory, ITextComponent text) {
+	public BlastFurnaceGuiWindow(BlastFurnaceGui.GuiContainer container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
 		this.tileEntity = container.getTileEntity();
 		this.xSize = 177;
@@ -48,6 +49,7 @@ public class BlastFurnaceGUIGuiWindow extends ContainerScreen<BlastFurnaceGUIGui
 	@Override
 	protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float partialTicks, int gx, int gy) {
 		CustomTileEntity tileEntity = this.getTileEntity();
+
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		this.minecraft.getTextureManager().bindTexture(TEXTURE);

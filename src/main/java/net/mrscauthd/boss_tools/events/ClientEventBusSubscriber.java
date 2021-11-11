@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.events;
 
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
@@ -25,6 +26,7 @@ import net.mrscauthd.boss_tools.entity.renderer.rockettier2.RocketTier2Renderer;
 import net.mrscauthd.boss_tools.entity.renderer.rockettier3.RocketTier3Renderer;
 import net.mrscauthd.boss_tools.entity.renderer.rover.RoverRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.starcrawler.StarCrawlerRenderer;
+import net.mrscauthd.boss_tools.gui.BlastFurnaceGuiWindow;
 import net.mrscauthd.boss_tools.spawneggs.ModSpawnEggs;
 import net.mrscauthd.boss_tools.entity.renderer.alien.AlienRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.mogler.MoglerRenderer;
@@ -61,6 +63,9 @@ public class ClientEventBusSubscriber {
 		ClientRegistry.bindTileEntityRenderer(ModInnet.FLAG.get(), TileEntityHeadRenderer::new);
 
 		RenderingRegistry.registerEntityRenderingHandler(ModInnet.ALIEN_SPIT_ENTITY.get(), renderManager -> new SpriteRenderer(renderManager, Minecraft.getInstance().getItemRenderer()));
+
+		//GUIS
+		ScreenManager.registerFactory(ModInnet.BLAST_FURNACE_GUI.get(), BlastFurnaceGuiWindow::new);
 
 		//Key Binding Registrys
 		key1 = new KeyBinding("key.boss_tools.rocket_start", GLFW.GLFW_KEY_SPACE, "key.categories.boss_tools");

@@ -14,22 +14,22 @@ import mezz.jei.api.runtime.IRecipesGui;
 import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.mrscauthd.boss_tools.gui.BlastFurnaceGUIGuiWindow;
+import net.mrscauthd.boss_tools.gui.BlastFurnaceGuiWindow;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 import net.mrscauthd.boss_tools.jei.JeiPlugin.BlastingFurnaceJeiCategory;
 
-public class BlastFurnaceGuiContainerHandler implements IGuiContainerHandler<BlastFurnaceGUIGuiWindow> {
+public class BlastFurnaceGuiContainerHandler implements IGuiContainerHandler<BlastFurnaceGuiWindow> {
 
 	public BlastFurnaceGuiContainerHandler() {
 
 	}
 
 	@Override
-	public Collection<IGuiClickableArea> getGuiClickableAreas(BlastFurnaceGUIGuiWindow containerScreen, double mouseX, double mouseY) {
+	public Collection<IGuiClickableArea> getGuiClickableAreas(BlastFurnaceGuiWindow containerScreen, double mouseX, double mouseY) {
 		return Collections.singleton(new IGuiClickableArea() {
 			@Override
 			public Rectangle2d getArea() {
-				return GuiHelper.getArrowBounds(BlastFurnaceGUIGuiWindow.ARROW_LEFT, BlastFurnaceGUIGuiWindow.ARROW_TOP);
+				return GuiHelper.getArrowBounds(BlastFurnaceGuiWindow.ARROW_LEFT, BlastFurnaceGuiWindow.ARROW_TOP);
 			}
 
 			@Override

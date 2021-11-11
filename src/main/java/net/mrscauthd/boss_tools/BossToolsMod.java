@@ -66,6 +66,7 @@ public class BossToolsMod {
 		ModInnet.RECIPE_SERIALIZERS.register(bus);
 		ModInnet.ROCKET_PARTS.register(bus);
 		ModInnet.EFFECTS.register(bus);
+		ModInnet.GUIS.register(bus);
         
 		//bus.addListener(ModInnet::setup);
 		forgeBus.addListener(EventPriority.NORMAL, ModInnet::addDimensionalSpacing);

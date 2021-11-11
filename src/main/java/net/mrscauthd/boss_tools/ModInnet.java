@@ -4,9 +4,11 @@ import com.mojang.serialization.Codec;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.potion.Effect;
@@ -47,6 +49,8 @@ import net.mrscauthd.boss_tools.effects.OxygenEffect;
 import net.mrscauthd.boss_tools.entity.*;
 import net.mrscauthd.boss_tools.flag.FlagTileEntity;
 import net.mrscauthd.boss_tools.fluid.OilFluid;
+import net.mrscauthd.boss_tools.gui.BlastFurnaceGui;
+import net.mrscauthd.boss_tools.gui.BlastFurnaceGuiWindow;
 import net.mrscauthd.boss_tools.itemtiers.SteelItemTier;
 import net.mrscauthd.boss_tools.machines.*;
 import net.mrscauthd.boss_tools.machines.tile.WaterPumpTileEntity;
@@ -100,6 +104,8 @@ public class ModInnet {
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, "boss_tools");
 
     public static final DeferredRegister<Effect> EFFECTS = DeferredRegister.create(ForgeRegistries.POTIONS, "boss_tools");
+
+    public static final DeferredRegister<ContainerType<?>> GUIS = DeferredRegister.create(ForgeRegistries.CONTAINERS, "boss_tools");
 
     //Entitys
     public static RegistryObject<EntityType<?>> ALIEN = ENTITYS.register("alien", () -> EntityType.Builder.create(AlienEntity::new, EntityClassification.CREATURE).size(0.75f, 2.5f).build(new ResourceLocation("boss_tools", "alien").toString()));
@@ -379,6 +385,9 @@ public class ModInnet {
     public static final RegistryObject<Item> FLAG_PURPLE_ITEM = ITEMS.register("flag_purple", () -> new TallBlockItem(FLAG_PURPLE_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
     public static final RegistryObject<Item> FLAG_RED_ITEM = ITEMS.register("flag_red", () -> new TallBlockItem(FLAG_RED_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
     public static final RegistryObject<Item> FLAG_YELLOW_ITEM = ITEMS.register("flag_yellow", () -> new TallBlockItem(FLAG_YELLOW_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
+
+    //GUIS
+    public static final RegistryObject<ContainerType<BlastFurnaceGui.GuiContainer>> BLAST_FURNACE_GUI = GUIS.register("blast_furnace_gui", () -> new ContainerType<>(new BlastFurnaceGui.GuiContainerFactory()));
 
     //Recpies
     public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, "boss_tools");
