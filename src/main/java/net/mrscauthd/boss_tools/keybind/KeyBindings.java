@@ -45,7 +45,6 @@ public class KeyBindings {
 		INSTANCE.registerMessage(nextID(), KeyBindingPressedMessage.class, KeyBindingPressedMessage::buffer, KeyBindingPressedMessage::new, KeyBindingPressedMessage::handler);
 	}
 
-	//Client Tick Event
 	@OnlyIn(Dist.CLIENT)
 	@SubscribeEvent
 	public static void onKeyInput1(TickEvent.ClientTickEvent event) {
@@ -78,7 +77,6 @@ public class KeyBindings {
 		}
 	}
 
-	//Key Press Event
 	@OnlyIn(Dist.CLIENT)
 	@SubscribeEvent
 	public static void onKeyInput2(InputEvent.KeyInputEvent event) {
