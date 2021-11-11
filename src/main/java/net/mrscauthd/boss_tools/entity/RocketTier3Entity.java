@@ -322,7 +322,7 @@ public class RocketTier3Entity extends CreatureEntity {
 
 			if (this.dataManager.get(START_TIMER) == 200) {
 				if (this.getMotion().getY() < 0.5) {
-					this.setMotion(this.getMotion().getX(), this.getMotion().getY() + 0.1, this.getMotion().getZ()); //TODO Make Tier 2, Tier 3 Speeder
+					this.setMotion(this.getMotion().getX(), this.getMotion().getY() + 0.1, this.getMotion().getZ());
 				} else {
 					this.setMotion(this.getMotion().getX(), 0.63, this.getMotion().getZ());
 				}

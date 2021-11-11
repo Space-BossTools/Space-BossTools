@@ -3,7 +3,6 @@ package net.mrscauthd.boss_tools;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.mrscauthd.boss_tools.compat.CompatibleManager;
-import net.mrscauthd.boss_tools.events.SyncEvents;
 import net.mrscauthd.boss_tools.keybind.KeyBindings;
 import net.mrscauthd.boss_tools.machines.OxygenBubbleDistributorBlock;
 import net.mrscauthd.boss_tools.world.oregen.OreGeneration;
@@ -35,6 +34,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+//TODO: IN FUTURE FULL REWORKED
 @Mod("boss_tools")
 public class BossToolsMod {
 	public static final Logger LOGGER = LogManager.getLogger(BossToolsMod.class);
@@ -53,10 +53,6 @@ public class BossToolsMod {
 		bus.addListener(this::init);
 		bus.addListener(this::clientLoad);
 		forgeBus.register(new BossToolsModFMLBusEvents(this));
-
-		// SyncEvent Registers
-		SyncEvents.PlayerMovementSyncEvent.NetworkLoader.registerMessages(); //TODO IN FUTURE REMOVED
-
 
 		//MobInnet
 		MinecraftForge.EVENT_BUS.register(this);
