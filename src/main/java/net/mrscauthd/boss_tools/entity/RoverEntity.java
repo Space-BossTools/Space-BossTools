@@ -392,5 +392,4 @@ public class RoverEntity extends CreatureEntity {
         this.limbSwingAmount += (f1 - this.limbSwingAmount) * rotation2;
         this.limbSwing += this.limbSwingAmount;
     }
-
 }
