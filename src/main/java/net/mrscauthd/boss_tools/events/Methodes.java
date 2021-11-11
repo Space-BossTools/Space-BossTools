@@ -10,7 +10,6 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.network.play.server.SChangeGameStatePacket;
 import net.minecraft.network.play.server.SPlayEntityEffectPacket;
 import net.minecraft.network.play.server.SPlayerAbilitiesPacket;
@@ -172,7 +171,7 @@ public class Methodes {
     }
 
     public static boolean AllVehiclesOr(Entity entity) {
-        if (entity instanceof RocketTier1Entity || entity instanceof RocketTier2Entity || entity instanceof RocketTier3Entity || entity instanceof LanderEntity || entity instanceof RoverEntity.CustomEntity) {
+        if (entity instanceof RocketTier1Entity || entity instanceof RocketTier2Entity || entity instanceof RocketTier3Entity || entity instanceof LanderEntity || entity instanceof RoverEntity) {
             return true;
         }
         return false;

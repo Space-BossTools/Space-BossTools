@@ -16,7 +16,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraft.entity.EntityType;
 import net.minecraft.client.Minecraft;
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.armor.SpaceSuit;
 import net.mrscauthd.boss_tools.entity.renderer.TileEntityBoxRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.flagtileentity.TileEntityHeadRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.alienzombie.AlienZombieRenderer;
@@ -24,6 +23,7 @@ import net.mrscauthd.boss_tools.entity.renderer.lander.LanderRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.rockettier1.RocketTier1Renderer;
 import net.mrscauthd.boss_tools.entity.renderer.rockettier2.RocketTier2Renderer;
 import net.mrscauthd.boss_tools.entity.renderer.rockettier3.RocketTier3Renderer;
+import net.mrscauthd.boss_tools.entity.renderer.rover.RoverRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.starcrawler.StarCrawlerRenderer;
 import net.mrscauthd.boss_tools.spawneggs.ModSpawnEggs;
 import net.mrscauthd.boss_tools.entity.renderer.alien.AlienRenderer;
@@ -53,6 +53,8 @@ public class ClientEventBusSubscriber {
 		RenderingRegistry.registerEntityRenderingHandler(ModInnet.TIER_3_ROCKET.get(), ((IRenderFactory) RocketTier3Renderer::new));
 
 		RenderingRegistry.registerEntityRenderingHandler(ModInnet.LANDER.get(), ((IRenderFactory) LanderRenderer::new));
+
+		RenderingRegistry.registerEntityRenderingHandler(ModInnet.ROVER.get(), ((IRenderFactory) RoverRenderer::new));
 
 		ClientRegistry.bindTileEntityRenderer(ModInnet.OXYGEN_BUBBLE_DISTRIBUTOR.get(), TileEntityBoxRenderer::new);
 

@@ -113,6 +113,7 @@ public class ModInnet {
     public static RegistryObject<EntityType<?>> TIER_2_ROCKET = ENTITYS.register("rocket_t2", () -> EntityType.Builder.create(RocketTier2Entity::new, EntityClassification.CREATURE).size(1.1f, 4.6f).immuneToFire().build(new ResourceLocation("boss_tools", "rocket_t2").toString()));
     public static RegistryObject<EntityType<?>> TIER_3_ROCKET = ENTITYS.register("rocket_t3", () -> EntityType.Builder.create(RocketTier3Entity::new, EntityClassification.CREATURE).size(1.1f, 4.8f).immuneToFire().build(new ResourceLocation("boss_tools", "rocket_t3").toString()));
     public static RegistryObject<EntityType<?>> LANDER = ENTITYS.register("lander", () -> EntityType.Builder.create(LanderEntity::new, EntityClassification.CREATURE).size(0.6f, 2.0f).immuneToFire().build(new ResourceLocation("boss_tools", "lander").toString()));
+    public static RegistryObject<EntityType<?>> ROVER = ENTITYS.register("rover", () -> EntityType.Builder.create(RoverEntity::new, EntityClassification.CREATURE).size(2.5f, 1.0f).immuneToFire().build(new ResourceLocation("boss_tools", "rover").toString()));
 
 
     //Alien Spit Entity
@@ -533,6 +534,7 @@ public class ModInnet {
             GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) TIER_2_ROCKET.get(), RocketTier2Entity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) TIER_3_ROCKET.get(), RocketTier3Entity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) LANDER.get(), LanderEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put((EntityType<? extends CreatureEntity>) ROVER.get(), RoverEntity.setCustomAttributes().create());
         });
         event.enqueueWork(() -> {
 

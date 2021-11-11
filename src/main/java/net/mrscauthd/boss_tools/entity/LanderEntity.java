@@ -108,15 +108,6 @@ public class LanderEntity extends CreatureEntity {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public double getMountedYOffset() {
-		if (Minecraft.getInstance().gameSettings.getPointOfView().equals(PointOfView.FIRST_PERSON)) {
-			return super.getMountedYOffset() + -0.25;
-		}
-		return super.getMountedYOffset() + -0.7;
-	}
-
-	@Override
 	public SoundEvent getHurtSound(DamageSource ds) {
 		return null;
 	}
@@ -124,6 +115,15 @@ public class LanderEntity extends CreatureEntity {
 	@Override
 	public SoundEvent getDeathSound() {
 		return null;
+	}
+
+	@Override
+	@OnlyIn(Dist.CLIENT)
+	public double getMountedYOffset() {
+		if (Minecraft.getInstance().gameSettings.getPointOfView().equals(PointOfView.FIRST_PERSON)) {
+			return super.getMountedYOffset() + -0.25;
+		}
+		return super.getMountedYOffset() + -0.7;
 	}
 
 	@Override

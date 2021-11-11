@@ -37,10 +37,10 @@ import java.util.Map;
 import java.util.HashMap;
 
 @BossToolsModElements.ModElement.Tag
-public class Rover1GUIGui extends BossToolsModElements.ModElement {
+public class RoverGui extends BossToolsModElements.ModElement {
 	public static HashMap guistate = new HashMap();
 	private static ContainerType<GuiContainerMod> containerType = null;
-	public Rover1GUIGui(BossToolsModElements instance) {
+	public RoverGui(BossToolsModElements instance) {
 		super(instance, 398);
 		elements.addNetworkMessage(ButtonPressedMessage.class, ButtonPressedMessage::buffer, ButtonPressedMessage::new,
 				ButtonPressedMessage::handler);
@@ -57,7 +57,7 @@ public class Rover1GUIGui extends BossToolsModElements.ModElement {
 	}
 	@OnlyIn(Dist.CLIENT)
 	public void initElements() {
-		DeferredWorkQueue.runLater(() -> ScreenManager.registerFactory(containerType, Rover1GUIGuiWindow::new));
+		DeferredWorkQueue.runLater(() -> ScreenManager.registerFactory(containerType, RoverGuiWindow::new));
 	}
 	public static class GuiContainerModFactory implements IContainerFactory {
 		public GuiContainerMod create(int id, PlayerInventory inv, PacketBuffer extraData) {
@@ -68,6 +68,7 @@ public class Rover1GUIGui extends BossToolsModElements.ModElement {
 	public static class GuiContainerMod extends Container implements Supplier<Map<Integer, Slot>> {
 		World world;
 		PlayerEntity entity;
+		Entity rover;
 		int x, y, z;
 		private IItemHandler internal;
 		private Map<Integer, Slot> customSlots = new HashMap<>();
@@ -101,6 +102,7 @@ public class Rover1GUIGui extends BossToolsModElements.ModElement {
 					Entity entity = world.getEntityByID(extraData.readVarInt());
 					if (entity != null)
 						entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(capability -> {
+							this.rover = entity;
 							this.internal = capability;
 							this.bound = true;
 						});

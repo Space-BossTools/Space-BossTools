@@ -1,8 +1,10 @@
 
 package net.mrscauthd.boss_tools.item;
 
-import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
+import net.minecraft.entity.*;
+import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.RoverEntity;
+import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 
 import net.minecraftforge.registries.ObjectHolder;
@@ -26,12 +28,6 @@ import net.minecraft.item.Item;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.Entity;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.BlockState;
@@ -103,7 +99,7 @@ public class RoverItemItem extends BossToolsModElements.ModElement {
 					if ((((entity instanceof LivingEntity) ? ((LivingEntity) entity).getHeldItemMainhand() : ItemStack.EMPTY)
 							.getItem() == new ItemStack(RoverItemItem.block, (int) (1)).getItem())) {
 						if (world instanceof ServerWorld) {
-							Entity entityToSpawn = new RoverEntity.CustomEntity(RoverEntity.entity, (World) world);
+							Entity entityToSpawn = new RoverEntity((EntityType<? extends CreatureEntity>) ModInnet.ROVER.get(), (World) world);
 							ServerWorld serverworld = (ServerWorld) world;
 							ArmorStandEntity rentity = EntityType.ARMOR_STAND.create(serverworld, itemstack.getTag(), (ITextComponent) null,
 									context.getPlayer(), pos, SpawnReason.SPAWN_EGG, true, true);

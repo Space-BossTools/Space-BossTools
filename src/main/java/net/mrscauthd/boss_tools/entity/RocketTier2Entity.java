@@ -360,8 +360,20 @@ public class RocketTier2Entity extends CreatureEntity {
 
 		//Fuel Load up
 		if (this.inventory.getStackInSlot(0).getItem() == ModInnet.FUEL_BUCKET.get() && this.dataManager.get(BUCKETS) < 3) {
-			this.inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));
-			this.getDataManager().set(BUCKETS, this.getDataManager().get(BUCKETS) + 1);
+
+			if (this.dataManager.get(FUEL) == 0 && this.dataManager.get(BUCKETS) == 0) {
+
+				this.inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));
+				this.getDataManager().set(BUCKETS, this.getDataManager().get(BUCKETS) + 1);
+			} else if (this.dataManager.get(FUEL) == 100 && this.dataManager.get(BUCKETS) == 1) {
+
+				this.inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));
+				this.getDataManager().set(BUCKETS, this.getDataManager().get(BUCKETS) + 1);
+			} else if (this.dataManager.get(FUEL) == 200 && this.dataManager.get(BUCKETS) == 2) {
+
+				this.inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));
+				this.getDataManager().set(BUCKETS, this.getDataManager().get(BUCKETS) + 1);
+			}
 		}
 
 		if (this.dataManager.get(BUCKETS) == 1 && this.dataManager.get(FUEL) < 100) {

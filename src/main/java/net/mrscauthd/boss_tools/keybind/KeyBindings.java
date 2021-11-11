@@ -181,10 +181,10 @@ public class KeyBindings {
 			}
 
 			//Rover
-			if (player.getRidingEntity() instanceof RoverEntity.CustomEntity) {
+			if (player.getRidingEntity() instanceof RoverEntity) {
 				float forward = player.moveForward;
 
-				if (player.getRidingEntity().getPersistentData().getDouble("fuel") >= 1 && !player.getRidingEntity().areEyesInFluid(FluidTags.WATER)) {
+				if (player.getRidingEntity().getDataManager().get(RoverEntity.FUEL) != 0 && !player.getRidingEntity().areEyesInFluid(FluidTags.WATER)) {
 					if (forward >= 0.01) {
 						Methodes.vehicleRotation((LivingEntity) player.getRidingEntity(), -1);
 					}
@@ -203,10 +203,10 @@ public class KeyBindings {
 			}
 
 			//Rover
-			if (player.getRidingEntity() instanceof RoverEntity.CustomEntity) {
+			if (player.getRidingEntity() instanceof RoverEntity) {
 				float forward = player.moveForward;
 
-				if (player.getRidingEntity().getPersistentData().getDouble("fuel") >= 1 && !player.getRidingEntity().areEyesInFluid(FluidTags.WATER)) {
+				if (player.getRidingEntity().getDataManager().get(RoverEntity.FUEL) != 0 && !player.getRidingEntity().areEyesInFluid(FluidTags.WATER)) {
 					if (forward >= 0.01) {
 						Methodes.vehicleRotation((LivingEntity) player.getRidingEntity(), 1);
 					}
