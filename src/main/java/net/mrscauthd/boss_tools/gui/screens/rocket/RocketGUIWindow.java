@@ -76,7 +76,7 @@ public class RocketGUIWindow extends ContainerScreen<RocketGUI.GuiContainer> {
 		GL11.glColor4f(1, 1, 1, 1);
 
 		Minecraft.getInstance().getTextureManager().bindTexture(texture);
-		this.blit(ms, this.guiTop, this.guiLeft, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
+		this.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
 
 
 		if (container.rocket instanceof RocketTier1Entity) {
