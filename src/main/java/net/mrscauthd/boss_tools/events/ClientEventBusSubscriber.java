@@ -26,7 +26,9 @@ import net.mrscauthd.boss_tools.entity.renderer.rockettier2.RocketTier2Renderer;
 import net.mrscauthd.boss_tools.entity.renderer.rockettier3.RocketTier3Renderer;
 import net.mrscauthd.boss_tools.entity.renderer.rover.RoverRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.starcrawler.StarCrawlerRenderer;
-import net.mrscauthd.boss_tools.gui.BlastFurnaceGuiWindow;
+import net.mrscauthd.boss_tools.gui.screens.blastfurnace.BlastFurnaceGuiWindow;
+import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGUI;
+import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGUIWindow;
 import net.mrscauthd.boss_tools.spawneggs.ModSpawnEggs;
 import net.mrscauthd.boss_tools.entity.renderer.alien.AlienRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.mogler.MoglerRenderer;
@@ -66,6 +68,7 @@ public class ClientEventBusSubscriber {
 
 		//GUIS
 		ScreenManager.registerFactory(ModInnet.BLAST_FURNACE_GUI.get(), BlastFurnaceGuiWindow::new);
+		ScreenManager.registerFactory(ModInnet.ROCKET_GUI.get(), RocketGUIWindow::new);
 
 		//Key Binding Registrys
 		key1 = new KeyBinding("key.boss_tools.rocket_start", GLFW.GLFW_KEY_SPACE, "key.categories.boss_tools");

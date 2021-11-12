@@ -244,6 +244,10 @@ public class GuiHelper {
 		return new Rectangle2d(left, top, FLUID_TANK_WIDTH, FLUID_TANK_HEIGHT);
 	}
 
+	public static Rectangle2d getRocketFluidTankBounds(int left, int top) {
+		return new Rectangle2d(left, top, 48, 48);
+	}
+
 	public static void drawVertical(MatrixStack matrixStack, int left, int top, int width, int height, ResourceLocation resource, double ratio) {
 		int ratioHeight = (int) Math.ceil(height * ratio);
 		int remainHeight = height - ratioHeight;

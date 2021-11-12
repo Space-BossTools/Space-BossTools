@@ -50,7 +50,12 @@ import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
 import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
 import net.mrscauthd.boss_tools.crafting.RocketPart;
-import net.mrscauthd.boss_tools.gui.screens.RocketGUI;
+import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGUI;
+import net.mrscauthd.boss_tools.gui.screens.blastfurnace.BlastFurnaceGui;
+import net.mrscauthd.boss_tools.gui.screens.blastfurnace.BlastFurnaceGuiWindow;
+import net.mrscauthd.boss_tools.jei.machineguihandlers.BlastFurnaceGuiContainerHandler;
+import net.mrscauthd.boss_tools.jei.machineguihandlers.CoalGeneratorGuiContainerHandler;
+import net.mrscauthd.boss_tools.jei.machineguihandlers.CompressorGuiContainerHandler;
 import net.mrscauthd.boss_tools.machines.NASAWorkbenchBlock;
 import net.mrscauthd.boss_tools.machines.tile.ItemStackToItemStackTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.OxygenMakingTileEntity;
@@ -121,7 +126,7 @@ public class JeiPlugin implements IModPlugin {
 		//Fuel Refinery
 		registration.addRecipeTransferHandler(FuelRefineryGUIGui.GuiContainerMod.class, FuelRefineryJeiCategory.Uid, FuelRefineryBlock.SLOT_INPUT_SOURCE, 1, 0, inventorySlotCount);
 		//Rocket Fuel
-		registration.addRecipeTransferHandler(RocketGUI.GuiContainerMod.class, Tier1RocketJeiCategory.Uid, 0, 1, 0, inventorySlotCount);
+		registration.addRecipeTransferHandler(RocketGUI.GuiContainer.class, Tier1RocketJeiCategory.Uid, 0, 1, 0, inventorySlotCount);
 	}
 
 	@Override

@@ -38,7 +38,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipeType;
-import net.mrscauthd.boss_tools.gui.BlastFurnaceGui;
+import net.mrscauthd.boss_tools.gui.screens.blastfurnace.BlastFurnaceGui;
 import net.mrscauthd.boss_tools.machines.tile.ItemStackToItemStackTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemFuelBurnTimeVanilla;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemRegistry;

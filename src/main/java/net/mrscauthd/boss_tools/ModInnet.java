@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
-import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
@@ -49,8 +48,8 @@ import net.mrscauthd.boss_tools.effects.OxygenEffect;
 import net.mrscauthd.boss_tools.entity.*;
 import net.mrscauthd.boss_tools.flag.FlagTileEntity;
 import net.mrscauthd.boss_tools.fluid.OilFluid;
-import net.mrscauthd.boss_tools.gui.BlastFurnaceGui;
-import net.mrscauthd.boss_tools.gui.BlastFurnaceGuiWindow;
+import net.mrscauthd.boss_tools.gui.screens.blastfurnace.BlastFurnaceGui;
+import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGUI;
 import net.mrscauthd.boss_tools.itemtiers.SteelItemTier;
 import net.mrscauthd.boss_tools.machines.*;
 import net.mrscauthd.boss_tools.machines.tile.WaterPumpTileEntity;
@@ -388,6 +387,7 @@ public class ModInnet {
 
     //GUIS
     public static final RegistryObject<ContainerType<BlastFurnaceGui.GuiContainer>> BLAST_FURNACE_GUI = GUIS.register("blast_furnace_gui", () -> new ContainerType<>(new BlastFurnaceGui.GuiContainerFactory()));
+    public static final RegistryObject<ContainerType<RocketGUI.GuiContainer>> ROCKET_GUI = GUIS.register("rocket_gui", () -> new ContainerType<>(new RocketGUI.GuiContainerFactory()));
 
     //Recpies
     public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, "boss_tools");

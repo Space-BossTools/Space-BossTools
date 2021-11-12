@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.gui;
+package net.mrscauthd.boss_tools.gui.screens.blastfurnace;
 
 import org.lwjgl.opengl.GL11;
 

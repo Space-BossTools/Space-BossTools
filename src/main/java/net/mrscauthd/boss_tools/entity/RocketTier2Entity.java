@@ -13,6 +13,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.boss_tools.ModInnet;
 
 import net.minecraftforge.items.wrapper.EntityHandsInvWrapper;
@@ -49,7 +50,7 @@ import javax.annotation.Nonnull;
 
 import io.netty.buffer.Unpooled;
 import net.mrscauthd.boss_tools.block.RocketLaunchPad;
-import net.mrscauthd.boss_tools.gui.screens.RocketGUI;
+import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGUI;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
 
 import java.util.Set;
@@ -238,6 +239,10 @@ public class RocketTier2Entity extends CreatureEntity {
 		return super.getCapability(capability, side);
 	}
 
+	public IItemHandlerModifiable getItemHandler() {
+		return (IItemHandlerModifiable) this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).resolve().get();
+	}
+
 	@Override
 	public void writeAdditional(CompoundNBT compound) {
 		super.writeAdditional(compound);
@@ -269,6 +274,7 @@ public class RocketTier2Entity extends CreatureEntity {
 		ActionResultType retval = ActionResultType.func_233537_a_(this.world.isRemote());
 
 		if (sourceentity instanceof ServerPlayerEntity && sourceentity.isSneaking()) {
+
 			NetworkHooks.openGui((ServerPlayerEntity) sourceentity, new INamedContainerProvider() {
 				@Override
 				public ITextComponent getDisplayName() {
@@ -278,14 +284,10 @@ public class RocketTier2Entity extends CreatureEntity {
 				@Override
 				public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
 					PacketBuffer packetBuffer = new PacketBuffer(Unpooled.buffer());
-					packetBuffer.writeBlockPos(new BlockPos(sourceentity.getPosition()));
-					packetBuffer.writeByte(0);
 					packetBuffer.writeVarInt(RocketTier2Entity.this.getEntityId());
-					return new RocketGUI.GuiContainerMod(id, inventory, packetBuffer);
+					return new RocketGUI.GuiContainer(id, inventory, packetBuffer);
 				}
 			}, buf -> {
-				buf.writeBlockPos(new BlockPos(sourceentity.getPosition()));
-				buf.writeByte(0);
 				buf.writeVarInt(this.getEntityId());
 			});
 
