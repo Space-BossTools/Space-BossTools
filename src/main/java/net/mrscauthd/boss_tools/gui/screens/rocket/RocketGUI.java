@@ -13,7 +13,7 @@ import net.minecraft.entity.Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
-import net.mrscauthd.boss_tools.gui.ContainerHelper;
+import net.mrscauthd.boss_tools.gui.helper.ContainerHelper;
 
 public class RocketGUI {
 

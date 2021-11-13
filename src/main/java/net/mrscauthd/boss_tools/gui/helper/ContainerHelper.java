@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.gui;
+package net.mrscauthd.boss_tools.gui.helper;
 
 import java.util.List;
 import java.util.function.Function;

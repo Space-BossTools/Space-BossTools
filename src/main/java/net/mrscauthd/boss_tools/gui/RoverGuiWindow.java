@@ -20,9 +20,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
 import net.mrscauthd.boss_tools.entity.RoverEntity;
-import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
+import net.mrscauthd.boss_tools.gui.helper.GuiHelper;
 
 @OnlyIn(Dist.CLIENT)
 public class RoverGuiWindow extends ContainerScreen<RoverGui.GuiContainerMod> {

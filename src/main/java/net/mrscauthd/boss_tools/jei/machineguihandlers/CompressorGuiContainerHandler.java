@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.mrscauthd.boss_tools.gui.screens.compressor.CompressorGuiWindow;
-import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
+import net.mrscauthd.boss_tools.gui.helper.GuiHelper;
 import net.mrscauthd.boss_tools.jei.JeiPlugin.CompressorJeiCategory;
 
 public class CompressorGuiContainerHandler implements IGuiContainerHandler<CompressorGuiWindow> {

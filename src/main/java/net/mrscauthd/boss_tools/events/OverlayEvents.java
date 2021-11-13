@@ -20,7 +20,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.capability.CapabilityOxygen;
 import net.mrscauthd.boss_tools.entity.*;
-import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
+import net.mrscauthd.boss_tools.gui.helper.GuiHelper;
 
 @Mod.EventBusSubscriber(modid = "boss_tools", value = Dist.CLIENT)
 public class OverlayEvents {

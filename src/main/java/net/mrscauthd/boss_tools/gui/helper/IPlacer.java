@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.gui.guihelper;
+package net.mrscauthd.boss_tools.gui.helper;
 
 import net.minecraft.client.renderer.Rectangle2d;
 

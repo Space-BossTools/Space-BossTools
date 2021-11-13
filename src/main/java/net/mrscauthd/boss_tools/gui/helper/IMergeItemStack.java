@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.gui;
+package net.mrscauthd.boss_tools.gui.helper;
 
 import net.minecraft.item.ItemStack;
 

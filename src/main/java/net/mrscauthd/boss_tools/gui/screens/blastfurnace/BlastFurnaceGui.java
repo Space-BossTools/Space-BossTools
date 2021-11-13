@@ -10,7 +10,7 @@ import net.minecraftforge.fml.network.IContainerFactory;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.SlotItemHandler;
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.gui.ContainerHelper;
+import net.mrscauthd.boss_tools.gui.helper.ContainerHelper;
 import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock;
 import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock.CustomTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.ItemStackToItemStackTileEntity;

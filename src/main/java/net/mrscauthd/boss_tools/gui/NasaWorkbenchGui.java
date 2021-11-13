@@ -20,8 +20,9 @@ import net.minecraftforge.fml.network.IContainerFactory;
 import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.crafting.WorkbenchingRecipe;
-import net.mrscauthd.boss_tools.gui.guihelper.GridPlacer;
-import net.mrscauthd.boss_tools.gui.guihelper.RocketPartGridPlacer;
+import net.mrscauthd.boss_tools.gui.helper.ContainerHelper;
+import net.mrscauthd.boss_tools.gui.helper.GridPlacer;
+import net.mrscauthd.boss_tools.gui.helper.RocketPartGridPlacer;
 import net.mrscauthd.boss_tools.inventory.RocketPartsItemHandler;
 import net.mrscauthd.boss_tools.machines.NASAWorkbenchBlock.CustomTileEntity;
 
