@@ -50,6 +50,8 @@ import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
 import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
 import net.mrscauthd.boss_tools.crafting.RocketPart;
+import net.mrscauthd.boss_tools.gui.screens.compressor.CompressorGui;
+import net.mrscauthd.boss_tools.gui.screens.compressor.CompressorGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGUI;
 import net.mrscauthd.boss_tools.gui.screens.blastfurnace.BlastFurnaceGui;
 import net.mrscauthd.boss_tools.gui.screens.blastfurnace.BlastFurnaceGuiWindow;
@@ -118,7 +120,7 @@ public class JeiPlugin implements IModPlugin {
 		registration.addRecipeTransferHandler(BlastFurnaceGui.GuiContainer.class, BlastingFurnaceJeiCategory.Uid, ItemStackToItemStackTileEntity.SLOT_INGREDIENT, 1, blastInventoryStartIndex, inventorySlotCount);
 		registration.addRecipeTransferHandler(BlastFurnaceGui.GuiContainer.class, VanillaRecipeCategoryUid.FUEL, BlastingFurnaceBlock.SLOT_FUEL, 1, blastInventoryStartIndex, inventorySlotCount);
 		// Compressor
-		registration.addRecipeTransferHandler(CompressorGuiGui.GuiContainerMod.class, CompressorJeiCategory.Uid, ItemStackToItemStackTileEntity.SLOT_INGREDIENT, 1, ItemStackToItemStackTileEntity.SLOT_OUTPUT + 1, inventorySlotCount);
+		registration.addRecipeTransferHandler(CompressorGui.GuiContainer.class, CompressorJeiCategory.Uid, ItemStackToItemStackTileEntity.SLOT_INGREDIENT, 1, ItemStackToItemStackTileEntity.SLOT_OUTPUT + 1, inventorySlotCount);
 		// WorkBench
 		int workbenchPartSlotStart = 1 + NASAWorkbenchBlock.SLOT_PARTS;
 		int workbenchPartSlotCount = NASAWorkbenchBlock.getBasicPartSlots();
@@ -135,7 +137,7 @@ public class JeiPlugin implements IModPlugin {
 		registration.addGuiContainerHandler(GeneratorGUIGuiWindow.class, new CoalGeneratorGuiContainerHandler());
 		registration.addRecipeClickArea(FuelRefineryGUIGuiWindow.class, FuelRefineryGUIGuiWindow.ARROW_LEFT, FuelRefineryGUIGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, FuelRefineryJeiCategory.Uid);
 		registration.addGuiContainerHandler(BlastFurnaceGuiWindow.class, new BlastFurnaceGuiContainerHandler());
-		registration.addGuiContainerHandler(CompressorGuiGuiWindow.class, new CompressorGuiContainerHandler());
+		registration.addGuiContainerHandler(CompressorGuiWindow.class, new CompressorGuiContainerHandler());
 		registration.addRecipeClickArea(OxygenLoaderGuiGuiWindow.class, OxygenLoaderGuiGuiWindow.ARROW_LEFT, OxygenLoaderGuiGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, OxygenLoaderJeiCategory.Uid);
 		registration.addRecipeClickArea(OxygenBubbleDistributorGUIWindow.class, OxygenBubbleDistributorGUIWindow.ARROW_LEFT, OxygenBubbleDistributorGUIWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, OxygenBubbleDistributorJeiCategory.Uid);
 	}

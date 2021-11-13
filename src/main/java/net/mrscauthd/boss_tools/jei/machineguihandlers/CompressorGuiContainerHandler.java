@@ -13,22 +13,22 @@ import mezz.jei.api.runtime.IRecipesGui;
 import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.mrscauthd.boss_tools.gui.CompressorGuiGuiWindow;
+import net.mrscauthd.boss_tools.gui.screens.compressor.CompressorGuiWindow;
 import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 import net.mrscauthd.boss_tools.jei.JeiPlugin.CompressorJeiCategory;
 
-public class CompressorGuiContainerHandler implements IGuiContainerHandler<CompressorGuiGuiWindow> {
+public class CompressorGuiContainerHandler implements IGuiContainerHandler<CompressorGuiWindow> {
 
 	public CompressorGuiContainerHandler() {
 
 	}
 
 	@Override
-	public Collection<IGuiClickableArea> getGuiClickableAreas(CompressorGuiGuiWindow containerScreen, double mouseX, double mouseY) {
+	public Collection<IGuiClickableArea> getGuiClickableAreas(CompressorGuiWindow containerScreen, double mouseX, double mouseY) {
 		return Collections.singleton(new IGuiClickableArea() {
 			@Override
 			public Rectangle2d getArea() {
-				return GuiHelper.getArrowBounds(CompressorGuiGuiWindow.ARROW_LEFT, CompressorGuiGuiWindow.ARROW_TOP);
+				return GuiHelper.getArrowBounds(CompressorGuiWindow.ARROW_LEFT, CompressorGuiWindow.ARROW_TOP);
 			}
 
 			@Override

@@ -49,6 +49,7 @@ import net.mrscauthd.boss_tools.entity.*;
 import net.mrscauthd.boss_tools.flag.FlagTileEntity;
 import net.mrscauthd.boss_tools.fluid.OilFluid;
 import net.mrscauthd.boss_tools.gui.screens.blastfurnace.BlastFurnaceGui;
+import net.mrscauthd.boss_tools.gui.screens.compressor.CompressorGui;
 import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGUI;
 import net.mrscauthd.boss_tools.itemtiers.SteelItemTier;
 import net.mrscauthd.boss_tools.machines.*;
@@ -386,8 +387,10 @@ public class ModInnet {
     public static final RegistryObject<Item> FLAG_YELLOW_ITEM = ITEMS.register("flag_yellow", () -> new TallBlockItem(FLAG_YELLOW_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
 
     //GUIS
-    public static final RegistryObject<ContainerType<BlastFurnaceGui.GuiContainer>> BLAST_FURNACE_GUI = GUIS.register("blast_furnace_gui", () -> new ContainerType<>(new BlastFurnaceGui.GuiContainerFactory()));
     public static final RegistryObject<ContainerType<RocketGUI.GuiContainer>> ROCKET_GUI = GUIS.register("rocket_gui", () -> new ContainerType<>(new RocketGUI.GuiContainerFactory()));
+    public static final RegistryObject<ContainerType<BlastFurnaceGui.GuiContainer>> BLAST_FURNACE_GUI = GUIS.register("blast_furnace_gui", () -> new ContainerType<>(new BlastFurnaceGui.GuiContainerFactory()));
+    public static final RegistryObject<ContainerType<CompressorGui.GuiContainer>> COMPRESSOR_GUI = GUIS.register("compressor_gui", () -> new ContainerType<>(new CompressorGui.GuiContainerFactory()));
+
 
     //Recpies
     public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, "boss_tools");

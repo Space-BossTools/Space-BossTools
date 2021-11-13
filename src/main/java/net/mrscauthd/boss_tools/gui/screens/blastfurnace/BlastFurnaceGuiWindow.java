@@ -19,7 +19,7 @@ import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock.CustomTileEntity;
 @OnlyIn(Dist.CLIENT)
 public class BlastFurnaceGuiWindow extends ContainerScreen<BlastFurnaceGui.GuiContainer> {
 
-	public static final ResourceLocation TEXTURE = new ResourceLocation("boss_tools:textures/blast_furnace_gui.png");
+	public static final ResourceLocation TEXTURE = new ResourceLocation("boss_tools:textures/screens/blast_furnace_gui.png");
 	public static final int FIRE_LEFT = 53;
 	public static final int FIRE_TOP = 39;
 	public static final int ARROW_LEFT = 74;
@@ -54,6 +54,7 @@ public class BlastFurnaceGuiWindow extends ContainerScreen<BlastFurnaceGui.GuiCo
 
 		this.minecraft.getTextureManager().bindTexture(TEXTURE);
 		AbstractGui.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
+
 		GuiHelper.drawFire(ms, this.guiLeft + FIRE_LEFT, this.guiTop + FIRE_TOP, tileEntity.getPowerSystemBurnTime().getStoredRatio());
 		GuiHelper.drawArrow(ms, this.guiLeft + ARROW_LEFT, this.guiTop + ARROW_TOP, tileEntity.getTimerRatio());
 	}

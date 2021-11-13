@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.gui;
+package net.mrscauthd.boss_tools.gui.screens.compressor;
 
 import org.lwjgl.opengl.GL11;
 
@@ -17,8 +17,10 @@ import net.mrscauthd.boss_tools.gui.guihelper.GuiHelper;
 import net.mrscauthd.boss_tools.machines.CompressorBlock.CustomTileEntity;
 
 @OnlyIn(Dist.CLIENT)
-public class CompressorGuiGuiWindow extends ContainerScreen<CompressorGuiGui.GuiContainerMod> {
-	public static final ResourceLocation TEXTURE = new ResourceLocation("boss_tools:textures/compressor_gui.png");
+public class CompressorGuiWindow extends ContainerScreen<CompressorGui.GuiContainer> {
+
+	public static final ResourceLocation TEXTURE = new ResourceLocation("boss_tools:textures/screens/compressor_gui.png");
+
 	public static final int ENERGY_LEFT = 144;
 	public static final int ENERGY_TOP = 21;
 	public static final int ARROW_LEFT = 62;
@@ -26,7 +28,7 @@ public class CompressorGuiGuiWindow extends ContainerScreen<CompressorGuiGui.Gui
 
 	private CustomTileEntity tileEntity;
 
-	public CompressorGuiGuiWindow(CompressorGuiGui.GuiContainerMod container, PlayerInventory inventory, ITextComponent text) {
+	public CompressorGuiWindow(CompressorGui.GuiContainer container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
 		this.tileEntity = container.getTileEntity();
 		this.xSize = 177;
@@ -48,10 +50,12 @@ public class CompressorGuiGuiWindow extends ContainerScreen<CompressorGuiGui.Gui
 	@Override
 	protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float par1, int par2, int par3) {
 		CustomTileEntity tileEntity = this.getTileEntity();
+
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		this.minecraft.getTextureManager().bindTexture(TEXTURE);
 		AbstractGui.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
+
 		GuiHelper.drawEnergy(ms, this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP, tileEntity.getPrimaryEnergyStorage());
 		GuiHelper.drawArrow(ms, this.guiLeft + ARROW_LEFT, this.guiTop + ARROW_TOP, tileEntity.getTimerRatio());
 	}

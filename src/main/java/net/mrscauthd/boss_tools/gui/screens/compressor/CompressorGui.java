@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.gui.screens.blastfurnace;
+package net.mrscauthd.boss_tools.gui.screens.compressor;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -11,11 +11,10 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.SlotItemHandler;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.gui.ContainerHelper;
-import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock;
-import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock.CustomTileEntity;
+import net.mrscauthd.boss_tools.machines.CompressorBlock.CustomTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.ItemStackToItemStackTileEntity;
 
-public class BlastFurnaceGui {
+public class CompressorGui {
 
 	public static class GuiContainerFactory implements IContainerFactory<GuiContainer> {
 		public GuiContainer create(int id, PlayerInventory inv, PacketBuffer extraData) {
@@ -29,21 +28,20 @@ public class BlastFurnaceGui {
 		private CustomTileEntity tileEntity;
 
 		public GuiContainer(int id, PlayerInventory inv, CustomTileEntity tileEntity) {
-			super(ModInnet.BLAST_FURNACE_GUI.get(), id);
+			super(ModInnet.COMPRESSOR_GUI.get(), id);
 			this.tileEntity = tileEntity;
 
 			IItemHandlerModifiable itemHandler = tileEntity.getItemHandler();
-			this.addSlot(new SlotItemHandler(itemHandler, ItemStackToItemStackTileEntity.SLOT_INGREDIENT, 53, 19));
-			this.addSlot(new SlotItemHandler(itemHandler, BlastingFurnaceBlock.SLOT_FUEL, 53, 56));
+			this.addSlot(new SlotItemHandler(itemHandler, CustomTileEntity.SLOT_INGREDIENT, 40, 37));
 
-			this.addSlot(new SlotItemHandler(itemHandler, ItemStackToItemStackTileEntity.SLOT_OUTPUT, 104, 38) {
+			this.addSlot(new SlotItemHandler(itemHandler, ItemStackToItemStackTileEntity.SLOT_OUTPUT, 92, 36) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
 					return false;
 				}
 			});
 
-			ContainerHelper.addInventorySlots(this, inv, 8, 87, this::addSlot);
+			ContainerHelper.addInventorySlots(this, inv, 8, 86, this::addSlot);
 		}
 
 		public CustomTileEntity getTileEntity() {

@@ -38,7 +38,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.ItemStackToItemStackRecipeType;
-import net.mrscauthd.boss_tools.gui.CompressorGuiGui;
+import net.mrscauthd.boss_tools.gui.screens.compressor.CompressorGui;
 import net.mrscauthd.boss_tools.machines.tile.ItemStackToItemStackTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.NamedComponentRegistry;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemEnergyCommon;
@@ -165,7 +165,7 @@ public class CompressorBlock {
 
 		@Override
 		public Container createMenu(int id, PlayerInventory player) {
-			return new CompressorGuiGui.GuiContainerMod(id, player, this);
+			return new CompressorGui.GuiContainer(id, player, this);
 		}
 
 		@Override

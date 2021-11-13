@@ -1,6 +1,7 @@
 package net.mrscauthd.boss_tools.gui.screens.rocket;
 
 import net.minecraft.client.renderer.Rectangle2d;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
@@ -26,13 +27,13 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 @OnlyIn(Dist.CLIENT)
 public class RocketGUIWindow extends ContainerScreen<RocketGUI.GuiContainer> {
 
-	private static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/rocket_gui_fuel.png");
-	private static final ResourceLocation fuel_bar = new ResourceLocation("boss_tools:textures/rocket_fuel_bar.png");
+	private static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/screens/rocket_gui.png");
 
 	public RocketGUIWindow(RocketGUI.GuiContainer container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
 		this.xSize = 176;
 		this.ySize = 167;
+		this.playerInventoryTitleY = this.ySize - 93;
 	}
 
 	@Override
@@ -53,19 +54,19 @@ public class RocketGUIWindow extends ContainerScreen<RocketGUI.GuiContainer> {
 			fuel = container.rocket.getDataManager().get(RocketTier3Entity.FUEL) / 3;
 		}
 
-		List<ITextComponent> fuel2 = new ArrayList<ITextComponent>();
+		List<ITextComponent> fuelToolTip = new ArrayList<ITextComponent>();
 
 		if (GuiHelper.isHover(this.getFluidBounds(), mouseX, mouseY)) {
-			if (fuel >= 1) {
+			if (fuel > 0) {
 
-				fuel2.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Fuel"));
+				fuelToolTip.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Fuel"));
 			} else {
 
-				fuel2.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Empty"));
+				fuelToolTip.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Empty"));
 			}
 
-			fuel2.add(ITextComponent.getTextComponentOrEmpty(fuel + "%"));
-			this.func_243308_b(ms, fuel2, mouseX, mouseY);
+			fuelToolTip.add(ITextComponent.getTextComponentOrEmpty(fuel + "%"));
+			this.func_243308_b(ms, fuelToolTip, mouseX, mouseY);
 		}
 	}
 
@@ -89,26 +90,17 @@ public class RocketGUIWindow extends ContainerScreen<RocketGUI.GuiContainer> {
 			fuel = container.rocket.getDataManager().get(RocketTier3Entity.FUEL);
 		}
 
-		Minecraft.getInstance().getTextureManager().bindTexture(fuel_bar);
-		this.blit(ms, this.guiLeft + 66, this.guiTop + 21, 0, 0, 48, 48, 48, 48);
-
 		FluidStack fluidStack = new FluidStack(ModInnet.FUEL_BLOCK.get().getFluid(), 1);
 		GuiHelper.drawRocketFluidTank(ms, this.guiLeft + 67, this.guiTop + 22, fluidStack, 300, fuel);
 	}
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
-		if (container.rocket instanceof RocketTier1Entity) {
-			this.font.drawString(ms, "Tier 1 Rocket", 56, 5, -13421773);
-		}
-		if (container.rocket instanceof RocketTier2Entity) {
-			this.font.drawString(ms, "Tier 2 Rocket", 56, 5, -13421773);
-		}
-		if (container.rocket instanceof RocketTier3Entity) {
-			this.font.drawString(ms, "Tier 3 Rocket", 56, 5, -13421773);
-		}
+		TranslationTextComponent title = new TranslationTextComponent("container." + container.rocket.getType());
 
-		this.font.drawString(ms, "Inventory", 6, 72, -13421773);
+		this.font.drawString(ms, title.getString(), (float) (this.xSize / 2) - 33, (float) this.titleY, 4210752);
+
+		this.font.func_243248_b(ms, this.playerInventory.getDisplayName(), (float) this.playerInventoryTitleX, (float) this.playerInventoryTitleY, 4210752);
 	}
 
 	public Rectangle2d getFluidBounds() {

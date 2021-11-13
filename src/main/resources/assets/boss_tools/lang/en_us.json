@@ -210,6 +210,10 @@
   "container.boss_tools.oxygen_loader": "Oxygen Loader",
   "container.boss_tools.solar_panel": "Solar Panel",
   "container.boss_tools.water_pump": "Water Pump",
+  "container.entity.boss_tools.rocket_t1": "Tier 1 Rocket",
+  "container.entity.boss_tools.rocket_t2": "Tier 2 Rocket",
+  "container.entity.boss_tools.rocket_t3": "Tier 3 Rocket",
+
 
 
   "gui.boss_tools.oxygen_bubble_distributor.workingarea.text": "Working Area: %1$sx%2$sx%3$s",
