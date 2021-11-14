@@ -1,12 +1,8 @@
 package net.mrscauthd.boss_tools.gui.screens.rover;
 
 import net.minecraft.client.renderer.Rectangle2d;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
-import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
-import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.entity.RoverEntity;
 import net.mrscauthd.boss_tools.gui.helper.GuiHelper;
 import org.lwjgl.opengl.GL11;
@@ -30,14 +26,11 @@ public class RoverGuiWindow extends ContainerScreen<RoverGui.GuiContainer> {
 
 	private static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/screens/rover_gui.png");
 
-	int fuel;
-
 	public RoverGuiWindow(RoverGui.GuiContainer container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
 		this.xSize = 176;
-		this.ySize = 167;
+		this.ySize = 176;
 		this.playerInventoryTitleY = this.ySize - 93;
-		this.fuel = container.rover.getDataManager().get(RoverEntity.FUEL);
 	}
 
 	@Override
@@ -48,8 +41,10 @@ public class RoverGuiWindow extends ContainerScreen<RoverGui.GuiContainer> {
 
 		List<ITextComponent> fuelToolTip = new ArrayList<ITextComponent>();
 
+		int fuel = container.rover.getDataManager().get(RoverEntity.FUEL);
+
 		if (GuiHelper.isHover(this.getFluidBounds(), mouseX, mouseY)) {
-			if (fuel / 3 > 0) {
+			if (fuel / 30 > 0) {
 
 				fuelToolTip.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Fuel"));
 			} else {
@@ -64,24 +59,24 @@ public class RoverGuiWindow extends ContainerScreen<RoverGui.GuiContainer> {
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float par1, int par2, int par3) {
+		int fuel = container.rover.getDataManager().get(RoverEntity.FUEL);
+
 		GL11.glColor4f(1, 1, 1, 1);
 
 		Minecraft.getInstance().getTextureManager().bindTexture(texture);
 		this.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
 
-		FluidStack fluidStack = new FluidStack(ModInnet.FUEL_BLOCK.get().getFluid(), 1);
-		GuiHelper.drawRocketFluidTank(ms, this.guiLeft + 67, this.guiTop + 22, fluidStack, 300, fuel);
+		FluidStack fluidStack = new FluidStack(ModInnet.FUEL_BLOCK.get().getFluid(), fuel);
+		GuiHelper.drawFluidTank(ms, this.guiLeft + 9, this.guiTop + 11, fluidStack, 3000);
 	}
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
-
-		this.font.drawString(ms, title.getString(), (float) (this.xSize / 2) - 33, (float) this.titleY, 4210752);
-
+		this.font.drawString(ms, title.getString(), (float) (this.xSize / 2) - 14, (float) this.titleY, 4210752);
 		this.font.func_243248_b(ms, this.playerInventory.getDisplayName(), (float) this.playerInventoryTitleX, (float) this.playerInventoryTitleY, 4210752);
 	}
 
 	public Rectangle2d getFluidBounds() {
-		return GuiHelper.getFluidTankBounds(this.guiLeft + 9, this.guiTop + 21);
+		return GuiHelper.getFluidTankBounds(this.guiLeft + 9, this.guiTop + 11);
 	}
 }

@@ -51,7 +51,7 @@ public class RoverGui {
 			this.addSlot(new SlotItemHandler(itemHandler, 7, 115, 34));
 			this.addSlot(new SlotItemHandler(itemHandler, 8, 97, 34));
 
-			ContainerHelper.addInventorySlots(this, inv, 8, 84, this::addSlot);
+			ContainerHelper.addInventorySlots(this, inv, 8, 93, this::addSlot);
 		}
 
 		@Override
