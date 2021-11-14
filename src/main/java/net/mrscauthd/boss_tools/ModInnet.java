@@ -58,6 +58,7 @@ import net.mrscauthd.boss_tools.gui.screens.nasaworkbench.NasaWorkbenchGui;
 import net.mrscauthd.boss_tools.gui.screens.oxygenloader.OxygenLoaderGui;
 import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGui;
 import net.mrscauthd.boss_tools.gui.screens.solarpanel.SolarPanelGui;
+import net.mrscauthd.boss_tools.gui.screens.waterpump.WaterPumpGui;
 import net.mrscauthd.boss_tools.itemtiers.SteelItemTier;
 import net.mrscauthd.boss_tools.machines.*;
 import net.mrscauthd.boss_tools.machines.tile.WaterPumpTileEntity;
@@ -404,6 +405,7 @@ public class ModInnet {
     public static final RegistryObject<ContainerType<NasaWorkbenchGui.GuiContainer>> NASA_WORKBENCH_GUI = GUIS.register("nasa_workbench_gui", () -> new ContainerType<>(new NasaWorkbenchGui.GuiContainerFactory()));
     public static final RegistryObject<ContainerType<OxygenLoaderGui.GuiContainer>> OXYGEN_LOADER_GUI = GUIS.register("oxygen_loader_gui", () -> new ContainerType<>(new OxygenLoaderGui.GuiContainerFactory()));
     public static final RegistryObject<ContainerType<SolarPanelGui.GuiContainer>> SOLAR_PANEL_GUI = GUIS.register("solar_panel_gui", () -> new ContainerType<>(new SolarPanelGui.GuiContainerFactory()));
+    public static final RegistryObject<ContainerType<WaterPumpGui.GuiContainer>> WATER_PUMP_GUI = GUIS.register("water_pump_gui", () -> new ContainerType<>(new WaterPumpGui.GuiContainerFactory()));
 
     //Particle
     public static final RegistryObject<ParticleType<BasicParticleType>> VENUS_RAIN_PARTICLE = PARTICLES.register("venus_rain", () -> new BasicParticleType(true));

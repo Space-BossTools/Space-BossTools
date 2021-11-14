@@ -19,7 +19,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.fluid.FluidUtil2;
-import net.mrscauthd.boss_tools.gui.WaterPumpGui;
+import net.mrscauthd.boss_tools.gui.screens.waterpump.WaterPumpGui;
 import net.mrscauthd.boss_tools.machines.WaterPump;
 
 import java.util.function.Predicate;
@@ -36,7 +36,7 @@ public class WaterPumpTileEntity extends AbstractMachineTileEntity {
 
     @Override
     protected Container createMenu(int id, PlayerInventory player) {
-        return new WaterPumpGui.GuiContainerMod(id, player, this);
+        return new WaterPumpGui.GuiContainer(id, player, this);
     }
 
     @Override

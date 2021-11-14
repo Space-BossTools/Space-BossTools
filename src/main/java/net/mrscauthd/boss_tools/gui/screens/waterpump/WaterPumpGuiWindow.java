@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.gui;
+package net.mrscauthd.boss_tools.gui.screens.waterpump;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.AbstractGui;
@@ -15,16 +15,19 @@ import net.mrscauthd.boss_tools.machines.tile.WaterPumpTileEntity;
 import org.lwjgl.opengl.GL11;
 
 @OnlyIn(Dist.CLIENT)
-public class WaterPumpGuiWindow extends ContainerScreen<WaterPumpGui.GuiContainerMod> {
-	public static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/water_pump_gui.png");
+public class WaterPumpGuiWindow extends ContainerScreen<WaterPumpGui.GuiContainer> {
+
+	public static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/screens/water_pump_gui.png");
+
 	public static final int WATER_TANK_LEFT = 75;
 	public static final int WATER_TANK_TOP = 21;
+
 	public static final int ENERGY_LEFT = 144;
 	public static final int ENERGY_TOP = 21;
 
 	private final WaterPumpTileEntity tileEntity;
 
-	public WaterPumpGuiWindow(WaterPumpGui.GuiContainerMod container, PlayerInventory inventory, ITextComponent text) {
+	public WaterPumpGuiWindow(WaterPumpGui.GuiContainer container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
 		this.tileEntity = container.getTileEntity();
 		this.xSize = 177;
@@ -49,19 +52,23 @@ public class WaterPumpGuiWindow extends ContainerScreen<WaterPumpGui.GuiContaine
 		WaterPumpTileEntity tileEntity = (WaterPumpTileEntity) this.getTileEntity();
 
 		if (GuiHelper.isHover(this.getOutputTankBounds(), mouseX, mouseY)) {
+
 			this.renderTooltip(ms, GaugeDataHelper.getFluid(tileEntity.getWaterTank()).getText(), mouseX, mouseY);
 		} else if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
+
 			this.renderTooltip(ms, GaugeDataHelper.getEnergy(tileEntity).getText(), mouseX, mouseY);
 		}
 	}
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float par1, int par2, int par3) {
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		WaterPumpTileEntity tileEntity = this.getTileEntity();
+
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		this.minecraft.getTextureManager().bindTexture(texture);
 		AbstractGui.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
+
 		GuiHelper.drawEnergy(ms, this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP, tileEntity.getPrimaryEnergyStorage());
 		GuiHelper.drawFluidTank(ms, this.guiLeft + WATER_TANK_LEFT, this.guiTop + WATER_TANK_TOP, tileEntity.getWaterTank());
 	}
@@ -69,5 +76,4 @@ public class WaterPumpGuiWindow extends ContainerScreen<WaterPumpGui.GuiContaine
 	public WaterPumpTileEntity getTileEntity() {
 		return this.tileEntity;
 	}
-
 }
