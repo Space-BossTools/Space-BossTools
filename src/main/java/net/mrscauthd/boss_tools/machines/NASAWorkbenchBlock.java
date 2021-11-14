@@ -62,7 +62,7 @@ import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.RocketPart;
 import net.mrscauthd.boss_tools.crafting.WorkbenchingRecipe;
-import net.mrscauthd.boss_tools.gui.NasaWorkbenchGui;
+import net.mrscauthd.boss_tools.gui.screens.nasaworkbench.NasaWorkbenchGui;
 import net.mrscauthd.boss_tools.inventory.ItemHandlerHelper2;
 import net.mrscauthd.boss_tools.inventory.RocketPartsItemHandler;
 import net.mrscauthd.boss_tools.inventory.StackCacher;
@@ -276,7 +276,7 @@ public class NASAWorkbenchBlock {
 
 		@Override
 		public Container createMenu(int id, PlayerInventory player) {
-			return new NasaWorkbenchGui.GuiContainerMod(id, player, this);
+			return new NasaWorkbenchGui.GuiContainer(id, player, this);
 		}
 
 		@Override

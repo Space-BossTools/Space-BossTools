@@ -1,23 +1,14 @@
+package net.mrscauthd.boss_tools.gui.screens.nasaworkbench;
 
-package net.mrscauthd.boss_tools.gui;
-
-import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftResultInventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DeferredWorkQueue;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.network.IContainerFactory;
-import net.mrscauthd.boss_tools.BossToolsModElements;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.crafting.WorkbenchingRecipe;
 import net.mrscauthd.boss_tools.gui.helper.ContainerHelper;
@@ -26,65 +17,47 @@ import net.mrscauthd.boss_tools.gui.helper.RocketPartGridPlacer;
 import net.mrscauthd.boss_tools.inventory.RocketPartsItemHandler;
 import net.mrscauthd.boss_tools.machines.NASAWorkbenchBlock.CustomTileEntity;
 
-@BossToolsModElements.ModElement.Tag
-public class NasaWorkbenchGui extends BossToolsModElements.ModElement {
-	private static ContainerType<GuiContainerMod> containerType = null;
+public class NasaWorkbenchGui {
 
-	public NasaWorkbenchGui(BossToolsModElements instance) {
-		super(instance, 165);
-		containerType = new ContainerType<>(new GuiContainerModFactory());
-		FMLJavaModLoadingContext.get().getModEventBus().register(new ContainerRegisterHandler());
-	}
-
-	private static class ContainerRegisterHandler {
-		@SubscribeEvent
-		public void registerContainer(RegistryEvent.Register<ContainerType<?>> event) {
-			event.getRegistry().register(containerType.setRegistryName("nasa_workbench"));
+	public static class GuiContainerFactory implements IContainerFactory<GuiContainer> {
+		public GuiContainer create(int id, PlayerInventory inv, PacketBuffer extraData) {
+			BlockPos pos = extraData.readBlockPos();
+			CustomTileEntity tileEntity = (CustomTileEntity) inv.player.world.getTileEntity(pos);
+			return new GuiContainer(id, inv, tileEntity);
 		}
 	}
 
-	@SuppressWarnings("deprecation")
-	@OnlyIn(Dist.CLIENT)
-	public void initElements() {
-		DeferredWorkQueue.runLater(() -> ScreenManager.registerFactory(containerType, NasaWorkbenchGuiWindow::new));
-	}
-
-	public static class GuiContainerModFactory implements IContainerFactory<GuiContainerMod> {
-		public GuiContainerMod create(int id, PlayerInventory inv, PacketBuffer extraData) {
-			CustomTileEntity tileEntity = (CustomTileEntity) inv.player.world.getTileEntity(extraData.readBlockPos());
-			return new GuiContainerMod(id, inv, tileEntity);
-		}
-	}
-
-	public static class GuiContainerMod extends Container {
+	public static class GuiContainer extends Container {
 		private CustomTileEntity tileEntity;
 		private CraftResultInventory resultInventory;
 		private Slot resultSlot;
 		private int partSlotStart = 0;
 		private int partSlotEnd = 0;
 
-		public GuiContainerMod(int id, PlayerInventory inv, CustomTileEntity tileEntity) {
-			super(containerType, id);
+		public GuiContainer(int id, PlayerInventory inv, CustomTileEntity tileEntity) {
+			super(ModInnet.NASA_WORKBENCH_GUI.get(), id);
 			this.tileEntity = tileEntity;
 
 			this.resultInventory = new CraftResultInventory() {
 				@Override
 				public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_) {
 					ItemStack stack = super.decrStackSize(p_70298_1_, p_70298_2_);
-					GuiContainerMod.this.onExtractResult(stack);
+					GuiContainer.this.onExtractResult(stack);
 					return stack;
 				}
 
 				@Override
 				public ItemStack removeStackFromSlot(int p_70304_1_) {
 					ItemStack stack = super.removeStackFromSlot(p_70304_1_);
-					GuiContainerMod.this.onExtractResult(stack);
+					GuiContainer.this.onExtractResult(stack);
 					return stack;
 				}
 			};
-			this.resultSlot = this.addSlot(new NasaWorkbenchingResultSlot(this.resultInventory, 0, 133, 74, tileEntity));
+
+			this.resultSlot = this.addSlot(new NasaWorkbenchResultSlot(this.resultInventory, 0, 133, 74, tileEntity));
 
 			this.partSlotStart = this.inventorySlots.size();
+
 			RocketPartsItemHandler partsItemHandler = tileEntity.getPartsItemHandler();
 			GridPlacer placer = new GridPlacer();
 			RocketPartGridPlacer.placeContainer(40, 18, 1, placer::placeBottom, ModInnet.ROCKET_PART_NOSE.get(), partsItemHandler, this::addSlot);
@@ -93,6 +66,7 @@ public class NasaWorkbenchGui extends BossToolsModElements.ModElement {
 			RocketPartGridPlacer.placeContainer(13, 90, 1, placer::placeBottom, ModInnet.ROCKET_PART_FIN_LEFT.get(), partsItemHandler, this::addSlot);
 			RocketPartGridPlacer.placeContainer(67, 90, 1, placer::placeBottom, ModInnet.ROCKET_PART_FIN_RIGHT.get(), partsItemHandler, this::addSlot);
 			RocketPartGridPlacer.placeContainer(40, 108, 1, placer::placeBottom, ModInnet.ROCKET_PART_ENGINE.get(), partsItemHandler, this::addSlot);
+
 			this.partSlotEnd = this.inventorySlots.size();
 
 			ContainerHelper.addInventorySlots(this, inv, 8, 142, this::addSlot);
@@ -111,6 +85,7 @@ public class NasaWorkbenchGui extends BossToolsModElements.ModElement {
 			super.detectAndSendChanges();
 
 			WorkbenchingRecipe recipe = this.getTileEntity().cacheRecipes();
+
 			this.resultSlot.putStack(recipe != null ? recipe.getOutput() : ItemStack.EMPTY);
 		}
 

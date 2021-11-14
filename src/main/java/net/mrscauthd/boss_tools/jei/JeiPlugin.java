@@ -56,6 +56,8 @@ import net.mrscauthd.boss_tools.gui.screens.compressor.CompressorGui;
 import net.mrscauthd.boss_tools.gui.screens.compressor.CompressorGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.fuelrefinery.FuelRefineryGui;
 import net.mrscauthd.boss_tools.gui.screens.fuelrefinery.FuelRefineryGuiWindow;
+import net.mrscauthd.boss_tools.gui.screens.nasaworkbench.NasaWorkbenchGui;
+import net.mrscauthd.boss_tools.gui.screens.nasaworkbench.NasaWorkbenchGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGUI;
 import net.mrscauthd.boss_tools.gui.screens.blastfurnace.BlastFurnaceGui;
 import net.mrscauthd.boss_tools.gui.screens.blastfurnace.BlastFurnaceGuiWindow;
@@ -128,7 +130,7 @@ public class JeiPlugin implements IModPlugin {
 		// WorkBench
 		int workbenchPartSlotStart = 1 + NASAWorkbenchBlock.SLOT_PARTS;
 		int workbenchPartSlotCount = NASAWorkbenchBlock.getBasicPartSlots();
-		registration.addRecipeTransferHandler(NasaWorkbenchGui.GuiContainerMod.class, NASAWorkbenchJeiCategory.Uid, workbenchPartSlotStart, workbenchPartSlotCount, workbenchPartSlotStart + workbenchPartSlotCount, inventorySlotCount);
+		registration.addRecipeTransferHandler(NasaWorkbenchGui.GuiContainer.class, NASAWorkbenchJeiCategory.Uid, workbenchPartSlotStart, workbenchPartSlotCount, workbenchPartSlotStart + workbenchPartSlotCount, inventorySlotCount);
 		//Fuel Refinery
 		registration.addRecipeTransferHandler(FuelRefineryGui.GuiContainer.class, FuelRefineryJeiCategory.Uid, FuelRefineryBlock.SLOT_INPUT_SOURCE, 1, 0, inventorySlotCount);
 		//Rocket Fuel

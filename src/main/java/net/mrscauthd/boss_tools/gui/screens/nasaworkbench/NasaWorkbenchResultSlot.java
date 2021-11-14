@@ -1,15 +1,15 @@
-package net.mrscauthd.boss_tools.gui;
+package net.mrscauthd.boss_tools.gui.screens.nasaworkbench;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.mrscauthd.boss_tools.machines.NASAWorkbenchBlock.CustomTileEntity;
 
-public class NasaWorkbenchingResultSlot extends Slot {
+public class NasaWorkbenchResultSlot extends Slot {
 
 	private final CustomTileEntity tileEntity;
 
-	public NasaWorkbenchingResultSlot(IInventory inventory, int slotIndex, int xPos, int yPos, CustomTileEntity tileEntity) {
+	public NasaWorkbenchResultSlot(IInventory inventory, int slotIndex, int xPos, int yPos, CustomTileEntity tileEntity) {
 		super(inventory, slotIndex, xPos, yPos);
 		this.tileEntity = tileEntity;
 	}

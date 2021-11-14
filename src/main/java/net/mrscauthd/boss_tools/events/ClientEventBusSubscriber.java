@@ -31,6 +31,7 @@ import net.mrscauthd.boss_tools.gui.screens.blastfurnace.BlastFurnaceGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.coalgenerator.CoalGeneratorGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.compressor.CompressorGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.fuelrefinery.FuelRefineryGuiWindow;
+import net.mrscauthd.boss_tools.gui.screens.nasaworkbench.NasaWorkbenchGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGUIWindow;
 import net.mrscauthd.boss_tools.particle.LargeFlameParticle;
 import net.mrscauthd.boss_tools.particle.SmokeParticle;
@@ -78,6 +79,7 @@ public class ClientEventBusSubscriber {
 		ScreenManager.registerFactory(ModInnet.COMPRESSOR_GUI.get(), CompressorGuiWindow::new);
 		ScreenManager.registerFactory(ModInnet.FUEL_REFINERY_GUI.get(), FuelRefineryGuiWindow::new);
 		ScreenManager.registerFactory(ModInnet.COAL_GENERATOR_GUI.get(), CoalGeneratorGuiWindow::new);
+		ScreenManager.registerFactory(ModInnet.NASA_WORKBENCH_GUI.get(), NasaWorkbenchGuiWindow::new);
 
 		//Key Binding Registrys
 		key1 = new KeyBinding("key.boss_tools.rocket_start", GLFW.GLFW_KEY_SPACE, "key.categories.boss_tools");

@@ -1,5 +1,5 @@
 
-package net.mrscauthd.boss_tools.gui;
+package net.mrscauthd.boss_tools.gui.screens.nasaworkbench;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -15,12 +15,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.boss_tools.machines.NASAWorkbenchBlock.CustomTileEntity;
 
 @OnlyIn(Dist.CLIENT)
-public class NasaWorkbenchGuiWindow extends ContainerScreen<NasaWorkbenchGui.GuiContainerMod> {
+public class NasaWorkbenchGuiWindow extends ContainerScreen<NasaWorkbenchGui.GuiContainer> {
+
 	public static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/nasa_workbench.png");
 
 	private CustomTileEntity tileEntity;
 
-	public NasaWorkbenchGuiWindow(NasaWorkbenchGui.GuiContainerMod container, PlayerInventory inventory, ITextComponent text) {
+	public NasaWorkbenchGuiWindow(NasaWorkbenchGui.GuiContainer container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
 		this.tileEntity = container.getTileEntity();
 		this.xSize = 176;
@@ -38,6 +39,7 @@ public class NasaWorkbenchGuiWindow extends ContainerScreen<NasaWorkbenchGui.Gui
 	@Override
 	protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float partialTicks, int gx, int gy) {
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+
 		Minecraft.getInstance().getTextureManager().bindTexture(texture);
 		AbstractGui.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
 	}
