@@ -174,8 +174,9 @@ public class LanderEntity extends CreatureEntity {
 
 	@Override
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
-		if (this.isAlive() && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side == null)
+		if (this.isAlive() && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side == null) {
 			return LazyOptional.of(() -> combined).cast();
+		}
 		return super.getCapability(capability, side);
 	}
 
@@ -231,5 +232,4 @@ public class LanderEntity extends CreatureEntity {
 	public ItemStackHandler getInventory() {
 		return inventory;
 	}
-
 }

@@ -35,12 +35,13 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.items.wrapper.EntityArmorInvWrapper;
 import net.minecraftforge.items.wrapper.EntityHandsInvWrapper;
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.gui.RoverGui;
+import net.mrscauthd.boss_tools.gui.screens.rover.RoverGui;
 import net.mrscauthd.boss_tools.item.RoverItemItem;
 
 import javax.annotation.Nonnull;
@@ -209,9 +210,14 @@ public class RoverEntity extends CreatureEntity {
 
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
-        if (this.isAlive() && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side == null)
+        if (this.isAlive() && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side == null) {
             return LazyOptional.of(() -> combined).cast();
+        }
         return super.getCapability(capability, side);
+    }
+
+    public IItemHandlerModifiable getItemHandler() {
+        return (IItemHandlerModifiable) this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).resolve().get();
     }
 
     @Override
@@ -239,6 +245,7 @@ public class RoverEntity extends CreatureEntity {
         ActionResultType retval = ActionResultType.func_233537_a_(this.world.isRemote());
 
         if (sourceentity instanceof ServerPlayerEntity && sourceentity.isSneaking()) {
+
             NetworkHooks.openGui((ServerPlayerEntity) sourceentity, new INamedContainerProvider() {
                 @Override
                 public ITextComponent getDisplayName() {
@@ -248,14 +255,10 @@ public class RoverEntity extends CreatureEntity {
                 @Override
                 public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
                     PacketBuffer packetBuffer = new PacketBuffer(Unpooled.buffer());
-                    packetBuffer.writeBlockPos(new BlockPos(sourceentity.getPosition()));
-                    packetBuffer.writeByte(0);
                     packetBuffer.writeVarInt(RoverEntity.this.getEntityId());
-                    return new RoverGui.GuiContainerMod(id, inventory, packetBuffer);
+                    return new RoverGui.GuiContainer(id, inventory, packetBuffer);
                 }
             }, buf -> {
-                buf.writeBlockPos(new BlockPos(sourceentity.getPosition()));
-                buf.writeByte(0);
                 buf.writeVarInt(this.getEntityId());
             });
 
