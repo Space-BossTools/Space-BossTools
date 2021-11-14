@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.gui;
+package net.mrscauthd.boss_tools.gui.screens.coalgenerator;
 
 import org.lwjgl.opengl.GL11;
 
@@ -17,16 +17,19 @@ import net.mrscauthd.boss_tools.gui.helper.GuiHelper;
 import net.mrscauthd.boss_tools.machines.CoalGeneratorBlock.CustomTileEntity;
 
 @OnlyIn(Dist.CLIENT)
-public class GeneratorGUIGuiWindow extends ContainerScreen<GeneratorGUIGui.GuiContainerMod> {
-	public static final ResourceLocation TEXTURE = new ResourceLocation("boss_tools:textures/generator_gui.png");
+public class CoalGeneratorGuiWindow extends ContainerScreen<CoalGeneratorGui.GuiContainer> {
+
+	public static final ResourceLocation TEXTURE = new ResourceLocation("boss_tools:textures/screens/coal_generator_gui.png");
+
 	public static final int FIRE_LEFT = 77;
 	public static final int FIRE_TOP = 49;
+
 	public static final int ENERGY_LEFT = 144;
 	public static final int ENERGY_TOP = 21;
 
 	private CustomTileEntity tileEntity;
 
-	public GeneratorGUIGuiWindow(GeneratorGUIGui.GuiContainerMod container, PlayerInventory inventory, ITextComponent text) {
+	public CoalGeneratorGuiWindow(CoalGeneratorGui.GuiContainer container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
 		this.tileEntity = container.getTileEntity();
 		this.xSize = 176;
@@ -48,10 +51,12 @@ public class GeneratorGUIGuiWindow extends ContainerScreen<GeneratorGUIGui.GuiCo
 	@Override
 	protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float par1, int par2, int par3) {
 		CustomTileEntity tileEntity = this.getTileEntity();
+
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		this.minecraft.getTextureManager().bindTexture(TEXTURE);
 		AbstractGui.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
+
 		GuiHelper.drawFire(ms, this.guiLeft + FIRE_LEFT, this.guiTop + FIRE_TOP, tileEntity.getPowerSystemGenerating().getStoredRatio());
 		GuiHelper.drawEnergy(ms, this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP, tileEntity.getGeneratingEnergyStorage());
 	}
@@ -63,5 +68,4 @@ public class GeneratorGUIGuiWindow extends ContainerScreen<GeneratorGUIGui.GuiCo
 	public Rectangle2d getEnergyBounds() {
 		return GuiHelper.getEnergyBounds(this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP);
 	}
-
 }
