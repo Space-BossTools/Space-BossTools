@@ -2,7 +2,8 @@ package net.mrscauthd.boss_tools.entity;
 
 import net.minecraft.entity.*;
 import net.minecraft.util.*;
-import net.mrscauthd.boss_tools.gui.LanderGui;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import net.mrscauthd.boss_tools.gui.screens.lander.LanderGui;
 
 import net.minecraftforge.items.wrapper.EntityHandsInvWrapper;
 import net.minecraftforge.items.wrapper.EntityArmorInvWrapper;
@@ -178,6 +179,10 @@ public class LanderEntity extends CreatureEntity {
 		return super.getCapability(capability, side);
 	}
 
+	public IItemHandlerModifiable getItemHandler() {
+		return (IItemHandlerModifiable) this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).resolve().get();
+	}
+
 	@Override
 	public void writeAdditional(CompoundNBT compound) {
 		super.writeAdditional(compound);
@@ -199,6 +204,7 @@ public class LanderEntity extends CreatureEntity {
 		ActionResultType retval = ActionResultType.func_233537_a_(this.world.isRemote());
 
 		if (sourceentity instanceof ServerPlayerEntity && sourceentity.isSneaking()) {
+
 			NetworkHooks.openGui((ServerPlayerEntity) sourceentity, new INamedContainerProvider() {
 				@Override
 				public ITextComponent getDisplayName() {
@@ -208,14 +214,10 @@ public class LanderEntity extends CreatureEntity {
 				@Override
 				public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
 					PacketBuffer packetBuffer = new PacketBuffer(Unpooled.buffer());
-					packetBuffer.writeBlockPos(new BlockPos(sourceentity.getPosition()));
-					packetBuffer.writeByte(0);
 					packetBuffer.writeVarInt(LanderEntity.this.getEntityId());
-					return new LanderGui.GuiContainerMod(id, inventory, packetBuffer);
+					return new LanderGui.GuiContainer(id, inventory, packetBuffer);
 				}
 			}, buf -> {
-				buf.writeBlockPos(new BlockPos(sourceentity.getPosition()));
-				buf.writeByte(0);
 				buf.writeVarInt(this.getEntityId());
 			});
 

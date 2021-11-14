@@ -54,6 +54,7 @@ import net.mrscauthd.boss_tools.gui.screens.blastfurnace.BlastFurnaceGui;
 import net.mrscauthd.boss_tools.gui.screens.coalgenerator.CoalGeneratorGui;
 import net.mrscauthd.boss_tools.gui.screens.compressor.CompressorGui;
 import net.mrscauthd.boss_tools.gui.screens.fuelrefinery.FuelRefineryGui;
+import net.mrscauthd.boss_tools.gui.screens.lander.LanderGui;
 import net.mrscauthd.boss_tools.gui.screens.nasaworkbench.NasaWorkbenchGui;
 import net.mrscauthd.boss_tools.gui.screens.oxygenbubbledistributor.OxygenBubbleDistributorGui;
 import net.mrscauthd.boss_tools.gui.screens.oxygenloader.OxygenLoaderGui;
@@ -408,6 +409,7 @@ public class ModInnet {
     public static final RegistryObject<ContainerType<SolarPanelGui.GuiContainer>> SOLAR_PANEL_GUI = GUIS.register("solar_panel_gui", () -> new ContainerType<>(new SolarPanelGui.GuiContainerFactory()));
     public static final RegistryObject<ContainerType<WaterPumpGui.GuiContainer>> WATER_PUMP_GUI = GUIS.register("water_pump_gui", () -> new ContainerType<>(new WaterPumpGui.GuiContainerFactory()));
     public static final RegistryObject<ContainerType<OxygenBubbleDistributorGui.GuiContainer>> OXYGEN_BUBBLE_DISTRIBUTOR_GUI = GUIS.register("oxygen_bubble_distributor_gui", () -> new ContainerType<>(new OxygenBubbleDistributorGui.GuiContainerFactory()));
+    public static final RegistryObject<ContainerType<LanderGui.GuiContainer>> LANDER_GUI = GUIS.register("lander_gui", () -> new ContainerType<>(new LanderGui.GuiContainerFactory()));
 
 
     //Particle
