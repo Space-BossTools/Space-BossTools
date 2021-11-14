@@ -15,7 +15,7 @@ import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.gui.helper.ContainerHelper;
 
-public class RocketGUI {
+public class RocketGui {
 
 	public static class GuiContainerFactory implements IContainerFactory<GuiContainer> {
 		public GuiContainer create(int id, PlayerInventory inv, PacketBuffer extraData) {

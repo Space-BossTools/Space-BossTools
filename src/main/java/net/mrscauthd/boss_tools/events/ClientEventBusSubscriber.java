@@ -33,7 +33,8 @@ import net.mrscauthd.boss_tools.gui.screens.compressor.CompressorGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.fuelrefinery.FuelRefineryGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.nasaworkbench.NasaWorkbenchGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.oxygenloader.OxygenLoaderGuiWindow;
-import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGUIWindow;
+import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGuiWindow;
+import net.mrscauthd.boss_tools.gui.screens.solarpanel.SolarPanelGuiWindow;
 import net.mrscauthd.boss_tools.particle.LargeFlameParticle;
 import net.mrscauthd.boss_tools.particle.SmokeParticle;
 import net.mrscauthd.boss_tools.particle.VenusRainParticle;
@@ -75,13 +76,14 @@ public class ClientEventBusSubscriber {
 		RenderingRegistry.registerEntityRenderingHandler(ModInnet.ALIEN_SPIT_ENTITY.get(), renderManager -> new SpriteRenderer(renderManager, Minecraft.getInstance().getItemRenderer()));
 
 		//GUIS
-		ScreenManager.registerFactory(ModInnet.ROCKET_GUI.get(), RocketGUIWindow::new);
+		ScreenManager.registerFactory(ModInnet.ROCKET_GUI.get(), RocketGuiWindow::new);
 		ScreenManager.registerFactory(ModInnet.BLAST_FURNACE_GUI.get(), BlastFurnaceGuiWindow::new);
 		ScreenManager.registerFactory(ModInnet.COMPRESSOR_GUI.get(), CompressorGuiWindow::new);
 		ScreenManager.registerFactory(ModInnet.FUEL_REFINERY_GUI.get(), FuelRefineryGuiWindow::new);
 		ScreenManager.registerFactory(ModInnet.COAL_GENERATOR_GUI.get(), CoalGeneratorGuiWindow::new);
 		ScreenManager.registerFactory(ModInnet.NASA_WORKBENCH_GUI.get(), NasaWorkbenchGuiWindow::new);
 		ScreenManager.registerFactory(ModInnet.OXYGEN_LOADER_GUI.get(), OxygenLoaderGuiWindow::new);
+		ScreenManager.registerFactory(ModInnet.SOLAR_PANEL_GUI.get(), SolarPanelGuiWindow::new);
 
 		//Key Binding Registrys
 		key1 = new KeyBinding("key.boss_tools.rocket_start", GLFW.GLFW_KEY_SPACE, "key.categories.boss_tools");

@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.gui;
+package net.mrscauthd.boss_tools.gui.screens.solarpanel;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -17,12 +17,13 @@ import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
 import net.mrscauthd.boss_tools.machines.SolarPanelBlock.CustomTileEntity;
 
 @OnlyIn(Dist.CLIENT)
-public class SolarPanelGUIGuiWindow extends ContainerScreen<SolarPanelGUIGui.GuiContainerMod> {
-	public static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/solar_panel_gui.png");
+public class SolarPanelGuiWindow extends ContainerScreen<SolarPanelGui.GuiContainer> {
+
+	public static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/screens/solar_panel_gui.png");
 
 	private CustomTileEntity tileEntity;
 
-	public SolarPanelGUIGuiWindow(SolarPanelGUIGui.GuiContainerMod container, PlayerInventory inventory, ITextComponent text) {
+	public SolarPanelGuiWindow(SolarPanelGui.GuiContainer container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
 		this.tileEntity = container.getTileEntity();
 		this.xSize = 176;
@@ -40,6 +41,7 @@ public class SolarPanelGUIGuiWindow extends ContainerScreen<SolarPanelGUIGui.Gui
 	@Override
 	protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float partialTicks, int gx, int gy) {
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+
 		Minecraft.getInstance().getTextureManager().bindTexture(texture);
 		AbstractGui.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
 	}
@@ -59,5 +61,4 @@ public class SolarPanelGUIGuiWindow extends ContainerScreen<SolarPanelGUIGui.Gui
 	public CustomTileEntity getTileEntity() {
 		return this.tileEntity;
 	}
-
 }

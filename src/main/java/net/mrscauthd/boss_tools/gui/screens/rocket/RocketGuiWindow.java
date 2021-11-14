@@ -25,11 +25,11 @@ import java.util.ArrayList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 @OnlyIn(Dist.CLIENT)
-public class RocketGUIWindow extends ContainerScreen<RocketGUI.GuiContainer> {
+public class RocketGuiWindow extends ContainerScreen<RocketGui.GuiContainer> {
 
 	private static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/screens/rocket_gui.png");
 
-	public RocketGUIWindow(RocketGUI.GuiContainer container, PlayerInventory inventory, ITextComponent text) {
+	public RocketGuiWindow(RocketGui.GuiContainer container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
 		this.xSize = 176;
 		this.ySize = 167;

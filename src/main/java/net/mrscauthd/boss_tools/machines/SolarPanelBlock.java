@@ -3,12 +3,8 @@ package net.mrscauthd.boss_tools.machines;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import com.google.common.collect.Maps;
-import com.mojang.serialization.Codec;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.PushReaction;
@@ -16,16 +12,11 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.WaterFluid;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
@@ -34,18 +25,14 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.gui.SolarPanelGUIGui;
+import net.mrscauthd.boss_tools.gui.screens.solarpanel.SolarPanelGui;
 import net.mrscauthd.boss_tools.machines.tile.GeneratorTileEntity;
-
-import javax.annotation.Nullable;
 
 public class SolarPanelBlock {
 	public static final int ENERGY_PER_TICK = 5;
@@ -142,7 +129,7 @@ public class SolarPanelBlock {
 
 		@Override
 		public Container createMenu(int id, PlayerInventory player) {
-			return new SolarPanelGUIGui.GuiContainerMod(id, player, this);
+			return new SolarPanelGui.GuiContainer(id, player, this);
 		}
 
 		protected int getGenerationInTick() {

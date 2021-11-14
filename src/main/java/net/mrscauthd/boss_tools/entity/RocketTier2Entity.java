@@ -51,7 +51,7 @@ import javax.annotation.Nonnull;
 
 import io.netty.buffer.Unpooled;
 import net.mrscauthd.boss_tools.block.RocketLaunchPad;
-import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGUI;
+import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGui;
 import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
 
 import java.util.Set;
@@ -286,7 +286,7 @@ public class RocketTier2Entity extends CreatureEntity {
 				public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
 					PacketBuffer packetBuffer = new PacketBuffer(Unpooled.buffer());
 					packetBuffer.writeVarInt(RocketTier2Entity.this.getEntityId());
-					return new RocketGUI.GuiContainer(id, inventory, packetBuffer);
+					return new RocketGui.GuiContainer(id, inventory, packetBuffer);
 				}
 			}, buf -> {
 				buf.writeVarInt(this.getEntityId());

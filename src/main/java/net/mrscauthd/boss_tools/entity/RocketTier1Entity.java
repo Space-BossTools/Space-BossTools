@@ -18,7 +18,7 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.block.RocketLaunchPad;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
-import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGUI;
+import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGui;
 
 import net.minecraftforge.items.wrapper.EntityHandsInvWrapper;
 import net.minecraftforge.items.wrapper.EntityArmorInvWrapper;
@@ -285,7 +285,7 @@ public class RocketTier1Entity extends CreatureEntity {
 				public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
 					PacketBuffer packetBuffer = new PacketBuffer(Unpooled.buffer());
 					packetBuffer.writeVarInt(RocketTier1Entity.this.getEntityId());
-					return new RocketGUI.GuiContainer(id, inventory, packetBuffer);
+					return new RocketGui.GuiContainer(id, inventory, packetBuffer);
 				}
 			}, buf -> {
 				buf.writeVarInt(this.getEntityId());

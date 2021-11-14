@@ -56,11 +56,11 @@ import net.mrscauthd.boss_tools.gui.screens.compressor.CompressorGui;
 import net.mrscauthd.boss_tools.gui.screens.fuelrefinery.FuelRefineryGui;
 import net.mrscauthd.boss_tools.gui.screens.nasaworkbench.NasaWorkbenchGui;
 import net.mrscauthd.boss_tools.gui.screens.oxygenloader.OxygenLoaderGui;
-import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGUI;
+import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGui;
+import net.mrscauthd.boss_tools.gui.screens.solarpanel.SolarPanelGui;
 import net.mrscauthd.boss_tools.itemtiers.SteelItemTier;
 import net.mrscauthd.boss_tools.machines.*;
 import net.mrscauthd.boss_tools.machines.tile.WaterPumpTileEntity;
-import net.mrscauthd.boss_tools.particle.VenusRainParticle;
 import net.mrscauthd.boss_tools.spawneggs.ModSpawnEggs;
 import net.mrscauthd.boss_tools.entity.pygro.PygroEntity;
 import net.mrscauthd.boss_tools.flag.*;
@@ -396,13 +396,14 @@ public class ModInnet {
     public static final RegistryObject<Item> FLAG_YELLOW_ITEM = ITEMS.register("flag_yellow", () -> new TallBlockItem(FLAG_YELLOW_BLOCK.get(), new Item.Properties().group(BossToolsItemGroups.tab_flags)));
 
     //GUIS
-    public static final RegistryObject<ContainerType<RocketGUI.GuiContainer>> ROCKET_GUI = GUIS.register("rocket_gui", () -> new ContainerType<>(new RocketGUI.GuiContainerFactory()));
+    public static final RegistryObject<ContainerType<RocketGui.GuiContainer>> ROCKET_GUI = GUIS.register("rocket_gui", () -> new ContainerType<>(new RocketGui.GuiContainerFactory()));
     public static final RegistryObject<ContainerType<BlastFurnaceGui.GuiContainer>> BLAST_FURNACE_GUI = GUIS.register("blast_furnace_gui", () -> new ContainerType<>(new BlastFurnaceGui.GuiContainerFactory()));
     public static final RegistryObject<ContainerType<CompressorGui.GuiContainer>> COMPRESSOR_GUI = GUIS.register("compressor_gui", () -> new ContainerType<>(new CompressorGui.GuiContainerFactory()));
     public static final RegistryObject<ContainerType<FuelRefineryGui.GuiContainer>> FUEL_REFINERY_GUI = GUIS.register("fuel_refinery_gui", () -> new ContainerType<>(new FuelRefineryGui.GuiContainerFactory()));
     public static final RegistryObject<ContainerType<CoalGeneratorGui.GuiContainer>> COAL_GENERATOR_GUI = GUIS.register("coal_generator_gui", () -> new ContainerType<>(new CoalGeneratorGui.GuiContainerFactory()));
     public static final RegistryObject<ContainerType<NasaWorkbenchGui.GuiContainer>> NASA_WORKBENCH_GUI = GUIS.register("nasa_workbench_gui", () -> new ContainerType<>(new NasaWorkbenchGui.GuiContainerFactory()));
     public static final RegistryObject<ContainerType<OxygenLoaderGui.GuiContainer>> OXYGEN_LOADER_GUI = GUIS.register("oxygen_loader_gui", () -> new ContainerType<>(new OxygenLoaderGui.GuiContainerFactory()));
+    public static final RegistryObject<ContainerType<SolarPanelGui.GuiContainer>> SOLAR_PANEL_GUI = GUIS.register("solar_panel_gui", () -> new ContainerType<>(new SolarPanelGui.GuiContainerFactory()));
 
     //Particle
     public static final RegistryObject<ParticleType<BasicParticleType>> VENUS_RAIN_PARTICLE = PARTICLES.register("venus_rain", () -> new BasicParticleType(true));

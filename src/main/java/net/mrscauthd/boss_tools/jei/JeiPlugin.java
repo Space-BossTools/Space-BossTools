@@ -60,7 +60,7 @@ import net.mrscauthd.boss_tools.gui.screens.nasaworkbench.NasaWorkbenchGui;
 import net.mrscauthd.boss_tools.gui.screens.nasaworkbench.NasaWorkbenchGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.oxygenloader.OxygenLoaderGui;
 import net.mrscauthd.boss_tools.gui.screens.oxygenloader.OxygenLoaderGuiWindow;
-import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGUI;
+import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGui;
 import net.mrscauthd.boss_tools.gui.screens.blastfurnace.BlastFurnaceGui;
 import net.mrscauthd.boss_tools.gui.screens.blastfurnace.BlastFurnaceGuiWindow;
 import net.mrscauthd.boss_tools.jei.machineguihandlers.BlastFurnaceGuiContainerHandler;
@@ -136,7 +136,7 @@ public class JeiPlugin implements IModPlugin {
 		//Fuel Refinery
 		registration.addRecipeTransferHandler(FuelRefineryGui.GuiContainer.class, FuelRefineryJeiCategory.Uid, FuelRefineryBlock.SLOT_INPUT_SOURCE, 1, 0, inventorySlotCount);
 		//Rocket Fuel
-		registration.addRecipeTransferHandler(RocketGUI.GuiContainer.class, Tier1RocketJeiCategory.Uid, 0, 1, 0, inventorySlotCount);
+		registration.addRecipeTransferHandler(RocketGui.GuiContainer.class, Tier1RocketJeiCategory.Uid, 0, 1, 0, inventorySlotCount);
 	}
 
 	@Override
