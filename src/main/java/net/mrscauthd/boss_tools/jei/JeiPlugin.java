@@ -58,6 +58,8 @@ import net.mrscauthd.boss_tools.gui.screens.fuelrefinery.FuelRefineryGui;
 import net.mrscauthd.boss_tools.gui.screens.fuelrefinery.FuelRefineryGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.nasaworkbench.NasaWorkbenchGui;
 import net.mrscauthd.boss_tools.gui.screens.nasaworkbench.NasaWorkbenchGuiWindow;
+import net.mrscauthd.boss_tools.gui.screens.oxygenbubbledistributor.OxygenBubbleDistributorGui;
+import net.mrscauthd.boss_tools.gui.screens.oxygenbubbledistributor.OxygenBubbleDistributorGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.oxygenloader.OxygenLoaderGui;
 import net.mrscauthd.boss_tools.gui.screens.oxygenloader.OxygenLoaderGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGui;
@@ -73,7 +75,6 @@ import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock;
 import net.mrscauthd.boss_tools.machines.CoalGeneratorBlock;
 import net.mrscauthd.boss_tools.machines.CompressorBlock;
 import net.mrscauthd.boss_tools.machines.FuelRefineryBlock;
-import net.mrscauthd.boss_tools.gui.*;
 import net.mrscauthd.boss_tools.gui.helper.GridPlacer;
 import net.mrscauthd.boss_tools.gui.helper.GuiHelper;
 import net.mrscauthd.boss_tools.gui.helper.IPlacer;
@@ -120,7 +121,7 @@ public class JeiPlugin implements IModPlugin {
 		// OxygenLoader
 		registration.addRecipeTransferHandler(OxygenLoaderGui.GuiContainer.class, OxygenLoaderJeiCategory.Uid, OxygenMakingTileEntity.SLOT_INPUT_SOURCE, 1, 0, inventorySlotCount);
 		// OxygenBubbleDistributor
-		registration.addRecipeTransferHandler(OxygenBubbleDistributorGUI.GuiContainerMod.class, OxygenBubbleDistributorJeiCategory.Uid, OxygenMakingTileEntity.SLOT_INPUT_SOURCE, 1, 0, inventorySlotCount);
+		registration.addRecipeTransferHandler(OxygenBubbleDistributorGui.GuiContainer.class, OxygenBubbleDistributorJeiCategory.Uid, OxygenMakingTileEntity.SLOT_INPUT_SOURCE, 1, 0, inventorySlotCount);
 		// Generator
 		registration.addRecipeTransferHandler(CoalGeneratorGui.GuiContainer.class, CoalGeneratorJeiCategory.Uid, CoalGeneratorBlock.SLOT_FUEL, 1, CoalGeneratorBlock.SLOT_FUEL + 1, inventorySlotCount);
 		// BlastFurnace
@@ -147,7 +148,7 @@ public class JeiPlugin implements IModPlugin {
 		registration.addGuiContainerHandler(BlastFurnaceGuiWindow.class, new BlastFurnaceGuiContainerHandler());
 		registration.addGuiContainerHandler(CompressorGuiWindow.class, new CompressorGuiContainerHandler());
 		registration.addRecipeClickArea(OxygenLoaderGuiWindow.class, OxygenLoaderGuiWindow.ARROW_LEFT, OxygenLoaderGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, OxygenLoaderJeiCategory.Uid);
-		registration.addRecipeClickArea(OxygenBubbleDistributorGUIWindow.class, OxygenBubbleDistributorGUIWindow.ARROW_LEFT, OxygenBubbleDistributorGUIWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, OxygenBubbleDistributorJeiCategory.Uid);
+		registration.addRecipeClickArea(OxygenBubbleDistributorGuiWindow.class, OxygenBubbleDistributorGuiWindow.ARROW_LEFT, OxygenBubbleDistributorGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, OxygenBubbleDistributorJeiCategory.Uid);
 	}
 
 	@Override

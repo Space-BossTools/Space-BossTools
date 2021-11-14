@@ -55,7 +55,7 @@ import net.mrscauthd.boss_tools.capability.IOxygenStorage;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipeAbstract;
-import net.mrscauthd.boss_tools.gui.OxygenBubbleDistributorGUI;
+import net.mrscauthd.boss_tools.gui.screens.oxygenbubbledistributor.OxygenBubbleDistributorGui;
 import net.mrscauthd.boss_tools.machines.tile.NamedComponentRegistry;
 import net.mrscauthd.boss_tools.machines.tile.OxygenMakingTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemEnergyCommon;
@@ -220,7 +220,7 @@ public class OxygenBubbleDistributorBlock {
 
 		@Override
 		public Container createMenu(int id, PlayerInventory player) {
-			return new OxygenBubbleDistributorGUI.GuiContainerMod(id, player, this);
+			return new OxygenBubbleDistributorGui.GuiContainer(id, player, this);
 		}
 
 		@Override
