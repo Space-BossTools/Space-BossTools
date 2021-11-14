@@ -44,13 +44,13 @@ public class TileEntityBoxRenderer extends TileEntityRenderer<OxygenBubbleDistri
 			Matrix3f normal = matrix.getLast().getNormal();
 			Matrix4f matrix4f = matrix.getLast().getMatrix();
 
-			float startX = (float) workingArea.minX + 0.005F;
-			float topY = (float) workingArea.minY + 0.005F;
-			float startZ = (float) workingArea.minZ + 0.005F;
+			float startX = (float) workingArea.minX - 0.005F;
+			float topY = (float) workingArea.minY - 0.005F;
+			float startZ = (float) workingArea.minZ - 0.005F;
 
-			float endX = (float) workingArea.maxX - 0.005F;
-			float botY = (float) workingArea.maxY - 0.005F;
-			float endZ = (float) workingArea.maxZ - 0.005F;
+			float endX = (float) workingArea.maxX + 0.005F;
+			float botY = (float) workingArea.maxY + 0.005F;
+			float endZ = (float) workingArea.maxZ + 0.005F;
 
 			//255 is default
 			int rl = 78;
