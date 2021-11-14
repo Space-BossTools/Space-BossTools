@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -28,8 +29,10 @@ import net.mrscauthd.boss_tools.entity.renderer.rover.RoverRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.starcrawler.StarCrawlerRenderer;
 import net.mrscauthd.boss_tools.gui.screens.blastfurnace.BlastFurnaceGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.compressor.CompressorGuiWindow;
-import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGUI;
 import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGUIWindow;
+import net.mrscauthd.boss_tools.particle.LargeFlameParticle;
+import net.mrscauthd.boss_tools.particle.SmokeParticle;
+import net.mrscauthd.boss_tools.particle.VenusRainParticle;
 import net.mrscauthd.boss_tools.spawneggs.ModSpawnEggs;
 import net.mrscauthd.boss_tools.entity.renderer.alien.AlienRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.mogler.MoglerRenderer;
@@ -92,5 +95,12 @@ public class ClientEventBusSubscriber {
 	@SubscribeEvent
 	public static void onRegistrerEntities(final RegistryEvent.Register<EntityType<?>> event) {
 		ModSpawnEggs.initSpawnEggs();
+	}
+
+	@SubscribeEvent
+	public static void registerParticlesFactory(ParticleFactoryRegisterEvent event) {
+		Minecraft.getInstance().particles.registerFactory(ModInnet.VENUS_RAIN_PARTICLE.get(), VenusRainParticle.ParticleFactory::new);
+		Minecraft.getInstance().particles.registerFactory(ModInnet.LARGE_FLAME_PARTICLE.get(), LargeFlameParticle.ParticleFactory::new);
+		Minecraft.getInstance().particles.registerFactory(ModInnet.SMOKE_PARTICLE.get(), SmokeParticle.ParticleFactory::new);
 	}
 }

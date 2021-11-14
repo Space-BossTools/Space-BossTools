@@ -7,6 +7,7 @@ import net.minecraft.item.Items;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.*;
@@ -345,14 +346,14 @@ public class RocketTier1Entity extends CreatureEntity {
 			if (this.dataManager.get(START_TIMER) == 200) {
 				if (world instanceof ServerWorld) {
 					for (ServerPlayerEntity p : ((ServerWorld) world).getPlayers()) {
-						((ServerWorld) world).spawnParticle(p, ParticleTypes.FLAME, true, this.getPosX(), this.getPosY() - 2.2, this.getPosZ(), 100, 0.1, 0.1, 0.1, 0.001);
-						((ServerWorld) world).spawnParticle(p, ParticleTypes.SMOKE, true, this.getPosX(), this.getPosY() - 3.2, this.getPosZ(), 50, 0.1, 0.1, 0.1, 0.04);
+						((ServerWorld) world).spawnParticle(p, (IParticleData) ModInnet.LARGE_FLAME_PARTICLE.get(), true, this.getPosX(), this.getPosY() - 2.2, this.getPosZ(), 30, 0.1, 0.1, 0.1, 0.001);
+						((ServerWorld) world).spawnParticle(p, (IParticleData) ModInnet.SMOKE_PARTICLE.get(), true, this.getPosX(), this.getPosY() - 3.2, this.getPosZ(), 20, 0.1, 0.1, 0.1, 0.04);
 					}
 				}
 			} else {
 				if (world instanceof ServerWorld) {
 					for (ServerPlayerEntity p : ((ServerWorld) world).getPlayers()) {
-						((ServerWorld) world).spawnParticle(p, ParticleTypes.CAMPFIRE_COSY_SMOKE, true, this.getPosX(), this.getPosY() - 0.5, this.getPosZ(), 6, 0.1, 0.1, 0.1, 0.013);
+						((ServerWorld) world).spawnParticle(p, ParticleTypes.CAMPFIRE_COSY_SMOKE, true, this.getPosX(), this.getPosY() - 0.1, this.getPosZ(), 6, 0.1, 0.1, 0.1, 0.023);
 					}
 				}
 			}

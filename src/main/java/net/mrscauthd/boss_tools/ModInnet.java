@@ -10,6 +10,8 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.particles.BasicParticleType;
+import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
 import net.minecraft.tileentity.TileEntityType;
@@ -54,6 +56,7 @@ import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGUI;
 import net.mrscauthd.boss_tools.itemtiers.SteelItemTier;
 import net.mrscauthd.boss_tools.machines.*;
 import net.mrscauthd.boss_tools.machines.tile.WaterPumpTileEntity;
+import net.mrscauthd.boss_tools.particle.VenusRainParticle;
 import net.mrscauthd.boss_tools.spawneggs.ModSpawnEggs;
 import net.mrscauthd.boss_tools.entity.pygro.PygroEntity;
 import net.mrscauthd.boss_tools.flag.*;
@@ -104,6 +107,8 @@ public class ModInnet {
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, "boss_tools");
 
     public static final DeferredRegister<Effect> EFFECTS = DeferredRegister.create(ForgeRegistries.POTIONS, "boss_tools");
+
+    public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, "boss_tools");
 
     public static final DeferredRegister<ContainerType<?>> GUIS = DeferredRegister.create(ForgeRegistries.CONTAINERS, "boss_tools");
 
@@ -390,6 +395,11 @@ public class ModInnet {
     public static final RegistryObject<ContainerType<RocketGUI.GuiContainer>> ROCKET_GUI = GUIS.register("rocket_gui", () -> new ContainerType<>(new RocketGUI.GuiContainerFactory()));
     public static final RegistryObject<ContainerType<BlastFurnaceGui.GuiContainer>> BLAST_FURNACE_GUI = GUIS.register("blast_furnace_gui", () -> new ContainerType<>(new BlastFurnaceGui.GuiContainerFactory()));
     public static final RegistryObject<ContainerType<CompressorGui.GuiContainer>> COMPRESSOR_GUI = GUIS.register("compressor_gui", () -> new ContainerType<>(new CompressorGui.GuiContainerFactory()));
+
+    //Particle
+    public static final RegistryObject<ParticleType<BasicParticleType>> VENUS_RAIN_PARTICLE = PARTICLES.register("venus_rain", () -> new BasicParticleType(true));
+    public static final RegistryObject<ParticleType<BasicParticleType>> LARGE_FLAME_PARTICLE = PARTICLES.register("large_flame", () -> new BasicParticleType(true));
+    public static final RegistryObject<ParticleType<BasicParticleType>> SMOKE_PARTICLE = PARTICLES.register("smoke", () -> new BasicParticleType(true));
 
 
     //Recpies

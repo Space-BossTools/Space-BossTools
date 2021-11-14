@@ -45,6 +45,7 @@ import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.particle.VenusRainParticle;
 
 import java.util.Random;
@@ -229,7 +230,7 @@ public class ClientEventBusVenus {
 									double d2 = voxelshape.max(Direction.Axis.Y, d0, d1);
 									double d3 = (double)fluidstate.getActualHeight(iworldreader, blockpos2);
 									double d4 = Math.max(d2, d3);
-									IParticleData iparticledata = !fluidstate.isTagged(FluidTags.LAVA) && !blockstate.isIn(Blocks.MAGMA_BLOCK) && !CampfireBlock.isLit(blockstate) ? VenusRainParticle.particle : ParticleTypes.SMOKE;
+									IParticleData iparticledata = !fluidstate.isTagged(FluidTags.LAVA) && !blockstate.isIn(Blocks.MAGMA_BLOCK) && !CampfireBlock.isLit(blockstate) ? (IParticleData) ModInnet.VENUS_RAIN_PARTICLE.get() : ParticleTypes.SMOKE;
 									mc.world.addParticle(iparticledata, (double)blockpos2.getX() + d0, (double)blockpos2.getY() + d4, (double)blockpos2.getZ() + d1, 0.0D, 0.0D, 0.0D);
 								}
 							}

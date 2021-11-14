@@ -104,7 +104,7 @@ public class Events {
             PointOfView pointOfView = Minecraft.getInstance().gameSettings.getPointOfView();
 
             if (pointOfView.equals(PointOfView.THIRD_PERSON_FRONT)  || pointOfView.equals(PointOfView.THIRD_PERSON_BACK)) {
-                event.getInfo().movePosition(-event.getInfo().calcCameraDistance(8d), 0d, 0);
+                event.getInfo().movePosition(-event.getInfo().calcCameraDistance(12d), 0d, 0);
             }
 
         }
