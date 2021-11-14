@@ -53,7 +53,7 @@ import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.FluidIngredient;
 import net.mrscauthd.boss_tools.crafting.FuelRefiningRecipe;
 import net.mrscauthd.boss_tools.fluid.FluidUtil2;
-import net.mrscauthd.boss_tools.gui.FuelRefineryGUIGui;
+import net.mrscauthd.boss_tools.gui.screens.fuelrefinery.FuelRefineryGui;
 import net.mrscauthd.boss_tools.inventory.StackCacher;
 import net.mrscauthd.boss_tools.machines.tile.AbstractMachineTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.NamedComponentRegistry;
@@ -263,7 +263,7 @@ public class FuelRefineryBlock {
 
 		@Override
 		public Container createMenu(int id, PlayerInventory player) {
-			return new FuelRefineryGUIGui.GuiContainerMod(id, player, this);
+			return new FuelRefineryGui.GuiContainer(id, player, this);
 		}
 
 		@Override
