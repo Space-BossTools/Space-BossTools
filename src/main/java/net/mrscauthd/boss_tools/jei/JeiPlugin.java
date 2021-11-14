@@ -58,6 +58,8 @@ import net.mrscauthd.boss_tools.gui.screens.fuelrefinery.FuelRefineryGui;
 import net.mrscauthd.boss_tools.gui.screens.fuelrefinery.FuelRefineryGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.nasaworkbench.NasaWorkbenchGui;
 import net.mrscauthd.boss_tools.gui.screens.nasaworkbench.NasaWorkbenchGuiWindow;
+import net.mrscauthd.boss_tools.gui.screens.oxygenloader.OxygenLoaderGui;
+import net.mrscauthd.boss_tools.gui.screens.oxygenloader.OxygenLoaderGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGUI;
 import net.mrscauthd.boss_tools.gui.screens.blastfurnace.BlastFurnaceGui;
 import net.mrscauthd.boss_tools.gui.screens.blastfurnace.BlastFurnaceGuiWindow;
@@ -116,7 +118,7 @@ public class JeiPlugin implements IModPlugin {
 	public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
 		int inventorySlotCount = 36;
 		// OxygenLoader
-		registration.addRecipeTransferHandler(OxygenLoaderGuiGui.GuiContainerMod.class, OxygenLoaderJeiCategory.Uid, OxygenMakingTileEntity.SLOT_INPUT_SOURCE, 1, 0, inventorySlotCount);
+		registration.addRecipeTransferHandler(OxygenLoaderGui.GuiContainer.class, OxygenLoaderJeiCategory.Uid, OxygenMakingTileEntity.SLOT_INPUT_SOURCE, 1, 0, inventorySlotCount);
 		// OxygenBubbleDistributor
 		registration.addRecipeTransferHandler(OxygenBubbleDistributorGUI.GuiContainerMod.class, OxygenBubbleDistributorJeiCategory.Uid, OxygenMakingTileEntity.SLOT_INPUT_SOURCE, 1, 0, inventorySlotCount);
 		// Generator
@@ -144,7 +146,7 @@ public class JeiPlugin implements IModPlugin {
 		registration.addRecipeClickArea(FuelRefineryGuiWindow.class, FuelRefineryGuiWindow.ARROW_LEFT, FuelRefineryGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, FuelRefineryJeiCategory.Uid);
 		registration.addGuiContainerHandler(BlastFurnaceGuiWindow.class, new BlastFurnaceGuiContainerHandler());
 		registration.addGuiContainerHandler(CompressorGuiWindow.class, new CompressorGuiContainerHandler());
-		registration.addRecipeClickArea(OxygenLoaderGuiGuiWindow.class, OxygenLoaderGuiGuiWindow.ARROW_LEFT, OxygenLoaderGuiGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, OxygenLoaderJeiCategory.Uid);
+		registration.addRecipeClickArea(OxygenLoaderGuiWindow.class, OxygenLoaderGuiWindow.ARROW_LEFT, OxygenLoaderGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, OxygenLoaderJeiCategory.Uid);
 		registration.addRecipeClickArea(OxygenBubbleDistributorGUIWindow.class, OxygenBubbleDistributorGUIWindow.ARROW_LEFT, OxygenBubbleDistributorGUIWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, OxygenBubbleDistributorJeiCategory.Uid);
 	}
 

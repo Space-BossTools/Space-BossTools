@@ -42,7 +42,7 @@ import net.mrscauthd.boss_tools.capability.OxygenUtil;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeTypes;
 import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipeAbstract;
-import net.mrscauthd.boss_tools.gui.OxygenLoaderGuiGui;
+import net.mrscauthd.boss_tools.gui.screens.oxygenloader.OxygenLoaderGui;
 import net.mrscauthd.boss_tools.machines.tile.NamedComponentRegistry;
 import net.mrscauthd.boss_tools.machines.tile.OxygenMakingTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemEnergyCommon;
@@ -213,7 +213,7 @@ public class OxygenLoaderBlock {
 
 		@Override
 		public Container createMenu(int id, PlayerInventory player) {
-			return new OxygenLoaderGuiGui.GuiContainerMod(id, player, this);
+			return new OxygenLoaderGui.GuiContainer(id, player, this);
 		}
 
 		@Override

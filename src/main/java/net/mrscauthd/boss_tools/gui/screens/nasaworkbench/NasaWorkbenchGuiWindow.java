@@ -1,4 +1,3 @@
-
 package net.mrscauthd.boss_tools.gui.screens.nasaworkbench;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -17,7 +16,7 @@ import net.mrscauthd.boss_tools.machines.NASAWorkbenchBlock.CustomTileEntity;
 @OnlyIn(Dist.CLIENT)
 public class NasaWorkbenchGuiWindow extends ContainerScreen<NasaWorkbenchGui.GuiContainer> {
 
-	public static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/nasa_workbench.png");
+	public static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/screens/nasa_workbench_gui.png");
 
 	private CustomTileEntity tileEntity;
 
@@ -47,5 +46,4 @@ public class NasaWorkbenchGuiWindow extends ContainerScreen<NasaWorkbenchGui.Gui
 	public CustomTileEntity getTileEntity() {
 		return this.tileEntity;
 	}
-
 }

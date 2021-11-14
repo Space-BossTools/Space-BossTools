@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.gui;
+package net.mrscauthd.boss_tools.gui.screens.oxygenloader;
 
 import org.lwjgl.opengl.GL11;
 
@@ -17,33 +17,68 @@ import net.mrscauthd.boss_tools.gui.helper.GuiHelper;
 import net.mrscauthd.boss_tools.machines.OxygenLoaderBlock.CustomTileEntity;
 
 @OnlyIn(Dist.CLIENT)
-public class OxygenLoaderGuiGuiWindow extends ContainerScreen<OxygenLoaderGuiGui.GuiContainerMod> {
-	public static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/oxygen_loader_gui.png");
+public class OxygenLoaderGuiWindow extends ContainerScreen<OxygenLoaderGui.GuiContainer> {
+
+	public static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/screens/oxygen_loader_gui.png");
+
 	public static final int INPUT_TANK_LEFT = 9;
 	public static final int INPUT_TANK_TOP = 21;
-	public static final int INPUT_SOURCE_LEFT = 25;
-	public static final int INPUT_SOURCE_TOP = 21;
-	public static final int INPUT_SINK_LEFT = 25;
-	public static final int INPUT_SINK_TOP = 21;
+
 	public static final int OUTPUT_TANK_LEFT = 75;
 	public static final int OUTPUT_TANK_TOP = 21;
-	public static final int OUTPUT_SOURCE_LEFT = 91;
-	public static final int OUTPUT_SOURCE_TOP = 21;
-	public static final int OUTPUT_SINK_LEFT = 91;
-	public static final int OUTPUT_SINK_TOP = 21;
+
 	public static final int ENERGY_LEFT = 144;
 	public static final int ENERGY_TOP = 21;
+
 	public static final int ARROW_LEFT = 48;
 	public static final int ARROW_TOP = 36;
 
 	private CustomTileEntity tileEntity;
 
-	public OxygenLoaderGuiGuiWindow(OxygenLoaderGuiGui.GuiContainerMod container, PlayerInventory inventory, ITextComponent text) {
+	public OxygenLoaderGuiWindow(OxygenLoaderGui.GuiContainer container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
 		this.tileEntity = container.getTileEntity();
 		this.xSize = 177;
 		this.ySize = 172;
 		this.playerInventoryTitleY = this.ySize - 92;
+	}
+
+	@Override
+	public void render(MatrixStack ms, int mouseX, int mouseY, float partialTicks) {
+		this.renderBackground(ms);
+		super.render(ms, mouseX, mouseY, partialTicks);
+		this.renderHoveredTooltip(ms, mouseX, mouseY);
+
+		CustomTileEntity tileEntity = (CustomTileEntity) this.getTileEntity();
+
+		if (GuiHelper.isHover(this.getInputTankBounds(), mouseX, mouseY)) {
+
+			this.renderTooltip(ms, GaugeDataHelper.getFluid(tileEntity.getInputTank()).getText(), mouseX, mouseY);
+		} else if (GuiHelper.isHover(this.getOutputTankBounds(), mouseX, mouseY)) {
+
+			this.renderTooltip(ms, GaugeDataHelper.getOxygen(tileEntity.getOutputTank()).getText(), mouseX, mouseY);
+		} else if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
+
+			this.renderTooltip(ms, GaugeDataHelper.getEnergy(tileEntity).getText(), mouseX, mouseY);
+		}
+	}
+
+	@Override
+	protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float par1, int par2, int par3) {
+		CustomTileEntity tileEntity = this.getTileEntity();
+
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+
+		this.minecraft.getTextureManager().bindTexture(texture);
+		AbstractGui.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
+
+		GuiHelper.drawEnergy(ms, this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP, tileEntity.getPrimaryEnergyStorage());
+		GuiHelper.drawFluidTank(ms, this.guiLeft + INPUT_TANK_LEFT, this.guiTop + INPUT_TANK_TOP, tileEntity.getInputTank());
+		GuiHelper.drawOxygenTank(ms, this.guiLeft + OUTPUT_TANK_LEFT, this.guiTop + OUTPUT_TANK_TOP, tileEntity.getOutputTank());
+	}
+
+	public CustomTileEntity getTileEntity() {
+		return this.tileEntity;
 	}
 
 	public Rectangle2d getInputTankBounds() {
@@ -57,38 +92,4 @@ public class OxygenLoaderGuiGuiWindow extends ContainerScreen<OxygenLoaderGuiGui
 	public Rectangle2d getEnergyBounds() {
 		return GuiHelper.getEnergyBounds(this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP);
 	}
-
-	@Override
-	public void render(MatrixStack ms, int mouseX, int mouseY, float partialTicks) {
-		this.renderBackground(ms);
-		super.render(ms, mouseX, mouseY, partialTicks);
-		this.renderHoveredTooltip(ms, mouseX, mouseY);
-
-		CustomTileEntity tileEntity = (CustomTileEntity) this.getTileEntity();
-
-		if (GuiHelper.isHover(this.getInputTankBounds(), mouseX, mouseY)) {
-			this.renderTooltip(ms, GaugeDataHelper.getFluid(tileEntity.getInputTank()).getText(), mouseX, mouseY);
-		} else if (GuiHelper.isHover(this.getOutputTankBounds(), mouseX, mouseY)) {
-			this.renderTooltip(ms, GaugeDataHelper.getOxygen(tileEntity.getOutputTank()).getText(), mouseX, mouseY);
-		} else if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
-			this.renderTooltip(ms, GaugeDataHelper.getEnergy(tileEntity).getText(), mouseX, mouseY);
-		}
-	}
-
-	@Override
-	protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float par1, int par2, int par3) {
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		CustomTileEntity tileEntity = this.getTileEntity();
-
-		this.minecraft.getTextureManager().bindTexture(texture);
-		AbstractGui.blit(ms, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
-		GuiHelper.drawEnergy(ms, this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP, tileEntity.getPrimaryEnergyStorage());
-		GuiHelper.drawFluidTank(ms, this.guiLeft + INPUT_TANK_LEFT, this.guiTop + INPUT_TANK_TOP, tileEntity.getInputTank());
-		GuiHelper.drawOxygenTank(ms, this.guiLeft + OUTPUT_TANK_LEFT, this.guiTop + OUTPUT_TANK_TOP, tileEntity.getOutputTank());
-	}
-
-	public CustomTileEntity getTileEntity() {
-		return this.tileEntity;
-	}
-
 }
