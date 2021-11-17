@@ -62,6 +62,7 @@ import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGui;
 import net.mrscauthd.boss_tools.gui.screens.rover.RoverGui;
 import net.mrscauthd.boss_tools.gui.screens.solarpanel.SolarPanelGui;
 import net.mrscauthd.boss_tools.gui.screens.waterpump.WaterPumpGui;
+import net.mrscauthd.boss_tools.item.*;
 import net.mrscauthd.boss_tools.itemtiers.SteelItemTier;
 import net.mrscauthd.boss_tools.machines.*;
 import net.mrscauthd.boss_tools.machines.tile.WaterPumpTileEntity;
@@ -69,13 +70,11 @@ import net.mrscauthd.boss_tools.spawneggs.ModSpawnEggs;
 import net.mrscauthd.boss_tools.entity.pygro.PygroEntity;
 import net.mrscauthd.boss_tools.flag.*;
 import net.mrscauthd.boss_tools.fluid.FuelFluid;
-import net.mrscauthd.boss_tools.item.HammerItem;
 import net.mrscauthd.boss_tools.armor.NetheriteSpaceSuit;
 import net.mrscauthd.boss_tools.world.biomes.BiomeRegistry;
 import net.mrscauthd.boss_tools.events.Config;
 import net.mrscauthd.boss_tools.feature.MarsIceSpikeFeature;
 import net.mrscauthd.boss_tools.feature.VenusDeltas;
-import net.mrscauthd.boss_tools.item.CoalTorchItem;
 import net.mrscauthd.boss_tools.entity.alien.AlienEntity;
 
 import net.minecraftforge.registries.ForgeRegistries;
@@ -229,6 +228,12 @@ public class ModInnet {
     public static final RegistryObject<ModSpawnEggs> MOGLER_SPAWN_EGG = ITEMS.register("mogler_spawn_egg",() -> new ModSpawnEggs(MOGLER, -13312, -3407872, new Item.Properties().group(BossToolsItemGroups.tab_spawn_eggs)));
     public static final RegistryObject<ModSpawnEggs> ALIEN_ZOMBIE_SPAWN_EGG = ITEMS.register("alien_zombie_spawn_egg",() -> new ModSpawnEggs(ALIEN_ZOMBIE, -14804199, -16740159, new Item.Properties().group(BossToolsItemGroups.tab_spawn_eggs)));
     public static final RegistryObject<ModSpawnEggs> STAR_CRAWLER_SPAWN_EGG = ITEMS.register("star_crawler_spawn_egg",() -> new ModSpawnEggs(STAR_CRAWLER, -13421773, -16724788, new Item.Properties().group(BossToolsItemGroups.tab_spawn_eggs)));
+
+    //Vehicle Items
+    public static final RegistryObject<Item> TIER_1_ROCKET_ITEM = ITEMS.register("rocket_t1", () -> new Tier1RocketItem(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1)));
+    public static final RegistryObject<Item> TIER_2_ROCKET_ITEM = ITEMS.register("rocket_t2", () -> new Tier2RocketItem(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1)));
+    public static final RegistryObject<Item> TIER_3_ROCKET_ITEM = ITEMS.register("rocket_t3", () -> new Tier3RocketItem(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1)));
+
 
     //Generel Items
     public static final RegistryObject<Item> CHESE = ITEMS.register("chesse", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_normal).food((new Food.Builder()).hunger(4).saturation(3f).build())));

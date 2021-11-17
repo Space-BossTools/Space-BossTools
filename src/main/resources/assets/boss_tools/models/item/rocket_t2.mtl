@@ -2,6 +2,6 @@ newmtl m_0
 Ka 0.0 0.0 0.0
 Kd 0.8 0.8 0.8
 Ks 0.0 0.0 0.0
-map_Kd boss_tools:rocket_items/item_rocket_tier_1
+map_Kd boss_tools:rocket_items/rocket_t2
 Ns 0.0
 d 1.0

@@ -54,7 +54,6 @@ import net.mrscauthd.boss_tools.block.RocketLaunchPad;
 import net.mrscauthd.boss_tools.events.Methodes;
 import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGui;
-import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 
 import java.util.Set;
 
@@ -129,7 +128,7 @@ public class RocketTier3Entity extends CreatureEntity {
 
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target) {
-		return new ItemStack(Tier3RocketItemItem.block);
+		return new ItemStack(ModInnet.TIER_3_ROCKET_ITEM.get());
 	}
 
 	@Override
@@ -207,7 +206,11 @@ public class RocketTier3Entity extends CreatureEntity {
 
 	protected void spawnRocketItem() {
 		if (!world.isRemote()) {
-			ItemEntity entityToSpawn = new ItemEntity(world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(Tier3RocketItemItem.block, 1));
+			ItemStack itemStack = new ItemStack(ModInnet.TIER_3_ROCKET_ITEM.get(), 1);
+			itemStack.getOrCreateTag().putInt("boss_tools:fuel", this.getDataManager().get(FUEL));
+			itemStack.getOrCreateTag().putInt("boss_tools:buckets", this.getDataManager().get(BUCKETS));
+
+			ItemEntity entityToSpawn = new ItemEntity(world, this.getPosX(), this.getPosY(), this.getPosZ(), itemStack);
 			entityToSpawn.setPickupDelay(10);
 			world.addEntity(entityToSpawn);
 		}
