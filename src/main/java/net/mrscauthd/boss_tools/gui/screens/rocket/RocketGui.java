@@ -13,6 +13,8 @@ import net.minecraft.entity.Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
+import net.mrscauthd.boss_tools.events.Methodes;
+import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 import net.mrscauthd.boss_tools.gui.helper.ContainerHelper;
 
 public class RocketGui {
@@ -44,7 +46,7 @@ public class RocketGui {
 			this.addSlot(new SlotItemHandler(itemHandler, 0, 46, 22) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
-					if (stack.getItem() == ModInnet.FUEL_BUCKET.get()) {
+					if (Methodes.tagCheckFuel(FluidUtil2.findBucketFluid(stack.getItem()), "boss_tools:fuel")) {
 						return true;
 					}
 					return false;

@@ -17,6 +17,8 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.block.RocketLaunchPad;
+import net.mrscauthd.boss_tools.events.Methodes;
+import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGui;
 
@@ -360,7 +362,7 @@ public class RocketTier1Entity extends CreatureEntity {
 
 		}
 
-		if (this.inventory.getStackInSlot(0).getItem() == ModInnet.FUEL_BUCKET.get() && !this.dataManager.get(BUCKET)) {
+		if (Methodes.tagCheckFuel(FluidUtil2.findBucketFluid(this.inventory.getStackInSlot(0).getItem()), "boss_tools:fuel") && !this.dataManager.get(BUCKET)) {
 			this.inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));
 			this.getDataManager().set(BUCKET, true);
 		}

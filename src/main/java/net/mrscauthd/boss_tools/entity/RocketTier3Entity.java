@@ -51,6 +51,8 @@ import javax.annotation.Nonnull;
 
 import io.netty.buffer.Unpooled;
 import net.mrscauthd.boss_tools.block.RocketLaunchPad;
+import net.mrscauthd.boss_tools.events.Methodes;
+import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGui;
 import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 
@@ -361,7 +363,7 @@ public class RocketTier3Entity extends CreatureEntity {
 		}
 
 		//Fuel Load up
-		if (this.inventory.getStackInSlot(0).getItem() == ModInnet.FUEL_BUCKET.get() && this.dataManager.get(BUCKETS) < 3) {
+		if (Methodes.tagCheckFuel(FluidUtil2.findBucketFluid(this.inventory.getStackInSlot(0).getItem()), "boss_tools:fuel") && this.dataManager.get(BUCKETS) < 3) {
 			if (this.dataManager.get(FUEL) == 0 && this.dataManager.get(BUCKETS) == 0) {
 
 				this.inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));

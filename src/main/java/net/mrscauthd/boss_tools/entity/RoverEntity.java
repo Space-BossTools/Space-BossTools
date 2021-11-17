@@ -41,6 +41,8 @@ import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.items.wrapper.EntityArmorInvWrapper;
 import net.minecraftforge.items.wrapper.EntityHandsInvWrapper;
 import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.events.Methodes;
+import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 import net.mrscauthd.boss_tools.gui.screens.rover.RoverGui;
 import net.mrscauthd.boss_tools.item.RoverItemItem;
 
@@ -278,7 +280,7 @@ public class RoverEntity extends CreatureEntity {
         super.baseTick();
 
         //Fuel Load up
-        if (this.inventory.getStackInSlot(0).getItem() == ModInnet.FUEL_BUCKET.get()) {
+        if (Methodes.tagCheckFuel(FluidUtil2.findBucketFluid(this.inventory.getStackInSlot(0).getItem()), "boss_tools:fuel")) {
 
             if (this.dataManager.get(FUEL) <= 2000) {
                 this.getDataManager().set(FUEL, this.getDataManager().get(FUEL) + 1000);
