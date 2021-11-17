@@ -79,9 +79,6 @@ import net.mrscauthd.boss_tools.gui.helper.GridPlacer;
 import net.mrscauthd.boss_tools.gui.helper.GuiHelper;
 import net.mrscauthd.boss_tools.gui.helper.IPlacer;
 import net.mrscauthd.boss_tools.gui.helper.RocketPartGridPlacer;
-import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
-import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
-import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 import net.mrscauthd.boss_tools.item.RoverItemItem;
 
 import java.text.NumberFormat;
@@ -311,11 +308,11 @@ public class JeiPlugin implements IModPlugin {
 		// BlastingFurnace
 		registration.addRecipeCatalyst(new ItemStack(ModInnet.BLAST_FURNACE_BLOCK.get()), BlastingFurnaceJeiCategory.Uid, VanillaRecipeCategoryUid.FUEL);
 		// RocketTier1Gui
-		registration.addRecipeCatalyst(new ItemStack(Tier1RocketItemItem.block), Tier1RocketJeiCategory.Uid);
+		registration.addRecipeCatalyst(new ItemStack(ModInnet.TIER_1_ROCKET_ITEM.get()), Tier1RocketJeiCategory.Uid);
 		// RocketTier2Gui
-		registration.addRecipeCatalyst(new ItemStack(Tier2RocketItemItem.block), Tier2RocketItemItemJeiCategory.Uid);
+		registration.addRecipeCatalyst(new ItemStack(ModInnet.TIER_2_ROCKET_ITEM.get()), Tier2RocketItemItemJeiCategory.Uid);
 		// RocketTier3Gui
-		registration.addRecipeCatalyst(new ItemStack(Tier3RocketItemItem.block), Tier3RocketItemItemJeiCategory.Uid);
+		registration.addRecipeCatalyst(new ItemStack(ModInnet.TIER_3_ROCKET_ITEM.get()), Tier3RocketItemItemJeiCategory.Uid);
 		// Compressor
 		registration.addRecipeCatalyst(new ItemStack(ModInnet.COMPRESSOR_BLOCK.get()), CompressorJeiCategory.Uid);
 		// FuelMaker

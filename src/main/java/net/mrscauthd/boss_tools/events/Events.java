@@ -25,11 +25,9 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.*;
 import net.mrscauthd.boss_tools.item.RoverItemItem;
-import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
-import net.mrscauthd.boss_tools.item.Tier2RocketItemItem;
-import net.mrscauthd.boss_tools.item.Tier3RocketItemItem;
 
 @Mod.EventBusSubscriber(modid = "boss_tools")
 public class Events {
@@ -139,14 +137,14 @@ public class Events {
         if (!Methodes.isInRocket(player.getRidingEntity())) {
             Item item1 = player.getHeldItemMainhand().getItem();
             Item item2 = player.getHeldItemOffhand().getItem();
-            if (item1 == Tier1RocketItemItem.block
-                    || item1 == Tier2RocketItemItem.block
-                    || item1 == Tier3RocketItemItem.block
+            if (item1 == ModInnet.TIER_1_ROCKET_ITEM.get()
+                    || item1 == ModInnet.TIER_2_ROCKET_ITEM.get()
+                    || item1 == ModInnet.TIER_3_ROCKET_ITEM.get()
                     || item1 == RoverItemItem.block
                     //Off Hand
-                    || item2 == Tier1RocketItemItem.block
-                    || item2 == Tier2RocketItemItem.block
-                    || item2 == Tier3RocketItemItem.block
+                    || item2 == ModInnet.TIER_1_ROCKET_ITEM.get()
+                    || item2 == ModInnet.TIER_2_ROCKET_ITEM.get()
+                    || item2 == ModInnet.TIER_3_ROCKET_ITEM.get()
                     || item2 == RoverItemItem.block) {
                 model.bipedRightArm.rotateAngleX = 10;
                 model.bipedLeftArm.rotateAngleX = 10;

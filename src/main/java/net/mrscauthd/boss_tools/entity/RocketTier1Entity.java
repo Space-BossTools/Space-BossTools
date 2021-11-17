@@ -17,7 +17,6 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.block.RocketLaunchPad;
-import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGui;
 
 import net.minecraftforge.items.wrapper.EntityHandsInvWrapper;
@@ -126,7 +125,7 @@ public class RocketTier1Entity extends CreatureEntity {
 
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target) {
-		return new ItemStack(Tier1RocketItemItem.block);
+		return new ItemStack(ModInnet.TIER_1_ROCKET_ITEM.get());
 	}
 
 	@Override
@@ -205,7 +204,11 @@ public class RocketTier1Entity extends CreatureEntity {
 
 	protected void spawnRocketItem() {
 		if (!world.isRemote()) {
-			ItemEntity entityToSpawn = new ItemEntity(world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(Tier1RocketItemItem.block, 1));
+			ItemStack itemStack = new ItemStack(ModInnet.TIER_1_ROCKET_ITEM.get(), 1);
+			itemStack.getOrCreateTag().putInt("boss_tools:fuel", this.getDataManager().get(FUEL));
+			itemStack.getOrCreateTag().putBoolean("boss_tools:bucket", this.getDataManager().get(BUCKET));
+
+			ItemEntity entityToSpawn = new ItemEntity(world, this.getPosX(), this.getPosY(), this.getPosZ(), itemStack);
 			entityToSpawn.setPickupDelay(10);
 			world.addEntity(entityToSpawn);
 		}

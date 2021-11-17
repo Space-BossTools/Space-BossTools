@@ -1,7 +1,6 @@
 package net.mrscauthd.boss_tools.itemgroup;
 
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.item.Tier1RocketItemItem;
 
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
@@ -14,7 +13,7 @@ public class BossToolsItemGroups {
 		@OnlyIn(Dist.CLIENT)
 		@Override
 		public ItemStack createIcon() {
-			return new ItemStack(Tier1RocketItemItem.block, 1);
+			return new ItemStack(ModInnet.TIER_1_ROCKET_ITEM.get(), 1);
 		}
 	};
 	public static ItemGroup tab_machines = new ItemGroup("tab_machines") {

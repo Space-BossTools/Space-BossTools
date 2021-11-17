@@ -3,7 +3,7 @@
   "parent": "forge:item/default",
   "loader": "forge:obj",
   "flip-v": true,
-  "model": "boss_tools:models/item/rocket_tier_3.obj",
+  "model": "boss_tools:models/item/rocket_t3.obj",
   "display": {
     "thirdperson_righthand": {
       "rotation": [
@@ -128,7 +128,7 @@
     }
   },
   "textures": {
-    "m_0": "boss_tools:rocket_items/item_rocket_tier_3",
-    "particle": "boss_tools:rocket_items/item_rocket_tier_3"
+    "m_0": "boss_tools:rocket_items/rocket_t3",
+    "particle": "boss_tools:rocket_items/rocket_t3"
   }
 }
