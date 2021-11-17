@@ -397,7 +397,7 @@ public class JeiPlugin implements IModPlugin {
 			iIngredients.setInputs(VanillaTypes.ITEM, this.plugin.getFluidFullItemStacks(recipe.getInput().getFluids()));
 			iIngredients.setOutputs(VanillaTypes.ITEM, this.plugin.oxygenFullItemStacks);
 
-			iIngredients.setInputs(VanillaTypes.FLUID, recipe.getInput().toStacks());
+			iIngredients.setInputLists(VanillaTypes.FLUID, Collections.singletonList(recipe.getInput().toStacks()));
 		}
 		
 		@Override
@@ -503,7 +503,7 @@ public class JeiPlugin implements IModPlugin {
 		@Override
 		public void setIngredients(OxygenBubbleDistributorRecipe recipe, IIngredients iIngredients) {
 			iIngredients.setInputs(VanillaTypes.ITEM, this.plugin.getFluidFullItemStacks(recipe.getInput().getFluids()));
-			iIngredients.setInputs(VanillaTypes.FLUID, recipe.getInput().toStacks());
+			iIngredients.setInputLists(VanillaTypes.FLUID, Collections.singletonList(recipe.getInput().toStacks()));
 		}
 		
 		@Override
@@ -1269,8 +1269,8 @@ public class JeiPlugin implements IModPlugin {
 			iIngredients.setInputs(VanillaTypes.ITEM, this.plugin.getFluidFullItemStacks(recipe.getInput().getFluids()));
 			iIngredients.setOutputs(VanillaTypes.ITEM, this.plugin.getFluidFullItemStacks(recipe.getOutput().getFluids()));
 
-			iIngredients.setInputs(VanillaTypes.FLUID, recipe.getInput().toStacks());
-			iIngredients.setOutputs(VanillaTypes.FLUID, recipe.getOutput().toStacks());
+			iIngredients.setInputLists(VanillaTypes.FLUID, Collections.singletonList(recipe.getInput().toStacks()));
+			iIngredients.setOutputLists(VanillaTypes.FLUID, Collections.singletonList(recipe.getOutput().toStacks()));
 		}
 
 		@Override
