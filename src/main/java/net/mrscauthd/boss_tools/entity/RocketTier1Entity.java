@@ -67,6 +67,8 @@ public class RocketTier1Entity extends CreatureEntity {
 	public static final DataParameter<Integer> FUEL = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.VARINT);
 	public static final DataParameter<Integer> START_TIMER = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.VARINT);
 
+	public static final int FUEL_BUCKETS = 1;
+	
 	public RocketTier1Entity(EntityType type, World world) {
 		super(type, world);
 		this.dataManager.register(ROCKET_START, false);
@@ -365,7 +367,7 @@ public class RocketTier1Entity extends CreatureEntity {
 
 		}
 
-		if (Methodes.tagCheckFuel(FluidUtil2.findBucketFluid(this.inventory.getStackInSlot(0).getItem()), "boss_tools:fuel") && !this.dataManager.get(BUCKET)) {
+		if (Methodes.tagCheck(FluidUtil2.findBucketFluid(this.inventory.getStackInSlot(0).getItem()), ModInnet.FUEL_FLUID_TAG) && !this.dataManager.get(BUCKET)) {
 			this.inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));
 			this.getDataManager().set(BUCKET, true);
 		}

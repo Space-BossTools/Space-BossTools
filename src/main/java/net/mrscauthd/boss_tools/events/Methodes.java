@@ -277,8 +277,8 @@ public class Methodes {
         return false;
     }
     
-    public static boolean tagCheckFuel(Fluid fluid, String tag) {
-        if (FluidTags.getCollection().getTagByID(new ResourceLocation((tag).toLowerCase(java.util.Locale.ENGLISH))).contains(fluid)) {
+    public static boolean tagCheck(Fluid fluid, ResourceLocation tag) {
+        if (FluidTags.getCollection().getTagByID(tag).contains(fluid)) {
             return true;
         }
         return false;

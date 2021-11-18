@@ -55,6 +55,8 @@ public class RoverEntity extends CreatureEntity {
 
     public static final DataParameter<Integer> FUEL = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.VARINT);
 
+	public static final int FUEL_BUCKETS = 3;
+
     public RoverEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
         super(type, worldIn);
         this.dataManager.register(FUEL, 0);
@@ -280,7 +282,7 @@ public class RoverEntity extends CreatureEntity {
         super.baseTick();
 
         //Fuel Load up
-        if (Methodes.tagCheckFuel(FluidUtil2.findBucketFluid(this.inventory.getStackInSlot(0).getItem()), "boss_tools:fuel")) {
+        if (Methodes.tagCheck(FluidUtil2.findBucketFluid(this.inventory.getStackInSlot(0).getItem()), ModInnet.FUEL_FLUID_TAG)) {
 
             if (this.dataManager.get(FUEL) <= 2000) {
                 this.getDataManager().set(FUEL, this.getDataManager().get(FUEL) + 1000);

@@ -35,7 +35,7 @@ public class FluidUtil2 {
 	}
 
 	private static Fluid findBucketFluidInternal(Item item) {
-		return ForgeRegistries.FLUIDS.getValues().stream().filter(f -> f.isSource(null) && f.getFilledBucket() == item).findFirst().orElse(null);
+		return ForgeRegistries.FLUIDS.getValues().stream().filter(f -> f.isSource(f.getDefaultState()) && f.getFilledBucket() == item).findFirst().orElse(null);
 	}
 
 	public static boolean isEquivalentTo(FluidStack left, Fluid right) {

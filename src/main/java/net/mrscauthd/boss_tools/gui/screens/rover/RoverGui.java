@@ -36,7 +36,7 @@ public class RoverGui {
 			this.addSlot(new SlotItemHandler(itemHandler, 0, 8, 63) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
-					if (Methodes.tagCheckFuel(FluidUtil2.findBucketFluid(stack.getItem()), "boss_tools:fuel")) {
+					if (Methodes.tagCheck(FluidUtil2.findBucketFluid(stack.getItem()), ModInnet.FUEL_FLUID_TAG)) {
 						return true;
 					}
 					return false;
