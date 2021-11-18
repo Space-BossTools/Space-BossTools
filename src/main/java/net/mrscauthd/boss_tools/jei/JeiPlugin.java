@@ -262,7 +262,7 @@ public class JeiPlugin implements IModPlugin {
 
 	// Fuel Loading
 	private List<Fluid> generateFuelTagFluids() {
-		return ForgeRegistries.FLUIDS.getValues().stream().filter(f -> f.isSource(f.getDefaultState()) && Methodes.tagCheck(f, ModInnet.FUEL_FLUID_TAG)).collect(Collectors.toList());
+		return ForgeRegistries.FLUIDS.getValues().stream().filter(f -> f.isSource(f.getDefaultState()) && Methodes.tagCheck(f, ModInnet.FLUID_VEHICLE_FUEL_TAG)).collect(Collectors.toList());
 	}
 	
 	private List<FuelLoadingRecipe> generateFuelLoadingRecipes() {

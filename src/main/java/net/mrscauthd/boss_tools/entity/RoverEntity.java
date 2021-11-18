@@ -282,7 +282,7 @@ public class RoverEntity extends CreatureEntity {
         super.baseTick();
 
         //Fuel Load up
-        if (Methodes.tagCheck(FluidUtil2.findBucketFluid(this.inventory.getStackInSlot(0).getItem()), ModInnet.FUEL_FLUID_TAG)) {
+        if (Methodes.tagCheck(FluidUtil2.findBucketFluid(this.inventory.getStackInSlot(0).getItem()), ModInnet.FLUID_VEHICLE_FUEL_TAG)) {
 
             if (this.dataManager.get(FUEL) <= 2000) {
                 this.getDataManager().set(FUEL, this.getDataManager().get(FUEL) + 1000);

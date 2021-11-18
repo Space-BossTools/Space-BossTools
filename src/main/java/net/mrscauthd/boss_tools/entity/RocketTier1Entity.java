@@ -367,7 +367,7 @@ public class RocketTier1Entity extends CreatureEntity {
 
 		}
 
-		if (Methodes.tagCheck(FluidUtil2.findBucketFluid(this.inventory.getStackInSlot(0).getItem()), ModInnet.FUEL_FLUID_TAG) && !this.dataManager.get(BUCKET)) {
+		if (Methodes.tagCheck(FluidUtil2.findBucketFluid(this.inventory.getStackInSlot(0).getItem()), ModInnet.FLUID_VEHICLE_FUEL_TAG) && !this.dataManager.get(BUCKET)) {
 			this.inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));
 			this.getDataManager().set(BUCKET, true);
 		}

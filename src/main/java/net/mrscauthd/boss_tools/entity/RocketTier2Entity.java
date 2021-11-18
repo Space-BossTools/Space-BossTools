@@ -368,7 +368,7 @@ public class RocketTier2Entity extends CreatureEntity {
 		}
 
 		//Fuel Load up
-		if (Methodes.tagCheck(FluidUtil2.findBucketFluid(this.inventory.getStackInSlot(0).getItem()), ModInnet.FUEL_FLUID_TAG) && this.dataManager.get(BUCKETS) < 3) {
+		if (Methodes.tagCheck(FluidUtil2.findBucketFluid(this.inventory.getStackInSlot(0).getItem()), ModInnet.FLUID_VEHICLE_FUEL_TAG) && this.dataManager.get(BUCKETS) < 3) {
 
 			if (this.dataManager.get(FUEL) == 0 && this.dataManager.get(BUCKETS) == 0) {
 
