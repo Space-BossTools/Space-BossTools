@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "boss_tools:compressed/desh"
+    "tag": "boss_tools:compresseds/desh"
   },
   "result": {
     "fluid": "boss_tools:molten_desh",

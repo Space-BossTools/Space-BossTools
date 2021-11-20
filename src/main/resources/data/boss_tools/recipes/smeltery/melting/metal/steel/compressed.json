@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-      "tag": "boss_tools:compressed/steel"
+      "tag": "boss_tools:compresseds/steel"
   },
   "result": {
     "fluid": "tconstruct:molten_steel",

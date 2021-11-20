@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "boss_tools:compressed/silicon"
+    "tag": "boss_tools:compresseds/silicon"
   },
   "result": {
     "fluid": "boss_tools:molten_silicon",
