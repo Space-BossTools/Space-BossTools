@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.entity;
 
+import com.google.common.collect.Sets;
 import io.netty.buffer.Unpooled;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
@@ -24,6 +25,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
@@ -48,6 +50,7 @@ import net.mrscauthd.boss_tools.gui.screens.rover.RoverGui;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Set;
 
 public class RoverEntity extends CreatureEntity {
     private double speed = 0;
@@ -131,6 +134,44 @@ public class RoverEntity extends CreatureEntity {
     @OnlyIn(Dist.CLIENT)
     public void applyOrientationToEntity(Entity entityToUpdate) {
         this.applyYawToEntity(entityToUpdate);
+    }
+
+    //Save Entity Dismount
+    @Override
+    public Vector3d func_230268_c_(LivingEntity livingEntity) {
+        Vector3d[] avector3d = new Vector3d[]{func_233559_a_((double)this.getWidth(), (double)livingEntity.getWidth(), livingEntity.rotationYaw), func_233559_a_((double)this.getWidth(), (double)livingEntity.getWidth(), livingEntity.rotationYaw - 22.5F), func_233559_a_((double)this.getWidth(), (double)livingEntity.getWidth(), livingEntity.rotationYaw + 22.5F), func_233559_a_((double)this.getWidth(), (double)livingEntity.getWidth(), livingEntity.rotationYaw - 45.0F), func_233559_a_((double)this.getWidth(), (double)livingEntity.getWidth(), livingEntity.rotationYaw + 45.0F)};
+        Set<BlockPos> set = Sets.newLinkedHashSet();
+        double d0 = this.getBoundingBox().maxY;
+        double d1 = this.getBoundingBox().minY - 0.5D;
+        BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
+
+        for(Vector3d vector3d : avector3d) {
+            blockpos$mutable.setPos(this.getPosX() + vector3d.x, d0, this.getPosZ() + vector3d.z);
+
+            for(double d2 = d0; d2 > d1; --d2) {
+                set.add(blockpos$mutable.toImmutable());
+                blockpos$mutable.move(Direction.DOWN);
+            }
+        }
+
+        for(BlockPos blockpos : set) {
+            if (!this.world.getFluidState(blockpos).isTagged(FluidTags.LAVA)) {
+                double d3 = this.world.func_242403_h(blockpos);
+                if (TransportationHelper.func_234630_a_(d3)) {
+                    Vector3d vector3d1 = Vector3d.copyCenteredWithVerticalOffset(blockpos, d3);
+
+                    for(Pose pose : livingEntity.getAvailablePoses()) {
+                        AxisAlignedBB axisalignedbb = livingEntity.getPoseAABB(pose);
+                        if (TransportationHelper.func_234631_a_(this.world, livingEntity, axisalignedbb.offset(vector3d1))) {
+                            livingEntity.setPose(pose);
+                            return vector3d1;
+                        }
+                    }
+                }
+            }
+        }
+
+        return new Vector3d(this.getPosX(), this.getBoundingBox().maxY, this.getPosZ());
     }
 
     protected void applyYawToEntity(Entity entityToUpdate) {
