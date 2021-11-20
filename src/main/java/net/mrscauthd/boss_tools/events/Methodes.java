@@ -30,7 +30,6 @@ import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.*;
 import net.mrscauthd.boss_tools.events.forgeevents.LivingSetFireInHotPlanetEvent;
 import net.mrscauthd.boss_tools.events.forgeevents.LivingSetVenusRainEvent;
-import net.mrscauthd.boss_tools.item.RoverItemItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -187,7 +186,7 @@ public class Methodes {
         items.add(ModInnet.TIER_1_ROCKET_ITEM.get());
         items.add(ModInnet.TIER_2_ROCKET_ITEM.get());
         items.add(ModInnet.TIER_3_ROCKET_ITEM.get());
-        items.add(RoverItemItem.block);
+        items.add(ModInnet.ROVER_ITEM.get());
 
         if (items.contains(item1) && items.contains(item2)) {
 

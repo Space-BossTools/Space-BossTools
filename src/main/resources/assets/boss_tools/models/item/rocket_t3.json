@@ -128,7 +128,7 @@
     }
   },
   "textures": {
-    "m_0": "boss_tools:rocket_items/rocket_t3",
-    "particle": "boss_tools:rocket_items/rocket_t3"
+    "m_0": "boss_tools:vehicle_items/rocket_t3",
+    "particle": "boss_tools:vehicle_items/rocket_t3"
   }
 }

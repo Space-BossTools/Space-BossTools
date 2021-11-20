@@ -79,7 +79,6 @@ import net.mrscauthd.boss_tools.gui.helper.GridPlacer;
 import net.mrscauthd.boss_tools.gui.helper.GuiHelper;
 import net.mrscauthd.boss_tools.gui.helper.IPlacer;
 import net.mrscauthd.boss_tools.gui.helper.RocketPartGridPlacer;
-import net.mrscauthd.boss_tools.item.RoverItemItem;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -318,7 +317,7 @@ public class JeiPlugin implements IModPlugin {
 		// FuelMaker
 		registration.addRecipeCatalyst(new ItemStack(ModInnet.FUEL_REFINERY_BLOCK.get()), FuelRefineryJeiCategory.Uid);
 		// Rover
-		registration.addRecipeCatalyst(new ItemStack(RoverItemItem.block), RoverJeiCategory.Uid);
+		registration.addRecipeCatalyst(new ItemStack(ModInnet.ROVER_ITEM.get()), RoverJeiCategory.Uid);
 	}
 
 	public static class OxygenLoaderJeiCategory implements IRecipeCategory<OxygenLoaderRecipe> {

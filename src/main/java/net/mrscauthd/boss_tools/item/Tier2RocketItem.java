@@ -39,7 +39,7 @@ public class Tier2RocketItem extends Item {
     public void addInformation(ItemStack itemstack, World world, List<ITextComponent> list, ITooltipFlag flag) {
         super.addInformation(itemstack, world, list, flag);
         int fuel = itemstack.getOrCreateTag().getInt(fuelTag) / 3;
-        list.add(new StringTextComponent("\u00A77" + fuel + "% " + "\u00A79Fuel"));
+        list.add(new StringTextComponent("\u00A79Fuel: " + "\u00A77" + fuel + "% "));
     }
 
     @Override

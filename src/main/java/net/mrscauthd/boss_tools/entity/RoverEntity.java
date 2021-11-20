@@ -6,6 +6,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -22,7 +23,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
@@ -42,7 +43,6 @@ import net.minecraftforge.items.wrapper.EntityArmorInvWrapper;
 import net.minecraftforge.items.wrapper.EntityHandsInvWrapper;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.gui.screens.rover.RoverGui;
-import net.mrscauthd.boss_tools.item.RoverItemItem;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -67,6 +67,7 @@ public class RoverEntity extends CreatureEntity {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
+
     @Override
     public boolean canBeLeashedTo(PlayerEntity player) {
         return false;
@@ -74,11 +75,6 @@ public class RoverEntity extends CreatureEntity {
 
     public boolean canBePushed() {
         return false;
-    }
-
-    @Override
-    public boolean func_241845_aY() {
-        return true;
     }
 
     @Override
@@ -154,12 +150,12 @@ public class RoverEntity extends CreatureEntity {
 
     @Override
     public ItemStack getPickedResult(RayTraceResult target) {
-        return new ItemStack(RoverItemItem.block);
+        return new ItemStack(ModInnet.ROVER_ITEM.get());
     }
 
     @Override
     public double getMountedYOffset() {
-        return super.getMountedYOffset() - 0.4;
+        return super.getMountedYOffset() - 0.15;
     }
 
     @Override
@@ -167,6 +163,11 @@ public class RoverEntity extends CreatureEntity {
         this.spawnRoverItem();
         this.dropInventory();
         this.remove();
+    }
+
+    @Override
+    public AxisAlignedBB getRenderBoundingBox() {
+        return new AxisAlignedBB(this.getPosX(),this.getPosY(),this.getPosZ(),this.getPosX(),this.getPosY(), this.getPosZ()).grow(4.5,4.5,4.5);
     }
 
     @Override
@@ -182,7 +183,10 @@ public class RoverEntity extends CreatureEntity {
 
     protected void spawnRoverItem() {
         if (!world.isRemote()) {
-            ItemEntity entityToSpawn = new ItemEntity(world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(RoverItemItem.block, 1));
+            ItemStack itemStack = new ItemStack(ModInnet.ROVER_ITEM.get(), 1);
+            itemStack.getOrCreateTag().putInt("boss_tools:fuel", this.getDataManager().get(FUEL));
+
+            ItemEntity entityToSpawn = new ItemEntity(world, this.getPosX(), this.getPosY(), this.getPosZ(), itemStack);
             entityToSpawn.setPickupDelay(10);
             world.addEntity(entityToSpawn);
         }
@@ -300,11 +304,11 @@ public class RoverEntity extends CreatureEntity {
 
         PlayerEntity passanger = (PlayerEntity) this.getPassengers().get(0);
 
-        if (passanger.moveForward > 0.01) {
+        if (passanger.moveForward > 0.01 && this.getDataManager().get(FUEL) != 0) {
 
             this.dataManager.set(FUEL, this.getDataManager().get(FUEL) - 1);
             forward = true;
-        } else if (passanger.moveForward < -0.01) {
+        } else if (passanger.moveForward < -0.01 && this.getDataManager().get(FUEL) != 0) {
 
             this.dataManager.set(FUEL, this.getDataManager().get(FUEL) - 1);
             forward = false;

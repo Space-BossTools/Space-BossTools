@@ -44,7 +44,7 @@ public class RoverGuiWindow extends ContainerScreen<RoverGui.GuiContainer> {
 		int fuel = container.rover.getDataManager().get(RoverEntity.FUEL);
 
 		if (GuiHelper.isHover(this.getFluidBounds(), mouseX, mouseY)) {
-			if (fuel / 30 > 0) {
+			if (fuel > 0) {
 
 				fuelToolTip.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Fuel"));
 			} else {
@@ -52,7 +52,7 @@ public class RoverGuiWindow extends ContainerScreen<RoverGui.GuiContainer> {
 				fuelToolTip.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Empty"));
 			}
 
-			fuelToolTip.add(ITextComponent.getTextComponentOrEmpty(fuel + "%"));
+			fuelToolTip.add(ITextComponent.getTextComponentOrEmpty(fuel + " mB"));
 			this.func_243308_b(ms, fuelToolTip, mouseX, mouseY);
 		}
 	}

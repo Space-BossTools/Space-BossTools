@@ -27,7 +27,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.*;
-import net.mrscauthd.boss_tools.item.RoverItemItem;
 
 @Mod.EventBusSubscriber(modid = "boss_tools")
 public class Events {
@@ -60,13 +59,13 @@ public class Events {
             }
 
             //Lander Warning Overlay Tick
-            if (check == false) {
+            if (!check) {
                 counter = counter - 0.025;
                 if (counter <= 0.2) {
                     check = true;
                 }
             }
-            if (check == true) {
+            if (check) {
                 counter = counter + 0.025;
                 if (counter >= 1.2) {
                     check = false;
@@ -140,12 +139,12 @@ public class Events {
             if (item1 == ModInnet.TIER_1_ROCKET_ITEM.get()
                     || item1 == ModInnet.TIER_2_ROCKET_ITEM.get()
                     || item1 == ModInnet.TIER_3_ROCKET_ITEM.get()
-                    || item1 == RoverItemItem.block
+                    || item1 == ModInnet.ROVER_ITEM.get()
                     //Off Hand
                     || item2 == ModInnet.TIER_1_ROCKET_ITEM.get()
                     || item2 == ModInnet.TIER_2_ROCKET_ITEM.get()
                     || item2 == ModInnet.TIER_3_ROCKET_ITEM.get()
-                    || item2 == RoverItemItem.block) {
+                    || item2 == ModInnet.ROVER_ITEM.get()) {
                 model.bipedRightArm.rotateAngleX = 10;
                 model.bipedLeftArm.rotateAngleX = 10;
                 model.bipedLeftArm.rotateAngleZ = 0;

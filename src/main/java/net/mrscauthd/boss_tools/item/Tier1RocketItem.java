@@ -3,6 +3,7 @@ package net.mrscauthd.boss_tools.item;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -39,7 +40,7 @@ public class Tier1RocketItem extends Item {
     public void addInformation(ItemStack itemstack, World world, List<ITextComponent> list, ITooltipFlag flag) {
         super.addInformation(itemstack, world, list, flag);
         int fuel = itemstack.getOrCreateTag().getInt(fuelTag) / 3;
-        list.add(new StringTextComponent("\u00A77" + fuel + "% " + "\u00A79Fuel"));
+        list.add(new StringTextComponent("\u00A79Fuel: " + "\u00A77" + fuel + "% "));
     }
 
     @Override

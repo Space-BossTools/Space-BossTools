@@ -233,6 +233,7 @@ public class ModInnet {
     public static final RegistryObject<Item> TIER_1_ROCKET_ITEM = ITEMS.register("rocket_t1", () -> new Tier1RocketItem(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1)));
     public static final RegistryObject<Item> TIER_2_ROCKET_ITEM = ITEMS.register("rocket_t2", () -> new Tier2RocketItem(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1)));
     public static final RegistryObject<Item> TIER_3_ROCKET_ITEM = ITEMS.register("rocket_t3", () -> new Tier3RocketItem(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1)));
+    public static final RegistryObject<Item> ROVER_ITEM = ITEMS.register("rover", () -> new RoverItem(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1)));
 
 
     //Generel Items
