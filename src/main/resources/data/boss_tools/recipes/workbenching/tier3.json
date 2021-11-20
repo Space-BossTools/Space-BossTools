@@ -9,22 +9,22 @@
          ],
          "boss_tools:body":[
             {
-               "item":"boss_tools:compressed_silicon"
+               "tag":"boss_tools:compressed/silicon"
             },
             {
-               "item":"boss_tools:compressed_silicon"
+               "tag":"boss_tools:compressed/silicon"
             },
             {
-               "item":"boss_tools:compressed_silicon"
+               "tag":"boss_tools:compressed/silicon"
             },
             {
-               "item":"boss_tools:compressed_silicon"
+               "tag":"boss_tools:compressed/silicon"
             },
             {
-               "item":"boss_tools:compressed_silicon"
+               "tag":"boss_tools:compressed/silicon"
             },
             {
-               "item":"boss_tools:compressed_silicon"
+               "tag":"boss_tools:compressed/silicon"
             }
          ],
          "boss_tools:tank":[
