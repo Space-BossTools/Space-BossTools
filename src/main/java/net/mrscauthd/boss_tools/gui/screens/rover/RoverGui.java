@@ -12,6 +12,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.Entity;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.RoverEntity;
+import net.mrscauthd.boss_tools.events.Methodes;
+import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 import net.mrscauthd.boss_tools.gui.helper.ContainerHelper;
 
 public class RoverGui {
@@ -34,7 +36,7 @@ public class RoverGui {
 			this.addSlot(new SlotItemHandler(itemHandler, 0, 8, 63) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
-					if (stack.getItem() == ModInnet.FUEL_BUCKET.get()) {
+					if (Methodes.tagCheck(FluidUtil2.findBucketFluid(stack.getItem()), ModInnet.FLUID_VEHICLE_FUEL_TAG)) {
 						return true;
 					}
 					return false;

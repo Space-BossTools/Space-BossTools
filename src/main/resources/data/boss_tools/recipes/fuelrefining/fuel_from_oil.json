@@ -1,7 +1,7 @@
 {
    "type":"boss_tools:fuelrefining",
    "input":{
-      "name":"boss_tools:oil",
+      "tag":"boss_tools:oil",
       "amount":2
    },
    "output":{

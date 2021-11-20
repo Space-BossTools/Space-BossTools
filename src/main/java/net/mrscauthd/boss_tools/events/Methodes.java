@@ -7,6 +7,7 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -15,6 +16,7 @@ import net.minecraft.network.play.server.SPlayEntityEffectPacket;
 import net.minecraft.network.play.server.SPlayerAbilitiesPacket;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -269,6 +271,13 @@ public class Methodes {
 
     public static boolean tagCheck(Entity entity, String tag) {
         if (EntityTypeTags.getCollection().getTagByID(new ResourceLocation((tag).toLowerCase(java.util.Locale.ENGLISH))).contains(entity.getType())) {
+            return true;
+        }
+        return false;
+    }
+    
+    public static boolean tagCheck(Fluid fluid, ResourceLocation tag) {
+        if (FluidTags.getCollection().getTagByID(tag).contains(fluid)) {
             return true;
         }
         return false;

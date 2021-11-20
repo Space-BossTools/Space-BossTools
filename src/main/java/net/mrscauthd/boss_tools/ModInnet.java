@@ -212,12 +212,14 @@ public class ModInnet {
     public static final RegistryObject<FlowingFluid> FUEL_STILL = FLUIDS.register("fuel", ()-> new FuelFluid.Source());
     public static RegistryObject<FlowingFluidBlock> FUEL_BLOCK = BLOCKS.register("fuel",() -> new FlowingFluidBlock(ModInnet.FUEL_STILL, Block.Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100f).noDrops()));
     public static final RegistryObject<Item> FUEL_BUCKET = ITEMS.register("fuel_bucket", () -> new BucketItem(ModInnet.FUEL_STILL, new Item.Properties().containerItem(Items.BUCKET).maxStackSize(1).group(BossToolsItemGroups.tab_normal)));
+    public static final ResourceLocation FLUID_VEHICLE_FUEL_TAG = new ResourceLocation("boss_tools", "vehicle_fuel");
 
     //Oil Fluid
     public static final RegistryObject<FlowingFluid> FLOWING_OIL = FLUIDS.register("flowing_oil", ()-> new OilFluid.Flowing());
     public static final RegistryObject<FlowingFluid> OIL_STILL = FLUIDS.register("oil", ()-> new OilFluid.Source());
     public static RegistryObject<FlowingFluidBlock> OIL_BLOCK = BLOCKS.register("oil",() -> new FlowingFluidBlock(ModInnet.OIL_STILL, Block.Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100f).noDrops()));
     public static final RegistryObject<Item> OIL_BUCKET = ITEMS.register("oil_bucket", () -> new BucketItem(ModInnet.OIL_STILL, new Item.Properties().containerItem(Items.BUCKET).maxStackSize(1).group(BossToolsItemGroups.tab_normal)));
+    public static final ResourceLocation OIL_FLUID_TAG = new ResourceLocation("boss_tools", "oil");
 
     //Item
     public static final RegistryObject<Item> TORCHITEM = ITEMS.register("coal_torch", () -> new CoalTorchItem(COAL_TORCH_BLOCK.get(), WALL_COAL_TORCH_BLOCK.get(),new Item.Properties().group(BossToolsItemGroups.tab_basics)));
