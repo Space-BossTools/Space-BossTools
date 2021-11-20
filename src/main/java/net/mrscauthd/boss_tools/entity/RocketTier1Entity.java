@@ -68,7 +68,7 @@ public class RocketTier1Entity extends CreatureEntity {
 	public static final DataParameter<Integer> START_TIMER = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.VARINT);
 
 	public static final int FUEL_BUCKETS = 1;
-	
+
 	public RocketTier1Entity(EntityType type, World world) {
 		super(type, world);
 		this.dataManager.register(ROCKET_START, false);
@@ -381,7 +381,7 @@ public class RocketTier1Entity extends CreatureEntity {
 			BlockState state = world.getBlockState(new BlockPos(Math.floor(x), y - 0.1, Math.floor(z)));
 
 			if (!world.isAirBlock(new BlockPos(Math.floor(x), y - 0.01, Math.floor(z))) && state.getBlock() instanceof RocketLaunchPad && !state.get(RocketLaunchPad.STAGE)
-			|| world.getBlockState(new BlockPos(Math.floor(x), Math.floor(y), Math.floor(z))).getBlock() != ModInnet.ROCKET_LAUNCH_PAD.get().getDefaultState().getBlock()) {
+					|| world.getBlockState(new BlockPos(Math.floor(x), Math.floor(y), Math.floor(z))).getBlock() != ModInnet.ROCKET_LAUNCH_PAD.get().getDefaultState().getBlock()) {
 
 				this.dropInventory();
 				this.spawnRocketItem();
@@ -389,5 +389,4 @@ public class RocketTier1Entity extends CreatureEntity {
 			}
 		}
 	}
-
 }
