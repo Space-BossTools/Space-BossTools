@@ -67,12 +67,14 @@ import net.mrscauthd.boss_tools.gui.screens.oxygenbubbledistributor.OxygenBubble
 import net.mrscauthd.boss_tools.gui.screens.oxygenbubbledistributor.OxygenBubbleDistributorGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.oxygenloader.OxygenLoaderGui;
 import net.mrscauthd.boss_tools.gui.screens.oxygenloader.OxygenLoaderGuiWindow;
+import net.mrscauthd.boss_tools.gui.screens.planetselection.PlanetSelectionGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGui;
 import net.mrscauthd.boss_tools.gui.screens.blastfurnace.BlastFurnaceGui;
 import net.mrscauthd.boss_tools.gui.screens.blastfurnace.BlastFurnaceGuiWindow;
-import net.mrscauthd.boss_tools.jei.machineguihandlers.BlastFurnaceGuiContainerHandler;
-import net.mrscauthd.boss_tools.jei.machineguihandlers.CoalGeneratorGuiContainerHandler;
-import net.mrscauthd.boss_tools.jei.machineguihandlers.CompressorGuiContainerHandler;
+import net.mrscauthd.boss_tools.jei.jeiguihandlers.BlastFurnaceGuiContainerHandler;
+import net.mrscauthd.boss_tools.jei.jeiguihandlers.CoalGeneratorGuiContainerHandler;
+import net.mrscauthd.boss_tools.jei.jeiguihandlers.CompressorGuiContainerHandler;
+import net.mrscauthd.boss_tools.jei.jeiguihandlers.PlanetSlecetionGuiJeiHandler;
 import net.mrscauthd.boss_tools.machines.NASAWorkbenchBlock;
 import net.mrscauthd.boss_tools.machines.tile.ItemStackToItemStackTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.OxygenMakingTileEntity;
@@ -149,6 +151,8 @@ public class JeiPlugin implements IModPlugin {
 		registration.addGuiContainerHandler(CompressorGuiWindow.class, new CompressorGuiContainerHandler());
 		registration.addRecipeClickArea(OxygenLoaderGuiWindow.class, OxygenLoaderGuiWindow.ARROW_LEFT, OxygenLoaderGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, OxygenLoaderJeiCategory.Uid);
 		registration.addRecipeClickArea(OxygenBubbleDistributorGuiWindow.class, OxygenBubbleDistributorGuiWindow.ARROW_LEFT, OxygenBubbleDistributorGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, OxygenBubbleDistributorJeiCategory.Uid);
+
+		registration.addGuiContainerHandler(PlanetSelectionGuiWindow.class, new PlanetSlecetionGuiJeiHandler());
 	}
 
 	@Override

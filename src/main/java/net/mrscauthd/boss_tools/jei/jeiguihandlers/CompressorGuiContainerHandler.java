@@ -1,4 +1,4 @@
-package net.mrscauthd.boss_tools.jei.machineguihandlers;
+package net.mrscauthd.boss_tools.jei.jeiguihandlers;
 
 import java.util.ArrayList;
 import java.util.Arrays;

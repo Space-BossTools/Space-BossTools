@@ -35,6 +35,7 @@ import net.mrscauthd.boss_tools.gui.screens.lander.LanderGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.nasaworkbench.NasaWorkbenchGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.oxygenbubbledistributor.OxygenBubbleDistributorGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.oxygenloader.OxygenLoaderGuiWindow;
+import net.mrscauthd.boss_tools.gui.screens.planetselection.PlanetSelectionGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.rover.RoverGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.solarpanel.SolarPanelGuiWindow;
@@ -92,6 +93,7 @@ public class ClientEventBusSubscriber {
 		ScreenManager.registerFactory(ModInnet.OXYGEN_BUBBLE_DISTRIBUTOR_GUI.get(), OxygenBubbleDistributorGuiWindow::new);
 		ScreenManager.registerFactory(ModInnet.LANDER_GUI.get(), LanderGuiWindow::new);
 		ScreenManager.registerFactory(ModInnet.ROVER_GUI.get(), RoverGuiWindow::new);
+		ScreenManager.registerFactory(ModInnet.PLANET_SELECTION_GUI.get(), PlanetSelectionGuiWindow::new);
 
 		//Key Binding Registrys
 		key1 = new KeyBinding("key.boss_tools.rocket_start", GLFW.GLFW_KEY_SPACE, "key.categories.boss_tools");

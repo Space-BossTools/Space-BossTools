@@ -58,6 +58,7 @@ import net.mrscauthd.boss_tools.gui.screens.lander.LanderGui;
 import net.mrscauthd.boss_tools.gui.screens.nasaworkbench.NasaWorkbenchGui;
 import net.mrscauthd.boss_tools.gui.screens.oxygenbubbledistributor.OxygenBubbleDistributorGui;
 import net.mrscauthd.boss_tools.gui.screens.oxygenloader.OxygenLoaderGui;
+import net.mrscauthd.boss_tools.gui.screens.planetselection.PlanetSelectionGui;
 import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGui;
 import net.mrscauthd.boss_tools.gui.screens.rover.RoverGui;
 import net.mrscauthd.boss_tools.gui.screens.solarpanel.SolarPanelGui;
@@ -427,6 +428,7 @@ public class ModInnet {
     public static final RegistryObject<ContainerType<OxygenBubbleDistributorGui.GuiContainer>> OXYGEN_BUBBLE_DISTRIBUTOR_GUI = GUIS.register("oxygen_bubble_distributor_gui", () -> new ContainerType<>(new OxygenBubbleDistributorGui.GuiContainerFactory()));
     public static final RegistryObject<ContainerType<LanderGui.GuiContainer>> LANDER_GUI = GUIS.register("lander_gui", () -> new ContainerType<>(new LanderGui.GuiContainerFactory()));
     public static final RegistryObject<ContainerType<RoverGui.GuiContainer>> ROVER_GUI = GUIS.register("rover_gui", () -> new ContainerType<>(new RoverGui.GuiContainerFactory()));
+    public static final RegistryObject<ContainerType<PlanetSelectionGui.GuiContainer>> PLANET_SELECTION_GUI = GUIS.register("planet_selection_gui", () -> new ContainerType<>(new PlanetSelectionGui.GuiContainerFactory()));
 
 
     //Particle

@@ -81,8 +81,8 @@ dependencies {
   compile fg.deobf("curse.maven:obfuscate-289380:3067472")
 
   //JEI
-  compileOnly fg.deobf("mezz.jei:jei-1.16.4:7.6.0.62:api")
-  runtimeOnly fg.deobf("mezz.jei:jei-1.16.4:7.6.0.62")
+  compileOnly fg.deobf("mezz.jei:jei-1.16.5:7.7.1.137:api")
+  runtimeOnly fg.deobf("mezz.jei:jei-1.16.5:7.7.1.137")
   
   //TConstruct
   compile fg.deobf("curse.maven:mantle-74924:3439180")
