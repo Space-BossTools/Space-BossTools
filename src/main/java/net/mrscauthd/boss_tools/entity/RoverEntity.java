@@ -41,6 +41,8 @@ import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.items.wrapper.EntityArmorInvWrapper;
 import net.minecraftforge.items.wrapper.EntityHandsInvWrapper;
 import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.events.Methodes;
+import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 import net.mrscauthd.boss_tools.gui.screens.rover.RoverGui;
 import net.mrscauthd.boss_tools.item.RoverItemItem;
 
@@ -52,6 +54,8 @@ public class RoverEntity extends CreatureEntity {
     private boolean forward = false;
 
     public static final DataParameter<Integer> FUEL = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.VARINT);
+
+	public static final int FUEL_BUCKETS = 3;
 
     public RoverEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
         super(type, worldIn);
@@ -278,7 +282,7 @@ public class RoverEntity extends CreatureEntity {
         super.baseTick();
 
         //Fuel Load up
-        if (this.inventory.getStackInSlot(0).getItem() == ModInnet.FUEL_BUCKET.get()) {
+        if (Methodes.tagCheck(FluidUtil2.findBucketFluid(this.inventory.getStackInSlot(0).getItem()), ModInnet.FLUID_VEHICLE_FUEL_TAG)) {
 
             if (this.dataManager.get(FUEL) <= 2000) {
                 this.getDataManager().set(FUEL, this.getDataManager().get(FUEL) + 1000);

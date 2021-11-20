@@ -2,7 +2,6 @@ package net.mrscauthd.boss_tools.machines;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Predicate;
 
 import javax.annotation.Nullable;
 
@@ -15,7 +14,6 @@ import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
@@ -216,23 +214,8 @@ public class FuelRefineryBlock {
 			return TANK_CAPACITY;
 		}
 
-		protected Predicate<FluidStack> getInitialTankValidator(ResourceLocation name) {
-			Fluid fluid = this.getTankFluid(name);
-			return fluid != null ? fs -> FluidUtil2.isEquivalentTo(fs, fluid) : null;
-		}
-
-		protected Fluid getTankFluid(ResourceLocation name) {
-			if (name.equals(this.getInputTankName())) {
-				return ModInnet.OIL_STILL.get();
-			} else if (name.equals(this.getOutputTankName())) {
-				return ModInnet.FUEL_STILL.get();
-			} else {
-				return null;
-			}
-		}
-
 		protected FluidTank creatTank(ResourceLocation name) {
-			return new FluidTank(this.getInitialTankCapacity(name), this.getInitialTankValidator(name)) {
+			return new FluidTank(this.getInitialTankCapacity(name)) {
 				@Override
 				protected void onContentsChanged() {
 					super.onContentsChanged();
@@ -326,9 +309,10 @@ public class FuelRefineryBlock {
 		@Override
 		protected boolean onCanInsertItem(int index, ItemStack stack, Direction direction) {
 			if (this.isSourceSlot(index)) {
-				return FluidUtil2.canDrain(stack, this.getTankFluid(this.slotToTankName(index)));
+				return FluidUtil2.canDrain(stack);
 			} else if (this.isSinkSlot(index)) {
-				return FluidUtil2.canFill(stack, this.getTankFluid(this.slotToTankName(index)));
+				FluidTank tank = this.slotToTank(index);
+				return FluidUtil2.canFill(stack, tank.getFluid().getFluid());
 			}
 
 			return super.onCanInsertItem(index, stack, direction);
@@ -337,9 +321,10 @@ public class FuelRefineryBlock {
 		@Override
 		public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
 			if (this.isSourceSlot(index)) {
-				return !FluidUtil2.canDrain(stack, this.getTankFluid(this.slotToTankName(index)));
+				return !FluidUtil2.canDrain(stack);
 			} else if (this.isSinkSlot(index)) {
-				return !FluidUtil2.canFill(stack, this.getTankFluid(this.slotToTankName(index)));
+				FluidTank tank = this.slotToTank(index);
+				return !FluidUtil2.canFill(stack, tank.getFluid().getFluid());
 			}
 
 			return super.canExtractItem(index, stack, direction);

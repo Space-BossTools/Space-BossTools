@@ -51,6 +51,8 @@ import javax.annotation.Nonnull;
 
 import io.netty.buffer.Unpooled;
 import net.mrscauthd.boss_tools.block.RocketLaunchPad;
+import net.mrscauthd.boss_tools.events.Methodes;
+import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGui;
 
 import java.util.Set;
@@ -65,6 +67,7 @@ public class RocketTier2Entity extends CreatureEntity {
 	public static final DataParameter<Integer> FUEL = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.VARINT);
 	public static final DataParameter<Integer> START_TIMER = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.VARINT);
 
+	public static final int FUEL_BUCKETS = 3;
 
 	public RocketTier2Entity(EntityType type, World world) {
 		super(type, world);
@@ -365,7 +368,7 @@ public class RocketTier2Entity extends CreatureEntity {
 		}
 
 		//Fuel Load up
-		if (this.inventory.getStackInSlot(0).getItem() == ModInnet.FUEL_BUCKET.get() && this.dataManager.get(BUCKETS) < 3) {
+		if (Methodes.tagCheck(FluidUtil2.findBucketFluid(this.inventory.getStackInSlot(0).getItem()), ModInnet.FLUID_VEHICLE_FUEL_TAG) && this.dataManager.get(BUCKETS) < 3) {
 
 			if (this.dataManager.get(FUEL) == 0 && this.dataManager.get(BUCKETS) == 0) {
 

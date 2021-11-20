@@ -17,6 +17,8 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.block.RocketLaunchPad;
+import net.mrscauthd.boss_tools.events.Methodes;
+import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGui;
 
 import net.minecraftforge.items.wrapper.EntityHandsInvWrapper;
@@ -65,6 +67,8 @@ public class RocketTier1Entity extends CreatureEntity {
 	public static final DataParameter<Integer> FUEL = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.VARINT);
 	public static final DataParameter<Integer> START_TIMER = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.VARINT);
 
+	public static final int FUEL_BUCKETS = 1;
+	
 	public RocketTier1Entity(EntityType type, World world) {
 		super(type, world);
 		this.dataManager.register(ROCKET_START, false);
@@ -363,7 +367,7 @@ public class RocketTier1Entity extends CreatureEntity {
 
 		}
 
-		if (this.inventory.getStackInSlot(0).getItem() == ModInnet.FUEL_BUCKET.get() && !this.dataManager.get(BUCKET)) {
+		if (Methodes.tagCheck(FluidUtil2.findBucketFluid(this.inventory.getStackInSlot(0).getItem()), ModInnet.FLUID_VEHICLE_FUEL_TAG) && !this.dataManager.get(BUCKET)) {
 			this.inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));
 			this.getDataManager().set(BUCKET, true);
 		}

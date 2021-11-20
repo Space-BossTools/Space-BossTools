@@ -34,8 +34,8 @@ public class FluidUtil2 {
 		return fluidCacheds.computeIfAbsent(item, FluidUtil2::findBucketFluidInternal);
 	}
 
-	public static Fluid findBucketFluidInternal(Item item) {
-		return ForgeRegistries.FLUIDS.getValues().stream().filter(f -> f.isSource(null) && f.getFilledBucket() == item).findFirst().orElse(null);
+	private static Fluid findBucketFluidInternal(Item item) {
+		return ForgeRegistries.FLUIDS.getValues().stream().filter(f -> f.isSource(f.getDefaultState()) && f.getFilledBucket() == item).findFirst().orElse(null);
 	}
 
 	public static boolean isEquivalentTo(FluidStack left, Fluid right) {
@@ -66,7 +66,7 @@ public class FluidUtil2 {
 	}
 
 	/**
-	 * test insert fluid to itemstack
+	 * test insert specified fluid to itemstack
 	 * 
 	 * @param itemStack
 	 * @param fluid
@@ -91,7 +91,32 @@ public class FluidUtil2 {
 	}
 
 	/**
-	 * test drain fluid from itemstack
+	 * test drain any fluid from itemstack
+	 * 
+	 * @param itemStack
+	 * @param fluid
+	 * @return
+	 */
+	public static boolean canDrain(ItemStack itemStack) {
+		if (itemStack.isEmpty()) {
+			return false;
+		}
+
+		if (findBucketFluid(itemStack.getItem()) != null) {
+			return true;
+		}
+
+		IFluidHandlerItem handlerInItemStack = getItemStackFluidHandler(itemStack);
+
+		if (handlerInItemStack != null && !handlerInItemStack.drain(1, FluidAction.SIMULATE).isEmpty()) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * test drain specified fluid from itemstack
 	 * 
 	 * @param itemStack
 	 * @param fluid
