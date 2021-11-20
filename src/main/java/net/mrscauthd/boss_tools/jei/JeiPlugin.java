@@ -70,7 +70,6 @@ import net.mrscauthd.boss_tools.gui.screens.oxygenloader.OxygenLoaderGuiWindow;
 import net.mrscauthd.boss_tools.gui.screens.rocket.RocketGui;
 import net.mrscauthd.boss_tools.gui.screens.blastfurnace.BlastFurnaceGui;
 import net.mrscauthd.boss_tools.gui.screens.blastfurnace.BlastFurnaceGuiWindow;
-import net.mrscauthd.boss_tools.jei.JeiPlugin.FuelLoadingRecipe;
 import net.mrscauthd.boss_tools.jei.machineguihandlers.BlastFurnaceGuiContainerHandler;
 import net.mrscauthd.boss_tools.jei.machineguihandlers.CoalGeneratorGuiContainerHandler;
 import net.mrscauthd.boss_tools.jei.machineguihandlers.CompressorGuiContainerHandler;
@@ -102,8 +101,6 @@ public class JeiPlugin implements IModPlugin {
 	private Map<Fluid, List<ItemStack>> fluidFullItemStacks;
 	private List<ItemStack> oxygenFullItemStacks;
 	private List<Fluid> fuelTagFluids;
-
-	//TODO: Rework Fluid Bar in Rockets,Rover
 
 	public List<ItemStack> getFluidFullItemStacks(Fluid fluid){
 		return this.fluidFullItemStacks.computeIfAbsent(fluid, this::generateFluidFullIngredients);
@@ -1289,5 +1286,4 @@ public class JeiPlugin implements IModPlugin {
 			fluidStacks.set(0, iIngredients.getInputs(VanillaTypes.FLUID).get(0));
 		}
 	}
-	// HERE der neue code dan
 }
