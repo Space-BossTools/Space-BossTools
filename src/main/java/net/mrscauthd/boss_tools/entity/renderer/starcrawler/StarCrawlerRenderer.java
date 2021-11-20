@@ -15,6 +15,6 @@ public class StarCrawlerRenderer extends MobRenderer<MobEntity, StarCrawlerModel
 
     @Override
     public ResourceLocation getEntityTexture(MobEntity entity) {
-        return new ResourceLocation("boss_tools:textures/starfish.png");
+        return new ResourceLocation("boss_tools:textures/entities/starfish.png");
     }
 }

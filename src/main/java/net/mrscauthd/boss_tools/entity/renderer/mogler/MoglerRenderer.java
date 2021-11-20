@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 
 @OnlyIn(Dist.CLIENT)
 public class MoglerRenderer extends MobRenderer<HoglinEntity, MoglerModel<HoglinEntity>> {
-    private static final ResourceLocation field_239382_a_ = new ResourceLocation("boss_tools:textures/mogler_entity.png");
+    private static final ResourceLocation field_239382_a_ = new ResourceLocation("boss_tools:textures/entities/mogler_entity.png");
 
     public MoglerRenderer(EntityRendererManager p_i232470_1_) {
         super(p_i232470_1_, new MoglerModel<>(), 0.7F);

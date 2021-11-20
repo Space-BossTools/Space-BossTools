@@ -15,6 +15,6 @@ public class AlienZombieRenderer extends MobRenderer<MobEntity, AlienZombieModel
 
     @Override
     public ResourceLocation getEntityTexture(MobEntity entity) {
-        return new ResourceLocation("boss_tools:textures/alien_zombie.png");
+        return new ResourceLocation("boss_tools:textures/entities/alien_zombie.png");
     }
 }

@@ -44,14 +44,14 @@ public class OverlayEvents {
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.disableAlphaTest();
-            if (entity.getRidingEntity() instanceof LanderEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
+            if (entity.getRidingEntity() instanceof LanderEntity && !entity.getRidingEntity().isOnGround() && !entity.areEyesInFluid(FluidTags.WATER)) {
                 RenderSystem.color4f((float) Events.counter, (float) Events.counter, (float) Events.counter, (float) Events.counter);
                 // Plinken
-                Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/warning1.png"));
+                Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/overlay/warning.png"));
                 Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight());
             }
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-            if (entity.getRidingEntity() instanceof LanderEntity && entity.getRidingEntity().isOnGround() == false && entity.areEyesInFluid(FluidTags.WATER) == (false)) {
+            if (entity.getRidingEntity() instanceof LanderEntity && !entity.getRidingEntity().isOnGround() && !entity.areEyesInFluid(FluidTags.WATER)) {
                 double speed = Math.round(100.0 * (entity.getRidingEntity()).getMotion().getY()) / 100.0;
                 double speedcheck = speed;
                 Minecraft.getInstance().fontRenderer.drawString(event.getMatrixStack(), "" + speedcheck + " Speed", event.getWindow().getScaledWidth() / 2 - 29, event.getWindow().getScaledHeight() / 2 / 2.3f, -3407872);
@@ -154,8 +154,8 @@ public class OverlayEvents {
 
             if (chestItem == ModInnet.SPACE_SUIT.get() || chestItem == ModInnet.NETHERITE_SPACE_SUIT.get()) {
                 double oxygenStoredRatio = chest.getCapability(CapabilityOxygen.OXYGEN).map(s -> s.getOxygenStoredRatio()).orElse(0.0D);
-                ResourceLocation empty = new ResourceLocation("boss_tools:textures/oxygentankcheck_empty.png");
-                ResourceLocation full = new ResourceLocation("boss_tools:textures/oxygentankcheck_full.png");
+                ResourceLocation empty = new ResourceLocation("boss_tools:textures/overlay/oxygentankcheck_empty.png");
+                ResourceLocation full = new ResourceLocation("boss_tools:textures/overlay/oxygentankcheck_full.png");
                 double scale = event.getWindow().getScaledWidth() / 1280.0D;
                 GuiHelper.drawVerticalReverse(event.getMatrixStack(), 5, 5, (int) (124 * scale), (int) (104 * scale), empty, oxygenStoredRatio);
                 GuiHelper.drawVertical(event.getMatrixStack(), 5, 5, (int) (124 * scale), (int) (104 * scale), full, oxygenStoredRatio);
@@ -197,28 +197,28 @@ public class OverlayEvents {
                 ResourceLocation planet;
 
                 if (Methodes.isWorld(world, new ResourceLocation("boss_tools:moon"))) {
-                    planet = new ResourceLocation("boss_tools:textures/rocket_y_main_moon.png");
+                    planet = new ResourceLocation("boss_tools:textures/planet_bar/rocket_y_main_moon.png");
 
                 } else if (Methodes.isWorld(world, new ResourceLocation("boss_tools:mars"))) {
-                    planet = new ResourceLocation("boss_tools:textures/rocket_y_main_mars.png");
+                    planet = new ResourceLocation("boss_tools:textures/planet_bar/rocket_y_main_mars.png");
 
                 } else if (Methodes.isWorld(world, new ResourceLocation("boss_tools:mercury"))) {
-                    planet = new ResourceLocation("boss_tools:textures/rocket_y_main_mercury.png");
+                    planet = new ResourceLocation("boss_tools:textures/planet_bar/rocket_y_main_mercury.png");
 
                 } else if (Methodes.isWorld(world, new ResourceLocation("boss_tools:venus"))) {
-                    planet = new ResourceLocation("boss_tools:textures/rocket_y_main_venus.png");
+                    planet = new ResourceLocation("boss_tools:textures/planet_bar/rocket_y_main_venus.png");
 
                 } else if (Methodes.isOrbitWorld(world)) {
-                    planet = new ResourceLocation("boss_tools:textures/rocket_y_main_orbit.png");
+                    planet = new ResourceLocation("boss_tools:textures/planet_bar/rocket_y_main_orbit.png");
 
                 } else {
-                    planet = new ResourceLocation("boss_tools:textures/rocket_y_main_earth.png");
+                    planet = new ResourceLocation("boss_tools:textures/planet_bar/rocket_y_main_earth.png");
                 }
 
                 manager.bindTexture(planet);
                 mc.blit(event.getMatrixStack(), 0, (high / 2) - 128 / 2, 0, 0, 16, 128, 16, 128);
 
-                manager.bindTexture(new ResourceLocation("boss_tools:textures/rocket_y.png"));
+                manager.bindTexture(new ResourceLocation("boss_tools:textures/planet_bar/rocket_y.png"));
                 GuiHelper.blit(event.getMatrixStack(), 4, (high / 2) + (103 / 2) - yHeight, 0, 0, 8, 11, 8, 11);
             }
 

@@ -30,7 +30,7 @@ public class PygroRenderer extends BipedRenderer<MobEntity, PygroModel<MobEntity
      * Returns the location of an entity's texture.
      */
     public ResourceLocation getEntityTexture(MobEntity entity) {
-        return new ResourceLocation("boss_tools:textures/pygro.png");
+        return new ResourceLocation("boss_tools:textures/entities/pygro.png");
     }
 
     protected boolean func_230495_a_(MobEntity p_230495_1_) {

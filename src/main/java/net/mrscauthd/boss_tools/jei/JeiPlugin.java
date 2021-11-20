@@ -341,7 +341,7 @@ public class JeiPlugin implements IModPlugin {
 		public OxygenLoaderJeiCategory(JeiPlugin plugin, IGuiHelper guiHelper) {
 			this.plugin = plugin;
 			this.title = new TranslationTextComponent("container.boss_tools.oxygen_loader").getString();
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_loader_jei.png"), 0, 0, 148, 64);
+			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/jei/oxygen_loader_jei.png"), 0, 0, 148, 64);
 			this.fluidOverlay = guiHelper.drawableBuilder(GuiHelper.FLUID_TANK_PATH, 0, 0, GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).setTextureSize(GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).build();
 			this.cachedEnergies = createUsingEnergies(guiHelper);
 		}
@@ -449,7 +449,7 @@ public class JeiPlugin implements IModPlugin {
 		public OxygenBubbleDistributorJeiCategory(JeiPlugin plugin, IGuiHelper guiHelper) {
 			this.plugin = plugin;
 			this.title = new TranslationTextComponent("container.boss_tools.oxygen_bubble_distributor").getString();
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/oxygen_bubble_distributor_jei.png"), 0, 0, 148, 64);
+			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/jei/oxygen_bubble_distributor_jei.png"), 0, 0, 148, 64);
 			this.fluidOverlay = guiHelper.drawableBuilder(GuiHelper.FLUID_TANK_PATH, 0, 0, GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).setTextureSize(GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).build();
 			this.cachedEnergies = createUsingEnergies(guiHelper);
 		}
@@ -550,7 +550,7 @@ public class JeiPlugin implements IModPlugin {
 
 		public CoalGeneratorJeiCategory(IGuiHelper guiHelper) {
 			this.title = new TranslationTextComponent("container.boss_tools.coal_generator").getString();
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/generator_gui_jei.png"), 0, 0, 144, 84);
+			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/jei/generator_gui_jei.png"), 0, 0, 144, 84);
 			this.fires = createFires(guiHelper);
 			this.energies = createGeneratingEnergies(guiHelper);
 		}
@@ -635,7 +635,7 @@ public class JeiPlugin implements IModPlugin {
 
 		public NASAWorkbenchJeiCategory(IGuiHelper guiHelper) {
 			this.title = new TranslationTextComponent("container.boss_tools.nasa_workbench").getString();
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/nasaworkbenchjei.png"), 0, 0, 176, 122);
+			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/jei/nasaworkbenchjei.png"), 0, 0, 176, 122);
 		}
 
 		@Override
@@ -786,7 +786,7 @@ public class JeiPlugin implements IModPlugin {
 
 		public BlastingFurnaceJeiCategory(IGuiHelper guiHelper) {
 			this.title = new TranslationTextComponent("container.boss_tools.blast_furnace").getString();
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/blast_furnace_gui_jei.png"), 0, 0, 144, 84);
+			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/jei/blast_furnace_gui_jei.png"), 0, 0, 144, 84);
 			this.fire = createFires(guiHelper);
 			this.cachedArrows = createArrows(guiHelper);
 		}
@@ -854,7 +854,7 @@ public class JeiPlugin implements IModPlugin {
 
 		public Tier1RocketJeiCategory(IGuiHelper guiHelper) {
 			this.title = "Tier 1 Rocket";
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/rocket_gui_jei.png"), 0, 0, 128, 71);
+			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/jei/rocket_gui_jei.png"), 0, 0, 128, 71);
 		}
 
 		@Override
@@ -914,7 +914,7 @@ public class JeiPlugin implements IModPlugin {
 
 		public Tier2RocketJeiCategory(IGuiHelper guiHelper) {
 			this.title = "Tier 2 Rocket";
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/rocket_gui_jei.png"), 0, 0, 128, 71);
+			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/jei/rocket_gui_jei.png"), 0, 0, 128, 71);
 		}
 
 		@Override
@@ -974,7 +974,7 @@ public class JeiPlugin implements IModPlugin {
 
 		public Tier3RocketJeiCategory(IGuiHelper guiHelper) {
 			this.title = "Tier 3 Rocket";
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/rocket_gui_jei.png"), 0, 0, 128, 71);
+			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/jei/rocket_gui_jei.png"), 0, 0, 128, 71);
 		}
 
 		@Override
@@ -1041,7 +1041,7 @@ public class JeiPlugin implements IModPlugin {
 
 		public CompressorJeiCategory(IGuiHelper guiHelper) {
 			this.title = new TranslationTextComponent("container.boss_tools.compressor").getString();
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/compressor_gui_jei.png"), 0, 0, 144, 84);
+			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/jei/compressor_gui_jei.png"), 0, 0, 144, 84);
 			this.cachedArrows = createArrows(guiHelper);
 			this.cachedEnergies = createUsingEnergies(guiHelper);
 		}
@@ -1134,7 +1134,7 @@ public class JeiPlugin implements IModPlugin {
 		public FuelRefineryJeiCategory(JeiPlugin plugin, IGuiHelper guiHelper) {
 			this.plugin = plugin;
 			this.title = new TranslationTextComponent("container.boss_tools.fuel_refinery").getString();
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/fuel_refinery_jei.png"), 0, 0, 148, 64);
+			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/jei/fuel_refinery_jei.png"), 0, 0, 148, 64);
 			this.fluidOverlay = guiHelper.drawableBuilder(GuiHelper.FLUID_TANK_PATH, 0, 0, GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).setTextureSize(GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).build();
 			this.cachedEnergies = createUsingEnergies(guiHelper);
 		}
@@ -1235,7 +1235,7 @@ public class JeiPlugin implements IModPlugin {
 
 		public RoverJeiCategory(IGuiHelper guiHelper) {
 			this.title = "Rover";
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/rover_jei.png"), 0, 0, 144, 84);
+			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/jei/rover_jei.png"), 0, 0, 144, 84);
 			this.fluidOverlay = guiHelper.drawableBuilder(GuiHelper.FLUID_TANK_PATH, 0, 0, GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).setTextureSize(GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).build();
 		}
 
