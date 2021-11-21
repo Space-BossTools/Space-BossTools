@@ -200,6 +200,6 @@ public class OxygenBubbleDistributorGuiWindow extends ContainerScreen<OxygenBubb
 	}
 
 	public Rectangle2d getButtonBounds(int left, int top, int width, int height) {
-		return GuiHelper.getButtonBounds(this.guiLeft + left, this.guiTop + top, width, height);
+		return GuiHelper.getBounds(this.guiLeft + left, this.guiTop + top, width, height);
 	}
 }

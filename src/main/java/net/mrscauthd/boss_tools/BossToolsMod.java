@@ -5,6 +5,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.mrscauthd.boss_tools.compat.CompatibleManager;
+import net.mrscauthd.boss_tools.gui.screens.planetselection.PlanetSelectionGui;
 import net.mrscauthd.boss_tools.keybind.KeyBindings;
 import net.mrscauthd.boss_tools.machines.OxygenBubbleDistributorBlock;
 import net.mrscauthd.boss_tools.world.oregen.OreGeneration;
@@ -84,6 +85,8 @@ public class BossToolsMod {
 		//Networker
 		BossToolsMod.addNetworkMessage(OxygenBubbleDistributorBlock.ChangeRangeMessage.class, OxygenBubbleDistributorBlock.ChangeRangeMessage::encode, OxygenBubbleDistributorBlock.ChangeRangeMessage::decode, OxygenBubbleDistributorBlock.ChangeRangeMessage::handle);
 		BossToolsMod.addNetworkMessage(OxygenBubbleDistributorBlock.ChangeWorkingAreaVisibleMessage.class, OxygenBubbleDistributorBlock.ChangeWorkingAreaVisibleMessage::encode, OxygenBubbleDistributorBlock.ChangeWorkingAreaVisibleMessage::decode, OxygenBubbleDistributorBlock.ChangeWorkingAreaVisibleMessage::handle);
+		BossToolsMod.addNetworkMessage(PlanetSelectionGui.NetworkMessage.class, PlanetSelectionGui.NetworkMessage::encode, PlanetSelectionGui.NetworkMessage::decode, PlanetSelectionGui.NetworkMessage::handle);
+
 
 		CompatibleManager.loadAll();
 	}

@@ -103,7 +103,7 @@ public class GuiHelper {
 		return new Rectangle2d(left, top, ENERGY_WIDTH, ENERGY_HEIGHT);
 	}
 
-	public static Rectangle2d getButtonBounds(int left, int top, int width, int height) {
+	public static Rectangle2d getBounds(int left, int top, int width, int height) {
 		return new Rectangle2d(left, top, width, height);
 	}
 
