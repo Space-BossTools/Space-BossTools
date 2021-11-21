@@ -41,6 +41,7 @@ public class OverlayEvents {
             PlayerEntity entity = Minecraft.getInstance().player;
             RenderSystem.disableDepthTest();
             RenderSystem.depthMask(false);
+            RenderSystem.disableBlend();
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.disableAlphaTest();
@@ -57,6 +58,7 @@ public class OverlayEvents {
                 Minecraft.getInstance().fontRenderer.drawString(event.getMatrixStack(), "" + speedcheck + " Speed", event.getWindow().getScaledWidth() / 2 - 29, event.getWindow().getScaledHeight() / 2 / 2.3f, -3407872);
             }
             RenderSystem.depthMask(true);
+            RenderSystem.enableBlend();
             RenderSystem.enableDepthTest();
             RenderSystem.enableAlphaTest();
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
