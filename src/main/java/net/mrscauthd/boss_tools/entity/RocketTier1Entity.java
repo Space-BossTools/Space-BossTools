@@ -129,7 +129,11 @@ public class RocketTier1Entity extends CreatureEntity {
 
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target) {
-		return new ItemStack(ModInnet.TIER_1_ROCKET_ITEM.get());
+		ItemStack itemStack = new ItemStack(ModInnet.TIER_1_ROCKET_ITEM.get(), 1);
+		itemStack.getOrCreateTag().putInt("boss_tools:fuel", this.getDataManager().get(FUEL));
+		itemStack.getOrCreateTag().putBoolean("boss_tools:bucket", this.getDataManager().get(BUCKET));
+
+		return itemStack;
 	}
 
 	@Override
@@ -236,6 +240,10 @@ public class RocketTier1Entity extends CreatureEntity {
 		}
 	};
 
+	public ItemStackHandler getInventory() {
+		return inventory;
+	}
+
 	private final CombinedInvWrapper combined = new CombinedInvWrapper(inventory, new EntityHandsInvWrapper(this), new EntityArmorInvWrapper(this));
 
 	@Override
@@ -341,8 +349,9 @@ public class RocketTier1Entity extends CreatureEntity {
 			if (y > 600 && !this.getPassengers().isEmpty()) {
 				Entity pass = this.getPassengers().get(0);
 
-				pass.getPersistentData().putDouble("Tier_1_open_main_menu", 1); //TODO Remove it if you Reworked the GUI SYSTEM
-				pass.getPersistentData().putDouble("Player_movement", 1); //TODO Remove it if you Reworked the GUI SYSTEM
+				pass.getPersistentData().putBoolean("boss_tools:planet_selection_gui_open", true);
+				pass.getPersistentData().putString("boss_tools:rocket_type", this.getType().toString());
+				pass.getPersistentData().putString("boss_tools:slot0", this.inventory.getStackInSlot(0).getItem().getRegistryName().toString());
 
 				this.remove();
 			} else if (y > 600 && this.getPassengers().isEmpty())  {

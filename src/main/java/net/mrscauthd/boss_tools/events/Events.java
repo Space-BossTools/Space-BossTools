@@ -8,17 +8,11 @@ import net.minecraft.client.settings.PointOfView;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
 import net.minecraft.util.*;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -31,10 +25,8 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.network.NetworkHooks;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.*;
-import net.mrscauthd.boss_tools.gui.screens.planetselection.PlanetSelectionGui;
 
 @Mod.EventBusSubscriber(modid = "boss_tools")
 public class Events {
@@ -52,22 +44,8 @@ public class Events {
                 Methodes.landerTeleportOrbit(player, world);
             }
 
-            if (player.isSneaking()) {
-                if (player instanceof ServerPlayerEntity) {
-
-                    NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
-                        @Override
-                        public ITextComponent getDisplayName() {
-                            return new StringTextComponent("Planet Selection");
-                        }
-
-                        @Override
-                        public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-                            return new PlanetSelectionGui.GuiContainer(id, inventory, null);
-                        }
-                    });
-                }
-            }
+            //Planet Gui Open
+            Methodes.openPlanetGui(player);
 
             //Oxygen System
             OxygenSystem.OxygenSystem(player);

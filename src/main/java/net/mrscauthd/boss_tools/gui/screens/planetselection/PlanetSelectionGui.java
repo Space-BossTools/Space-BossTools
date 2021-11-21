@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.gui.screens.planetselection;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -8,6 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.network.IContainerFactory;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.events.Methodes;
 
 import java.util.function.Supplier;
 
@@ -77,7 +79,10 @@ public class PlanetSelectionGui {
 		public static void handle(NetworkMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
 			NetworkEvent.Context context = contextSupplier.get();
 			if (message.getInteger() == 0) {
-				System.out.println("Pressed Overworld Button");
+				//TODO Replace it with the Category
+
+				Methodes.teleportButton(context.getSender(), "entity.boss_tools.rocket_t1");
+				context.getSender().closeScreen();
 			}
 
 			context.setPacketHandled(true);

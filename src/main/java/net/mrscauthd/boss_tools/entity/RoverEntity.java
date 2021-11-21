@@ -195,7 +195,10 @@ public class RoverEntity extends CreatureEntity {
 
     @Override
     public ItemStack getPickedResult(RayTraceResult target) {
-        return new ItemStack(ModInnet.ROVER_ITEM.get());
+        ItemStack itemStack = new ItemStack(ModInnet.ROVER_ITEM.get(), 1);
+        itemStack.getOrCreateTag().putInt("boss_tools:fuel", this.getDataManager().get(FUEL));
+
+        return itemStack;
     }
 
     @Override

@@ -129,7 +129,11 @@ public class RocketTier2Entity extends CreatureEntity {
 
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target) {
-		return new ItemStack(ModInnet.TIER_2_ROCKET_ITEM.get());
+		ItemStack itemStack = new ItemStack(ModInnet.TIER_2_ROCKET_ITEM.get(), 1);
+		itemStack.getOrCreateTag().putInt("boss_tools:fuel", this.getDataManager().get(FUEL));
+		itemStack.getOrCreateTag().putInt("boss_tools:buckets", this.getDataManager().get(BUCKETS));
+
+		return itemStack;
 	}
 
 	@Override

@@ -6,11 +6,15 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.network.play.server.SChangeGameStatePacket;
 import net.minecraft.network.play.server.SPlayEntityEffectPacket;
 import net.minecraft.network.play.server.SPlayerAbilitiesPacket;
@@ -21,19 +25,23 @@ import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.*;
 import net.mrscauthd.boss_tools.events.forgeevents.LivingSetFireInHotPlanetEvent;
 import net.mrscauthd.boss_tools.events.forgeevents.LivingSetVenusRainEvent;
+import net.mrscauthd.boss_tools.gui.screens.planetselection.PlanetSelectionGui;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Methodes {
@@ -308,6 +316,73 @@ public class Methodes {
                 player.startRiding(entityToSpawn);
             }
         }
+    }
+
+    public static void rocketTeleport(PlayerEntity player, ResourceLocation planet, ItemStack rocketItem) {
+        RegistryKey<World> dim = player.world.getDimensionKey();
+
+        if (dim != RegistryKey.getOrCreateKey(Registry.WORLD_KEY, planet)) {
+            Methodes.worldTeleport(player, planet, 700);
+        } else {
+            player.setPositionAndUpdate(player.getPosX(), 700, player.getPosZ());
+
+            if (player instanceof ServerPlayerEntity) {
+                ((ServerPlayerEntity) player).connection.setPlayerLocation(player.getPosX(), 700, player.getPosZ(), player.rotationYaw, player.rotationPitch);
+            }
+        }
+
+        World world = player.world;
+
+        if (!world.isRemote()) {
+            LanderEntity landerSpawn = new LanderEntity((EntityType<LanderEntity>) ModInnet.LANDER.get(), world);
+            landerSpawn.setLocationAndAngles(player.getPosX(), player.getPosY(), player.getPosZ(), 0, 0);
+            landerSpawn.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(landerSpawn.getPosition()), SpawnReason.MOB_SUMMONED, null, null);
+            world.addEntity(landerSpawn);
+
+            String itemId = player.getPersistentData().getString("boss_tools:slot0");
+
+            landerSpawn.getInventory().setStackInSlot(0, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemId)), 1));
+            landerSpawn.getInventory().setStackInSlot(1, rocketItem);
+
+            cleanUpPlayerNBT(player);
+
+            player.startRiding(landerSpawn);
+        }
+    }
+
+    public static void cleanUpPlayerNBT(PlayerEntity player) {
+        player.getPersistentData().putBoolean("boss_tools:planet_selection_gui_open", false);
+        player.getPersistentData().putString("boss_tools:rocket_type", "");
+        player.getPersistentData().putString("boss_tools:slot0", "");
+    }
+
+    public static void openPlanetGui(PlayerEntity player) {
+        if (!(player.openContainer instanceof PlanetSelectionGui.GuiContainer) && player.getPersistentData().getBoolean("boss_tools:planet_selection_gui_open")) {
+            if (player instanceof ServerPlayerEntity) {
+
+                NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
+                    @Override
+                    public ITextComponent getDisplayName() {
+                        return new StringTextComponent("Planet Selection");
+                    }
+
+                    @Override
+                    public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+                        return new PlanetSelectionGui.GuiContainer(id, inventory, null);
+                    }
+                });
+            }
+        }
+    }
+
+    public static void teleportButton (PlayerEntity player, String type) {
+        ItemStack itemStack = new ItemStack(Items.AIR, 1);
+
+        if (player.getPersistentData().getString("boss_tools:rocket_type") == type) {
+            itemStack = new ItemStack(ModInnet.TIER_1_ROCKET_ITEM.get(),1);
+        }
+
+        Methodes.rocketTeleport(player, new ResourceLocation("minecraft:overworld"), itemStack);
     }
 
     public static void landerTeleportOrbit(PlayerEntity player, World world) {
