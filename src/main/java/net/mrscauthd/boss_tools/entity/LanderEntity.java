@@ -2,7 +2,10 @@ package net.mrscauthd.boss_tools.entity;
 
 import net.minecraft.entity.*;
 import net.minecraft.util.*;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import net.mrscauthd.boss_tools.events.Events;
 import net.mrscauthd.boss_tools.gui.screens.lander.LanderGui;
 
 import net.minecraftforge.items.wrapper.EntityHandsInvWrapper;
@@ -41,6 +44,8 @@ import javax.annotation.Nullable;
 import javax.annotation.Nonnull;
 
 import io.netty.buffer.Unpooled;
+
+import java.awt.*;
 
 public class LanderEntity extends CreatureEntity {
 
@@ -119,12 +124,8 @@ public class LanderEntity extends CreatureEntity {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
 	public double getMountedYOffset() {
-		if (Minecraft.getInstance().gameSettings.getPointOfView().equals(PointOfView.FIRST_PERSON)) {
-			return super.getMountedYOffset() + -0.25;
-		}
-		return super.getMountedYOffset() + -0.7;
+		return super.getMountedYOffset() - 0.7;
 	}
 
 	@Override

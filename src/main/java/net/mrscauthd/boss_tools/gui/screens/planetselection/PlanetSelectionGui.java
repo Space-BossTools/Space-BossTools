@@ -80,6 +80,7 @@ public class PlanetSelectionGui {
 			NetworkEvent.Context context = contextSupplier.get();
 			if (message.getInteger() == 0) {
 				//TODO Replace it with the Category
+				//TODO Player Set no Gravity if he in the GUI
 
 				Methodes.teleportButton(context.getSender(), "entity.boss_tools.rocket_t1");
 				context.getSender().closeScreen();

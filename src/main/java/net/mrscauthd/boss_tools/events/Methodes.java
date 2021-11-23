@@ -169,7 +169,7 @@ public class Methodes {
         entity.attackEntityFrom(ModInnet.DAMAGE_SOURCE_OXYGEN, 1.0F);
     }
 
-    public static boolean isInRocket(Entity entity) {
+    public static boolean isRocket(Entity entity) {
         if (entity instanceof RocketTier1Entity || entity instanceof RocketTier2Entity || entity instanceof RocketTier3Entity) {
             return true;
         }
@@ -210,6 +210,10 @@ public class Methodes {
 
         }
 
+    }
+
+    public static void changeEyeHeight(PlayerEntity player, float amount) {
+        player.eyeHeight = amount;
     }
 
     /**If a entity should not get Fire add it to the Tag "venus_fire"*/
@@ -378,7 +382,7 @@ public class Methodes {
     public static void teleportButton (PlayerEntity player, String type) {
         ItemStack itemStack = new ItemStack(Items.AIR, 1);
 
-        if (player.getPersistentData().getString("boss_tools:rocket_type") == type) {
+        if (player.getPersistentData().getString("boss_tools:rocket_type").equals(type)) {
             itemStack = new ItemStack(ModInnet.TIER_1_ROCKET_ITEM.get(),1);
         }
 

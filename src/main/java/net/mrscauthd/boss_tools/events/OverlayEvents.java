@@ -73,7 +73,7 @@ public class OverlayEvents {
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.disableAlphaTest();
 
-            if (Methodes.isInRocket(entity.getRidingEntity())) {
+            if (Methodes.isRocket(entity.getRidingEntity())) {
                 int timer = 0;
 
                 if (entity.getRidingEntity() instanceof RocketTier1Entity) {
@@ -182,7 +182,7 @@ public class OverlayEvents {
             TextureManager manager = Minecraft.getInstance().textureManager;
             World world = Minecraft.getInstance().world;
 
-            if (Methodes.isInRocket(entity.getRidingEntity()) || entity.getRidingEntity() instanceof LanderEntity) {
+            if (Methodes.isRocket(entity.getRidingEntity()) || entity.getRidingEntity() instanceof LanderEntity) {
                 int width = event.getWindow().getScaledWidth();
                 int high = event.getWindow().getScaledHeight();
 

@@ -87,59 +87,16 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/sky/sun_no_light.png"));
 		GuiHelper.blit(ms, (this.width - 15) / 2, (this.height - 15) / 2, 0, 0, 15, 15, 15, 15);
 
-		//MARS
-		ms.push();
 		this.rotationMars = rotationMars + 0.001F;
-
-		ms.translate(this.width / 2, this.height / 2, 0);
-		ms.rotate(new Quaternion(Vector3f.ZP, rotationMars, false));
-
-		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/sky/mars.png"));
-		GuiHelper.blit(ms, -70, -70, 0, 0, 10, 10, 10, 10);
-
-		ms.translate(-this.width / 2, -this.height / 2, 0);
-		ms.pop();
-
-		//EARTH
-		ms.push();
 		this.rotationEarth = rotationEarth + 0.0028F;
-
-		ms.translate(this.width / 2, this.height / 2, 0);
-		ms.rotate(new Quaternion(Vector3f.ZP, rotationEarth, false));
-
-		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/sky/earth.png"));
-		GuiHelper.blit(ms, -54, -54, 0, 0, 10, 10, 10, 10);
-
-		ms.translate(-this.width / 2, -this.height / 2, 0);
-		ms.pop();
-
-		//VENUS
-		ms.push();
 		this.rotationVenus = rotationVenus + 0.002F;
-
-		ms.translate(this.width / 2, this.height / 2, 0);
-		ms.rotate(new Quaternion(Vector3f.ZP, rotationVenus, false));
-
-		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/sky/venus.png"));
-		GuiHelper.blit(ms, -37, -37, 0, 0, 10, 10, 10, 10);
-
-		ms.translate(-this.width / 2, -this.height / 2, 0);
-		ms.pop();
-
-		//MERCURY
-		ms.push();
 		this.rotationMercury = rotationMercury + 0.0025F;
 
-		ms.translate(this.width / 2, this.height / 2, 0);
-		ms.rotate(new Quaternion(Vector3f.ZP, rotationMercury, false));
-
-		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/sky/mercury.png"));
-		GuiHelper.blit(ms, -20.5F, -20.5F, 0, 0, 10, 10, 10, 10);
-
-		ms.translate(-this.width / 2, -this.height / 2, 0);
-		ms.pop();
-
-		//BUTTONS:
+		//PLANETS
+		this.addPlanet(ms, new ResourceLocation("boss_tools:textures/sky/mars.png"), -70, -70, 10, 10, rotationMars);
+		this.addPlanet(ms, new ResourceLocation("boss_tools:textures/sky/earth.png"), -54, -54, 10, 10, rotationEarth);
+		this.addPlanet(ms, new ResourceLocation("boss_tools:textures/sky/venus.png"), -37, -37, 10, 10, rotationVenus);
+		this.addPlanet(ms, new ResourceLocation("boss_tools:textures/sky/mercury.png"), -20.5F, -20.5F, 10, 10, rotationMercury);
 
 		//overworld button
 		this.addButton(new ImageButton(10, (this.height / 2) - 60 / 2, 70, 20, 0, 0, 0, overworldButtonTex, 70, 20, (p_2130901) -> {
@@ -147,6 +104,19 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 		}));
 
 		RenderSystem.disableBlend();
+	}
+
+	public void addPlanet(MatrixStack ms, ResourceLocation planet, float x, float y, int width, int height, float rotation) {
+		ms.push();
+
+		ms.translate(this.width / 2, this.height / 2, 0);
+		ms.rotate(new Quaternion(Vector3f.ZP, rotation, false));
+
+		Minecraft.getInstance().getTextureManager().bindTexture(planet);
+		GuiHelper.blit(ms, x, y, 0, 0, width, height, width, height);
+
+		ms.translate(-this.width / 2, -this.height / 2, 0);
+		ms.pop();
 	}
 
 	@Override

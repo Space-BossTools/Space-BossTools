@@ -100,15 +100,20 @@ public class Events {
     public static void CameraPos(EntityViewRenderEvent.CameraSetup event) {
         Entity ridding = event.getInfo().getRenderViewEntity().getRidingEntity();
 
-        if (Methodes.isInRocket(ridding) || ridding instanceof LanderEntity) {
+        if (Methodes.isRocket(ridding) || ridding instanceof LanderEntity) {
             PointOfView pointOfView = Minecraft.getInstance().gameSettings.getPointOfView();
 
-            if (pointOfView.equals(PointOfView.THIRD_PERSON_FRONT)  || pointOfView.equals(PointOfView.THIRD_PERSON_BACK)) {
-                event.getInfo().movePosition(-event.getInfo().calcCameraDistance(12d), 0d, 0);
+            if (pointOfView.equals(PointOfView.THIRD_PERSON_FRONT) || pointOfView.equals(PointOfView.THIRD_PERSON_BACK)) {
+                event.getInfo().movePosition(-event.getInfo().calcCameraDistance(9d), 0d, 0);
+            }
+
+            if (ridding instanceof LanderEntity) {
+                if (pointOfView.equals(PointOfView.FIRST_PERSON)) {
+                    Methodes.changeEyeHeight((PlayerEntity) event.getInfo().getRenderViewEntity(), 2.1F);
+                }
             }
 
         }
-
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -125,7 +130,7 @@ public class Events {
         PlayerEntity player = event.getPlayer();
         PlayerModel model = event.getModelPlayer();
         //Player Rocket Sit Rotations
-        if (Methodes.isInRocket(player.getRidingEntity())) {
+        if (Methodes.isRocket(player.getRidingEntity())) {
             model.bipedRightLeg.rotateAngleX = (float) Math.toRadians(0F);
             model.bipedLeftLeg.rotateAngleX = (float) Math.toRadians(0F);
             model.bipedLeftLeg.rotateAngleY = (float) Math.toRadians(3F);
@@ -136,7 +141,7 @@ public class Events {
         }
 
         //Player Hold Vehicles Rotation
-        if (!Methodes.isInRocket(player.getRidingEntity())) {
+        if (!Methodes.isRocket(player.getRidingEntity())) {
             Item item1 = player.getHeldItemMainhand().getItem();
             Item item2 = player.getHeldItemOffhand().getItem();
             if (item1 == ModInnet.TIER_1_ROCKET_ITEM.get()
@@ -162,7 +167,7 @@ public class Events {
     @SubscribeEvent
     public static void ItemRender(RenderItemEvent.Held event) {
         Entity player = event.getEntity();
-        if (Methodes.isInRocket(player.getRidingEntity())) {
+        if (Methodes.isRocket(player.getRidingEntity())) {
             event.setCanceled(true);
         }
     }

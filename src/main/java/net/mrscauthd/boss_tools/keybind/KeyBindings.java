@@ -149,7 +149,7 @@ public class KeyBindings {
 		}
 
 		if (type == 1) {
-			if (Methodes.isInRocket(player.getRidingEntity())) {
+			if (Methodes.isRocket(player.getRidingEntity())) {
 				if (player.getRidingEntity() instanceof RocketTier1Entity && player.getRidingEntity().getDataManager().get(RocketTier1Entity.FUEL) == 300) {
 
 					player.getRidingEntity().getDataManager().set(RocketTier1Entity.ROCKET_START, true);
@@ -174,7 +174,7 @@ public class KeyBindings {
 
 		if (type == 2) {
 			//Rocket
-			if (Methodes.isInRocket(player.getRidingEntity())) {
+			if (Methodes.isRocket(player.getRidingEntity())) {
 				Methodes.vehicleRotation((LivingEntity) player.getRidingEntity(), -1);
 			}
 
@@ -196,7 +196,7 @@ public class KeyBindings {
 
 		if (type == 3) {
 			//Rocket
-			if (Methodes.isInRocket(player.getRidingEntity())) {
+			if (Methodes.isRocket(player.getRidingEntity())) {
 				Methodes.vehicleRotation((LivingEntity) player.getRidingEntity(), 1);
 			}
 
