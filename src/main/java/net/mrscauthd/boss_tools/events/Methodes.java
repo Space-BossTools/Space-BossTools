@@ -212,10 +212,6 @@ public class Methodes {
 
     }
 
-    public static void changeEyeHeight(PlayerEntity player, float amount) {
-        player.eyeHeight = amount;
-    }
-
     /**If a entity should not get Fire add it to the Tag "venus_fire"*/
     public static void VenusFire(LivingEntity entity, ResourceLocation planet1, ResourceLocation planet2) {
 
