@@ -107,15 +107,6 @@ public class Events {
             if (pointOfView.equals(PointOfView.THIRD_PERSON_FRONT) || pointOfView.equals(PointOfView.THIRD_PERSON_BACK)) {
                 event.getInfo().movePosition(-event.getInfo().calcCameraDistance(9d), 0d, 0);
             }
-
-            if (ridding instanceof LanderEntity) {
-                if (pointOfView.equals(PointOfView.FIRST_PERSON)) {
-                    Methodes.changeEyeHeight(player, 2.1F);
-                } else {
-                    Methodes.changeEyeHeight(player, player.getStandingEyeHeight(player.getPose(), player.getSize(player.getPose())));
-                }
-            }
-
         }
     }
 
