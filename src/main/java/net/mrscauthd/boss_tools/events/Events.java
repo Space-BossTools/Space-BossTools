@@ -99,6 +99,7 @@ public class Events {
     @SubscribeEvent
     public static void CameraPos(EntityViewRenderEvent.CameraSetup event) {
         Entity ridding = event.getInfo().getRenderViewEntity().getRidingEntity();
+        PlayerEntity player = (PlayerEntity) event.getInfo().getRenderViewEntity();
 
         if (Methodes.isRocket(ridding) || ridding instanceof LanderEntity) {
             PointOfView pointOfView = Minecraft.getInstance().gameSettings.getPointOfView();
@@ -109,7 +110,9 @@ public class Events {
 
             if (ridding instanceof LanderEntity) {
                 if (pointOfView.equals(PointOfView.FIRST_PERSON)) {
-                    Methodes.changeEyeHeight((PlayerEntity) event.getInfo().getRenderViewEntity(), 2.1F);
+                    Methodes.changeEyeHeight(player, 2.1F);
+                } else {
+                    Methodes.changeEyeHeight(player, player.getStandingEyeHeight(player.getPose(), player.getSize(player.getPose())));
                 }
             }
 
