@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.events;
 
+import io.netty.buffer.Unpooled;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -15,6 +16,7 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.SChangeGameStatePacket;
 import net.minecraft.network.play.server.SPlayEntityEffectPacket;
 import net.minecraft.network.play.server.SPlayerAbilitiesPacket;
@@ -368,21 +370,31 @@ public class Methodes {
 
                     @Override
                     public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-                        return new PlanetSelectionGui.GuiContainer(id, inventory, null);
+                        PacketBuffer packetBuffer = new PacketBuffer(Unpooled.buffer());
+                        packetBuffer.writeString(player.getPersistentData().getString("boss_tools:rocket_type"));
+                        return new PlanetSelectionGui.GuiContainer(id, inventory, packetBuffer);
                     }
+                }, buf -> {
+                    buf.writeString(player.getPersistentData().getString("boss_tools:rocket_type"));
                 });
             }
         }
     }
 
-    public static void teleportButton (PlayerEntity player, String type) {
+    public static void teleportButton (PlayerEntity player, ResourceLocation planet) {
         ItemStack itemStack = new ItemStack(Items.AIR, 1);
 
-        if (player.getPersistentData().getString("boss_tools:rocket_type").equals(type)) {
+        if (player.getPersistentData().getString("boss_tools:rocket_type").equals("entity.boss_tools.rocket_t1")) {
             itemStack = new ItemStack(ModInnet.TIER_1_ROCKET_ITEM.get(),1);
         }
+        if (player.getPersistentData().getString("boss_tools:rocket_type").equals("entity.boss_tools.rocket_t2")) {
+            itemStack = new ItemStack(ModInnet.TIER_2_ROCKET_ITEM.get(),1);
+        }
+        if (player.getPersistentData().getString("boss_tools:rocket_type").equals("entity.boss_tools.rocket_t3")) {
+            itemStack = new ItemStack(ModInnet.TIER_3_ROCKET_ITEM.get(),1);
+        }
 
-        Methodes.rocketTeleport(player, new ResourceLocation("minecraft:overworld"), itemStack);
+        Methodes.rocketTeleport(player, planet, itemStack);
     }
 
     public static void landerTeleportOrbit(PlayerEntity player, World world) {

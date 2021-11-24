@@ -1,10 +1,10 @@
 package net.mrscauthd.boss_tools.gui.screens.planetselection;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.network.IContainerFactory;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -22,10 +22,14 @@ public class PlanetSelectionGui {
 	}
 
 	public static class GuiContainer extends Container {
+		String rocket;
 
 		public GuiContainer(int id, PlayerInventory inv, PacketBuffer extraData) {
 			super(ModInnet.PLANET_SELECTION_GUI.get(), id);
+
+			this.rocket = extraData.readString();
 		}
+
 
 		@Override
 		public boolean canInteractWith(PlayerEntity player) {
@@ -78,11 +82,21 @@ public class PlanetSelectionGui {
 
 		public static void handle(NetworkMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
 			NetworkEvent.Context context = contextSupplier.get();
-			if (message.getInteger() == 0) {
-				//TODO Replace it with the Category
-				//TODO Player Set no Gravity if he in the GUI
+			//TODO Replace it with the Category
 
-				Methodes.teleportButton(context.getSender(), "entity.boss_tools.rocket_t1");
+			if (message.getInteger() == 0) {
+				Methodes.teleportButton(context.getSender(), new ResourceLocation("minecraft:overworld"));
+				context.getSender().setNoGravity(false);
+				context.getSender().closeScreen();
+			}
+			if (message.getInteger() == 1) {
+				Methodes.teleportButton(context.getSender(), new ResourceLocation("boss_tools:mars"));
+				context.getSender().setNoGravity(false);
+				context.getSender().closeScreen();
+			}
+			if (message.getInteger() == 2) {
+				Methodes.teleportButton(context.getSender(), new ResourceLocation("boss_tools:mercury"));
+				context.getSender().setNoGravity(false);
 				context.getSender().closeScreen();
 			}
 

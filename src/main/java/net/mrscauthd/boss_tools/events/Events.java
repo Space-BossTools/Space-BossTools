@@ -99,7 +99,6 @@ public class Events {
     @SubscribeEvent
     public static void CameraPos(EntityViewRenderEvent.CameraSetup event) {
         Entity ridding = event.getInfo().getRenderViewEntity().getRidingEntity();
-        PlayerEntity player = (PlayerEntity) event.getInfo().getRenderViewEntity();
 
         if (Methodes.isRocket(ridding) || ridding instanceof LanderEntity) {
             PointOfView pointOfView = Minecraft.getInstance().gameSettings.getPointOfView();

@@ -352,6 +352,7 @@ public class RocketTier1Entity extends CreatureEntity {
 				pass.getPersistentData().putBoolean("boss_tools:planet_selection_gui_open", true);
 				pass.getPersistentData().putString("boss_tools:rocket_type", this.getType().toString());
 				pass.getPersistentData().putString("boss_tools:slot0", this.inventory.getStackInSlot(0).getItem().getRegistryName().toString());
+				pass.setNoGravity(true);
 
 				this.remove();
 			} else if (y > 600 && this.getPassengers().isEmpty())  {

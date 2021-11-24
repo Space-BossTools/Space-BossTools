@@ -125,7 +125,7 @@ public class LanderEntity extends CreatureEntity {
 
 	@Override
 	public double getMountedYOffset() {
-		return super.getMountedYOffset() - 0.7;
+		return super.getMountedYOffset() - 0.25;
 	}
 
 	@Override

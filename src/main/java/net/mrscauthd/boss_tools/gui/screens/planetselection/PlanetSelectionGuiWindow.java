@@ -29,8 +29,9 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 	public float rotationVenus = 40;
 	public float rotationMercury = 30;
 
-	public boolean overworldButton = false;
-	public ResourceLocation overworldButtonTex = new ResourceLocation("boss_tools:textures/buttons/red_button.png");
+	public ResourceLocation overworldCategoryButtonTex = new ResourceLocation("boss_tools:textures/buttons/red_button.png");
+
+	public ResourceLocation marsCategoryButtonTex = new ResourceLocation("boss_tools:textures/buttons/red_button.png");
 
 	public PlanetSelectionGuiWindow(PlanetSelectionGui.GuiContainer container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
@@ -44,28 +45,67 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 
-		//lists
-		List<ITextComponent> Categories = new ArrayList<ITextComponent>();
+		String rocketType = container.rocket;
+		String level = "c";
+		List<ITextComponent> Categorie1 = new ArrayList<ITextComponent>();
+		List<ITextComponent> Categorie2 = new ArrayList<ITextComponent>();
+		List<ITextComponent> Categorie3 = new ArrayList<ITextComponent>();
+		List<ITextComponent> Categorie4 = new ArrayList<ITextComponent>();
+
+
+		//OVERWORLD
+		if (checkRocket(rocketType, 1)) {
+			level = "a";
+			overworldCategoryButtonTex = new ResourceLocation("boss_tools:textures/buttons/green_button_2.png");
+		} else {
+			level = "c";
+			overworldCategoryButtonTex = new ResourceLocation("boss_tools:textures/buttons/red_button_2.png");
+		}
 
 		if (GuiHelper.isHover(this.getBounds(10, (this.height / 2) - 60 / 2, 70, 20), mouseX, mouseY)) {
-			overworldButton = true;
-
-			overworldButtonTex = new ResourceLocation("boss_tools:textures/buttons/green_button_2.png");
 
 			//ToolTip
-			Categories.add(ITextComponent.getTextComponentOrEmpty("\u00A79Category:" + "\u00A7a" + "Overworld"));
-			Categories.add(ITextComponent.getTextComponentOrEmpty("\u00A79Provided: \u00A7bTier 1 Rocket"));
-			this.func_243308_b(ms, Categories, mouseX, mouseY);
+			Categorie2.add(ITextComponent.getTextComponentOrEmpty("\u00A79Category: " + "\u00A7" + level + "Overworld"));
+			Categorie2.add(ITextComponent.getTextComponentOrEmpty("\u00A79Provided: \u00A7bTier 1 Rocket"));
+			this.func_243308_b(ms, Categorie2, mouseX, mouseY);
 
 		} else {
-			overworldButton = false;
+			if (checkRocket(rocketType, 1)) {
+				overworldCategoryButtonTex = new ResourceLocation("boss_tools:textures/buttons/green_button.png");
+			} else {
+				overworldCategoryButtonTex = new ResourceLocation("boss_tools:textures/buttons/red_button.png");
+			}
+		}
 
-			overworldButtonTex = new ResourceLocation("boss_tools:textures/buttons/green_button.png");
+
+		//MARS
+		if (checkRocket(rocketType, 2)) {
+			level = "a";
+			marsCategoryButtonTex = new ResourceLocation("boss_tools:textures/buttons/green_button_2.png");
+		} else {
+			level = "c";
+			marsCategoryButtonTex = new ResourceLocation("boss_tools:textures/buttons/red_button_2.png");
+		}
+
+		if (GuiHelper.isHover(this.getBounds(10, (this.height / 2) - 16 / 2, 70, 20), mouseX, mouseY)) {
+
+			//ToolTip
+			Categorie2.add(ITextComponent.getTextComponentOrEmpty("\u00A79Category: " + "\u00A7" + level + "Mars"));
+			Categorie2.add(ITextComponent.getTextComponentOrEmpty("\u00A79Provided: \u00A7bTier 2 Rocket"));
+			this.func_243308_b(ms, Categorie2, mouseX, mouseY);
+
+		} else {
+			if (checkRocket(rocketType, 2)) {
+				marsCategoryButtonTex = new ResourceLocation("boss_tools:textures/buttons/green_button.png");
+			} else {
+				marsCategoryButtonTex = new ResourceLocation("boss_tools:textures/buttons/red_button.png");
+			}
 		}
 
 		//RENDER FONTS
 		this.font.drawString(ms, "CATALOG", 21, (this.height / 2) - 126 / 2, -1);
 		this.font.drawString(ms, "Overworld", 19, (this.height / 2) - 51 / 2, -1);
+		this.font.drawString(ms, "Mars", 33, (this.height / 2) - 6 / 2, -1);
 	}
 
 	@Override
@@ -99,8 +139,17 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 		this.addPlanet(ms, new ResourceLocation("boss_tools:textures/sky/mercury.png"), -20.5F, -20.5F, 10, 10, rotationMercury);
 
 		//overworld button
-		this.addButton(new ImageButton(10, (this.height / 2) - 60 / 2, 70, 20, 0, 0, 0, overworldButtonTex, 70, 20, (p_2130901) -> {
-			BossToolsMod.PACKET_HANDLER.sendToServer(new PlanetSelectionGui.NetworkMessage(playerInventory.player.getPosition(),0));
+		this.addButton(new ImageButton(10, (this.height / 2) - 60 / 2, 70, 20, 0, 0, 0, overworldCategoryButtonTex, 70, 20, (p_2130901) -> {
+			if (checkRocket(container.rocket, 1)) {
+				BossToolsMod.PACKET_HANDLER.sendToServer(new PlanetSelectionGui.NetworkMessage(playerInventory.player.getPosition(), 0));
+			}
+		}));
+
+		//mars button
+		this.addButton(new ImageButton(10, (this.height / 2) - 16 / 2, 70, 20, 0, 0, 0, marsCategoryButtonTex, 70, 20, (p_2130901) -> {
+			if (checkRocket(container.rocket, 2)) {
+				BossToolsMod.PACKET_HANDLER.sendToServer(new PlanetSelectionGui.NetworkMessage(playerInventory.player.getPosition(), 1));
+			}
 		}));
 
 		RenderSystem.disableBlend();
@@ -125,5 +174,19 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 
 	public Rectangle2d getBounds(int left, int top, int width, int height) {
 		return GuiHelper.getBounds(left, top, width, height);
+	}
+
+	public static boolean checkRocket(String rocketType, int stage) {
+		if (stage == 1 && rocketType.equals("entity.boss_tools.rocket_t1") || rocketType.equals("entity.boss_tools.rocket_t2") || rocketType.equals("entity.boss_tools.rocket_t3")) {
+			return true;
+		}
+		if (stage == 2 && rocketType.equals("entity.boss_tools.rocket_t2") || rocketType.equals("entity.boss_tools.rocket_t3")) {
+			return true;
+		}
+		if (stage == 3 && rocketType.equals("entity.boss_tools.rocket_t3")) {
+			return true;
+		}
+
+		return false;
 	}
 }
