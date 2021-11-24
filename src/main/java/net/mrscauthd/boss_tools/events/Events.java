@@ -30,8 +30,6 @@ import net.mrscauthd.boss_tools.entity.*;
 
 @Mod.EventBusSubscriber(modid = "boss_tools")
 public class Events {
-    public static double counter = 1;
-    public static boolean check = false;
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
@@ -60,21 +58,6 @@ public class Events {
             if (player.getPosY() < 1 && !(player.getRidingEntity() instanceof LanderEntity)) {
                 Methodes.playerFalltoPlanet(world, player);
             }
-
-            //Lander Warning Overlay Tick
-            if (!check) {
-                counter = counter - 0.025;
-                if (counter <= 0.2) {
-                    check = true;
-                }
-            }
-            if (check) {
-                counter = counter + 0.025;
-                if (counter >= 1.2) {
-                    check = false;
-                }
-            }
-
         }
     }
 

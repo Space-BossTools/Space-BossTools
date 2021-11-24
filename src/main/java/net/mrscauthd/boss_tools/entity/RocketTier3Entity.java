@@ -356,8 +356,8 @@ public class RocketTier3Entity extends CreatureEntity {
 			if (this.dataManager.get(START_TIMER) == 200) {
 				if (world instanceof ServerWorld) {
 					for (ServerPlayerEntity p : ((ServerWorld) world).getPlayers()) {
-						((ServerWorld) world).spawnParticle(p, (IParticleData) ModInnet.LARGE_FLAME_PARTICLE.get(), true, this.getPosX(), this.getPosY() - 2.2, this.getPosZ(), 30, 0.1, 0.1, 0.1, 0.001);
-						((ServerWorld) world).spawnParticle(p, (IParticleData) ModInnet.SMOKE_PARTICLE.get(), true, this.getPosX(), this.getPosY() - 3.2, this.getPosZ(), 20, 0.1, 0.1, 0.1, 0.04);
+						((ServerWorld) world).spawnParticle(p, (IParticleData) ModInnet.LARGE_FLAME_PARTICLE.get(), true, this.getPosX(), this.getPosY() - 2.2, this.getPosZ(), 20, 0.1, 0.1, 0.1, 0.001);
+						((ServerWorld) world).spawnParticle(p, (IParticleData) ModInnet.SMOKE_PARTICLE.get(), true, this.getPosX(), this.getPosY() - 3.2, this.getPosZ(), 10, 0.1, 0.1, 0.1, 0.04);
 					}
 				}
 			} else {

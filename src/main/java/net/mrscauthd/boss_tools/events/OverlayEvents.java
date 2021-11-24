@@ -14,6 +14,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -24,6 +25,30 @@ import net.mrscauthd.boss_tools.gui.helper.GuiHelper;
 
 @Mod.EventBusSubscriber(modid = "boss_tools", value = Dist.CLIENT)
 public class OverlayEvents {
+
+    public static boolean check = false;
+    public static double counter = 0;
+
+    @SubscribeEvent
+    public static void clientTick(TickEvent.ClientTickEvent event) {
+        if (event.phase == TickEvent.Phase.END) {
+            //Lander Warning Overlay Tick
+            if (!check) {
+                counter = counter - 0.10;
+                if (counter < 0.2) {
+                    check = true;
+                }
+            }
+            if (check) {
+                counter = counter + 0.10;
+                if (counter > 1) {
+                    check = false;
+                }
+            }
+
+        }
+    }
+
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void Overlay(RenderGameOverlayEvent event) {
 
@@ -35,7 +60,6 @@ public class OverlayEvents {
             }
         }
 
-
         //Lander Warning Overlay
         if (!event.isCancelable() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
             PlayerEntity entity = Minecraft.getInstance().player;
@@ -46,7 +70,7 @@ public class OverlayEvents {
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.disableAlphaTest();
             if (entity.getRidingEntity() instanceof LanderEntity && !entity.getRidingEntity().isOnGround() && !entity.areEyesInFluid(FluidTags.WATER)) {
-                RenderSystem.color4f((float) Events.counter, (float) Events.counter, (float) Events.counter, (float) Events.counter);
+                RenderSystem.color4f((float) counter, (float) counter, (float) counter, (float) counter);
                 // Plinken
                 Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/overlay/warning.png"));
                 Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight());
