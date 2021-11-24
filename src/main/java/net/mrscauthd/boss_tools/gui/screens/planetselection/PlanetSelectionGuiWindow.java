@@ -8,6 +8,7 @@ import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.ITextComponent;
@@ -25,9 +26,9 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 	private static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/screens/planet_selection_gui.png");
 
 	public float rotationMars = 0;
-	public float rotationEarth = 20;
-	public float rotationVenus = 40;
-	public float rotationMercury = 30;
+	public float rotationEarth = 90;
+	public float rotationVenus = 180;
+	public float rotationMercury = 270;
 
 	public ResourceLocation overworldCategoryButtonTex = new ResourceLocation("boss_tools:textures/buttons/red_button.png");
 
@@ -47,11 +48,12 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 
 		String rocketType = container.rocket;
 		String level = "c";
-		List<ITextComponent> Categorie1 = new ArrayList<ITextComponent>();
-		List<ITextComponent> Categorie2 = new ArrayList<ITextComponent>();
-		List<ITextComponent> Categorie3 = new ArrayList<ITextComponent>();
-		List<ITextComponent> Categorie4 = new ArrayList<ITextComponent>();
+		List<ITextComponent> Categories = new ArrayList<ITextComponent>();
 
+		rotationMars = (rotationMars + partialTicks * 0.6f) % 360;
+		rotationEarth = (rotationEarth + partialTicks * 1.2f) % 360;
+		rotationVenus = (rotationVenus + partialTicks * 1.1f) % 360;
+		rotationMercury = (rotationMercury + partialTicks * 0.9f) % 360;
 
 		//OVERWORLD
 		if (checkRocket(rocketType, 1)) {
@@ -65,9 +67,9 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 		if (GuiHelper.isHover(this.getBounds(10, (this.height / 2) - 60 / 2, 70, 20), mouseX, mouseY)) {
 
 			//ToolTip
-			Categorie2.add(ITextComponent.getTextComponentOrEmpty("\u00A79Category: " + "\u00A7" + level + "Overworld"));
-			Categorie2.add(ITextComponent.getTextComponentOrEmpty("\u00A79Provided: \u00A7bTier 1 Rocket"));
-			this.func_243308_b(ms, Categorie2, mouseX, mouseY);
+			Categories.add(ITextComponent.getTextComponentOrEmpty("\u00A79Category: " + "\u00A7" + level + "Overworld"));
+			Categories.add(ITextComponent.getTextComponentOrEmpty("\u00A79Provided: \u00A7bTier 1 Rocket"));
+			this.func_243308_b(ms, Categories, mouseX, mouseY);
 
 		} else {
 			if (checkRocket(rocketType, 1)) {
@@ -90,9 +92,9 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 		if (GuiHelper.isHover(this.getBounds(10, (this.height / 2) - 16 / 2, 70, 20), mouseX, mouseY)) {
 
 			//ToolTip
-			Categorie2.add(ITextComponent.getTextComponentOrEmpty("\u00A79Category: " + "\u00A7" + level + "Mars"));
-			Categorie2.add(ITextComponent.getTextComponentOrEmpty("\u00A79Provided: \u00A7bTier 2 Rocket"));
-			this.func_243308_b(ms, Categorie2, mouseX, mouseY);
+			Categories.add(ITextComponent.getTextComponentOrEmpty("\u00A79Category: " + "\u00A7" + level + "Mars"));
+			Categories.add(ITextComponent.getTextComponentOrEmpty("\u00A79Provided: \u00A7bTier 2 Rocket"));
+			this.func_243308_b(ms, Categories, mouseX, mouseY);
 
 		} else {
 			if (checkRocket(rocketType, 2)) {
@@ -127,11 +129,6 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation("boss_tools:textures/sky/sun_no_light.png"));
 		GuiHelper.blit(ms, (this.width - 15) / 2, (this.height - 15) / 2, 0, 0, 15, 15, 15, 15);
 
-		this.rotationMars = rotationMars + 0.001F;
-		this.rotationEarth = rotationEarth + 0.0028F;
-		this.rotationVenus = rotationVenus + 0.002F;
-		this.rotationMercury = rotationMercury + 0.0025F;
-
 		//PLANETS
 		this.addPlanet(ms, new ResourceLocation("boss_tools:textures/sky/mars.png"), -70, -70, 10, 10, rotationMars);
 		this.addPlanet(ms, new ResourceLocation("boss_tools:textures/sky/earth.png"), -54, -54, 10, 10, rotationEarth);
@@ -159,7 +156,7 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 		ms.push();
 
 		ms.translate(this.width / 2, this.height / 2, 0);
-		ms.rotate(new Quaternion(Vector3f.ZP, rotation, false));
+		ms.rotate(new Quaternion(Vector3f.ZP, rotation, true));
 
 		Minecraft.getInstance().getTextureManager().bindTexture(planet);
 		GuiHelper.blit(ms, x, y, 0, 0, width, height, width, height);

@@ -168,15 +168,7 @@ public class MoglerModel<T extends MobEntity & IFlinging> extends AgeableModel<T
         int i = entityIn.func_230290_eL_();
         float f = 1.0F - (float)MathHelper.abs(10 - 2 * i) / 10.0F;
         this.head.rotateAngleX = MathHelper.lerp(f, 0.0F, -1.14906584F);
-        if (entityIn.isChild()) {
-            //  this.head.rotationPointY = MathHelper.lerp(f, 2.0F, 5.0F);
-            //this.field_239114_l_.rotationPointZ = -3.0F;
-        } else {
-            //   this.head.rotationPointY = 2.0F;
-            // this.field_239114_l_.rotationPointZ = -7.0F;
-        }
 
-        float f1 = 1.2F;
         this.leg1.rotateAngleX = MathHelper.cos(limbSwing) * 1.2F * limbSwingAmount;
         this.leg2.rotateAngleX = MathHelper.cos(limbSwing + (float)Math.PI) * 1.2F * limbSwingAmount;
         this.leg3.rotateAngleX = this.leg1.rotateAngleX;
