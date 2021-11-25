@@ -32,7 +32,6 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -40,6 +39,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
+import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
 import net.mrscauthd.boss_tools.gui.screens.coalgenerator.CoalGeneratorGui;
 import net.mrscauthd.boss_tools.machines.tile.GeneratorTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemFuelGeneratingRecipe;
@@ -62,7 +63,7 @@ public class CoalGeneratorBlock {
 		@OnlyIn(Dist.CLIENT)
 		public void addInformation(ItemStack itemstack, IBlockReader world, List<ITextComponent> list, ITooltipFlag flag) {
 			super.addInformation(itemstack, world, list, flag);
-			list.add(new StringTextComponent("\u00A79Producing: \u00A77" + ENERGY_PER_TICK + " \u00A77FE/t"));
+			list.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getGeneratingPerTickText(GaugeValueHelper.getEnergy(ENERGY_PER_TICK))));
 		}
 
 		@Override

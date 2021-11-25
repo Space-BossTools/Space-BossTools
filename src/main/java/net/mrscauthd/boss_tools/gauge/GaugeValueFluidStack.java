@@ -2,6 +2,7 @@ package net.mrscauthd.boss_tools.gauge;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 
 public class GaugeValueFluidStack implements IGaugeValue {
@@ -35,6 +36,13 @@ public class GaugeValueFluidStack implements IGaugeValue {
 		return compound;
 	}
 
+	@Override
+	public int getColor() {
+		FluidStack fluidStack = this.getStack();
+		FluidAttributes attributes = fluidStack.getFluid().getAttributes();
+		return attributes.getColor(fluidStack);
+	}
+
 	public FluidStack getStack() {
 		return this.stack;
 	}
@@ -50,7 +58,7 @@ public class GaugeValueFluidStack implements IGaugeValue {
 
 	@Override
 	public String getUnit() {
-		return GaugeDataHelper.FLUID_UNIT;
+		return GaugeValueHelper.FLUID_UNIT;
 	}
 
 	@Override

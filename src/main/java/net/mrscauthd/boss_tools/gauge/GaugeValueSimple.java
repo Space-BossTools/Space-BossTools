@@ -107,7 +107,7 @@ public class GaugeValueSimple implements IGaugeValue {
 	}
 
 	protected TranslationTextComponent createDefaultTextComponent() {
-		return new TranslationTextComponent(GaugeDataHelper.makeTranslationKey(this.getName()));
+		return new TranslationTextComponent(GaugeValueHelper.makeTranslationKey(this.getName()));
 	}
 
 	public GaugeValueSimple displayeName(@Nullable ITextComponent displayeName) {
@@ -145,6 +145,7 @@ public class GaugeValueSimple implements IGaugeValue {
 		return this;
 	}
 
+	@Override
 	public int getColor() {
 		return color;
 	}

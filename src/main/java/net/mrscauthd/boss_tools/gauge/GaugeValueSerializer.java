@@ -10,22 +10,19 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
 
-public class GaugeDataSerializer<T extends INBTSerializable<CompoundNBT>> {
+public class GaugeValueSerializer<T extends INBTSerializable<CompoundNBT>> {
 
-	public static final GaugeDataSerializer<IGaugeValue> GaugeValue = new GaugeDataSerializer<>();
-	public static final GaugeDataSerializer<IGaugeFormat> GaugeFormat = new GaugeDataSerializer<>();
+	public static final GaugeValueSerializer<IGaugeValue> Serializer = new GaugeValueSerializer<>();
 
 	static {
-		GaugeValue.add(new ResourceLocation("boss_tools", "fluidstack"), GaugeValueFluidStack.class);
-		GaugeValue.add(new ResourceLocation("boss_tools", "simple"), GaugeValueSimple.class);
-
-		GaugeFormat.add(new ResourceLocation("boss_tools", "standard"), GaugeFormat.class);
+		Serializer.addCodec(new ResourceLocation("boss_tools", "fluidstack"), GaugeValueFluidStack.class);
+		Serializer.addCodec(new ResourceLocation("boss_tools", "simple"), GaugeValueSimple.class);
 	}
 
 	private final Map<ResourceLocation, Class<? extends T>> location_class_map = new LinkedHashMap<>();
 	private final Map<Class<? extends T>, ResourceLocation> class_location_map = new LinkedHashMap<>();
 
-	private GaugeDataSerializer() {
+	private GaugeValueSerializer() {
 
 	}
 
@@ -61,7 +58,7 @@ public class GaugeDataSerializer<T extends INBTSerializable<CompoundNBT>> {
 		buffer.writeCompoundTag(this.serialize(format));
 	}
 
-	public void add(ResourceLocation location, Class<? extends T> clazz) {
+	public void addCodec(ResourceLocation location, Class<? extends T> clazz) {
 		this.location_class_map.put(location, clazz);
 		this.class_location_map.put(clazz, location);
 	}

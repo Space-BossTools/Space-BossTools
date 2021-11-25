@@ -39,7 +39,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -68,6 +70,9 @@ public class OxygenBubbleDistributorBlock {
 	public static final String KEY_RANGE = "range";
 	public static final String KEY_WORKINGAREA_VISIBLE = "workingAreaVisible";
 
+	public static final int RANGE_MAX = 15;
+	public static final int RANGE_MIN = 1;
+
 	/**
 	 * Interval Ticks, 4 = every 4 ticks
 	 */
@@ -86,7 +91,10 @@ public class OxygenBubbleDistributorBlock {
 		@OnlyIn(Dist.CLIENT)
 		public void addInformation(ItemStack itemstack, IBlockReader world, List<ITextComponent> list, ITooltipFlag flag) {
 			super.addInformation(itemstack, world, list, flag);
-			list.add(new StringTextComponent("\u00A77Make a Oxygen Bullet \u00A7c3x6"));
+			
+			int min = RANGE_MIN * 2 + 1;
+			int max = RANGE_MAX * 2 + 1;
+			list.add(new TranslationTextComponent("tooltip.boss_tools.oxygen_bubble_distributor", min, max).setStyle(Style.EMPTY.setFormatting(TextFormatting.GRAY)));
 		}
 
 		@Override
@@ -215,7 +223,7 @@ public class OxygenBubbleDistributorBlock {
 
 		@Override
 		public AxisAlignedBB getRenderBoundingBox() {
-			return new AxisAlignedBB(this.getPos().getX(),this.getPos().getY(),this.getPos().getZ(),this.getPos().getX(),this.getPos().getY(), this.getPos().getZ()).grow(32,32,32);
+			return new AxisAlignedBB(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), this.getPos().getX(), this.getPos().getY(), this.getPos().getZ()).grow(32, 32, 32);
 		}
 
 		@Override
@@ -298,11 +306,11 @@ public class OxygenBubbleDistributorBlock {
 		}
 
 		public int getRange() {
-			return Math.max(this.getTileData().getInt(KEY_RANGE), 1);
+			return Math.max(this.getTileData().getInt(KEY_RANGE), RANGE_MIN);
 		}
 
 		public void setRange(int range) {
-			range = Math.min(Math.max(range, 1), 15);
+			range = Math.min(Math.max(range, RANGE_MIN), RANGE_MAX);
 
 			if (this.getRange() != range) {
 				this.getTileData().putInt(KEY_RANGE, range);
