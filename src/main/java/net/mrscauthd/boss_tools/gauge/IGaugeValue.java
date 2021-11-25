@@ -14,6 +14,22 @@ public interface IGaugeValue extends INBTSerializable<CompoundNBT> {
 
 	int getCapacity();
 	
+	public default int getColor()
+	{
+		return 0x00000000;
+	}
+
 	boolean isReverse();
+
+	public default double getDisplayRatio() {
+		int capacity = this.getCapacity();
+
+		if (capacity == 0) {
+			return 0.0D;
+		}
+
+		int amount = this.getAmount();
+		return (this.isReverse() ? (capacity - amount) : amount) / (double) capacity;
+	}
 
 }

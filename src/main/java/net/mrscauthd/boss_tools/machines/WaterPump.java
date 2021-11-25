@@ -22,12 +22,13 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
+import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
+import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
 import net.mrscauthd.boss_tools.machines.tile.WaterPumpTileEntity;
 
 import java.util.Collections;
@@ -89,7 +90,7 @@ public class WaterPump extends Block {
     @OnlyIn(Dist.CLIENT)
     public void addInformation(ItemStack itemstack, IBlockReader world, List<ITextComponent> list, ITooltipFlag flag) {
         super.addInformation(itemstack, world, list, flag);
-        list.add(new StringTextComponent("\u00A79Transfer: \u00A77" + 10 + " \u00A77mB/t"));
+		list.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getTransferPerTickText(GaugeValueHelper.getFluid(WaterPumpTileEntity.TRANSFER_PER_TICK))));
     }
 
     @Override

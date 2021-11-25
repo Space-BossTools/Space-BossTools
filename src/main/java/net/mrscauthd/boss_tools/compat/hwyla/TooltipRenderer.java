@@ -14,8 +14,9 @@ import mcp.mobius.waila.api.RenderableTextComponent;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.text.ITextComponent;
-import net.mrscauthd.boss_tools.gauge.GaugeData;
-import net.mrscauthd.boss_tools.gauge.GaugeDataRenderer;
+import net.mrscauthd.boss_tools.gauge.GaugeValueRenderer;
+import net.mrscauthd.boss_tools.gauge.GaugeValueSerializer;
+import net.mrscauthd.boss_tools.gauge.IGaugeValue;
 
 public class TooltipRenderer implements IComponentProvider, ITooltipRenderer {
 
@@ -47,8 +48,8 @@ public class TooltipRenderer implements IComponentProvider, ITooltipRenderer {
 		MatrixStack matrix = new MatrixStack();
 
 		for (int i = 0; i < list.size(); i++) {
-			GaugeData data = new GaugeData(list.getCompound(i));
-			GaugeDataRenderer renderer = new GaugeDataRenderer(data);
+			IGaugeValue value = GaugeValueSerializer.Serializer.deserialize(list.getCompound(i));
+			GaugeValueRenderer renderer = new GaugeValueRenderer(value);
 			renderer.render(matrix, x + 1, y);
 			y += renderer.getHeight() + 1;
 		}

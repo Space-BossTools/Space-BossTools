@@ -19,14 +19,14 @@ import net.mrscauthd.boss_tools.gui.helper.GuiHelper;
 
 public abstract class AbstractGaugeDataRenderer {
 
-	private final IGaugeData data;
+	private final IGaugeValue value;
 
-	public AbstractGaugeDataRenderer(IGaugeData data) {
-		this.data = new GaugeData(data.getValue(), new GaugeFormat(false));
+	public AbstractGaugeDataRenderer(IGaugeValue value) {
+		this.value = value;
 	}
 
 	public void toBytes(PacketBuffer buffer) {
-		this.getData().write(buffer);
+		GaugeValueSerializer.Serializer.write(this.getValue(), buffer);
 	}
 
 	public void render(MatrixStack matrixStack, int left, int top) {
@@ -47,7 +47,7 @@ public abstract class AbstractGaugeDataRenderer {
 
 	@Nullable
 	public ITextComponent getGaugeText() {
-		return this.getData().getText();
+		return GaugeTextHelper.getValueText(this.getValue()).build();
 	}
 
 	protected void drawGaugeText(MatrixStack matrixStack, Rectangle2d innerBounds) {
@@ -83,8 +83,9 @@ public abstract class AbstractGaugeDataRenderer {
 	}
 
 	protected void drawBackground(MatrixStack matrixStack, Rectangle2d innerBounds) {
-		int tileColor = this.getBackgroundColor();
-		double displayRatio = this.getData().getDisplayRatio();
+		IGaugeValue value = this.getValue();
+		int tileColor = value.getColor();
+		double displayRatio = value.getDisplayRatio();
 
 		try {
 			RenderSystem.enableBlend();
@@ -140,10 +141,6 @@ public abstract class AbstractGaugeDataRenderer {
 		return null;
 	}
 
-	public int getBackgroundColor() {
-		return 0x00000000;
-	}
-
 	public int getBackgroundTileWidth() {
 		return 16;
 	}
@@ -168,8 +165,8 @@ public abstract class AbstractGaugeDataRenderer {
 		return 13;
 	}
 
-	public IGaugeData getData() {
-		return this.data;
+	public IGaugeValue getValue() {
+		return this.value;
 	}
 
 }

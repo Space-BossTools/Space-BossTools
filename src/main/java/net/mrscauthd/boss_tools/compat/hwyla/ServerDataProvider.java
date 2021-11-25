@@ -13,8 +13,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.mrscauthd.boss_tools.gauge.GaugeData;
-import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
+import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
+import net.mrscauthd.boss_tools.gauge.GaugeValueSerializer;
+import net.mrscauthd.boss_tools.gauge.IGaugeValue;
 import net.mrscauthd.boss_tools.machines.tile.AbstractMachineTileEntity;
 
 public class ServerDataProvider implements IServerDataProvider<TileEntity> {
@@ -22,15 +23,15 @@ public class ServerDataProvider implements IServerDataProvider<TileEntity> {
 	public static final ResourceLocation DATA_KEY = new ResourceLocation("boss_tools", "datakey");
 	public static final ServerDataProvider INSTANCE = new ServerDataProvider();
 
-	public static ListNBT write(List<GaugeData> list) {
+	public static ListNBT write(List<IGaugeValue> list) {
 		ListNBT nbt = new ListNBT();
-		list.stream().map(GaugeData::serializeNBT).forEach(nbt::add);
+		list.stream().map(GaugeValueSerializer.Serializer::serialize).forEach(nbt::add);
 		return nbt;
 	}
 
-	public static List<GaugeData> read(ListNBT nbt) {
-		List<GaugeData> list = new ArrayList<>();
-		nbt.stream().map(h -> (CompoundNBT) h).map(GaugeData::new).forEach(list::add);
+	public static List<IGaugeValue> read(ListNBT nbt) {
+		List<IGaugeValue> list = new ArrayList<>();
+		nbt.stream().map(h -> (CompoundNBT) h).map(GaugeValueSerializer.Serializer::deserialize).forEach(list::add);
 		return list;
 	}
 
@@ -47,11 +48,11 @@ public class ServerDataProvider implements IServerDataProvider<TileEntity> {
 		if (t instanceof AbstractMachineTileEntity) {
 			AbstractMachineTileEntity machineTileEntity = (AbstractMachineTileEntity) t;
 
-			List<GaugeData> list = machineTileEntity.getGaugeDataList();
+			List<IGaugeValue> list = machineTileEntity.getGaugeValues();
 			IEnergyStorage energyStorage = machineTileEntity.getCapability(CapabilityEnergy.ENERGY).orElse(null);
 
 			if (energyStorage != null) {
-				list.add(0, GaugeDataHelper.getEnergy(energyStorage));
+				list.add(0, GaugeValueHelper.getEnergy(energyStorage));
 			}
 
 			put(data, write(list));

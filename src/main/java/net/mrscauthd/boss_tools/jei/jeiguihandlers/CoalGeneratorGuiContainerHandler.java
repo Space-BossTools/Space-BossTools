@@ -13,7 +13,8 @@ import mezz.jei.api.runtime.IRecipesGui;
 import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
+import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
+import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
 import net.mrscauthd.boss_tools.gui.screens.coalgenerator.CoalGeneratorGuiWindow;
 import net.mrscauthd.boss_tools.gui.helper.GuiHelper;
 import net.mrscauthd.boss_tools.jei.JeiPlugin.CoalGeneratorJeiCategory;
@@ -40,7 +41,7 @@ public class CoalGeneratorGuiContainerHandler implements IGuiContainerHandler<Co
 			@Override
 			public List<ITextComponent> getTooltipStrings() {
 				List<ITextComponent> list = new ArrayList<>();
-				list.add(GaugeDataHelper.getBurnTime(containerScreen.getTileEntity().getPowerSystemGenerating()).getText());
+				list.add(GaugeTextHelper.getStorageText(GaugeValueHelper.getBurnTime(containerScreen.getTileEntity().getPowerSystemGenerating())).build());
 				list.add(new TranslationTextComponent("jei.tooltip.show.recipes"));
 				return list;
 			}

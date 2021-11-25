@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
-import net.mrscauthd.boss_tools.gauge.GaugeData;
+import net.mrscauthd.boss_tools.gauge.IGaugeValue;
 
 public abstract class PowerSystem implements INBTSerializable<CompoundNBT> {
 	private final AbstractMachineTileEntity tileEntity;
@@ -21,7 +21,7 @@ public abstract class PowerSystem implements INBTSerializable<CompoundNBT> {
 		this.tileEntity = tileEntity;
 	}
 
-	public List<GaugeData> getGaugeDataList() {
+	public List<IGaugeValue> getGaugeValues() {
 		return new ArrayList<>();
 	}
 

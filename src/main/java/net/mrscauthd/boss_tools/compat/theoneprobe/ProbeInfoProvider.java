@@ -30,7 +30,7 @@ public class ProbeInfoProvider implements IProbeInfoProvider, Function<ITheOnePr
 	public Void apply(ITheOneProbe top) {
 		top.registerProvider(this);
 		top.registerProbeConfigProvider(ProbeConfigProvider.INSTANCE);
-		ELEMENT_ID = top.registerElementFactory(GaugeDataElement::new);
+		ELEMENT_ID = top.registerElementFactory(GaugeValueElement::new);
 
 		return null;
 	}
@@ -47,7 +47,7 @@ public class ProbeInfoProvider implements IProbeInfoProvider, Function<ITheOnePr
 				elements.forEach(element -> probeInfo.element(element));
 			}
 
-			machineTileEntity.getGaugeDataList().forEach(g -> probeInfo.element(new GaugeDataElement(g)));
+			machineTileEntity.getGaugeValues().forEach(g -> probeInfo.element(new GaugeValueElement(g)));
 		}
 	}
 

@@ -26,8 +26,8 @@ import net.mrscauthd.boss_tools.compat.mekanism.OxygenStorageGasAdapter;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
 import net.mrscauthd.boss_tools.crafting.OxygenMakingRecipeAbstract;
 import net.mrscauthd.boss_tools.fluid.FluidUtil2;
-import net.mrscauthd.boss_tools.gauge.GaugeData;
-import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
+import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
+import net.mrscauthd.boss_tools.gauge.IGaugeValue;
 import net.mrscauthd.boss_tools.inventory.StackCacher;
 
 public abstract class OxygenMakingTileEntity extends AbstractMachineTileEntity {
@@ -68,11 +68,11 @@ public abstract class OxygenMakingTileEntity extends AbstractMachineTileEntity {
 	}
 
 	@Override
-	public List<GaugeData> getGaugeDataList() {
-		List<GaugeData> list = super.getGaugeDataList();
+	public List<IGaugeValue> getGaugeValues() {
+		List<IGaugeValue> list = super.getGaugeValues();
 
 		if (!CompatibleManager.MEKANISM.isLoaded()) {
-			list.add(GaugeDataHelper.getOxygen(this.getOutputTank()));
+			list.add(GaugeValueHelper.getOxygen(this.getOutputTank()));
 		}
 
 		return list;
