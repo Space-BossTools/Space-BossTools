@@ -52,7 +52,7 @@ import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
 import net.mrscauthd.boss_tools.entity.RoverEntity;
 import net.mrscauthd.boss_tools.events.Methodes;
 import net.mrscauthd.boss_tools.fluid.FluidUtil2;
-import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
+import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
 import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
 import net.mrscauthd.boss_tools.crafting.RocketPart;
 import net.mrscauthd.boss_tools.gui.screens.coalgenerator.CoalGeneratorGui;
@@ -353,10 +353,10 @@ public class JeiPlugin implements IModPlugin {
 		@Override
 		public List<ITextComponent> getTooltipStrings(OxygenLoaderRecipe recipe, double mouseX, double mouseY) {
 			if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
-				return Collections.singletonList(GaugeTextHelper.getUsingText(GaugeDataHelper.getEnergy(FuelRefineryBlock.ENERGY_PER_TICK)));
+				return Collections.singletonList(GaugeTextHelper.getUsingPerTickText(GaugeValueHelper.getEnergy(FuelRefineryBlock.ENERGY_PER_TICK)).build());
 			}
 			else if (GuiHelper.isHover(this.getOutputTankBounds(), mouseX, mouseY)) {
-				return Collections.singletonList(GaugeDataHelper.getOxygen(recipe.getOxygen()).getText());
+				return Collections.singletonList(GaugeTextHelper.getValueText(GaugeValueHelper.getOxygen(recipe.getOxygen())).build());
 			}
 
 			return Collections.emptyList();
@@ -461,10 +461,10 @@ public class JeiPlugin implements IModPlugin {
 		@Override
 		public List<ITextComponent> getTooltipStrings(OxygenBubbleDistributorRecipe recipe, double mouseX, double mouseY) {
 			if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
-				return Collections.singletonList(GaugeTextHelper.getUsingText(GaugeDataHelper.getEnergy(FuelRefineryBlock.ENERGY_PER_TICK)));
+				return Collections.singletonList(GaugeTextHelper.getUsingPerTickText(GaugeValueHelper.getEnergy(FuelRefineryBlock.ENERGY_PER_TICK)).build());
 			}
 			else if (GuiHelper.isHover(this.getOutputTankBounds(), mouseX, mouseY)) {
-				return Collections.singletonList(GaugeDataHelper.getOxygen(recipe.getOxygen()).getText());
+				return Collections.singletonList(GaugeTextHelper.getValueText(GaugeValueHelper.getOxygen(recipe.getOxygen())).build());
 			}
 
 			return Collections.emptyList();
@@ -562,10 +562,10 @@ public class JeiPlugin implements IModPlugin {
 		@Override
 		public List<ITextComponent> getTooltipStrings(GeneratingRecipe recipe, double mouseX, double mouseY) {
 			if (GuiHelper.isHover(this.getFireBounds(), mouseX, mouseY)) {
-				return Collections.singletonList(GaugeDataHelper.getBurnTime(recipe.getBurnTime()).getText());
+				return Collections.singletonList(GaugeTextHelper.getValueText(GaugeValueHelper.getBurnTime(recipe.getBurnTime())).build());
 			} else if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
 				List<ITextComponent> list = new ArrayList<>();
-				list.add(GaugeTextHelper.getGeneratingText(GaugeDataHelper.getEnergy(CoalGeneratorBlock.ENERGY_PER_TICK)));
+				list.add(GaugeTextHelper.getGeneratingPerTickText(GaugeValueHelper.getEnergy(CoalGeneratorBlock.ENERGY_PER_TICK)).build());
 				return list;
 			}
 			return Collections.emptyList();
@@ -1054,7 +1054,7 @@ public class JeiPlugin implements IModPlugin {
 		public List<ITextComponent> getTooltipStrings(CompressingRecipe recipe, double mouseX, double mouseY) {
 			if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
 				List<ITextComponent> list = new ArrayList<>();
-				list.add(GaugeTextHelper.getUsingText(GaugeDataHelper.getEnergy(CompressorBlock.ENERGY_PER_TICK)));
+				list.add(GaugeTextHelper.getUsingPerTickText(GaugeValueHelper.getEnergy(CompressorBlock.ENERGY_PER_TICK)).build());
 				return list;
 			}
 
@@ -1146,7 +1146,7 @@ public class JeiPlugin implements IModPlugin {
 		@Override
 		public List<ITextComponent> getTooltipStrings(FuelRefiningRecipe recipe, double mouseX, double mouseY) {
 			if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
-				return Collections.singletonList(GaugeTextHelper.getUsingText(GaugeDataHelper.getEnergy(FuelRefineryBlock.ENERGY_PER_TICK)));
+				return Collections.singletonList(GaugeTextHelper.getUsingPerTickText(GaugeValueHelper.getEnergy(FuelRefineryBlock.ENERGY_PER_TICK)).build());
 			}
 
 			return Collections.emptyList();

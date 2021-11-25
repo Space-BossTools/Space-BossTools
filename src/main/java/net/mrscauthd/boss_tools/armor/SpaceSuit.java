@@ -8,7 +8,7 @@ import net.mrscauthd.boss_tools.events.Methodes;
 import net.mrscauthd.boss_tools.capability.IOxygenStorage;
 import net.mrscauthd.boss_tools.capability.OxygenUtil;
 import net.mrscauthd.boss_tools.capability.SpaceSuitCapabilityProvider;
-import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
+import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
 import net.mrscauthd.boss_tools.itemgroup.BossToolsItemGroups;
 
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -16,7 +16,6 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.World;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.item.ItemStack;
@@ -76,11 +75,7 @@ public class SpaceSuit {
 		public void addInformation(ItemStack itemstack, World world, List<ITextComponent> list, ITooltipFlag flag) {
 			super.addInformation(itemstack, world, list, flag);
 			IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(itemstack);
-
-			if (oxygenStorage != null) {
-				String unit = GaugeDataHelper.OXYGEN_UNIT;
-				list.add(new StringTextComponent("\u00A79Oxygen:\u00A76 " + oxygenStorage.getOxygenStored() + " " + unit + "\u00A78 | \u00A7c" + oxygenStorage.getMaxOxygenStored() + " " + unit));
-			}
+			list.add(GaugeTextHelper.buildSpacesuitOxygenTooltip(oxygenStorage));
 		}
 
 		@Override

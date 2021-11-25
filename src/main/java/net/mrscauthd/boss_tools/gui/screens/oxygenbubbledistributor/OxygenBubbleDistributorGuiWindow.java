@@ -19,7 +19,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.boss_tools.BossToolsMod;
-import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
+import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
 import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
 import net.mrscauthd.boss_tools.gui.helper.GuiHelper;
 import net.mrscauthd.boss_tools.machines.OxygenBubbleDistributorBlock;
@@ -71,13 +71,13 @@ public class OxygenBubbleDistributorGuiWindow extends ContainerScreen<OxygenBubb
 
 		if (GuiHelper.isHover(this.getInputTankBounds(), mouseX, mouseY)) {
 
-			this.renderTooltip(ms, GaugeDataHelper.getFluid(tileEntity.getInputTank()).getText(), mouseX, mouseY);
+			this.renderTooltip(ms, GaugeTextHelper.getStorageText(GaugeValueHelper.getFluid(tileEntity.getInputTank())).build(), mouseX, mouseY);
 		} else if (GuiHelper.isHover(this.getOutputTankBounds(), mouseX, mouseY)) {
 
-			this.renderTooltip(ms, GaugeDataHelper.getOxygen(tileEntity.getOutputTank()).getText(), mouseX, mouseY);
+			this.renderTooltip(ms, GaugeTextHelper.getStorageText(GaugeValueHelper.getOxygen(tileEntity.getOutputTank())).build(), mouseX, mouseY);
 		} else if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
 
-			this.renderTooltip(ms, GaugeDataHelper.getEnergy(tileEntity).getText(), mouseX, mouseY);
+			this.renderTooltip(ms, GaugeTextHelper.getStorageText(GaugeValueHelper.getEnergy(tileEntity)).build(), mouseX, mouseY);
 		}
 
 		if (GuiHelper.isHover(this.getButtonBounds(-20, 4, 20, 21), mouseX, mouseY)) {
@@ -165,7 +165,7 @@ public class OxygenBubbleDistributorGuiWindow extends ContainerScreen<OxygenBubb
 		GL11.glPushMatrix();
 		double oyxgenScale = 0.8D;
 		GL11.glScaled(oyxgenScale, oyxgenScale, oyxgenScale);
-		ITextComponent oxygenText = GaugeTextHelper.getUsingText2(GaugeDataHelper.getOxygen(tileEntity.getOxygenUsing(range)), tileEntity.getMaxTimer());
+		ITextComponent oxygenText = GaugeTextHelper.getUsingText2(GaugeValueHelper.getOxygen(tileEntity.getOxygenUsing(range)), tileEntity.getMaxTimer()).build();
 		int oxygenWidth = this.font.getStringPropertyWidth(oxygenText);
 		this.font.func_243248_b(ms, oxygenText, (int) ((this.xSize - 5) / oyxgenScale) - oxygenWidth, (int) (this.playerInventoryTitleY / oyxgenScale), 0x333333);
 		GL11.glPopMatrix();

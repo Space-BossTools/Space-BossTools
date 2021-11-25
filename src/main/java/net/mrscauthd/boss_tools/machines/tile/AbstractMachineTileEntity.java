@@ -57,8 +57,8 @@ import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import net.mrscauthd.boss_tools.capability.EnergyStorageBasic;
 import net.mrscauthd.boss_tools.capability.IEnergyStorageHolder;
 import net.mrscauthd.boss_tools.crafting.FluidIngredient;
-import net.mrscauthd.boss_tools.gauge.GaugeData;
-import net.mrscauthd.boss_tools.gauge.GaugeDataHelper;
+import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
+import net.mrscauthd.boss_tools.gauge.IGaugeValue;
 
 public abstract class AbstractMachineTileEntity extends LockableLootTileEntity implements ISidedInventory, ITickableTileEntity, IEnergyStorageHolder {
 
@@ -548,20 +548,20 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		return false;
 	}
 
-	protected List<GaugeData> getFluidHandlerGaugeDataList(IFluidHandler fluidHandler) {
-		List<GaugeData> list = new ArrayList<>();
+	protected List<IGaugeValue> getFluidHandlerGaugeValues(IFluidHandler fluidHandler) {
+		List<IGaugeValue> list = new ArrayList<>();
 
 		for (int i = 0; i < fluidHandler.getTanks(); i++) {
-			list.add(GaugeDataHelper.getFluid(fluidHandler.getFluidInTank(i), fluidHandler.getTankCapacity(i)));
+			list.add(GaugeValueHelper.getFluid(fluidHandler.getFluidInTank(i), fluidHandler.getTankCapacity(i)));
 		}
 
 		return list;
 	}
 
-	public List<GaugeData> getGaugeDataList() {
-		List<GaugeData> list = new ArrayList<>();
-		this.getPowerSystems().values().stream().map(PowerSystem::getGaugeDataList).forEach(list::addAll);
-		this.getFluidHandlers().values().stream().map(this::getFluidHandlerGaugeDataList).forEach(list::addAll);
+	public List<IGaugeValue> getGaugeValues() {
+		List<IGaugeValue> list = new ArrayList<>();
+		this.getPowerSystems().values().stream().map(PowerSystem::getGaugeValues).forEach(list::addAll);
+		this.getFluidHandlers().values().stream().map(this::getFluidHandlerGaugeValues).forEach(list::addAll);
 		return list;
 	}
 

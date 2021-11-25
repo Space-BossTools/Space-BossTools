@@ -25,6 +25,8 @@ import net.mrscauthd.boss_tools.machines.WaterPump;
 import java.util.function.Predicate;
 
 public class WaterPumpTileEntity extends AbstractMachineTileEntity {
+	public static final int TRANSFER_PER_TICK = 10;
+	
     public WaterPumpTileEntity() {
         super(ModInnet.WATER_PUMP.get());
     }
@@ -72,13 +74,17 @@ public class WaterPumpTileEntity extends AbstractMachineTileEntity {
 
                             tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).ifPresent(capability -> capability.fill(new FluidStack(Fluids.WATER, 10), IFluidHandler.FluidAction.EXECUTE));
 
-                            this.getWaterTank().drain(new FluidStack(Fluids.WATER, 10), IFluidHandler.FluidAction.EXECUTE);
+                            this.getWaterTank().drain(new FluidStack(Fluids.WATER, this.getTransferPerTick()), IFluidHandler.FluidAction.EXECUTE);
                         }
                     }
                 }
             }
         }
     }
+    
+    public int getTransferPerTick() {
+		return TRANSFER_PER_TICK;
+	}
 
     public int getFluidTankCapacity(TileEntity tileEntity) {
         return tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).map(fluid -> fluid.getTankCapacity(1)).orElse(0);
