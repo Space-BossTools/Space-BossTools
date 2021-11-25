@@ -2,6 +2,7 @@ package net.mrscauthd.boss_tools.entity;
 
 import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.projectile.SpectralArrowEntity;
+import net.minecraft.util.SoundEvent;
 import net.mrscauthd.boss_tools.events.Config;
 
 import net.minecraftforge.registries.ForgeRegistries;
@@ -54,17 +55,12 @@ public class StarCrawlerEntity extends MonsterEntity {
 	}
 
 	@Override
-	public boolean canDespawn(double distanceToClosestPlayer) {
-		return false;
-	}
-
-	@Override
-	public net.minecraft.util.SoundEvent getHurtSound(DamageSource ds) {
+	public SoundEvent getHurtSound(DamageSource ds) {
 		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.turtle.hurt"));
 	}
 
 	@Override
-	public net.minecraft.util.SoundEvent getDeathSound() {
+	public SoundEvent getDeathSound() {
 		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.turtle.death"));
 	}
 
@@ -82,9 +78,10 @@ public class StarCrawlerEntity extends MonsterEntity {
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		if (Config.StarCrawlerSpawn == false) {
-			if (!this.world.isRemote())
+		if (!Config.StarCrawlerSpawn) {
+			if (!this.world.isRemote()) {
 				this.remove();
+			}
 		}
 	}
 }

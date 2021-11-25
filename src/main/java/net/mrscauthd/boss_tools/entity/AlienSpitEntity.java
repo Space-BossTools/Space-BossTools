@@ -76,14 +76,14 @@ public class AlienSpitEntity extends AbstractArrowEntity implements IRendersAsIt
         }
     }
 
-    public static AlienSpitEntity shoot(LivingEntity entity, LivingEntity target) {
+    public static AlienSpitEntity shoot(LivingEntity entity, LivingEntity target, int damage) {
         AlienSpitEntity entityarrow = new AlienSpitEntity(ModInnet.ALIEN_SPIT_ENTITY.get(), entity, entity.world);
         double d0 = target.getPosY() + (double) target.getEyeHeight() - 1.1;
         double d1 = target.getPosX() - entity.getPosX();
         double d3 = target.getPosZ() - entity.getPosZ();
         entityarrow.shoot(d1, d0 - entityarrow.getPosY() + (double) MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F, d3, 0.7f * 2, 12.0F);
         entityarrow.setSilent(true);
-        entityarrow.setDamage(5);
+        entityarrow.setDamage(damage);
         entityarrow.setKnockbackStrength(1);
         entityarrow.setIsCritical(false);
         entity.world.addEntity(entityarrow);

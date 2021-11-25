@@ -68,16 +68,18 @@ public class AlienZombieEntity extends MonsterEntity implements IRangedAttackMob
 		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.pillager.death"));
 	}
 
+	@Override
 	public void attackEntityWithRangedAttack(LivingEntity target, float flval) {
-		AlienSpitEntity.shoot(this, target);
+		AlienSpitEntity.shoot(this, target, 2);
 	}
 
 	@Override
 	public void tick() {
 		super.tick();
-		if (Config.AlienZombieSpawn == false) {
-			if (!this.world.isRemote())
+		if (!Config.AlienZombieSpawn) {
+			if (!this.world.isRemote()) {
 				this.remove();
+			}
 		}
 	}
 }
