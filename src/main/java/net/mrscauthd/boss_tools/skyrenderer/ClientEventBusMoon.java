@@ -31,16 +31,17 @@ import javax.annotation.Nullable;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import net.mrscauthd.boss_tools.BossToolsMod;
 
-@Mod.EventBusSubscriber(modid = "boss_tools", bus = Bus.MOD, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = BossToolsMod.ModId, bus = Bus.MOD, value = Dist.CLIENT)
 public class ClientEventBusMoon {
 	@Nullable
 	public static VertexBuffer starVBO;
 	public static final VertexFormat skyVertexFormat = DefaultVertexFormats.POSITION;
-	private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation("boss_tools", "moon");
-	private static final ResourceLocation SUN_TEXTURES = new ResourceLocation("boss_tools", "textures/sky/no_a_sun.png");
-	private static final ResourceLocation EARTH = new ResourceLocation("boss_tools", "textures/sky/earth.png");
-	private static final ResourceLocation EARTH_LIGHT_TEXTURES = new ResourceLocation("boss_tools", "textures/sky/earth_light.png");
+	private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation(BossToolsMod.ModId, "moon");
+	private static final ResourceLocation SUN_TEXTURES = new ResourceLocation(BossToolsMod.ModId, "textures/sky/no_a_sun.png");
+	private static final ResourceLocation EARTH = new ResourceLocation(BossToolsMod.ModId, "textures/sky/earth.png");
+	private static final ResourceLocation EARTH_LIGHT_TEXTURES = new ResourceLocation(BossToolsMod.ModId, "textures/sky/earth_light.png");
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void clientSetup(FMLClientSetupEvent event) {
 		DimensionRenderInfo.field_239208_a_.put(DIM_RENDER_INFO, new DimensionRenderInfo(128, false, FogType.NORMAL, false, false) {

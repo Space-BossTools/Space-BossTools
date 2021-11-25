@@ -101,26 +101,26 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-@Mod.EventBusSubscriber(modid = "boss_tools", bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = BossToolsMod.ModId, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModInnet {
 
-    public static final DeferredRegister<EntityType<?>> ENTITYS = DeferredRegister.create(ForgeRegistries.ENTITIES, "boss_tools");
+    public static final DeferredRegister<EntityType<?>> ENTITYS = DeferredRegister.create(ForgeRegistries.ENTITIES, BossToolsMod.ModId);
 
-    public static final DeferredRegister<TileEntityType<?>> TILE_ENTITYS = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, "boss_tools");
+    public static final DeferredRegister<TileEntityType<?>> TILE_ENTITYS = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, BossToolsMod.ModId);
 
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, "boss_tools");
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, BossToolsMod.ModId);
 
-    public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, "boss_tools");
+    public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, BossToolsMod.ModId);
 
-    public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, "boss_tools");
+    public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, BossToolsMod.ModId);
 
-    public static final DeferredRegister<Effect> EFFECTS = DeferredRegister.create(ForgeRegistries.POTIONS, "boss_tools");
+    public static final DeferredRegister<Effect> EFFECTS = DeferredRegister.create(ForgeRegistries.POTIONS, BossToolsMod.ModId);
 
-    public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, "boss_tools");
+    public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, BossToolsMod.ModId);
 
-    public static final DeferredRegister<ContainerType<?>> GUIS = DeferredRegister.create(ForgeRegistries.CONTAINERS, "boss_tools");
+    public static final DeferredRegister<ContainerType<?>> GUIS = DeferredRegister.create(ForgeRegistries.CONTAINERS, BossToolsMod.ModId);
 
-    public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, "boss_tools");
+    public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, BossToolsMod.ModId);
 
     //Vehicle Items
     public static final RegistryObject<Item> TIER_1_ROCKET_ITEM = ITEMS.register("rocket_t1", () -> new Tier1RocketItem(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1)));
@@ -150,11 +150,11 @@ public class ModInnet {
     public static RegistryObject<EntityType<? extends AlienSpitEntity>> ALIEN_SPIT_ENTITY = ENTITYS.register("alien_spit_entity", () -> EntityType.Builder.<AlienSpitEntity>create(AlienSpitEntity::new, EntityClassification.MISC).size(0.5f, 0.5f).build(new ResourceLocation("boss_tools", "alien_spit_entity").toString()));
 
     //pygro
-    public static final DeferredRegister<SensorType<?>> SENSOR = DeferredRegister.create(ForgeRegistries.SENSOR_TYPES, "boss_tools");
+    public static final DeferredRegister<SensorType<?>> SENSOR = DeferredRegister.create(ForgeRegistries.SENSOR_TYPES, BossToolsMod.ModId);
     public static final RegistryObject<SensorType<PygroMobsSensor>> PYGRO_SENSOR = SENSOR.register("pygro_sensor", ()->new SensorType<>(PygroMobsSensor::new));
 
     //Sounds
-    public static RegistryObject<SoundEvent> ROCKET_SOUND = SOUNDS.register("rocket_fly",() -> new SoundEvent(new ResourceLocation("boss_tools", "rocket_fly")));
+    public static RegistryObject<SoundEvent> ROCKET_SOUND = SOUNDS.register("rocket_fly",() -> new SoundEvent(new ResourceLocation(BossToolsMod.ModId, "rocket_fly")));
 
     //Blocks
     public static RegistryObject<Block> COAL_TORCH_BLOCK = BLOCKS.register("coal_torch",() -> new CoalTorchBlock(AbstractBlock.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.WOOD)));
@@ -438,7 +438,7 @@ public class ModInnet {
 
 
     //Recpies
-    public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, "boss_tools");
+    public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, BossToolsMod.ModId);
     public static final RegistryObject<IRecipeSerializer<?>> RECIPE_SERIALIZER_BLASTING = RECIPE_SERIALIZERS.register("blasting", () -> new BlastingRecipeSerializer());
     public static final RegistryObject<IRecipeSerializer<?>> RECIPE_SERIALIZER_COMPRESSING = RECIPE_SERIALIZERS.register("compressing", () -> new CompressingRecipeSerializer());
     public static final RegistryObject<IRecipeSerializer<?>> RECIPE_SERIALIZER_GENERATING = RECIPE_SERIALIZERS.register("generating", () -> new GeneratingRecipeSerializer());
@@ -448,8 +448,8 @@ public class ModInnet {
     public static final RegistryObject<IRecipeSerializer<?>> RECIPE_SERIALIZER_FUELREFINING = RECIPE_SERIALIZERS.register("fuelrefining", () -> new FuelRefiningRecipeSerializer());
     
     //RocketParts
-    public static final IForgeRegistry<RocketPart> ROCKET_PARTS_REGISTRY = new RegistryBuilder<RocketPart>().setType(RocketPart.class).setName(new ResourceLocation("boss_tools", "rocket_part")).create();
-    public static final DeferredRegister<RocketPart> ROCKET_PARTS = DeferredRegister.create(ROCKET_PARTS_REGISTRY, "boss_tools");
+    public static final IForgeRegistry<RocketPart> ROCKET_PARTS_REGISTRY = new RegistryBuilder<RocketPart>().setType(RocketPart.class).setName(new ResourceLocation(BossToolsMod.ModId, "rocket_part")).create();
+    public static final DeferredRegister<RocketPart> ROCKET_PARTS = DeferredRegister.create(ROCKET_PARTS_REGISTRY, BossToolsMod.ModId);
 
     public static final RegistryObject<RocketPart> ROCKET_PART_EMPTY = ROCKET_PARTS.register("emtpy", () -> RocketPart.EMPTY);
     public static final RegistryObject<RocketPart> ROCKET_PART_NOSE = ROCKET_PARTS.register("nose", () -> new RocketPart(1));
@@ -475,12 +475,12 @@ public class ModInnet {
     @SubscribeEvent
     public static void RegistryFeature(RegistryEvent.Register<Feature<?>> feature) {
         MARS_ICE_SPIKE = new MarsIceSpikeFeature(NoFeatureConfig.field_236558_a_);
-        MARS_ICE_SPIKE.setRegistryName("boss_tools", "mars_ice_spike");
+        MARS_ICE_SPIKE.setRegistryName(BossToolsMod.ModId, "mars_ice_spike");
         feature.getRegistry().register(MARS_ICE_SPIKE);
 
         //VENUS DELTAS
         VENUS_DELTAS = new VenusDeltas(ColumnConfig.CODEC);
-        VENUS_DELTAS.setRegistryName("boss_tools", "venus_deltas");
+        VENUS_DELTAS.setRegistryName(BossToolsMod.ModId, "venus_deltas");
         feature.getRegistry().register(VENUS_DELTAS);
     }
 
@@ -499,7 +499,7 @@ public class ModInnet {
 
     public static void biomeModification(final BiomeLoadingEvent event) {
         RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
-        if (event.getName().equals(new ResourceLocation("boss_tools:moon")) && Config.AlienVillageStructure) {
+        if (event.getName().equals(new ResourceLocation(BossToolsMod.ModId ,"moon")) && Config.AlienVillageStructure) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.ALIEN_VILLAGE);
         }
         if (event.getName().equals(new ResourceLocation("plains")) && Config.MeteorStructure) {
@@ -514,13 +514,13 @@ public class ModInnet {
         if (event.getName().equals(new ResourceLocation("desert")) && Config.MeteorStructure) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.METEOR);
         }
-        if (event.getName().equals(new ResourceLocation("boss_tools:venus")) && Config.VenusBulletStructure) {
+        if (event.getName().equals(new ResourceLocation(BossToolsMod.ModId ,"venus")) && Config.VenusBulletStructure) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.VENUS_BULLET);
         }
-        if (event.getName().equals(new ResourceLocation("boss_tools:venus")) && Config.VenusTowerStructure) {
+        if (event.getName().equals(new ResourceLocation(BossToolsMod.ModId ,"venus")) && Config.VenusTowerStructure) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.VENUS_TOWER);
         }
-        if (event.getName().equals(new ResourceLocation("boss_tools:venus")) && Config.CrimsonVillageStructure) {
+        if (event.getName().equals(new ResourceLocation(BossToolsMod.ModId ,"venus")) && Config.CrimsonVillageStructure) {
             event.getGeneration().getStructures().add(() -> STConfiguredStructures.CRIMSON);
         }
         if (event.getName().equals(new ResourceLocation("ocean")) && Config.OILWellStructure) {

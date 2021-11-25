@@ -11,9 +11,10 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 
-@Mod.EventBusSubscriber(modid = "boss_tools", bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = BossToolsMod.ModId, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class BiomeRegistry {
     public static Biome moon;
 
@@ -38,7 +39,7 @@ public class BiomeRegistry {
             MobSpawnInfo.Builder mobSpawnInfo = new MobSpawnInfo.Builder().isValidSpawnBiomeForPlayer();
 
             moon = new Biome.Builder().precipitation(Biome.RainType.NONE).category(Biome.Category.NONE).depth(0.2f).scale(0.02f).temperature(1.6f).downfall(0f).setEffects(effects).withMobSpawnSettings(mobSpawnInfo.copy()).withGenerationSettings(biomeGenerationSettings.build()).build();
-            event.getRegistry().register(moon.setRegistryName("boss_tools:moon"));
+            event.getRegistry().register(moon.setRegistryName(BossToolsMod.ModId,"boss_tools:moon"));
         }
 
         if (mars == null) {
@@ -48,7 +49,7 @@ public class BiomeRegistry {
             MobSpawnInfo.Builder mobSpawnInfo = new MobSpawnInfo.Builder().isValidSpawnBiomeForPlayer();
 
             mars = new Biome.Builder().precipitation(Biome.RainType.NONE).category(Biome.Category.NONE).depth(0.2f).scale(0.02f).temperature(1.6f).downfall(0f).setEffects(effects).withMobSpawnSettings(mobSpawnInfo.copy()).withGenerationSettings(biomeGenerationSettings.build()).build();
-            event.getRegistry().register(mars.setRegistryName("boss_tools:mars"));
+            event.getRegistry().register(mars.setRegistryName(BossToolsMod.ModId,"mars"));
         }
 
         if (mars_ice_spike == null) {
@@ -58,7 +59,7 @@ public class BiomeRegistry {
             MobSpawnInfo.Builder mobSpawnInfo = new MobSpawnInfo.Builder().isValidSpawnBiomeForPlayer();
 
             mars_ice_spike = new Biome.Builder().precipitation(Biome.RainType.NONE).category(Biome.Category.ICY).depth(0.1f).scale(0.12f).temperature(1.6f).downfall(0f).setEffects(effects).withMobSpawnSettings(mobSpawnInfo.copy()).withGenerationSettings(biomeGenerationSettings.build()).build();
-            event.getRegistry().register(mars_ice_spike.setRegistryName("boss_tools:mars_ice_spike"));
+            event.getRegistry().register(mars_ice_spike.setRegistryName(BossToolsMod.ModId,"mars_ice_spike"));
         }
 
         if (venus == null) {
@@ -68,7 +69,7 @@ public class BiomeRegistry {
             MobSpawnInfo.Builder mobSpawnInfo = new MobSpawnInfo.Builder().isValidSpawnBiomeForPlayer();
 
             venus = new Biome.Builder().precipitation(Biome.RainType.RAIN).category(Biome.Category.NONE).depth(0.2f).scale(0.02f).temperature(1.5f).downfall(1f).setEffects(effects).withMobSpawnSettings(mobSpawnInfo.copy()).withGenerationSettings(biomeGenerationSettings.build()).build();
-            event.getRegistry().register(venus.setRegistryName("boss_tools:venus"));
+            event.getRegistry().register(venus.setRegistryName(BossToolsMod.ModId,"venus"));
         }
 
         if (infernal_venus_barrens == null) {
@@ -88,7 +89,7 @@ public class BiomeRegistry {
             MobSpawnInfo.Builder mobSpawnInfo = new MobSpawnInfo.Builder().isValidSpawnBiomeForPlayer();
 
             infernal_venus_barrens = new Biome.Builder().precipitation(Biome.RainType.RAIN).category(Biome.Category.NONE).depth(0.2f).scale(0.12f).temperature(1.5f).downfall(1f).setEffects(effects).withMobSpawnSettings(mobSpawnInfo.copy()).withGenerationSettings(biomeGenerationSettings.build()).build();
-            event.getRegistry().register(infernal_venus_barrens.setRegistryName("boss_tools:infernal_venus_barrens"));
+            event.getRegistry().register(infernal_venus_barrens.setRegistryName(BossToolsMod.ModId,"infernal_venus_barrens"));
         }
 
         if (venus_hills == null) {
@@ -98,7 +99,7 @@ public class BiomeRegistry {
             MobSpawnInfo.Builder mobSpawnInfo = new MobSpawnInfo.Builder().isValidSpawnBiomeForPlayer();
 
             venus_hills = new Biome.Builder().precipitation(Biome.RainType.RAIN).category(Biome.Category.NONE).depth(0.3f).scale(0.42f).temperature(1.5f).downfall(1f).setEffects(effects).withMobSpawnSettings(mobSpawnInfo.copy()).withGenerationSettings(biomeGenerationSettings.build()).build();
-            event.getRegistry().register(venus_hills.setRegistryName("boss_tools:venus_hills"));
+            event.getRegistry().register(venus_hills.setRegistryName(BossToolsMod.ModId,"venus_hills"));
         }
 
         if (mercury == null) {
@@ -108,7 +109,7 @@ public class BiomeRegistry {
             MobSpawnInfo.Builder mobSpawnInfo = new MobSpawnInfo.Builder().isValidSpawnBiomeForPlayer();
 
             mercury = new Biome.Builder().precipitation(Biome.RainType.NONE).category(Biome.Category.NONE).depth(1f).scale(0.2f).temperature(1.6f).downfall(0f).setEffects(effects).withMobSpawnSettings(mobSpawnInfo.copy()).withGenerationSettings(biomeGenerationSettings.build()).build();
-            event.getRegistry().register(mercury.setRegistryName("boss_tools:mercury"));
+            event.getRegistry().register(mercury.setRegistryName(BossToolsMod.ModId,"mercury"));
         }
 
         if (mercury_magma == null) {
@@ -128,7 +129,7 @@ public class BiomeRegistry {
             MobSpawnInfo.Builder mobSpawnInfo = new MobSpawnInfo.Builder().isValidSpawnBiomeForPlayer();
 
             mercury_magma = new Biome.Builder().precipitation(Biome.RainType.NONE).category(Biome.Category.NONE).depth(1f).scale(0.2f).temperature(1.6f).downfall(0f).setEffects(effects).withMobSpawnSettings(mobSpawnInfo.copy()).withGenerationSettings(biomeGenerationSettings.build()).build();
-            event.getRegistry().register(mercury_magma.setRegistryName("boss_tools:mercury_magma"));
+            event.getRegistry().register(mercury_magma.setRegistryName(BossToolsMod.ModId,"mercury_magma"));
         }
 
         if (orbit == null) {
@@ -137,7 +138,7 @@ public class BiomeRegistry {
             MobSpawnInfo.Builder mobSpawnInfo = new MobSpawnInfo.Builder().isValidSpawnBiomeForPlayer();
 
             orbit = new Biome.Builder().precipitation(Biome.RainType.NONE).category(Biome.Category.NONE).depth(0.1f).scale(0.2f).temperature(1.6f).downfall(0f).setEffects(effects).withMobSpawnSettings(mobSpawnInfo.copy()).withGenerationSettings(biomeGenerationSettings.build()).build();
-            event.getRegistry().register(orbit.setRegistryName("boss_tools:orbit"));
+            event.getRegistry().register(orbit.setRegistryName(BossToolsMod.ModId,"orbit"));
         }
 
     }

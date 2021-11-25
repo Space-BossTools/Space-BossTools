@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.gui.screens.coalgenerator;
 
+import net.mrscauthd.boss_tools.BossToolsMod;
 import org.lwjgl.opengl.GL11;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -20,7 +21,7 @@ import net.mrscauthd.boss_tools.machines.CoalGeneratorBlock.CustomTileEntity;
 @OnlyIn(Dist.CLIENT)
 public class CoalGeneratorGuiWindow extends ContainerScreen<CoalGeneratorGui.GuiContainer> {
 
-	public static final ResourceLocation TEXTURE = new ResourceLocation("boss_tools:textures/screens/coal_generator_gui.png");
+	public static final ResourceLocation TEXTURE = new ResourceLocation(BossToolsMod.ModId,"textures/screens/coal_generator_gui.png");
 
 	public static final int FIRE_LEFT = 77;
 	public static final int FIRE_TOP = 49;

@@ -5,8 +5,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.event.RegistryEvent;
 
 import net.minecraft.entity.item.PaintingType;
+import net.mrscauthd.boss_tools.BossToolsMod;
 
-@Mod.EventBusSubscriber(modid = "boss_tools", bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = BossToolsMod.ModId, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class PaintingRegistry {
 	@SubscribeEvent
 	public static void registerPaintingType(RegistryEvent.Register<PaintingType> event) {

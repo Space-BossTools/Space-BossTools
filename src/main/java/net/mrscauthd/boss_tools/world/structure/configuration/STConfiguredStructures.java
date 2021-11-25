@@ -6,6 +6,7 @@ import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.FlatGenerationSettings;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
+import net.mrscauthd.boss_tools.BossToolsMod;
 
 public class STConfiguredStructures {
     public static StructureFeature<?, ?> ALIEN_VILLAGE = STStructures.ALIEN_VILLAGE.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
@@ -17,12 +18,12 @@ public class STConfiguredStructures {
 
     public static void registerConfiguredStructures() {
         Registry<StructureFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE;
-        Registry.register(registry, new ResourceLocation("boss_tools", "alien_village"), ALIEN_VILLAGE);
-        Registry.register(registry, new ResourceLocation("boss_tools", "meteor"), METEOR);
-        Registry.register(registry, new ResourceLocation("boss_tools", "venus_bullet"), VENUS_BULLET);
-        Registry.register(registry, new ResourceLocation("boss_tools", "venus_tower"), VENUS_TOWER);
-        Registry.register(registry, new ResourceLocation("boss_tools", "crimson_village"), CRIMSON);
-        Registry.register(registry, new ResourceLocation("boss_tools", "oil"), OIL);
+        Registry.register(registry, new ResourceLocation(BossToolsMod.ModId, "alien_village"), ALIEN_VILLAGE);
+        Registry.register(registry, new ResourceLocation(BossToolsMod.ModId, "meteor"), METEOR);
+        Registry.register(registry, new ResourceLocation(BossToolsMod.ModId, "venus_bullet"), VENUS_BULLET);
+        Registry.register(registry, new ResourceLocation(BossToolsMod.ModId, "venus_tower"), VENUS_TOWER);
+        Registry.register(registry, new ResourceLocation(BossToolsMod.ModId, "crimson_village"), CRIMSON);
+        Registry.register(registry, new ResourceLocation(BossToolsMod.ModId, "oil"), OIL);
 
         FlatGenerationSettings.STRUCTURES.put(STStructures.ALIEN_VILLAGE.get(), ALIEN_VILLAGE);
         FlatGenerationSettings.STRUCTURES.put(STStructures.METEOR.get(), METEOR);

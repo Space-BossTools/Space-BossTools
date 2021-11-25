@@ -5,17 +5,18 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.capability.IOxygenStorage;
 import net.mrscauthd.boss_tools.machines.tile.AbstractMachineTileEntity;
 import net.mrscauthd.boss_tools.machines.tile.PowerSystemFuelBurnTime;
 
 public class GaugeValueHelper {
 
-	public static final ResourceLocation ENERGY_NAME = new ResourceLocation("boss_tools", "energy");
-	public static final ResourceLocation OXYGEN_NAME = new ResourceLocation("boss_tools", "oxygen");
-	public static final ResourceLocation FLUID_NAME = new ResourceLocation("boss_tools", "fluid");
-	public static final ResourceLocation BURNTIME_NAME = new ResourceLocation("boss_tools", "burntime");
-	public static final ResourceLocation COOKTIME_NAME = new ResourceLocation("boss_tools", "cooktime");
+	public static final ResourceLocation ENERGY_NAME = new ResourceLocation(BossToolsMod.ModId, "energy");
+	public static final ResourceLocation OXYGEN_NAME = new ResourceLocation(BossToolsMod.ModId, "oxygen");
+	public static final ResourceLocation FLUID_NAME = new ResourceLocation(BossToolsMod.ModId, "fluid");
+	public static final ResourceLocation BURNTIME_NAME = new ResourceLocation(BossToolsMod.ModId, "burntime");
+	public static final ResourceLocation COOKTIME_NAME = new ResourceLocation(BossToolsMod.ModId, "cooktime");
 
 	public static final int ENERGY_COLOR = 0xA0FF404B;
 	public static final int OXYGEN_COLOR = 0xA000FFFF;

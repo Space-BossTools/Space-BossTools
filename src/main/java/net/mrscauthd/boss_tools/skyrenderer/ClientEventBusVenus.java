@@ -45,6 +45,7 @@ import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.particle.VenusRainParticle;
 
@@ -52,7 +53,7 @@ import java.util.Random;
 
 import static net.minecraft.client.renderer.WorldRenderer.getPackedLightmapCoords;
 
-@Mod.EventBusSubscriber(modid = "boss_tools", bus = Bus.MOD, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = BossToolsMod.ModId, bus = Bus.MOD, value = Dist.CLIENT)
 public class ClientEventBusVenus {
 	private static final float[] rainSizeX = new float[1024];
 	private static final float[] rainSizeZ = new float[1024];
@@ -64,11 +65,11 @@ public class ClientEventBusVenus {
 	private static boolean cloudsNeedUpdate = true;
 	private static VertexBuffer cloudsVBO;
 	private static CloudOption cloudOption;
-	private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation("boss_tools", "venus");
-	private static final ResourceLocation CLOUD_TEXTURE = new ResourceLocation("boss_tools", "textures/sky/clouds.png");
-	private static final ResourceLocation RAIN_TEXTURE = new ResourceLocation("boss_tools", "textures/sky/rain.png");
-	private static final ResourceLocation SUN_TEXTURE = new ResourceLocation("boss_tools", "textures/sky/sun.png");
-	private static final ResourceLocation EARTH_TEXTURE = new ResourceLocation("boss_tools", "textures/sky/earth.png");
+	private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation(BossToolsMod.ModId, "venus");
+	private static final ResourceLocation CLOUD_TEXTURE = new ResourceLocation(BossToolsMod.ModId, "textures/sky/clouds.png");
+	private static final ResourceLocation RAIN_TEXTURE = new ResourceLocation(BossToolsMod.ModId, "textures/sky/rain.png");
+	private static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BossToolsMod.ModId, "textures/sky/sun.png");
+	private static final ResourceLocation EARTH_TEXTURE = new ResourceLocation(BossToolsMod.ModId, "textures/sky/earth.png");
 
 	public static int getCombinedLight(IBlockDisplayReader lightReaderIn, BlockPos blockPosIn) {
 		return getPackedLightmapCoords(lightReaderIn, lightReaderIn.getBlockState(blockPosIn), blockPosIn);

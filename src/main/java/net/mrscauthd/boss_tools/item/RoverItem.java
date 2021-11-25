@@ -20,6 +20,7 @@ import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.RoverEntity;
 
@@ -28,7 +29,7 @@ import java.util.stream.Stream;
 
 public class RoverItem extends Item {
 
-    public static String fuelTag = "boss_tools:fuel";
+    public static String fuelTag = BossToolsMod.ModId + ":fuel";
 
     public RoverItem(Properties properties) {
         super(properties);

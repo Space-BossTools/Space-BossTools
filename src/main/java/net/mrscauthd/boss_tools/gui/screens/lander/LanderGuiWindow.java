@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.gui.screens.lander;
 
+import net.mrscauthd.boss_tools.BossToolsMod;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -16,7 +17,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 @OnlyIn(Dist.CLIENT)
 public class LanderGuiWindow extends ContainerScreen<LanderGui.GuiContainer> {
 
-	private static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/screens/lander_gui.png");
+	private static final ResourceLocation texture = new ResourceLocation(BossToolsMod.ModId,"textures/screens/lander_gui.png");
 
 	public LanderGuiWindow(LanderGui.GuiContainer container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);

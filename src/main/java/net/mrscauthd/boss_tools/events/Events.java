@@ -25,10 +25,11 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.*;
 
-@Mod.EventBusSubscriber(modid = "boss_tools")
+@Mod.EventBusSubscriber(modid = BossToolsMod.ModId)
 public class Events {
 
     @SubscribeEvent
@@ -72,10 +73,10 @@ public class Events {
         Gravity.Gravity(entity, Gravity.GravityType.LIVING, world);
 
         //Venus Rain
-        Methodes.VenusRain(entity, new ResourceLocation("boss_tools:venus"));
+        Methodes.VenusRain(entity, new ResourceLocation(BossToolsMod.ModId, "venus"));
 
         //Venus Fire
-        Methodes.VenusFire(entity, new ResourceLocation("boss_tools:venus"), new ResourceLocation("boss_tools:mercury"));
+        Methodes.VenusFire(entity, new ResourceLocation(BossToolsMod.ModId, "venus"), new ResourceLocation(BossToolsMod.ModId, "mercury"));
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -153,18 +154,18 @@ public class Events {
         if (event.phase == TickEvent.Phase.END) {
             World world = event.world;
             RegistryKey<World> world2 = world.getDimensionKey();
-            if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon"))
-             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon_orbit"))
-             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars"))
-             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars_orbit"))
-             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury"))
-             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury_orbit"))
-             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus_orbit"))
-             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:overworld_orbit"))) {
+            if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(BossToolsMod.ModId,"moon"))
+             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(BossToolsMod.ModId,"moon_orbit"))
+             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(BossToolsMod.ModId,"mars"))
+             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(BossToolsMod.ModId,"mars_orbit"))
+             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(BossToolsMod.ModId,"mercury"))
+             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(BossToolsMod.ModId,"mercury_orbit"))
+             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(BossToolsMod.ModId,"venus_orbit"))
+             || world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(BossToolsMod.ModId,"overworld_orbit"))) {
                 world.thunderingStrength = 0;
                 world.rainingStrength = 0;
             }
-            if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus"))) {
+            if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(BossToolsMod.ModId,"venus"))) {
                 world.thunderingStrength = 0;
             }
         }

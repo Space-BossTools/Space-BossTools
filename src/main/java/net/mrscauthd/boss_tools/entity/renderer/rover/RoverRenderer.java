@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.entity.RoverEntity;
 
 @OnlyIn(Dist.CLIENT)
@@ -15,6 +16,6 @@ public class RoverRenderer extends MobRenderer<RoverEntity, RoverModel<RoverEnti
 
     @Override
     public ResourceLocation getEntityTexture(RoverEntity entity) {
-        return new ResourceLocation("boss_tools:textures/vehicles/rover.png");
+        return new ResourceLocation(BossToolsMod.ModId, "textures/vehicles/rover.png");
     }
 }

@@ -3,6 +3,7 @@ package net.mrscauthd.boss_tools.gui.screens.rocket;
 import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
@@ -27,7 +28,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 @OnlyIn(Dist.CLIENT)
 public class RocketGuiWindow extends ContainerScreen<RocketGui.GuiContainer> {
 
-	private static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/screens/rocket_gui.png");
+	private static final ResourceLocation texture = new ResourceLocation(BossToolsMod.ModId, "textures/screens/rocket_gui.png");
 
 	public RocketGuiWindow(RocketGui.GuiContainer container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);

@@ -94,7 +94,7 @@ public class FluidUtil2 {
 	 * test drain any fluid from itemstack
 	 * 
 	 * @param itemStack
-	 * @param fluid
+	 * fluid
 	 * @return
 	 */
 	public static boolean canDrain(ItemStack itemStack) {

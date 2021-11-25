@@ -6,6 +6,7 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.mrscauthd.boss_tools.BossToolsMod;
 
 @OnlyIn(Dist.CLIENT)
 public class StarCrawlerRenderer extends MobRenderer<MobEntity, StarCrawlerModel<MobEntity>> {
@@ -15,6 +16,6 @@ public class StarCrawlerRenderer extends MobRenderer<MobEntity, StarCrawlerModel
 
     @Override
     public ResourceLocation getEntityTexture(MobEntity entity) {
-        return new ResourceLocation("boss_tools:textures/entities/starfish.png");
+        return new ResourceLocation(BossToolsMod.ModId, "textures/entities/starfish.png");
     }
 }

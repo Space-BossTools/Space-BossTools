@@ -12,6 +12,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
 import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
 import net.mrscauthd.boss_tools.machines.SolarPanelBlock.CustomTileEntity;
@@ -19,7 +20,7 @@ import net.mrscauthd.boss_tools.machines.SolarPanelBlock.CustomTileEntity;
 @OnlyIn(Dist.CLIENT)
 public class SolarPanelGuiWindow extends ContainerScreen<SolarPanelGui.GuiContainer> {
 
-	public static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/screens/solar_panel_gui.png");
+	public static final ResourceLocation texture = new ResourceLocation(BossToolsMod.ModId, "textures/screens/solar_panel_gui.png");
 
 	private CustomTileEntity tileEntity;
 

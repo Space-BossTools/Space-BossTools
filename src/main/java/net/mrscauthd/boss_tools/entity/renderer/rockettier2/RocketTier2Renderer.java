@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 
 @OnlyIn(Dist.CLIENT)
@@ -15,6 +16,6 @@ public class RocketTier2Renderer extends MobRenderer<RocketTier2Entity, RocketTi
 
     @Override
     public ResourceLocation getEntityTexture(RocketTier2Entity entity) {
-        return new ResourceLocation("boss_tools:textures/vehicles/rocket_t2.png");
+        return new ResourceLocation(BossToolsMod.ModId, "textures/vehicles/rocket_t2.png");
     }
 }

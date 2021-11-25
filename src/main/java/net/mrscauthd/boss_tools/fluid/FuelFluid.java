@@ -24,6 +24,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidAttributes;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 
 import javax.annotation.Nullable;
@@ -110,10 +111,10 @@ public class FuelFluid extends FlowingFluid {
 	@Override
 	protected FluidAttributes createAttributes() {
 		return net.minecraftforge.fluids.FluidAttributes.builder(
-			new ResourceLocation("boss_tools","blocks/fluid_fuel_still"),
-			new ResourceLocation("boss_tools","blocks/fluid_fuel_flow"))
-				.overlay(new ResourceLocation("boss_tools","blocks/fluid_fuel_still"))
-				.translationKey("block."+ "boss_tools" +".fuel")
+			new ResourceLocation(BossToolsMod.ModId,"blocks/fluid_fuel_still"),
+			new ResourceLocation(BossToolsMod.ModId,"blocks/fluid_fuel_flow"))
+				.overlay(new ResourceLocation(BossToolsMod.ModId,"blocks/fluid_fuel_still"))
+				.translationKey("block." + BossToolsMod.ModId + ".fuel")
 				.sound(SoundEvents.ITEM_BUCKET_FILL, SoundEvents.ITEM_BUCKET_EMPTY)
 				.build(this);
 	}

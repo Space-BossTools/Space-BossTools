@@ -15,6 +15,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 
 import net.minecraftforge.items.wrapper.EntityHandsInvWrapper;
@@ -130,8 +131,8 @@ public class RocketTier3Entity extends CreatureEntity {
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target) {
 		ItemStack itemStack = new ItemStack(ModInnet.TIER_3_ROCKET_ITEM.get(), 1);
-		itemStack.getOrCreateTag().putInt("boss_tools:fuel", this.getDataManager().get(FUEL));
-		itemStack.getOrCreateTag().putInt("boss_tools:buckets", this.getDataManager().get(BUCKETS));
+		itemStack.getOrCreateTag().putInt(BossToolsMod.ModId + ":fuel", this.getDataManager().get(FUEL));
+		itemStack.getOrCreateTag().putInt(BossToolsMod.ModId + ":buckets", this.getDataManager().get(BUCKETS));
 
 		return itemStack;
 	}
@@ -212,8 +213,8 @@ public class RocketTier3Entity extends CreatureEntity {
 	protected void spawnRocketItem() {
 		if (!world.isRemote()) {
 			ItemStack itemStack = new ItemStack(ModInnet.TIER_3_ROCKET_ITEM.get(), 1);
-			itemStack.getOrCreateTag().putInt("boss_tools:fuel", this.getDataManager().get(FUEL));
-			itemStack.getOrCreateTag().putInt("boss_tools:buckets", this.getDataManager().get(BUCKETS));
+			itemStack.getOrCreateTag().putInt(BossToolsMod.ModId + ":fuel", this.getDataManager().get(FUEL));
+			itemStack.getOrCreateTag().putInt(BossToolsMod.ModId + ":buckets", this.getDataManager().get(BUCKETS));
 
 			ItemEntity entityToSpawn = new ItemEntity(world, this.getPosX(), this.getPosY(), this.getPosZ(), itemStack);
 			entityToSpawn.setPickupDelay(10);

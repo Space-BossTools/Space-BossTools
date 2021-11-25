@@ -36,6 +36,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.*;
 import net.mrscauthd.boss_tools.events.forgeevents.LivingSetFireInHotPlanetEvent;
@@ -134,26 +135,26 @@ public class Methodes {
     }
 
     public static boolean isSpaceWorld(World world) {
-        if (Methodes.isWorld(world, new ResourceLocation("boss_tools:moon"))
-                || Methodes.isWorld(world, new ResourceLocation("boss_tools:moon_orbit"))
-                || Methodes.isWorld(world, new ResourceLocation("boss_tools:mars"))
-                || Methodes.isWorld(world, new ResourceLocation("boss_tools:mars_orbit"))
-                || Methodes.isWorld(world, new ResourceLocation("boss_tools:mercury"))
-                || Methodes.isWorld(world, new ResourceLocation("boss_tools:mercury_orbit"))
-                || Methodes.isWorld(world, new ResourceLocation("boss_tools:venus"))
-                || Methodes.isWorld(world, new ResourceLocation("boss_tools:venus_orbit"))
-                || Methodes.isWorld(world, new ResourceLocation("boss_tools:overworld_orbit"))) {
+        if (Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId,"moon"))
+                || Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId,"moon_orbit"))
+                || Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId,"mars"))
+                || Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId,"mars_orbit"))
+                || Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId,"mercury"))
+                || Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId,"mercury_orbit"))
+                || Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId,"venus"))
+                || Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId,"venus_orbit"))
+                || Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId,"overworld_orbit"))) {
             return true;
         }
         return false;
     }
 
     public static boolean isOrbitWorld(World world) {
-        if (Methodes.isWorld(world, new ResourceLocation("boss_tools:overworld_orbit"))
-                || Methodes.isWorld(world, new ResourceLocation("boss_tools:moon_orbit"))
-                || Methodes.isWorld(world, new ResourceLocation("boss_tools:mars_orbit"))
-                || Methodes.isWorld(world, new ResourceLocation("boss_tools:mercury_orbit"))
-                || Methodes.isWorld(world, new ResourceLocation("boss_tools:venus_orbit"))) {
+        if (Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId,"overworld_orbit"))
+                || Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId,"moon_orbit"))
+                || Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId,"mars_orbit"))
+                || Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId,"mercury_orbit"))
+                || Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId,"venus_orbit"))) {
             return true;
         }
         return false;
@@ -186,7 +187,7 @@ public class Methodes {
     }
 
     public static void RocketSounds(Entity entity, World world) {
-        world.playMovingSound(null, entity, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("boss_tools:rocket_fly")), SoundCategory.NEUTRAL,1,1);
+        world.playMovingSound(null, entity, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(BossToolsMod.ModId,"rocket_fly")), SoundCategory.NEUTRAL,1,1);
     }
 
     public static void DropRocket(PlayerEntity player) {
@@ -222,7 +223,7 @@ public class Methodes {
         if (key == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, planet1) || key == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, planet2)) {
             if (!Methodes.nethriteSpaceSuitCheck(entity)) {
                 if (!MinecraftForge.EVENT_BUS.post(new LivingSetFireInHotPlanetEvent(entity))) {
-                    if (!tagCheck(entity, "boss_tools:entities/venus_fire")) {
+                    if (!tagCheck(entity, BossToolsMod.ModId + ":entities/venus_fire")) {
 
                         entity.setFire(10);
                     }
@@ -236,7 +237,7 @@ public class Methodes {
         if (entity.world.getDimensionKey() == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, planet)) {
             if (entity.world.getWorldInfo().isRaining() && entity.world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(entity.getPosX()), (int) Math.floor(entity.getPosZ())) <= Math.floor(entity.getPosY()) + 1) {
                 if (!MinecraftForge.EVENT_BUS.post(new LivingSetVenusRainEvent(entity))) {
-                    if (!tagCheck(entity,"boss_tools:entities/venus_rain")) {
+                    if (!tagCheck(entity,BossToolsMod.ModId + ":entities/venus_rain")) {
 
                         entity.attackEntityFrom(ModInnet.DAMAGE_SOURCE_ACID_RAIN, 1);
                     }
@@ -252,15 +253,15 @@ public class Methodes {
 
             if (!entity.isPotionActive(ModInnet.OXYGEN_EFFECT.get())) {
 
-                entity.getPersistentData().putDouble("boss_tools:oxygen_tick", entity.getPersistentData().getDouble("boss_tools:oxygen_tick") + 1);
+                entity.getPersistentData().putDouble(BossToolsMod.ModId + ":oxygen_tick", entity.getPersistentData().getDouble(BossToolsMod.ModId + ":oxygen_tick") + 1);
 
-                if (entity.getPersistentData().getDouble("boss_tools:oxygen_tick") > 15) {
+                if (entity.getPersistentData().getDouble(BossToolsMod.ModId + ":oxygen_tick") > 15) {
 
                     if(!world.isRemote) {
                         Methodes.OxygenDamage(entity);
                     }
 
-                    entity.getPersistentData().putDouble("boss_tools:oxygen_tick", 0);
+                    entity.getPersistentData().putDouble(BossToolsMod.ModId + ":oxygen_tick", 0);
                 }
             }
         }
@@ -341,7 +342,7 @@ public class Methodes {
             landerSpawn.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(landerSpawn.getPosition()), SpawnReason.MOB_SUMMONED, null, null);
             world.addEntity(landerSpawn);
 
-            String itemId = player.getPersistentData().getString("boss_tools:slot0");
+            String itemId = player.getPersistentData().getString(BossToolsMod.ModId + ":slot0");
 
             landerSpawn.getInventory().setStackInSlot(0, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemId)), 1));
             landerSpawn.getInventory().setStackInSlot(1, rocketItem);
@@ -353,13 +354,13 @@ public class Methodes {
     }
 
     public static void cleanUpPlayerNBT(PlayerEntity player) {
-        player.getPersistentData().putBoolean("boss_tools:planet_selection_gui_open", false);
-        player.getPersistentData().putString("boss_tools:rocket_type", "");
-        player.getPersistentData().putString("boss_tools:slot0", "");
+        player.getPersistentData().putBoolean(BossToolsMod.ModId + ":planet_selection_gui_open", false);
+        player.getPersistentData().putString(BossToolsMod.ModId + ":rocket_type", "");
+        player.getPersistentData().putString(BossToolsMod.ModId + ":slot0", "");
     }
 
     public static void openPlanetGui(PlayerEntity player) {
-        if (!(player.openContainer instanceof PlanetSelectionGui.GuiContainer) && player.getPersistentData().getBoolean("boss_tools:planet_selection_gui_open")) {
+        if (!(player.openContainer instanceof PlanetSelectionGui.GuiContainer) && player.getPersistentData().getBoolean(BossToolsMod.ModId + ":planet_selection_gui_open")) {
             if (player instanceof ServerPlayerEntity) {
 
                 NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
@@ -371,11 +372,11 @@ public class Methodes {
                     @Override
                     public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
                         PacketBuffer packetBuffer = new PacketBuffer(Unpooled.buffer());
-                        packetBuffer.writeString(player.getPersistentData().getString("boss_tools:rocket_type"));
+                        packetBuffer.writeString(player.getPersistentData().getString(BossToolsMod.ModId + ":rocket_type"));
                         return new PlanetSelectionGui.GuiContainer(id, inventory, packetBuffer);
                     }
                 }, buf -> {
-                    buf.writeString(player.getPersistentData().getString("boss_tools:rocket_type"));
+                    buf.writeString(player.getPersistentData().getString(BossToolsMod.ModId + ":rocket_type"));
                 });
             }
         }
@@ -384,13 +385,13 @@ public class Methodes {
     public static void teleportButton (PlayerEntity player, ResourceLocation planet) {
         ItemStack itemStack = new ItemStack(Items.AIR, 1);
 
-        if (player.getPersistentData().getString("boss_tools:rocket_type").equals("entity.boss_tools.rocket_t1")) {
+        if (player.getPersistentData().getString(BossToolsMod.ModId + ":rocket_type").equals("entity." + BossToolsMod.ModId + ".rocket_t1")) {
             itemStack = new ItemStack(ModInnet.TIER_1_ROCKET_ITEM.get(),1);
         }
-        if (player.getPersistentData().getString("boss_tools:rocket_type").equals("entity.boss_tools.rocket_t2")) {
+        if (player.getPersistentData().getString(BossToolsMod.ModId + ":rocket_type").equals("entity." + BossToolsMod.ModId + ".rocket_t2")) {
             itemStack = new ItemStack(ModInnet.TIER_2_ROCKET_ITEM.get(),1);
         }
-        if (player.getPersistentData().getString("boss_tools:rocket_type").equals("entity.boss_tools.rocket_t3")) {
+        if (player.getPersistentData().getString(BossToolsMod.ModId + ":rocket_type").equals("entity." + BossToolsMod.ModId + ".rocket_t3")) {
             itemStack = new ItemStack(ModInnet.TIER_3_ROCKET_ITEM.get(),1);
         }
 
@@ -398,48 +399,48 @@ public class Methodes {
     }
 
     public static void landerTeleportOrbit(PlayerEntity player, World world) {
-        if (Methodes.isWorld(world, new ResourceLocation("boss_tools:overworld_orbit"))) {
+        if (Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId, "overworld_orbit"))) {
             Methodes.landerTeleport(player, new ResourceLocation("minecraft:overworld"));
         }
-        if (Methodes.isWorld(world, new ResourceLocation("boss_tools:moon_orbit"))) {
-            Methodes.landerTeleport(player, new ResourceLocation("boss_tools:moon"));
+        if (Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId, "moon_orbit"))) {
+            Methodes.landerTeleport(player, new ResourceLocation(BossToolsMod.ModId, "moon"));
         }
-        if (Methodes.isWorld(world, new ResourceLocation("boss_tools:mars_orbit"))) {
-            Methodes.landerTeleport(player, new ResourceLocation("boss_tools:mars"));
+        if (Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId, "mars_orbit"))) {
+            Methodes.landerTeleport(player, new ResourceLocation(BossToolsMod.ModId, "mars"));
         }
-        if (Methodes.isWorld(world, new ResourceLocation("boss_tools:mercury_orbit"))) {
-            Methodes.landerTeleport(player, new ResourceLocation("boss_tools:mercury"));
+        if (Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId, "mercury_orbit"))) {
+            Methodes.landerTeleport(player, new ResourceLocation(BossToolsMod.ModId, "mercury"));
         }
-        if (Methodes.isWorld(world, new ResourceLocation("boss_tools:venus_orbit"))) {
-            Methodes.landerTeleport(player, new ResourceLocation("boss_tools:venus"));
+        if (Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId, "venus_orbit"))) {
+            Methodes.landerTeleport(player, new ResourceLocation(BossToolsMod.ModId, "venus"));
         }
     }
 
     public static void playerFalltoPlanet(World world, PlayerEntity player) {
         RegistryKey<World> world2 = world.getDimensionKey();
 
-        if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:overworld_orbit"))) {
+        if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(BossToolsMod.ModId, "overworld_orbit"))) {
             ResourceLocation planet = new ResourceLocation("overworld");
             Methodes.worldTeleport(player, planet, 450);
         }
 
-        if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:moon_orbit"))) {
-            ResourceLocation planet = new ResourceLocation("boss_tools:moon");
+        if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(BossToolsMod.ModId, "moon_orbit"))) {
+            ResourceLocation planet = new ResourceLocation(BossToolsMod.ModId, "moon");
             Methodes.worldTeleport(player, planet, 450);
         }
 
-        if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mars_orbit"))) {
-            ResourceLocation planet = new ResourceLocation("boss_tools:mars");
+        if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(BossToolsMod.ModId, "mars_orbit"))) {
+            ResourceLocation planet = new ResourceLocation(BossToolsMod.ModId, "mars");
             Methodes.worldTeleport(player, planet, 450);
         }
 
-        if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:mercury_orbit"))) {
-            ResourceLocation planet = new ResourceLocation("boss_tools:mercury");
+        if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(BossToolsMod.ModId, "mercury_orbit"))) {
+            ResourceLocation planet = new ResourceLocation(BossToolsMod.ModId, "mercury");
             Methodes.worldTeleport(player, planet, 450);
         }
 
-        if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation("boss_tools:venus_orbit"))) {
-            ResourceLocation planet = new ResourceLocation("boss_tools:venus");
+        if (world2 == RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(BossToolsMod.ModId, "venus_orbit"))) {
+            ResourceLocation planet = new ResourceLocation(BossToolsMod.ModId, "venus");
             Methodes.worldTeleport(player, planet, 450);
         }
     }

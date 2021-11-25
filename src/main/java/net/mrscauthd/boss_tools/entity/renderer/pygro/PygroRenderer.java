@@ -8,6 +8,7 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.entity.pygro.PygroEntity;
 
 @OnlyIn(Dist.CLIENT)
@@ -30,7 +31,7 @@ public class PygroRenderer extends BipedRenderer<MobEntity, PygroModel<MobEntity
      * Returns the location of an entity's texture.
      */
     public ResourceLocation getEntityTexture(MobEntity entity) {
-        return new ResourceLocation("boss_tools:textures/entities/pygro.png");
+        return new ResourceLocation(BossToolsMod.ModId, "textures/entities/pygro.png");
     }
 
     protected boolean func_230495_a_(MobEntity p_230495_1_) {

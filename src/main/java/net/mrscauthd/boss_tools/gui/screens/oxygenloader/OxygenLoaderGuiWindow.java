@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.gui.screens.oxygenloader;
 
+import net.mrscauthd.boss_tools.BossToolsMod;
 import org.lwjgl.opengl.GL11;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -20,7 +21,7 @@ import net.mrscauthd.boss_tools.machines.OxygenLoaderBlock.CustomTileEntity;
 @OnlyIn(Dist.CLIENT)
 public class OxygenLoaderGuiWindow extends ContainerScreen<OxygenLoaderGui.GuiContainer> {
 
-	public static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/screens/oxygen_loader_gui.png");
+	public static final ResourceLocation texture = new ResourceLocation(BossToolsMod.ModId,"textures/screens/oxygen_loader_gui.png");
 
 	public static final int INPUT_TANK_LEFT = 9;
 	public static final int INPUT_TANK_TOP = 21;

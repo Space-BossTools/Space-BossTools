@@ -2,6 +2,7 @@ package net.mrscauthd.boss_tools.crafting;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
+import net.mrscauthd.boss_tools.BossToolsMod;
 
 public class BossToolsRecipeTypes {
 	public static final ItemStackToItemStackRecipeType<BlastingRecipe> BLASTING = create(new ItemStackToItemStackRecipeType<>("blasting"));
@@ -20,7 +21,7 @@ public class BossToolsRecipeTypes {
 	}
 
 	private static <T extends BossToolsRecipeType<?>> T create(T value) {
-		Registry.register(Registry.RECIPE_TYPE, new ResourceLocation("boss_tools", value.getName()), value);
+		Registry.register(Registry.RECIPE_TYPE, new ResourceLocation(BossToolsMod.ModId, value.getName()), value);
 		return value;
 	}
 

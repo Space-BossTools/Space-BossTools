@@ -2,6 +2,7 @@ package net.mrscauthd.boss_tools.gui.screens.rover;
 
 import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraftforge.fluids.FluidStack;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.RoverEntity;
 import net.mrscauthd.boss_tools.gui.helper.GuiHelper;
@@ -24,7 +25,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 @OnlyIn(Dist.CLIENT)
 public class RoverGuiWindow extends ContainerScreen<RoverGui.GuiContainer> {
 
-	private static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/screens/rover_gui.png");
+	private static final ResourceLocation texture = new ResourceLocation(BossToolsMod.ModId, "textures/screens/rover_gui.png");
 
 	public RoverGuiWindow(RoverGui.GuiContainer container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);

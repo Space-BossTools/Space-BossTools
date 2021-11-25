@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.armor;
 
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.armormaterial.SpaceSuitArmorMaterial;
 import net.mrscauthd.boss_tools.entity.renderer.spacesuit.SpaceSuitModel;
@@ -48,7 +49,7 @@ public class SpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-			return "boss_tools:textures/models/armor/space_suit_head.png";
+			return BossToolsMod.ModId + ":textures/models/armor/space_suit_head.png";
 		}
 	};
 
@@ -80,7 +81,7 @@ public class SpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-			return "boss_tools:textures/models/armor/space_suit.png";
+			return BossToolsMod.ModId + ":textures/models/armor/space_suit.png";
 		}
 
 		@Override
@@ -115,7 +116,7 @@ public class SpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-			return "boss_tools:textures/models/armor/space_suit_legs.png";
+			return BossToolsMod.ModId + ":textures/models/armor/space_suit_legs.png";
 		}
 	};
 
@@ -134,7 +135,7 @@ public class SpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-			return "boss_tools:textures/models/armor/space_suit.png";
+			return BossToolsMod.ModId + ":textures/models/armor/space_suit.png";
 		}
 	};
 }

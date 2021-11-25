@@ -43,6 +43,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.items.wrapper.EntityArmorInvWrapper;
 import net.minecraftforge.items.wrapper.EntityHandsInvWrapper;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.events.Methodes;
 import net.mrscauthd.boss_tools.fluid.FluidUtil2;
@@ -196,7 +197,7 @@ public class RoverEntity extends CreatureEntity {
     @Override
     public ItemStack getPickedResult(RayTraceResult target) {
         ItemStack itemStack = new ItemStack(ModInnet.ROVER_ITEM.get(), 1);
-        itemStack.getOrCreateTag().putInt("boss_tools:fuel", this.getDataManager().get(FUEL));
+        itemStack.getOrCreateTag().putInt(BossToolsMod.ModId + ":fuel", this.getDataManager().get(FUEL));
 
         return itemStack;
     }
@@ -232,7 +233,7 @@ public class RoverEntity extends CreatureEntity {
     protected void spawnRoverItem() {
         if (!world.isRemote()) {
             ItemStack itemStack = new ItemStack(ModInnet.ROVER_ITEM.get(), 1);
-            itemStack.getOrCreateTag().putInt("boss_tools:fuel", this.getDataManager().get(FUEL));
+            itemStack.getOrCreateTag().putInt(BossToolsMod.ModId + ":fuel", this.getDataManager().get(FUEL));
 
             ItemEntity entityToSpawn = new ItemEntity(world, this.getPosX(), this.getPosY(), this.getPosZ(), itemStack);
             entityToSpawn.setPickupDelay(10);

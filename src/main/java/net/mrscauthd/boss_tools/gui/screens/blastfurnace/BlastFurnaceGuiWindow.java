@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.gui.screens.blastfurnace;
 
+import net.mrscauthd.boss_tools.BossToolsMod;
 import org.lwjgl.opengl.GL11;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -20,7 +21,7 @@ import net.mrscauthd.boss_tools.machines.BlastingFurnaceBlock.CustomTileEntity;
 @OnlyIn(Dist.CLIENT)
 public class BlastFurnaceGuiWindow extends ContainerScreen<BlastFurnaceGui.GuiContainer> {
 
-	public static final ResourceLocation TEXTURE = new ResourceLocation("boss_tools:textures/screens/blast_furnace_gui.png");
+	public static final ResourceLocation TEXTURE = new ResourceLocation(BossToolsMod.ModId,"textures/screens/blast_furnace_gui.png");
 	public static final int FIRE_LEFT = 53;
 	public static final int FIRE_TOP = 39;
 	public static final int ARROW_LEFT = 74;

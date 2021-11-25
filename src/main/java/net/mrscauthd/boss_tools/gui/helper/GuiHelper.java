@@ -1,6 +1,7 @@
 package net.mrscauthd.boss_tools.gui.helper;
 
 import net.minecraft.client.renderer.WorldVertexBufferUploader;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import org.lwjgl.opengl.GL11;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -26,22 +27,22 @@ import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 
 public class GuiHelper {
 
-	public static final ResourceLocation FIRE_PATH = new ResourceLocation("boss_tools:textures/fire_on.png");
+	public static final ResourceLocation FIRE_PATH = new ResourceLocation(BossToolsMod.ModId,"textures/fire_on.png");
 	public static final int FIRE_WIDTH = 14;
 	public static final int FIRE_HEIGHT = 14;
-	public static final ResourceLocation ARROW_PATH = new ResourceLocation("boss_tools:textures/animated_arrow_full.png");
+	public static final ResourceLocation ARROW_PATH = new ResourceLocation(BossToolsMod.ModId,"textures/animated_arrow_full.png");
 	public static final int ARROW_WIDTH = 24;
 	public static final int ARROW_HEIGHT = 17;
-	public static final ResourceLocation OXYGEN_CONTENT_PATH = new ResourceLocation("boss_tools:textures/oxygen.png");
-	public static final ResourceLocation OXYGEN_TANK_PATH = new ResourceLocation("boss_tools:textures/fluid_tank_fore.png");
+	public static final ResourceLocation OXYGEN_CONTENT_PATH = new ResourceLocation(BossToolsMod.ModId,"textures/oxygen.png");
+	public static final ResourceLocation OXYGEN_TANK_PATH = new ResourceLocation(BossToolsMod.ModId,"textures/fluid_tank_fore.png");
 	public static final int OXYGEN_TANK_WIDTH = 14;
 	public static final int OXYGEN_TANK_HEIGHT = 48;
-	public static final ResourceLocation ENERGY_PATH = new ResourceLocation("boss_tools:textures/energy_full.png");
+	public static final ResourceLocation ENERGY_PATH = new ResourceLocation(BossToolsMod.ModId,"textures/energy_full.png");
 	public static final int ENERGY_WIDTH = 24;
 	public static final int ENERGY_HEIGHT = 48;
 	public static final int FUEL_WIDTH = 48;
 	public static final int FUEL_HEIGHT = 48;
-	public static final ResourceLocation FLUID_TANK_PATH = new ResourceLocation("boss_tools:textures/fluid_tank_fore.png");
+	public static final ResourceLocation FLUID_TANK_PATH = new ResourceLocation(BossToolsMod.ModId,"textures/fluid_tank_fore.png");
 	public static final int FLUID_TANK_WIDTH = 14;
 	public static final int FLUID_TANK_HEIGHT = 48;
 
@@ -95,7 +96,7 @@ public class GuiHelper {
 	}
 
 	public static void drawFuel(MatrixStack matrixStack, int left, int top, double ratio) {
-		ResourceLocation full = new ResourceLocation("boss_tools:textures/rocket_fuel_bar_full.png");
+		ResourceLocation full = new ResourceLocation(BossToolsMod.ModId,"textures/rocket_fuel_bar_full.png");
 		drawVertical(matrixStack, left, top, FUEL_WIDTH, FUEL_HEIGHT, full, ratio);
 	}
 

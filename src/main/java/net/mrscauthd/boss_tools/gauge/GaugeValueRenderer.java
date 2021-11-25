@@ -3,11 +3,12 @@ package net.mrscauthd.boss_tools.gauge;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.gui.helper.GuiHelper;
 
 public class GaugeValueRenderer extends AbstractGaugeDataRenderer {
 
-	private static final ResourceLocation DEFAULT_TEXTURE = new ResourceLocation("boss_tools", "textures/simplegaugevalue.png");
+	private static final ResourceLocation DEFAULT_TEXTURE = new ResourceLocation(BossToolsMod.ModId, "textures/simplegaugevalue.png");
 
 	public GaugeValueRenderer(IGaugeValue value) {
 		super(value);

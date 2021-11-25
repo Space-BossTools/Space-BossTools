@@ -2,6 +2,7 @@ package net.mrscauthd.boss_tools.machines.tile;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.mrscauthd.boss_tools.BossToolsMod;
 
 public abstract class PowerSystemEnergy extends PowerSystem {
 	private final IEnergyStorage energyStorage;
@@ -41,6 +42,6 @@ public abstract class PowerSystemEnergy extends PowerSystem {
 
 	@Override
 	public ResourceLocation getName() {
-		return new ResourceLocation("boss_tools", "energy");
+		return new ResourceLocation(BossToolsMod.ModId, "energy");
 	}
 }

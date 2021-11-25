@@ -17,6 +17,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 import net.mrscauthd.boss_tools.gui.screens.waterpump.WaterPumpGui;
@@ -31,7 +32,7 @@ public class WaterPumpTileEntity extends AbstractMachineTileEntity {
         super(ModInnet.WATER_PUMP.get());
     }
 
-    public static final ResourceLocation WATER_TANK = new ResourceLocation("boss_tools", "water_tank");
+    public static final ResourceLocation WATER_TANK = new ResourceLocation(BossToolsMod.ModId, "water_tank");
     public static final int TANK_CAPACITY = 6000;
     public double WATER_TIMER = 0;
     private FluidTank waterTank;

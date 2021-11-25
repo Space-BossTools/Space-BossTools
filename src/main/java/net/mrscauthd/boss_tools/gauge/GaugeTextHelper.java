@@ -6,18 +6,19 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.capability.IOxygenStorage;
 
 public class GaugeTextHelper {
 
-	public static final ResourceLocation USING_NAME = new ResourceLocation("boss_tools", "using");
-	public static final ResourceLocation USING2_NAME = new ResourceLocation("boss_tools", "using2");
-	public static final ResourceLocation GENERATING_NAME = new ResourceLocation("boss_tools", "generating");
-	public static final ResourceLocation MAXGENERATION_NAME = new ResourceLocation("boss_tools", "maxgeneration");
-	public static final ResourceLocation TOTAL_NAME = new ResourceLocation("boss_tools", "total");
-	public static final ResourceLocation STORED_NAME = new ResourceLocation("boss_tools", "stored");
-	public static final ResourceLocation CAPACITY_NAME = new ResourceLocation("boss_tools", "capacity");
-	public static final ResourceLocation TRANSFER_NAME = new ResourceLocation("boss_tools", "transfer");
+	public static final ResourceLocation USING_NAME = new ResourceLocation(BossToolsMod.ModId, "using");
+	public static final ResourceLocation USING2_NAME = new ResourceLocation(BossToolsMod.ModId, "using2");
+	public static final ResourceLocation GENERATING_NAME = new ResourceLocation(BossToolsMod.ModId, "generating");
+	public static final ResourceLocation MAXGENERATION_NAME = new ResourceLocation(BossToolsMod.ModId, "maxgeneration");
+	public static final ResourceLocation TOTAL_NAME = new ResourceLocation(BossToolsMod.ModId, "total");
+	public static final ResourceLocation STORED_NAME = new ResourceLocation(BossToolsMod.ModId, "stored");
+	public static final ResourceLocation CAPACITY_NAME = new ResourceLocation(BossToolsMod.ModId, "capacity");
+	public static final ResourceLocation TRANSFER_NAME = new ResourceLocation(BossToolsMod.ModId, "transfer");
 
 	public static final String USING_KEY = makeTranslationKey(USING_NAME);
 	public static final String USING2_KEY = makeTranslationKey(USING2_NAME);

@@ -5,6 +5,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.events.forgeevents.LivingGravityEvent;
 
 public class Gravity {
@@ -15,19 +16,19 @@ public class Gravity {
         double venus = 0.04;
         double orbit = 0.02;
 
-        if (Methodes.isWorld(world, new ResourceLocation("boss_tools:moon"))) {
+        if (Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId,"moon"))) {
             gravityMath(type, entity, moon, -2.5f);
         }
 
-        if (Methodes.isWorld(world, new ResourceLocation("boss_tools:mars"))) {
+        if (Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId,"mars"))) {
             gravityMath(type, entity, mars, -2.0f);
         }
 
-        if (Methodes.isWorld(world, new ResourceLocation("boss_tools:mercury"))) {
+        if (Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId,"mercury"))) {
             gravityMath(type, entity, mercury, -2.5f);
         }
 
-        if (Methodes.isWorld(world, new ResourceLocation("boss_tools:venus"))) {
+        if (Methodes.isWorld(world, new ResourceLocation(BossToolsMod.ModId,"venus"))) {
             gravityMath(type, entity, venus, -2.0f);
         }
 

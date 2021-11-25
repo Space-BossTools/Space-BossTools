@@ -15,8 +15,9 @@ import java.io.BufferedReader;
 import com.google.gson.JsonObject;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
+import net.mrscauthd.boss_tools.BossToolsMod;
 
-@Mod.EventBusSubscriber(modid = "boss_tools",bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = BossToolsMod.ModId,bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Config {
 	public static boolean AlienSpawn = true;
 	public static boolean AlienVillageStructure = true;

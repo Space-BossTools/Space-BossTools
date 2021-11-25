@@ -9,14 +9,15 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
+import net.mrscauthd.boss_tools.BossToolsMod;
 
 public class GaugeValueSerializer<T extends INBTSerializable<CompoundNBT>> {
 
 	public static final GaugeValueSerializer<IGaugeValue> Serializer = new GaugeValueSerializer<>();
 
 	static {
-		Serializer.addCodec(new ResourceLocation("boss_tools", "fluidstack"), GaugeValueFluidStack.class);
-		Serializer.addCodec(new ResourceLocation("boss_tools", "simple"), GaugeValueSimple.class);
+		Serializer.addCodec(new ResourceLocation(BossToolsMod.ModId, "fluidstack"), GaugeValueFluidStack.class);
+		Serializer.addCodec(new ResourceLocation(BossToolsMod.ModId, "simple"), GaugeValueSimple.class);
 	}
 
 	private final Map<ResourceLocation, Class<? extends T>> location_class_map = new LinkedHashMap<>();

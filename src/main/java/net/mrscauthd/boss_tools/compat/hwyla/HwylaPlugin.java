@@ -6,11 +6,12 @@ import mcp.mobius.waila.api.TooltipPosition;
 import mcp.mobius.waila.api.WailaPlugin;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.mrscauthd.boss_tools.BossToolsMod;
 
 @WailaPlugin
 public class HwylaPlugin implements IWailaPlugin {
 
-	public static final ResourceLocation TOOLTIP = new ResourceLocation("boss_tools", "hwlya_tooltip");
+	public static final ResourceLocation TOOLTIP = new ResourceLocation(BossToolsMod.ModId, "hwlya_tooltip");
 
 	@Override
 	public void register(IRegistrar registrar) {

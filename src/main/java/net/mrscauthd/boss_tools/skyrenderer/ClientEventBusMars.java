@@ -28,14 +28,15 @@ import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import net.mrscauthd.boss_tools.BossToolsMod;
 
-@Mod.EventBusSubscriber(modid = "boss_tools", bus = Bus.MOD, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = BossToolsMod.ModId, bus = Bus.MOD, value = Dist.CLIENT)
 public class ClientEventBusMars {
-	private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation("boss_tools", "mars");
-	private static final ResourceLocation SUN_TEXTURE = new ResourceLocation("boss_tools", "textures/sky/sun.png");
-	private static final ResourceLocation PHOBOS_TEXTURE = new ResourceLocation("boss_tools", "textures/sky/phobos.png");
-	private static final ResourceLocation DEIMOS_TEXTURE = new ResourceLocation("boss_tools", "textures/sky/deimos.png");
-	private static final ResourceLocation EARTH_TEXTURE = new ResourceLocation("boss_tools", "textures/sky/earth.png");
+	private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation(BossToolsMod.ModId, "mars");
+	private static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BossToolsMod.ModId, "textures/sky/sun.png");
+	private static final ResourceLocation PHOBOS_TEXTURE = new ResourceLocation(BossToolsMod.ModId, "textures/sky/phobos.png");
+	private static final ResourceLocation DEIMOS_TEXTURE = new ResourceLocation(BossToolsMod.ModId, "textures/sky/deimos.png");
+	private static final ResourceLocation EARTH_TEXTURE = new ResourceLocation(BossToolsMod.ModId, "textures/sky/earth.png");
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void clientSetup(FMLClientSetupEvent event) {
 		DimensionRenderInfo.field_239208_a_.put(DIM_RENDER_INFO, new DimensionRenderInfo(128, false, FogType.NORMAL, false, false) {

@@ -16,6 +16,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.capability.CapabilityOxygen;
 import net.mrscauthd.boss_tools.capability.IOxygenStorage;
 import net.mrscauthd.boss_tools.capability.IOxygenStorageHolder;
@@ -33,8 +34,8 @@ import net.mrscauthd.boss_tools.inventory.StackCacher;
 public abstract class OxygenMakingTileEntity extends AbstractMachineTileEntity {
 	public static final int TANK_CAPACITY = 3000;
 	public static final int TRANSFER_PER_TICK = 256;
-	public static final ResourceLocation TANK_INPUT = new ResourceLocation("boss_tools", "input");
-	public static final ResourceLocation TANK_OUTPUT = new ResourceLocation("boss_tools", "output");
+	public static final ResourceLocation TANK_INPUT = new ResourceLocation(BossToolsMod.ModId, "input");
+	public static final ResourceLocation TANK_OUTPUT = new ResourceLocation(BossToolsMod.ModId, "output");
 	public static final int SLOT_INPUT_SOURCE = 0;
 	public static final int SLOT_INPUT_SINK = 1;
 

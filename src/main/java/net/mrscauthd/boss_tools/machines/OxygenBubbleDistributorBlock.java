@@ -52,6 +52,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import net.minecraftforge.fml.network.NetworkHooks;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.capability.IOxygenStorage;
 import net.mrscauthd.boss_tools.crafting.BossToolsRecipeType;
@@ -94,7 +95,7 @@ public class OxygenBubbleDistributorBlock {
 			
 			int min = RANGE_MIN * 2 + 1;
 			int max = RANGE_MAX * 2 + 1;
-			list.add(new TranslationTextComponent("tooltip.boss_tools.oxygen_bubble_distributor", min, max).setStyle(Style.EMPTY.setFormatting(TextFormatting.GRAY)));
+			list.add(new TranslationTextComponent("tooltip." + BossToolsMod.ModId + ".oxygen_bubble_distributor", min, max).setStyle(Style.EMPTY.setFormatting(TextFormatting.GRAY)));
 		}
 
 		@Override

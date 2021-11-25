@@ -11,6 +11,7 @@ import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.entity.*;
 import net.mrscauthd.boss_tools.events.ClientEventBusSubscriber;
 import net.mrscauthd.boss_tools.events.Methodes;
@@ -31,7 +32,7 @@ import net.minecraft.client.Minecraft;
 
 import java.util.function.Supplier;
 
-@Mod.EventBusSubscriber(modid = "boss_tools")
+@Mod.EventBusSubscriber(modid = BossToolsMod.ModId)
 public class KeyBindings {
 	public static SimpleChannel INSTANCE;
 	private static int id = 1;
@@ -41,7 +42,7 @@ public class KeyBindings {
 	}
 
 	public static void registerMessages() {
-		INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation("boss_tools", "key_bindings"), () -> "1.0", s -> true, s -> true);
+		INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation(BossToolsMod.ModId, "key_bindings"), () -> "1.0", s -> true, s -> true);
 		INSTANCE.registerMessage(nextID(), KeyBindingPressedMessage.class, KeyBindingPressedMessage::buffer, KeyBindingPressedMessage::new, KeyBindingPressedMessage::handler);
 	}
 

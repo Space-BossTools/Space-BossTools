@@ -19,6 +19,7 @@ import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.block.RocketLaunchPad;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
@@ -28,8 +29,8 @@ import java.util.stream.Stream;
 
 public class Tier3RocketItem extends Item {
 
-    public static String fuelTag = "boss_tools:fuel";
-    public static String bucketTag = "boss_tools:buckets";
+    public static String fuelTag = BossToolsMod.ModId + ":fuel";
+    public static String bucketTag = BossToolsMod.ModId + ":buckets";
 
     public Tier3RocketItem(Properties properties) {
         super(properties);

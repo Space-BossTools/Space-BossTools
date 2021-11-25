@@ -9,6 +9,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.inventory.StackCacher;
 
 public abstract class PowerSystemFuel extends PowerSystem {
@@ -173,6 +174,6 @@ public abstract class PowerSystemFuel extends PowerSystem {
 
 	@Override
 	public ResourceLocation getName() {
-		return new ResourceLocation("boss_tools", "fuel");
+		return new ResourceLocation(BossToolsMod.ModId, "fuel");
 	}
 }

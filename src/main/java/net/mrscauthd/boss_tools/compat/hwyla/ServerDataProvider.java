@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
 import net.mrscauthd.boss_tools.gauge.GaugeValueSerializer;
 import net.mrscauthd.boss_tools.gauge.IGaugeValue;
@@ -20,7 +21,7 @@ import net.mrscauthd.boss_tools.machines.tile.AbstractMachineTileEntity;
 
 public class ServerDataProvider implements IServerDataProvider<TileEntity> {
 
-	public static final ResourceLocation DATA_KEY = new ResourceLocation("boss_tools", "datakey");
+	public static final ResourceLocation DATA_KEY = new ResourceLocation(BossToolsMod.ModId, "datakey");
 	public static final ServerDataProvider INSTANCE = new ServerDataProvider();
 
 	public static ListNBT write(List<IGaugeValue> list) {

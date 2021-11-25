@@ -9,6 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
 import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
 import net.mrscauthd.boss_tools.gui.helper.GuiHelper;
@@ -18,7 +19,7 @@ import org.lwjgl.opengl.GL11;
 @OnlyIn(Dist.CLIENT)
 public class WaterPumpGuiWindow extends ContainerScreen<WaterPumpGui.GuiContainer> {
 
-	public static final ResourceLocation texture = new ResourceLocation("boss_tools:textures/screens/water_pump_gui.png");
+	public static final ResourceLocation texture = new ResourceLocation(BossToolsMod.ModId, "textures/screens/water_pump_gui.png");
 
 	public static final int WATER_TANK_LEFT = 75;
 	public static final int WATER_TANK_TOP = 21;

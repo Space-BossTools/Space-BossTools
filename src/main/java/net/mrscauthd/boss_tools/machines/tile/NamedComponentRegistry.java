@@ -3,9 +3,10 @@ package net.mrscauthd.boss_tools.machines.tile;
 import java.util.LinkedHashMap;
 
 import net.minecraft.util.ResourceLocation;
+import net.mrscauthd.boss_tools.BossToolsMod;
 
 public class NamedComponentRegistry<T> extends LinkedHashMap<ResourceLocation, T> {
-	public static final ResourceLocation UNNAMED = new ResourceLocation("boss_tools", "unnmaed");
+	public static final ResourceLocation UNNAMED = new ResourceLocation(BossToolsMod.ModId, "unnmaed");
 	private static final long serialVersionUID = 1L;
 
 	public void put(T value) {

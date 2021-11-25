@@ -29,13 +29,15 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-@Mod("boss_tools")
+@Mod(BossToolsMod.ModId)
 public class BossToolsMod {
 
 	public static final Logger LOGGER = LogManager.getLogger(BossToolsMod.class);
 
+	public static final String ModId = "boss_tools";
+
 	private static final String PROTOCOL_VERSION = "1";
-	public static final SimpleChannel PACKET_HANDLER = NetworkRegistry.newSimpleChannel(new ResourceLocation("boss_tools", "boss_tools"), () -> PROTOCOL_VERSION, PROTOCOL_VERSION::equals, PROTOCOL_VERSION::equals);
+	public static final SimpleChannel PACKET_HANDLER = NetworkRegistry.newSimpleChannel(new ResourceLocation(BossToolsMod.ModId, BossToolsMod.ModId), () -> PROTOCOL_VERSION, PROTOCOL_VERSION::equals, PROTOCOL_VERSION::equals);
 	private static int messageID;
 
 	public BossToolsMod() {

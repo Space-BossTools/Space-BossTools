@@ -16,12 +16,13 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.events.Methodes;
 
 import java.util.Random;
 
-@Mod.EventBusSubscriber(modid = "boss_tools", bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = BossToolsMod.ModId, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class OreGeneration {
     //MOON ORES:
     public static IRuleTestType<RuleTests.MoonRuleTest> MOON_MATCH = null;
@@ -57,68 +58,68 @@ public class OreGeneration {
 
     @SubscribeEvent
     public static void registerFeature(RegistryEvent.Register<Feature<?>> event) {
-        MOON_MATCH = Registry.register(Registry.RULE_TEST, new ResourceLocation("boss_tools:moon_ore_match"), () -> RuleTests.MoonRuleTest.codec);
-        MARS_MATCH = Registry.register(Registry.RULE_TEST, new ResourceLocation("boss_tools:mars_ore_match"), () -> RuleTests.MarsRuleTest.codec);
-        MERCURY_MATCH = Registry.register(Registry.RULE_TEST, new ResourceLocation("boss_tools:mercury_ore_match"), () -> RuleTests.MercuryRuleTest.codec);
-        VENUS_MATCH = Registry.register(Registry.RULE_TEST, new ResourceLocation("boss_tools:venus_ore_match"), () -> RuleTests.VenusRuleTest.codec);
+        MOON_MATCH = Registry.register(Registry.RULE_TEST, new ResourceLocation(BossToolsMod.ModId,"moon_ore_match"), () -> RuleTests.MoonRuleTest.codec);
+        MARS_MATCH = Registry.register(Registry.RULE_TEST, new ResourceLocation(BossToolsMod.ModId,"mars_ore_match"), () -> RuleTests.MarsRuleTest.codec);
+        MERCURY_MATCH = Registry.register(Registry.RULE_TEST, new ResourceLocation(BossToolsMod.ModId,"mercury_ore_match"), () -> RuleTests.MercuryRuleTest.codec);
+        VENUS_MATCH = Registry.register(Registry.RULE_TEST, new ResourceLocation(BossToolsMod.ModId,"venus_ore_match"), () -> RuleTests.VenusRuleTest.codec);
 
         //MOON
-        MOON_GEN_FEATURE = featureDimCheck(MOON_GEN_FEATURE, new ResourceLocation("boss_tools:moon"));
+        MOON_GEN_FEATURE = featureDimCheck(MOON_GEN_FEATURE, new ResourceLocation(BossToolsMod.ModId,"moon"));
         event.getRegistry().register(MOON_GEN_FEATURE.setRegistryName("moon_ore"));
 
         moonChesseOre = MOON_GEN_FEATURE.withConfiguration(new OreFeatureConfig(RuleTests.MoonRuleTest.INSTANCE, ModInnet.MOON_CHESSE_ORE.get().getDefaultState(), 10)).range(75).square().func_242731_b(4);
-        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation("boss_tools:moon_cheese_ore"), moonChesseOre);
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(BossToolsMod.ModId,"moon_cheese_ore"), moonChesseOre);
 
         moonGlowstoneOre = MOON_GEN_FEATURE.withConfiguration(new OreFeatureConfig(RuleTests.MoonRuleTest.INSTANCE, ModInnet.MOON_GLOWSTONE_ORE.get().getDefaultState(), 11)).range(50).square().func_242731_b(4);
-        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation("boss_tools:moon_glowstone_ore"), moonGlowstoneOre);
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(BossToolsMod.ModId,"moon_glowstone_ore"), moonGlowstoneOre);
 
         moonIronOre = MOON_GEN_FEATURE.withConfiguration(new OreFeatureConfig(RuleTests.MoonRuleTest.INSTANCE, ModInnet.MOON_IRON_ORE.get().getDefaultState(), 11)).range(64).square().func_242731_b(5);
-        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation("boss_tools:moon_iron_ore"), moonIronOre);
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(BossToolsMod.ModId,"moon_iron_ore"), moonIronOre);
 
         moonDeshOre = MOON_GEN_FEATURE.withConfiguration(new OreFeatureConfig(RuleTests.MoonRuleTest.INSTANCE, ModInnet.MOON_DESH_ORE.get().getDefaultState(), 9)).range(25).square().func_242731_b(3);
-        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation("boss_tools:moon_desh_ore"), moonDeshOre);
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(BossToolsMod.ModId,"moon_desh_ore"), moonDeshOre);
 
 
 
         //MARS
-        MARS_GEN_FEATURE = featureDimCheck(MARS_GEN_FEATURE, new ResourceLocation("boss_tools:mars"));
+        MARS_GEN_FEATURE = featureDimCheck(MARS_GEN_FEATURE, new ResourceLocation(BossToolsMod.ModId,"mars"));
         event.getRegistry().register(MARS_GEN_FEATURE.setRegistryName("mars_ore"));
 
         marsIceShardOre = MARS_GEN_FEATURE.withConfiguration(new OreFeatureConfig(RuleTests.MarsRuleTest.INSTANCE, ModInnet.MARS_ICE_SHARD_ORE.get().getDefaultState(), 11)).range(64).square().func_242731_b(7);
-        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation("boss_tools:mars_ice_shard_ore"), marsIceShardOre);
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(BossToolsMod.ModId,"mars_ice_shard_ore"), marsIceShardOre);
 
         marsIronOre = MARS_GEN_FEATURE.withConfiguration(new OreFeatureConfig(RuleTests.MarsRuleTest.INSTANCE, ModInnet.MARS_IRON_ORE.get().getDefaultState(), 11)).range(64).square().func_242731_b(5);
-        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation("boss_tools:mars_iron_ore"), marsIronOre);
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(BossToolsMod.ModId,"mars_iron_ore"), marsIronOre);
 
         marsDiamondOre = MARS_GEN_FEATURE.withConfiguration(new OreFeatureConfig(RuleTests.MarsRuleTest.INSTANCE, ModInnet.MARS_DIAMOND_ORE.get().getDefaultState(), 7)).range(16).square().func_242731_b(3);
-        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation("boss_tools:mars_diamond_ore"), marsDiamondOre);
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(BossToolsMod.ModId,"mars_diamond_ore"), marsDiamondOre);
 
         marsSiliconOre = MARS_GEN_FEATURE.withConfiguration(new OreFeatureConfig(RuleTests.MarsRuleTest.INSTANCE, ModInnet.MARS_SILICON_ORE.get().getDefaultState(), 8)).range(20).square().func_242731_b(3);
-        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation("boss_tools:mars_silicon_ore"), marsSiliconOre);
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(BossToolsMod.ModId,"mars_silicon_ore"), marsSiliconOre);
 
 
 
         //MERCURY
-        MERCURY_GEN_FEATURE = featureDimCheck(MERCURY_GEN_FEATURE, new ResourceLocation("boss_tools:mercury"));
+        MERCURY_GEN_FEATURE = featureDimCheck(MERCURY_GEN_FEATURE, new ResourceLocation(BossToolsMod.ModId,"mercury"));
         event.getRegistry().register(MERCURY_GEN_FEATURE.setRegistryName("mercury_ore"));
 
         mercuryIronOre = MERCURY_GEN_FEATURE.withConfiguration(new OreFeatureConfig(RuleTests.MercuryRuleTest.INSTANCE, ModInnet.MERCURY_IRON_ORE.get().getDefaultState(), 12)).range(64).square().func_242731_b(5);
-        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation("boss_tools:mercury_iron_ore"), mercuryIronOre);
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(BossToolsMod.ModId,"mercury_iron_ore"), mercuryIronOre);
 
 
 
         //Venus
-        VENUS_GEN_FEATURE = featureDimCheck(VENUS_GEN_FEATURE, new ResourceLocation("boss_tools:venus"));
+        VENUS_GEN_FEATURE = featureDimCheck(VENUS_GEN_FEATURE, new ResourceLocation(BossToolsMod.ModId,"venus"));
         event.getRegistry().register(VENUS_GEN_FEATURE.setRegistryName("venus_ore"));
 
         venusCoalOre = VENUS_GEN_FEATURE.withConfiguration(new OreFeatureConfig(RuleTests.VenusRuleTest.INSTANCE, ModInnet.VENUS_COAL_ORE.get().getDefaultState(), 17)).range(125).square().func_242731_b(20);
-        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation("boss_tools:venus_coal_ore"), venusCoalOre);
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(BossToolsMod.ModId,"venus_coal_ore"), venusCoalOre);
 
         venusGoldOre = VENUS_GEN_FEATURE.withConfiguration(new OreFeatureConfig(RuleTests.VenusRuleTest.INSTANCE, ModInnet.VENUS_GOLD_ORE.get().getDefaultState(), 9)).range(32).square().func_242731_b(2);
-        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation("boss_tools:venus_gold_ore"), venusGoldOre);
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(BossToolsMod.ModId,"venus_gold_ore"), venusGoldOre);
 
         venusDiamondOre = VENUS_GEN_FEATURE.withConfiguration(new OreFeatureConfig(RuleTests.VenusRuleTest.INSTANCE, ModInnet.VENUS_DIAMOND_ORE.get().getDefaultState(), 7)).range(16).square().func_242731_b(3);
-        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation("boss_tools:venus_diamond_ore"), venusDiamondOre);
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(BossToolsMod.ModId,"venus_diamond_ore"), venusDiamondOre);
     }
 
     public static void biomesLoading(BiomeLoadingEvent event) {

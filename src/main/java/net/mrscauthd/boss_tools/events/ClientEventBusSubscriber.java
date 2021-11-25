@@ -17,6 +17,7 @@ import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.client.Minecraft;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.renderer.TileEntityBoxRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.flagtileentity.TileEntityHeadRenderer;
@@ -49,7 +50,7 @@ import net.mrscauthd.boss_tools.entity.renderer.mogler.MoglerRenderer;
 import net.mrscauthd.boss_tools.entity.renderer.pygro.PygroRenderer;
 import org.lwjgl.glfw.GLFW;
 
-@Mod.EventBusSubscriber(modid = "boss_tools", bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = BossToolsMod.ModId, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientEventBusSubscriber {
 	public static KeyBinding key1;
 	@SubscribeEvent
@@ -96,7 +97,7 @@ public class ClientEventBusSubscriber {
 		ScreenManager.registerFactory(ModInnet.PLANET_SELECTION_GUI.get(), PlanetSelectionGuiWindow::new);
 
 		//Key Binding Registrys
-		key1 = new KeyBinding("key.boss_tools.rocket_start", GLFW.GLFW_KEY_SPACE, "key.categories.boss_tools");
+		key1 = new KeyBinding("key." + BossToolsMod.ModId + ".rocket_start", GLFW.GLFW_KEY_SPACE, "key.categories." + BossToolsMod.ModId);
 		ClientRegistry.registerKeyBinding(key1);
 
 		//Fluid Translucent Renderer

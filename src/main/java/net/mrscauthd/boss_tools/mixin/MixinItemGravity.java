@@ -3,6 +3,7 @@ package net.mrscauthd.boss_tools.mixin;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.events.Methodes;
 import net.mrscauthd.boss_tools.events.forgeevents.ItemGravityEvent;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,19 +18,19 @@ public abstract class MixinItemGravity {
         ItemEntity w = (ItemEntity) ((Object) this);
 
         if (GravityCheckItem(w)) {
-            if (Methodes.isWorld(w.world, new ResourceLocation("boss_tools:moon"))) {
+            if (Methodes.isWorld(w.world, new ResourceLocation(BossToolsMod.ModId, "moon"))) {
                 itemGravityMath(w,0.05);
             }
 
-            if (Methodes.isWorld(w.world, new ResourceLocation("boss_tools:mars"))) {
+            if (Methodes.isWorld(w.world, new ResourceLocation(BossToolsMod.ModId, "mars"))) {
                 itemGravityMath(w,0.06);
             }
 
-            if (Methodes.isWorld(w.world, new ResourceLocation("boss_tools:mercury"))) {
+            if (Methodes.isWorld(w.world, new ResourceLocation(BossToolsMod.ModId, "mercury"))) {
                 itemGravityMath(w,0.05);
             }
 
-            if (Methodes.isWorld(w.world, new ResourceLocation("boss_tools:venus"))) {
+            if (Methodes.isWorld(w.world, new ResourceLocation(BossToolsMod.ModId, "venus"))) {
                 itemGravityMath(w,0.06);
             }
 

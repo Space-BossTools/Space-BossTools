@@ -18,6 +18,7 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.feature.template.TemplateManager;
+import net.mrscauthd.boss_tools.BossToolsMod;
 
 import java.util.List;
 
@@ -68,7 +69,7 @@ public class CrimsonStructure extends Structure<NoFeatureConfig> {
             BlockPos blockpos = new BlockPos(x, 0, z);
 
             JigsawManager.func_242837_a(dynamicRegistryManager, new VillageConfig(() -> dynamicRegistryManager.getRegistry(Registry.JIGSAW_POOL_KEY)
-                            .getOrDefault(new ResourceLocation("boss_tools", "crimson_village/crimson_start")),
+                            .getOrDefault(new ResourceLocation(BossToolsMod.ModId, "crimson_village/crimson_start")),
                             25),
                     AbstractVillagePiece::new,
                     chunkGenerator,

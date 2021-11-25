@@ -1,6 +1,7 @@
 package net.mrscauthd.boss_tools.machines.tile;
 
 import net.minecraft.util.ResourceLocation;
+import net.mrscauthd.boss_tools.BossToolsMod;
 
 public class PowerSystemNone extends PowerSystem {
 	public PowerSystemNone(AbstractMachineTileEntity tileEntity) {
@@ -39,6 +40,6 @@ public class PowerSystemNone extends PowerSystem {
 
 	@Override
 	public ResourceLocation getName() {
-		return new ResourceLocation("boss_tools", "none");
+		return new ResourceLocation(BossToolsMod.ModId, "none");
 	}
 }
