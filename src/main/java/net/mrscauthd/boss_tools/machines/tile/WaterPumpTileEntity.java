@@ -14,11 +14,13 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.capability.FluidHandlerWrapper;
 import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 import net.mrscauthd.boss_tools.gui.screens.waterpump.WaterPumpGui;
 import net.mrscauthd.boss_tools.machines.WaterPump;
@@ -43,7 +45,8 @@ public class WaterPumpTileEntity extends AbstractMachineTileEntity {
     }
 
     @Override
-    public void tick() {
+    protected void tickProcessing() {
+    	
         BlockPos pos = new BlockPos(this.pos.getX(),this.pos.getY() - 1, this.pos.getZ());
 
         if (this.world.getFluidState(pos) == Fluids.WATER.getStillFluidState(false)) {
@@ -70,14 +73,16 @@ public class WaterPumpTileEntity extends AbstractMachineTileEntity {
 
                 if (tileEntity != null) {
 
-                    if (getFluidTankAmount(tileEntity) < getFluidTankCapacity(tileEntity)) {
-                        if (this.consumePowerForOperation() != null) {
-
-                            tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).ifPresent(capability -> capability.fill(new FluidStack(Fluids.WATER, 10), IFluidHandler.FluidAction.EXECUTE));
-
-                            this.getWaterTank().drain(new FluidStack(Fluids.WATER, this.getTransferPerTick()), IFluidHandler.FluidAction.EXECUTE);
-                        }
-                    }
+                	IFluidHandler fluidHandler = tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, Direction.DOWN).orElse(null);
+                	
+                	if (fluidHandler != null) {
+                		int transferPerTick = this.getTransferPerTick();
+                		
+                		if (FluidUtil.tryFluidTransfer(fluidHandler, this.waterTank, transferPerTick, false).getAmount() == transferPerTick)
+                		{
+                			FluidUtil.tryFluidTransfer(fluidHandler, this.waterTank, transferPerTick, true);
+                		}
+                	}
                 }
             }
         }
@@ -87,24 +92,21 @@ public class WaterPumpTileEntity extends AbstractMachineTileEntity {
 		return TRANSFER_PER_TICK;
 	}
 
-    public int getFluidTankCapacity(TileEntity tileEntity) {
-        return tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).map(fluid -> fluid.getTankCapacity(1)).orElse(0);
-    }
-
-    public int getFluidTankAmount(TileEntity tileEntity) {
-        return tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).map(fluid -> fluid.getFluidInTank(1).getAmount()).orElse(0);
-    }
-
-    @Override
-    protected void tickProcessing() {
-    }
-
     public boolean hasSpaceInWaterTank(int water) {
         return hasSpaceIn(water, this.getWaterTank().getFluid());
     }
 
     public boolean hasSpaceIn(int water, FluidStack storage) {
         return water < TANK_CAPACITY - 999;
+    }
+
+    @Override
+    public <T> LazyOptional<T> getCapabilityFluidHandler(Capability<T> capability, Direction facing) {
+        if (facing == null || facing == Direction.UP) {
+            return super.getCapabilityFluidHandler(capability, facing).lazyMap(handler -> new FluidHandlerWrapper((IFluidHandler) handler, true, false)).cast();
+        }
+
+        return LazyOptional.empty();
     }
 
     @Override
