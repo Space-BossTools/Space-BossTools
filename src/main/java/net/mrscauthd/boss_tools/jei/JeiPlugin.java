@@ -36,6 +36,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.capability.OxygenUtil;
 import net.mrscauthd.boss_tools.crafting.BlastingRecipe;
@@ -114,7 +115,7 @@ public class JeiPlugin implements IModPlugin {
 	
 	@Override
 	public ResourceLocation getPluginUid() {
-		return new ResourceLocation("boss_tools", "default");
+		return new ResourceLocation(BossToolsMod.ModId, "default");
 	}
 
 	@Override
@@ -328,7 +329,7 @@ public class JeiPlugin implements IModPlugin {
 	}
 
 	public static class OxygenLoaderJeiCategory implements IRecipeCategory<OxygenLoaderRecipe> {
-		public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "oxygen_loader");
+		public static final ResourceLocation Uid = new ResourceLocation(BossToolsMod.ModId, "oxygen_loader");
 		public static final int INPUT_TANK_LEFT = 8;
 		public static final int INPUT_TANK_TOP = 8;
 		public static final int OUTPUT_TANK_LEFT = 74;
@@ -344,8 +345,8 @@ public class JeiPlugin implements IModPlugin {
 
 		public OxygenLoaderJeiCategory(JeiPlugin plugin, IGuiHelper guiHelper) {
 			this.plugin = plugin;
-			this.title = new TranslationTextComponent("container.boss_tools.oxygen_loader").getString();
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/jei/oxygen_loader_jei.png"), 0, 0, 148, 64);
+			this.title = new TranslationTextComponent("container." + BossToolsMod.ModId + ".oxygen_loader").getString();
+			this.background = guiHelper.createDrawable(new ResourceLocation(BossToolsMod.ModId, "textures/jei/oxygen_loader_jei.png"), 0, 0, 148, 64);
 			this.fluidOverlay = guiHelper.drawableBuilder(GuiHelper.FLUID_TANK_PATH, 0, 0, GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).setTextureSize(GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).build();
 			this.cachedEnergies = createUsingEnergies(guiHelper);
 		}
@@ -436,7 +437,7 @@ public class JeiPlugin implements IModPlugin {
 	}
 
 	public static class OxygenBubbleDistributorJeiCategory implements IRecipeCategory<OxygenBubbleDistributorRecipe> {
-		public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "oxygen_bubble_distributor");
+		public static final ResourceLocation Uid = new ResourceLocation(BossToolsMod.ModId, "oxygen_bubble_distributor");
 		public static final int INPUT_TANK_LEFT = 8;
 		public static final int INPUT_TANK_TOP = 8;
 		public static final int OUTPUT_TANK_LEFT = 74;
@@ -452,8 +453,8 @@ public class JeiPlugin implements IModPlugin {
 
 		public OxygenBubbleDistributorJeiCategory(JeiPlugin plugin, IGuiHelper guiHelper) {
 			this.plugin = plugin;
-			this.title = new TranslationTextComponent("container.boss_tools.oxygen_bubble_distributor").getString();
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/jei/oxygen_bubble_distributor_jei.png"), 0, 0, 148, 64);
+			this.title = new TranslationTextComponent("container." + BossToolsMod.ModId + ".oxygen_bubble_distributor").getString();
+			this.background = guiHelper.createDrawable(new ResourceLocation(BossToolsMod.ModId, "textures/jei/oxygen_bubble_distributor_jei.png"), 0, 0, 148, 64);
 			this.fluidOverlay = guiHelper.drawableBuilder(GuiHelper.FLUID_TANK_PATH, 0, 0, GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).setTextureSize(GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).build();
 			this.cachedEnergies = createUsingEnergies(guiHelper);
 		}
@@ -540,7 +541,7 @@ public class JeiPlugin implements IModPlugin {
 
 	// Genrator
 	public static class CoalGeneratorJeiCategory implements IRecipeCategory<GeneratingRecipe> {
-		public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "generatorcategory");// muss klein geschrieben sein
+		public static final ResourceLocation Uid = new ResourceLocation(BossToolsMod.ModId, "generatorcategory");// muss klein geschrieben sein
 		public static final int FIRE_LEFT = 45;
 		public static final int FIRE_TOP = 45;
 		public static final int ENERGY_LEFT = 103;
@@ -553,8 +554,8 @@ public class JeiPlugin implements IModPlugin {
 		private final LoadingCache<Integer, IDrawableAnimated> energies;
 
 		public CoalGeneratorJeiCategory(IGuiHelper guiHelper) {
-			this.title = new TranslationTextComponent("container.boss_tools.coal_generator").getString();
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/jei/generator_gui_jei.png"), 0, 0, 144, 84);
+			this.title = new TranslationTextComponent("container." + BossToolsMod.ModId + ".coal_generator").getString();
+			this.background = guiHelper.createDrawable(new ResourceLocation(BossToolsMod.ModId, "textures/jei/generator_gui_jei.png"), 0, 0, 144, 84);
 			this.fires = createFires(guiHelper);
 			this.energies = createGeneratingEnergies(guiHelper);
 		}
@@ -632,14 +633,14 @@ public class JeiPlugin implements IModPlugin {
 
 	// workbench
 	public static class NASAWorkbenchJeiCategory implements IRecipeCategory<WorkbenchingRecipe> {
-		public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "workbenchcategory"); // muss klein sein !
+		public static final ResourceLocation Uid = new ResourceLocation(BossToolsMod.ModId, "workbenchcategory"); // muss klein sein !
 		// ...
 		private final String title;
 		private final IDrawable background;
 
 		public NASAWorkbenchJeiCategory(IGuiHelper guiHelper) {
-			this.title = new TranslationTextComponent("container.boss_tools.nasa_workbench").getString();
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/jei/nasaworkbenchjei.png"), 0, 0, 176, 122);
+			this.title = new TranslationTextComponent("container." + BossToolsMod.ModId + ".nasa_workbench").getString();
+			this.background = guiHelper.createDrawable(new ResourceLocation(BossToolsMod.ModId, "textures/jei/nasaworkbenchjei.png"), 0, 0, 176, 122);
 		}
 
 		@Override
@@ -777,7 +778,7 @@ public class JeiPlugin implements IModPlugin {
 
 	// BlastingFurnace
 	public static class BlastingFurnaceJeiCategory implements IRecipeCategory<BlastingRecipe> {
-		public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "blastingfurnacecategory");
+		public static final ResourceLocation Uid = new ResourceLocation(BossToolsMod.ModId, "blastingfurnacecategory");
 		public static final int FIRE_LEFT = 37;
 		public static final int FIRE_TOP = 37;
 		public static final int ARROW_LEFT = 55;
@@ -789,8 +790,8 @@ public class JeiPlugin implements IModPlugin {
 		private final LoadingCache<Integer, IDrawableAnimated> cachedArrows;
 
 		public BlastingFurnaceJeiCategory(IGuiHelper guiHelper) {
-			this.title = new TranslationTextComponent("container.boss_tools.blast_furnace").getString();
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/jei/blast_furnace_gui_jei.png"), 0, 0, 144, 84);
+			this.title = new TranslationTextComponent("container." + BossToolsMod.ModId + ".blast_furnace").getString();
+			this.background = guiHelper.createDrawable(new ResourceLocation(BossToolsMod.ModId, "textures/jei/blast_furnace_gui_jei.png"), 0, 0, 144, 84);
 			this.fire = createFires(guiHelper);
 			this.cachedArrows = createArrows(guiHelper);
 		}
@@ -851,14 +852,14 @@ public class JeiPlugin implements IModPlugin {
 
 	// RocketTier1Gui
 	public static class Tier1RocketJeiCategory implements IRecipeCategory<FuelLoadingRecipe> {
-		public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "rocket_t_1_category");
+		public static final ResourceLocation Uid = new ResourceLocation(BossToolsMod.ModId, "rocket_t_1_category");
 		
 		private final String title;
 		private final IDrawable background;
 
 		public Tier1RocketJeiCategory(IGuiHelper guiHelper) {
 			this.title = "Tier 1 Rocket";
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/jei/rocket_gui_jei.png"), 0, 0, 128, 71);
+			this.background = guiHelper.createDrawable(new ResourceLocation(BossToolsMod.ModId, "textures/jei/rocket_gui_jei.png"), 0, 0, 128, 71);
 		}
 
 		@Override
@@ -911,14 +912,14 @@ public class JeiPlugin implements IModPlugin {
 
 	// RocketTier2Gui
 	public static class Tier2RocketJeiCategory implements IRecipeCategory<FuelLoadingRecipe> {
-		public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "rocket_t_2_category");
+		public static final ResourceLocation Uid = new ResourceLocation(BossToolsMod.ModId, "rocket_t_2_category");
 		
 		private final String title;
 		private final IDrawable background;
 
 		public Tier2RocketJeiCategory(IGuiHelper guiHelper) {
 			this.title = "Tier 2 Rocket";
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/jei/rocket_gui_jei.png"), 0, 0, 128, 71);
+			this.background = guiHelper.createDrawable(new ResourceLocation(BossToolsMod.ModId, "textures/jei/rocket_gui_jei.png"), 0, 0, 128, 71);
 		}
 
 		@Override
@@ -971,14 +972,14 @@ public class JeiPlugin implements IModPlugin {
 
 	// RocketTier3Gui
 	public static class Tier3RocketJeiCategory implements IRecipeCategory<FuelLoadingRecipe> {
-		public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "rocket_t_3_category");
+		public static final ResourceLocation Uid = new ResourceLocation(BossToolsMod.ModId, "rocket_t_3_category");
 		
 		private final String title;
 		private final IDrawable background;
 
 		public Tier3RocketJeiCategory(IGuiHelper guiHelper) {
 			this.title = "Tier 3 Rocket";
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/jei/rocket_gui_jei.png"), 0, 0, 128, 71);
+			this.background = guiHelper.createDrawable(new ResourceLocation(BossToolsMod.ModId, "textures/jei/rocket_gui_jei.png"), 0, 0, 128, 71);
 		}
 
 		@Override
@@ -1032,7 +1033,7 @@ public class JeiPlugin implements IModPlugin {
 	// Compressor
 	public static class CompressorJeiCategory implements IRecipeCategory<CompressingRecipe> {
 
-		public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "compressorcategory");
+		public static final ResourceLocation Uid = new ResourceLocation(BossToolsMod.ModId, "compressorcategory");
 		public static final int ARROW_LEFT = 36;
 		public static final int ARROW_TOP = 29;
 		public static final int ENERGY_LEFT = 103;
@@ -1044,8 +1045,8 @@ public class JeiPlugin implements IModPlugin {
 		private final LoadingCache<Integer, IDrawableAnimated> cachedEnergies;
 
 		public CompressorJeiCategory(IGuiHelper guiHelper) {
-			this.title = new TranslationTextComponent("container.boss_tools.compressor").getString();
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/jei/compressor_gui_jei.png"), 0, 0, 144, 84);
+			this.title = new TranslationTextComponent("container." + BossToolsMod.ModId + ".compressor").getString();
+			this.background = guiHelper.createDrawable(new ResourceLocation(BossToolsMod.ModId, "textures/jei/compressor_gui_jei.png"), 0, 0, 144, 84);
 			this.cachedArrows = createArrows(guiHelper);
 			this.cachedEnergies = createUsingEnergies(guiHelper);
 		}
@@ -1121,7 +1122,7 @@ public class JeiPlugin implements IModPlugin {
 
 	// FuelMaker
 	public static class FuelRefineryJeiCategory implements IRecipeCategory<FuelRefiningRecipe> {
-		public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "fuelmakercategory");
+		public static final ResourceLocation Uid = new ResourceLocation(BossToolsMod.ModId, "fuelmakercategory");
 		public static final int INPUT_TANK_LEFT = 8;
 		public static final int INPUT_TANK_TOP = 8;
 		public static final int OUTPUT_TANK_LEFT = 74;
@@ -1137,8 +1138,8 @@ public class JeiPlugin implements IModPlugin {
 
 		public FuelRefineryJeiCategory(JeiPlugin plugin, IGuiHelper guiHelper) {
 			this.plugin = plugin;
-			this.title = new TranslationTextComponent("container.boss_tools.fuel_refinery").getString();
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/jei/fuel_refinery_jei.png"), 0, 0, 148, 64);
+			this.title = new TranslationTextComponent("container." + BossToolsMod.ModId + ".fuel_refinery").getString();
+			this.background = guiHelper.createDrawable(new ResourceLocation(BossToolsMod.ModId, "textures/jei/fuel_refinery_jei.png"), 0, 0, 148, 64);
 			this.fluidOverlay = guiHelper.drawableBuilder(GuiHelper.FLUID_TANK_PATH, 0, 0, GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).setTextureSize(GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).build();
 			this.cachedEnergies = createUsingEnergies(guiHelper);
 		}
@@ -1231,7 +1232,7 @@ public class JeiPlugin implements IModPlugin {
 
 	// Rover
 	public static class RoverJeiCategory implements IRecipeCategory<FuelLoadingRecipe> {
-		public static final ResourceLocation Uid = new ResourceLocation("boss_tools", "rovercategory");
+		public static final ResourceLocation Uid = new ResourceLocation(BossToolsMod.ModId, "rovercategory");
 		
 		private final String title;
 		private final IDrawable background;
@@ -1239,7 +1240,7 @@ public class JeiPlugin implements IModPlugin {
 
 		public RoverJeiCategory(IGuiHelper guiHelper) {
 			this.title = "Rover";
-			this.background = guiHelper.createDrawable(new ResourceLocation("boss_tools", "textures/jei/rover_jei.png"), 0, 0, 144, 84);
+			this.background = guiHelper.createDrawable(new ResourceLocation(BossToolsMod.ModId, "textures/jei/rover_jei.png"), 0, 0, 144, 84);
 			this.fluidOverlay = guiHelper.drawableBuilder(GuiHelper.FLUID_TANK_PATH, 0, 0, GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).setTextureSize(GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).build();
 		}
 
