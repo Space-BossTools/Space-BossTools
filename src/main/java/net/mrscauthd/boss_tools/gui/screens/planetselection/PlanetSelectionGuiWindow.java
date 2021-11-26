@@ -24,7 +24,6 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 
 	private static ResourceLocation texture = new ResourceLocation(BossToolsMod.ModId,"textures/screens/planet_selection_gui.png");
 
-	//Button Textures
 	private static ResourceLocation defaultButtonTex = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/red_button.png");
 	private static ResourceLocation gbButtonTex = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/green_button.png");
 	private static ResourceLocation gb2ButtonTex = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/green_button_2.png");
@@ -36,7 +35,6 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 	public float rotationVenus = 180;
 	public float rotationMercury = 270;
 
-	//Buttons
 	public ImageButtonPlacer overworldButton;
 	public ImageButtonPlacer marsButton;
 

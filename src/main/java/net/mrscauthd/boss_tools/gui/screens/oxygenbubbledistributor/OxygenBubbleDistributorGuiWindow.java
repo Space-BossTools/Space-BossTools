@@ -3,6 +3,7 @@ package net.mrscauthd.boss_tools.gui.screens.oxygenbubbledistributor;
 import java.text.NumberFormat;
 
 import net.minecraft.client.gui.widget.button.ImageButton;
+import net.mrscauthd.boss_tools.gui.helper.ImageButtonPlacer;
 import org.lwjgl.opengl.GL11;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -45,12 +46,15 @@ public class OxygenBubbleDistributorGuiWindow extends ContainerScreen<OxygenBubb
 	private CustomTileEntity tileEntity;
 
 	private boolean cachedWorkingAreaVisible = true;
-	private Button workingAreaVisibleButton;
 
-	private static ResourceLocation Button1 = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/technik_button_plus.png");
-	private static ResourceLocation Button2 = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/technik_button_minus.png");
+	//Buttons
+	public ImageButtonPlacer workingAreaVisibleButton;
+	public ImageButtonPlacer button_plus;
+	public ImageButtonPlacer button_minus;
 
 	private static ResourceLocation HideButton = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/technik_button.png");
+	private static ResourceLocation Button1 = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/technik_button_plus.png");
+	private static ResourceLocation Button2 = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/technik_button_minus.png");
 
 	public OxygenBubbleDistributorGuiWindow(OxygenBubbleDistributorGui.GuiContainer container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
@@ -81,21 +85,21 @@ public class OxygenBubbleDistributorGuiWindow extends ContainerScreen<OxygenBubb
 		}
 
 		if (GuiHelper.isHover(this.getButtonBounds(-20, 4, 20, 21), mouseX, mouseY)) {
-			Button1 = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/technik_button_plus_2.png");
+			button_plus.setTexture(new ResourceLocation(BossToolsMod.ModId,"textures/buttons/technik_button_plus_2.png"));
 		} else {
-			Button1 = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/technik_button_plus.png");
+			button_plus.setTexture(new ResourceLocation(BossToolsMod.ModId,"textures/buttons/technik_button_plus.png"));
 		}
 
 		if (GuiHelper.isHover(this.getButtonBounds(-20, 25, 20, 20), mouseX, mouseY)) {
-			Button2 = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/technik_button_minus_2.png");
+			button_minus.setTexture(new ResourceLocation(BossToolsMod.ModId,"textures/buttons/technik_button_minus_2.png"));
 		} else {
-			Button2 = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/technik_button_minus.png");
+			button_minus.setTexture(new ResourceLocation(BossToolsMod.ModId,"textures/buttons/technik_button_minus.png"));
 		}
 
 		if (GuiHelper.isHover(this.getButtonBounds(-20, - 22, 34, 20), mouseX, mouseY)) {
-			HideButton = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/technik_button_2.png");
+			workingAreaVisibleButton.setTexture(new ResourceLocation(BossToolsMod.ModId,"textures/buttons/technik_button_2.png"));
 		} else {
-			HideButton = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/technik_button.png");
+			workingAreaVisibleButton.setTexture(new ResourceLocation(BossToolsMod.ModId,"textures/buttons/technik_button.png"));
 		}
 
 	}
@@ -112,19 +116,23 @@ public class OxygenBubbleDistributorGuiWindow extends ContainerScreen<OxygenBubb
 		GuiHelper.drawEnergy(ms, this.guiLeft + ENERGY_LEFT, this.guiTop + ENERGY_TOP, tileEntity.getPrimaryEnergyStorage());
 		GuiHelper.drawFluidTank(ms, this.guiLeft + INPUT_TANK_LEFT, this.guiTop + INPUT_TANK_TOP, tileEntity.getInputTank());
 		GuiHelper.drawOxygenTank(ms, this.guiLeft + OUTPUT_TANK_LEFT, this.guiTop + OUTPUT_TANK_TOP, tileEntity.getOutputTank());
+	}
 
-		// BUTTONS
-		this.addButton(new ImageButton(this.guiLeft - 20, this.guiTop + 5, 20, 20, 0, 0, 0, Button1, 20, 20, (p_2130901) -> {
+	@Override
+	protected void init() {
+		super.init();
+
+		button_plus = this.addButton(new ImageButtonPlacer(this.guiLeft - 20, this.guiTop + 5, 20, 20, 0, 0, 0, Button1, 20, 20, (p_2130901) -> {
 			BlockPos pos = this.getTileEntity().getPos();
 			BossToolsMod.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlock.ChangeRangeMessage(pos, true));
 		}));
 
-		this.addButton(new ImageButton(this.guiLeft - 20, this.guiTop + 25, 20, 20, 0, 0, 0, Button2, 20, 20, (p_2130901) -> {
+		button_minus = this.addButton(new ImageButtonPlacer(this.guiLeft - 20, this.guiTop + 25, 20, 20, 0, 0, 0, Button2, 20, 20, (p_2130901) -> {
 			BlockPos pos = this.getTileEntity().getPos();
 			BossToolsMod.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlock.ChangeRangeMessage(pos, false));
 		}));
 
-		this.workingAreaVisibleButton = this.addButton(new ImageButton(this.guiLeft - 20, this.guiTop - 22, 34, 20, 0, 0, 0, HideButton, 34, 20, e -> {
+		workingAreaVisibleButton = this.addButton(new ImageButtonPlacer(this.guiLeft - 20, this.guiTop - 22, 34, 20, 0, 0, 0, HideButton, 34, 20, e -> {
 			BlockPos pos = this.getTileEntity().getPos();
 			BossToolsMod.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlock.ChangeWorkingAreaVisibleMessage(pos, !this.cachedWorkingAreaVisible));
 		}));

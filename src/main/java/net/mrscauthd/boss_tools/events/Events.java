@@ -59,8 +59,6 @@ public class Events {
             if (player.getPosY() < 1 && !(player.getRidingEntity() instanceof LanderEntity)) {
                 Methodes.playerFalltoPlanet(world, player);
             }
-
-            System.out.println(Minecraft.getInstance().debug);
         }
     }
 
