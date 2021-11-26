@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "boss_tools:tier_3_rocket"
+      "item": "boss_tools:rocket_t2"
     },
     "title": {
       "translate": "advancements.rocket_tier_3_advancement.title"
@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "item": "boss_tools:tier_3_rocket",
+            "item": "boss_tools:rocket_t2",
             "count": {
               "min": 1,
               "max": 1

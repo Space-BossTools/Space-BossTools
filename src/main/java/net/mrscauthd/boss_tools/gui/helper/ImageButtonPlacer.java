@@ -63,6 +63,5 @@ public class ImageButtonPlacer extends Button {
         if (this.isHovered()) {
             this.renderToolTip(matrixStack, mouseX, mouseY);
         }
-
     }
 }

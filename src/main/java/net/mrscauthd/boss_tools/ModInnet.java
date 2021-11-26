@@ -27,6 +27,10 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
+import net.minecraft.world.gen.surfacebuilders.DefaultSurfaceBuilder;
+import net.minecraft.world.gen.surfacebuilders.ISurfaceBuilderConfig;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
@@ -48,6 +52,7 @@ import net.mrscauthd.boss_tools.crafting.WorkbenchingRecipeSerializer;
 import net.mrscauthd.boss_tools.crafting.RocketPart;
 import net.mrscauthd.boss_tools.effects.OxygenEffect;
 import net.mrscauthd.boss_tools.entity.*;
+import net.mrscauthd.boss_tools.feature.DesertSurfaceBuilder;
 import net.mrscauthd.boss_tools.flag.FlagTileEntity;
 import net.mrscauthd.boss_tools.fluid.OilFluid;
 import net.mrscauthd.boss_tools.gui.screens.blastfurnace.BlastFurnaceGui;
@@ -471,6 +476,9 @@ public class ModInnet {
     public static ConfiguredFeature<?, ?> DELTAS;
     public static ConfiguredFeature<?, ?> DELTAS2;
     public static VenusDeltas VENUS_DELTAS;
+
+    //Desert Builder
+    public static SurfaceBuilder<SurfaceBuilderConfig> DESERT_SURFACE_BUILDER;
     
     @SubscribeEvent
     public static void RegistryFeature(RegistryEvent.Register<Feature<?>> feature) {
@@ -484,7 +492,15 @@ public class ModInnet {
         feature.getRegistry().register(VENUS_DELTAS);
     }
 
-    public static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> register(String key, ConfiguredFeature<FC, ?> configuredFeature) {
+    @SubscribeEvent
+    public static void RegistrySurfaceBuilder(RegistryEvent.Register<SurfaceBuilder<?>> event) {
+        //Desert Builder
+        DESERT_SURFACE_BUILDER = new DesertSurfaceBuilder(SurfaceBuilderConfig.field_237203_a_);
+        DESERT_SURFACE_BUILDER.setRegistryName(BossToolsMod.ModId, "desert_surface_builder");
+        event.getRegistry().register(DESERT_SURFACE_BUILDER);
+    }
+
+    public static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> registerFeature(String key, ConfiguredFeature<FC, ?> configuredFeature) {
         return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, key, configuredFeature);
     }
 
@@ -598,23 +614,26 @@ public class ModInnet {
             BossToolsRecipeTypes.init();
             CapabilityOxygen.register();
 
-            ICE_SPIKE = register("ice_spike1", ModInnet.MARS_ICE_SPIKE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(2));
+            ICE_SPIKE = registerFeature("mars_ice_spike", ModInnet.MARS_ICE_SPIKE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(2));
             //Venus Deltas
-            DELTAS = register("deltas1", ModInnet.VENUS_DELTAS.withConfiguration(new ColumnConfig(FeatureSpread.func_242252_a(1), FeatureSpread.func_242253_a(1, 8))).withPlacement(Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(4))));
+            DELTAS = registerFeature("venus_deltas_1", ModInnet.VENUS_DELTAS.withConfiguration(new ColumnConfig(FeatureSpread.func_242252_a(1), FeatureSpread.func_242253_a(1, 8))).withPlacement(Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(4))));
             //Venus Deltas2
-            DELTAS2 = register("deltas2", ModInnet.VENUS_DELTAS.withConfiguration(new ColumnConfig(FeatureSpread.func_242253_a(2, 1), FeatureSpread.func_242253_a(5, 6))).withPlacement(Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(1))));
+            DELTAS2 = registerFeature("venus_deltas_2", ModInnet.VENUS_DELTAS.withConfiguration(new ColumnConfig(FeatureSpread.func_242253_a(2, 1), FeatureSpread.func_242253_a(5, 6))).withPlacement(Placement.COUNT_MULTILAYER.configure(new FeatureSpreadConfig(1))));
         });
     }
 
     public static void biomesLoading(final BiomeLoadingEvent event){
-        if(event.getName().getPath().equals(BiomeRegistry.mars_ice_spike.getRegistryName().getPath())){
+        if (event.getName().getPath().equals(BiomeRegistry.mars_ice_spike.getRegistryName().getPath())){
             event.getGeneration().withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ICE_SPIKE);
         }
         //Venus Deltas
-        if(event.getName().getPath().equals(BiomeRegistry.infernal_venus_barrens.getRegistryName().getPath())){
+        if (event.getName().getPath().equals(BiomeRegistry.infernal_venus_barrens.getRegistryName().getPath())){
             event.getGeneration().withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, DELTAS);
             event.getGeneration().withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, DELTAS2);
         }
+        //Desert Structure Builder
+        if (event.getName().getPath().equals(BiomeRegistry.venus.getRegistryName().getPath())){
+            event.getGeneration().withSurfaceBuilder(ModInnet.DESERT_SURFACE_BUILDER.func_242929_a(new SurfaceBuilderConfig(ModInnet.VENUS_SAND.get().getDefaultState(), ModInnet.VENUS_SAND.get().getDefaultState(), ModInnet.VENUS_SANDSTONE.get().getDefaultState())));
+        }
     }
-
 }

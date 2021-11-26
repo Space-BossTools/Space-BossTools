@@ -64,7 +64,7 @@ public class BiomeRegistry {
 
         if (venus == null) {
             BiomeAmbience effects = new BiomeAmbience.Builder().setFogColor(-3044526).setWaterColor(4159204).setWaterFogColor(329011).withSkyColor(-3044526).withFoliageColor(7842607).withGrassColor(9551193).setParticle(new ParticleEffectAmbience(ParticleTypes.CRIMSON_SPORE, 0.02f)).build();
-            BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder().withSurfaceBuilder(SurfaceBuilder.DEFAULT.func_242929_a(new SurfaceBuilderConfig(ModInnet.VENUS_SAND.get().getDefaultState(), ModInnet.VENUS_SANDSTONE.get().getDefaultState(), ModInnet.VENUS_SANDSTONE.get().getDefaultState())));
+            BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder().withSurfaceBuilder(SurfaceBuilder.DEFAULT.func_242929_a(new SurfaceBuilderConfig(ModInnet.VENUS_SAND.get().getDefaultState(), ModInnet.VENUS_SAND.get().getDefaultState(), ModInnet.VENUS_SANDSTONE.get().getDefaultState())));
             DefaultBiomeFeatures.withCavesAndCanyons(biomeGenerationSettings);
             MobSpawnInfo.Builder mobSpawnInfo = new MobSpawnInfo.Builder().isValidSpawnBiomeForPlayer();
 
