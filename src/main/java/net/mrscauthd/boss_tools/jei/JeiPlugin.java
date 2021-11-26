@@ -212,8 +212,9 @@ public class JeiPlugin implements IModPlugin {
 		// Fuel Maker
 		registration.addRecipes(generateFuelMakerRecipes(), FuelRefineryJeiCategory.Uid);
 		// Oil
-		registration.addIngredientInfo(new ItemStack(ModInnet.OIL_BUCKET.get(), 1), VanillaTypes.ITEM, "  You can find Oil in the Ocean");
-		registration.addIngredientInfo(new FluidStack(ModInnet.OIL_STILL.get(), 1000), VanillaTypes.FLUID, "  You can find Oil in the Ocean");
+		String oilDescriptionKey = "jei.tooltip." + BossToolsMod.ModId + ".oil";
+		registration.addIngredientInfo(new ItemStack(ModInnet.OIL_BUCKET.get(), 1), VanillaTypes.ITEM, oilDescriptionKey);
+		registration.addIngredientInfo(new FluidStack(ModInnet.OIL_STILL.get(), 1000), VanillaTypes.FLUID, oilDescriptionKey);
 		// ...
 	}
 
