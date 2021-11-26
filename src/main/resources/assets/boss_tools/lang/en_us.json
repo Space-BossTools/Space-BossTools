@@ -221,7 +221,7 @@
   "gui.boss_tools.oxygen_bubble_distributor.workingarea.show": "Show",
   "gui.boss_tools.oxygen_bubble_distributor.workingarea.hide": "Hide",
   
-  "category.boss_tools.oxygenmaking": "Oxygen Making",
+  "jei.tooltip.boss_tools.oil": "  You can find Oil in the Ocean",
   
   "gauge_text.boss_tools.using": "%1$s Using: %2$s",
   "gauge_text.boss_tools.using2": "%1$s Using: %2$s/%4$s t",
