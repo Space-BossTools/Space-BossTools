@@ -1,5 +1,7 @@
 package net.mrscauthd.boss_tools.gauge;
 
+import java.text.NumberFormat;
+
 import com.google.common.collect.Lists;
 
 import net.minecraft.util.ResourceLocation;
@@ -32,7 +34,7 @@ public class GaugeTextHelper {
 	public static final String PER_TICK_UNIT_SUFFIX = "/t";
 
 	public static String makeTranslationKey(ResourceLocation name) {
-		return "gague_text." + name.getNamespace() + "." + name.getPath();
+		return "gauge_text." + name.getNamespace() + "." + name.getPath();
 	}
 
 	public static GaugeTextBuilder getText(IGaugeValue value, String key, Object... values) {
@@ -44,7 +46,17 @@ public class GaugeTextHelper {
 	}
 
 	public static GaugeTextBuilder getStorageText(IGaugeValue value) {
-		return getText(value, "%1$s: %2$s / %3$s");
+		return getText(value, "%1$s: %2$s \u00A78| %3$s");
+	}
+
+	public static GaugeTextBuilder getPercentText(IGaugeValue value, int decimals) {
+		NumberFormat numberInstance = NumberFormat.getNumberInstance();
+		numberInstance.setMaximumFractionDigits(decimals);
+		return getText(value, "%1$s: %4$s", numberInstance.format(value.getDisplayRatio() * 100.0D) + "%");
+	}
+
+	public static GaugeTextBuilder getPercentText(IGaugeValue value) {
+		return getPercentText(value, 0);
 	}
 
 	public static GaugeTextBuilder getUsingText(IGaugeValue value) {
@@ -95,6 +107,14 @@ public class GaugeTextHelper {
 		return getTransferText(value).setUnitSuffix(PER_TICK_UNIT_SUFFIX);
 	}
 
+	public static IFormattableTextComponent buildSpacesuitOxygenTooltip(IGaugeValue value) {
+		GaugeTextBuilder builder = GaugeTextHelper.getText(value, "%1$s: %2$s \u00A78| %3$s");
+		builder.setTextStyle(Style.EMPTY.setFormatting(TextFormatting.BLUE));
+		builder.setAmountStyle(Style.EMPTY.setFormatting(TextFormatting.GOLD));
+		builder.setCapacityStyle(Style.EMPTY.setFormatting(TextFormatting.RED));
+		return builder.build();
+	}
+
 	public static IFormattableTextComponent buildSpacesuitOxygenTooltip(IOxygenStorage oxygenStorage) {
 		IGaugeValue oxygen;
 
@@ -104,16 +124,18 @@ public class GaugeTextHelper {
 			oxygen = GaugeValueHelper.getOxygen(0, 0);
 		}
 
-		GaugeTextBuilder builder = GaugeTextHelper.getText(oxygen, "%1$s: %2$s \u00A78| %3$s");
+		return buildSpacesuitOxygenTooltip(oxygen);
+	}
+
+	public static IFormattableTextComponent buildBlockTooltip(GaugeTextBuilder builder, TextFormatting color) {
 		builder.setTextStyle(Style.EMPTY.setFormatting(TextFormatting.BLUE));
-		builder.setAmountStyle(Style.EMPTY.setFormatting(TextFormatting.GOLD));
-		builder.setCapacityStyle(Style.EMPTY.setFormatting(TextFormatting.RED));
+		builder.setAmountStyle(Style.EMPTY.setFormatting(color));
+		builder.setCapacityStyle(Style.EMPTY.setFormatting(color));
+		builder.setExtraStyle(0, Style.EMPTY.setFormatting(color));
 		return builder.build();
 	}
 
 	public static IFormattableTextComponent buildBlockTooltip(GaugeTextBuilder builder) {
-		builder.setTextStyle(Style.EMPTY.setFormatting(TextFormatting.BLUE));
-		builder.setAmountStyle(Style.EMPTY.setFormatting(TextFormatting.GRAY));
-		return builder.build();
+		return buildBlockTooltip(builder, TextFormatting.GRAY);
 	}
 }

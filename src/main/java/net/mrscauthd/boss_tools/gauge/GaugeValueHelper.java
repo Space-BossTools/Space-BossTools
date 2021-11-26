@@ -15,11 +15,13 @@ public class GaugeValueHelper {
 	public static final ResourceLocation ENERGY_NAME = new ResourceLocation(BossToolsMod.ModId, "energy");
 	public static final ResourceLocation OXYGEN_NAME = new ResourceLocation(BossToolsMod.ModId, "oxygen");
 	public static final ResourceLocation FLUID_NAME = new ResourceLocation(BossToolsMod.ModId, "fluid");
+	public static final ResourceLocation FUEL_NAME = new ResourceLocation(BossToolsMod.ModId, "fuel");
 	public static final ResourceLocation BURNTIME_NAME = new ResourceLocation(BossToolsMod.ModId, "burntime");
 	public static final ResourceLocation COOKTIME_NAME = new ResourceLocation(BossToolsMod.ModId, "cooktime");
 
 	public static final int ENERGY_COLOR = 0xA0FF404B;
 	public static final int OXYGEN_COLOR = 0xA000FFFF;
+	public static final int FUEL_COLOR = 0xA099993D;
 	public static final int BURNTIME_COLOR = 0xA0FF3F00;
 	public static final int COOKTIME_COLOR = 0xA0FFFFFF;
 
@@ -28,7 +30,7 @@ public class GaugeValueHelper {
 	public static final String FLUID_UNIT = "mB";
 
 	public static String makeTranslationKey(ResourceLocation name) {
-		return "gague." + name.getNamespace() + "." + name.getPath();
+		return "gauge." + name.getNamespace() + "." + name.getPath();
 	}
 
 	public static IGaugeValue getFluid(int amount) {
@@ -101,6 +103,14 @@ public class GaugeValueHelper {
 
 	public static IGaugeValue getCookTime(int timer, int maxTimer) {
 		return new GaugeValueSimple(COOKTIME_NAME, maxTimer - timer, maxTimer).color(COOKTIME_COLOR).reverse(true);
+	}
+	
+	public static IGaugeValue getFuel(int amount) {
+		return getFuel(amount, 0);
+	}
+	
+	public static IGaugeValue getFuel(int amount, int capacity) {
+		return new GaugeValueSimple(FUEL_NAME, amount, capacity, null, FLUID_UNIT).color(FUEL_COLOR);
 	}
 
 }

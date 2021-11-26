@@ -223,21 +223,22 @@
   
   "category.boss_tools.oxygenmaking": "Oxygen Making",
   
-  "gague_text.boss_tools.using": "%1$s Using: %2$s",
-  "gague_text.boss_tools.using2": "%1$s Using: %2$s/%4$s t",
-  "gague_text.boss_tools.generating": "%1$s Generating: %2$s",
-  "gague_text.boss_tools.maxgeneration": "Max. %1$s Generation: %2$s",
-  "gague_text.boss_tools.total": "Total %1S: %2$s",
-  "gague_text.boss_tools.stored": "Stored %1$s: %2$s",
-  "gague_text.boss_tools.capacity": "%1$s Capacity: %2$s",
-  "gague_text.boss_tools.transfer": "%1$s Transfer: %2$s",
+  "gauge_text.boss_tools.using": "%1$s Using: %2$s",
+  "gauge_text.boss_tools.using2": "%1$s Using: %2$s/%4$s t",
+  "gauge_text.boss_tools.generating": "%1$s Generating: %2$s",
+  "gauge_text.boss_tools.maxgeneration": "Max. %1$s Generation: %2$s",
+  "gauge_text.boss_tools.total": "Total %1S: %2$s",
+  "gauge_text.boss_tools.stored": "Stored %1$s: %2$s",
+  "gauge_text.boss_tools.capacity": "%1$s Capacity: %2$s",
+  "gauge_text.boss_tools.transfer": "%1$s Transfer: %2$s",
   
-  "gague.boss_tools.energy": "Energy",
-  "gague.boss_tools.fluid": "Fluid",
-  "gague.boss_tools.oxygen": "Oxygen",
-  "gague.boss_tools.burntime": "Burn Time",
-  "gague.boss_tools.cooktime": "Cook Time",
-  "gague.boss_tools.oxygenloading": "Loading",
+  "gauge.boss_tools.energy": "Energy",
+  "gauge.boss_tools.fluid": "Fluid",
+  "gauge.boss_tools.fuel": "Fuel",
+  "gauge.boss_tools.oxygen": "Oxygen",
+  "gauge.boss_tools.burntime": "Burn Time",
+  "gauge.boss_tools.cooktime": "Cook Time",
+  "gauge.boss_tools.oxygenloading": "Loading",
   
   "_eof": "eof"
 }

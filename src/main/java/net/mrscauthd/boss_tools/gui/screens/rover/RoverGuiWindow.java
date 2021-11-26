@@ -5,6 +5,9 @@ import net.minecraftforge.fluids.FluidStack;
 import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.RoverEntity;
+import net.mrscauthd.boss_tools.fluid.FluidUtil2;
+import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
+import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
 import net.mrscauthd.boss_tools.gui.helper.GuiHelper;
 import org.lwjgl.opengl.GL11;
 
@@ -12,6 +15,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
@@ -45,15 +50,7 @@ public class RoverGuiWindow extends ContainerScreen<RoverGui.GuiContainer> {
 		int fuel = container.rover.getDataManager().get(RoverEntity.FUEL);
 
 		if (GuiHelper.isHover(this.getFluidBounds(), mouseX, mouseY)) {
-			if (fuel > 0) {
-
-				fuelToolTip.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Fuel"));
-			} else {
-
-				fuelToolTip.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Empty"));
-			}
-
-			fuelToolTip.add(ITextComponent.getTextComponentOrEmpty(fuel + " mB"));
+			fuelToolTip.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getStorageText(GaugeValueHelper.getFuel(fuel, RoverEntity.FUEL_BUCKETS * FluidUtil2.BUCKET_SIZE)), TextFormatting.WHITE));
 			this.func_243308_b(ms, fuelToolTip, mouseX, mouseY);
 		}
 	}

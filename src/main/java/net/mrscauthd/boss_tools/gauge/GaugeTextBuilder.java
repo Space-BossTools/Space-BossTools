@@ -2,7 +2,9 @@ package net.mrscauthd.boss_tools.gauge;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -16,6 +18,7 @@ public class GaugeTextBuilder {
 	private final IGaugeValue value;
 	private final String translationKey;
 	private final List<Object> extraValues;
+	private final Map<Integer, Style> extraStyles;
 
 	private Style textStyle;
 	private Style amountStyle;
@@ -28,6 +31,7 @@ public class GaugeTextBuilder {
 		this.value = value;
 		this.translationKey = translationKey;
 		this.extraValues = Collections.unmodifiableList(extraValues);
+		this.extraStyles = new HashMap<>();
 
 		this.setTextStyle(Style.EMPTY);
 		this.setAmountStyle(Style.EMPTY);
@@ -48,7 +52,12 @@ public class GaugeTextBuilder {
 		list.add(this.format(displayName, this.getTextStyle()));
 		list.add(this.format(String.valueOf(amount), this.getAmountStyle(), unit, this.getUnitStyle()));
 		list.add(this.format(String.valueOf(capacity), this.getCapacityStyle(), unit, this.getUnitStyle()));
-		list.addAll(this.getExtraValues());
+		
+		for (int i = 0; i < this.getExtraValues().size(); i++) {
+			Object extraValue = this.getExtraValues().get(i);
+			Style extraStyle = this.getExtraStyle(i);
+			list.add(new TranslationTextComponent("%s", extraValue).setStyle(extraStyle));
+		}
 
 		return new TranslationTextComponent(this.getTranslationKey(), list.toArray()).setStyle(this.getTextStyle());
 	}
@@ -81,6 +90,10 @@ public class GaugeTextBuilder {
 		return extraValues;
 	}
 
+	public final Map<Integer, Style> getExtraStyles() {
+		return extraStyles;
+	}
+	
 	public Style getTextStyle() {
 		return textStyle;
 	}
@@ -124,6 +137,15 @@ public class GaugeTextBuilder {
 	public GaugeTextBuilder setUnitSuffix(String unitSuffix) {
 		this.unitSuffix = unitSuffix;
 		return this;
+	}
+	
+	public GaugeTextBuilder setExtraStyle(int index, Style style) {
+		this.getExtraStyles().put(index, style);
+		return this;
+	}
+	
+	public Style getExtraStyle(int index) {
+		return this.getExtraStyles().getOrDefault(index, Style.EMPTY);
 	}
 
 }
