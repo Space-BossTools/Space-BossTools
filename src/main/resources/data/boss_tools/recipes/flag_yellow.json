@@ -6,10 +6,10 @@
   ],
   "key": {
     "0": {
-      "item": "minecraft:yellow_dye"
+      "tag": "forge:dyes/yellow"
     },
     "1": {
-      "item": "boss_tools:flag"
+      "tag": "boss_tools:flags"
     }
   },
   "result": {

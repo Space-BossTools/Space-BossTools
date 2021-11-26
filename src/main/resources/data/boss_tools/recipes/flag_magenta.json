@@ -6,10 +6,10 @@
   ],
   "key": {
     "0": {
-      "item": "minecraft:magenta_dye"
+      "tag": "forge:dyes/magenta"
     },
     "1": {
-      "item": "boss_tools:flag"
+      "tag": "boss_tools:flags"
     }
   },
   "result": {
