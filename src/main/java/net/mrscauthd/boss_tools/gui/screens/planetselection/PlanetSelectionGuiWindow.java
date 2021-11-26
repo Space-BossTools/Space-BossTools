@@ -4,11 +4,9 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.ITextComponent;
@@ -16,6 +14,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.gui.helper.GuiHelper;
+import net.mrscauthd.boss_tools.gui.helper.ImageButtonPlacer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,16 +22,23 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui.GuiContainer> {
 
-	private static final ResourceLocation texture = new ResourceLocation(BossToolsMod.ModId,"textures/screens/planet_selection_gui.png");
+	private static ResourceLocation texture = new ResourceLocation(BossToolsMod.ModId,"textures/screens/planet_selection_gui.png");
+
+	//Button Textures
+	private static ResourceLocation defaultButtonTex = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/red_button.png");
+	private static ResourceLocation gbButtonTex = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/green_button.png");
+	private static ResourceLocation gb2ButtonTex = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/green_button_2.png");
+	private static ResourceLocation rbButtonTex = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/red_button.png");
+	private static ResourceLocation rb2ButtonTex = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/red_button_2.png");
 
 	public float rotationMars = 0;
 	public float rotationEarth = 90;
 	public float rotationVenus = 180;
 	public float rotationMercury = 270;
 
-	public ResourceLocation overworldCategoryButtonTex = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/red_button.png");
-
-	public ResourceLocation marsCategoryButtonTex = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/red_button.png");
+	//Buttons
+	public ImageButtonPlacer overworldButton;
+	public ImageButtonPlacer marsButton;
 
 	public PlanetSelectionGuiWindow(PlanetSelectionGui.GuiContainer container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
@@ -46,63 +52,16 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderHoveredTooltip(ms, mouseX, mouseY);
 
-		String rocketType = container.rocket;
-		String level = "c";
-		List<ITextComponent> Categories = new ArrayList<ITextComponent>();
-
 		rotationMars = (rotationMars + partialTicks * 0.6f) % 360;
 		rotationEarth = (rotationEarth + partialTicks * 1.2f) % 360;
 		rotationVenus = (rotationVenus + partialTicks * 1.1f) % 360;
 		rotationMercury = (rotationMercury + partialTicks * 0.9f) % 360;
 
-		//OVERWORLD
-		if (checkRocket(rocketType, 1)) {
-			level = "a";
-			overworldCategoryButtonTex = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/green_button_2.png");
-		} else {
-			level = "c";
-			overworldCategoryButtonTex = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/red_button_2.png");
-		}
+		String rocketType = container.rocket;
 
-		if (GuiHelper.isHover(this.getBounds(10, (this.height / 2) - 60 / 2, 70, 20), mouseX, mouseY)) {
+		this.buttonManager(rocketType, gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) - 60 / 2, 70, 20, ms, overworldButton, "Overworld", "Tier 1 Rocket", 1);
 
-			//ToolTip
-			Categories.add(ITextComponent.getTextComponentOrEmpty("\u00A79Category: " + "\u00A7" + level + "Overworld"));
-			Categories.add(ITextComponent.getTextComponentOrEmpty("\u00A79Provided: \u00A7bTier 1 Rocket"));
-			this.func_243308_b(ms, Categories, mouseX, mouseY);
-
-		} else {
-			if (checkRocket(rocketType, 1)) {
-				overworldCategoryButtonTex = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/green_button.png");
-			} else {
-				overworldCategoryButtonTex = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/red_button.png");
-			}
-		}
-
-
-		//MARS
-		if (checkRocket(rocketType, 2)) {
-			level = "a";
-			marsCategoryButtonTex = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/green_button_2.png");
-		} else {
-			level = "c";
-			marsCategoryButtonTex = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/red_button_2.png");
-		}
-
-		if (GuiHelper.isHover(this.getBounds(10, (this.height / 2) - 16 / 2, 70, 20), mouseX, mouseY)) {
-
-			//ToolTip
-			Categories.add(ITextComponent.getTextComponentOrEmpty("\u00A79Category: " + "\u00A7" + level + "Mars"));
-			Categories.add(ITextComponent.getTextComponentOrEmpty("\u00A79Provided: \u00A7bTier 2 Rocket"));
-			this.func_243308_b(ms, Categories, mouseX, mouseY);
-
-		} else {
-			if (checkRocket(rocketType, 2)) {
-				marsCategoryButtonTex = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/green_button.png");
-			} else {
-				marsCategoryButtonTex = new ResourceLocation(BossToolsMod.ModId,"textures/buttons/red_button.png");
-			}
-		}
+		this.buttonManager(rocketType, gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) - 16 / 2, 70, 20, ms, marsButton, "Mars", "Tier 2 Rocket", 2);
 
 		//RENDER FONTS
 		this.font.drawString(ms, "CATALOG", 21, (this.height / 2) - 126 / 2, -1);
@@ -126,28 +85,14 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 		GuiHelper.blit(ms, (this.width - 185) / 2, (this.height - 185) / 2, 0, 0, 185, 185, 185, 185);
 
 		//SUN
-		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(BossToolsMod.ModId,"textures/sky/sun_no_light.png"));
+		Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(BossToolsMod.ModId,"textures/sky/gui/sun.png"));
 		GuiHelper.blit(ms, (this.width - 15) / 2, (this.height - 15) / 2, 0, 0, 15, 15, 15, 15);
 
 		//PLANETS
-		this.addPlanet(ms, new ResourceLocation(BossToolsMod.ModId,"textures/sky/mars.png"), -70, -70, 10, 10, rotationMars);
-		this.addPlanet(ms, new ResourceLocation(BossToolsMod.ModId,"textures/sky/earth.png"), -54, -54, 10, 10, rotationEarth);
-		this.addPlanet(ms, new ResourceLocation(BossToolsMod.ModId,"textures/sky/venus.png"), -37, -37, 10, 10, rotationVenus);
-		this.addPlanet(ms, new ResourceLocation(BossToolsMod.ModId,"textures/sky/mercury.png"), -20.5F, -20.5F, 10, 10, rotationMercury);
-
-		//overworld button
-		this.addButton(new ImageButton(10, (this.height / 2) - 60 / 2, 70, 20, 0, 0, 0, overworldCategoryButtonTex, 70, 20, (p_2130901) -> {
-			if (checkRocket(container.rocket, 1)) {
-				BossToolsMod.PACKET_HANDLER.sendToServer(new PlanetSelectionGui.NetworkMessage(playerInventory.player.getPosition(), 0));
-			}
-		}));
-
-		//mars button
-		this.addButton(new ImageButton(10, (this.height / 2) - 16 / 2, 70, 20, 0, 0, 0, marsCategoryButtonTex, 70, 20, (p_2130901) -> {
-			if (checkRocket(container.rocket, 2)) {
-				BossToolsMod.PACKET_HANDLER.sendToServer(new PlanetSelectionGui.NetworkMessage(playerInventory.player.getPosition(), 1));
-			}
-		}));
+		this.addPlanet(ms, new ResourceLocation(BossToolsMod.ModId,"textures/sky/gui/mars.png"), -70, -70, 10, 10, rotationMars);
+		this.addPlanet(ms, new ResourceLocation(BossToolsMod.ModId,"textures/sky/gui/earth.png"), -54, -54, 10, 10, rotationEarth);
+		this.addPlanet(ms, new ResourceLocation(BossToolsMod.ModId,"textures/sky/gui/venus.png"), -37, -37, 10, 10, rotationVenus);
+		this.addPlanet(ms, new ResourceLocation(BossToolsMod.ModId,"textures/sky/gui/mercury.png"), -20.5F, -20.5F, 10, 10, rotationMercury);
 
 		RenderSystem.disableBlend();
 	}
@@ -163,6 +108,23 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 
 		ms.translate(-this.width / 2, -this.height / 2, 0);
 		ms.pop();
+	}
+
+	@Override
+	protected void init() {
+		super.init();
+
+		overworldButton = this.addButton(new ImageButtonPlacer(10, (this.height / 2) - 60 / 2, 70, 20, 0, 0, 0, defaultButtonTex, 70, 20, (p_2130901) -> {
+			if (checkRocket(container.rocket, 1)) {
+				BossToolsMod.PACKET_HANDLER.sendToServer(new PlanetSelectionGui.NetworkMessage(playerInventory.player.getPosition(), 0));
+			}
+		}));
+
+		marsButton = this.addButton(new ImageButtonPlacer(10, (this.height / 2) - 16 / 2, 70, 20, 0, 0, 0, defaultButtonTex, 70, 20, (p_2130901) -> {
+			if (checkRocket(container.rocket, 2)) {
+				BossToolsMod.PACKET_HANDLER.sendToServer(new PlanetSelectionGui.NetworkMessage(playerInventory.player.getPosition(), 1));
+			}
+		}));
 	}
 
 	@Override
@@ -185,5 +147,33 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 		}
 
 		return false;
+	}
+
+	public void buttonManager(String rocketType, ResourceLocation gb2, ResourceLocation rb2, ResourceLocation gb, ResourceLocation rb, int mouseX, int mouseY, int left, int top, int width, int height, MatrixStack ms, ImageButtonPlacer button, String dim, String rocketTier, int stage) {
+		String level = "c";
+
+		if (checkRocket(rocketType, stage)) {
+			level = "a";
+			button.setTexture(gb2);
+		} else {
+			level = "c";
+			button.setTexture(rb2);
+		}
+
+		if (GuiHelper.isHover(this.getBounds(left, top, width, height), mouseX, mouseY)) {
+
+			//ToolTip
+			List<ITextComponent> list = new ArrayList<ITextComponent>();
+			list.add(ITextComponent.getTextComponentOrEmpty("\u00A79Category: " + "\u00A7" + level + dim));
+			list.add(ITextComponent.getTextComponentOrEmpty("\u00A79Provided: \u00A7b" + rocketTier));
+			this.func_243308_b(ms, list, mouseX, mouseY);
+
+		} else {
+			if (checkRocket(rocketType, stage)) {
+				button.setTexture(gb);
+			} else {
+				button.setTexture(rb);
+			}
+		}
 	}
 }
