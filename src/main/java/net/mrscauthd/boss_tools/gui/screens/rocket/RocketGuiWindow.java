@@ -8,6 +8,10 @@ import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
 import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
+import net.mrscauthd.boss_tools.entity.RoverEntity;
+import net.mrscauthd.boss_tools.fluid.FluidUtil2;
+import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
+import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
 import net.mrscauthd.boss_tools.gui.helper.GuiHelper;
 import org.lwjgl.opengl.GL11;
 
@@ -15,6 +19,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
@@ -58,15 +63,7 @@ public class RocketGuiWindow extends ContainerScreen<RocketGui.GuiContainer> {
 		List<ITextComponent> fuelToolTip = new ArrayList<ITextComponent>();
 
 		if (GuiHelper.isHover(this.getFluidBounds(), mouseX, mouseY)) {
-			if (fuel > 0) {
-
-				fuelToolTip.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Fuel"));
-			} else {
-
-				fuelToolTip.add(ITextComponent.getTextComponentOrEmpty("\u00A79Fluid: \u00A77Empty"));
-			}
-
-			fuelToolTip.add(ITextComponent.getTextComponentOrEmpty(fuel + "%"));
+			fuelToolTip.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getPercentText(GaugeValueHelper.getFuel(fuel, 100)), TextFormatting.WHITE));
 			this.func_243308_b(ms, fuelToolTip, mouseX, mouseY);
 		}
 	}

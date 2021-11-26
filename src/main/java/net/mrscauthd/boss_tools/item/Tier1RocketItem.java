@@ -23,6 +23,10 @@ import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.block.RocketLaunchPad;
 import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
+import net.mrscauthd.boss_tools.entity.RoverEntity;
+import net.mrscauthd.boss_tools.fluid.FluidUtil2;
+import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
+import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -40,7 +44,7 @@ public class Tier1RocketItem extends Item {
     public void addInformation(ItemStack itemstack, World world, List<ITextComponent> list, ITooltipFlag flag) {
         super.addInformation(itemstack, world, list, flag);
         int fuel = itemstack.getOrCreateTag().getInt(fuelTag) / 3;
-        list.add(new StringTextComponent("\u00A79Fuel: " + "\u00A77" + fuel + "% "));
+        list.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getPercentText(GaugeValueHelper.getFuel(fuel, 100))));
     }
 
     @Override
