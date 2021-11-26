@@ -15,7 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
@@ -23,6 +22,9 @@ import net.minecraft.world.server.ServerWorld;
 import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.RoverEntity;
+import net.mrscauthd.boss_tools.fluid.FluidUtil2;
+import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
+import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -39,7 +41,7 @@ public class RoverItem extends Item {
     public void addInformation(ItemStack itemstack, World world, List<ITextComponent> list, ITooltipFlag flag) {
         super.addInformation(itemstack, world, list, flag);
         int fuel = itemstack.getOrCreateTag().getInt(fuelTag);
-        list.add(new StringTextComponent( "\u00A79Fuel: " + "\u00A77" + fuel + " mB \u00A78|\u00A77 3000 mB"));
+        list.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getStorageText(GaugeValueHelper.getFuel(fuel, RoverEntity.FUEL_BUCKETS * FluidUtil2.BUCKET_SIZE))));
     }
 
     @Override
