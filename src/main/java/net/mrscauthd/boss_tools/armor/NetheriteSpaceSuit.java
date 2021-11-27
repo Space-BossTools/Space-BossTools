@@ -33,8 +33,6 @@ import java.util.List;
 
 public class NetheriteSpaceSuit {
 
-	public static double OXYGEN_TIMER = 0;
-
 	public static ArmorItem NETHERITE_OXYGEN_MASK = new ArmorItem(SpaceSuitNetheriteArmorMaterial.ARMOR_MATERIAL, EquipmentSlotType.HEAD, new Item.Properties().group(BossToolsItemGroups.tab_normal).isImmuneToFire()) {
 		@Override
 		@OnlyIn(Dist.CLIENT)
@@ -83,6 +81,8 @@ public class NetheriteSpaceSuit {
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
 			return BossToolsMod.ModId + ":textures/models/armor/netherite_space_suit.png";
 		}
+
+		private double OXYGEN_TIMER = 0;
 
 		@Override
 		public void onArmorTick(ItemStack itemstack, World world, PlayerEntity player) {

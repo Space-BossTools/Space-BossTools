@@ -33,8 +33,6 @@ import java.util.List;
 
 public class SpaceSuit {
 
-	public static double OXYGEN_TIMER = 0;
-
 	public static ArmorItem OXYGEN_MASK = new ArmorItem(SpaceSuitArmorMaterial.ArmorMaterial, EquipmentSlotType.HEAD, new Item.Properties().group(BossToolsItemGroups.tab_normal)) {
 		@Override
 		@OnlyIn(Dist.CLIENT)
@@ -83,6 +81,8 @@ public class SpaceSuit {
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
 			return BossToolsMod.ModId + ":textures/models/armor/space_suit.png";
 		}
+
+		private double OXYGEN_TIMER = 0;
 
 		@Override
 		public void onArmorTick(ItemStack itemstack, World world, PlayerEntity player) {

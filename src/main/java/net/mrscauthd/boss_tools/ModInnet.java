@@ -622,7 +622,7 @@ public class ModInnet {
         });
     }
 
-    public static void biomesLoading(final BiomeLoadingEvent event){
+    public static void biomesLoading(final BiomeLoadingEvent event) {
         if (event.getName().getPath().equals(BiomeRegistry.mars_ice_spike.getRegistryName().getPath())){
             event.getGeneration().withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, ICE_SPIKE);
         }

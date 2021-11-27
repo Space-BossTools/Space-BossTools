@@ -1,8 +1,12 @@
 package net.mrscauthd.boss_tools.events;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mrcrayfish.obfuscate.client.event.PlayerModelEvent;
 import com.mrcrayfish.obfuscate.client.event.RenderItemEvent;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
+import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.settings.PointOfView;
 import net.minecraft.entity.Entity;
@@ -17,12 +21,15 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
+import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.boss_tools.BossToolsMod;
@@ -146,6 +153,13 @@ public class Events {
         Entity player = event.getEntity();
         if (Methodes.isRocket(player.getRidingEntity())) {
             event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public static void playerRenderer(RenderLivingEvent.Post<PlayerEntity, PlayerModel<PlayerEntity>> event) {
+        if (event.getEntity() instanceof PlayerEntity) {
+            event.getRenderer().getEntityModel().bipedRightArm.rotateAngleX = 100;
         }
     }
 
