@@ -6,7 +6,9 @@
     "MixinItemGravity"
   ],
   "client": [
-    "ArmorTranslucent"
+    "ArmorTranslucent",
+    "SetupLivingBipedAnim",
+    "RenderItem"
   ],
   "injectors": {
     "defaultRequire": 1

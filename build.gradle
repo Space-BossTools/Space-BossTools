@@ -77,9 +77,6 @@ dependencies {
         annotationProcessor 'org.spongepowered:mixin:0.8.2:processor'
     }
 
-  //Obfuscate
-  compile fg.deobf("curse.maven:obfuscate-289380:3067472")
-
   //JEI
   compileOnly fg.deobf("mezz.jei:jei-1.16.5:7.7.1.137:api")
   runtimeOnly fg.deobf("mezz.jei:jei-1.16.5:7.7.1.137")

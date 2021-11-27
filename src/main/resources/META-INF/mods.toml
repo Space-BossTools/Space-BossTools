@@ -6,12 +6,11 @@ license="Not specified"
 modId="boss_tools"
 version="5.5"
 displayName="Space-BossTools"
-credits="MrScautHD"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/space-bosstools"
 logoFile="logo.png"
 authors="MrScautHD"
 description='''
-Fly to Other Planets!
+Fly to Other Planets and Beyond!
 '''
 
 [[dependencies.boss_tools]]
@@ -25,14 +24,6 @@ Fly to Other Planets!
     modId="forge"
     mandatory=true
     versionRange="[36.2.0,]"
-    ordering="NONE"
-    side="BOTH"
-
-
-[[dependencies.boss_tools]]
-    modId="obfuscate"
-    mandatory=true
-    versionRange="[0.5.0,)"
     ordering="NONE"
     side="BOTH"
     
