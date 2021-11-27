@@ -1,10 +1,8 @@
 package net.mrscauthd.boss_tools.armor;
 
 import net.mrscauthd.boss_tools.BossToolsMod;
-import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.armormaterial.SpaceSuitArmorMaterial;
 import net.mrscauthd.boss_tools.entity.renderer.spacesuit.SpaceSuitModel;
-import net.mrscauthd.boss_tools.events.Config;
 import net.mrscauthd.boss_tools.events.Methodes;
 import net.mrscauthd.boss_tools.capability.IOxygenStorage;
 import net.mrscauthd.boss_tools.capability.OxygenUtil;
@@ -86,19 +84,9 @@ public class SpaceSuit {
 
 		@Override
 		public void onArmorTick(ItemStack itemstack, World world, PlayerEntity player) {
-			if (!player.abilities.isCreativeMode && !player.isSpectator() && Methodes.spaceSuitCheckBoth(player) && Config.PlayerOxygenSystem) {
-				IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(itemstack);
-
-				OXYGEN_TIMER = OXYGEN_TIMER + 1;
-
-				if (oxygenStorage.getOxygenStored() > 0 && OXYGEN_TIMER > 3 && !player.isPotionActive(ModInnet.OXYGEN_EFFECT.get())) {
-					oxygenStorage.extractOxygen(1, false);
-					OXYGEN_TIMER = 0;
-				}
-
-			}
-
+			Methodes.extractArmorOxygenUsingTimer(itemstack, player);
 		}
+
 	};
 
 	public static ArmorItem SPACE_PANTS = new ArmorItem(SpaceSuitArmorMaterial.ArmorMaterial, EquipmentSlotType.LEGS, new Item.Properties().group(BossToolsItemGroups.tab_normal)) {
