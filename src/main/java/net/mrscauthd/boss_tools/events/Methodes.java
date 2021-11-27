@@ -16,6 +16,7 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.SChangeGameStatePacket;
 import net.minecraft.network.play.server.SPlayEntityEffectPacket;
@@ -38,6 +39,8 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
+import net.mrscauthd.boss_tools.capability.IOxygenStorage;
+import net.mrscauthd.boss_tools.capability.OxygenUtil;
 import net.mrscauthd.boss_tools.entity.*;
 import net.mrscauthd.boss_tools.events.forgeevents.LivingSetFireInHotPlanetEvent;
 import net.mrscauthd.boss_tools.events.forgeevents.LivingSetVenusRainEvent;
@@ -444,4 +447,22 @@ public class Methodes {
             Methodes.worldTeleport(player, planet, 450);
         }
     }
+
+	public static void extractArmorOxygenUsingTimer(ItemStack itemstack, PlayerEntity player) {
+		if (!player.abilities.isCreativeMode && !player.isSpectator() && Methodes.spaceSuitCheckBoth(player) && Config.PlayerOxygenSystem) {
+			IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(itemstack);
+
+			CompoundNBT persistentData = player.getPersistentData();
+			String key = BossToolsMod.ModId + ":oxygen_timer";
+			int oxygenTimer = persistentData.getInt(key);
+			oxygenTimer++;
+
+			if (oxygenStorage.getOxygenStored() > 0 && oxygenTimer > 3 && !player.isPotionActive(ModInnet.OXYGEN_EFFECT.get())) {
+				oxygenStorage.extractOxygen(1, false);
+				oxygenTimer = 0;
+			}
+
+			persistentData.putInt(key, oxygenTimer);
+		}
+	}
 }
