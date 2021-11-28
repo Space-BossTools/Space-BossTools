@@ -215,7 +215,6 @@ public class Methodes {
             });
 
         }
-
     }
 
     /**If a entity should not get Fire add it to the Tag "venus_fire"*/

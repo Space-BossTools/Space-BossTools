@@ -4,6 +4,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.capability.IOxygenStorage;
 import net.mrscauthd.boss_tools.capability.OxygenUtil;
@@ -27,7 +28,7 @@ public class OxygenSystem {
                     entity.setAir(-4);
                 }
 
-                if (oxygenStorage.getOxygenStored() > 0 || entity.isPotionActive(ModInnet.OXYGEN_EFFECT.get())) {
+                if (oxygenStorage.getOxygenStored() > 0 || entity.isPotionActive(ModInnet.OXYGEN_EFFECT.get()) || entity.getPersistentData().getBoolean(BossToolsMod.ModId + ":planet_selection_gui_open")) {
                     entity.setAir(300);
                 }
 

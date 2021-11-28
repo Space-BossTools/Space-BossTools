@@ -23,15 +23,6 @@
     {
       "weight": 50,
       "element": {
-        "location": "boss_tools:alien_village11",
-        "processors": "minecraft:empty",
-        "projection": "rigid",
-        "element_type": "minecraft:single_pool_element"
-      }
-    },
-    {
-      "weight": 50,
-      "element": {
         "location": "boss_tools:alien_village5",
         "processors": "minecraft:empty",
         "projection": "rigid",

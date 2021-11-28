@@ -146,9 +146,38 @@ public class Events {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void ItemRender(RenderItemEvent.Pre event) {
-        Entity player = event.getLivingEntity();
-        if (Methodes.isRocket(player.getRidingEntity())) {
-            event.setCanceled(true);
+        if (event.getLivingEntity() instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) event.getLivingEntity();
+
+            if (Methodes.isRocket(player.getRidingEntity())) {
+                event.setCanceled(true);
+            }
+
+            Item item1 = player.getHeldItemMainhand().getItem();
+            Item item2 = player.getHeldItemOffhand().getItem();
+
+            if (item1 == ModInnet.TIER_1_ROCKET_ITEM.get()
+                    || item1 == ModInnet.TIER_2_ROCKET_ITEM.get()
+                    || item1 == ModInnet.TIER_3_ROCKET_ITEM.get()
+                    || item1 == ModInnet.ROVER_ITEM.get()) {
+
+                if (event.getHandSide() == HandSide.LEFT) {
+                    event.setCanceled(true);
+                }
+
+            }
+
+            if (item2 == ModInnet.TIER_1_ROCKET_ITEM.get()
+                    || item2 == ModInnet.TIER_2_ROCKET_ITEM.get()
+                    || item2 == ModInnet.TIER_3_ROCKET_ITEM.get()
+                    || item2 == ModInnet.ROVER_ITEM.get()) {
+
+                if (event.getHandSide() == HandSide.RIGHT) {
+                    event.setCanceled(true);
+                }
+
+            }
+
         }
     }
 

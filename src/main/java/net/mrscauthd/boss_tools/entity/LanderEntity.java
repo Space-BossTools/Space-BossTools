@@ -2,6 +2,7 @@ package net.mrscauthd.boss_tools.entity;
 
 import net.minecraft.entity.*;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -132,6 +133,11 @@ public class LanderEntity extends CreatureEntity {
 	public void onKillCommand() {
 		dropInventory();
 		this.remove();
+	}
+
+	@Override
+	public AxisAlignedBB getRenderBoundingBox() {
+		return new AxisAlignedBB(this.getPosX(),this.getPosY(),this.getPosZ(),this.getPosX(),this.getPosY(), this.getPosZ()).grow(3,3,3);
 	}
 
 	@Override

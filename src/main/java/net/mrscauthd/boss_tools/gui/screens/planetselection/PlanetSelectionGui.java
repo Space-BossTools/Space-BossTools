@@ -99,6 +99,11 @@ public class PlanetSelectionGui {
 				context.getSender().setNoGravity(false);
 				context.getSender().closeScreen();
 			}
+			if (message.getInteger() == 3) {
+				Methodes.teleportButton(context.getSender(), new ResourceLocation("boss_tools:venus"));
+				context.getSender().setNoGravity(false);
+				context.getSender().closeScreen();
+			}
 
 			context.setPacketHandled(true);
 		}

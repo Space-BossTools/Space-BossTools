@@ -346,8 +346,10 @@ public class RocketTier2Entity extends CreatureEntity {
 			if (y > 600 && !this.getPassengers().isEmpty()) {
 				Entity pass = this.getPassengers().get(0);
 
-				pass.getPersistentData().putDouble("Tier_2_open_main_menu", 1); //TODO Remove it if you Reworked the GUI SYSTEM
-				pass.getPersistentData().putDouble("Player_movement", 1); //TODO Remove it if you Reworked the GUI SYSTEM
+				pass.getPersistentData().putBoolean(BossToolsMod.ModId + ":planet_selection_gui_open", true);
+				pass.getPersistentData().putString(BossToolsMod.ModId + ":rocket_type", this.getType().toString());
+				pass.getPersistentData().putString(BossToolsMod.ModId + ":slot0", this.inventory.getStackInSlot(0).getItem().getRegistryName().toString());
+				pass.setNoGravity(true);
 
 				this.remove();
 			} else if (y > 600 && this.getPassengers().isEmpty())  {

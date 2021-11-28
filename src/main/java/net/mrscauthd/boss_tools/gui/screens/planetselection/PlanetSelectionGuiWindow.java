@@ -37,6 +37,8 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 
 	public ImageButtonPlacer overworldButton;
 	public ImageButtonPlacer marsButton;
+	public ImageButtonPlacer mercuryButton;
+	public ImageButtonPlacer venusButton;
 
 	public PlanetSelectionGuiWindow(PlanetSelectionGui.GuiContainer container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
@@ -61,10 +63,16 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 
 		this.buttonManager(rocketType, gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) - 16 / 2, 70, 20, ms, marsButton, "Mars", "Tier 2 Rocket", 2);
 
+		this.buttonManager(rocketType, gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) + 28 / 2, 70, 20, ms, mercuryButton, "Mercury", "Tier 3 Rocket", 3);
+
+		this.buttonManager(rocketType, gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) + 72 / 2, 70, 20, ms, venusButton, "Venus", "Tier 3 Rocket", 3);
+
 		//RENDER FONTS
 		this.font.drawString(ms, "CATALOG", 21, (this.height / 2) - 126 / 2, -1);
 		this.font.drawString(ms, "Overworld", 19, (this.height / 2) - 51 / 2, -1);
 		this.font.drawString(ms, "Mars", 33, (this.height / 2) - 6 / 2, -1);
+		this.font.drawString(ms, "Mercury", 24, (this.height / 2) + 39 / 2, -1);
+		this.font.drawString(ms, "Venus", 31, (this.height / 2) + 83 / 2, -1);
 	}
 
 	@Override
@@ -121,6 +129,18 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 		marsButton = this.addButton(new ImageButtonPlacer(10, (this.height / 2) - 16 / 2, 70, 20, 0, 0, 0, defaultButtonTex, 70, 20, (p_2130901) -> {
 			if (checkRocket(container.rocket, 2)) {
 				BossToolsMod.PACKET_HANDLER.sendToServer(new PlanetSelectionGui.NetworkMessage(playerInventory.player.getPosition(), 1));
+			}
+		}));
+
+		mercuryButton = this.addButton(new ImageButtonPlacer(10, (this.height / 2) + 28 / 2, 70, 20, 0, 0, 0, defaultButtonTex, 70, 20, (p_2130901) -> {
+			if (checkRocket(container.rocket, 3)) {
+				BossToolsMod.PACKET_HANDLER.sendToServer(new PlanetSelectionGui.NetworkMessage(playerInventory.player.getPosition(), 2));
+			}
+		}));
+
+		venusButton = this.addButton(new ImageButtonPlacer(10, (this.height / 2) + 72 / 2, 70, 20, 0, 0, 0, defaultButtonTex, 70, 20, (p_2130901) -> {
+			if (checkRocket(container.rocket, 3)) {
+				BossToolsMod.PACKET_HANDLER.sendToServer(new PlanetSelectionGui.NetworkMessage(playerInventory.player.getPosition(), 3));
 			}
 		}));
 	}
