@@ -104,8 +104,8 @@ public class Events {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void setupPlayerAngles(SetupLivingBipedAnimEvent.Post event) {
-        if (event.getEntity() instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) event.getEntity();
+        if (event.getLivingEntity() instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) event.getLivingEntity();
             BipedModel model = event.getModel();
 
             //Player Rocket Sit Rotations
@@ -146,7 +146,7 @@ public class Events {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void ItemRender(RenderItemEvent.Pre event) {
-        Entity player = event.getEntity();
+        Entity player = event.getLivingEntity();
         if (Methodes.isRocket(player.getRidingEntity())) {
             event.setCanceled(true);
         }

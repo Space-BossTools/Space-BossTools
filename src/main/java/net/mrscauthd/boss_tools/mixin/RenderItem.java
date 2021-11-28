@@ -20,7 +20,7 @@ public abstract class RenderItem {
     @Inject(at = @At(value = "HEAD"), method = "func_229135_a_", cancellable = true)
     private void setRotationAnglesPre(LivingEntity p_229135_1_, ItemStack p_229135_2_, ItemCameraTransforms.TransformType p_229135_3_, HandSide p_229135_4_, MatrixStack p_229135_5_, IRenderTypeBuffer p_229135_6_, int p_229135_7_, CallbackInfo info) {
 
-        if (MinecraftForge.EVENT_BUS.post(new RenderItemEvent.Pre(p_229135_1_, p_229135_4_, p_229135_2_, p_229135_3_, p_229135_5_, p_229135_6_, p_229135_7_))) {
+        if (MinecraftForge.EVENT_BUS.post(new RenderItemEvent.Pre(p_229135_1_, p_229135_2_, p_229135_3_, p_229135_4_, p_229135_5_, p_229135_6_, p_229135_7_))) {
             info.cancel();
         }
     }
@@ -28,6 +28,6 @@ public abstract class RenderItem {
     @Inject(at = @At(value = "RETURN"), method = "func_229135_a_", cancellable = true)
     private void setRotationAnglesPost(LivingEntity p_229135_1_, ItemStack p_229135_2_, ItemCameraTransforms.TransformType p_229135_3_, HandSide p_229135_4_, MatrixStack p_229135_5_, IRenderTypeBuffer p_229135_6_, int p_229135_7_, CallbackInfo info) {
 
-        MinecraftForge.EVENT_BUS.post(new RenderItemEvent.Post(p_229135_1_, p_229135_4_, p_229135_2_, p_229135_3_, p_229135_5_, p_229135_6_, p_229135_7_));
+        MinecraftForge.EVENT_BUS.post(new RenderItemEvent.Post(p_229135_1_, p_229135_2_, p_229135_3_, p_229135_4_, p_229135_5_, p_229135_6_, p_229135_7_));
     }
 }
