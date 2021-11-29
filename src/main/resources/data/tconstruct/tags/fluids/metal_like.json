@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#boss_tools:molten_desh",
-    "#boss_tools:molten_silicon"
+    "#forge:molten_desh",
+    "#forge:molten_silicon"
   ]
 }
