@@ -128,9 +128,9 @@ public class ModInnet {
     public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, BossToolsMod.ModId);
 
     //Vehicle Items
-    public static final RegistryObject<Item> TIER_1_ROCKET_ITEM = ITEMS.register("rocket_t1", () -> new Tier1RocketItem(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1)));
-    public static final RegistryObject<Item> TIER_2_ROCKET_ITEM = ITEMS.register("rocket_t2", () -> new Tier2RocketItem(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1)));
-    public static final RegistryObject<Item> TIER_3_ROCKET_ITEM = ITEMS.register("rocket_t3", () -> new Tier3RocketItem(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1)));
+    public static final RegistryObject<RocketAbstractItem> TIER_1_ROCKET_ITEM = ITEMS.register("rocket_t1", () -> new Tier1RocketItem(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1)));
+    public static final RegistryObject<RocketAbstractItem> TIER_2_ROCKET_ITEM = ITEMS.register("rocket_t2", () -> new Tier2RocketItem(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1)));
+    public static final RegistryObject<RocketAbstractItem> TIER_3_ROCKET_ITEM = ITEMS.register("rocket_t3", () -> new Tier3RocketItem(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1)));
     public static final RegistryObject<Item> ROVER_ITEM = ITEMS.register("rover", () -> new RoverItem(new Item.Properties().group(BossToolsItemGroups.tab_normal).maxStackSize(1)));
 
     //Entitys
@@ -141,9 +141,9 @@ public class ModInnet {
     public static RegistryObject<EntityType<?>> MOGLER = ENTITYS.register("mogler", () -> EntityType.Builder.create(MoglerEntity::new, EntityClassification.MONSTER).size(1.4f, 1.4f).build(new ResourceLocation("boss_tools", "mogler").toString()));
 
     //VEHICLES
-    public static RegistryObject<EntityType<?>> TIER_1_ROCKET = ENTITYS.register("rocket_t1", () -> EntityType.Builder.create(RocketTier1Entity::new, EntityClassification.MISC).size(1.1f, 4.4f).immuneToFire().build(new ResourceLocation("boss_tools", "rocket_t1").toString()));
-    public static RegistryObject<EntityType<?>> TIER_2_ROCKET = ENTITYS.register("rocket_t2", () -> EntityType.Builder.create(RocketTier2Entity::new, EntityClassification.MISC).size(1.1f, 4.6f).immuneToFire().build(new ResourceLocation("boss_tools", "rocket_t2").toString()));
-    public static RegistryObject<EntityType<?>> TIER_3_ROCKET = ENTITYS.register("rocket_t3", () -> EntityType.Builder.create(RocketTier3Entity::new, EntityClassification.MISC).size(1.1f, 4.8f).immuneToFire().build(new ResourceLocation("boss_tools", "rocket_t3").toString()));
+    public static RegistryObject<EntityType<? extends RocketTier1Entity >> TIER_1_ROCKET = ENTITYS.register("rocket_t1", () -> EntityType.Builder.create(RocketTier1Entity::new, EntityClassification.MISC).size(1.1f, 4.4f).immuneToFire().build(new ResourceLocation("boss_tools", "rocket_t1").toString()));
+    public static RegistryObject<EntityType<? extends RocketTier2Entity >> TIER_2_ROCKET = ENTITYS.register("rocket_t2", () -> EntityType.Builder.create(RocketTier2Entity::new, EntityClassification.MISC).size(1.1f, 4.6f).immuneToFire().build(new ResourceLocation("boss_tools", "rocket_t2").toString()));
+    public static RegistryObject<EntityType<? extends RocketTier3Entity >> TIER_3_ROCKET = ENTITYS.register("rocket_t3", () -> EntityType.Builder.create(RocketTier3Entity::new, EntityClassification.MISC).size(1.1f, 4.8f).immuneToFire().build(new ResourceLocation("boss_tools", "rocket_t3").toString()));
     public static RegistryObject<EntityType<?>> LANDER = ENTITYS.register("lander", () -> EntityType.Builder.create(LanderEntity::new, EntityClassification.MISC).size(0.6f, 2.0f).immuneToFire().build(new ResourceLocation("boss_tools", "lander").toString()));
     public static RegistryObject<EntityType<?>> ROVER = ENTITYS.register("rover", () -> EntityType.Builder.create(RoverEntity::new, EntityClassification.MISC).size(2.5f, 1.0f).immuneToFire().build(new ResourceLocation("boss_tools", "rover").toString()));
 

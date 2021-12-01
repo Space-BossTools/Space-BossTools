@@ -44,7 +44,7 @@ public class Events {
             }
 
             //Planet Gui Open
-            Methodes.openPlanetGui(player);
+            Methodes.openPlanetSelectionGuiBuiltin(player);
 
             //Oxygen System
             OxygenSystem.OxygenSystem(player);

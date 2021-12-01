@@ -28,7 +28,7 @@ public class OxygenSystem {
                     entity.setAir(-4);
                 }
 
-                if (oxygenStorage.getOxygenStored() > 0 || entity.isPotionActive(ModInnet.OXYGEN_EFFECT.get()) || entity.getPersistentData().getBoolean(BossToolsMod.ModId + ":planet_selection_gui_open")) {
+                if (oxygenStorage.getOxygenStored() > 0 || entity.isPotionActive(ModInnet.OXYGEN_EFFECT.get()) || Methodes.getPlanetSelectionGuiKey(entity).length() > 0) {
                     entity.setAir(300);
                 }
 

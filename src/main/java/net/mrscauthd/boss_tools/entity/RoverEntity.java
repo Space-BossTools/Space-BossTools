@@ -57,7 +57,7 @@ public class RoverEntity extends CreatureEntity {
     private double speed = 0;
     private boolean forward = false;
 
-    public static final DataParameter<Integer> FUEL = EntityDataManager.createKey(RocketTier1Entity.class, DataSerializers.VARINT);
+    public static final DataParameter<Integer> FUEL = EntityDataManager.createKey(RoverEntity.class, DataSerializers.VARINT);
 
 	public static final int FUEL_BUCKETS = 3;
 

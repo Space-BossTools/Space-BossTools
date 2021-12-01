@@ -1,18 +1,16 @@
 package net.mrscauthd.boss_tools.gui.screens.rocket;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.IContainerFactory;
-import net.minecraftforge.items.*;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.SlotItemHandler;
 import net.mrscauthd.boss_tools.ModInnet;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.Entity;
-import net.mrscauthd.boss_tools.entity.RocketTier1Entity;
-import net.mrscauthd.boss_tools.entity.RocketTier2Entity;
-import net.mrscauthd.boss_tools.entity.RocketTier3Entity;
+import net.mrscauthd.boss_tools.entity.RocketAbstractFuelEntity;
 import net.mrscauthd.boss_tools.events.Methodes;
 import net.mrscauthd.boss_tools.fluid.FluidUtil2;
 import net.mrscauthd.boss_tools.gui.helper.ContainerHelper;
@@ -21,27 +19,19 @@ public class RocketGui {
 
 	public static class GuiContainerFactory implements IContainerFactory<GuiContainer> {
 		public GuiContainer create(int id, PlayerInventory inv, PacketBuffer extraData) {
-			return new GuiContainer(id, inv, extraData);
+			Entity entity = inv.player.world.getEntityByID(extraData.readVarInt());
+			return new GuiContainer(id, inv, (RocketAbstractFuelEntity) entity);
 		}
 	}
 
 	public static class GuiContainer extends Container {
-		Entity rocket;
+		public RocketAbstractFuelEntity rocket;
 
-		public GuiContainer(int id, PlayerInventory inv, PacketBuffer extraData) {
+		public GuiContainer(int id, PlayerInventory inv, RocketAbstractFuelEntity rocket) {
 			super(ModInnet.ROCKET_GUI.get(), id);
 
-			this.rocket = inv.player.world.getEntityByID(extraData.readVarInt());
-
-			IItemHandlerModifiable itemHandler = null;
-
-			if (rocket instanceof RocketTier1Entity) {
-				itemHandler = ((RocketTier1Entity) rocket).getItemHandler();
-			} else if (rocket instanceof RocketTier2Entity) {
-				itemHandler = ((RocketTier2Entity) rocket).getItemHandler();
-			} else if (rocket instanceof RocketTier3Entity) {
-				itemHandler = ((RocketTier3Entity) rocket).getItemHandler();
-			}
+			this.rocket = rocket;
+			IItemHandlerModifiable itemHandler = rocket.getItemHandler();
 
 			this.addSlot(new SlotItemHandler(itemHandler, 0, 46, 22) {
 				@Override
@@ -58,7 +48,7 @@ public class RocketGui {
 
 		@Override
 		public boolean canInteractWith(PlayerEntity player) {
-			return !rocket.removed;
+			return !this.rocket.removed;
 		}
 
 		@Override

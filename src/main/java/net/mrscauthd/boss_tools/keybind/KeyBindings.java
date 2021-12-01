@@ -150,25 +150,9 @@ public class KeyBindings {
 		}
 
 		if (type == 1) {
-			if (Methodes.isRocket(player.getRidingEntity())) {
-				if (player.getRidingEntity() instanceof RocketTier1Entity && player.getRidingEntity().getDataManager().get(RocketTier1Entity.FUEL) == 300) {
-
-					player.getRidingEntity().getDataManager().set(RocketTier1Entity.ROCKET_START, true);
-					Methodes.RocketSounds(player.getRidingEntity(), world);
-
-				} else if (player.getRidingEntity() instanceof RocketTier2Entity && player.getRidingEntity().getDataManager().get(RocketTier2Entity.FUEL) == 300) {
-
-					player.getRidingEntity().getDataManager().set(RocketTier2Entity.ROCKET_START, true);
-					Methodes.RocketSounds(player.getRidingEntity(), world);
-
-				} else if (player.getRidingEntity() instanceof RocketTier3Entity && player.getRidingEntity().getDataManager().get(RocketTier3Entity.FUEL) == 300) {
-
-					player.getRidingEntity().getDataManager().set(RocketTier3Entity.ROCKET_START, true);
-					Methodes.RocketSounds(player.getRidingEntity(), world);
-
-				} else {
-					Methodes.noFuelMessage(player);
-				}
+			if (player.getRidingEntity() instanceof RocketAbstractEntity) {
+				RocketAbstractEntity rocket = (RocketAbstractEntity) player.getRidingEntity();
+				rocket.tryRocketStart(player);
 			}
 
 		}

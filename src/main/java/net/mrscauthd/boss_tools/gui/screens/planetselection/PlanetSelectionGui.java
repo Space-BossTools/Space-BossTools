@@ -17,17 +17,18 @@ public class PlanetSelectionGui {
 
 	public static class GuiContainerFactory implements IContainerFactory<GuiContainer> {
 		public GuiContainer create(int id, PlayerInventory inv, PacketBuffer extraData) {
-			return new GuiContainer(id, inv, extraData);
+			int tier = extraData.readInt();
+			return new GuiContainer(id, inv, tier);
 		}
 	}
 
 	public static class GuiContainer extends Container {
-		String rocket;
 
-		public GuiContainer(int id, PlayerInventory inv, PacketBuffer extraData) {
+		private int tier;
+
+		public GuiContainer(int id, PlayerInventory inv, int tier) {
 			super(ModInnet.PLANET_SELECTION_GUI.get(), id);
-
-			this.rocket = extraData.readString();
+			this.tier = tier;
 		}
 
 
@@ -35,40 +36,33 @@ public class PlanetSelectionGui {
 		public boolean canInteractWith(PlayerEntity player) {
 			return !player.removed;
 		}
+		
+		public int getTier() {
+			return this.tier;
+		}
 	}
 
 	public static class NetworkMessage {
-		private BlockPos blockPos = BlockPos.ZERO;
-		private int integer = 0;
+		private ResourceLocation planet;
 
 		public NetworkMessage() {
 
 		}
 
-		public NetworkMessage(BlockPos pos, int integer) {
-			this.setBlockPos(pos);
-			this.setInteger(integer);
+		public NetworkMessage(ResourceLocation planet) {
+			this.setPlanet(planet);
 		}
 
 		public NetworkMessage(PacketBuffer buffer) {
-			this.setBlockPos(buffer.readBlockPos());
-			this.setInteger(buffer.readInt());
+			this.setPlanet(buffer.readResourceLocation());
 		}
-
-		public BlockPos getBlockPos() {
-			return this.blockPos;
+		
+		public ResourceLocation getPlanet() {
+			return planet;
 		}
-
-		public void setBlockPos(BlockPos blockPos) {
-			this.blockPos = blockPos;
-		}
-
-		public int getInteger() {
-			return this.integer;
-		}
-
-		public void setInteger(int integer) {
-			this.integer = integer;
+		
+		public void setPlanet(ResourceLocation planet) {
+			this.planet = planet;
 		}
 
 		public static NetworkMessage decode(PacketBuffer buffer) {
@@ -76,35 +70,16 @@ public class PlanetSelectionGui {
 		}
 
 		public static void encode(NetworkMessage message, PacketBuffer buffer) {
-			buffer.writeBlockPos(message.getBlockPos());
-			buffer.writeInt(message.getInteger());
+			buffer.writeResourceLocation(message.getPlanet());
 		}
 
 		public static void handle(NetworkMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
 			NetworkEvent.Context context = contextSupplier.get();
 			//TODO Replace it with the Category
 
-			if (message.getInteger() == 0) {
-				Methodes.teleportButton(context.getSender(), new ResourceLocation("minecraft:overworld"));
-				context.getSender().setNoGravity(false);
-				context.getSender().closeScreen();
-			}
-			if (message.getInteger() == 1) {
-				Methodes.teleportButton(context.getSender(), new ResourceLocation("boss_tools:mars"));
-				context.getSender().setNoGravity(false);
-				context.getSender().closeScreen();
-			}
-			if (message.getInteger() == 2) {
-				Methodes.teleportButton(context.getSender(), new ResourceLocation("boss_tools:mercury"));
-				context.getSender().setNoGravity(false);
-				context.getSender().closeScreen();
-			}
-			if (message.getInteger() == 3) {
-				Methodes.teleportButton(context.getSender(), new ResourceLocation("boss_tools:venus"));
-				context.getSender().setNoGravity(false);
-				context.getSender().closeScreen();
-			}
-
+			Methodes.teleportButton(context.getSender(), message.getPlanet());
+			context.getSender().setNoGravity(false);
+			context.getSender().closeScreen();
 			context.setPacketHandled(true);
 		}
 	}

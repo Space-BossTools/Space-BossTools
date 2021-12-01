@@ -57,15 +57,13 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 		rotationVenus = (rotationVenus + partialTicks * 1.1f) % 360;
 		rotationMercury = (rotationMercury + partialTicks * 0.9f) % 360;
 
-		String rocketType = container.rocket;
+		this.buttonManager(gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) - 60 / 2, 70, 20, ms, overworldButton, "Overworld", "Tier 1 Rocket", 1);
 
-		this.buttonManager(rocketType, gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) - 60 / 2, 70, 20, ms, overworldButton, "Overworld", "Tier 1 Rocket", 1);
+		this.buttonManager(gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) - 16 / 2, 70, 20, ms, marsButton, "Mars", "Tier 2 Rocket", 2);
 
-		this.buttonManager(rocketType, gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) - 16 / 2, 70, 20, ms, marsButton, "Mars", "Tier 2 Rocket", 2);
+		this.buttonManager(gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) + 28 / 2, 70, 20, ms, mercuryButton, "Mercury", "Tier 3 Rocket", 3);
 
-		this.buttonManager(rocketType, gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) + 28 / 2, 70, 20, ms, mercuryButton, "Mercury", "Tier 3 Rocket", 3);
-
-		this.buttonManager(rocketType, gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) + 72 / 2, 70, 20, ms, venusButton, "Venus", "Tier 3 Rocket", 3);
+		this.buttonManager(gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) + 72 / 2, 70, 20, ms, venusButton, "Venus", "Tier 3 Rocket", 3);
 
 		//RENDER FONTS
 		this.font.drawString(ms, "CATALOG", 21, (this.height / 2) - 126 / 2, -1);
@@ -116,32 +114,30 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 		ms.pop();
 	}
 
+	public void onPlanetButtonClick(int stage, ResourceLocation planet) {
+		if (this.checkRocketTier(stage)) {
+			BossToolsMod.PACKET_HANDLER.sendToServer(new PlanetSelectionGui.NetworkMessage(planet));
+		}
+	}
+
 	@Override
 	protected void init() {
 		super.init();
 
 		overworldButton = this.addButton(new ImageButtonPlacer(10, (this.height / 2) - 60 / 2, 70, 20, 0, 0, 0, defaultButtonTex, 70, 20, (p_2130901) -> {
-			if (checkRocket(container.rocket, 1)) {
-				BossToolsMod.PACKET_HANDLER.sendToServer(new PlanetSelectionGui.NetworkMessage(playerInventory.player.getPosition(), 0));
-			}
+			onPlanetButtonClick(1, new ResourceLocation("minecraft:overworld"));
 		}));
 
 		marsButton = this.addButton(new ImageButtonPlacer(10, (this.height / 2) - 16 / 2, 70, 20, 0, 0, 0, defaultButtonTex, 70, 20, (p_2130901) -> {
-			if (checkRocket(container.rocket, 2)) {
-				BossToolsMod.PACKET_HANDLER.sendToServer(new PlanetSelectionGui.NetworkMessage(playerInventory.player.getPosition(), 1));
-			}
+			onPlanetButtonClick(2, new ResourceLocation("boss_tools:mars"));
 		}));
 
 		mercuryButton = this.addButton(new ImageButtonPlacer(10, (this.height / 2) + 28 / 2, 70, 20, 0, 0, 0, defaultButtonTex, 70, 20, (p_2130901) -> {
-			if (checkRocket(container.rocket, 3)) {
-				BossToolsMod.PACKET_HANDLER.sendToServer(new PlanetSelectionGui.NetworkMessage(playerInventory.player.getPosition(), 2));
-			}
+			onPlanetButtonClick(3, new ResourceLocation("boss_tools:mercury"));
 		}));
 
 		venusButton = this.addButton(new ImageButtonPlacer(10, (this.height / 2) + 72 / 2, 70, 20, 0, 0, 0, defaultButtonTex, 70, 20, (p_2130901) -> {
-			if (checkRocket(container.rocket, 3)) {
-				BossToolsMod.PACKET_HANDLER.sendToServer(new PlanetSelectionGui.NetworkMessage(playerInventory.player.getPosition(), 3));
-			}
+			onPlanetButtonClick(3, new ResourceLocation("boss_tools:venus"));
 		}));
 	}
 
@@ -153,24 +149,14 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 		return GuiHelper.getBounds(left, top, width, height);
 	}
 
-	public static boolean checkRocket(String rocketType, int stage) {
-		if (stage == 1 && rocketType.equals("entity." + BossToolsMod.ModId + ".rocket_t1") || rocketType.equals("entity." + BossToolsMod.ModId + ".rocket_t2") || rocketType.equals("entity." + BossToolsMod.ModId + ".rocket_t3")) {
-			return true;
-		}
-		if (stage == 2 && rocketType.equals("entity." + BossToolsMod.ModId + ".rocket_t2") || rocketType.equals("entity." + BossToolsMod.ModId + ".rocket_t3")) {
-			return true;
-		}
-		if (stage == 3 && rocketType.equals("entity." + BossToolsMod.ModId + ".rocket_t3")) {
-			return true;
-		}
-
-		return false;
+	public boolean checkRocketTier(int stage) {
+		return this.container.getTier() >= stage;
 	}
 
-	public void buttonManager(String rocketType, ResourceLocation gb2, ResourceLocation rb2, ResourceLocation gb, ResourceLocation rb, int mouseX, int mouseY, int left, int top, int width, int height, MatrixStack ms, ImageButtonPlacer button, String dim, String rocketTier, int stage) {
+	public void buttonManager(ResourceLocation gb2, ResourceLocation rb2, ResourceLocation gb, ResourceLocation rb, int mouseX, int mouseY, int left, int top, int width, int height, MatrixStack ms, ImageButtonPlacer button, String dim, String rocketTier, int stage) {
 		String level = "c";
 
-		if (checkRocket(rocketType, stage)) {
+		if (checkRocketTier(stage)) {
 			level = "a";
 			button.setTexture(gb2);
 		} else {
@@ -187,7 +173,7 @@ public class PlanetSelectionGuiWindow extends ContainerScreen<PlanetSelectionGui
 			this.func_243308_b(ms, list, mouseX, mouseY);
 
 		} else {
-			if (checkRocket(rocketType, stage)) {
+			if (checkRocketTier(stage)) {
 				button.setTexture(gb);
 			} else {
 				button.setTexture(rb);

@@ -98,20 +98,9 @@ public class OverlayEvents {
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.disableAlphaTest();
 
-            if (Methodes.isRocket(entity.getRidingEntity())) {
-                int timer = 0;
-
-                if (entity.getRidingEntity() instanceof RocketTier1Entity) {
-                    timer = entity.getRidingEntity().getDataManager().get(RocketTier1Entity.START_TIMER);
-                }
-
-                if (entity.getRidingEntity() instanceof RocketTier2Entity) {
-                    timer = entity.getRidingEntity().getDataManager().get(RocketTier2Entity.START_TIMER);
-                }
-
-                if (entity.getRidingEntity() instanceof RocketTier3Entity) {
-                    timer = entity.getRidingEntity().getDataManager().get(RocketTier3Entity.START_TIMER);
-                }
+            if (entity.getRidingEntity() instanceof RocketAbstractEntity) {
+                RocketAbstractEntity rocket = (RocketAbstractEntity) entity.getRidingEntity();
+				int timer = rocket.getStartTimer();
 
                 int width = event.getWindow().getScaledWidth() / 2 - 31;
                 int high = event.getWindow().getScaledHeight() / 2 / 2;

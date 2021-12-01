@@ -1,6 +1,5 @@
 package net.mrscauthd.boss_tools.events;
 
-import io.netty.buffer.Unpooled;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -11,19 +10,19 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.SChangeGameStatePacket;
 import net.minecraft.network.play.server.SPlayEntityEffectPacket;
 import net.minecraft.network.play.server.SPlayerAbilitiesPacket;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -47,8 +46,10 @@ import net.mrscauthd.boss_tools.events.forgeevents.LivingSetVenusRainEvent;
 import net.mrscauthd.boss_tools.gui.screens.planetselection.PlanetSelectionGui;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class Methodes {
 
@@ -176,14 +177,11 @@ public class Methodes {
     }
 
     public static boolean isRocket(Entity entity) {
-        if (entity instanceof RocketTier1Entity || entity instanceof RocketTier2Entity || entity instanceof RocketTier3Entity) {
-            return true;
-        }
-        return false;
+    	return entity instanceof RocketAbstractEntity;
     }
 
     public static boolean AllVehiclesOr(Entity entity) {
-        if (entity instanceof RocketTier1Entity || entity instanceof RocketTier2Entity || entity instanceof RocketTier3Entity || entity instanceof LanderEntity || entity instanceof RoverEntity) {
+        if (entity instanceof RocketAbstractEntity || entity instanceof LanderEntity || entity instanceof RoverEntity) {
             return true;
         }
         return false;
@@ -344,28 +342,32 @@ public class Methodes {
             landerSpawn.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(landerSpawn.getPosition()), SpawnReason.MOB_SUMMONED, null, null);
             world.addEntity(landerSpawn);
 
-            String itemId = player.getPersistentData().getString(BossToolsMod.ModId + ":slot0");
-
-            landerSpawn.getInventory().setStackInSlot(0, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemId)), 1));
+            NonNullList<ItemStack> slots = Methodes.getPlanetSelectionItemSlots(player);
+            landerSpawn.getInventory().setStackInSlot(0, slots.get(0));
             landerSpawn.getInventory().setStackInSlot(1, rocketItem);
 
-            cleanUpPlayerNBT(player);
+            cleanUpPlanetSelectionNBT(player);
 
             player.startRiding(landerSpawn);
         }
     }
 
-    public static void cleanUpPlayerNBT(PlayerEntity player) {
-        player.getPersistentData().putBoolean(BossToolsMod.ModId + ":planet_selection_gui_open", false);
-        player.getPersistentData().putString(BossToolsMod.ModId + ":rocket_type", "");
-        player.getPersistentData().putString(BossToolsMod.ModId + ":slot0", "");
+    public static void cleanUpPlanetSelectionNBT(Entity player) {
+    	setPlanetSelectionGuiKey(player, "");
+    	setPlanetSelectionRocketTier(player, 0);
+    	setPlanetSelectionRocketItem(player, null);
+    	setPlanetSelectionItemSlots(player, null);
     }
 
-    public static void openPlanetGui(PlayerEntity player) {
-        if (!(player.openContainer instanceof PlanetSelectionGui.GuiContainer) && player.getPersistentData().getBoolean(BossToolsMod.ModId + ":planet_selection_gui_open")) {
-            if (player instanceof ServerPlayerEntity) {
-
-                NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
+    public static void openPlanetSelectionGuiBuiltin(PlayerEntity player) {
+        if (!(player.openContainer instanceof PlanetSelectionGui.GuiContainer)) {
+        	if (player instanceof ServerPlayerEntity) {
+        	
+        		String gui = getPlanetSelectionGuiKey(player);
+        		int tier = getPlanetSelectionRocketTier(player);
+        		
+        		if (gui.equals(RocketAbstractEntity.SELECTION_GUI_KEY_BUILTIN)) {
+        			NetworkHooks.openGui((ServerPlayerEntity) player, new INamedContainerProvider() {
                     @Override
                     public ITextComponent getDisplayName() {
                         return new StringTextComponent("Planet Selection");
@@ -373,31 +375,74 @@ public class Methodes {
 
                     @Override
                     public Container createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-                        PacketBuffer packetBuffer = new PacketBuffer(Unpooled.buffer());
-                        packetBuffer.writeString(player.getPersistentData().getString(BossToolsMod.ModId + ":rocket_type"));
-                        return new PlanetSelectionGui.GuiContainer(id, inventory, packetBuffer);
+                        return new PlanetSelectionGui.GuiContainer(id, inventory, tier);
                     }
                 }, buf -> {
-                    buf.writeString(player.getPersistentData().getString(BossToolsMod.ModId + ":rocket_type"));
+                    buf.writeInt(tier);
                 });
+        		}
+
+                
             }
         }
     }
 
-    public static void teleportButton (PlayerEntity player, ResourceLocation planet) {
-        ItemStack itemStack = new ItemStack(Items.AIR, 1);
+	public static void setPlanetSelectionGuiKey(Entity entity, String key) {
+		entity.getPersistentData().putString(BossToolsMod.ModId + ":planet_selection_gui_open", key);
+	}
+	
+	public static String getPlanetSelectionGuiKey(Entity entity) {
+		return entity.getPersistentData().getString(BossToolsMod.ModId + ":planet_selection_gui_open");
+	}
+	
+	public static int getPlanetSelectionRocketTier(Entity entity) {
+		return entity.getPersistentData().getInt(BossToolsMod.ModId + ":rocket_tier");
+	}
+	
+	public static void setPlanetSelectionRocketTier(Entity entity, int rocketTier) {
+		entity.getPersistentData().putInt(BossToolsMod.ModId + ":rocket_tier", rocketTier);
+	}
 
-        if (player.getPersistentData().getString(BossToolsMod.ModId + ":rocket_type").equals("entity." + BossToolsMod.ModId + ".rocket_t1")) {
-            itemStack = new ItemStack(ModInnet.TIER_1_ROCKET_ITEM.get(),1);
-        }
-        if (player.getPersistentData().getString(BossToolsMod.ModId + ":rocket_type").equals("entity." + BossToolsMod.ModId + ".rocket_t2")) {
-            itemStack = new ItemStack(ModInnet.TIER_2_ROCKET_ITEM.get(),1);
-        }
-        if (player.getPersistentData().getString(BossToolsMod.ModId + ":rocket_type").equals("entity." + BossToolsMod.ModId + ".rocket_t3")) {
-            itemStack = new ItemStack(ModInnet.TIER_3_ROCKET_ITEM.get(),1);
-        }
+	public static void setPlanetSelectionRocketItem(Entity entity, @Nullable Item item) {
+		String text = item != null ? item.getRegistryName().toString() : "";
+		entity.getPersistentData().putString(BossToolsMod.ModId + ":rocket_item", text);
+	}
+	
+	@Nullable
+	public static Item getPlanetSelectionRocketItem(Entity entity) {
+    	ResourceLocation itemRegistryName = new ResourceLocation(entity.getPersistentData().getString(BossToolsMod.ModId + ":rocket_item"));
+    	Item item = ForgeRegistries.ITEMS.getValue(itemRegistryName);
+    	return item;
+	}
+	
+	@Nonnull
+	public static NonNullList<ItemStack> getPlanetSelectionItemSlots(Entity entity){
+		CompoundNBT compound = entity.getPersistentData().getCompound(BossToolsMod.ModId + ":slots");
+		int size = compound.getInt("size");
+		NonNullList<ItemStack> list = NonNullList.withSize(size, ItemStack.EMPTY);
+		ItemStackHelper.loadAllItems(compound, list);
+		
+		return list;
+	}
 
-        Methodes.rocketTeleport(player, planet, itemStack);
+	public static void setPlanetSelectionItemSlots(Entity entity, @Nullable List<ItemStack> stacks) {
+		int size = stacks != null ? stacks.size() : 0;
+		CompoundNBT compound = new CompoundNBT();
+		compound.putInt("size", size);
+		
+		NonNullList<ItemStack> list = NonNullList.withSize(size, ItemStack.EMPTY);
+		
+		for (int i = 0; i < size; i++) {
+			list.set(i, stacks.get(i));
+		}
+		
+		entity.getPersistentData().put(BossToolsMod.ModId + ":slots", ItemStackHelper.saveAllItems(compound, list));
+	}
+	
+	
+    public static void teleportButton(PlayerEntity player, ResourceLocation planet) {
+    	Item item = getPlanetSelectionRocketItem(player);
+        Methodes.rocketTeleport(player, planet, new ItemStack(item));
     }
 
     public static void landerTeleportOrbit(PlayerEntity player, World world) {
