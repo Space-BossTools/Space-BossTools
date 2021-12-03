@@ -154,6 +154,7 @@ public abstract class RocketAbstractEntity extends CreatureEntity implements INa
 		RocketAbstractItem item = this.getRocketItem();
 		ItemStack itemStack = new ItemStack(item, 1);
 		item.fetchItemNBT(itemStack, this);
+		itemStack.setDisplayName(this.getCustomName());
 		return itemStack;
 	}
 
@@ -217,9 +218,15 @@ public abstract class RocketAbstractEntity extends CreatureEntity implements INa
 		Entity sourceentity = source.getTrueSource();
 
 		if (!source.isProjectile() && sourceentity != null && sourceentity.isSneaking() && !this.isBeingRidden()) {
+			if (sourceentity instanceof PlayerEntity) {
+				PlayerEntity playerEntity = (PlayerEntity) sourceentity;
+
+				if (!playerEntity.isCreative()) {
+					this.spawnRocketItem();
+				}
+			}
 
 			this.dropInventory();
-			this.spawnRocketItem();
 			this.remove();
 		}
 
@@ -227,9 +234,7 @@ public abstract class RocketAbstractEntity extends CreatureEntity implements INa
 	}
 
 	protected void spawnRocketItem() {
-
 		if (!world.isRemote()) {
-
 			ItemStack itemStack = this.getPickedResult(null);
 			ItemEntity entityToSpawn = new ItemEntity(world, this.getPosX(), this.getPosY(), this.getPosZ(), itemStack);
 			entityToSpawn.setPickupDelay(10);

@@ -13,11 +13,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.mrscauthd.boss_tools.block.RocketLaunchPad;
@@ -35,43 +35,52 @@ public abstract class RocketAbstractItem extends Item {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
-		PlayerEntity player = context.getPlayer();
+	public ActionResultType onItemUse(ItemUseContext context) {
 		World world = context.getWorld();
+
+		if (!(world instanceof ServerWorld)) {
+			return super.onItemUse(context);
+		}
+
+		PlayerEntity player = context.getPlayer();
 		BlockPos pos = context.getPos();
 		BlockState state = world.getBlockState(pos);
-		Hand hand = context.getHand();
 		ItemStack itemStack = context.getItem();
 
-		if (world instanceof ServerWorld) {
-			int x = pos.getX();
-			int y = pos.getY();
-			int z = pos.getZ();
+		int x = pos.getX();
+		int y = pos.getY();
+		int z = pos.getZ();
 
-			if (state.getBlock() instanceof RocketLaunchPad && state.get(RocketLaunchPad.STAGE)) {
-				BlockPos pos1 = new BlockPos(x, y + 1, z);
-				BlockPos pos2 = new BlockPos(x, y + 2, z);
-				BlockPos pos3 = new BlockPos(x, y + 3, z);
-				BlockPos pos4 = new BlockPos(x, y + 4, z);
+		if (state.getBlock() instanceof RocketLaunchPad && state.get(RocketLaunchPad.STAGE)) {
+			BlockPos pos1 = new BlockPos(x, y + 1, z);
+			BlockPos pos2 = new BlockPos(x, y + 2, z);
+			BlockPos pos3 = new BlockPos(x, y + 3, z);
+			BlockPos pos4 = new BlockPos(x, y + 4, z);
 
-				if (world.getBlockState(pos1).isAir() && world.getBlockState(pos2).isAir() && world.getBlockState(pos3).isAir() && world.getBlockState(pos4).isAir()) {
+			if (world.getBlockState(pos1).isAir() && world.getBlockState(pos2).isAir() && world.getBlockState(pos3).isAir() && world.getBlockState(pos4).isAir()) {
 
-					AxisAlignedBB scanAbove = new AxisAlignedBB(x - 0, y - 0, z - 0, x + 1, y + 1, z + 1);
-					List<Entity> entities = player.getEntityWorld().getEntitiesWithinAABB(Entity.class, scanAbove);
+				AxisAlignedBB scanAbove = new AxisAlignedBB(x - 0, y - 0, z - 0, x + 1, y + 1, z + 1);
+				List<Entity> entities = player.getEntityWorld().getEntitiesWithinAABB(Entity.class, scanAbove);
 
-					if (entities.isEmpty()) {
-						RocketAbstractEntity rocket = this.getRocketEntityType().create((ServerWorld) world, null, null, player, pos, SpawnReason.MOB_SUMMONED, true, true);
-						this.applyItemNBT(itemStack, rocket);
-						world.addEntity(rocket);
+				if (entities.isEmpty()) {
+					ITextComponent component = itemStack.hasDisplayName() ? itemStack.getDisplayName() : null;
+					RocketAbstractEntity rocket = this.getRocketEntityType().create((ServerWorld) world, null, component, player, pos, SpawnReason.MOB_SUMMONED, true, true);
+					rocket.rotationYawHead = player.rotationYaw;
+					rocket.renderYawOffset = player.rotationYaw;
+					this.applyItemNBT(itemStack, rocket);
+					world.addEntity(rocket);
+					playRocketPlaceSound(pos, world);
 
-						player.setHeldItem(hand, ItemStack.EMPTY);
-						playRocketPlaceSound(pos, world);
+					if (!player.isCreative()) {
+						itemStack.shrink(1);
 					}
+
+					return ActionResultType.CONSUME;
 				}
 			}
 		}
 
-		return super.onItemUseFirst(stack, context);
+		return super.onItemUse(context);
 	}
 
 	public void fetchItemNBT(ItemStack itemStack, RocketAbstractEntity rocket) {
