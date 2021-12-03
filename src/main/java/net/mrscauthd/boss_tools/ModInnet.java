@@ -145,7 +145,7 @@ public class ModInnet {
     public static RegistryObject<EntityType<?>> TIER_2_ROCKET = ENTITYS.register("rocket_t2", () -> EntityType.Builder.create(RocketTier2Entity::new, EntityClassification.MISC).size(1.1f, 4.6f).immuneToFire().build(new ResourceLocation("boss_tools", "rocket_t2").toString()));
     public static RegistryObject<EntityType<?>> TIER_3_ROCKET = ENTITYS.register("rocket_t3", () -> EntityType.Builder.create(RocketTier3Entity::new, EntityClassification.MISC).size(1.1f, 4.8f).immuneToFire().build(new ResourceLocation("boss_tools", "rocket_t3").toString()));
     public static RegistryObject<EntityType<?>> LANDER = ENTITYS.register("lander", () -> EntityType.Builder.create(LanderEntity::new, EntityClassification.MISC).size(0.6f, 2.0f).immuneToFire().build(new ResourceLocation("boss_tools", "lander").toString()));
-    public static RegistryObject<EntityType<?>> ROVER = ENTITYS.register("rover", () -> EntityType.Builder.create(RoverEntity::new, EntityClassification.MISC).size(2.5f, 1.0f).immuneToFire().build(new ResourceLocation("boss_tools", "rover").toString()));
+    public static RegistryObject<EntityType<? extends RoverEntity>> ROVER = ENTITYS.register("rover", () -> EntityType.Builder.create(RoverEntity::new, EntityClassification.MISC).size(2.5f, 1.0f).immuneToFire().build(new ResourceLocation("boss_tools", "rover").toString()));
 
     //Rocket Launch Pad
     public static final RegistryObject<Block> ROCKET_LAUNCH_PAD = BLOCKS.register("rocket_launch_pad", () -> new RocketLaunchPad(AbstractBlock.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(5f, 2.5f).harvestTool(ToolType.PICKAXE).setRequiresTool()));

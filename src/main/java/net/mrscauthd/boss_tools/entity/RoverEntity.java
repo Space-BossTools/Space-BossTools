@@ -198,6 +198,7 @@ public class RoverEntity extends CreatureEntity {
     public ItemStack getPickedResult(RayTraceResult target) {
         ItemStack itemStack = new ItemStack(ModInnet.ROVER_ITEM.get(), 1);
         itemStack.getOrCreateTag().putInt(BossToolsMod.ModId + ":fuel", this.getDataManager().get(FUEL));
+        itemStack.setDisplayName(this.getCustomName());
 
         return itemStack;
     }
@@ -221,8 +222,17 @@ public class RoverEntity extends CreatureEntity {
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
-        if (!source.isProjectile() && source.getTrueSource() != null && source.getTrueSource().isSneaking() && !this.isBeingRidden()) {
-            this.spawnRoverItem();
+        Entity trueSource = source.getTrueSource();
+        
+		if (!source.isProjectile() && trueSource != null && trueSource.isSneaking() && !this.isBeingRidden()) {
+        	if (trueSource instanceof PlayerEntity) {
+				PlayerEntity playerEntity = (PlayerEntity) trueSource;
+				
+				if (!playerEntity.isCreative()) {
+					this.spawnRoverItem();
+				}
+        	}
+				
             this.dropInventory();
             this.remove();
         }
@@ -232,8 +242,7 @@ public class RoverEntity extends CreatureEntity {
 
     protected void spawnRoverItem() {
         if (!world.isRemote()) {
-            ItemStack itemStack = new ItemStack(ModInnet.ROVER_ITEM.get(), 1);
-            itemStack.getOrCreateTag().putInt(BossToolsMod.ModId + ":fuel", this.getDataManager().get(FUEL));
+            ItemStack itemStack = this.getPickedResult(null);
 
             ItemEntity entityToSpawn = new ItemEntity(world, this.getPosX(), this.getPosY(), this.getPosZ(), itemStack);
             entityToSpawn.setPickupDelay(10);
