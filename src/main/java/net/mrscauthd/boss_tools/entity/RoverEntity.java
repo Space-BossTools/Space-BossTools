@@ -302,7 +302,7 @@ public class RoverEntity extends CreatureEntity {
             NetworkHooks.openGui((ServerPlayerEntity) sourceentity, new INamedContainerProvider() {
                 @Override
                 public ITextComponent getDisplayName() {
-                    return new StringTextComponent("Rover");
+                    return RoverEntity.this.getDisplayName();
                 }
 
                 @Override

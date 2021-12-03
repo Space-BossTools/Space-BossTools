@@ -27,7 +27,7 @@ public class MekanismHelper {
 		IGasHandler gasHandler = getItemStackGasHandler(itemStack);
 
 		if (gasHandler != null) {
-			return new GasHandlerOxygenAdapter(gasHandler, true, false);
+			return new GasHandlerOxygenAdapter(gasHandler, true, true);
 		} else {
 			return null;
 		}
