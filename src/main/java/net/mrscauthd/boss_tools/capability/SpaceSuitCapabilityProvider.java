@@ -43,7 +43,7 @@ public class SpaceSuitCapabilityProvider implements ICapabilityProvider, IOxygen
 
 		if (CompatibleManager.MEKANISM.isLoaded()) {
 			if (capability == MekanismHelper.getGasHandlerCapability()) {
-				return LazyOptional.of(() -> new OxygenStorageGasAdapter(this.getCapability(CapabilityOxygen.OXYGEN, direction).orElse(null), false, true)).cast();
+				return LazyOptional.of(() -> new OxygenStorageGasAdapter(this.getCapability(CapabilityOxygen.OXYGEN, direction).orElse(null), true, true)).cast();
 			}
 		}
 
