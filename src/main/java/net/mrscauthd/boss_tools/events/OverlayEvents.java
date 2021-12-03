@@ -21,6 +21,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.capability.CapabilityOxygen;
+import net.mrscauthd.boss_tools.compat.CompatibleManager;
+import net.mrscauthd.boss_tools.compat.theoneprobe.TOPHelper;
 import net.mrscauthd.boss_tools.entity.*;
 import net.mrscauthd.boss_tools.gui.helper.GuiHelper;
 
@@ -180,12 +182,13 @@ public class OverlayEvents {
             Item chestItem = chest.getItem();
 
             if (chestItem == ModInnet.SPACE_SUIT.get() || chestItem == ModInnet.NETHERITE_SPACE_SUIT.get()) {
+                int offset = CompatibleManager.TOP.isLoaded() ? TOPHelper.getOxygenOverlayOffset(event.getPartialTicks()) : 0;
                 double oxygenStoredRatio = chest.getCapability(CapabilityOxygen.OXYGEN).map(s -> s.getOxygenStoredRatio()).orElse(0.0D);
                 ResourceLocation empty = new ResourceLocation(BossToolsMod.ModId, "textures/overlay/oxygentankcheck_empty.png");
                 ResourceLocation full = new ResourceLocation(BossToolsMod.ModId, "textures/overlay/oxygentankcheck_full.png");
                 double scale = event.getWindow().getScaledWidth() / 1280.0D;
-                GuiHelper.drawVerticalReverse(event.getMatrixStack(), 5, 5, (int) (124 * scale), (int) (104 * scale), empty, oxygenStoredRatio);
-                GuiHelper.drawVertical(event.getMatrixStack(), 5, 5, (int) (124 * scale), (int) (104 * scale), full, oxygenStoredRatio);
+                GuiHelper.drawVerticalReverse(event.getMatrixStack(), 5, 5 + offset, (int) (124 * scale), (int) (104 * scale), empty, oxygenStoredRatio);
+                GuiHelper.drawVertical(event.getMatrixStack(), 5, 5 + offset, (int) (124 * scale), (int) (104 * scale), full, oxygenStoredRatio);
             }
 
             RenderSystem.depthMask(true);

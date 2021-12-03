@@ -1,6 +1,7 @@
 package net.mrscauthd.boss_tools.compat.hwyla;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import mcp.mobius.waila.api.IServerDataProvider;
@@ -49,13 +50,16 @@ public class ServerDataProvider implements IServerDataProvider<TileEntity> {
 		if (t instanceof AbstractMachineTileEntity) {
 			AbstractMachineTileEntity machineTileEntity = (AbstractMachineTileEntity) t;
 
-			List<IGaugeValue> list = machineTileEntity.getGaugeValues();
 			IEnergyStorage energyStorage = machineTileEntity.getCapability(CapabilityEnergy.ENERGY).orElse(null);
+			List<IGaugeValue> list = new ArrayList<>();
 
 			if (energyStorage != null) {
-				list.add(0, GaugeValueHelper.getEnergy(energyStorage));
+				list.add(GaugeValueHelper.getEnergy(energyStorage));
 			}
 
+			list.addAll(machineTileEntity.getGaugeValues());
+			machineTileEntity.getFluidHandlers().values().stream().map(machineTileEntity::getFluidHandlerGaugeValues).flatMap(Collection::stream).forEach(list::add);
+			
 			put(data, write(list));
 		}
 	}

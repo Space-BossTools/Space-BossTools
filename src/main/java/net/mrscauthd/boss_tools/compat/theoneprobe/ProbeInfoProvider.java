@@ -1,5 +1,6 @@
 package net.mrscauthd.boss_tools.compat.theoneprobe;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 
@@ -42,11 +43,17 @@ public class ProbeInfoProvider implements IProbeInfoProvider, Function<ITheOnePr
 		if (tileEntity instanceof AbstractMachineTileEntity) {
 			AbstractMachineTileEntity machineTileEntity = (AbstractMachineTileEntity) tileEntity;
 			
-			if (CompatibleManager.MEKANISM.isLoaded()) {
-				List<? extends IElement> elements = MekanismHelper.createGasGaugeDataElement(machineTileEntity.getCapability(MekanismHelper.getGasHandlerCapability()).orElse(null));
-				elements.forEach(element -> probeInfo.element(element));
+			if (probeMod != ProbeMode.EXTENDED)
+			{
+				machineTileEntity.getFluidHandlers().values().stream().map(machineTileEntity::getFluidHandlerGaugeValues).flatMap(Collection::stream).forEach(g -> probeInfo.element(new GaugeValueElement(g)));
+				
+				if (CompatibleManager.MEKANISM.isLoaded()) {
+					List<? extends IElement> elements = MekanismHelper.createGasGaugeDataElement(machineTileEntity.getCapability(MekanismHelper.getGasHandlerCapability()).orElse(null));
+					elements.forEach(element -> probeInfo.element(element));
+				}
+				
 			}
-
+			
 			machineTileEntity.getGaugeValues().forEach(g -> probeInfo.element(new GaugeValueElement(g)));
 		}
 	}
