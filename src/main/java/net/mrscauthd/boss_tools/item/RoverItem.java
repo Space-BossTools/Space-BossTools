@@ -97,18 +97,6 @@ public class RoverItem extends Item {
 		return super.onItemUse(context);
 	}
 
-	protected static double func_208051_a(IWorldReader worldReader, BlockPos pos, boolean p_208051_2_, AxisAlignedBB p_208051_3_) {
-		AxisAlignedBB axisalignedbb = new AxisAlignedBB(pos);
-		if (p_208051_2_) {
-			axisalignedbb = axisalignedbb.expand(0.0D, -1.0D, 0.0D);
-		}
-
-		Stream<VoxelShape> stream = worldReader.func_234867_d_((Entity) null, axisalignedbb, (entity) -> {
-			return true;
-		});
-		return 1.0D + VoxelShapes.getAllowedOffset(Direction.Axis.Y, p_208051_3_, stream, p_208051_2_ ? -2.0D : -1.0D);
-	}
-
 	public static void roverPlaceSound(BlockPos pos, World world) {
 		world.playSound(null, pos, SoundEvents.BLOCK_STONE_BREAK, SoundCategory.BLOCKS, 1, 1);
 	}
