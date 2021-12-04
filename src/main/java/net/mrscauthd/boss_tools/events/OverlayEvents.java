@@ -23,8 +23,6 @@ import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.capability.CapabilityOxygen;
 import net.mrscauthd.boss_tools.capability.IOxygenStorage;
-import net.mrscauthd.boss_tools.compat.CompatibleManager;
-import net.mrscauthd.boss_tools.compat.theoneprobe.TOPHelper;
 import net.mrscauthd.boss_tools.entity.*;
 import net.mrscauthd.boss_tools.gauge.GaugeTextHelper;
 import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
@@ -185,7 +183,6 @@ public class OverlayEvents {
                 int width = 62;
                 int height = 52;
                 
-                y += CompatibleManager.TOP.isLoaded() ? TOPHelper.getOxygenOverlayOffset(event.getPartialTicks()) : 0;
                 GuiHelper.drawVerticalReverse(event.getMatrixStack(), x, y, width, height, empty, oxygenStoredRatio);
                 GuiHelper.drawVertical(event.getMatrixStack(), x, y, width, height, full, oxygenStoredRatio);
                 

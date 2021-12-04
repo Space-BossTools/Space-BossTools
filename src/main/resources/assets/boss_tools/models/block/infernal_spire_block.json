@@ -1,8 +1,8 @@
 {
   "parent": "block/cube",
   "textures": {
-    "down": "boss_tools:blocks/infernal_spire_side",
-    "up": "boss_tools:blocks/infernal_spire_side",
+    "down": "boss_tools:blocks/infernal_spire_top",
+    "up": "boss_tools:blocks/infernal_spire_top",
     "north": "boss_tools:blocks/infernal_spire_side",
     "east": "boss_tools:blocks/infernal_spire_side",
     "south": "boss_tools:blocks/infernal_spire_side",

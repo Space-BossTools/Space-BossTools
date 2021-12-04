@@ -26,11 +26,13 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.Heightmap;
+import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -321,7 +323,7 @@ public class Methodes {
         }
     }
 
-    public static void rocketTeleport(PlayerEntity player, ResourceLocation planet, ItemStack rocketItem) {
+    public static void rocketTeleport(PlayerEntity player, ResourceLocation planet, ItemStack rocketItem, Boolean SpaceStation) {
         RegistryKey<World> dim = player.world.getDimensionKey();
 
         if (dim != RegistryKey.getOrCreateKey(Registry.WORLD_KEY, planet)) {
@@ -346,6 +348,10 @@ public class Methodes {
             landerSpawn.getInventory().setStackInSlot(0, slots.get(0));
             landerSpawn.getInventory().setStackInSlot(1, rocketItem);
 
+            if (SpaceStation) {
+                createSpaceStation(player, (ServerWorld) world);
+            }
+
             cleanUpPlanetSelectionNBT(player);
 
             player.startRiding(landerSpawn);
@@ -357,6 +363,11 @@ public class Methodes {
     	setPlanetSelectionRocketTier(player, 0);
     	setPlanetSelectionRocketItem(player, ItemStack.EMPTY);
     	setPlanetSelectionItemSlots(player, null);
+    }
+    
+    public static void createSpaceStation(PlayerEntity player, ServerWorld serverWorld) {
+        BlockPos pos = new BlockPos(player.getPosX() - 15.5, 100, player.getPosZ() - 15.5);
+        serverWorld.getStructureTemplateManager().getTemplate(new ResourceLocation(BossToolsMod.ModId, "space_station")).func_237144_a_(serverWorld, pos, new PlacementSettings(), serverWorld.rand);
     }
 
     public static void openPlanetSelectionGuiBuiltin(PlayerEntity player) {
@@ -436,9 +447,9 @@ public class Methodes {
 	}
 	
 	
-    public static void teleportButton(PlayerEntity player, ResourceLocation planet) {
-    	ItemStack item = getPlanetSelectionRocketItem(player);
-        Methodes.rocketTeleport(player, planet, item);
+    public static void teleportButton(PlayerEntity player, ResourceLocation planet, Boolean SpaceStation) {
+    	ItemStack itemStack = getPlanetSelectionRocketItem(player);
+        Methodes.rocketTeleport(player, planet, itemStack, SpaceStation);
     }
 
     public static void landerTeleportOrbit(PlayerEntity player, World world) {
