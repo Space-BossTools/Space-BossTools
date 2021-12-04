@@ -54,6 +54,23 @@ public class OverlayEvents {
         }
     }
 
+    public static void startOverlaySettings() {
+        RenderSystem.disableDepthTest();
+        RenderSystem.depthMask(false);
+        RenderSystem.disableBlend();
+        RenderSystem.disableAlphaTest();
+        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+    }
+
+    public static void stopOverlaySettings() {
+        RenderSystem.enableDepthTest();
+        RenderSystem.depthMask(true);
+        RenderSystem.enableBlend();
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        RenderSystem.enableAlphaTest();
+        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+    }
+
     @SuppressWarnings("resource")
 	@SubscribeEvent(priority = EventPriority.HIGH)
     public static void Overlay(RenderGameOverlayEvent event) {
@@ -69,39 +86,35 @@ public class OverlayEvents {
         //Lander Warning Overlay
         if (!event.isCancelable() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
             PlayerEntity entity = Minecraft.getInstance().player;
-            RenderSystem.disableDepthTest();
-            RenderSystem.depthMask(false);
-            RenderSystem.disableBlend();
-            RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-            RenderSystem.disableAlphaTest();
+
+            startOverlaySettings();
+
             if (entity.getRidingEntity() instanceof LanderEntity && !entity.getRidingEntity().isOnGround() && !entity.areEyesInFluid(FluidTags.WATER)) {
+
                 RenderSystem.color4f((float) counter, (float) counter, (float) counter, (float) counter);
-                // Plinken
+
                 Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(BossToolsMod.ModId, "textures/overlay/warning.png"));
                 Minecraft.getInstance().ingameGUI.blit(event.getMatrixStack(), 0, 0, 0, 0, event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight(), event.getWindow().getScaledWidth(), event.getWindow().getScaledHeight());
             }
+
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+
             if (entity.getRidingEntity() instanceof LanderEntity && !entity.getRidingEntity().isOnGround() && !entity.areEyesInFluid(FluidTags.WATER)) {
+
                 double speed = Math.round(100.0 * (entity.getRidingEntity()).getMotion().getY()) / 100.0;
                 double speedcheck = speed;
+
                 Minecraft.getInstance().fontRenderer.drawString(event.getMatrixStack(), "" + speedcheck + " Speed", event.getWindow().getScaledWidth() / 2 - 29, event.getWindow().getScaledHeight() / 2 / 2.3f, -3407872);
             }
-            RenderSystem.depthMask(true);
-            RenderSystem.enableBlend();
-            RenderSystem.enableDepthTest();
-            RenderSystem.enableAlphaTest();
-            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+
+            stopOverlaySettings();
         }
 
         //Rocket Timer
         if (!event.isCancelable() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
             PlayerEntity entity = Minecraft.getInstance().player;
-            RenderSystem.disableDepthTest();
-            RenderSystem.depthMask(false);
-            RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-            RenderSystem.disableAlphaTest();
+
+            startOverlaySettings();
 
             if (Methodes.isRocket(entity.getRidingEntity())) {
                 int timer = 0;
@@ -166,29 +179,25 @@ public class OverlayEvents {
                 }
 
             }
-            RenderSystem.depthMask(true);
-            RenderSystem.enableDepthTest();
-            RenderSystem.enableAlphaTest();
-            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            stopOverlaySettings();
         }
 
         //Oxygen Tank Overlay
         if (!event.isCancelable() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
-            RenderSystem.disableDepthTest();
-            RenderSystem.depthMask(false);
-            RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-            RenderSystem.disableAlphaTest();
 
             PlayerEntity entity = Minecraft.getInstance().player;
             ItemStack chest = entity.getItemStackFromSlot(EquipmentSlotType.CHEST);
             Item chestItem = chest.getItem();
 
+            startOverlaySettings();
+
             if (chestItem == ModInnet.SPACE_SUIT.get() || chestItem == ModInnet.NETHERITE_SPACE_SUIT.get()) {
+
                 IOxygenStorage oxygenStorage = chest.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
                 double oxygenStoredRatio = oxygenStorage != null ? oxygenStorage.getOxygenStoredRatio() : 0.0D;
                 ResourceLocation empty = new ResourceLocation(BossToolsMod.ModId, "textures/overlay/oxygentankcheck_empty.png");
                 ResourceLocation full = new ResourceLocation(BossToolsMod.ModId, "textures/overlay/oxygentankcheck_full.png");
+
                 int x = 5;
                 int y = 5;
                 int width = 62;
@@ -202,24 +211,18 @@ public class OverlayEvents {
                 Minecraft.getInstance().fontRenderer.func_243246_a(event.getMatrixStack(), text, (x + (width - textWidth) / 2), y + height + 3, 0xFFFFFF);
             }
 
-            RenderSystem.depthMask(true);
-            RenderSystem.enableDepthTest();
-            RenderSystem.enableAlphaTest();
-            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            stopOverlaySettings();
         }
 
         //ROCKET HIGH OVERLAY
         if (!event.isCancelable() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
-            RenderSystem.disableDepthTest();
-            RenderSystem.depthMask(false);
-            RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-            RenderSystem.disableAlphaTest();
 
             PlayerEntity entity = Minecraft.getInstance().player;
             IngameGui mc = Minecraft.getInstance().ingameGUI;
             TextureManager manager = Minecraft.getInstance().textureManager;
             World world = Minecraft.getInstance().world;
+
+            startOverlaySettings();
 
             if (Methodes.isRocket(entity.getRidingEntity()) || entity.getRidingEntity() instanceof LanderEntity) {
                 int width = event.getWindow().getScaledWidth();
@@ -262,11 +265,7 @@ public class OverlayEvents {
                 manager.bindTexture(new ResourceLocation(BossToolsMod.ModId, "textures/planet_bar/rocket_y.png"));
                 GuiHelper.blit(event.getMatrixStack(), 4, (high / 2) + (103 / 2) - yHeight, 0, 0, 8, 11, 8, 11);
             }
-
-            RenderSystem.depthMask(true);
-            RenderSystem.enableDepthTest();
-            RenderSystem.enableAlphaTest();
-            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            stopOverlaySettings();
         }
     }
 }
