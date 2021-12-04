@@ -51,6 +51,7 @@ public class PlanetSelectionGui {
 
 		public NetworkMessage(ResourceLocation world, boolean spaceStation) {
 			this.setWorld(world);
+			this.setSpaceStation(spaceStation);
 		}
 
 		public NetworkMessage(PacketBuffer buffer) {
@@ -86,6 +87,10 @@ public class PlanetSelectionGui {
 		public static void handle(NetworkMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
 			NetworkEvent.Context context = contextSupplier.get();
 
+			if (message.isSpaceStation()) {
+				deleteItems(context.getSender());
+			}
+			
 			defaultOptions(context.getSender());
 			Methodes.teleportButton(context.getSender(), message.getWorld(), message.isSpaceStation());
 			context.setPacketHandled(true);
