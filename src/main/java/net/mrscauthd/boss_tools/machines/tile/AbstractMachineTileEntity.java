@@ -548,7 +548,7 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		return false;
 	}
 
-	protected List<IGaugeValue> getFluidHandlerGaugeValues(IFluidHandler fluidHandler) {
+	public List<IGaugeValue> getFluidHandlerGaugeValues(IFluidHandler fluidHandler) {
 		List<IGaugeValue> list = new ArrayList<>();
 
 		for (int i = 0; i < fluidHandler.getTanks(); i++) {
@@ -561,7 +561,6 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 	public List<IGaugeValue> getGaugeValues() {
 		List<IGaugeValue> list = new ArrayList<>();
 		this.getPowerSystems().values().stream().map(PowerSystem::getGaugeValues).forEach(list::addAll);
-		this.getFluidHandlers().values().stream().map(this::getFluidHandlerGaugeValues).forEach(list::addAll);
 		return list;
 	}
 

@@ -152,7 +152,7 @@ public abstract class OxygenMakingTileEntity extends AbstractMachineTileEntity {
 	public <T> LazyOptional<T> getCapability(Capability<T> capability, Direction facing) {
 		if (CompatibleManager.MEKANISM.isLoaded()) {
 			if (capability == MekanismHelper.getGasHandlerCapability()) {
-				return LazyOptional.of(() -> new OxygenStorageGasAdapter(this.getOutputTank(), false, true)).cast();
+				return LazyOptional.of(() -> new OxygenStorageGasAdapter(this.getOutputTank(), true, true)).cast();
 			}
 		}
 
