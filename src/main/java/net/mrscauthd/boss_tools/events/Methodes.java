@@ -355,7 +355,7 @@ public class Methodes {
     public static void cleanUpPlanetSelectionNBT(Entity player) {
     	setPlanetSelectionGuiKey(player, "");
     	setPlanetSelectionRocketTier(player, 0);
-    	setPlanetSelectionRocketItem(player, null);
+    	setPlanetSelectionRocketItem(player, ItemStack.EMPTY);
     	setPlanetSelectionItemSlots(player, null);
     }
 
@@ -403,16 +403,12 @@ public class Methodes {
 		entity.getPersistentData().putInt(BossToolsMod.ModId + ":rocket_tier", rocketTier);
 	}
 
-	public static void setPlanetSelectionRocketItem(Entity entity, @Nullable Item item) {
-		String text = item != null ? item.getRegistryName().toString() : "";
-		entity.getPersistentData().putString(BossToolsMod.ModId + ":rocket_item", text);
+	public static void setPlanetSelectionRocketItem(Entity entity, ItemStack item) {
+		entity.getPersistentData().put(BossToolsMod.ModId + ":rocket_item", item.serializeNBT());
 	}
 	
-	@Nullable
-	public static Item getPlanetSelectionRocketItem(Entity entity) {
-    	ResourceLocation itemRegistryName = new ResourceLocation(entity.getPersistentData().getString(BossToolsMod.ModId + ":rocket_item"));
-    	Item item = ForgeRegistries.ITEMS.getValue(itemRegistryName);
-    	return item;
+	public static ItemStack getPlanetSelectionRocketItem(Entity entity) {
+		return ItemStack.read(entity.getPersistentData().getCompound(BossToolsMod.ModId + ":rocket_item"));
 	}
 	
 	@Nonnull
@@ -441,8 +437,8 @@ public class Methodes {
 	
 	
     public static void teleportButton(PlayerEntity player, ResourceLocation planet) {
-    	Item item = getPlanetSelectionRocketItem(player);
-        Methodes.rocketTeleport(player, planet, new ItemStack(item));
+    	ItemStack item = getPlanetSelectionRocketItem(player);
+        Methodes.rocketTeleport(player, planet, item);
     }
 
     public static void landerTeleportOrbit(PlayerEntity player, World world) {

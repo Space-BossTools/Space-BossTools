@@ -389,9 +389,12 @@ public abstract class RocketAbstractEntity extends CreatureEntity implements INa
 	}
 
 	public void requestSelectionGuiOpen(Entity pass) {
+		ItemStack itemStack = new ItemStack(this.getRocketItem());
+		itemStack.setDisplayName(this.getCustomName());
+		
 		Methodes.setPlanetSelectionGuiKey(pass, this.getSelectionGuiKey());
 		Methodes.setPlanetSelectionRocketTier(pass, this.getTier());
-		Methodes.setPlanetSelectionRocketItem(pass, this.getRocketItem());
+		Methodes.setPlanetSelectionRocketItem(pass, itemStack);
 		Methodes.setPlanetSelectionItemSlots(pass, ItemHandlerHelper2.getStacks(this.getItemHandler()));
 		pass.setNoGravity(true);
 	}
