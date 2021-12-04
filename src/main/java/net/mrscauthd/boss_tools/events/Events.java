@@ -26,7 +26,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.entity.*;
-import net.mrscauthd.boss_tools.events.forgeevents.RenderItemEvent;
+import net.mrscauthd.boss_tools.events.forgeevents.RenderHandItemEvent;
 import net.mrscauthd.boss_tools.events.forgeevents.SetupLivingBipedAnimEvent;
 
 @Mod.EventBusSubscriber(modid = BossToolsMod.ModId)
@@ -145,7 +145,7 @@ public class Events {
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
-    public static void ItemRender(RenderItemEvent.Pre event) {
+    public static void ItemRender(RenderHandItemEvent.Pre event) {
         if (event.getLivingEntity() instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) event.getLivingEntity();
 

@@ -8,7 +8,7 @@
   "client": [
     "ArmorTranslucent",
     "SetupLivingBipedAnim",
-    "RenderItem"
+    "RenderHandItem"
   ],
   "injectors": {
     "defaultRequire": 1

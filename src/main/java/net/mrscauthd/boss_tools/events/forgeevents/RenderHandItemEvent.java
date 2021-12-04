@@ -9,7 +9,7 @@ import net.minecraft.util.HandSide;
 import net.minecraftforge.eventbus.api.Cancelable;
 import net.minecraftforge.eventbus.api.Event;
 
-public class RenderItemEvent extends Event
+public class RenderHandItemEvent extends Event
 {
     private LivingEntity livingEntity;
     private ItemStack itemStack;
@@ -19,7 +19,7 @@ public class RenderItemEvent extends Event
     private final IRenderTypeBuffer renderTypeBuffer;
     private final int light;
 
-    public RenderItemEvent(LivingEntity livingEntity, ItemStack itemStack, ItemCameraTransforms.TransformType transformType, HandSide handSide, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light)
+    public RenderHandItemEvent(LivingEntity livingEntity, ItemStack itemStack, ItemCameraTransforms.TransformType transformType, HandSide handSide, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light)
     {
         this.livingEntity = livingEntity;
         this.itemStack = itemStack;
@@ -66,7 +66,7 @@ public class RenderItemEvent extends Event
     }
 
     @Cancelable
-    public static class Pre extends RenderItemEvent
+    public static class Pre extends RenderHandItemEvent
     {
         public Pre(LivingEntity livingEntity, ItemStack itemStack, ItemCameraTransforms.TransformType transformType, HandSide handSide, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light)
         {
@@ -74,7 +74,7 @@ public class RenderItemEvent extends Event
         }
     }
 
-    public static class Post extends RenderItemEvent
+    public static class Post extends RenderHandItemEvent
     {
         public Post(LivingEntity livingEntity, ItemStack itemStack, ItemCameraTransforms.TransformType transformType, HandSide handSide, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light)
         {
