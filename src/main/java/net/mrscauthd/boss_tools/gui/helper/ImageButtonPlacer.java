@@ -3,12 +3,16 @@ package net.mrscauthd.boss_tools.gui.helper;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class ImageButtonPlacer extends Button {
@@ -52,6 +56,7 @@ public class ImageButtonPlacer extends Button {
 
     public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         Minecraft minecraft = Minecraft.getInstance();
+
         minecraft.getTextureManager().bindTexture(this.resourceLocation);
         int i = this.yTexStart;
         if (this.isHovered()) {
@@ -60,8 +65,9 @@ public class ImageButtonPlacer extends Button {
 
         RenderSystem.enableDepthTest();
         blit(matrixStack, this.x, this.y, (float)this.xTexStart, (float)i, this.width, this.height, this.textureWidth, this.textureHeight);
-        if (this.isHovered()) {
-            this.renderToolTip(matrixStack, mouseX, mouseY);
-        }
+
+        FontRenderer fontrenderer = minecraft.fontRenderer;
+        int j = getFGColor();
+        drawCenteredString(matrixStack, fontrenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
     }
 }
