@@ -37,7 +37,6 @@ public class OverlayEvents {
     @SubscribeEvent
     public static void clientTick(TickEvent.ClientTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
-            //Lander Warning Overlay Tick
             if (!check) {
                 counter = counter - 0.10;
                 if (counter < 0.2) {
@@ -50,7 +49,6 @@ public class OverlayEvents {
                     check = false;
                 }
             }
-
         }
     }
 
@@ -75,7 +73,7 @@ public class OverlayEvents {
 	@SubscribeEvent(priority = EventPriority.HIGH)
     public static void Overlay(RenderGameOverlayEvent event) {
 
-        //Disable Food Overlay
+        /**Disable Food Overlay*/
         if (event.getType() == RenderGameOverlayEvent.ElementType.HEALTHMOUNT) {
             PlayerEntity entity = Minecraft.getInstance().player;
             if (Methodes.AllVehiclesOr(entity.getRidingEntity())) {
@@ -83,7 +81,7 @@ public class OverlayEvents {
             }
         }
 
-        //Lander Warning Overlay
+        /**Lander Warning Overlay*/
         if (!event.isCancelable() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
             PlayerEntity entity = Minecraft.getInstance().player;
 
@@ -110,7 +108,7 @@ public class OverlayEvents {
             stopOverlaySettings();
         }
 
-        //Rocket Timer
+        /**Rocket Timer*/
         if (!event.isCancelable() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
             PlayerEntity entity = Minecraft.getInstance().player;
 
@@ -182,7 +180,7 @@ public class OverlayEvents {
             stopOverlaySettings();
         }
 
-        //Oxygen Tank Overlay
+        /**Oxygen Tank Overlay*/
         if (!event.isCancelable() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
 
             PlayerEntity entity = Minecraft.getInstance().player;
@@ -214,7 +212,7 @@ public class OverlayEvents {
             stopOverlaySettings();
         }
 
-        //ROCKET HIGH OVERLAY
+        /**ROCKET HIGH OVERLAY*/
         if (!event.isCancelable() && event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
 
             PlayerEntity entity = Minecraft.getInstance().player;
