@@ -27,7 +27,7 @@ public class BossToolsItemGroups {
 		@OnlyIn(Dist.CLIENT)
 		@Override
 		public ItemStack createIcon() {
-			return new ItemStack(ModInnet.OXYGEN_GEAR.get(), 1);
+			return new ItemStack(ModInnet.GOLDEN_ENGINE.get(), 1);
 		}
 	};
 	public static ItemGroup tab_materials = new ItemGroup("tab_materials") {

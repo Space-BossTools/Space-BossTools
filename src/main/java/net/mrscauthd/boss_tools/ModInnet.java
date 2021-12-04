@@ -272,7 +272,7 @@ public class ModInnet {
     public static final RegistryObject<Item> OXYGEN_GEAR = ITEMS.register("oxygen_gear", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_basics)));
     public static final RegistryObject<Item> OXYGEN_TANK = ITEMS.register("oxygen_tank", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_basics)));
     public static final RegistryObject<Item> WHEEL = ITEMS.register("wheel", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_basics)));
-    public static final RegistryObject<Item> ENGINE_CASING = ITEMS.register("engine_casing", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_basics)));
+    public static final RegistryObject<Item> ENGINE_FRAME = ITEMS.register("engine_frame", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_basics)));
     public static final RegistryObject<Item> ENGINE_FAN = ITEMS.register("engine_fan", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_basics)));
     public static final RegistryObject<Item> ROCKET_NOSE_CONE = ITEMS.register("rocket_nose_cone", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_basics)));
     public static final RegistryObject<Item> DIAMOND_ENGINE = ITEMS.register("diamond_engine", () -> new Item(new Item.Properties().group(BossToolsItemGroups.tab_basics)));
