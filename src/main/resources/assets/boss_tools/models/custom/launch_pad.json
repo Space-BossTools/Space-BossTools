@@ -3,8 +3,8 @@
 	"parent": "launch_pad",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "launch_pad",
-		"particle": "launch_pad"
+		"0": "boss_tools:blocks/launch_pad",
+		"particle": "boss_tools:blocks/launch_pad"
 	},
 	"elements": [
 		{

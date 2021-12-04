@@ -72,9 +72,9 @@ public class RocketLaunchPad extends Block implements IWaterLoggable  {
     public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
         Vector3d offset = state.getOffset(world, pos);
         if (state.get(STAGE)) {
-            return VoxelShapes.or(makeCuboidShape(0, 0, 0, 16, 3.04, 16)).withOffset(offset.x, offset.y, offset.z);
+            return VoxelShapes.or(makeCuboidShape(0, 0, 0, 16, 4, 16)).withOffset(offset.x, offset.y, offset.z);
         } else {
-            return VoxelShapes.or(makeCuboidShape(0, 0, 0, 16, 2, 16)).withOffset(offset.x, offset.y, offset.z);
+            return VoxelShapes.or(makeCuboidShape(0, 0, 0, 16, 3, 16)).withOffset(offset.x, offset.y, offset.z);
         }
     }
 

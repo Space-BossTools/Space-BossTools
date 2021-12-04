@@ -90,6 +90,8 @@ public class Tier2RocketItem extends Item {
 
                     if (!player.abilities.isCreativeMode) {
                         player.setHeldItem(hand, ItemStack.EMPTY);
+                    } else {
+                        player.swing(context.getHand(), true);
                     }
 
                     rocketPlaceSound(pos, world);
