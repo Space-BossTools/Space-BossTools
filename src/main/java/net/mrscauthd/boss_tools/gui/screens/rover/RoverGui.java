@@ -25,12 +25,12 @@ public class RoverGui {
 	}
 
 	public static class GuiContainer extends Container {
-		Entity rover;
+		RoverEntity rover;
 
 		public GuiContainer(int id, PlayerInventory inv, PacketBuffer extraData) {
 			super(ModInnet.ROVER_GUI.get(), id);
 
-			this.rover = inv.player.world.getEntityByID(extraData.readVarInt());
+			this.rover = (RoverEntity) inv.player.world.getEntityByID(extraData.readVarInt());
 
 			IItemHandlerModifiable itemHandler = ((RoverEntity) rover).getItemHandler();
 			this.addSlot(new SlotItemHandler(itemHandler, 0, 8, 63) {

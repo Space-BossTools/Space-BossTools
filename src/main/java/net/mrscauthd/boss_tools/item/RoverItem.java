@@ -82,7 +82,7 @@ public class RoverItem extends Item {
 				rover.rotationYawHead = player.rotationYaw;
 				rover.renderYawOffset = player.rotationYaw;
 
-				rover.getDataManager().set(RoverEntity.FUEL, itemStack.getOrCreateTag().getInt(fuelTag));
+				rover.setFuel(itemStack.getOrCreateTag().getInt(fuelTag));
 				world.addEntity(rover);
 				roverPlaceSound(pos, world);
 

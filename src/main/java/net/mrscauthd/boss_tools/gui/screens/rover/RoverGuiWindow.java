@@ -47,7 +47,7 @@ public class RoverGuiWindow extends ContainerScreen<RoverGui.GuiContainer> {
 
 		List<ITextComponent> fuelToolTip = new ArrayList<ITextComponent>();
 
-		int fuel = container.rover.getDataManager().get(RoverEntity.FUEL);
+		int fuel = container.rover.getFuel();
 
 		if (GuiHelper.isHover(this.getFluidBounds(), mouseX, mouseY)) {
 			fuelToolTip.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getStorageText(GaugeValueHelper.getFuel(fuel, RoverEntity.FUEL_BUCKETS * FluidUtil2.BUCKET_SIZE)), TextFormatting.WHITE));
@@ -57,7 +57,7 @@ public class RoverGuiWindow extends ContainerScreen<RoverGui.GuiContainer> {
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float par1, int par2, int par3) {
-		int fuel = container.rover.getDataManager().get(RoverEntity.FUEL);
+		int fuel = container.rover.getFuel();
 
 		GL11.glColor4f(1, 1, 1, 1);
 

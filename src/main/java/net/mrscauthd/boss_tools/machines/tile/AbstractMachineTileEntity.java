@@ -59,8 +59,9 @@ import net.mrscauthd.boss_tools.capability.IEnergyStorageHolder;
 import net.mrscauthd.boss_tools.crafting.FluidIngredient;
 import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
 import net.mrscauthd.boss_tools.gauge.IGaugeValue;
+import net.mrscauthd.boss_tools.gauge.IGaugeValuesProvider;
 
-public abstract class AbstractMachineTileEntity extends LockableLootTileEntity implements ISidedInventory, ITickableTileEntity, IEnergyStorageHolder {
+public abstract class AbstractMachineTileEntity extends LockableLootTileEntity implements ISidedInventory, ITickableTileEntity, IEnergyStorageHolder, IGaugeValuesProvider {
 
 	public static final String KEY_ACTIVATED = "activated";
 
@@ -558,6 +559,7 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		return list;
 	}
 
+	@Override
 	public List<IGaugeValue> getGaugeValues() {
 		List<IGaugeValue> list = new ArrayList<>();
 		this.getPowerSystems().values().stream().map(PowerSystem::getGaugeValues).forEach(list::addAll);

@@ -47,13 +47,19 @@ import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
 import net.mrscauthd.boss_tools.events.Methodes;
 import net.mrscauthd.boss_tools.fluid.FluidUtil2;
+import net.mrscauthd.boss_tools.gauge.GaugeValueHelper;
+import net.mrscauthd.boss_tools.gauge.IGaugeValue;
+import net.mrscauthd.boss_tools.gauge.IGaugeValuesProvider;
 import net.mrscauthd.boss_tools.gui.screens.rover.RoverGui;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
-public class RoverEntity extends CreatureEntity {
+public class RoverEntity extends CreatureEntity implements IGaugeValuesProvider {
     private double speed = 0;
     private boolean forward = false;
 
@@ -287,7 +293,7 @@ public class RoverEntity extends CreatureEntity {
         super.writeAdditional(compound);
         compound.put("InventoryCustom", inventory.serializeNBT());
 
-        compound.putInt("fuel", this.dataManager.get(FUEL));
+        compound.putInt("fuel", this.getFuel());
     }
 
     @Override
@@ -342,8 +348,8 @@ public class RoverEntity extends CreatureEntity {
         //Fuel Load up
         if (Methodes.tagCheck(FluidUtil2.findBucketFluid(this.inventory.getStackInSlot(0).getItem()), ModInnet.FLUID_VEHICLE_FUEL_TAG)) {
 
-            if (this.dataManager.get(FUEL) <= 2000) {
-                this.getDataManager().set(FUEL, this.getDataManager().get(FUEL) + 1000);
+            if (this.getFuel() <= this.getFuelCapacity() - this.getFuelOfBucket()) {
+                this.setFuel(this.getFuel() + this.getFuelOfBucket());
                 this.inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));
             }
         }
@@ -362,17 +368,17 @@ public class RoverEntity extends CreatureEntity {
 
         PlayerEntity passanger = (PlayerEntity) this.getPassengers().get(0);
 
-        if (passanger.moveForward > 0.01 && this.getDataManager().get(FUEL) != 0) {
+        if (passanger.moveForward > 0.01 && this.getFuel() != 0) {
 
-            this.dataManager.set(FUEL, this.getDataManager().get(FUEL) - 1);
+            this.setFuel(this.getFuel() - 1);
             forward = true;
-        } else if (passanger.moveForward < -0.01 && this.getDataManager().get(FUEL) != 0) {
+        } else if (passanger.moveForward < -0.01 && this.getFuel() != 0) {
 
-            this.dataManager.set(FUEL, this.getDataManager().get(FUEL) - 1);
+            this.setFuel(this.getFuel() - 1);
             forward = false;
         }
     }
-
+    
     @Override
     public void travel(Vector3d dir) {
 
@@ -385,7 +391,7 @@ public class RoverEntity extends CreatureEntity {
 
             double pmovement = passanger.moveForward;
 
-            if (pmovement == 0 || this.getDataManager().get(FUEL) == 0 || this.areEyesInFluid(FluidTags.WATER)) {
+            if (pmovement == 0 || this.getFuel() == 0 || this.areEyesInFluid(FluidTags.WATER)) {
                 pmovement = 0;
                 this.setAIMoveSpeed(0f);
 
@@ -396,7 +402,7 @@ public class RoverEntity extends CreatureEntity {
                 }
             }
 
-            if (this.forward && this.getDataManager().get(FUEL) != 0) {
+            if (this.forward && this.getFuel() != 0) {
                 if (this.getAIMoveSpeed() >= 0.01) {
                     if (speed <= 0.32) {
                         speed = speed + 0.02;
@@ -411,7 +417,7 @@ public class RoverEntity extends CreatureEntity {
 
             if (!this.forward) {
 
-                if (this.getDataManager().get(FUEL) != 0 && !this.areEyesInFluid(FluidTags.WATER)) {
+                if (this.getFuel() != 0 && !this.areEyesInFluid(FluidTags.WATER)) {
 
                     if (this.getAIMoveSpeed() <= 0.04) {
                         this.setAIMoveSpeed(this.getAIMoveSpeed() + 0.02f);
@@ -457,4 +463,29 @@ public class RoverEntity extends CreatureEntity {
         this.limbSwingAmount += (f1 - this.limbSwingAmount) * rotation2;
         this.limbSwing += this.limbSwingAmount;
     }
+
+	@Override
+	public List<IGaugeValue> getGaugeValues() {
+		List<IGaugeValue> list = new ArrayList<>();
+		list.add(GaugeValueHelper.getFuel(this.getFuel(), this.getFuelCapacity()));
+		return list;
+	}
+	
+    public int getFuelCapacity() {
+    	return FUEL_BUCKETS * FluidUtil2.BUCKET_SIZE;
+    }
+    
+    public int getFuelOfBucket() {
+    	return 1000;
+    }
+
+	public int getFuel() {
+		return this.getDataManager().get(FUEL);
+	}
+	
+	public void setFuel(int fuel) {
+		fuel = MathHelper.clamp(fuel, 0, this.getFuelCapacity());
+		this.getDataManager().set(FUEL, fuel);
+	}
+
 }
