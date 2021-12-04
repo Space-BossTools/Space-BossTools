@@ -88,7 +88,9 @@ public class Tier2RocketItem extends Item {
                     rocket.getDataManager().set(RocketTier2Entity.FUEL, itemStack.getOrCreateTag().getInt(fuelTag));
                     rocket.getDataManager().set(RocketTier2Entity.BUCKETS, itemStack.getOrCreateTag().getInt(bucketTag));
 
-                    player.setHeldItem(hand, ItemStack.EMPTY);
+                    if (!player.abilities.isCreativeMode) {
+                        player.setHeldItem(hand, ItemStack.EMPTY);
+                    }
 
                     rocketPlaceSound(pos, world);
                 }

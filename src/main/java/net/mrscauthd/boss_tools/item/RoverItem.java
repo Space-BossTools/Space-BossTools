@@ -91,7 +91,9 @@ public class RoverItem extends Item {
 
                 rocket.getDataManager().set(RoverEntity.FUEL, itemStack.getOrCreateTag().getInt(fuelTag));
 
-                player.setHeldItem(hand, ItemStack.EMPTY);
+                if (!player.abilities.isCreativeMode) {
+                    player.setHeldItem(hand, ItemStack.EMPTY);
+                }
 
                 roverPlaceSound(pos, world);
             }
