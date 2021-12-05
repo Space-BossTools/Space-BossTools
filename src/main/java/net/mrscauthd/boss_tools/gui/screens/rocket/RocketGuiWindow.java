@@ -1,6 +1,6 @@
 package net.mrscauthd.boss_tools.gui.screens.rocket;
 
-import net.minecraft.client.renderer.Rectangle2d;
+import net.mrscauthd.boss_tools.util.Rectangle2d;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
 import net.mrscauthd.boss_tools.BossToolsMod;

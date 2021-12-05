@@ -29,7 +29,7 @@ public class CompressorGuiContainerHandler implements IGuiContainerHandler<Compr
 		return Collections.singleton(new IGuiClickableArea() {
 			@Override
 			public Rectangle2d getArea() {
-				return GuiHelper.getArrowBounds(CompressorGuiWindow.ARROW_LEFT, CompressorGuiWindow.ARROW_TOP);
+				return GuiHelper.getArrowBounds(CompressorGuiWindow.ARROW_LEFT, CompressorGuiWindow.ARROW_TOP).toVanila();
 			}
 
 			@Override
