@@ -1,6 +1,6 @@
 package net.mrscauthd.boss_tools.gui.screens.rover;
 
-import net.minecraft.client.renderer.Rectangle2d;
+import net.mrscauthd.boss_tools.util.Rectangle2d;
 import net.minecraftforge.fluids.FluidStack;
 import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;

@@ -30,7 +30,7 @@ public class BlastFurnaceGuiContainerHandler implements IGuiContainerHandler<Bla
 		return Collections.singleton(new IGuiClickableArea() {
 			@Override
 			public Rectangle2d getArea() {
-				return GuiHelper.getArrowBounds(BlastFurnaceGuiWindow.ARROW_LEFT, BlastFurnaceGuiWindow.ARROW_TOP);
+				return GuiHelper.getArrowBounds(BlastFurnaceGuiWindow.ARROW_LEFT, BlastFurnaceGuiWindow.ARROW_TOP).toVanila();
 			}
 
 			@Override
