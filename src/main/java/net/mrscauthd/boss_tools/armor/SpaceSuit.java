@@ -80,8 +80,6 @@ public class SpaceSuit {
 			return BossToolsMod.ModId + ":textures/models/armor/space_suit.png";
 		}
 
-		private double OXYGEN_TIMER = 0;
-
 		@Override
 		public void onArmorTick(ItemStack itemstack, World world, PlayerEntity player) {
 			Methodes.extractArmorOxygenUsingTimer(itemstack, player);
