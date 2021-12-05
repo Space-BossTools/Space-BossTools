@@ -2,7 +2,7 @@ package net.mrscauthd.boss_tools.gui.helper;
 
 import java.util.function.Function;
 
-import net.minecraft.client.renderer.Rectangle2d;
+import net.mrscauthd.boss_tools.util.Rectangle2d;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.util.ThreeConsumer;

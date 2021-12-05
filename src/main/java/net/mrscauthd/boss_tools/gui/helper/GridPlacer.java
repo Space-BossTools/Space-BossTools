@@ -1,6 +1,6 @@
 package net.mrscauthd.boss_tools.gui.helper;
 
-import net.minecraft.client.renderer.Rectangle2d;
+import net.mrscauthd.boss_tools.util.Rectangle2d;
 
 public class GridPlacer {
 
