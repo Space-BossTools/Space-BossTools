@@ -56,7 +56,6 @@ public class FlagTileEntity extends TileEntity {
                 this.setPlayerProfile(new GameProfile((UUID)null, s));
             }
         }
-
     }
 
     @Nullable
