@@ -292,13 +292,17 @@ public class NASAWorkbenchBlock {
 
 		@Override
 		protected boolean onCanInsertItem(int index, ItemStack stack, Direction direction) {
-			int find = this.findAvailableSlot(stack);
 
-			if (find == index) {
+			if (super.onCanInsertItem(index, stack, direction) == true) {
 				return true;
 			}
 
-			return super.onCanInsertItem(index, stack, direction);
+			if (direction == null) {
+				return true;
+			}
+
+			int find = this.findAvailableSlot(stack);
+			return find == index;
 		}
 
 		public int findAvailableSlot(ItemStack itemStack) {
