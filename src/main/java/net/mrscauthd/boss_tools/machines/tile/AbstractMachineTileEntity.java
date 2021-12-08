@@ -149,15 +149,21 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		this.deserializeCompoents(this.getPowerSystems(), compound.getCompound("powerSystems"));
 	}
 
-	public <T> void deserializeCompoents(Map<ResourceLocation, T> registry, CompoundNBT compound) {
+	public <T> void deserializeCompoents(Map<ResourceLocation, T> registry, @Nonnull CompoundNBT compound) {
 		for (Entry<ResourceLocation, T> entry : registry.entrySet()) {
-			this.deserializeComponent(entry.getKey(), entry.getValue(), compound.get(entry.getKey().toString()));
+			INBT nbt = compound.get(entry.getKey().toString());
+			
+			if (nbt != null) {
+				this.deserializeComponent(entry.getKey(), entry.getValue(), nbt);
+			}
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> void deserializeComponent(ResourceLocation name, T component, INBT nbt) {
-		if (component instanceof INBTSerializable<?>) {
+	public <T> void deserializeComponent(ResourceLocation name, @Nonnull T component, @Nonnull INBT nbt) {
+		if (component == null || nbt == null) {
+			return;
+		} else if (component instanceof INBTSerializable<?>) {
 			((INBTSerializable<INBT>) component).deserializeNBT(nbt);
 		} else if (component instanceof EnergyStorage) {
 			CapabilityEnergy.ENERGY.readNBT((EnergyStorage) component, null, nbt);
@@ -182,19 +188,27 @@ public abstract class AbstractMachineTileEntity extends LockableLootTileEntity i
 		return compound;
 	}
 
+	@Nonnull
 	public <T> CompoundNBT serializeComponents(Map<ResourceLocation, T> registry) {
 		CompoundNBT compound = new CompoundNBT();
 
 		for (Entry<ResourceLocation, T> entry : registry.entrySet()) {
-			compound.put(entry.getKey().toString(), this.serializeComponent(entry.getKey(), entry.getValue()));
+			INBT nbt = this.serializeComponent(entry.getKey(), entry.getValue());
+			
+			if (nbt != null) {
+				compound.put(entry.getKey().toString(), nbt);
+			}
 		}
 
 		return compound;
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> INBT serializeComponent(ResourceLocation name, T component) {
-		if (component instanceof INBTSerializable<?>) {
+	@Nullable
+	public <T> INBT serializeComponent(ResourceLocation name, @Nonnull T component) {
+		if (component == null) {
+			return null;
+		} else if (component instanceof INBTSerializable<?>) {
 			return ((INBTSerializable<INBT>) component).serializeNBT();
 		} else if (component instanceof EnergyStorage) {
 			return CapabilityEnergy.ENERGY.writeNBT((EnergyStorage) component, null);
