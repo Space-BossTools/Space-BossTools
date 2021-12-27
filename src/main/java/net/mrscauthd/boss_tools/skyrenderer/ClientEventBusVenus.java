@@ -47,7 +47,6 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.mrscauthd.boss_tools.BossToolsMod;
 import net.mrscauthd.boss_tools.ModInnet;
-import net.mrscauthd.boss_tools.particle.VenusRainParticle;
 
 import java.util.Random;
 
